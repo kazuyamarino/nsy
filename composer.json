@@ -1,0 +1,29 @@
+{
+    "name": "nsy/framework",
+    "description": "(NSY) The Plate for HTML5 Boilerplate & Foundation CSS Framework",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vikry Ganteng",
+            "email": "admin@kazuyamarino.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "Models\\": "Models/",
+            "Controllers\\": "Controllers/",
+            "Libraries\\AssetManager\\": "Libraries/AssetManager/",
+            "Modules\\Homepage\\Controllers\\": "Modules/Homepage/Controllers/",
+            "Modules\\Homepage\\Models\\": "Modules/Homepage/Models/",
+            "Modules\\About\\Controllers\\": "Modules/About/Controllers/",
+            "Modules\\About\\Models\\": "Modules/About/Models/"
+        },
+        "files": ["Routing.php"]
+    },
+    "config": {
+        "vendor-dir": "NSYAutoload/"
+    }
+}

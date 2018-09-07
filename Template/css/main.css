@@ -1,0 +1,131 @@
+/*! HTML5 Boilerplate v6.0.1 | MIT License | https://html5boilerplate.com/ */
+
+/*
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html {
+  height: 100%;
+}
+
+body, h1, h2, h3, h4, h5 {
+  font-family: Raleway !important;
+}
+
+/*
+ * Styling for Sticky Footer with Flexbox
+ */
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Avoid the IE 10-11 `min-height` bug. */
+}
+
+.content {
+  flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+}
+
+.footer {
+  flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+  padding: 20px;
+}
+
+/* ==========================================================================
+   Browser Upgrade Prompt
+   ========================================================================== */
+
+.browserupgrade {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+/* ==========================================================================
+   Global Tables Style
+   ========================================================================== */
+
+table {
+  border-collapse: collapse;
+  border: none;
+}
+table td, table th {
+  font-size: 90% !important;
+  border: 3px solid #FFFFFF;
+}
+table th {
+  background-color: #1779ba;
+  padding: 0.5em !important;
+  color: #f2f2f2 !important;
+  text-align: center !important;
+}
+table td {
+  border-bottom: 0.2em solid ##FFFFFF;
+  padding: 0.3em !important;
+}
+
+/*
+ * Datatable NSY Style
+ */
+
+table.dataTable tr.odd {
+  background-color: #f2f2f2;
+}
+table.dataTable tr.even {
+  background-color: #e6e6e6;
+}
+div.dataTables_length select {
+  background-color: #f2f2f2;
+  width: 4em !important;
+  height: auto;
+  font-size: 90% !important;
+}
+div.dataTables_length label {
+  font-size: 90% !important;
+}
+div.dataTables_filter label {
+  font-size: 95% !important;
+}
+div.dataTables_filter input {
+  padding: 0.2em;
+  height: auto;
+  font-size: 95% !important;
+}
+div.dataTables_paginate li a {
+  font-size: 100% !important;
+  color: #424242 !important;
+}
+div.dataTables_paginate li.current a {
+  color: #ffffff !important;
+}
+div.dataTables_info {
+  font-size: 90% !important;
+  color: #424242 !important;
+}
+
+/*
+ * Foundation Datepicker prev, next, and day color
+ */
+
+.prev i, .next i, .dow {
+  color: #848484 !important;
+}
+
+/*
+ * Foundation Abide checkbox, & radio button fix style
+ */
+
+.radio-group, .checkbox-group {
+  background-color: transparent !important;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
