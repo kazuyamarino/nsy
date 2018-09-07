@@ -3,7 +3,7 @@
 use Core\NSY_Config;
 
 /**
- * NSY
+ * NSY Framework
  *
  * HTML5 Boilerplate & Foundation CSS framework in one package
  *
