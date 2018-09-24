@@ -334,7 +334,7 @@
 				<div class="large-5 medium-5 cell">
 					<p><i class="fab fa-html5 fa-3x"></i>&nbsp;<i class="fab fa-css3 fa-3x"></i></p>
 					<p>This is a Sticky Footer.</p>
-					<p><a target="_blank" href="mailto:admin@kazuyamarino.com">Vikry Yuansah </a><i class="fas fa-forward"></i> <a href="<?php echo DIR ?>">NSY 2015 - <?php echo date("Y"); ?></a></p>
+					<p><a target="_blank" href="mailto:admin@kazuyamarino.com">Vikry Yuansah </a><i class="fas fa-forward"></i> <a href="<?php echo BASE_URL ?>">NSY 2015 - <?php echo date("Y"); ?></a></p>
 					<hr class="show-for-small-only"/>
 				</div>
 				<div class="large-3 medium-2 cell">
