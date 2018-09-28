@@ -21,9 +21,9 @@
             "Modules\\About\\Controllers\\": "Modules/About/Controllers/",
             "Modules\\About\\Models\\": "Modules/About/Models/"
         },
-        "files": ["Routing.php"]
+        "files": ["Core/Routing.php"]
     },
     "config": {
-        "vendor-dir": "NSYAutoload/"
+        "vendor-dir": "Vendors/"
     }
 }

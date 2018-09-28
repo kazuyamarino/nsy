@@ -115,7 +115,7 @@ if (defined('ENVIRONMENT'))
 }
 
 // The PSR-4 Autoloader, generate via composer (composer dump-autoload) *see composer.json
-require (ROOT . 'NSYAutoload/autoload.php');
+require (ROOT . 'Vendors/autoload.php');
 
 new NSY_Config();
 new Routing();
