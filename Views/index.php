@@ -9,8 +9,8 @@
 		</div>
 		<div class="large-3 cell">
 			<div class="text-center">
-				<a target="_blank" href="https://github.com/kazuyamarino/boilerfound/releases"><i class="fab fa-github fa-5x"></i>
-				<p>View On Github</p>
+				<a target="_blank" href="https://bitbucket.org/kazuyamarino/nsy-framework"><i class="fab fa-bitbucket fa-5x"></i>
+				<p>View On Bitbucket</p>
 				</a>
 			</div>
 		</div>
