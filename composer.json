@@ -1,6 +1,6 @@
 {
     "name": "nsy/framework",
-    "description": "(NSY) The Plate for HTML5 Boilerplate & Foundation CSS Framework",
+    "description": "NSY is a simple PHP Framework that works well on MVC or HMVC mode",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -12,18 +12,18 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Core\\": "Core/",
-            "Models\\": "Models/",
-            "Controllers\\": "Controllers/",
-            "Libraries\\AssetManager\\": "Libraries/AssetManager/",
-            "Modules\\Homepage\\Controllers\\": "Modules/Homepage/Controllers/",
-            "Modules\\Homepage\\Models\\": "Modules/Homepage/Models/",
-            "Modules\\About\\Controllers\\": "Modules/About/Controllers/",
-            "Modules\\About\\Models\\": "Modules/About/Models/"
+            "System\\Core\\": "System/Core/",
+            "System\\Models\\": "System/Models/",
+            "System\\Controllers\\": "System/Controllers/",
+            "System\\Libraries\\AssetManager\\": "System/Libraries/AssetManager/",
+            "System\\Modules\\Homepage\\Controllers\\": "System/Modules/Homepage/Controllers/",
+            "System\\Modules\\Homepage\\Models\\": "System/Modules/Homepage/Models/",
+            "System\\Modules\\About\\Controllers\\": "System/Modules/About/Controllers/",
+            "System\\Modules\\About\\Models\\": "System/Modules/About/Models/"
         },
-        "files": ["Core/Routing.php"]
+        "files": ["System/Core/Routing.php"]
     },
     "config": {
-        "vendor-dir": "Vendors/"
+        "vendor-dir": "System/Vendor/"
     }
 }
