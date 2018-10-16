@@ -4,7 +4,7 @@ NSY is a simple PHP Framework that works well on MVC or HMVC mode, its contain t
 Site example :
 <a href="https://nsy.kazuyamarino.com/" target="_blank">https://nsy.kazuyamarino.com/</a>
 
-1. NSY folder stucture
+1. NSY folder structure
 
 ```bash
 .
