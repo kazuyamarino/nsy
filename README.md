@@ -96,5 +96,13 @@ Site example :
 	- For nginx, please go to the `docs/nginx config` folder.
 	- And save the date..
 
-3. User Guide.
+3. NSY contain package.
+	- Datatables jQuery Javascript Library with Responsive Plugin
+	- Foundation Zurb Framework
+	- HTML Boilerplate Structure
+	- JQuery
+	- Modernizr
+	- WhatInputJs
+
+4. User Guide.
 	- On Progress..

@@ -6,7 +6,7 @@
 		<div class="large-12 cell">
 			<div class="callout large">
 				<h3>Hi, iam NSY!&nbsp;|&nbsp;<a href="<?php echo BASE_URL . 'hmvc' ?>">Go To HMVC Page</a></h3>
-				<p>NSY is a simple PHP Framework that works well on MVC or HMVC mode, its contain the <a target="_blank" href="https://html5boilerplate.com/">HTML5 Boilerplate</a> and <a target="_blank" href="http://foundation.zurb.com/">Foundation CSS Framework</a> in one package at a time. As well as include some support for <a target="_blank" href="http://fortawesome.github.io/Font-Awesome/">Font-Awesome</a>. NSY also provides several optimizations for <a target="_blank" href="https://www.datatables.net/">Datatables</a> plugin.</p>
+				<p>NSY is a simple PHP Framework that works well on MVC or HMVC mode, its contain the <a target="_blank" href="https://html5boilerplate.com/">HTML5 Boilerplate</a> and <a target="_blank" href="http://foundation.zurb.com/">Foundation CSS Framework</a> in one package. As well as include some support for <a target="_blank" href="http://fortawesome.github.io/Font-Awesome/">Font-Awesome</a>. NSY also provides several optimizations for <a target="_blank" href="https://www.datatables.net/">Datatables</a> plugin.</p>
 
 				<hr/>
 
