@@ -22,10 +22,10 @@ Class Assets extends NSY_AssetManager {
 		$this->meta('name="viewport"', 'width=device-width, initial-scale=1');
 
 		// Favicon
-		$this->link_icon('favicon.ico', 'shortcut icon');
+		$this->link_icon('favicon.png', 'shortcut icon');
 
 		// Fonts
-		$this->link_url('https://fonts.googleapis.com/css?family=Raleway', 'stylesheet', 'text/css');
+		$this->link_url('https://fonts.googleapis.com/css?family=Lato', 'stylesheet', 'text/css');
 
 		// Main Style
 		$this->link_css('main', 'stylesheet', 'text/css');

@@ -19,12 +19,15 @@ defined('ROOT') OR exit('No direct script access allowed');
 	<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please upgrade your browser to improve your experience.</p>
 	<![endif]-->
 
-	<header style="margin-top: 1rem;" class="header grid-x grid-padding-x">
-		<div class="large-9 cell">
-			<h1>Welcome to NSY HMVC Page</h1>
-			<h4>NSY PHP Framework</h4>
+	<header style="margin-top: 1rem;" class="header grid-x grid-padding-x align-middle">
+		<div class="large-2 cell">
+			<img src="<?php echo IMG_DIR ?>logo.png" width="200"/>
 		</div>
-		<div class="large-3 cell">
+		<div class="large-8 cell">
+			<h2>Welcome to NSY PHP Framework</h2>
+			<h4>A very simple PHP Framework in history</h4>
+		</div>
+		<div class="large-2 cell">
 			<div class="text-center">
 				<a target="_blank" href="https://github.com/kazuyamarino/nsy"><i class="fab fa-github fa-5x"></i>
 					<p>View On Github</p>

@@ -7,6 +7,7 @@ Site example :
 1. NSY folder stucture
 
 ```bash
+.
 ├── composer.json
 ├── Docs
 │   ├── apache config
@@ -34,9 +35,9 @@ Site example :
 │       ├── footer.php
 │       ├── header.php
 │       ├── img
-│       │   ├── favicon.ico
-│       │   ├── magic.gif
-│       │   └── tile.png
+│       │   ├── favicon.png
+│       │   ├── logo.png
+│       │   └── magic.gif
 │       └── js
 │           ├── datatables
 │           │   └── init.js
