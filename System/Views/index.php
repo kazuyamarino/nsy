@@ -25,7 +25,7 @@
 				<div class="row">
 					<h3><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/README.md#nsy-feature-">NSY Feature</a></h3>
 					<div class="large-4 medium-4 cell">
-						<p>MVC & HMVC.</p>
+						<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/README.md#mvc--hmvc">MVC & HMVC</a><br />The design pattern.</p>
 					</div>
 					<div class="large-4 medium-4 cell">
 						<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/README.md#introducting-to-nsy-assets-manager">NSY Assets Manager</a><br />Introducting to NSY Assets Manager.</p>
