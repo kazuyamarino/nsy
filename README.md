@@ -122,13 +122,19 @@ $this->meta('name', 'content');
 ```
 
 Create <link> tag :
+```
 $this->link('filename/url_filename', 'attribute_rel', 'attribute_type');
+```
 
 Create <script> tag :
+```
 $this->script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
+```
 
 You can write any html tags with custom method :
+```
 $this->custom('anythings');
+```
 
 ## User Guide.
-	- On Progress..
+- On Progress..
