@@ -14,18 +14,18 @@ class NSY_Controller {
 
     public function view($filename) {
         extract($this->vars);
-        require_once('../' . MVC_VIEW_DIR . $filename . '.php');
+        require_once(MVC_VIEW_DIR . $filename . '.php');
     }
 
     public function hmvc_view($filename) {
         extract($this->vars);
-        foreach (glob('../' . HMVC_VIEW_DIR . $filename . '.php') as $results) {
+        foreach (glob(HMVC_VIEW_DIR . $filename . '.php') as $results) {
             require_once($results);
         }
     }
 
     public function template($filename) {
-        require_once('../' . TEMPLATE_DIR . $filename . '.php');
+        require_once(SYS_TMP_DIR . $filename . '.php');
     }
 
     private function secure_input($data) {

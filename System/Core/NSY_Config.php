@@ -25,8 +25,9 @@ class NSY_Config {
 		define('IMG_DIR', BASE_URL . TEMPLATE_DIR . 'img' . '/'); // IMG PATH
 
 		//set the default view path
-		define('MVC_VIEW_DIR', 'System/Views' . '/');
-		define('HMVC_VIEW_DIR', 'System/Modules/*/Views' . '/');
+		define('SYS_TMP_DIR', '../Public/Template' . '/');
+		define('MVC_VIEW_DIR', '../System/Views' . '/');
+		define('HMVC_VIEW_DIR', '../System/Modules/*/Views' . '/');
 
 		// set a default language
 		define('LANGUAGE_CODE', 'en');
