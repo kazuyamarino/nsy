@@ -1,5 +1,5 @@
 # NSY
-NSY is a simple PHP Framework that works well on MVC or HMVC mode, its contain the HTML5 Boilerplate and Foundation CSS Framework in one package at a time. As well as include some support for Font-Awesome. NSY also provides several optimizations for Datatables plugin.
+NSY is a simple PHP Framework that works well on MVC or HMVC mode, its made with HTML5 Boilerplate and Foundation CSS Framework. NSY also provides Font-Awesome and several optimizations for Datatables plugin.
 
 Site example :
 <a href="https://nsy.kazuyamarino.com/" target="_blank">https://nsy.kazuyamarino.com/</a>
@@ -111,6 +111,10 @@ Site example :
 - MVC or HMVC
 - NSY Assets Manager
 - PSR-4 Autoloading
+
+### MVC & HMVC
+The Model View Controller (MVC) design pattern specifies that an application consist of a data model, presentation information, and control information. The pattern requires that each of these be separated into different objects.
+The Hierarchical Model View Controller (HMVC) is an evolution of the MVC pattern used for most web applications today. It came about as an answer to the scalability problems apparent within applications which used MVC.
 
 ### Introducting to NSY Assets Manager
 The easiest & best assets manager in history

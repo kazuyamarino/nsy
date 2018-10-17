@@ -47,7 +47,7 @@ class NSY_Config {
 		define('SITEAUTHOR', 'Vikry Yuansah');
 
 		// optional set a site keywords
-		define('SITEKEYWORDS', 'MVC Framework, HMVC Framework, PHP Framework, Datatables, HTML5 Boilerplate, Foundation CSS Framework, Font Awesome');
+		define('SITEKEYWORDS', 'MVC Framework, HMVC Framework, PHP Framework, Datatables, HTML5 Boilerplate, Foundation Zurb, Font Awesome, JQuery');
 
 		// optional set a site description
 		define('SITEDESCRIPTION', 'NSY is a simple PHP Framework that works well on MVC or HMVC mode.');
