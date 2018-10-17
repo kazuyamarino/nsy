@@ -4,6 +4,7 @@ NSY is a simple PHP Framework that works well on MVC or HMVC mode, its contain t
 Site example :
 <a href="https://nsy.kazuyamarino.com/" target="_blank">https://nsy.kazuyamarino.com/</a>
 
+
 ## NSY folder structure
 
 ```bash
@@ -90,18 +91,21 @@ Site example :
         └── index.php
 ```
 
+
 ## How to dating with NSY?
 - Simply rename the folder that has been downloaded to `nsy` & copy it to your `html` or `htdocs` folder or git clone it.
 - For apache, please go to the `docs/apache config` folder and read the Readme.txt.
 - For nginx, please go to the `docs/nginx config` folder.
 - And save the date..
 
+
 ## NSY contain package :
-- Datatables jQuery Javascript Library with Responsive Plugin
-- Foundation Zurb Framework
-- JQuery
-- Modernizr
-- WhatInputJs
+- [Datatables jQuery Javascript Library](https://www.datatables.net/) with Responsive Plugin
+- [Foundation Zurb Framework](https://foundation.zurb.com/)
+- [JQuery](https://jquery.com/)
+- [Modernizr](https://modernizr.com/)
+- [WhatInputJs](https://github.com/ten1seven/what-input)
+
 
 ## NSY Feature :
 - MVC or HMVC
@@ -136,5 +140,22 @@ You can write any html tags with custom method :
 $this->custom('anythings');
 ```
 
+
+## Browser support
+
+* Chrome/Chromium *(latest ver)*
+* Edge *(latest ver)*
+* Firefox/Waterfox *(latest ver)*
+* Opera *(latest ver)*
+
+*This doesn't mean that NSY cannot be used in older browsers,
+just that we'll ensure compatibility with the ones mentioned above.*
+
+
 ## User Guide.
-- On Progress..
+- On Progress.
+
+
+## License
+
+The code is available under the [MIT license](LICENSE.txt)..
