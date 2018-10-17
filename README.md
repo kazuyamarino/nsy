@@ -105,6 +105,7 @@ Site example :
 - [JQuery](https://jquery.com/)
 - [Modernizr](https://modernizr.com/)
 - [WhatInputJs](https://github.com/ten1seven/what-input)
+- [Font Awesome](https://fontawesome.com/)
 
 
 ## NSY Feature :
