@@ -116,17 +116,17 @@ How to use it? Simply follow this.
 - First, you need to go to `System/Libraries/AssetManager/`, there are 2 files, that is `Assets.php` & `NSY_AssetManager.php`.
 - `NSY_AssetManager.php` is the core, & `Assets.php` is the controller which regulates assets, if you want to manage the assets, please go to `Assets.php`.
 
-Create <meta> tag :
+Create `<meta>` tag :
 ```
 $this->meta('name', 'content');
 ```
 
-Create <link> tag :
+Create `<link>` tag :
 ```
 $this->link('filename/url_filename', 'attribute_rel', 'attribute_type');
 ```
 
-Create <script> tag :
+Create `<script>` tag :
 ```
 $this->script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
 ```
