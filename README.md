@@ -110,7 +110,7 @@ Site example :
 ## NSY Feature :
 - MVC or HMVC
 - NSY Assets Manager
-- PSR4 Autoloading
+- PSR-4 Autoloading
 
 ### Introducting to NSY Assets Manager
 The easiest & best assets manager in history
@@ -140,8 +140,12 @@ You can write any html tags with custom method :
 $this->custom('anythings');
 ```
 
+### PSR-4 Autoloading
+- NSY applies the concept of PSR-4 Autoloading. NSY has the `composer.json` file that can be dumped with [composer](https://getcomposer.org/download/) command `composer dump-autoload` when creating a folder structure that contains new class files.
+- Complete information about PSR-4 can be read on the official [PHP-FIG](https://www.php-fig.org/psr/psr-4/) website.
 
-## Browser support
+
+## Browser support test
 
 * Chrome/Chromium *(latest ver)*
 * Edge *(latest ver)*
