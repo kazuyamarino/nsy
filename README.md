@@ -4,7 +4,7 @@ NSY is a simple PHP Framework that works well on MVC or HMVC mode, its contain t
 Site example :
 <a href="https://nsy.kazuyamarino.com/" target="_blank">https://nsy.kazuyamarino.com/</a>
 
-1. NSY folder structure
+## NSY folder structure
 
 ```bash
 .
@@ -90,19 +90,43 @@ Site example :
         └── index.php
 ```
 
-2. How to dating with NSY?
+## How to dating with NSY?
 	- Simply rename the folder that has been downloaded to `nsy` & copy it to your `html` or `htdocs` folder or git clone it.
 	- For apache, please go to the `docs/apache config` folder and read the Readme.txt.
 	- For nginx, please go to the `docs/nginx config` folder.
 	- And save the date..
 
-3. NSY contain package.
+## NSY contain package :
 	- Datatables jQuery Javascript Library with Responsive Plugin
 	- Foundation Zurb Framework
-	- HTML Boilerplate Structure
 	- JQuery
 	- Modernizr
 	- WhatInputJs
 
-4. User Guide.
+## NSY Feature :
+	- MVC or HMVC
+	- NSY Assets Manager
+	- PSR4 Autoloading
+
+## Introducting to NSY Assets Manager
+The easiest & best assets manager in history
+Made with love by Vikry Yuansah
+
+How to use it? Simply follow this.
+First, you need to go to `System/Libraries/AssetManager/`. There are 2 files, that is `Assets.php` & `NSY_AssetManager.php`.
+`NSY_AssetManager.php` is the core, & `Assets.php` is the controller which regulates assets, if you want to manage the assets, please go to `Assets.php`.
+
+Create <meta> tag :
+$this->meta('name', 'content');
+
+Create <link> tag :
+$this->link('filename/url_filename', 'attribute_rel', 'attribute_type');
+
+Create <script> tag :
+$this->script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
+
+You can write any html tags with custom method :
+$this->custom('anythings');
+
+## User Guide.
 	- On Progress..

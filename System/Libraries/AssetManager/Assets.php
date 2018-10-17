@@ -1,4 +1,22 @@
 <?php
+/*
+	Hi Welcome to NSY Asset Manager.
+	The easiest & best asset manager in history
+	Made with love by Vikry Yuansah
+
+	How to use it? Simply follow this format.
+	Create <meta> tag :
+	$this->meta('name', 'content');
+
+	Create <link> tag :
+	$this->link('filename/url_filename', 'attribute_rel', 'attribute_type');
+
+	Create <script> tag :
+	$this->script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
+
+	You can write any html tags with custom method :
+	$this->custom('anythings');
+ */
 
 namespace System\Libraries\AssetManager;
 
@@ -19,23 +37,23 @@ Class Assets extends NSY_AssetManager {
 		$this->meta('name="description"', SITEDESCRIPTION);
 		$this->meta('name="keywords"', SITEKEYWORDS);
 		$this->meta('name="author"', SITEAUTHOR);
-		$this->meta('name="viewport"', 'width=device-width, initial-scale=1');
+		$this->meta('name="viewport"', 'width=device-width, initial-scale=1, shrink-to-fit=no');
 
 		// Favicon
-		$this->link_icon('favicon.png', 'shortcut icon');
+		$this->link('favicon.png', 'shortcut icon', '');
 
 		// Fonts
-		$this->link_url('https://fonts.googleapis.com/css?family=Lato', 'stylesheet', 'text/css');
+		$this->link('https://fonts.googleapis.com/css?family=Lato', 'stylesheet', 'text/css');
 
 		// Main Style
-		$this->link_css('main', 'stylesheet', 'text/css');
+		$this->link('main.css', 'stylesheet', 'text/css');
 
 		// Foundation CSS
-		$this->link_css('vendor/foundation.min', 'stylesheet', 'text/css');
-		$this->link_css('vendor/responsive-tables.min', 'stylesheet', 'text/css');
+		$this->link('vendor/foundation.min.css', 'stylesheet', 'text/css');
+		$this->link('vendor/responsive-tables.min.css', 'stylesheet', 'text/css');
 
 		// Datatables CSS
-		$this->link_css('vendor/dataTables.foundation.min', 'stylesheet', 'text/css');
+		$this->link('vendor/dataTables.foundation.min.css', 'stylesheet', 'text/css');
 
 		// Font Awesome CSS
 		$this->custom('<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">');
@@ -44,31 +62,31 @@ Class Assets extends NSY_AssetManager {
 	function pull_footer_assets()
 	{
 		// Modernizr JS
-		$this->script('vendor/modernizr.min', 'text/javascript', '', '');
+		$this->script('vendor/modernizr.min.js', 'text/javascript', '', '');
 
 		// JQuery JS
-		$this->script('vendor/jquery.min', 'text/javascript', '', '');
+		$this->script('vendor/jquery.min.js', 'text/javascript', '', '');
 
 		// Foundation JS
-		$this->script('vendor/foundation.min', 'text/javascript', '', '');
-		$this->script('vendor/what-input.min', 'text/javascript', '', '');
-		$this->script('vendor/responsive-tables.min', 'text/javascript', '', '');
+		$this->script('vendor/foundation.min.js', 'text/javascript', '', '');
+		$this->script('vendor/what-input.min.js', 'text/javascript', '', '');
+		$this->script('vendor/responsive-tables.min.js', 'text/javascript', '', '');
 
 		// Datatables JS
-		$this->script('vendor/jquery.dataTables.min', 'text/javascript', '', '');
-		$this->script('vendor/dataTables.foundation.min', 'text/javascript', '', '');
+		$this->script('vendor/jquery.dataTables.min.js', 'text/javascript', '', '');
+		$this->script('vendor/dataTables.foundation.min.js', 'text/javascript', '', '');
 
 		// Google Analytics: change UA-XXXXX-Y to be your site's ID.
 		$this->custom("<script>window.ga=function(){ga.q.push(arguments)}; ga.q=[]; ga.l=+new Date;ga('create','UA-XXXXX-Y','auto'); ga('send','pageview')</script>"
 		);
-		$this->script_url('https://www.google-analytics.com/analytics', 'text/javascript', '', 'async defer');
+		$this->script('https://www.google-analytics.com/analytics.js', 'text/javascript', '', 'async defer');
 
 		// Base JS
-		$this->script('main', 'text/javascript', '', '');
+		$this->script('main.js', 'text/javascript', '', '');
 	}
 
 	function datatables_init() {
-		$this->script('datatables/init', 'text/javascript', '', '');
+		$this->script('datatables/init.js', 'text/javascript', '', '');
 	}
 
 }

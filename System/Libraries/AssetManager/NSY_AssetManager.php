@@ -6,21 +6,6 @@ defined('ROOT') OR exit('No direct script access allowed');
 
 Class NSY_AssetManager {
 
-	// generate css tags
-	function link_css($filename, $rel, $type) {
-		echo '<link rel="'.$rel.'" href="'.CSS_DIR.$filename.'.css" type="'.$type.'">';
-	}
-
-	// generate icon tags
-	function link_icon($filename, $rel) {
-		echo '<link rel="'.$rel.'" href="'.IMG_DIR.$filename.'">';
-	}
-
-	// generate url tags
-	function link_url($url, $rel, $type) {
-		echo '<link rel="'.$rel.'" href="'.$url.'" type="'.$type.'">';
-	}
-
 	// generate meta tags
 	function meta($attr, $content) {
 		// if content is empty
@@ -33,33 +18,44 @@ Class NSY_AssetManager {
 		}
 	}
 
-	// generate custom assets
-	function custom($values) {
-		echo $values;
+	// generate link tags
+	function link($filename, $rel, $type) {
+		// if content is empty
+		if (strpos($filename, 'http') !== false) {
+			echo '<link rel="'.$rel.'" href="'.$filename.'" type="'.$type.'">';
+		} elseif ($rel == 'stylesheet') {
+			echo '<link rel="'.$rel.'" href="'.CSS_DIR.$filename.'" type="'.$type.'">';
+		} elseif ($rel == 'shortcut icon')  {
+			echo '<link rel="'.$rel.'" href="'.IMG_DIR.$filename.'">';
+		} else {
+			echo 'Please check the format of <link> tag';
+		}
 	}
 
 	// generate script tags filename
 	function script($filename, $type, $charset, $attr) {
 		// if charset is empty
-		if (empty($charset) || is_null($charset)) {
+		if (strpos($filename, 'http') !== false) {
+			// if charset is empty
+			if (empty($charset) || is_null($charset)) {
+				// then show script tags without charset
+				echo '<script src="'.$filename.'" type="'.$type.'" '.$attr.'></script>';
+			} else {
+				// then show script tags with charset
+				echo '<script src="'.$filename.'" type="'.$type.'" charset="'.$charset.'" '.$attr.'></script>';
+			}
+		} elseif (empty($charset) || is_null($charset)) {
 			// then show script tags without charset
-			echo '<script src="'.JS_DIR.$filename.'.js" type="'.$type.'" '.$attr.'></script>';
+			echo '<script src="'.JS_DIR.$filename.'" type="'.$type.'" '.$attr.'></script>';
 		} else {
 			// then show script tags with charset
-			echo '<script src="'.JS_DIR.$filename.'.js" type="'.$type.'" charset="'.$charset.'" '.$attr.'></script>';
+			echo '<script src="'.JS_DIR.$filename.'" type="'.$type.'" charset="'.$charset.'" '.$attr.'></script>';
 		}
 	}
 
-	// generate script tags url
-	function script_url($filename, $type, $charset, $attr) {
-		// if charset is empty
-		if (empty($charset) || is_null($charset)) {
-			// then show script tags without charset
-			echo '<script src="'.$filename.'" type="'.$type.'" '.$attr.'></script>';
-		} else {
-			// then show script tags with charset
-			echo '<script src="'.$filename.'" type="'.$type.'" charset="'.$charset.'" '.$attr.'></script>';
-		}
+	// generate custom assets
+	function custom($values) {
+		echo $values;
 	}
 
 }
