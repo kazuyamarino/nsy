@@ -149,13 +149,7 @@ $this->custom('anythings');
 
 ## Browser support test
 
----
-title: Compatibility
-description: Foundation is tested across many browsers and devices, and works back as far as IE9 and Android 2.
-tags:
-  - support
-  - browser
----
+*Foundation is tested across many browsers and devices, and works back as far as IE9 and Android 2.*
 
 ## Overview
 
