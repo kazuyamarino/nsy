@@ -1,22 +1,22 @@
 <?php
 /*
-	Hi Welcome to NSY Asset Manager.
-	The easiest & best asset manager in history
-	Made with love by Vikry Yuansah
+Hi Welcome to NSY Asset Manager.
+The easiest & best asset manager in history
+Made with love by Vikry Yuansah
 
-	How to use it? Simply follow this format.
-	Create <meta> tag :
-	$this->meta('name', 'content');
+How to use it? Simply follow this format.
+Create <meta> tag :
+$this->meta('name', 'content');
 
-	Create <link> tag :
-	$this->link('filename/url_filename', 'attribute_rel', 'attribute_type');
+Create <link> tag :
+$this->link('filename/url_filename', 'attribute_rel', 'attribute_type');
 
-	Create <script> tag :
-	$this->script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
+Create <script> tag :
+$this->script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
 
-	You can write any html tags with custom method :
-	$this->custom('anythings');
- */
+You can write any html tags with custom method :
+$this->custom('anythings');
+*/
 
 namespace System\Libraries\AssetManager;
 
@@ -77,8 +77,7 @@ Class Assets extends NSY_AssetManager {
 		$this->script('vendor/dataTables.foundation.min.js', 'text/javascript', '', '');
 
 		// Google Analytics: change UA-XXXXX-Y to be your site's ID.
-		$this->custom("<script>window.ga=function(){ga.q.push(arguments)}; ga.q=[]; ga.l=+new Date;ga('create','UA-XXXXX-Y','auto'); ga('send','pageview')</script>"
-		);
+		$this->custom("<script>window.ga=function(){ga.q.push(arguments)}; ga.q=[]; ga.l=+new Date;ga('create','UA-XXXXX-Y','auto'); ga('send','pageview')</script>");
 		$this->script('https://www.google-analytics.com/analytics.js', 'text/javascript', '', 'async defer');
 
 		// Base JS

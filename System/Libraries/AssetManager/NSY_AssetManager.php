@@ -1,5 +1,8 @@
 <?php
-
+/*
+This is the core of NSY Asset Manager
+2018 - Vikry Yuansah
+ */
 namespace System\Libraries\AssetManager;
 
 defined('ROOT') OR exit('No direct script access allowed');

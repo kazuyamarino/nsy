@@ -30,22 +30,19 @@ Site example :
 │       │   ├── main.css
 │       │   └── vendor
 │       │       ├── dataTables.foundation.min.css
-│       │       ├── foundation.css
 │       │       ├── foundation.min.css
 │       │       └── responsive-tables.min.css
 │       ├── footer.php
 │       ├── header.php
 │       ├── img
 │       │   ├── favicon.png
-│       │   ├── logo.png
-│       │   └── magic.gif
+│       │   └── logo.png
 │       └── js
 │           ├── datatables
 │           │   └── init.js
 │           ├── main.js
 │           └── vendor
 │               ├── dataTables.foundation.min.js
-│               ├── foundation.js
 │               ├── foundation.min.js
 │               ├── jquery.dataTables.min.js
 │               ├── jquery.min.js
