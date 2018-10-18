@@ -190,7 +190,7 @@ tags:
 
 *This doesn't mean that NSY cannot be used in older browsers,
 just that we'll ensure compatibility with the ones mentioned above.*
-*NSY Browser support information based on [Foundation Zurb Compatibility](https://foundation.zurb.com/sites/docs/compatibility.html).
+*NSY Browser support information based on [Foundation Zurb Compatibility](https://foundation.zurb.com/sites/docs/compatibility.html).*
 
 
 ## User Guide.
