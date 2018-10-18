@@ -8,9 +8,9 @@ Site example :
 ## User Guide.
 
 ### Configuration File
-	- NSY_Config.PHP
-	- Routing.PHP
-	- main.js
+- NSY_Config.php
+- Routing.php
+- main.js
 
 #### NSY_Config.php File
 The NSY_Config class provides a means to retrieve configuration preferences. These preferences can come from the default config file (System/Core/NSY_Config.php) or you can custom it with your own setting.
@@ -60,15 +60,57 @@ NSY_Router::any('/', function() {
 NSY_Router::dispatch();
 ```
 
-Lastly, if there is no route defined for a certain location, you can make Macaw run a custom callback, like:
+##### Example passing to a controller instead of a closure
+
+It's possible to pass the namespace path to a controller instead of the closure:
+
+For this demo lets say I have a folder called controllers with a demo.php
+
+index.php:
+
+```php
+NSY_Router::get('/', 'Controllers\demo@index');
+NSY_Router::get('page', 'Controllers\demo@page');
+NSY_Router::get('view/(:num)', 'Controllers\demo@view');
+
+NSY_Router::dispatch();
+```
+
+demo.php:
+
+```php
+<?php
+namespace controllers;
+
+class Demo {
+
+    public function index()
+    {
+        echo 'home';
+    }
+
+    public function page()
+    {
+        echo 'page';
+    }
+
+    public function view($id)
+    {
+        echo $id;
+    }
+
+}
+```
+
+Lastly, if there is no route defined for a certain location, you can make NSY_Router run a custom callback, like:
 
 ```PHP
-Macaw::error(function() {
+NSY_Router::error(function() {
   echo '404 :: Not Found';
 });
 ```
 
-If you don't specify an error callback, Macaw will just echo `404`.
+If you don't specify an error callback, NSY_Router will just echo `404`.
 
 
 ## License
