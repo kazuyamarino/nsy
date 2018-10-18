@@ -18,7 +18,7 @@ The NSY_Config class provides a means to retrieve configuration preferences. The
 By default NSY_Config file is required by index.php in the Public folder (see line 3 & line 43 to 46 of the index.php file).
 
 #### Routing.php file
-NSY routing system using classes from Macaw route by Noah Buscher
+NSY routing system using classes from [Macaw route by Noah Buscher](https://github.com/noahbuscher/macaw)
 
 Macaw is a simple, open source PHP router. It's super small (~150 LOC), fast, and has some great annotated source code. This class allows you to just throw it into your project and start using it immediately.
 
@@ -112,6 +112,8 @@ NSY_Router::error(function() {
 
 If you don't specify an error callback, NSY_Router will just echo `404`.
 
+
+### main.js file
 
 ## License
 
