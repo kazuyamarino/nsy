@@ -10,7 +10,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 
 	$Assets = new Assets();
 
-	// call footer assets function js
+	// call header assets method
 	$Assets->pull_header_assets();
 	?>
 </head>

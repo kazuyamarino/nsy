@@ -62,30 +62,30 @@ Class Assets extends NSY_AssetManager {
 	function pull_footer_assets()
 	{
 		// Modernizr JS
-		$this->script('vendor/modernizr.min.js', 'text/javascript', '', '');
+		$this->script('vendor/modernizr.min.js', 'text/javascript', 'UTF-8', '');
 
 		// JQuery JS
-		$this->script('vendor/jquery.min.js', 'text/javascript', '', '');
+		$this->script('vendor/jquery.min.js', 'text/javascript', 'UTF-8', '');
 
 		// Foundation JS
-		$this->script('vendor/foundation.min.js', 'text/javascript', '', '');
-		$this->script('vendor/what-input.min.js', 'text/javascript', '', '');
-		$this->script('vendor/responsive-tables.min.js', 'text/javascript', '', '');
+		$this->script('vendor/foundation.min.js', 'text/javascript', 'UTF-8', '');
+		$this->script('vendor/what-input.min.js', 'text/javascript', 'UTF-8', '');
+		$this->script('vendor/responsive-tables.min.js', 'text/javascript', 'UTF-8', '');
 
 		// Datatables JS
-		$this->script('vendor/jquery.dataTables.min.js', 'text/javascript', '', '');
-		$this->script('vendor/dataTables.foundation.min.js', 'text/javascript', '', '');
+		$this->script('vendor/jquery.dataTables.min.js', 'text/javascript', 'UTF-8', '');
+		$this->script('vendor/dataTables.foundation.min.js', 'text/javascript', 'UTF-8', '');
 
 		// Google Analytics: change UA-XXXXX-Y to be your site's ID.
 		$this->custom("<script>window.ga=function(){ga.q.push(arguments)}; ga.q=[]; ga.l=+new Date;ga('create','UA-XXXXX-Y','auto'); ga('send','pageview')</script>");
 		$this->script('https://www.google-analytics.com/analytics.js', 'text/javascript', '', 'async defer');
 
 		// Base JS
-		$this->script('main.js', 'text/javascript', '', '');
+		$this->script('main.js', 'text/javascript', 'UTF-8', '');
 	}
 
 	function datatables_init() {
-		$this->script('datatables/init.js', 'text/javascript', '', '');
+		$this->script('datatables/init.js', 'text/javascript', 'UTF-8', '');
 	}
 
 }
