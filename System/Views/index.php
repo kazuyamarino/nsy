@@ -127,7 +127,7 @@
 					<div data-abide-error class="alert callout" style="display: none;">
 						<p><i class="fi-alert"></i> There are some errors in your form.</p>
 					</div>
-					<label>Number Required
+					<label>Number <small>required</small>
 						<input type="text" placeholder="1234" aria-describedby="exampleHelpText" required pattern="^[-+]?\d*(?:[\.\,]\d+)?$">
 						<span class="form-error">Yo, you had better fill this out, it's required.</span>
 					</label>
