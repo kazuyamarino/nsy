@@ -23,7 +23,7 @@ NSY routing system using classes from [Macaw route by Noah Buscher](https://gith
 
 >Macaw is a simple, open source PHP router. It's super small (~150 LOC), fast, and has some great >annotated source code. This class allows you to just throw it into your project and start using it >immediately.
 
-#### Examples
+#### Examples :
 
 ```PHP
 NSY_Router::get('/', function() {
@@ -61,7 +61,7 @@ NSY_Router::any('/', function() {
 NSY_Router::dispatch();
 ```
 
-#### Example passing to a controller instead of a closure
+#### Example passing to a controller instead of a closure :
 
 It's possible to pass the namespace path to a controller instead of the closure:
 
