@@ -8,9 +8,9 @@ Site example :
 ## User Guide.
 
 ### Configuration File
-- NSY_Config.php
-- Routing.php
-- main.js
+* NSY_Config.php
+* Routing.php
+* main.js
 
 #### NSY_Config.php File
 The NSY_Config class provides a means to retrieve configuration preferences. These preferences can come from the default config file (System/Core/NSY_Config.php) or you can custom it with your own setting.
