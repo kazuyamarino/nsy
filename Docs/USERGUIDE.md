@@ -4,25 +4,22 @@ NSY is a simple PHP Framework that works well on MVC or HMVC mode, its made with
 Site example :
 <a href="https://nsy.kazuyamarino.com/" target="_blank">https://nsy.kazuyamarino.com/</a>
 
-
-## User Guide.
-
-### Configuration File
+## Configuration File
 * NSY_Config.php
 * Routing.php
 * main.js
 
-#### NSY_Config.php File
+### NSY_Config.php File
 The NSY_Config class provides a means to retrieve configuration preferences. These preferences can come from the default config file (System/Core/NSY_Config.php) or you can custom it with your own setting.
 
 By default NSY_Config file is required by index.php in the Public folder (see line 3 & line 43 to 46 of the index.php file).
 
-#### Routing.php file
+### Routing.php file
 NSY routing system using classes from [Macaw route by Noah Buscher](https://github.com/noahbuscher/macaw)
 
 Macaw is a simple, open source PHP router. It's super small (~150 LOC), fast, and has some great annotated source code. This class allows you to just throw it into your project and start using it immediately.
 
-##### Examples
+#### Examples
 
 ```PHP
 NSY_Router::get('/', function() {
@@ -60,7 +57,7 @@ NSY_Router::any('/', function() {
 NSY_Router::dispatch();
 ```
 
-##### Example passing to a controller instead of a closure
+#### Example passing to a controller instead of a closure
 
 It's possible to pass the namespace path to a controller instead of the closure:
 
