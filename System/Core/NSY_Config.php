@@ -10,15 +10,35 @@ class NSY_Config {
 		// turn on output buffering
 		ob_start();
 
+		// set the default application or project directory
+		define('APP_DIR', 'nsy'); // defined
+		// define('APP_DIR'); // undefined
+
 		if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443) {
-			// site address (https)
-			define('BASE_URL', 'https://' . $_SERVER['HTTP_HOST'] . '/' . 'nsy' . '/');
+			// if default application or project directory defined
+			if(defined('APP_DIR')) {
+				// then get this result
+				// site address (https) with application directory
+				define('BASE_URL', 'https://' . $_SERVER['HTTP_HOST'] . '/' . APP_DIR . '/');
+			} else {
+				// else if default application or project directory undefined then get this result
+				// site address (https) without application directory
+				define('BASE_URL', 'https://' . $_SERVER['HTTP_HOST'] . '/');
+			}
 		} else {
-			// site address (http)
-			define('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/' . 'nsy' . '/');
+			// if default application or project directory defined
+			if(defined('APP_DIR')) {
+				// then get this result
+				// site address (http) with application directory
+				define('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/' . APP_DIR . '/');
+			} else {
+				// else if default application or project directory undefined then get this result
+				// site address (http) without application directory
+				define('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/');
+			}
 		}
 
-		// set the default template
+		// set the default template/css/js path
 		define('TEMPLATE_DIR', 'Public/Template' . '/'); // TEMPLATE PATH
 		define('CSS_DIR', BASE_URL . TEMPLATE_DIR . 'css' . '/'); // CSS PATH
 		define('JS_DIR', BASE_URL . TEMPLATE_DIR . 'js' . '/'); // JS PATH

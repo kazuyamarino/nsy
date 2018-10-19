@@ -12,7 +12,7 @@ class NSY_DB {
 	private $dbPass = DB_PASS;
 	private $dbName = DB_NAME;
 
-	// open connection function for mysqli
+	// open connection function for PDO mysqli
 	public static function mysqlDB() {
 		static $db = null;
 		if ($db === null) {
