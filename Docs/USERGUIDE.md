@@ -14,7 +14,7 @@ Site example :
 ### NSY_Config.php File
 The NSY_Config class provides a means to retrieve configuration preferences. These preferences can come from the default config file `System/Core/NSY_Config.php` or you can custom it with your own setting.
 
-By default NSY_Config file is required by `index.php` in the Public folder *(see line 3 & line 43 to 46 of the index.php file)*.
+By default NSY_Config file is required by `index.php` in the <strong>Public</strong> folder *(see line 3 & line 43 to 46 of the index.php file)*.
 
 <hr>
 
