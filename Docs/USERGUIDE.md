@@ -123,6 +123,48 @@ In main.js there is a `base_url` configuration for javascript *(see line 1 to 20
 
 <hr>
 
+## MVC & HMVC
+* The Model View Controller (MVC) design pattern specifies that an application consist of a data model, presentation information, and control information. The pattern requires that each of these be separated into different objects.
+* The Hierarchical Model View Controller (HMVC) is an evolution of the MVC pattern used for most web applications today. It came about as an answer to the scalability problems apparent within applications which used MVC.
+
+<hr>
+
+## Introducting to NSY Assets Manager
+The easiest & best assets manager in history
+made with love by Vikry Yuansah
+
+How to use it? Simply follow this.
+* First, you need to go to `System/Libraries/AssetManager/`, there are 2 files, that is `Assets.php` & `NSY_AssetManager.php`.
+* `NSY_AssetManager.php` is the core, & `Assets.php` is the controller which regulates assets, if you want to manage the assets, please go to `Assets.php`.
+
+Create `<meta>` tag :
+```
+$this->meta('name', 'content');
+```
+
+Create `<link>` tag :
+```
+$this->link('filename/url_filename', 'attribute_rel', 'attribute_type');
+```
+
+Create `<script>` tag :
+```
+$this->script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
+```
+
+You can write any html tags with custom method :
+```
+$this->custom('anythings');
+```
+
+<hr>
+
+## PSR-4 Autoloading
+* NSY applies the concept of PSR-4 Autoloading. NSY has the `composer.json` file that can be dumped with [composer](https://getcomposer.org/download/) command `composer dump-autoload` when creating a folder structure that contains new class files.
+* Complete information about PSR-4 can be read on the official [PHP-FIG](https://www.php-fig.org/psr/psr-4/) website.
+
+<hr>
+
 ## License
 
 The code is available under the [MIT license](LICENSE.txt)..
