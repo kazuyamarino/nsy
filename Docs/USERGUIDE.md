@@ -117,6 +117,10 @@ If you don't specify an error callback, NSY_Router will just echo `404`.
 
 ### main.js file
 
+>main.js is located in `Public/Template/js/main.js` folder.
+
+In main.js there is a `base_url` configuration for javascript (see line 1 to 18). This `base_url` is used for the purpose of initializing the function of the <strong>Datatable Ajax URL</strong> in the `Public/Template/js/datatables/init.js`
+
 <hr>
 
 ## License
