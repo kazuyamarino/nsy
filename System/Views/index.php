@@ -18,6 +18,9 @@
 					<div class="large-4 medium-4 cell">
 						<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/README.md#nsy-contain-package-">NSY contain package</a><br />The package inside NSY.</p>
 					</div>
+					<div class="large-4 medium-4 cell">
+						<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/Docs/USERGUIDE.md">NSY User Guide</a><br />The user guide before starting to use NSY.</p>
+					</div>
 				</div>
 
 				<hr>
