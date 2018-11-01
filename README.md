@@ -2,7 +2,7 @@
 NSY is a simple PHP Framework that works well on MVC or HMVC mode, its made with HTML5 Boilerplate and Foundation CSS Framework. NSY also provides Font-Awesome and several optimizations for Datatables plugin.
 
 Site example :
-<a href="https://nsy.kazuyamarino.com/" target="_blank">https://nsy.kazuyamarino.com/</a>
+[https://nsy.kazuyamarino.com/](https://nsy.kazuyamarino.com/)
 
 
 ## NSY folder structure
@@ -90,11 +90,13 @@ Site example :
 
 
 ## How to dating with NSY?
-* Simply rename the folder that has been downloaded to `nsy` & copy it to your `html` or `htdocs` folder or git clone it.
+* Simply rename the folder that has been downloaded to `nsy` & copy it to your `html` or `htdocs` folder or anythings folder.
 * For apache, please go to the `docs/apache config` folder and read the Readme.txt.
 * For nginx, please go to the `docs/nginx config` folder.
 * And save the date..
 
+## CRUD Example?
+Here it is [NSY CRUD Example](https://github.com/kazuyamarino/crud)
 
 ## NSY contain package :
 * [Datatables jQuery Javascript Library](https://www.datatables.net/) with Responsive Plugin

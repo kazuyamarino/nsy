@@ -24,7 +24,7 @@ Class NSY_AssetManager {
 	// generate link tags
 	function link($filename, $rel, $type) {
 		// if content is empty
-		if (strpos($filename, 'http') !== false) {
+		if (strpos($filename, 'http') !== false || strpos($filename, 'https') !== false) {
 			echo '<link rel="'.$rel.'" href="'.$filename.'" type="'.$type.'">';
 		} elseif ($rel == 'stylesheet') {
 			echo '<link rel="'.$rel.'" href="'.CSS_DIR.$filename.'" type="'.$type.'">';
@@ -38,7 +38,7 @@ Class NSY_AssetManager {
 	// generate script tags filename
 	function script($filename, $type, $charset, $attr) {
 		// if charset is empty
-		if (strpos($filename, 'http') !== false) {
+		if (strpos($filename, 'http') !== false || strpos($filename, 'https') !== false) {
 			// if charset is empty
 			if (empty($charset) || is_null($charset)) {
 				// then show script tags without charset
