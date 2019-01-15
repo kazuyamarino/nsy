@@ -161,9 +161,9 @@
 
 					<label for="smartphonesCheckbox">Pick at least two favs</label>
 					<div id="smartphonesCheckbox" class="checkbox-group" data-validator-min="2" required>
-						<input type="checkbox" name="smartphones" value="Hello Kitty"><label>Hello Kitty</label>
-						<input type="checkbox" name="smartphones" value="My Melody"><label>My Melody</label>
-						<input type="checkbox" name="smartphones" value="Dear Daniel"><label>Dear Daniel</label>
+						<input type="checkbox" name="cutechar" value="Hello Kitty"><label>Hello Kitty</label>
+						<input type="checkbox" name="cutechar" value="My Melody"><label>My Melody</label>
+						<input type="checkbox" name="cutechar" value="Dear Daniel"><label>Dear Daniel</label>
 					</div>
 
 					<label for="smartphonesRadio">Pick one color</label>
