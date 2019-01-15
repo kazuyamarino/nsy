@@ -15,14 +15,17 @@ Site example :
 │   │   ├── hide_public
 │   │   ├── Readme.txt
 │   │   └── sites_public
-│   └── nginx config
-│       ├── nginx.conf
-│       └── sites-available
-│           └── default
+│   ├── nginx config
+│   │   ├── nginx.conf
+│   │   └── sites-available
+│   │       └── default
+│   └── USERGUIDE.md
 ├── LICENSE.txt
 ├── Public
 │   ├── 403.html
 │   ├── 404.html
+│   ├── Data
+│   │   └── data.json
 │   ├── index.php
 │   ├── robots.txt
 │   └── Template
@@ -31,6 +34,12 @@ Site example :
 │       │   └── vendor
 │       │       ├── dataTables.foundation.min.css
 │       │       ├── foundation.min.css
+│       │       ├── img
+│       │       │   ├── sort_asc_disabled.png
+│       │       │   ├── sort_asc.png
+│       │       │   ├── sort_both.png
+│       │       │   ├── sort_desc_disabled.png
+│       │       │   └── sort_desc.png
 │       │       └── responsive-tables.min.css
 │       ├── footer.php
 │       ├── header.php
