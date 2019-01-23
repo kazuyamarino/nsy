@@ -11,7 +11,7 @@ class NSY_Config {
 		ob_start();
 
 		// set the default application or project directory
-		$APP_DIR = 'nsy'; // defined
+		$APP_DIR = 'nsy-foundation'; // defined
 		// $APP_DIR = ''; // undefined
 
 		if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443) {
