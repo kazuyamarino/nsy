@@ -1,18 +1,3 @@
-<?php
-defined('ROOT') OR exit('No direct script access allowed');
-
-use System\Libraries\AssetManager\Assets;
-
-// instantiate Assets class
-$Assets = new Assets();
-
-// call footer assets method
-$Assets->pull_footer_assets();
-
-// call datatables init method
-$Assets->datatables_init();
-?>
-
 <!-- Footer are 'sticky' -->
 <footer class="footer">
 	<div style="margin-bottom:1rem;" class="grid-x grid-padding-x">
@@ -43,6 +28,19 @@ $Assets->datatables_init();
 		</div>
 	</div>
 </footer>
+<?php
+defined('ROOT') OR exit('No direct script access allowed');
 
+use System\Libraries\AssetManager\Assets;
+
+// instantiate Assets class
+$Assets = new Assets();
+
+// call footer assets method
+$Assets->pull_footer_assets();
+
+// call datatables init method
+$Assets->datatables_init();
+?>
 </body>
 </html>
