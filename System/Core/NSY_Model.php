@@ -43,8 +43,8 @@ class NSY_Model {
 			$stmt = $connection->prepare($query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
 			if ($vars == "" || empty($vars) || !isset($vars)) {
-				$result = $stmt->execute();
-				if (!$result) {
+				$executed = $stmt->execute();
+				if (!$executed) {
 					$errors = $stmt->errorInfo();
 					echo "Error Query : ".($errors[0]);
 					echo ", No parameter were bound for query, Please check your query again!";
@@ -103,8 +103,8 @@ class NSY_Model {
 			$stmt = $connection->prepare($query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
 			if ($vars == "" || empty($vars) || !isset($vars)) {
-				$result = $stmt->execute();
-				if (!$result) {
+				$executed = $stmt->execute();
+				if (!$executed) {
 					$errors = $stmt->errorInfo();
 					echo "Error Query : ".($errors[0]);
 					echo ", No parameter were bound for query, Please check your query again!";
@@ -163,8 +163,8 @@ class NSY_Model {
 			$stmt = $connection->prepare($query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
 			if ($vars == "" || empty($vars) || !isset($vars)) {
-				$result = $stmt->execute();
-				if (!$result) {
+				$executed = $stmt->execute();
+				if (!$executed) {
 					$errors = $stmt->errorInfo();
 					echo "Error Query : ".($errors[0]);
 					echo ", No parameter were bound for query, Please check your query again!";
@@ -223,7 +223,13 @@ class NSY_Model {
 			$stmt = $connection->prepare($query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
 			if ($vars == "" || empty($vars) || !isset($vars)) {
-				$stmt->execute();
+				$executed = $stmt->execute();
+				if (!$executed) {
+					$errors = $stmt->errorInfo();
+					echo "Error Query : ".($errors[0]);
+					echo ", No parameter were bound for query, Please check your query again!";
+					exit();
+				}
 			} else {
 				$stmt->execute($vars);
 			}
@@ -257,7 +263,13 @@ class NSY_Model {
 			$stmt = $connection->prepare($query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
 			if ($vars == "" || empty($vars) || !isset($vars)) {
-				echo $executed = "There is no binding or undefined variables Bro, Please check your variables again!";
+				$executed = $stmt->execute();
+				if (!$executed) {
+					$errors = $stmt->errorInfo();
+					echo "Error Query : ".($errors[0]);
+					echo ", No parameter were bound for query, Please check your query again!";
+					exit();
+				}
 			} else {
 				$executed = $stmt->execute($vars);
 			}
@@ -289,7 +301,13 @@ class NSY_Model {
 			$stmt = $connection->prepare($query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
 			if ($vars == "" || empty($vars) || !isset($vars)) {
-				echo $executed = "There is no binding or undefined variables Bro, Please check your variables again!";
+				$executed = $stmt->execute();
+				if (!$executed) {
+					$errors = $stmt->errorInfo();
+					echo "Error Query : ".($errors[0]);
+					echo ", No parameter were bound for query, Please check your query again!";
+					exit();
+				}
 			} else {
 				foreach($vars as $key => $params) {
 					$executed = $stmt->execute(array($params));
@@ -315,7 +333,7 @@ class NSY_Model {
 	/*
 	Helper for NSY_Model to create a sequence of the named placeholders
 	 */
-	public function varSeq($varname = null, $ids = "", $var = "", $param = "") {
+	public function varSeq($varname = "", $ids = "", $var = "", $param = "") {
 		$in = "";
 		foreach ($ids as $i => $item)
 		{
@@ -379,6 +397,32 @@ class NSY_Model {
 	 */
 	public function rollback($connection = "") {
 		$connection->rollback();
+    }
+
+	/*
+    Secure Input Element
+     */
+    protected function secure_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+
+    /*
+    Secure Form
+     */
+    protected function secure_form($form) {
+        foreach ($form as $key => $value) {
+            $form[$key] = $this->secure_input($value);
+        }
+    }
+
+	/*
+    Redirect URL
+     */
+    public function redirect($url = NULL) {
+		header("location:". BASE_URL . $url);
     }
 
 }

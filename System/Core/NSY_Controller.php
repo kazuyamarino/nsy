@@ -47,7 +47,7 @@ class NSY_Controller {
     /*
     Secure Input Element
      */
-    private function secure_input($data) {
+    protected function secure_input($data) {
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
@@ -61,6 +61,13 @@ class NSY_Controller {
         foreach ($form as $key => $value) {
             $form[$key] = $this->secure_input($value);
         }
+    }
+
+	/*
+    Redirect URL
+     */
+    public function redirect($url = NULL) {
+		header("location:". BASE_URL . $url);
     }
 
 }
