@@ -1,9 +1,9 @@
-location /nsy/ {
+location /nsy-foundation/ {
 	# sFirst attempt to serve request as file, then
 	# as directory, then fall back to displaying a 404.
 	# try_files $uri $uri/ =404;
-	try_files $uri /nsy/Public/index.php?/$uri;
+	try_files $uri /nsy-foundation/Public/index.php?/$uri;
 
-	error_page 404 /nsy/Public/404.html;
-	error_page 403 /nsy/Public/403.html;
+	error_page 404 /nsy-foundation/Public/404.html;
+	error_page 403 /nsy-foundation/Public/403.html;
 }
