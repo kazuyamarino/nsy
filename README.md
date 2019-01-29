@@ -59,18 +59,6 @@ Site example :
 │               ├── responsive-tables.min.js
 │               └── what-input.min.js
 ├── README.md
-├── src
-│   ├── 6.4.2
-│   │   ├── foundation.css
-│   │   ├── foundation.js
-│   │   ├── foundation.min.css
-│   │   └── foundation.min.js
-│   ├── foundation.css
-│   ├── foundation.js
-│   ├── foundation.min.css
-│   ├── foundation.min.js
-│   ├── what-input.js
-│   └── what-input.min.js
 └── System
     ├── Controllers
     │   └── Welcome.php
