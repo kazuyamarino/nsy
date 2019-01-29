@@ -159,18 +159,18 @@
 						</select>
 					</label>
 
-					<label for="smartphonesCheckbox">Pick at least two favs</label>
-					<div id="smartphonesCheckbox" class="checkbox-group" data-validator-min="2" required>
+					<label for="cutecharCheckbox">Pick at least two favs</label>
+					<div id="cutecharCheckbox" class="checkbox-group" data-validator-min="2" required>
 						<input type="checkbox" name="cutechar" value="Hello Kitty"><label>Hello Kitty</label>
 						<input type="checkbox" name="cutechar" value="My Melody"><label>My Melody</label>
 						<input type="checkbox" name="cutechar" value="Dear Daniel"><label>Dear Daniel</label>
 					</div>
 
-					<label for="smartphonesRadio">Pick one color</label>
-					<div id="smartphonesRadio" class="radio-group">
-	        <input type="radio" name="pokemon" value="Red" id="pokemonRed" required><label for="pokemonRed">Red</label>
-	        <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"><label for="pokemonBlue">Blue</label>
-	        <input type="radio" name="pokemon" value="Yellow" id="pokemonYellow"><label for="pokemonYellow">Yellow</label>
+					<label for="cutecharRadio">Pick one color</label>
+					<div id="cutecharRadio" class="radio-group">
+				        <input type="radio" name="pokemon" value="Red" id="pokemonRed" required><label for="pokemonRed">Red</label>
+				        <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"><label for="pokemonBlue">Blue</label>
+				        <input type="radio" name="pokemon" value="Yellow" id="pokemonYellow"><label for="pokemonYellow">Yellow</label>
 					</div>
 
 					<div class="text-center">
