@@ -57,13 +57,13 @@ Class Assets extends NSY_AssetManager {
 
 		// Font Awesome CSS
 		$this->custom('<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">');
+
+		// Modernizr JS
+		$this->script('vendor/modernizr.min.js', 'text/javascript', 'UTF-8', '');
 	}
 
 	function pull_footer_assets()
 	{
-		// Modernizr JS
-		$this->script('vendor/modernizr.min.js', 'text/javascript', 'UTF-8', '');
-
 		// JQuery JS
 		$this->script('vendor/jquery.min.js', 'text/javascript', 'UTF-8', '');
 
