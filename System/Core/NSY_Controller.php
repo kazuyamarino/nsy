@@ -70,4 +70,27 @@ class NSY_Controller {
 		header("location:". BASE_URL . $url);
     }
 
+	/*
+	Helper for NSY_Model to create a sequence of the named placeholders
+	 */
+	public function varSeq($varname = "", $ids = "", $var = "", $param = "") {
+		$in = "";
+		foreach ($ids as $i => $item)
+		{
+		    $key = "$varname".$i;
+		    $in .= "$key,";
+		    $in_params[$key] = $item; // collecting values into key-value array
+		}
+		$in = rtrim($in,","); // :id0,:id1,:id2
+
+		if ($var == "" || empty($var) || !isset($var) || $param == "" || empty($param) || !isset($param)) {
+			return [$in, $in_params];
+		} else {
+			return [
+				$var => $in,
+				$param => $in_params
+			];
+		}
+	}
+
 }
