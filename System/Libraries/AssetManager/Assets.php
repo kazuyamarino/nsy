@@ -56,7 +56,7 @@ Class Assets extends NSY_AssetManager {
 		$this->link('vendor/dataTables.foundation.min.css', 'stylesheet', 'text/css');
 
 		// Font Awesome CSS
-		$this->custom('<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">');
+		$this->custom('<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">');
 
 		// Modernizr JS
 		$this->script('vendor/modernizr.min.js', 'text/javascript', 'UTF-8', '');
