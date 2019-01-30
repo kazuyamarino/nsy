@@ -44,16 +44,10 @@ Class Assets extends NSY_AssetManager {
 
 		// Main Style
 		$this->link('main.css', 'stylesheet', 'text/css');
-
-		// Modernizr JS
-		$this->script('vendor/modernizr.min.js', 'text/javascript', 'UTF-8', '');
 	}
 
 	function pull_footer_assets()
 	{
-		// JQuery JS
-		$this->script('vendor/jquery.min.js', 'text/javascript', 'UTF-8', '');
-
 		// Base JS
 		$this->script('main.js', 'text/javascript', 'UTF-8', '');
 	}

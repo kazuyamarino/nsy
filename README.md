@@ -1,5 +1,5 @@
 # NSY
-NSY is a simple PHP Framework that works well on MVC or HMVC mode, its a core of NSY Framework.
+NSY is a simple PHP Framework that works well on MVC or HMVC mode, its a core of NSY Framework, with no more Stylesheet and Javascript.
 
 Site example :
 [https://nsy.kazuyamarino.com/](https://nsy.kazuyamarino.com/)
@@ -35,10 +35,7 @@ Site example :
 │       │   ├── favicon.png
 │       │   └── logo.png
 │       └── js
-│           ├── main.js
-│           └── vendor
-│               ├── jquery.min.js
-│               └── modernizr.min.js
+│           └── main.js
 ├── README.md
 └── System
     ├── Controllers
@@ -86,6 +83,7 @@ Site example :
 * For nginx, please go to the `docs/nginx config` folder.
 * And save the date..
 
+
 ## CRUD Example?
 Here it is [NSY CRUD Example](https://github.com/kazuyamarino/crud)
 
@@ -103,5 +101,4 @@ See [USERGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/Docs/USERGUID
 
 
 ## License
-
 The code is available under the [MIT license](LICENSE.txt)..
