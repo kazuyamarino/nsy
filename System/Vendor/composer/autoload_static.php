@@ -15,8 +15,6 @@ class ComposerStaticInitb314acfa10ceab3d98bc3a3c8e16f07a
         array (
             'System\\Modules\\Homepage\\Models\\' => 31,
             'System\\Modules\\Homepage\\Controllers\\' => 36,
-            'System\\Modules\\About\\Models\\' => 28,
-            'System\\Modules\\About\\Controllers\\' => 33,
             'System\\Models\\' => 14,
             'System\\Libraries\\AssetManager\\' => 30,
             'System\\Core\\' => 12,
@@ -32,14 +30,6 @@ class ComposerStaticInitb314acfa10ceab3d98bc3a3c8e16f07a
         'System\\Modules\\Homepage\\Controllers\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/System/Modules/Homepage/Controllers',
-        ),
-        'System\\Modules\\About\\Models\\' => 
-        array (
-            0 => __DIR__ . '/../../..' . '/System/Modules/About/Models',
-        ),
-        'System\\Modules\\About\\Controllers\\' => 
-        array (
-            0 => __DIR__ . '/../../..' . '/System/Modules/About/Controllers',
         ),
         'System\\Models\\' => 
         array (

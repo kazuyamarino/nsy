@@ -17,9 +17,7 @@
             "System\\Controllers\\": "System/Controllers/",
             "System\\Libraries\\AssetManager\\": "System/Libraries/AssetManager/",
             "System\\Modules\\Homepage\\Controllers\\": "System/Modules/Homepage/Controllers/",
-            "System\\Modules\\Homepage\\Models\\": "System/Modules/Homepage/Models/",
-            "System\\Modules\\About\\Controllers\\": "System/Modules/About/Controllers/",
-            "System\\Modules\\About\\Models\\": "System/Modules/About/Models/"
+            "System\\Modules\\Homepage\\Models\\": "System/Modules/Homepage/Models/"
         },
         "files": ["System/Core/Routing.php"]
     },
