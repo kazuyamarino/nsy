@@ -7,7 +7,7 @@ var protocol = location.protocol;
 var host = window.location.hostname;
 
 // change according to the name of your project folder
-var dirname = "nsy-foundation"; // defined
+var dirname = "nsy"; // defined
 // var dirname = ""; // undefined
 
 // if dirname not empty or defined
@@ -22,4 +22,3 @@ if ( dirname ) {
 /*
 Place any jQuery/helper plugins in here.
 */
-$(document).foundation();

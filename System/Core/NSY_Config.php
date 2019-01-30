@@ -11,7 +11,7 @@ class NSY_Config {
 		ob_start();
 
 		// set the default application or project directory
-		$APP_DIR = 'nsy-foundation'; // defined
+		$APP_DIR = 'nsy'; // defined
 		// $APP_DIR = ''; // undefined
 
 		if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443) {
@@ -68,7 +68,7 @@ class NSY_Config {
 		define('SITEAUTHOR', 'Vikry Yuansah');
 
 		// optional set a site keywords
-		define('SITEKEYWORDS', 'MVC Framework, HMVC Framework, PHP Framework, Datatables, HTML5 Boilerplate, Foundation Zurb, Font Awesome, JQuery');
+		define('SITEKEYWORDS', 'MVC Framework, HMVC Framework, PHP Framework, HTML5 Boilerplate, Font Awesome, JQuery');
 
 		// optional set a site description
 		define('SITEDESCRIPTION', 'NSY is a simple PHP Framework that works well on MVC or HMVC mode.');

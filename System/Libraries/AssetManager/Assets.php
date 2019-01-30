@@ -42,21 +42,8 @@ Class Assets extends NSY_AssetManager {
 		// Favicon
 		$this->link('favicon.png', 'shortcut icon', '');
 
-		// Fonts
-		$this->link('https://fonts.googleapis.com/css?family=Lato', 'stylesheet', 'text/css');
-
 		// Main Style
 		$this->link('main.css', 'stylesheet', 'text/css');
-
-		// Foundation CSS
-		$this->link('vendor/foundation.min.css', 'stylesheet', 'text/css');
-		$this->link('vendor/responsive-tables.min.css', 'stylesheet', 'text/css');
-
-		// Datatables CSS
-		$this->link('vendor/dataTables.foundation.min.css', 'stylesheet', 'text/css');
-
-		// Font Awesome CSS
-		$this->custom('<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">');
 
 		// Modernizr JS
 		$this->script('vendor/modernizr.min.js', 'text/javascript', 'UTF-8', '');
@@ -67,25 +54,8 @@ Class Assets extends NSY_AssetManager {
 		// JQuery JS
 		$this->script('vendor/jquery.min.js', 'text/javascript', 'UTF-8', '');
 
-		// Foundation JS
-		$this->script('vendor/foundation.min.js', 'text/javascript', 'UTF-8', '');
-		$this->script('vendor/what-input.min.js', 'text/javascript', 'UTF-8', '');
-		$this->script('vendor/responsive-tables.min.js', 'text/javascript', 'UTF-8', '');
-
-		// Datatables JS
-		$this->script('vendor/jquery.dataTables.min.js', 'text/javascript', 'UTF-8', '');
-		$this->script('vendor/dataTables.foundation.min.js', 'text/javascript', 'UTF-8', '');
-
-		// Google Analytics: change UA-XXXXX-Y to be your site's ID.
-		$this->custom("<script>window.ga=function(){ga.q.push(arguments)}; ga.q=[]; ga.l=+new Date;ga('create','UA-XXXXX-Y','auto'); ga('send','pageview')</script>");
-		$this->script('https://www.google-analytics.com/analytics.js', 'text/javascript', '', 'async defer');
-
 		// Base JS
 		$this->script('main.js', 'text/javascript', 'UTF-8', '');
-	}
-
-	function datatables_init() {
-		$this->script('datatables/init.js', 'text/javascript', 'UTF-8', '');
 	}
 
 }

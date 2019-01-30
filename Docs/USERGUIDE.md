@@ -1,5 +1,5 @@
 # NSY USER GUIDE
-NSY is a simple PHP Framework that works well on MVC or HMVC mode, its made with HTML5 Boilerplate and Foundation CSS Framework. NSY also provides Font-Awesome and several optimizations for Datatables plugin.
+NSY is a simple PHP Framework that works well on MVC or HMVC mode, its a core of NSY Framework.
 
 Site example :
 <a href="https://nsy.kazuyamarino.com/" target="_blank">https://nsy.kazuyamarino.com/</a>
