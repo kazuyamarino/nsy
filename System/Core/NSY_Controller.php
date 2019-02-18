@@ -73,7 +73,7 @@ class NSY_Controller {
 	/*
 	Helper for NSY_Model to create a sequence of the named placeholders
 	 */
-	public function varSeq($varname = "", $ids = "", $var = "", $param = "") {
+	public function var_sequence($varname = "", $ids = "", $var = "", $param = "") {
 		$in = "";
 		foreach ($ids as $i => $item)
 		{
