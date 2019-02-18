@@ -30,7 +30,7 @@ class NSY_Controller {
     /*
     HMVC View Folder
      */
-    public function hmvc_view($filename) {
+    public function hview($filename) {
         extract($this->vars);
         foreach (glob(HMVC_VIEW_DIR . $filename . '.php') as $results) {
             require_once($results);

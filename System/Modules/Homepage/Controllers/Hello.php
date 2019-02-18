@@ -12,7 +12,7 @@ class Hello extends NSY_Controller {
 	public function index_hmvc()
 	{
 		$this->template("header");
-		$this->hmvc_view("index");
+		$this->hview("index");
 		$this->template("footer");
 	}
 
