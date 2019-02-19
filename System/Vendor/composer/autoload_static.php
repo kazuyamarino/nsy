@@ -7,7 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInitb314acfa10ceab3d98bc3a3c8e16f07a
 {
     public static $files = array (
-        'f78650e64a6c550a8c72b42e3d7ef19a' => __DIR__ . '/../../..' . '/System/Core/Routing.php',
+        '0a7518c38a97cea02fcd672b4c19e721' => __DIR__ . '/../../..' . '/System/Routes/Web.php',
+        '8a9d8e9cb23664c8b3b46a30c010a3dd' => __DIR__ . '/../../..' . '/System/Libraries/Assets.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -16,7 +17,6 @@ class ComposerStaticInitb314acfa10ceab3d98bc3a3c8e16f07a
             'System\\Modules\\Homepage\\Models\\' => 31,
             'System\\Modules\\Homepage\\Controllers\\' => 36,
             'System\\Models\\' => 14,
-            'System\\Libraries\\AssetManager\\' => 30,
             'System\\Core\\' => 12,
             'System\\Controllers\\' => 19,
         ),
@@ -34,10 +34,6 @@ class ComposerStaticInitb314acfa10ceab3d98bc3a3c8e16f07a
         'System\\Models\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/System/Models',
-        ),
-        'System\\Libraries\\AssetManager\\' => 
-        array (
-            0 => __DIR__ . '/../../..' . '/System/Libraries/AssetManager',
         ),
         'System\\Core\\' => 
         array (

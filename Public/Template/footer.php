@@ -10,8 +10,6 @@
 <?php
 defined('ROOT') OR exit('No direct script access allowed');
 
-use System\Libraries\AssetManager\Assets;
-
 // instantiate Assets class
 $Assets = new Assets();
 

@@ -3,8 +3,9 @@
 defined('ROOT') OR exit('No direct script access allowed');
 
 use System\Core\NSY_Router;
+use System\Core\NSY_Controller;
 
-Class Routing {
+Class Routing extends NSY_Controller {
 
 	public function __construct()
 	{

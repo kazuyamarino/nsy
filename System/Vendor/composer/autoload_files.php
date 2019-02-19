@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
-    'f78650e64a6c550a8c72b42e3d7ef19a' => $baseDir . '/System/Core/Routing.php',
+    '0a7518c38a97cea02fcd672b4c19e721' => $baseDir . '/System/Routes/Web.php',
+    '8a9d8e9cb23664c8b3b46a30c010a3dd' => $baseDir . '/System/Libraries/Assets.php',
 );

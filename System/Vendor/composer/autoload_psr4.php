@@ -9,7 +9,6 @@ return array(
     'System\\Modules\\Homepage\\Models\\' => array($baseDir . '/System/Modules/Homepage/Models'),
     'System\\Modules\\Homepage\\Controllers\\' => array($baseDir . '/System/Modules/Homepage/Controllers'),
     'System\\Models\\' => array($baseDir . '/System/Models'),
-    'System\\Libraries\\AssetManager\\' => array($baseDir . '/System/Libraries/AssetManager'),
     'System\\Core\\' => array($baseDir . '/System/Core'),
     'System\\Controllers\\' => array($baseDir . '/System/Controllers'),
 );

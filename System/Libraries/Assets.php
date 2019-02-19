@@ -18,9 +18,7 @@ You can write any html tags with custom method :
 $this->custom('anythings');
 */
 
-namespace System\Libraries\AssetManager;
-
-use System\Libraries\AssetManager\NSY_AssetManager;
+use System\Core\NSY_AssetManager;
 
 defined('ROOT') OR exit('No direct script access allowed');
 

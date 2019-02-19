@@ -5,8 +5,6 @@ defined('ROOT') OR exit('No direct script access allowed');
 <html class="no-js" lang="<?php echo LANGUAGE_CODE ?>">
 <head>
 	<?php
-	use System\Libraries\AssetManager\Assets;
-
 	$Assets = new Assets();
 
 	// call header assets method
