@@ -8,6 +8,7 @@ class ComposerStaticInitb314acfa10ceab3d98bc3a3c8e16f07a
 {
     public static $files = array (
         '0a7518c38a97cea02fcd672b4c19e721' => __DIR__ . '/../../..' . '/System/Routes/Web.php',
+        '6671924573dfabf1456d0c40234197cd' => __DIR__ . '/../../..' . '/System/Routes/Api.php',
         '8a9d8e9cb23664c8b3b46a30c010a3dd' => __DIR__ . '/../../..' . '/System/Libraries/Assets.php',
     );
 

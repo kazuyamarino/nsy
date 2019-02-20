@@ -1,14 +1,15 @@
 <?php
-defined('ROOT') OR exit('No direct script access allowed');
+	defined('ROOT') OR exit('No direct script access allowed');
 ?>
 <!doctype html>
 <html class="no-js" lang="<?php echo LANGUAGE_CODE ?>">
 <head>
 	<?php
-	$Assets = new Assets();
+		// Instantiate Assets Class
+		$Assets = new Assets();
 
-	// call header assets method
-	$Assets->pull_header_assets();
+		// call header assets method
+		$Assets->pull_header_assets();
 	?>
 </head>
 <body>

@@ -7,5 +7,6 @@ $baseDir = dirname(dirname($vendorDir));
 
 return array(
     '0a7518c38a97cea02fcd672b4c19e721' => $baseDir . '/System/Routes/Web.php',
+    '6671924573dfabf1456d0c40234197cd' => $baseDir . '/System/Routes/Api.php',
     '8a9d8e9cb23664c8b3b46a30c010a3dd' => $baseDir . '/System/Libraries/Assets.php',
 );

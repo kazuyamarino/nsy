@@ -84,6 +84,7 @@ if (defined('ENVIRONMENT'))
 		ini_set('display_startup_errors', 1);
 		error_reporting(E_ALL);
 		break;
+
 		// Set as under production/go live
 		case 'production':
 		ini_set('display_errors', 0);
@@ -108,4 +109,5 @@ if (defined('ENVIRONMENT'))
 require (ROOT . '../System/Vendor/autoload.php');
 
 new NSY_Config();
-new Routing();
+new Web();
+new Api();

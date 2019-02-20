@@ -19,7 +19,7 @@
             "System\\Modules\\Homepage\\Controllers\\": "System/Modules/Homepage/Controllers/",
             "System\\Modules\\Homepage\\Models\\": "System/Modules/Homepage/Models/"
         },
-        "files": ["System/Routes/Web.php", "System/Libraries/Assets.php"]
+        "files": ["System/Routes/Web.php", "System/Routes/Api.php", "System/Libraries/Assets.php"]
     },
     "config": {
         "vendor-dir": "System/Vendor/"

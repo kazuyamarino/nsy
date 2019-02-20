@@ -1,3 +1,6 @@
+<?php
+	defined('ROOT') OR exit('No direct script access allowed');
+?>
 <!-- Footer are 'sticky' -->
 <footer class="footer">
 	<hr>
@@ -8,13 +11,11 @@
 	</div>
 </footer>
 <?php
-defined('ROOT') OR exit('No direct script access allowed');
+	// Instantiate Assets Class
+	$Assets = new Assets();
 
-// instantiate Assets class
-$Assets = new Assets();
-
-// call footer assets method
-$Assets->pull_footer_assets();
+	// call footer assets method
+	$Assets->pull_footer_assets();
 ?>
 </body>
 </html>
