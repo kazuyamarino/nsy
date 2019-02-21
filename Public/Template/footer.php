@@ -11,11 +11,8 @@
 	</div>
 </footer>
 <?php
-	// Instantiate Assets Class
-	$Assets = new Assets();
-
 	// call footer assets method
-	$Assets->pull_footer_assets();
+	Assets::pull_footer_assets();
 ?>
 </body>
 </html>

@@ -10,7 +10,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 Class NSY_AssetManager {
 
 	// generate meta tags
-	function meta($attr, $content) {
+	protected static function meta($attr, $content) {
 		// if content is empty
 		if (empty($content) || is_null($content)) {
 			// then show meta tags without content
@@ -22,7 +22,7 @@ Class NSY_AssetManager {
 	}
 
 	// generate link tags
-	function link($filename, $rel, $type) {
+	protected static function link($filename, $rel, $type) {
 		// if content is empty
 		if (strpos($filename, 'http') !== false || strpos($filename, 'https') !== false) {
 			echo '<link rel="'.$rel.'" href="'.$filename.'" type="'.$type.'">';
@@ -36,7 +36,7 @@ Class NSY_AssetManager {
 	}
 
 	// generate script tags filename
-	function script($filename, $type, $charset, $attr) {
+	protected static function script($filename, $type, $charset, $attr) {
 		// if charset is empty
 		if (strpos($filename, 'http') !== false || strpos($filename, 'https') !== false) {
 			// if charset is empty
@@ -57,7 +57,7 @@ Class NSY_AssetManager {
 	}
 
 	// generate custom assets
-	function custom($values) {
+	protected static function custom($values) {
 		echo $values;
 	}
 

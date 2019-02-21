@@ -15,14 +15,14 @@ class NSY_Controller {
     /*
     Set The Variables
      */
-    public function set($d) {
+    protected function set($d) {
         $this->vars = array_merge($this->vars, $d);
     }
 
     /*
     MVC View Folder
      */
-    public function view($filename) {
+    protected function load_view($filename) {
         extract($this->vars);
         require_once(MVC_VIEW_DIR . $filename . '.php');
     }
@@ -30,7 +30,7 @@ class NSY_Controller {
     /*
     HMVC View Folder
      */
-    public function hview($filename) {
+    protected function load_hview($filename) {
         extract($this->vars);
         foreach (glob(HMVC_VIEW_DIR . $filename . '.php') as $results) {
             require_once($results);
@@ -40,7 +40,7 @@ class NSY_Controller {
     /*
     Template Directory
      */
-    public function template($filename) {
+    protected function load_template($filename) {
         require_once(SYS_TMP_DIR . $filename . '.php');
     }
 
@@ -66,14 +66,14 @@ class NSY_Controller {
 	/*
     Redirect URL
      */
-    public function redirect($url = NULL) {
+    protected function redirect($url = NULL) {
 		header("location:". BASE_URL . $url);
     }
 
 	/*
 	Helper for NSY_Model to create a sequence of the named placeholders
 	 */
-	public function var_sequence($varname = "", $ids = "", $var = "", $param = "") {
+	protected function var_sequence($varname = "", $ids = "", $var = "", $param = "") {
 		$in = "";
 		foreach ($ids as $i => $item)
 		{

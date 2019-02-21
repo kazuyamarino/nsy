@@ -5,11 +5,8 @@
 <html class="no-js" lang="<?php echo LANGUAGE_CODE ?>">
 <head>
 	<?php
-		// Instantiate Assets Class
-		$Assets = new Assets();
-
 		// call header assets method
-		$Assets->pull_header_assets();
+		Assets::pull_header_assets();
 	?>
 </head>
 <body>

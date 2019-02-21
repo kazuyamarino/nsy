@@ -11,7 +11,7 @@ class NSY_Model {
 	/*
 	Helper for NSY_Model PDO variables
 	 */
-	public function __construct() {
+	protected function __construct() {
 		// Define binding variable type
 		define('PARAM_INT', \PDO::PARAM_INT);
 		define('PARAM_STR', \PDO::PARAM_STR);
@@ -35,7 +35,7 @@ class NSY_Model {
 	/*
 	Helper for PDO FetchAll
 	 */
-	public function fetchAll($connection = "", $query = "", $vars = "", $mode = FETCH_BOTH, $bind = "", $type = "") {
+	protected function fetchAll($connection = "", $query = "", $vars = "", $mode = FETCH_BOTH, $bind = "", $type = "") {
 		// Check if there's connection defined on the models
 		if ($connection == "" || empty($connection) || !isset($connection)) {
 			echo "No Connection Bro, Please check your code again!";
@@ -95,7 +95,7 @@ class NSY_Model {
 	/*
 	Helper for PDO Fetch
 	 */
-	public function fetch($connection = "", $query = "", $vars = "", $mode = FETCH_BOTH, $bind = "", $type = "") {
+	protected function fetch($connection = "", $query = "", $vars = "", $mode = FETCH_BOTH, $bind = "", $type = "") {
 		// Check if there's connection defined on the models
 		if ($connection == "" || empty($connection) || !isset($connection)) {
 			echo "No Connection Bro, Please check your connection again!";
@@ -155,7 +155,7 @@ class NSY_Model {
 	/*
 	Helper for PDO FetchColumn
 	 */
-	public function fetchColumn($connection = "", $query = "", $vars = "", $column = 0, $bind = "", $type = "") {
+	protected function fetchColumn($connection = "", $query = "", $vars = "", $column = 0, $bind = "", $type = "") {
 		// Check if there's connection defined on the models
 		if ($connection == "" || empty($connection) || !isset($connection)) {
 			echo "No Connection Bro, Please check your connection again!";
@@ -215,7 +215,7 @@ class NSY_Model {
 	/*
 	Helper for PDO RowCount
 	 */
-	public function rowCount($connection = "", $query = "", $vars = "") {
+	protected function rowCount($connection = "", $query = "", $vars = "") {
 		// Check if there's connection defined on the models
 		if ($connection == "" || empty($connection) || !isset($connection)) {
 			echo "No Connection Bro, Please check your connection again!";
@@ -255,7 +255,7 @@ class NSY_Model {
 	/*
 	Helper for PDO Execute
 	 */
-	public function execute($connection = "", $query = "", $vars = "") {
+	protected function execute($connection = "", $query = "", $vars = "") {
 		// Check if there's connection defined on the models
 		if ($connection == "" || empty($connection) || !isset($connection)) {
 			echo "No Connection Bro, Please check your connection again!";
@@ -293,7 +293,7 @@ class NSY_Model {
 	/*
 	Helper for PDO Multi Execute
 	 */
-	public function multiExecute($connection = "", $query = "", $vars = "") {
+	protected function multiExecute($connection = "", $query = "", $vars = "") {
 		// Check if there's connection defined on the models
 		if ($connection == "" || empty($connection) || !isset($connection)) {
 			echo "No Connection Bro, Please check your connection again!";
@@ -333,7 +333,7 @@ class NSY_Model {
 	/*
 	Helper for NSY_Model to create a sequence of the named placeholders
 	 */
-	public function varSeq($varname = "", $ids = "", $var = "", $param = "") {
+	protected function var_sequence($varname = "", $ids = "", $var = "", $param = "") {
 		$in = "";
 		foreach ($ids as $i => $item)
 		{
@@ -356,46 +356,46 @@ class NSY_Model {
 	/*
 	Helper for PDO Emulation False
 	 */
-	public function emulatePreparesFalse($connection = "") {
+	protected function emulatePreparesFalse($connection = "") {
 		$connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, FALSE);
     }
 
 	/*
 	Helper for PDO MYSQL_ATTR_USE_BUFFERED_QUERY
 	 */
-	public function useBufferQueryTrue($connection = "") {
+	protected function useBufferQueryTrue($connection = "") {
 		$connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, TRUE);
     }
 
-	public function useBufferQueryFalse($connection = "") {
+	protected function useBufferQueryFalse($connection = "") {
 		$connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, FALSE);
     }
 
 	/*
 	Helper for PDO ATTR_STRINGIFY_FETCHES
 	 */
-	public function stringifyFetchesTrue($connection = "") {
+	protected function stringifyFetchesTrue($connection = "") {
 		$connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, TRUE);
     }
 
 	/*
 	Helper for PDO Begin Transaction
 	 */
-	public function begin($connection = "") {
+	protected function begin($connection = "") {
 		$connection->beginTransaction();
     }
 
 	/*
 	Helper for PDO Commit Transaction
 	 */
-	public function commit($connection = "") {
+	protected function commit($connection = "") {
 		$connection->commit();
     }
 
 	/*
 	Helper for PDO Rollback Transaction
 	 */
-	public function rollback($connection = "") {
+	protected function rollback($connection = "") {
 		$connection->rollback();
     }
 
@@ -421,7 +421,7 @@ class NSY_Model {
 	/*
     Redirect URL
      */
-    public function redirect($url = NULL) {
+    protected function redirect($url = NULL) {
 		header("location:". BASE_URL . $url);
     }
 

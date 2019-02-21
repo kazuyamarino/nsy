@@ -11,9 +11,9 @@ class Hello extends NSY_Controller {
 
 	public function index_hmvc()
 	{
-		$this->template("header");
-		$this->hview("index");
-		$this->template("footer");
+		$this->load_template("header");
+		$this->load_hview("index");
+		$this->load_template("footer");
 	}
 
 }

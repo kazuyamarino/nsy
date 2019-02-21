@@ -11,9 +11,9 @@ class Welcome extends NSY_Controller {
 
 	public function index()
 	{
-		$this->template("header");
-		$this->view("index");
-		$this->template("footer");
+		$this->load_template("header");
+		$this->load_view("index");
+		$this->load_template("footer");
 	}
 
 }
