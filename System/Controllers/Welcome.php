@@ -9,7 +9,8 @@ defined('ROOT') OR exit('No direct script access allowed');
 
 class Welcome extends NSY_Controller {
 
-	public function index() {
+	public function index()
+	{
 		$this->template("header");
 		$this->view("index");
 		$this->template("footer");

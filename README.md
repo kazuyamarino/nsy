@@ -41,16 +41,14 @@ Site example :
     ├── Controllers
     │   └── Welcome.php
     ├── Core
+    │   ├── NSY_AssetManager.php
     │   ├── NSY_Config.php
     │   ├── NSY_Controller.php
     │   ├── NSY_DB.php
     │   ├── NSY_Model.php
-    │   ├── NSY_Router.php
-    │   └── Routing.php
+    │   └── NSY_Router.php
     ├── Libraries
-    │   └── AssetManager
-    │       ├── Assets.php
-    │       └── NSY_AssetManager.php
+    │   └── Assets.php
     ├── Models
     │   └── Model_Welcome.php
     ├── Modules
@@ -61,8 +59,12 @@ Site example :
     │       │   └── Model_Hello.php
     │       └── Views
     │           └── index.php
+    ├── Routes
+    │   ├── Api.php
+    │   └── Web.php
     ├── Vendor
     │   ├── autoload.php
+    │   ├── bin
     │   └── composer
     │       ├── autoload_classmap.php
     │       ├── autoload_files.php
@@ -71,6 +73,7 @@ Site example :
     │       ├── autoload_real.php
     │       ├── autoload_static.php
     │       ├── ClassLoader.php
+    │       ├── installed.json
     │       └── LICENSE
     └── Views
         └── index.php

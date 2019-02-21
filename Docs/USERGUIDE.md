@@ -5,9 +5,74 @@ Site example :
 <a href="https://nsy.kazuyamarino.com/" target="_blank">https://nsy.kazuyamarino.com/</a>
 
 ## Configuration File
+* composer.json
 * NSY_Config.php
 * Routing.php
 * main.js
+
+<hr>
+
+### composer.json
+Composer helps you declare, manage, and install dependencies of PHP projects.
+
+See [https://getcomposer.org/](https://getcomposer.org/) for more information and documentation.
+
+[![Build Status](https://travis-ci.org/composer/composer.svg?branch=master)](https://travis-ci.org/composer/composer)
+
+Installation / Usage
+--------------------
+
+Download and install Composer by following the [official instructions](https://getcomposer.org/download/).
+
+For usage, see [the documentation](https://getcomposer.org/doc/).
+
+Packages
+--------
+
+Find packages on [Packagist](https://packagist.org).
+
+Composer on NSY framework
+-------------------------
+
+The composer on the nsy framework has a function to generate autoload in the HMVC module folder.
+
+NSY applies the concept of PSR-4 Autoloading. NSY has the `composer.json` file that can be dumped with [composer](https://getcomposer.org/download/) command `composer dump-autoload` when creating a folder structure that contains new class files.
+
+Example make a `Homepage` folder in the HMVC module folder and dump it with composer autoload :
+* See line autoload on composer.json.
+```
+"autoload": {
+	"psr-4": {
+		"System\\Core\\": "System/Core/",
+		"System\\Models\\": "System/Models/",
+		"System\\Controllers\\": "System/Controllers/",
+		"System\\Modules\\Homepage\\Controllers\\": "System/Modules/Homepage/Controllers/",
+		"System\\Modules\\Homepage\\Models\\": "System/Modules/Homepage/Models/"
+	},
+```
+
+* There is an example folder named in the module folder that was created named `Homepage`, along with the namespaces.
+```
+"System\\Modules\\Homepage\\Controllers\\": "System/Modules/Homepage/Controllers/",
+"System\\Modules\\Homepage\\Models\\": "System/Modules/Homepage/Models/"
+```
+The namespace is separated with `\\`, and then the path with `/`. There are 2 folders that will be autoloaded, first `Homepage/Controllers`, and second `Homepage/Models`.
+
+
+* In the `Homepage` folder there must be a `Models` folder, `Views` folder, and `Controllers` folder.
+```
+├── Modules
+    │   └── Homepage
+    │       ├── Controllers
+    │       │  
+    │       ├── Models
+    │       │  
+    │       └── Views
+    │           
+```
+Should be like this. That it is!
+
+* Now, you can generate autoload class in the `Models` folder & `Controllers` folder for the `Homepage` with `composer dump-autoload` on the command line terminal.
 
 <hr>
 
