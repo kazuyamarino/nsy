@@ -29,14 +29,6 @@
 			"System/Libraries/Assets.php"
 		]
     },
-	"scripts": {
-	    "post-install-cmd": [
-	        "@test"
-	    ],
-	    "test": [
-	        "mkdir System/Modules/"
-	    ]
-	},
     "config": {
         "vendor-dir": "System/Vendor/"
     }
