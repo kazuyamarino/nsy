@@ -1,5 +1,5 @@
 <?php
-	defined('ROOT') OR exit('No direct script access allowed');
+defined('ROOT') OR exit('No direct script access allowed');
 ?>
 <div class="content">
 	<div>

@@ -1,5 +1,5 @@
 <?php
-	defined('ROOT') OR exit('No direct script access allowed');
+defined('ROOT') OR exit('No direct script access allowed');
 ?>
 <div class="content">
 	<h3>Hi, NSY Users!&nbsp;|&nbsp;<a href="<?php echo BASE_URL ?>">Go To MVC Page</a></h3>

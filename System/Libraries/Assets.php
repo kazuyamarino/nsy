@@ -16,13 +16,21 @@ self::script('filename/url_filename', 'attribute_type', 'attribute_charset', 'as
 
 You can write any html tags with custom method :
 self::custom('anythings');
+
+After that, to use it in View, you only need to call the static method name that you created like this :
+Assets::method_name();
+
+For example :
+Assets::pull_header_assets();
+Assets::pull_footer_assets();
 */
 
 defined('ROOT') OR exit('No direct script access allowed');
 
 use Core\NSY_AssetManager;
 
-Class Assets extends NSY_AssetManager {
+Class Assets extends NSY_AssetManager
+{
 
 	public static function pull_header_assets()
 	{

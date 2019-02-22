@@ -208,27 +208,39 @@ made with love by Vikry Yuansah
 
 How to use it? Simply follow this.
 * First, you need to go to `System/Libraries/`, there are 1 files, that is `Assets.php`.
-* `NSY_AssetManager.php` is the core, & `Assets.php` is the controller which regulates assets, if you want to manage the assets, please go to `Assets.php`.
+* `NSY_AssetManager.php` is the core, it is located in 'System/Core' folder. `Assets.php` is the controller which regulates assets, if you want to manage the assets, please go to `Assets.php`.
 
 Create `<meta>` tag :
 ```
-$this->meta('name', 'content');
+self::meta('name', 'content');
 ```
 
 Create `<link>` tag :
 ```
-$this->link('filename/url_filename', 'attribute_rel', 'attribute_type');
+self::link('filename/url_filename', 'attribute_rel', 'attribute_type');
 ```
 
 Create `<script>` tag :
 ```
-$this->script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
+self::script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
 ```
 
 You can write any html tags with custom method :
 ```
-$this->custom('anythings');
+self::custom('anythings');
 ```
+
+* After that, to use it in View, you only need to call the static method name that you created like this.
+```
+Assets::method_name();
+```
+
+For example :
+```
+Assets::pull_header_assets();
+Assets::pull_footer_assets();
+```
+
 
 <hr>
 
