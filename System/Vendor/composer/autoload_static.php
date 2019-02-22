@@ -4,53 +4,69 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb314acfa10ceab3d98bc3a3c8e16f07a
+class ComposerStaticInityour_suffixed
 {
     public static $files = array (
-        '0a7518c38a97cea02fcd672b4c19e721' => __DIR__ . '/../../..' . '/System/Routes/Web.php',
-        '6671924573dfabf1456d0c40234197cd' => __DIR__ . '/../../..' . '/System/Routes/Api.php',
-        '8a9d8e9cb23664c8b3b46a30c010a3dd' => __DIR__ . '/../../..' . '/System/Libraries/Assets.php',
+        'da091f10842257b4cc02930d00d71d8a' => __DIR__ . '/../../..' . '/System/Routes/Web.php',
+        '7c7f73d0d0658a5ccc337d53c0256524' => __DIR__ . '/../../..' . '/System/Routes/Api.php',
+        '164573c97f32dccaa07359ea3fef2731' => __DIR__ . '/../../..' . '/System/Libraries/Assets.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'S' => 
+        'M' => 
         array (
-            'System\\Modules\\Homepage\\Models\\' => 31,
-            'System\\Modules\\Homepage\\Controllers\\' => 36,
-            'System\\Models\\' => 14,
-            'System\\Core\\' => 12,
-            'System\\Controllers\\' => 19,
+            'Modules\\Models\\' => 15,
+            'Modules\\Controllers\\' => 20,
+            'Models\\' => 7,
+        ),
+        'C' => 
+        array (
+            'Core\\' => 5,
+            'Controllers\\' => 12,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'System\\Modules\\Homepage\\Models\\' => 
+        'Modules\\Models\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/System/Modules/Homepage/Models',
         ),
-        'System\\Modules\\Homepage\\Controllers\\' => 
+        'Modules\\Controllers\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/System/Modules/Homepage/Controllers',
         ),
-        'System\\Models\\' => 
+        'Models\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/System/Models',
         ),
-        'System\\Core\\' => 
+        'Core\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/System/Core',
         ),
-        'System\\Controllers\\' => 
+        'Controllers\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/System/Controllers',
         ),
     );
 
+    public static $classMap = array (
+        'Controllers\\Welcome' => __DIR__ . '/../../..' . '/System/Controllers/Welcome.php',
+        'Core\\NSY_AssetManager' => __DIR__ . '/../../..' . '/System/Core/NSY_AssetManager.php',
+        'Core\\NSY_Config' => __DIR__ . '/../../..' . '/System/Core/NSY_Config.php',
+        'Core\\NSY_Controller' => __DIR__ . '/../../..' . '/System/Core/NSY_Controller.php',
+        'Core\\NSY_DB' => __DIR__ . '/../../..' . '/System/Core/NSY_DB.php',
+        'Core\\NSY_Model' => __DIR__ . '/../../..' . '/System/Core/NSY_Model.php',
+        'Core\\NSY_Router' => __DIR__ . '/../../..' . '/System/Core/NSY_Router.php',
+        'Modules\\Controllers\\Hello' => __DIR__ . '/../../..' . '/System/Modules/Homepage/Controllers/Hello.php',
+        'Modules\\Models\\Model_Hello' => __DIR__ . '/../../..' . '/System/Modules/Homepage/Models/Model_Hello.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb314acfa10ceab3d98bc3a3c8e16f07a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb314acfa10ceab3d98bc3a3c8e16f07a::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInityour_suffixed::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInityour_suffixed::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInityour_suffixed::$classMap;
 
         }, null, ClassLoader::class);
     }

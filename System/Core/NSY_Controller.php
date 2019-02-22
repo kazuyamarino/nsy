@@ -1,10 +1,10 @@
 <?php
 
-namespace System\Core;
-
-use System\Core\NSY_DB;
+namespace Core;
 
 defined('ROOT') OR exit('No direct script access allowed');
+
+use System\Core\NSY_DB;
 
 class NSY_Controller {
     /*

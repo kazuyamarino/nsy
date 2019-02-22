@@ -1,11 +1,11 @@
 <?php
 
-namespace System\Controllers;
-
-use System\Core\NSY_Controller;
-use System\Models\Model_Welcome;
+namespace Controllers;
 
 defined('ROOT') OR exit('No direct script access allowed');
+
+use Core\NSY_Controller;
+use Models\Model_Welcome;
 
 class Welcome extends NSY_Controller {
 

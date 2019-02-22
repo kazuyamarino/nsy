@@ -18,9 +18,9 @@ You can write any html tags with custom method :
 self::custom('anythings');
 */
 
-use System\Core\NSY_AssetManager;
-
 defined('ROOT') OR exit('No direct script access allowed');
+
+use Core\NSY_AssetManager;
 
 Class Assets extends NSY_AssetManager {
 

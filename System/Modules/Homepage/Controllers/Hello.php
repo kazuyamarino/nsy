@@ -1,11 +1,11 @@
 <?php
 
-namespace System\Modules\Homepage\Controllers;
-
-use System\Core\NSY_Controller;
-use System\Modules\Homepage\Models\Model_Hello;
+namespace Modules\Controllers;
 
 defined('ROOT') OR exit('No direct script access allowed');
+
+use Core\NSY_Controller;
+use Modules\Models\Model_Hello;
 
 class Hello extends NSY_Controller {
 

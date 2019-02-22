@@ -1,11 +1,11 @@
 <?php
 
-namespace System\Modules\Homepage\Models;
-
-use System\Core\NSY_DB;
-use System\Core\NSY_Model;
+namespace Modules\Models;
 
 defined('ROOT') OR exit('No direct script access allowed');
+
+use Core\NSY_DB;
+use Core\NSY_Model;
 
 class Model_Hello extends NSY_Model {
 

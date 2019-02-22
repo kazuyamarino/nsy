@@ -1,6 +1,6 @@
 <?php
 
-use System\Core\NSY_Config;
+use Core\NSY_Config;
 
 /*
 NSY Framework

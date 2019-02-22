@@ -6,4 +6,13 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    'Controllers\\Welcome' => $baseDir . '/System/Controllers/Welcome.php',
+    'Core\\NSY_AssetManager' => $baseDir . '/System/Core/NSY_AssetManager.php',
+    'Core\\NSY_Config' => $baseDir . '/System/Core/NSY_Config.php',
+    'Core\\NSY_Controller' => $baseDir . '/System/Core/NSY_Controller.php',
+    'Core\\NSY_DB' => $baseDir . '/System/Core/NSY_DB.php',
+    'Core\\NSY_Model' => $baseDir . '/System/Core/NSY_Model.php',
+    'Core\\NSY_Router' => $baseDir . '/System/Core/NSY_Router.php',
+    'Modules\\Controllers\\Hello' => $baseDir . '/System/Modules/Homepage/Controllers/Hello.php',
+    'Modules\\Models\\Model_Hello' => $baseDir . '/System/Modules/Homepage/Models/Model_Hello.php',
 );

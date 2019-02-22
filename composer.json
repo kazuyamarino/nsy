@@ -1,5 +1,5 @@
 {
-    "name": "nsy/framework",
+    "name": "nsy/nsy",
     "description": "NSY is a simple PHP Framework that works well on MVC or HMVC mode",
     "type": "project",
     "license": "MIT",
@@ -13,14 +13,30 @@
     },
     "autoload": {
         "psr-4": {
-            "System\\Core\\": "System/Core/",
-            "System\\Models\\": "System/Models/",
-            "System\\Controllers\\": "System/Controllers/",
-            "System\\Modules\\Homepage\\Controllers\\": "System/Modules/Homepage/Controllers/",
-            "System\\Modules\\Homepage\\Models\\": "System/Modules/Homepage/Models/"
+            "Core\\": "System/Core/",
+            "Models\\": "System/Models/",
+            "Controllers\\": "System/Controllers/",
+            "Modules\\Models\\": [
+				"System/Modules/Homepage/Models/"
+			],
+			"Modules\\Controllers\\": [
+				"System/Modules/Homepage/Controllers/"
+			]
         },
-        "files": ["System/Routes/Web.php", "System/Routes/Api.php", "System/Libraries/Assets.php"]
+        "files": [
+			"System/Routes/Web.php",
+			"System/Routes/Api.php",
+			"System/Libraries/Assets.php"
+		]
     },
+	"scripts": {
+	    "post-install-cmd": [
+	        "@test"
+	    ],
+	    "test": [
+	        "mkdir System/Modules/"
+	    ]
+	},
     "config": {
         "vendor-dir": "System/Vendor/"
     }

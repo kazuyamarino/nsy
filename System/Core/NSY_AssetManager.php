@@ -3,7 +3,7 @@
 This is the core of NSY Asset Manager
 2018 - Vikry Yuansah
  */
-namespace System\Core;
+namespace Core;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
