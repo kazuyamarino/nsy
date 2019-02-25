@@ -32,7 +32,7 @@ use Core\NSY_AssetManager;
 Class Assets extends NSY_AssetManager
 {
 
-	public static function pull_header_assets()
+	public static function header_assets()
 	{
 		// Site Title
 		add::custom('<title>' . SITETITLE . '</title>');
@@ -52,10 +52,12 @@ Class Assets extends NSY_AssetManager
 		add::link('main.css', 'stylesheet', 'text/css');
 	}
 
-	public static function pull_footer_assets()
+	public static function footer_assets()
 	{
 		// Base JS
 		add::script('main.js', 'text/javascript', 'UTF-8', '');
 	}
 
 }
+
+class_alias("Assets", "get");

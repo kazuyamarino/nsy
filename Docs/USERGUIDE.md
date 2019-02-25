@@ -1,5 +1,5 @@
 # NSY USER GUIDE
-NSY is a simple PHP Framework that works well on MVC or HMVC mode, its a core of NSY Framework.
+NSY is a simple PHP Framework that works well on MVC or HMVC mode, its a core of NSY Framework, with no more Stylesheet and Javascript.
 
 Site example :
 <a href="https://nsy.kazuyamarino.com/" target="_blank">https://nsy.kazuyamarino.com/</a>
@@ -99,39 +99,37 @@ NSY routing system using classes from [Macaw route by Noah Buscher](https://gith
 #### Examples :
 
 ```PHP
-NSY_Router::get('/', function() {
+route::get('/', function() {
   echo 'Hello world!';
 });
 
-NSY_Router::dispatch();
+route::dispatch();
 ```
 
-NSY_Router also supports lambda URIs, such as:
+route also supports lambda URIs, such as:
 
 ```PHP
-NSY_Router::get('/(:any)', function($slug) {
+route::get('/(:any)', function($slug) {
   echo 'The slug is: ' . $slug;
 });
 
-NSY_Router::dispatch();
+route::dispatch();
 ```
 
-You can also make requests for HTTP methods in NSY_Router, so you could also do:
+You can also make requests for HTTP methods in route, so you could also do:
 
 ```PHP
-NSY_Router::get('/', function() {
+route::get('/', function() {
   echo 'I'm a GET request!';
 });
 
-NSY_Router::post('/', function() {
+route::post('/', function() {
   echo 'I'm a POST request!';
 });
 
-NSY_Router::any('/', function() {
+route::any('/', function() {
   echo 'I can be both a GET and a POST request!';
 });
-
-NSY_Router::dispatch();
 ```
 
 #### Example passing to a controller instead of a closure :
@@ -143,11 +141,9 @@ For this demo lets say I have a folder called controllers with a demo.php
 index.php:
 
 ```php
-NSY_Router::get('/', 'Controllers\demo@index');
-NSY_Router::get('page', 'Controllers\demo@page');
-NSY_Router::get('view/(:num)', 'Controllers\demo@view');
-
-NSY_Router::dispatch();
+route::get('/', 'Controllers\demo@index');
+route::get('page', 'Controllers\demo@page');
+route::get('view/(:num)', 'Controllers\demo@view');
 ```
 
 demo.php:
@@ -179,7 +175,7 @@ class Demo {
 Lastly, if there is no route defined for a certain location, you can make NSY_Router run a custom callback, like:
 
 ```PHP
-NSY_Router::error(function() {
+route::error(function() {
   echo '404 :: Not Found';
 });
 ```
@@ -212,33 +208,33 @@ How to use it? Simply follow this.
 
 Create `<meta>` tag :
 ```
-self::meta('name', 'content');
+add::meta('name', 'content');
 ```
 
 Create `<link>` tag :
 ```
-self::link('filename/url_filename', 'attribute_rel', 'attribute_type');
+add::link('filename/url_filename', 'attribute_rel', 'attribute_type');
 ```
 
 Create `<script>` tag :
 ```
-self::script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
+add::script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
 ```
 
 You can write any html tags with custom method :
 ```
-self::custom('anythings');
+add::custom('anythings');
 ```
 
 * After that, to use it in View, you only need to call the static method name that you created like this.
 ```
-Assets::method_name();
+get::method_name();
 ```
 
 For example :
 ```
-Assets::pull_header_assets();
-Assets::pull_footer_assets();
+get::header_assets();
+get::footer_assets();
 ```
 
 

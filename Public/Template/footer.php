@@ -12,7 +12,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 </footer>
 <?php
 // call footer assets method
-Assets::pull_footer_assets();
+get::footer_assets();
 ?>
 </body>
 </html>

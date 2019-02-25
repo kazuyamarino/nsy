@@ -1,5 +1,4 @@
 <?php
-
 namespace Core;
 
 defined('ROOT') OR exit('No direct script access allowed');
@@ -175,3 +174,5 @@ class NSY_Router {
         }
     }
 }
+
+class_alias("Core\NSY_Router", "route");

@@ -116,4 +116,4 @@ new Api();
 new Web();
 
 // execute matched routes
-NSY_Router::dispatch();
+route::dispatch();

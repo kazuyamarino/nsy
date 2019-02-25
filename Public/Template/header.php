@@ -6,7 +6,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 <head>
 	<?php
 	// call header assets method
-	Assets::pull_header_assets();
+	get::header_assets();
 	?>
 </head>
 <body>
