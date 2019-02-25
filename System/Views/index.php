@@ -14,7 +14,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/README.md#how-to-dating-with-nsy">How to dating with NSY?</a><br />The setup.</p>
 			</div>
 			<div>
-				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/README.md#nsy-contain-package-">NSY contain package</a><br />The package inside NSY.</p>
+				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/README.md#crud-example">NSY CRUD Example</a><br />The CRUD example build by NSY.</p>
 			</div>
 			<div>
 				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/Docs/USERGUIDE.md">NSY User Guide</a><br />The guide before starting to use NSY.</p>
@@ -33,6 +33,9 @@ defined('ROOT') OR exit('No direct script access allowed');
 			</div>
 			<div>
 				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/README.md#psr-4-autoloading">PSR-4 Autoloading</a><br />See explanation.</p>
+			</div>
+			<div>
+				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/Docs/USERGUIDE.md#composer-on-nsy-framework">Composer on NSY</a><br />See explanation.</p>
 			</div>
 		</div>
 	</div>
