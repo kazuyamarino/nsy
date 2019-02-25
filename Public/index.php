@@ -1,5 +1,6 @@
 <?php
 use Core\NSY_Config;
+use Core\NSY_Router;
 
 /*
 NSY Framework
@@ -109,6 +110,10 @@ if (defined('ENVIRONMENT'))
 // The PSR-4 Autoloader, generate via composer (composer dump-autoload) *see composer.json
 require (ROOT . '../System/Vendor/autoload.php');
 
+// Don't change anythings about this instantiate
 new NSY_Config();
-new Web();
 new Api();
+new Web();
+
+// execute matched routes
+NSY_Router::dispatch();

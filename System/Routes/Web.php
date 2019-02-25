@@ -4,7 +4,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 use Core\NSY_Router;
 use Core\NSY_Controller;
 
-Class Web extends NSY_Controller
+Class Web
 {
 
 	public function __construct()
@@ -18,9 +18,6 @@ Class Web extends NSY_Controller
 
 		// HMVC Route
 		NSY_Router::any('nsy/hmvc', 'Modules\Controllers\Hello@index_hmvc');
-
-		// execute matched routes
-		NSY_Router::dispatch();
 	}
 
 }

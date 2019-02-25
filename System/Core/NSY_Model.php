@@ -11,7 +11,7 @@ class NSY_Model {
 	/*
 	Helper for NSY_Model PDO variables
 	 */
-	protected function __construct() {
+	public function __construct() {
 		// Define binding variable type
 		define('PARAM_INT', \PDO::PARAM_INT);
 		define('PARAM_STR', \PDO::PARAM_STR);

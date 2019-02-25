@@ -4,7 +4,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 use Core\NSY_Router;
 use Core\NSY_Controller;
 
-Class Api extends NSY_Controller
+Class Api
 {
 
 	public function __construct()
@@ -14,10 +14,7 @@ Class Api extends NSY_Controller
 		// Route type : get, post, put, delete, options, head
 
 		// Api Route
-		// NSY_Router::post('nsy/data', 'Controller@showData'); // Example
-
-		// execute matched routes
-		NSY_Router::dispatch();
+		NSY_Router::any('nsy/data', 'Controllers\Welcome@data'); // Example
 	}
 
 }
