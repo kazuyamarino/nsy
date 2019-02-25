@@ -26,13 +26,13 @@ defined('ROOT') OR exit('No direct script access allowed');
 		<div>
 			<h3><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/README.md#nsy-feature-">NSY Feature</a></h3>
 			<div>
-				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/README.md#mvc--hmvc">MVC & HMVC</a><br />The design pattern.</p>
+				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/Docs/USERGUIDE.md#mvc--hmvc">MVC & HMVC</a><br />The design pattern.</p>
 			</div>
 			<div>
-				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/README.md#introducting-to-nsy-assets-manager">NSY Assets Manager</a><br />Introducting to NSY Assets Manager.</p>
+				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/Docs/USERGUIDE.md#introducting-to-nsy-assets-manager">NSY Assets Manager</a><br />Introducting to NSY Assets Manager.</p>
 			</div>
 			<div>
-				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/README.md#psr-4-autoloading">PSR-4 Autoloading</a><br />See explanation.</p>
+				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/Docs/USERGUIDE.md#psr-4-autoloading">PSR-4 Autoloading</a><br />See explanation.</p>
 			</div>
 			<div>
 				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/Docs/USERGUIDE.md#composer-on-nsy-framework">Composer on NSY</a><br />See explanation.</p>
