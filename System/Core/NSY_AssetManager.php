@@ -62,3 +62,5 @@ Class NSY_AssetManager {
 	}
 
 }
+
+class_alias("Core\NSY_AssetManager", "add");
