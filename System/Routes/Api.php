@@ -14,7 +14,7 @@ Class Api
 		// Route type : get, post, put, delete, options, head
 
 		// Api Route
-		NSY_Router::any('nsy/data', 'Controllers\Welcome@data'); // Example
+		// NSY_Router::any('nsy/data', 'Controllers\Welcome@data'); // Example
 	}
 
 }

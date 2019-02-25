@@ -57,6 +57,7 @@ class ComposerStaticInityour_suffixed
         'Core\\NSY_DB' => __DIR__ . '/../../..' . '/System/Core/NSY_DB.php',
         'Core\\NSY_Model' => __DIR__ . '/../../..' . '/System/Core/NSY_Model.php',
         'Core\\NSY_Router' => __DIR__ . '/../../..' . '/System/Core/NSY_Router.php',
+        'Models\\Model_Welcome' => __DIR__ . '/../../..' . '/System/Models/Model_Welcome.php',
         'Modules\\Controllers\\Hello' => __DIR__ . '/../../..' . '/System/Modules/Homepage/Controllers/Hello.php',
         'Modules\\Models\\Model_Hello' => __DIR__ . '/../../..' . '/System/Modules/Homepage/Models/Model_Hello.php',
     );

@@ -13,6 +13,7 @@ return array(
     'Core\\NSY_DB' => $baseDir . '/System/Core/NSY_DB.php',
     'Core\\NSY_Model' => $baseDir . '/System/Core/NSY_Model.php',
     'Core\\NSY_Router' => $baseDir . '/System/Core/NSY_Router.php',
+    'Models\\Model_Welcome' => $baseDir . '/System/Models/Model_Welcome.php',
     'Modules\\Controllers\\Hello' => $baseDir . '/System/Modules/Homepage/Controllers/Hello.php',
     'Modules\\Models\\Model_Hello' => $baseDir . '/System/Modules/Homepage/Models/Model_Hello.php',
 );
