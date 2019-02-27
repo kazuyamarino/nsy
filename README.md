@@ -41,6 +41,7 @@ Site example :
     ├── Controllers
     │   └── Welcome.php
     ├── Core
+    │   ├── NSY_AliasClass.php
     │   ├── NSY_AssetManager.php
     │   ├── NSY_Config.php
     │   ├── NSY_Controller.php
