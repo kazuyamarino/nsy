@@ -53,7 +53,7 @@ class NSY_Config {
 		define('LANGUAGE_CODE', 'en');
 
 		// database details ONLY NEEDED IF USING A DATABASE
-		define('DB_HOST', 'localhost'); // hostname
+		define('DB_HOST', ''); // hostname
 		define('DB_NAME', ''); // database name
 		define('DB_USER', ''); // username
 		define('DB_PASS', ''); // password

@@ -1,4 +1,5 @@
 <?php
+// Use Config & Router class
 use Core\NSY_Config;
 use Core\NSY_Router;
 
@@ -40,8 +41,7 @@ define('ROOT', str_replace("index.php", "", $_SERVER["SCRIPT_FILENAME"]));
 * Check Config File
 *---------------------------------------------------------------
 */
-if (!is_readable('../System/Core/NSY_Config.php'))
-{
+if (!is_readable('../System/Core/NSY_Config.php')) {
 	die('No Config.php found, configure and rename Config file to Config.php in app/core.');
 }
 
@@ -73,31 +73,25 @@ define('ENVIRONMENT', 'development');
 * Different environments will require different levels of error reporting.
 * By default development will show errors but production will hide them.
 */
-
-if (defined('ENVIRONMENT'))
-{
-	switch (ENVIRONMENT)
-	{
+if (defined('ENVIRONMENT')) {
+	switch (ENVIRONMENT) {
 		// Set as under development
 		case 'development':
-		ini_set('display_errors', 1);
-		ini_set('display_startup_errors', 1);
-		error_reporting(E_ALL);
+			ini_set('display_errors', 1);
+			ini_set('display_startup_errors', 1);
+			error_reporting(E_ALL);
 		break;
 
 		// Set as under production/go live
 		case 'production':
-		ini_set('display_errors', 0);
-		error_reporting(0);
+			ini_set('display_errors', 0);
+			error_reporting(0);
 
-		if (version_compare(PHP_VERSION, '5.3', '>='))
-		{
-			error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
-		}
-		else
-		{
-			error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
-		}
+			if (version_compare(PHP_VERSION, '5.3', '>=')) {
+				error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
+			} else {
+				error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
+			}
 		break;
 		default:
 
@@ -110,10 +104,13 @@ if (defined('ENVIRONMENT'))
 // The PSR-4 Autoloader, generate via composer (composer dump-autoload) *see composer.json
 require (ROOT . '../System/Vendor/autoload.php');
 
-// Don't change anythings about this instantiate
-new NSY_Config();
-new Api();
-new Web();
+/*
+Don't change anythings about this instantiate
+ */
+new NSY_Config(); // Instantiate Config
+new NSY_AliasClass(); // Instantiate Aliasing class
+new Api(); // Instantiate Api route
+new Web(); // Instantiate Web route
 
 // execute matched routes
 route::dispatch();

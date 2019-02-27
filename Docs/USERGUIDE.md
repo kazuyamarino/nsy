@@ -116,7 +116,7 @@ route::get('/(:any)', function($slug) {
 route::dispatch();
 ```
 
-You can also make requests for HTTP methods in route, so you could also do:
+You can also make requests for HTTP methods in NSY_Router, so you could also do:
 
 ```PHP
 route::get('/', function() {
@@ -228,13 +228,13 @@ add::custom('anythings');
 
 * After that, to use it in View, you only need to call the static method name that you created like this.
 ```
-get::method_name();
+pull::method_name();
 ```
 
 For example :
 ```
-get::header_assets();
-get::footer_assets();
+pull::header_assets();
+pull::footer_assets();
 ```
 
 

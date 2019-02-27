@@ -18,11 +18,11 @@ You can write any html tags with custom method :
 add::custom('anythings');
 
 After that, to use it in View, you only need to call the static method name that you created like this :
-Assets::method_name();
+pull::method_name();
 
 For example :
-Assets::pull_header_assets();
-Assets::pull_footer_assets();
+pull::header_assets();
+pull::footer_assets();
 */
 
 defined('ROOT') OR exit('No direct script access allowed');
@@ -59,5 +59,3 @@ Class Assets extends NSY_AssetManager
 	}
 
 }
-
-class_alias("Assets", "get");

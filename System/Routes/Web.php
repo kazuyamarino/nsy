@@ -4,7 +4,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 use Core\NSY_Router;
 use Core\NSY_Controller;
 
-Class Web extends NSY_Router
+Class Web
 {
 
 	public function __construct()

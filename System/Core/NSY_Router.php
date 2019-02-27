@@ -174,5 +174,3 @@ class NSY_Router {
         }
     }
 }
-
-class_alias("Core\NSY_Router", "route");

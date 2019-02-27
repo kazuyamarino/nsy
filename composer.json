@@ -26,6 +26,7 @@
         "files": [
 			"System/Routes/Web.php",
 			"System/Routes/Api.php",
+			"System/Core/NSY_AliasClass.php",
 			"System/Libraries/Assets.php"
 		]
     },

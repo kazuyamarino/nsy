@@ -4,9 +4,21 @@ namespace Core;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
-use System\Core\NSY_DB;
+use Core\NSY_DB;
 
 class NSY_Model {
+
+	// Declare properties for Helper
+	private $connection;
+	private $query;
+	private $variables;
+	private $fetch_style;
+	private $bind;
+	private $type;
+	private $column;
+	private $bind_name;
+	private $attr;
+	private $param;
 
 	/*
 	Helper for NSY_Model PDO variables
@@ -32,17 +44,62 @@ class NSY_Model {
 		define('FETCH_FUNC', \PDO::FETCH_FUNC);
 	}
 
+	protected function connect_mysql() {
+		$this->connection = NSY_DB::mysql();
+		return $this;
+	}
+
+	protected function connect_dblib() {
+		$this->connection = NSY_DB::dblib();
+		return $this;
+	}
+
+	protected function connect_sqlsrv() {
+		$this->connection = NSY_DB::sqlsrv();
+		return $this;
+	}
+
+	protected function query($query = "") {
+		$this->query = $query;
+		return $this;
+	}
+
+	protected function var($variables = "") {
+		$this->variables = $variables;
+		return $this;
+	}
+
+	protected function fetch_style($fetch_style = FETCH_BOTH) {
+		$this->fetch_style = $fetch_style;
+		return $this;
+	}
+
+	protected function bind($bind = "") {
+		$this->bind = $bind;
+		return $this;
+	}
+
+	protected function type($type = "") {
+		$this->type = $type;
+		return $this;
+	}
+
+	protected function column($column = 0) {
+		$this->column = $column;
+		return $this;
+	}
+
 	/*
 	Helper for PDO FetchAll
 	 */
-	protected function fetchAll($connection = "", $query = "", $vars = "", $mode = FETCH_BOTH, $bind = "", $type = "") {
+	protected function fetch_all() {
 		// Check if there's connection defined on the models
-		if ($connection == "" || empty($connection) || !isset($connection)) {
+		if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
 			echo "No Connection Bro, Please check your code again!";
 		} else {
-			$stmt = $connection->prepare($query);
+			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
-			if ($vars == "" || empty($vars) || !isset($vars)) {
+			if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
@@ -51,32 +108,32 @@ class NSY_Model {
 					exit();
 				}
 			} else {
-				if ($bind == "BINDVALUE") {
-					if ($type == "" || empty($type) || !isset($type)) {
+				if ($this->bind == "BINDVALUE") {
+					if ($this->type == "" || empty($this->type) || !isset($this->type)) {
 						echo "BindValue parameter type undefined, for example use PARAM_INT or PARAM_STR";
 					} else {
-						foreach ($vars as $key => $res) {
-							$stmt->bindValue($key, $res, $type);
+						foreach ($this->variables as $key => $res) {
+							$stmt->bindValue($key, $res, $this->type);
 						}
 						$stmt->execute();
 					}
-				} elseif ($bind == "BINDPARAM") {
-					if ($type == "" || empty($type) || !isset($type)) {
+				} elseif ($this->bind == "BINDPARAM") {
+					if ($this->type == "" || empty($this->type) || !isset($this->type)) {
 						echo "BindParam parameter type undefined, for example use PARAM_INT or PARAM_STR";
 					} else {
-						foreach ($vars as $key => $res) {
-							$stmt->bindParam($key, $res, $type);
+						foreach ($this->variables as $key => $res) {
+							$stmt->bindParam($key, $res, $this->type);
 						}
 						$stmt->execute();
 					}
-				} elseif ($bind == "" || empty($bind) || !isset($bind)) {
-					$stmt->execute($vars);
+				} elseif ($this->bind == "" || empty($this->bind) || !isset($this->bind)) {
+					$stmt->execute($this->variables);
 				}
 			}
 
 			// Check the errors, if no errors then return the results
 			if ($stmt->errorCode() == 0) {
-				$show_result = $stmt->fetchAll($mode);
+				$show_result = $stmt->fetchAll($this->fetch_style);
 
 				return $show_result;
 			} else {
@@ -95,14 +152,14 @@ class NSY_Model {
 	/*
 	Helper for PDO Fetch
 	 */
-	protected function fetch($connection = "", $query = "", $vars = "", $mode = FETCH_BOTH, $bind = "", $type = "") {
+	protected function fetch() {
 		// Check if there's connection defined on the models
-		if ($connection == "" || empty($connection) || !isset($connection)) {
+		if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
 			echo "No Connection Bro, Please check your connection again!";
 		} else {
-			$stmt = $connection->prepare($query);
+			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
-			if ($vars == "" || empty($vars) || !isset($vars)) {
+			if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
@@ -111,32 +168,32 @@ class NSY_Model {
 					exit();
 				}
 			} else {
-				if ($bind == "BINDVALUE") {
-					if ($type == "" || empty($type) || !isset($type)) {
+				if ($this->bind == "BINDVALUE") {
+					if ($this->type == "" || empty($this->type) || !isset($this->type)) {
 						echo "BindValue parameter type undefined, for example use PARAM_INT or PARAM_STR";
 					} else {
-						foreach ($vars as $key => $res) {
-							$stmt->bindValue($key, $res, $type);
+						foreach ($this->variables as $key => $res) {
+							$stmt->bindValue($key, $res, $this->type);
 						}
 						$stmt->execute();
 					}
-				} elseif ($bind == "BINDPARAM") {
-					if ($type == "" || empty($type) || !isset($type)) {
+				} elseif ($this->bind == "BINDPARAM") {
+					if ($this->type == "" || empty($this->type) || !isset($this->type)) {
 						echo "BindParam parameter type undefined, for example use PARAM_INT or PARAM_STR";
 					} else {
-						foreach ($vars as $key => $res) {
-							$stmt->bindParam($key, $res, $type);
+						foreach ($this->variables as $key => $res) {
+							$stmt->bindParam($key, $res, $this->type);
 						}
 						$stmt->execute();
 					}
-				} elseif ($bind == "" || empty($bind) || !isset($bind)) {
-					$stmt->execute($vars);
+				} elseif ($this->bind == "" || empty($this->bind) || !isset($this->bind)) {
+					$stmt->execute($this->variables);
 				}
 			}
 
 			// Check the errors, if no errors then return the results
 			if ($stmt->errorCode() == 0) {
-				$show_result = $stmt->fetch($mode);
+				$show_result = $stmt->fetch($this->fetch_style);
 
 				return $show_result;
 			} else {
@@ -155,14 +212,14 @@ class NSY_Model {
 	/*
 	Helper for PDO FetchColumn
 	 */
-	protected function fetchColumn($connection = "", $query = "", $vars = "", $column = 0, $bind = "", $type = "") {
+	protected function fetch_column() {
 		// Check if there's connection defined on the models
-		if ($connection == "" || empty($connection) || !isset($connection)) {
+		if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
 			echo "No Connection Bro, Please check your connection again!";
 		} else {
-			$stmt = $connection->prepare($query);
+			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
-			if ($vars == "" || empty($vars) || !isset($vars)) {
+			if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
@@ -171,32 +228,32 @@ class NSY_Model {
 					exit();
 				}
 			} else {
-				if ($bind == "BINDVALUE") {
-					if ($type == "" || empty($type) || !isset($type)) {
+				if ($this->bind == "BINDVALUE") {
+					if ($this->type == "" || empty($this->type) || !isset($this->type)) {
 						echo "BindValue parameter type undefined, for example use PARAM_INT or PARAM_STR";
 					} else {
-						foreach ($vars as $key => $res) {
-							$stmt->bindValue($key, $res, $type);
+						foreach ($this->variables as $key => $res) {
+							$stmt->bindValue($key, $res, $this->type);
 						}
 						$stmt->execute();
 					}
-				} elseif ($bind == "BINDPARAM") {
-					if ($type == "" || empty($type) || !isset($type)) {
+				} elseif ($this->bind == "BINDPARAM") {
+					if ($this->type == "" || empty($this->type) || !isset($this->type)) {
 						echo "BindParam parameter type undefined, for example use PARAM_INT or PARAM_STR";
 					} else {
-						foreach ($vars as $key => $res) {
-							$stmt->bindParam($key, $res, $type);
+						foreach ($this->variables as $key => $res) {
+							$stmt->bindParam($key, $res, $this->type);
 						}
 						$stmt->execute();
 					}
-				} elseif ($bind == "" || empty($bind) || !isset($bind)) {
-					$stmt->execute($vars);
+				} elseif ($this->bind == "" || empty($this->bind) || !isset($this->bind)) {
+					$stmt->execute($this->variables);
 				}
 			}
 
 			// Check the errors, if no errors then return the results
 			if ($stmt->errorCode() == 0) {
-				$show_result = $stmt->fetchColumn($column);
+				$show_result = $stmt->fetchColumn($this->column);
 
 				return $show_result;
 			} else {
@@ -215,14 +272,14 @@ class NSY_Model {
 	/*
 	Helper for PDO RowCount
 	 */
-	protected function rowCount($connection = "", $query = "", $vars = "") {
+	protected function row_count() {
 		// Check if there's connection defined on the models
-		if ($connection == "" || empty($connection) || !isset($connection)) {
+		if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
 			echo "No Connection Bro, Please check your connection again!";
 		} else {
-			$stmt = $connection->prepare($query);
+			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
-			if ($vars == "" || empty($vars) || !isset($vars)) {
+			if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
@@ -231,7 +288,7 @@ class NSY_Model {
 					exit();
 				}
 			} else {
-				$stmt->execute($vars);
+				$stmt->execute($this->variables);
 			}
 
 			// Check the errors, if no errors then return the results
@@ -255,14 +312,14 @@ class NSY_Model {
 	/*
 	Helper for PDO Execute
 	 */
-	protected function execute($connection = "", $query = "", $vars = "") {
+	protected function exec() {
 		// Check if there's connection defined on the models
-		if ($connection == "" || empty($connection) || !isset($connection)) {
+		if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
 			echo "No Connection Bro, Please check your connection again!";
 		} else {
-			$stmt = $connection->prepare($query);
+			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
-			if ($vars == "" || empty($vars) || !isset($vars)) {
+			if ($this->vars == "" || empty($this->vars) || !isset($this->vars)) {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
@@ -271,7 +328,7 @@ class NSY_Model {
 					exit();
 				}
 			} else {
-				$executed = $stmt->execute($vars);
+				$executed = $stmt->execute($this->vars);
 			}
 
 			// Check the errors, if no errors then return the results
@@ -293,14 +350,14 @@ class NSY_Model {
 	/*
 	Helper for PDO Multi Execute
 	 */
-	protected function multiExecute($connection = "", $query = "", $vars = "") {
+	protected function multi_exec() {
 		// Check if there's connection defined on the models
-		if ($connection == "" || empty($connection) || !isset($connection)) {
+		if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
 			echo "No Connection Bro, Please check your connection again!";
 		} else {
-			$stmt = $connection->prepare($query);
+			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
-			if ($vars == "" || empty($vars) || !isset($vars)) {
+			if ($this->vars == "" || empty($this->vars) || !isset($this->vars)) {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
@@ -309,7 +366,7 @@ class NSY_Model {
 					exit();
 				}
 			} else {
-				foreach($vars as $key => $params) {
+				foreach($this->vars as $key => $params) {
 					$executed = $stmt->execute(array($params));
 				}
 			}
@@ -331,72 +388,91 @@ class NSY_Model {
     }
 
 	/*
-	Helper for NSY_Model to create a sequence of the named placeholders
+	Start method for variables sequence
 	 */
-	protected function var_sequence($varname = "", $ids = "", $var = "", $param = "") {
+	protected function bind_name($bind_name = "") {
+		$this->bind_name = $bind_name;
+		return $this;
+	}
+
+	protected function attr($attr = "") {
+		$this->attr = $attr;
+		return $this;
+	}
+
+	protected function param($param = "") {
+		$this->param = $param;
+		return $this;
+	}
+
+	// Helper for NSY_Model to create a sequence of the named placeholders
+	protected function sequence() {
 		$in = "";
-		foreach ($ids as $i => $item)
+		foreach ($this->variables as $i => $item)
 		{
-		    $key = "$varname".$i;
+		    $key = "$this->bind_name".$i;
 		    $in .= "$key,";
 		    $in_params[$key] = $item; // collecting values into key-value array
 		}
 		$in = rtrim($in,","); // :id0,:id1,:id2
 
-		if ($var == "" || empty($var) || !isset($var) || $param == "" || empty($param) || !isset($param)) {
+		if ($this->attr == "" || empty($this->attr) || !isset($this->attr) || $this->param == "" || empty($this->param) || !isset($this->param)) {
 			return [$in, $in_params];
 		} else {
 			return [
-				$var => $in,
-				$param => $in_params
+				$this->attr => $in,
+				$this->param => $in_params
 			];
 		}
 	}
+	/*
+	End method for variables sequence
+	 */
 
 	/*
 	Helper for PDO Emulation False
 	 */
-	protected function emulatePreparesFalse($connection = "") {
-		$connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, FALSE);
+	protected function emulate_prepares_false() {
+		$this->connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, FALSE);
     }
 
 	/*
 	Helper for PDO MYSQL_ATTR_USE_BUFFERED_QUERY
 	 */
-	protected function useBufferQueryTrue($connection = "") {
-		$connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, TRUE);
+	protected function use_buffer_query_true() {
+		$this->connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, TRUE);
     }
 
-	protected function useBufferQueryFalse($connection = "") {
-		$connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, FALSE);
+	protected function use_buffer_query_false() {
+		$this->connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, FALSE);
     }
 
 	/*
 	Helper for PDO ATTR_STRINGIFY_FETCHES
 	 */
-	protected function stringifyFetchesTrue($connection = "") {
-		$connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, TRUE);
+	protected function stringify_fetches_true() {
+		$this->connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, TRUE);
     }
 
 	/*
 	Helper for PDO Begin Transaction
 	 */
-	protected function begin($connection = "") {
-		$connection->beginTransaction();
+	protected function begin() {
+		$this->connection->beginTransaction();
     }
 
 	/*
 	Helper for PDO Commit Transaction
 	 */
-	protected function commit($connection = "") {
-		$connection->commit();
+	protected function commit() {
+		$this->connection->commit();
     }
 
 	/*
 	Helper for PDO Rollback Transaction
 	 */
-	protected function rollback($connection = "") {
-		$connection->rollback();
+	protected function rollback() {
+		$this->connection->rollback();
     }
 
 	/*
@@ -423,6 +499,16 @@ class NSY_Model {
      */
     protected function redirect($url = NULL) {
 		header("location:". BASE_URL . $url);
+    }
+
+	/*
+	Fetching to json format
+	 */
+	protected function fetch_json($data = "") {
+		$json_data = $data;
+		$json_result = json_encode($json_data);
+
+		return $json_result;
     }
 
 }

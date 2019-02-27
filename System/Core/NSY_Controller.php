@@ -4,7 +4,7 @@ namespace Core;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
-use System\Core\NSY_DB;
+use Core\NSY_DB;
 
 class NSY_Controller {
     /*
@@ -25,6 +25,7 @@ class NSY_Controller {
     protected function load_view($filename) {
         extract($this->vars);
         require_once(MVC_VIEW_DIR . $filename . '.php');
+		return $this;
     }
 
     /*
@@ -35,6 +36,7 @@ class NSY_Controller {
         foreach (glob(HMVC_VIEW_DIR . $filename . '.php') as $results) {
             require_once($results);
         }
+		return $this;
     }
 
     /*
@@ -42,6 +44,7 @@ class NSY_Controller {
      */
     protected function load_template($filename) {
         require_once(SYS_TMP_DIR . $filename . '.php');
+		return $this;
     }
 
     /*
@@ -71,26 +74,60 @@ class NSY_Controller {
     }
 
 	/*
-	Helper for NSY_Model to create a sequence of the named placeholders
+	Start method for variables sequence
 	 */
-	protected function var_sequence($varname = "", $ids = "", $var = "", $param = "") {
+	protected function var($variables = "") {
+ 		$this->variables = $variables;
+ 		return $this;
+ 	}
+
+	protected function bind_name($bind_name = "") {
+		$this->bind_name = $bind_name;
+		return $this;
+	}
+
+	protected function attr($attr = "") {
+		$this->attr = $attr;
+		return $this;
+	}
+
+	protected function param($param = "") {
+		$this->param = $param;
+		return $this;
+	}
+
+	// Helper for NSY_Model to create a sequence of the named placeholders
+	protected function sequence() {
 		$in = "";
-		foreach ($ids as $i => $item)
+		foreach ($this->variables as $i => $item)
 		{
-		    $key = "$varname".$i;
+		    $key = "$this->bind_name".$i;
 		    $in .= "$key,";
 		    $in_params[$key] = $item; // collecting values into key-value array
 		}
 		$in = rtrim($in,","); // :id0,:id1,:id2
 
-		if ($var == "" || empty($var) || !isset($var) || $param == "" || empty($param) || !isset($param)) {
+		if ($this->attr == "" || empty($this->attr) || !isset($this->attr) || $this->param == "" || empty($this->param) || !isset($this->param)) {
 			return [$in, $in_params];
 		} else {
 			return [
-				$var => $in,
-				$param => $in_params
+				$this->attr => $in,
+				$this->param => $in_params
 			];
 		}
 	}
+	/*
+	End method for variables sequence
+	 */
+
+	/*
+	Fetching to json format
+	 */
+	protected function fetch_json($data = "") {
+		$json_data = $data;
+		$json_result = json_encode($json_data);
+
+		return $json_result;
+    }
 
 }
