@@ -44,18 +44,18 @@ class NSY_Model {
 		define('FETCH_FUNC', \PDO::FETCH_FUNC);
 	}
 
-	protected function connect_mysql() {
-		$this->connection = NSY_DB::mysql();
+	protected function mysql() {
+		$this->connection = NSY_DB::connect_mysql();
 		return $this;
 	}
 
-	protected function connect_dblib() {
-		$this->connection = NSY_DB::dblib();
+	protected function dblib() {
+		$this->connection = NSY_DB::connect_dblib();
 		return $this;
 	}
 
-	protected function connect_sqlsrv() {
-		$this->connection = NSY_DB::sqlsrv();
+	protected function sqlsrv() {
+		$this->connection = NSY_DB::connect_sqlsrv();
 		return $this;
 	}
 

@@ -7,7 +7,7 @@ class NSY_DB {
 
 	// for change variable of database connection, see System/Core/NSY_Config.php
 	// open connection function for mysqli PDO
-	public static function mysql() {
+	public static function connect_mysql() {
 		static $db = null;
 		if ($db === null) {
 			$dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8';
@@ -20,7 +20,7 @@ class NSY_DB {
 	}
 
 	// open connection function for dblib PDO
-	public static function dblib() {
+	public static function connect_dblib() {
 		static $db = null;
 		if ($db === null) {
 			$dsn = 'dblib:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8';
@@ -33,7 +33,7 @@ class NSY_DB {
 	}
 
 	// open connection function for sqlsrv PDO
-	public static function sqlsrv() {
+	public static function connect_sqlsrv() {
 		static $db = null;
 		if ($db === null) {
 			$dsn = 'sqlsrv:Server=' . DB_HOST . ';Database=' . DB_NAME . ';';
