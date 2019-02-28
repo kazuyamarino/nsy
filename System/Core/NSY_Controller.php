@@ -107,14 +107,7 @@ class NSY_Controller {
 		}
 		$in = rtrim($in,","); // :id0,:id1,:id2
 
-		if ($this->attr == "" || empty($this->attr) || !isset($this->attr) || $this->param == "" || empty($this->param) || !isset($this->param)) {
-			return [$in, $in_params];
-		} else {
-			return [
-				$this->attr => $in,
-				$this->param => $in_params
-			];
-		}
+		return [$in, $in_params];
 	}
 	/*
 	End method for variables sequence

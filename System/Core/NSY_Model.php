@@ -319,7 +319,7 @@ class NSY_Model {
 		} else {
 			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
-			if ($this->vars == "" || empty($this->vars) || !isset($this->vars)) {
+			if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
@@ -328,7 +328,7 @@ class NSY_Model {
 					exit();
 				}
 			} else {
-				$executed = $stmt->execute($this->vars);
+				$executed = $stmt->execute($this->variables);
 			}
 
 			// Check the errors, if no errors then return the results
@@ -357,7 +357,7 @@ class NSY_Model {
 		} else {
 			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
-			if ($this->vars == "" || empty($this->vars) || !isset($this->vars)) {
+			if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
@@ -366,7 +366,7 @@ class NSY_Model {
 					exit();
 				}
 			} else {
-				foreach($this->vars as $key => $params) {
+				foreach($this->variables as $key => $params) {
 					$executed = $stmt->execute(array($params));
 				}
 			}
@@ -416,14 +416,7 @@ class NSY_Model {
 		}
 		$in = rtrim($in,","); // :id0,:id1,:id2
 
-		if ($this->attr == "" || empty($this->attr) || !isset($this->attr) || $this->param == "" || empty($this->param) || !isset($this->param)) {
-			return [$in, $in_params];
-		} else {
-			return [
-				$this->attr => $in,
-				$this->param => $in_params
-			];
-		}
+		return [$in, $in_params];
 	}
 	/*
 	End method for variables sequence
