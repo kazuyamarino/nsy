@@ -24,7 +24,6 @@ For example :
 pull::header_assets();
 pull::footer_assets();
 */
-
 defined('ROOT') OR exit('No direct script access allowed');
 
 use Core\NSY_AssetManager;
