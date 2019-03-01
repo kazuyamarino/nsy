@@ -64,12 +64,12 @@ class NSY_Model {
 		return $this;
 	}
 
-	protected function var($variables = "") {
+	protected function vars($variables = "") {
 		$this->variables = $variables;
 		return $this;
 	}
 
-	protected function fetch_style($fetch_style = FETCH_BOTH) {
+	protected function style($fetch_style = FETCH_BOTH) {
 		$this->fetch_style = $fetch_style;
 		return $this;
 	}
@@ -388,29 +388,13 @@ class NSY_Model {
     }
 
 	/*
-	Start method for variables sequence
+	Helper for NSY_Model to create a sequence of the named placeholders
 	 */
-	protected function bind_name($bind_name = "") {
-		$this->bind_name = $bind_name;
-		return $this;
-	}
-
-	protected function attr($attr = "") {
-		$this->attr = $attr;
-		return $this;
-	}
-
-	protected function param($param = "") {
-		$this->param = $param;
-		return $this;
-	}
-
-	// Helper for NSY_Model to create a sequence of the named placeholders
 	protected function sequence() {
 		$in = "";
 		foreach ($this->variables as $i => $item)
 		{
-		    $key = "$this->bind_name".$i;
+		    $key = "$this->bind".$i;
 		    $in .= "$key,";
 		    $in_params[$key] = $item; // collecting values into key-value array
 		}
@@ -418,9 +402,6 @@ class NSY_Model {
 
 		return [$in, $in_params];
 	}
-	/*
-	End method for variables sequence
-	 */
 
 	/*
 	Helper for PDO Emulation False

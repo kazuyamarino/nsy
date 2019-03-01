@@ -76,23 +76,13 @@ class NSY_Controller {
 	/*
 	Start method for variables sequence
 	 */
-	protected function var($variables = "") {
+	protected function vars($variables = "") {
  		$this->variables = $variables;
  		return $this;
  	}
 
-	protected function bind_name($bind_name = "") {
-		$this->bind_name = $bind_name;
-		return $this;
-	}
-
-	protected function attr($attr = "") {
-		$this->attr = $attr;
-		return $this;
-	}
-
-	protected function param($param = "") {
-		$this->param = $param;
+	protected function bind($bind = "") {
+		$this->bind = $bind;
 		return $this;
 	}
 
@@ -101,7 +91,7 @@ class NSY_Controller {
 		$in = "";
 		foreach ($this->variables as $i => $item)
 		{
-		    $key = "$this->bind_name".$i;
+		    $key = "$this->bind".$i;
 		    $in .= "$key,";
 		    $in_params[$key] = $item; // collecting values into key-value array
 		}
