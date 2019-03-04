@@ -1,10 +1,7 @@
 <?php
-
 namespace Core;
 
 defined('ROOT') OR exit('No direct script access allowed');
-
-use Core\NSY_DB;
 
 class NSY_Model {
 
