@@ -9,13 +9,25 @@ Site example :
 
 ```bash
 .
+├── cli
+│   ├── files
+│   │   ├── common-controller.php
+│   │   ├── common-model.php
+│   │   ├── module-controller.php
+│   │   └── module-model.php
+│   ├── list-controllers.sh
+│   ├── list-models.sh
+│   ├── list-modules.sh
+│   ├── make-controller.sh
+│   ├── make-model.sh
+│   └── make-module.sh
 ├── composer.json
-├── Docs
-│   ├── apache config
-│   │   ├── hide_public
-│   │   ├── Readme.txt
-│   │   └── sites_public
-│   ├── nginx config
+├── docs
+│   ├── apache
+│   │   ├── for_public
+│   │   ├── for_root
+│   │   └── Readme.txt
+│   ├── nginx
 │   │   ├── nginx.conf
 │   │   └── sites-available
 │   │       └── default
