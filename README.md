@@ -1,5 +1,5 @@
 # NSY
-NSY is a simple PHP Framework that works well on MVC or HMVC mode, its a core of NSY Framework, with no more Stylesheet and Javascript.
+NSY is a simple PHP Framework that works well on MVC or HMVC mode, its a core of NSY Framework.
 
 Site example :
 [https://nsy.kazuyamarino.com/](https://nsy.kazuyamarino.com/)
