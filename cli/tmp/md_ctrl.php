@@ -1,11 +1,11 @@
 <?php
-namespace Modules\Models;
+namespace Modules\Controllers;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
-use Core\NSY_Model;
+use Core\NSY_Controller;
 
-class module_model extends NSY_Model
+class md_ctrl extends NSY_Controller
 {
 
 	public function yourFunction()

@@ -30,8 +30,8 @@ else # if exist
 
 	if [ ! -e ./../System/Modules/$dirname/Models/$modname.php ]
 	then
-		cp files/"module-model.php" ./../System/Modules/$dirname/Models/"$modname.php"
-		sed -i "s/module_model/$modname/g" ./../System/Modules/$dirname/Models/"$modname.php"
+		cp files/"md_mdl.php" ./../System/Modules/$dirname/Models/"$modname.php"
+		sed -i "s/md_mdl/$modname/g" ./../System/Modules/$dirname/Models/"$modname.php"
 		echo
 	    echo "Model created"
 	else

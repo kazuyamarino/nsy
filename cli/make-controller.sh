@@ -30,8 +30,8 @@ else # if exist
 
 	if [ ! -e ./../System/Modules/$dirname/Controllers/"$conname.php" ]
 	then
-		cp files/"module-controller.php" ./../System/Modules/$dirname/Controllers/"$conname.php"
-		sed -i "s/module_controller/$conname/g" ./../System/Modules/$dirname/Controllers/"$conname.php"
+		cp tmp/"md_ctrl.php" ./../System/Modules/$dirname/Controllers/"$conname.php"
+		sed -i "s/md_ctrl/$conname/g" ./../System/Modules/$dirname/Controllers/"$conname.php"
 		echo
 	    echo "Controller created"
 	else
