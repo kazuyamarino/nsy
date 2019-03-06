@@ -15,5 +15,8 @@ return array(
     'Core\\NSY_Router' => $baseDir . '/System/Core/NSY_Router.php',
     'Models\\Model_Welcome' => $baseDir . '/System/Models/Model_Welcome.php',
     'Modules\\Controllers\\Hello' => $baseDir . '/System/Modules/Homepage/Controllers/Hello.php',
+    'Modules\\Controllers\\c_very' => $baseDir . '/System/Modules/Very/Controllers/c_very.php',
     'Modules\\Models\\Model_Hello' => $baseDir . '/System/Modules/Homepage/Models/Model_Hello.php',
+    'Modules\\Models\\m_nice' => $baseDir . '/System/Modules/Homepage/Models/m_nice.php',
+    'Modules\\Models\\m_very' => $baseDir . '/System/Modules/Very/Models/m_very.php',
 );

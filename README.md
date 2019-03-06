@@ -83,8 +83,8 @@ Site example :
 
 ## How to dating with NSY?
 * Simply rename the folder that has been downloaded to `nsy` & copy it to your `html` or `htdocs` folder or anythings folder.
-* For apache, please go to the `docs/apache config` folder and read the Readme.txt.
-* For nginx, please go to the `docs/nginx config` folder.
+* For apache, please go to the `docs/apache` folder and read the Readme.txt.
+* For nginx, please go to the `docs/nginx` folder.
 * And save the date..
 
 

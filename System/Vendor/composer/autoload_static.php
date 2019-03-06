@@ -31,10 +31,12 @@ class ComposerStaticInityour_suffixed
         'Modules\\Models\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/System/Modules/Homepage/Models',
+            1 => __DIR__ . '/../../..' . '/System/Modules/Very/Models',
         ),
         'Modules\\Controllers\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/System/Modules/Homepage/Controllers',
+            1 => __DIR__ . '/../../..' . '/System/Modules/Very/Controllers',
         ),
         'Models\\' => 
         array (
@@ -60,7 +62,10 @@ class ComposerStaticInityour_suffixed
         'Core\\NSY_Router' => __DIR__ . '/../../..' . '/System/Core/NSY_Router.php',
         'Models\\Model_Welcome' => __DIR__ . '/../../..' . '/System/Models/Model_Welcome.php',
         'Modules\\Controllers\\Hello' => __DIR__ . '/../../..' . '/System/Modules/Homepage/Controllers/Hello.php',
+        'Modules\\Controllers\\c_very' => __DIR__ . '/../../..' . '/System/Modules/Very/Controllers/c_very.php',
         'Modules\\Models\\Model_Hello' => __DIR__ . '/../../..' . '/System/Modules/Homepage/Models/Model_Hello.php',
+        'Modules\\Models\\m_nice' => __DIR__ . '/../../..' . '/System/Modules/Homepage/Models/m_nice.php',
+        'Modules\\Models\\m_very' => __DIR__ . '/../../..' . '/System/Modules/Very/Models/m_very.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
