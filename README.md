@@ -97,7 +97,7 @@ Here it is [NSY CRUD Example](https://github.com/kazuyamarino/crud)
 * NSY Assets Manager
 * PSR-4 Autoloading
 
-For more information, see [USERGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/Docs/USERGUIDE.md).
+For more information, see [USERGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md).
 
 
 ## User Guide.
