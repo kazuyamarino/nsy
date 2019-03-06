@@ -9,18 +9,6 @@ Site example :
 
 ```bash
 .
-├── cli
-│   ├── files
-│   │   ├── common-controller.php
-│   │   ├── common-model.php
-│   │   ├── module-controller.php
-│   │   └── module-model.php
-│   ├── list-controllers.sh
-│   ├── list-models.sh
-│   ├── list-modules.sh
-│   ├── make-controller.sh
-│   ├── make-model.sh
-│   └── make-module.sh
 ├── composer.json
 ├── docs
 │   ├── apache
