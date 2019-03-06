@@ -101,7 +101,7 @@ For more information, see [USERGUIDE.md](https://github.com/kazuyamarino/nsy/blo
 
 
 ## User Guide.
-See [USERGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/Docs/USERGUIDE.md).
+See [USERGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md).
 
 
 ## License
