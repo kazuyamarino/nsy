@@ -6,17 +6,4 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
-    'Controllers\\Welcome' => $baseDir . '/System/Controllers/Welcome.php',
-    'Core\\NSY_AssetManager' => $baseDir . '/System/Core/NSY_AssetManager.php',
-    'Core\\NSY_Config' => $baseDir . '/System/Core/NSY_Config.php',
-    'Core\\NSY_Controller' => $baseDir . '/System/Core/NSY_Controller.php',
-    'Core\\NSY_DB' => $baseDir . '/System/Core/NSY_DB.php',
-    'Core\\NSY_Model' => $baseDir . '/System/Core/NSY_Model.php',
-    'Core\\NSY_Router' => $baseDir . '/System/Core/NSY_Router.php',
-    'Models\\Model_Welcome' => $baseDir . '/System/Models/Model_Welcome.php',
-    'Modules\\Controllers\\Hello' => $baseDir . '/System/Modules/Homepage/Controllers/Hello.php',
-    'Modules\\Controllers\\c_very' => $baseDir . '/System/Modules/Very/Controllers/c_very.php',
-    'Modules\\Models\\Model_Hello' => $baseDir . '/System/Modules/Homepage/Models/Model_Hello.php',
-    'Modules\\Models\\m_nice' => $baseDir . '/System/Modules/Homepage/Models/m_nice.php',
-    'Modules\\Models\\m_very' => $baseDir . '/System/Modules/Very/Models/m_very.php',
 );

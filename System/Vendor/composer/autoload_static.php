@@ -7,6 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInityour_suffixed
 {
     public static $files = array (
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'da091f10842257b4cc02930d00d71d8a' => __DIR__ . '/../../..' . '/System/Routes/Web.php',
         '7c7f73d0d0658a5ccc337d53c0256524' => __DIR__ . '/../../..' . '/System/Routes/Api.php',
         'e3e5c86b011087d48e656a7b24314099' => __DIR__ . '/../../..' . '/System/Core/NSY_AliasClass.php',
@@ -14,33 +16,71 @@ class ComposerStaticInityour_suffixed
     );
 
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Symfony\\Contracts\\' => 18,
+            'Symfony\\Component\\Translation\\' => 30,
+        ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
         'M' => 
         array (
             'Modules\\Models\\' => 15,
             'Modules\\Controllers\\' => 20,
             'Models\\' => 7,
         ),
+        'D' => 
+        array (
+            'Dotenv\\' => 7,
+        ),
         'C' => 
         array (
             'Core\\' => 5,
             'Controllers\\' => 12,
+            'Carbon\\' => 7,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'Symfony\\Contracts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/contracts',
+        ),
+        'Symfony\\Component\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
         'Modules\\Models\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/System/Modules/Homepage/Models',
-            1 => __DIR__ . '/../../..' . '/System/Modules/Very/Models',
         ),
         'Modules\\Controllers\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/System/Modules/Homepage/Controllers',
-            1 => __DIR__ . '/../../..' . '/System/Modules/Very/Controllers',
         ),
         'Models\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/System/Models',
+        ),
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
         'Core\\' => 
         array (
@@ -50,22 +90,20 @@ class ComposerStaticInityour_suffixed
         array (
             0 => __DIR__ . '/../../..' . '/System/Controllers',
         ),
+        'Carbon\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
+        ),
     );
 
-    public static $classMap = array (
-        'Controllers\\Welcome' => __DIR__ . '/../../..' . '/System/Controllers/Welcome.php',
-        'Core\\NSY_AssetManager' => __DIR__ . '/../../..' . '/System/Core/NSY_AssetManager.php',
-        'Core\\NSY_Config' => __DIR__ . '/../../..' . '/System/Core/NSY_Config.php',
-        'Core\\NSY_Controller' => __DIR__ . '/../../..' . '/System/Core/NSY_Controller.php',
-        'Core\\NSY_DB' => __DIR__ . '/../../..' . '/System/Core/NSY_DB.php',
-        'Core\\NSY_Model' => __DIR__ . '/../../..' . '/System/Core/NSY_Model.php',
-        'Core\\NSY_Router' => __DIR__ . '/../../..' . '/System/Core/NSY_Router.php',
-        'Models\\Model_Welcome' => __DIR__ . '/../../..' . '/System/Models/Model_Welcome.php',
-        'Modules\\Controllers\\Hello' => __DIR__ . '/../../..' . '/System/Modules/Homepage/Controllers/Hello.php',
-        'Modules\\Controllers\\c_very' => __DIR__ . '/../../..' . '/System/Modules/Very/Controllers/c_very.php',
-        'Modules\\Models\\Model_Hello' => __DIR__ . '/../../..' . '/System/Modules/Homepage/Models/Model_Hello.php',
-        'Modules\\Models\\m_nice' => __DIR__ . '/../../..' . '/System/Modules/Homepage/Models/m_nice.php',
-        'Modules\\Models\\m_very' => __DIR__ . '/../../..' . '/System/Modules/Very/Models/m_very.php',
+    public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'PhpOption\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
+            ),
+        ),
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -73,7 +111,7 @@ class ComposerStaticInityour_suffixed
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInityour_suffixed::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInityour_suffixed::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInityour_suffixed::$classMap;
+            $loader->prefixesPsr0 = ComposerStaticInityour_suffixed::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }
