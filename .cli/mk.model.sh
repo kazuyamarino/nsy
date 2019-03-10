@@ -16,11 +16,11 @@ then
 				conname=$2
 
 				# Create 'mvc' model
-				if [ ! -e ./../System/Models/"$conname.php" ]
+				if [ ! -e ./System/Models/"$conname.php" ]
 				then
 					# Create 'mvc' model
-					cp tmp/"cm_mdl.php" ./../System/Models/"$conname.php"
-					sed -i "s/cm_mdl/$conname/g" ./../System/Models/"$conname.php"
+					cp .cli/tmp/cm_mdl.php ./System/Models/"$conname.php"
+					sed -i "s/cm_mdl/$conname/g" ./System/Models/"$conname.php"
 
 					printf "Model created\n"
 					printf "see the results in the 'System/Models' directory\n"
@@ -38,7 +38,7 @@ then
 				dirname=$2
 
 				# if directory doesnt exist
-				if [ ! -d ./../System/Modules/$dirname ]
+				if [ ! -d ./System/Modules/$dirname ]
 				then
 					printf "Module doesn't exists\n"
 				else # if exist
@@ -50,10 +50,10 @@ then
 						conname=$3
 
 						# Create 'hmvc' model
-						if [ ! -e ./../System/Modules/$dirname/Models/"$conname.php" ]
+						if [ ! -e ./System/Modules/$dirname/Models/"$conname.php" ]
 						then
-							cp tmp/"md_mdl.php" ./../System/Modules/$dirname/Models/"$conname.php"
-							sed -i "s/md_mdl/$conname/g" ./../System/Modules/$dirname/Models/"$conname.php"
+							cp .cli/tmp/md_mdl.php ./System/Modules/$dirname/Models/"$conname.php"
+							sed -i "s/md_mdl/$conname/g" ./System/Modules/$dirname/Models/"$conname.php"
 
 						    printf "Model created\n"
 							printf "see the results in the 'System/Modules/$dirname/Models' directory\n"

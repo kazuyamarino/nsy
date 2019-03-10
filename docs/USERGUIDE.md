@@ -87,7 +87,7 @@ Should be like this. That it is!
 ### NSY_Config.php File
 The NSY_Config class provides a means to retrieve configuration preferences. These preferences can come from the default config file `System/Core/NSY_Config.php` or you can custom it with your own setting.
 
-By default NSY_Config file is required by `index.php` in the <strong>Public</strong> folder *(see line 3 & line 44 to 46 of the index.php file)*.
+By default NSY_Config file is required by `index.php` in the <strong>public</strong> folder *(see line 3 & line 44 to 46 of the index.php file)*.
 
 <hr>
 
@@ -186,9 +186,9 @@ If you don't specify an error callback, NSY_Router will just echo `404`.
 
 ### main.js file
 
->main.js is located in `Public/Template/js/main.js` folder.
+>main.js is located in `public/js/main.js` folder.
 
-In main.js there is a `base_url` configuration for javascript *(see line 1 to 20)*. This `base_url` is used for the purpose of initializing the function of the <strong>Datatable Ajax URL</strong> in the `Public/Template/js/datatables/init.js`*
+In main.js there is a `base_url` configuration for javascript *(see line 1 to 20)*. This `base_url` is used for the purpose of initializing the function of the <strong>Datatable Ajax URL</strong> in the `public/js/datatables/init.js`*
 
 (*) See NSY Foundation Repository [https://github.com/kazuyamarino/nsy-foundation](Here!)
 

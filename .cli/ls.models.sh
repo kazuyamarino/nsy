@@ -8,10 +8,10 @@ then
 
 	case $mode in
 		"mvc")
-			# List of 'mvc' controllers
-			printf "List of '$mode' controllers :\n"
+			# List of 'mvc' models
+			printf "List of '$mode' models :\n"
 			printf "==========================\n"
-			ls -1 ./../System/Controllers/* | awk -F"/" '{print NR".", $NF}'
+			ls -1 ./System/Models/* | awk -F"/" '{print NR".", $NF}'
 			printf "==========================\n"
 		;;
 		"hmvc")
@@ -23,14 +23,14 @@ then
 				dirname=$2
 
 				# if directory doesnt exist
-				if [ ! -d ./../System/Modules/$dirname ]
+				if [ ! -d ./System/Modules/$dirname ]
 				then
 					printf "Module doesn't exists\n"
 				else # if exist
-					# List of 'hmvc' controllers
-					printf "List of '$mode' controllers :\n"
+					# List of 'hmvc' models;
+					printf "List of '$mode' models :\n"
 					printf "==========================\n"
-					ls -1 ./../System/Modules/$dirname/Controllers/* | awk -F"/" '{print NR".", $NF}'
+					ls -1 ./System/Modules/$dirname/Models/* | awk -F"/" '{print NR".", $NF}'
 					printf "==========================\n"
 				fi
 			fi

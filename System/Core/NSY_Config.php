@@ -38,13 +38,13 @@ class NSY_Config {
 		}
 
 		// set the default template/css/js path
-		define('TEMPLATE_DIR', 'Public/Template' . '/'); // TEMPLATE PATH
-		define('CSS_DIR', BASE_URL . TEMPLATE_DIR . 'css' . '/'); // CSS PATH
-		define('JS_DIR', BASE_URL . TEMPLATE_DIR . 'js' . '/'); // JS PATH
-		define('IMG_DIR', BASE_URL . TEMPLATE_DIR . 'img' . '/'); // IMG PATH
+		define('PUBLIC_DIR', 'public' . '/'); // TEMPLATE PATH
+		define('CSS_DIR', BASE_URL . PUBLIC_DIR . 'css' . '/'); // CSS PATH
+		define('JS_DIR', BASE_URL . PUBLIC_DIR . 'js' . '/'); // JS PATH
+		define('IMG_DIR', BASE_URL . PUBLIC_DIR . 'img' . '/'); // IMG PATH
 
 		//set the default view path
-		define('SYS_TMP_DIR', '../Public/Template' . '/');
+		define('SYS_TMP_DIR', '../public' . '/');
 		define('MVC_VIEW_DIR', '../System/Views' . '/');
 		define('HMVC_VIEW_DIR', '../System/Modules/*/Views' . '/');
 
