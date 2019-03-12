@@ -15,7 +15,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 	<![endif]-->
 
 	<header class="header">
-		<img src="<?php echo IMG_DIR; ?>logo.png" width="100"/>
+		<a href="<?php echo base_url(); ?>"><img src="<?php echo IMG_DIR; ?>logo.png" width="100"/></a>
 		<h2>Welcome to NSY PHP Framework</h2>
 		<h4>A very simple PHP Framework in history</h4>
 		<a target="_blank" href="https://github.com/kazuyamarino/nsy">View On Github</a>

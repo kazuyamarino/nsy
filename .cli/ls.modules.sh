@@ -2,5 +2,5 @@
 # List of modules
 printf "List of 'hmvc' modules :\n"
 printf "==========================\n"
-ls -d System/Modules/* | awk -F"/" '{print NR".", $NF}'
+ls -d system/modules/* | awk -F"/" '{print NR".", $NF}'
 printf "==========================\n"

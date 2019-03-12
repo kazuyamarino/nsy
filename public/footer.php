@@ -7,7 +7,8 @@ defined('ROOT') OR exit('No direct script access allowed');
 	<div class="fcontent">
 		<a target="_blank" href="mailto:admin@kazuyamarino.com">Vikry Yuansah</a>
 		<span>-</span>
-		<a href="<?php echo BASE_URL; ?>">NSY 2015 - <?php echo date("Y"); ?></a>
+		<span>NSY 2018 - <?php echo date("Y"); ?></span><br>
+		<p><?php echo $date->isoFormat('dddd, D MMMM Y'); ?></p>
 	</div>
 </footer>
 <?php

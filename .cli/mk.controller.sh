@@ -16,14 +16,14 @@ then
 				conname=$2
 
 				# Create 'mvc' controller
-				if [ ! -e ./System/Controllers/"$conname.php" ]
+				if [ ! -e ./system/controllers/"$conname.php" ]
 				then
 					# Create 'mvc' controller
-					cp .cli/tmp/cm_ctrl.php ./System/Controllers/"$conname.php"
-					sed -i "s/cm_ctrl/$conname/g" ./System/Controllers/"$conname.php"
+					cp .cli/tmp/cm_ctrl.php ./system/controllers/"$conname.php"
+					sed -i "s/cm_ctrl/$conname/g" ./system/controllers/"$conname.php"
 
 					printf "Controller created\n"
-					printf "see the results in the 'System/Controllers' directory\n"
+					printf "see the results in the 'system/controllers' directory\n"
 				else
 					printf "Controller already exists\n"
 				fi
@@ -38,7 +38,7 @@ then
 				dirname=$2
 
 				# if directory doesnt exist
-				if [ ! -d ./System/Modules/$dirname ]
+				if [ ! -d ./system/modules/$dirname ]
 				then
 					printf "Module doesn't exists\n"
 				else # if exist
@@ -50,13 +50,13 @@ then
 						conname=$3
 
 						# Create 'hmvc' controller
-						if [ ! -e ./System/Modules/$dirname/Controllers/"$conname.php" ]
+						if [ ! -e ./system/modules/$dirname/controllers/"$conname.php" ]
 						then
-							cp .cli/tmp/md_ctrl.php ./System/Modules/$dirname/Controllers/"$conname.php"
-							sed -i "s/md_ctrl/$conname/g" ./System/Modules/$dirname/Controllers/"$conname.php"
+							cp .cli/tmp/md_ctrl.php ./system/modules/$dirname/controllers/"$conname.php"
+							sed -i "s/md_ctrl/$conname/g" ./system/modules/$dirname/controllers/"$conname.php"
 
 						    printf "Controller created\n"
-							printf "see the results in the 'System/Modules/$dirname/Controllers' directory\n"
+							printf "see the results in the 'system/modules/$dirname/controllers' directory\n"
 						else
 							printf "Controller already exists\n"
 						fi

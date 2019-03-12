@@ -466,13 +466,6 @@ class NSY_Model {
     }
 
 	/*
-    Redirect URL
-     */
-    protected function redirect($url = NULL) {
-		header("location:". BASE_URL . $url);
-    }
-
-	/*
 	Fetching to json format
 	 */
 	protected function fetch_json($data = "") {

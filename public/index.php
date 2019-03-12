@@ -1,13 +1,17 @@
 <?php
-// Use Config & Router class
-use Core\NSY_Config;
+/*
+Use NSY_Router namespace
+ */
 use Core\NSY_Router;
 
 /*
+Use Dotenv namespace
+ */
+use Dotenv\Dotenv;
+
+/*
 NSY Framework
-
 MIT License
-
 Copyright (c) 2018 Vikry Yuansah
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -37,33 +41,56 @@ SOFTWARE.
 define('ROOT', str_replace("index.php", "", $_SERVER["SCRIPT_FILENAME"]));
 
 /*
+The PSR-4 Autoloader, generate via composer (composer dump-autoload) *see composer.json
+The default autoload.php file path.
+You can set the file path itself according to your settings.
+ */
+require(__DIR__ . '/../system/vendor/autoload.php');
+
+/*
 *---------------------------------------------------------------
 * Check Config File
 *---------------------------------------------------------------
 */
-if (!is_readable('../System/Core/NSY_Config.php')) {
-	die('No Config.php found, configure and rename Config file to Config.php in app/core.');
+if (!is_readable(config_app('nsy_sys_dir'))) {
+	die('No NSY_System.php found, configure and rename System file to NSY_System.php in system/core.');
 }
-
 
 /*
 *---------------------------------------------------------------
-* APPLICATION ENVIRONMENT
+* Don't change anythings about this instantiate
 *---------------------------------------------------------------
-*
-* You can load different configurations depending on your
-* current environment. Setting the environment also influences
-* things like logging and error reporting.
-*
-* This can be set to anything, but default usage is:
-*
-*     development
-*     production
-*
-* NOTE: If you change these, also change the error_reporting() code below
-*
 */
-define('ENVIRONMENT', 'development');
+/*
+Load Environment Variables from .env file
+ */
+$dotenv = Dotenv::create(__DIR__);
+$dotenv->load();
+
+/*
+Instantiate System
+ */
+new NSY_System();
+
+/*
+Instantiate Api route
+ */
+new Api();
+
+/*
+Instantiate Web route
+ */
+new Web();
+
+/*
+|--------------------------------------------------------------------------
+| Application Environment
+|--------------------------------------------------------------------------
+|
+| you can set this value on 'System/config/app.php'.
+|
+*/
+define('ENVIRONMENT', config_app('app_env'));
 
 /*
 *---------------------------------------------------------------
@@ -101,16 +128,7 @@ if (defined('ENVIRONMENT')) {
 	}
 }
 
-// The PSR-4 Autoloader, generate via composer (composer dump-autoload) *see composer.json
-require (ROOT . '../System/Vendor/autoload.php');
-
 /*
-Don't change anythings about this instantiate
+Execute matched routes
  */
-new NSY_Config(); // Instantiate Config
-new NSY_AliasClass(); // Instantiate Aliasing class
-new Api(); // Instantiate Api route
-new Web(); // Instantiate Web route
-
-// execute matched routes
 route::dispatch();

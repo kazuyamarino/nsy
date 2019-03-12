@@ -40,6 +40,7 @@ class NSY_Controller {
     Template Directory
      */
     protected function load_template($filename) {
+		extract($this->vars);
         require_once(SYS_TMP_DIR . $filename . '.php');
 		return $this;
     }
@@ -61,13 +62,6 @@ class NSY_Controller {
         foreach ($form as $key => $value) {
             $form[$key] = $this->secure_input($value);
         }
-    }
-
-	/*
-    Redirect URL
-     */
-    protected function redirect($url = NULL) {
-		header("location:". BASE_URL . $url);
     }
 
 	/*

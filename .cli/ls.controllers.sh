@@ -11,7 +11,7 @@ then
 			# List of 'mvc' controllers
 			printf "List of '$mode' controllers :\n"
 			printf "==========================\n"
-			ls -1 ./System/Controllers/* | awk -F"/" '{print NR".", $NF}'
+			ls -1 ./system/controllers/* | awk -F"/" '{print NR".", $NF}'
 			printf "==========================\n"
 		;;
 		"hmvc")
@@ -23,14 +23,14 @@ then
 				dirname=$2
 
 				# if directory doesnt exist
-				if [ ! -d ./System/Modules/$dirname ]
+				if [ ! -d ./system/modules/$dirname ]
 				then
 					printf "Module doesn't exists\n"
 				else # if exist
 					# List of 'hmvc' controllers
 					printf "List of '$mode' controllers :\n"
 					printf "==========================\n"
-					ls -1 ./System/Modules/$dirname/Controllers/* | awk -F"/" '{print NR".", $NF}'
+					ls -1 ./system/modules/$dirname/controllers/* | awk -F"/" '{print NR".", $NF}'
 					printf "==========================\n"
 				fi
 			fi

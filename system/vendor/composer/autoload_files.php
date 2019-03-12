@@ -8,8 +8,8 @@ $baseDir = dirname(dirname($vendorDir));
 return array(
     '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
     '320cde22f66dd4f5d3fd621d3e88b98f' => $vendorDir . '/symfony/polyfill-ctype/bootstrap.php',
-    'da091f10842257b4cc02930d00d71d8a' => $baseDir . '/System/Routes/Web.php',
-    '7c7f73d0d0658a5ccc337d53c0256524' => $baseDir . '/System/Routes/Api.php',
-    'e3e5c86b011087d48e656a7b24314099' => $baseDir . '/System/Core/NSY_AliasClass.php',
-    '164573c97f32dccaa07359ea3fef2731' => $baseDir . '/System/Libraries/Assets.php',
+    'f2d74c7746313beed1fb6dbcda0bf61e' => $baseDir . '/system/routes/Web.php',
+    'ce564d6aef323e866fd3713f3a20fd9d' => $baseDir . '/system/routes/Api.php',
+    'bb6781dfca4c09d664c5ca0b848c068f' => $baseDir . '/system/core/NSY_System.php',
+    '887df5e0a40eac69d235aa433d4dc91d' => $baseDir . '/system/libraries/Assets.php',
 );
