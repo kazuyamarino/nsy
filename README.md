@@ -89,6 +89,8 @@ Here it is [NSY CRUD Example](https://github.com/kazuyamarino/crud)
 * MVC or HMVC
 * NSY Assets Manager
 * PSR-4 Autoloading
+* Composer
+* .env (Environment Variables)
 
 
 ## User Guide.
