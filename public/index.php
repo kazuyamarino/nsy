@@ -47,6 +47,7 @@ You can set the file path itself according to your settings.
  */
 require(__DIR__ . '/../system/vendor/autoload.php');
 
+
 /*
 *---------------------------------------------------------------
 * Check Config File
@@ -64,7 +65,7 @@ if (!is_readable(config_app('nsy_sys_dir'))) {
 /*
 Load Environment Variables from .env file
  */
-$dotenv = Dotenv::create(__DIR__);
+$dotenv = Dotenv::create(config_app('env_dir'));
 $dotenv->load();
 
 /*

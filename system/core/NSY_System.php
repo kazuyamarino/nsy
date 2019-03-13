@@ -60,7 +60,11 @@ class NSY_System {
 // Get config value from system/config/database.php
 function config_db($d1 = "",$d2 = "") {
 	$database = require(__DIR__ . '/../config/database.php');
-	return $database['connections'][$d1][$d2];
+	if ($d2 == "" || empty($d2) || !isset($d2) || $d2 == null) {
+		return $database[$d1];
+	} else {
+		return $database['connections'][$d1][$d2];
+	}
 }
 
 // Get config value from system/config/app.php
@@ -79,7 +83,45 @@ function config_site($d1 = "") {
 Redirect URL
  */
 function redirect($url = "") {
-	header("location:". base_url($url));
+	header('location:'. base_url($url));
+	exit();
+}
+
+/*
+Redirect Back URL
+ */
+function redirectBack() {
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    exit;
+}
+
+/*
+Fetching to json format
+ */
+function fetch_json($data = "") {
+	$json_data = $data;
+	$json_result = json_encode($json_data);
+
+	return $json_result;
+}
+
+/*
+Secure Input Element
+ */
+function secure_input($data) {
+	$data = trim($data);
+	$data = stripslashes($data);
+	$data = htmlspecialchars($data);
+	return $data;
+}
+
+/*
+Secure Form
+ */
+function secure_form($form) {
+	foreach ($form as $key => $value) {
+		$form[$key] = $this->secure_input($value);
+	}
 }
 
 // Define base_url() method
@@ -92,12 +134,10 @@ function base_url($url = "") {
 		if(empty($APP_DIR) || is_null($APP_DIR)) {
 			// then get this result
 			// site address (https) without application directory
-			//define('base_url', 'https://' . $_SERVER['HTTP_HOST'] . '/' . $url);
 			return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $url;
 		} else {
 			// else if default application or project directory defined then get this result
 			// site address (https) with application directory
-			//define('base_url', 'https://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $url);
 			return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $url;
 		}
 	} else {
@@ -105,12 +145,10 @@ function base_url($url = "") {
 		if(empty($APP_DIR) || is_null($APP_DIR)) {
 			// then get this result
 			// site address (http) without application directory
-			//define('base_url', 'http://' . $_SERVER['HTTP_HOST'] . '/' . $url);
 			return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $url;
 		} else {
 			// else if default application or project directory defined then get this result
 			// site address (http) with application directory
-			//define('base_url', 'http://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $url);
 			return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $url;
 		}
 	}

@@ -19,7 +19,7 @@ return [
     * NOTE: If you change these, also change the error_reporting() code below
     *
     */
-	'app_env' => 'development',
+	'app_env' => getenv('APP_ENV'),
 
 	/*
     |--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ return [
     | set the default application or project directory
     |
     */
-	'app_dir' => 'nsy',
+	'app_dir' => getenv('APP_DIR'),
 
 	/*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     | set the default prefix for session
     |
     */
-	'session_prefix' => '',
+	'session_prefix' => getenv('SESSION_PREFIX'),
 
 	/*
     |--------------------------------------------------------------------------
@@ -139,6 +139,16 @@ return [
     | defines the NSY_System file path
     |
     */
-	'nsy_sys_dir' => __DIR__ . '/../core/NSY_System.php'
+	'nsy_sys_dir' => __DIR__ . '/../core/NSY_System.php',
+
+	/*
+    |--------------------------------------------------------------------------
+    | Default NSY_System Path
+    |--------------------------------------------------------------------------
+    |
+    | defines the NSY_System file path
+    |
+    */
+	'env_dir' => __DIR__ . '/../..'
 
 ];

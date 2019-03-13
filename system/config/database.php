@@ -12,7 +12,7 @@ return [
     | you may use many connections at once using the Database library.
     |
     */
-	'default' => 'mysql',
+	'default' => getenv('DB_CONNECTION'),
 
 	/*
     |--------------------------------------------------------------------------
@@ -33,45 +33,45 @@ return [
 
         'mysql' => [
 			'DB_DRIVER' => 'mysql',
-		    'DB_HOST' => 'localhost',
-		    'DB_PORT' => '3306',
-		    'DB_NAME' => 'saleshub_development',
-		    'DB_USER' => 'root',
-		    'DB_PASS' => 'depelover90',
-            'DB_CHARSET' => 'utf8mb4',
+		    'DB_HOST' => getenv('DB_HOST'),
+		    'DB_PORT' => getenv('DB_PORT'),
+		    'DB_NAME' => getenv('DB_NAME'),
+		    'DB_USER' => getenv('DB_USER'),
+		    'DB_PASS' => getenv('DB_PASS'),
+            'DB_CHARSET' => 'utf8',
             'PREFIX' => ''
         ],
 
 		'dblib' => [
 			'DB_DRIVER' => 'dblib',
-		    'DB_HOST' => 'localhost',
-		    'DB_PORT' => '1433',
-		    'DB_NAME' => '',
-		    'DB_USER' => '',
-		    'DB_PASS' => '',
-            'DB_CHARSET' => 'utf8mb4',
+			'DB_HOST' => getenv('DB_HOST'),
+		    'DB_PORT' => getenv('DB_PORT'),
+		    'DB_NAME' => getenv('DB_NAME'),
+		    'DB_USER' => getenv('DB_USER'),
+		    'DB_PASS' => getenv('DB_PASS'),
+            'DB_CHARSET' => 'utf8',
             'PREFIX' => ''
         ],
 
 		'sqlsrv' => [
 			'DB_DRIVER' => 'sqlsrv',
-		    'DB_HOST' => 'localhost',
-		    'DB_PORT' => '1433',
-		    'DB_NAME' => '',
-		    'DB_USER' => '',
-		    'DB_PASS' => '',
-            'DB_CHARSET' => 'utf8mb4',
+			'DB_HOST' => getenv('DB_HOST'),
+		    'DB_PORT' => getenv('DB_PORT'),
+		    'DB_NAME' => getenv('DB_NAME'),
+		    'DB_USER' => getenv('DB_USER'),
+		    'DB_PASS' => getenv('DB_PASS'),
+            'DB_CHARSET' => 'utf8',
             'PREFIX' => ''
         ],
 
 		'pgsql' => [
 			'DB_DRIVER' => 'pgsql',
-		    'DB_HOST' => 'localhost',
-		    'DB_PORT' => '5432',
-		    'DB_NAME' => '',
-		    'DB_USER' => '',
-		    'DB_PASS' => '',
-            'DB_CHARSET' => 'utf8mb4',
+			'DB_HOST' => getenv('DB_HOST'),
+		    'DB_PORT' => getenv('DB_PORT'),
+		    'DB_NAME' => getenv('DB_NAME'),
+		    'DB_USER' => getenv('DB_USER'),
+		    'DB_PASS' => getenv('DB_PASS'),
+            'DB_CHARSET' => 'utf8',
             'PREFIX' => ''
         ]
 

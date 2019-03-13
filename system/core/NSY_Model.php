@@ -41,19 +41,27 @@ class NSY_Model {
 		define('FETCH_FUNC', \PDO::FETCH_FUNC);
 	}
 
-	protected function mysql() {
-		$this->connection = NSY_DB::connect_mysql();
-		return $this;
-	}
-
-	protected function dblib() {
-		$this->connection = NSY_DB::connect_dblib();
-		return $this;
-	}
-
-	protected function sqlsrv() {
-		$this->connection = NSY_DB::connect_sqlsrv();
-		return $this;
+	protected function connect() {
+		switch (config_db('default', null)) {
+		    case "mysql":
+				$this->connection = NSY_DB::connect_mysql();
+				return $this;
+		        break;
+		    case "dblib":
+				$this->connection = NSY_DB::connect_dblib();
+				return $this;
+		        break;
+		    case "sqlsrv":
+				$this->connection = NSY_DB::connect_sqlsrv();
+				return $this;
+		        break;
+			case "pgsql":
+				$this->connection = NSY_DB::connect_pgsql();
+				return $this;
+		        break;
+		    default:
+		        echo "Default database connection not found or undefined, please configure it in system/config/database.php.";
+		}
 	}
 
 	protected function query($query = "") {
@@ -444,35 +452,6 @@ class NSY_Model {
 	 */
 	protected function rollback() {
 		$this->connection->rollback();
-    }
-
-	/*
-    Secure Input Element
-     */
-    protected function secure_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
-
-    /*
-    Secure Form
-     */
-    protected function secure_form($form) {
-        foreach ($form as $key => $value) {
-            $form[$key] = $this->secure_input($value);
-        }
-    }
-
-	/*
-	Fetching to json format
-	 */
-	protected function fetch_json($data = "") {
-		$json_data = $data;
-		$json_result = json_encode($json_data);
-
-		return $json_result;
     }
 
 }

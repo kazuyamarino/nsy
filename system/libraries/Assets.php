@@ -37,7 +37,7 @@ Class Assets extends NSY_AssetManager
 		add::custom('<title>' . SITETITLE . '</title>');
 
 		// Meta Tag
-		add::meta('charset="utf-8"', '');
+		add::meta('charset="utf-8"', null);
 		add::meta('http-equiv="x-ua-compatible"', 'ie=edge');
 		add::meta('name="description"', SITEDESCRIPTION);
 		add::meta('name="keywords"', SITEKEYWORDS);
@@ -45,7 +45,7 @@ Class Assets extends NSY_AssetManager
 		add::meta('name="viewport"', 'width=device-width, initial-scale=1, shrink-to-fit=no');
 
 		// Favicon
-		add::link('favicon.png', 'shortcut icon', '');
+		add::link('favicon.png', 'shortcut icon', null);
 
 		// Main Style
 		add::link('main.css', 'stylesheet', 'text/css');
@@ -54,7 +54,7 @@ Class Assets extends NSY_AssetManager
 	public static function footer_assets()
 	{
 		// Base JS
-		add::script('main.js', 'text/javascript', 'UTF-8', '');
+		add::script('main.js', 'text/javascript', 'UTF-8', null);
 	}
 
 }

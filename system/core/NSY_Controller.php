@@ -45,25 +45,6 @@ class NSY_Controller {
 		return $this;
     }
 
-    /*
-    Secure Input Element
-     */
-    protected function secure_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
-
-    /*
-    Secure Form
-     */
-    protected function secure_form($form) {
-        foreach ($form as $key => $value) {
-            $form[$key] = $this->secure_input($value);
-        }
-    }
-
 	/*
 	Start method for variables sequence
 	 */
@@ -93,15 +74,5 @@ class NSY_Controller {
 	/*
 	End method for variables sequence
 	 */
-
-	/*
-	Fetching to json format
-	 */
-	protected function fetch_json($data = "") {
-		$json_data = $data;
-		$json_result = json_encode($json_data);
-
-		return $json_result;
-    }
 
 }
