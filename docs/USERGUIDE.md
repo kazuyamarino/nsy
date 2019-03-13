@@ -5,14 +5,14 @@ Site example :
 <a href="https://nsy.kazuyamarino.com/" target="_blank">https://nsy.kazuyamarino.com/</a>
 
 ## Configuration File
-* composer.json
-* NSY_Config.php
-* Routing.php
+* Composer
+* Framework Configuration
+* Routes
 * main.js
 
 <hr>
 
-### composer.json
+### Composer
 Composer helps you declare, manage, and install dependencies of PHP projects.
 
 See [https://getcomposer.org/](https://getcomposer.org/) for more information and documentation.
@@ -38,61 +38,80 @@ The composer on the nsy framework has a function to generate autoload in the HMV
 
 NSY applies the concept of PSR-4 Autoloading. NSY has the `composer.json` file that can be dumped with [composer](https://getcomposer.org/download/) command `composer dump-autoload -o` when creating a folder structure that contains new class files.
 
-Example make a `Homepage` folder in the HMVC module folder and dump it with composer autoload :
+Example make a `homepage` folder in the HMVC module folder and dump it with composer autoload :
 * See line autoload on composer.json.
 ```
 "autoload": {
 	"psr-4": {
-		"Core\\": "System/Core/",
-		"Models\\": "System/Models/",
-		"Controllers\\": "System/Controllers/",
+		"Core\\": "system/core/",
+		"Models\\": "system/models/",
+		"Controllers\\": "system/controllers/",
 		"Modules\\Models\\": [
-			"System/Modules/Homepage/Models/"
+			"system/modules/homepage/models/"
 		],
 		"Modules\\Controllers\\": [
-			"System/Modules/Homepage/Controllers/"
+			"system/modules/homepage/controllers/"
 		]
 	},
 ```
 
-* There is an example folder named in the module folder that was created named `Homepage`, along with the namespaces.
+* There is an example folder named in the module folder that was created named `homepage`, along with the namespaces.
 ```
 "Modules\\Models\\": [
-	"System/Modules/Homepage/Models/"
+	"system/modules/homepage/models/"
 ],
 "Modules\\Controllers\\": [
-	"System/Modules/Homepage/Controllers/"
+	"system/modules/homepage/controllers/"
 ]
 ```
-The namespace is separated with `\\`, and then the path with `/`. There are 2 folders that will be autoloaded, first `System/Modules/Homepage/Models/`, and second `System/Modules/Homepage/Controllers/`.
+The namespace is separated with `\\`, and then the path with `/`. There are 2 folders that will be autoloaded, first `system/modules/homepage/models/`, and second `system/modules/homepage/controllers/`.
 
 
-* In the `Homepage` folder there must be a `Models` folder, `Views` folder, and `Controllers` folder.
+* In the `homepage` folder there must be a `models` folder, `views` folder, and `controllers` folder.
 ```
-├── Modules
-    │   └── Homepage
-    │       ├── Controllers
+modules
+    │   └── homepage
+    │       ├── controllers
     │       │  
-    │       ├── Models
+    │       ├── models
     │       │  
-    │       └── Views
+    │       └── views
     │           
 ```
 Should be like this. That it is!
 
-* Now, you can generate autoload class in the `Models` folder & `Controllers` folder for the `Homepage` with `composer dump-autoload -o` on the command line terminal.
+* Now, you can generate autoload class in the `models` folder & `controllers` folder for the `homepage` with `composer dump-autoload -o` on the command line terminal.
 
 <hr>
 
-### NSY_Config.php File
-The NSY_Config class provides a means to retrieve configuration preferences. These preferences can come from the default config file `System/Core/NSY_Config.php` or you can custom it with your own setting.
+### Framework Configuration
+The NSY_Framework Configuration is very simple. There are 3 config file in `system/config` directory :
+* `app.php` for application setting such as system path of the framework.
+* `database.php` for database connection setting.
+* `site.php` for meta site configuration.
+```
+├── config
+    │   ├── app.php
+    │   ├── database.php
+    │   └── site.php
+```
 
-By default NSY_Config file is required by `index.php` in the <strong>public</strong> folder *(see line 3 & line 44 to 46 of the index.php file)*.
+By default NSY support `phpdotenv` library, that can read `.env` file *(see `.env` file on root directory)*.
 
 <hr>
 
-### Routing.php file
-NSY routing system using classes from [Macaw route by Noah Buscher](https://github.com/noahbuscher/macaw)
+### Helpers
+NSY_Helper is provided in the `system/helpers` folder, which is useful for creating custom methods that match what you want.
+
+<hr>
+
+### Routes
+NSY Routing system using classes from [Macaw route by Noah Buscher](https://github.com/noahbuscher/macaw), and it's located in the `system/routes` directory.
+```
+├── routes
+    │   ├── Api.php
+    │   └── Web.php
+```
 
 >Macaw is a simple, open source PHP router. It's super small (~150 LOC), fast, and has some great >annotated source code. This class allows you to just throw it into your project and start using it >immediately.
 
@@ -190,7 +209,7 @@ If you don't specify an error callback, NSY_Router will just echo `404`.
 
 In main.js there is a `base_url` configuration for javascript *(see line 1 to 20)*. This `base_url` is used for the purpose of initializing the function of the <strong>Datatable Ajax URL</strong> in the `public/js/datatables/init.js`*
 
-(*) See NSY Foundation Repository [https://github.com/kazuyamarino/nsy-foundation](Here!)
+(*) For Example see NSY Foundation repository [https://github.com/kazuyamarino/nsy-foundation](Here!)
 
 <hr>
 
@@ -205,8 +224,8 @@ The easiest & best assets manager in history
 made with love by Vikry Yuansah
 
 How to use it? Simply follow this.
-* First, you need to go to `System/Libraries/`, there are 1 files, that is `Assets.php`.
-* `NSY_AssetManager.php` is the core, it is located in 'System/Core' folder. `Assets.php` is the controller which regulates assets, if you want to manage the assets, please go to `Assets.php`.
+* First, you need to go to `system/libraries/`, there are 1 files, that is `Assets.php`.
+* `NSY_AssetManager.php` is the core, it is located in 'system/core' folder. `Assets.php` is the controller which regulates assets, if you want to manage the assets, please go to `Assets.php`.
 
 Create `<meta>` tag :
 ```

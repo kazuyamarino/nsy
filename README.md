@@ -10,6 +10,7 @@ Site example :
 ```bash
 .
 ├── composer.json
+├── composer.lock
 ├── docs
 │   ├── apache
 │   │   ├── for_public
@@ -20,63 +21,55 @@ Site example :
 │   │   └── sites-available
 │   │       └── default
 │   └── USERGUIDE.md
+├── INSTALL-CLI.sh
 ├── LICENSE.txt
-├── Public
+├── public
 │   ├── 403.html
 │   ├── 404.html
+│   ├── css
+│   │   └── main.css
+│   ├── footer.php
+│   ├── header.php
+│   ├── img
+│   │   ├── favicon.png
+│   │   └── logo.png
 │   ├── index.php
-│   ├── robots.txt
-│   └── Template
-│       ├── css
-│       │   └── main.css
-│       ├── footer.php
-│       ├── header.php
-│       ├── img
-│       │   ├── favicon.png
-│       │   └── logo.png
-│       └── js
-│           └── main.js
+│   ├── js
+│   │   └── main.js
+│   └── robots.txt
 ├── README.md
-└── System
-    ├── Controllers
+└── system
+    ├── config
+    │   ├── app.php
+    │   ├── database.php
+    │   └── site.php
+    ├── controllers
     │   └── Welcome.php
-    ├── Core
-    │   ├── NSY_AliasClass.php
+    ├── core
     │   ├── NSY_AssetManager.php
-    │   ├── NSY_Config.php
     │   ├── NSY_Controller.php
     │   ├── NSY_DB.php
     │   ├── NSY_Model.php
-    │   └── NSY_Router.php
-    ├── Libraries
+    │   ├── NSY_Router.php
+    │   └── NSY_System.php
+    ├── helpers
+    │   └── NSY_Helper.php
+    ├── libraries
     │   └── Assets.php
-    ├── Models
+    ├── models
     │   └── Model_Welcome.php
-    ├── Modules
-    │   └── Homepage
-    │       ├── Controllers
+    ├── modules
+    │   └── homepage
+    │       ├── controllers
     │       │   └── Hello.php
-    │       ├── Models
+    │       ├── models
     │       │   └── Model_Hello.php
-    │       └── Views
+    │       └── views
     │           └── index.php
-    ├── Routes
+    ├── routes
     │   ├── Api.php
     │   └── Web.php
-    ├── Vendor
-    │   ├── autoload.php
-    │   ├── bin
-    │   └── composer
-    │       ├── autoload_classmap.php
-    │       ├── autoload_files.php
-    │       ├── autoload_namespaces.php
-    │       ├── autoload_psr4.php
-    │       ├── autoload_real.php
-    │       ├── autoload_static.php
-    │       ├── ClassLoader.php
-    │       ├── installed.json
-    │       └── LICENSE
-    └── Views
+    └── views
         └── index.php
 ```
 
@@ -96,8 +89,6 @@ Here it is [NSY CRUD Example](https://github.com/kazuyamarino/crud)
 * MVC or HMVC
 * NSY Assets Manager
 * PSR-4 Autoloading
-
-For more information, see [USERGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md).
 
 
 ## User Guide.
