@@ -6,6 +6,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 use Core\NSY_Controller;
 use Models\Model_Welcome;
 use Carbon\Carbon;
+use voku\helper\AntiXSS;
 
 class Welcome extends NSY_Controller
 {

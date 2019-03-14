@@ -17,7 +17,6 @@ return array(
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Symfony\\Contracts\\' => array($vendorDir . '/symfony/contracts'),
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
-    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'Modules\\Models\\' => array($baseDir . '/system/modules/homepage/models'),
     'Modules\\Controllers\\' => array($baseDir . '/system/modules/homepage/controllers'),
     'Models\\' => array($baseDir . '/system/models'),

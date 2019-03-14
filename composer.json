@@ -12,7 +12,6 @@
 	"require": {
         "nesbot/carbon": "^2.14",
         "vlucas/phpdotenv": "^3.3",
-        "phpmailer/phpmailer": "^6.0",
         "voku/anti-xss": "^4.1"
     },
     "autoload": {

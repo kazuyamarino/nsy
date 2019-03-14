@@ -47,7 +47,6 @@ You can set the file path itself according to your settings.
  */
 require(__DIR__ . '/../system/vendor/autoload.php');
 
-
 /*
 *---------------------------------------------------------------
 * Check Config File
