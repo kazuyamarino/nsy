@@ -8,7 +8,7 @@ use Core\NSY_Model;
 class Model_Welcome extends NSY_Model
 {
 
-	public function yourFunction()
+	public function insert($param)
 	{
 
 	}

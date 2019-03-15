@@ -17,6 +17,7 @@ class ComposerStaticInityour_suffixed
         'f2d74c7746313beed1fb6dbcda0bf61e' => __DIR__ . '/../../..' . '/system/routes/Web.php',
         'ce564d6aef323e866fd3713f3a20fd9d' => __DIR__ . '/../../..' . '/system/routes/Api.php',
         'bb6781dfca4c09d664c5ca0b848c068f' => __DIR__ . '/../../..' . '/system/core/NSY_System.php',
+        'd7d5b695f452fe19cc16a8ceeffacd88' => __DIR__ . '/../../..' . '/system/core/NSY_CSRF.php',
         '887df5e0a40eac69d235aa433d4dc91d' => __DIR__ . '/../../..' . '/system/libraries/Assets.php',
         '79168aa2ef8eda0feffefbde0165e3b0' => __DIR__ . '/../../..' . '/system/helpers/NSY_Helper.php',
     );

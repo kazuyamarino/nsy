@@ -318,33 +318,77 @@ class NSY_Model {
 	Helper for PDO Execute
 	 */
 	protected function exec() {
-		// Check if there's connection defined on the models
-		if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
-			echo "No Connection Bro, Please check your connection again!";
-		} else {
-			$stmt = $this->connection->prepare($this->query);
-			// if vars null, execute queies without vars, else execute it with defined on the models
-			if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
-				$executed = $stmt->execute();
-				if (!$executed) {
+		if(config_app('csrf_token') === 'true') {
+			try {
+			    // Run CSRF check, on POST data, in exception mode, for 10 minutes, in one-time mode.
+			    \NoCSRF::check( 'csrf_token', $_POST, true, 60*10, false );
+
+				// Check if there's connection defined on the models
+				if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
+					echo "No Connection Bro, Please check your connection again!";
+				} else {
+					$stmt = $this->connection->prepare($this->query);
+					// if vars null, execute queies without vars, else execute it with defined on the models
+					if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
+						$executed = $stmt->execute();
+						if (!$executed) {
+							$errors = $stmt->errorInfo();
+							echo "Error Query : ".($errors[0]);
+							echo ", No parameter were bound for query, Please check your query again!";
+							exit();
+						}
+					} else {
+						$executed = $stmt->execute($this->variables);
+					}
+
+					// Check the errors, if no errors then return the results
+					if ($stmt->errorCode() == 0) {
+						return $executed;
+					} else {
+						// if there's errors, then display the message
+						$errors = $stmt->errorInfo();
+						echo "Error Query : ".($errors[0].", ".$errors[1].", ".$errors[2]);
+						exit();
+					}
+				}
+			    $result = 'CSRF check passed. Form parsed.';
+			}
+			catch ( \Exception $e ) {
+			    // CSRF attack detected
+			    echo $result = $e->getMessage() . ' Form ignored.';
+			}
+		} elseif(config_app('csrf_token') === 'false') {
+			// Check if there's connection defined on the models
+			if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
+				echo "No Connection Bro, Please check your connection again!";
+			} else {
+				$stmt = $this->connection->prepare($this->query);
+				// if vars null, execute queies without vars, else execute it with defined on the models
+				if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
+					$executed = $stmt->execute();
+					if (!$executed) {
+						$errors = $stmt->errorInfo();
+						echo "Error Query : ".($errors[0]);
+						echo ", No parameter were bound for query, Please check your query again!";
+						exit();
+					}
+				} else {
+					$executed = $stmt->execute($this->variables);
+				}
+
+				// Check the errors, if no errors then return the results
+				if ($stmt->errorCode() == 0) {
+					return $executed;
+				} else {
+					// if there's errors, then display the message
 					$errors = $stmt->errorInfo();
-					echo "Error Query : ".($errors[0]);
-					echo ", No parameter were bound for query, Please check your query again!";
+					echo "Error Query : ".($errors[0].", ".$errors[1].", ".$errors[2]);
 					exit();
 				}
-			} else {
-				$executed = $stmt->execute($this->variables);
 			}
-
-			// Check the errors, if no errors then return the results
-			if ($stmt->errorCode() == 0) {
-				return $executed;
-			} else {
-				// if there's errors, then display the message
-				$errors = $stmt->errorInfo();
-				echo "Error Query : ".($errors[0].", ".$errors[1].", ".$errors[2]);
-				exit();
-			}
+		} else {
+			echo 'The CSRF Token Protection is not set correctly. Please check in the system/config/app.php';
+			exit();
 		}
 
 		// Close the statement & connection
@@ -356,35 +400,81 @@ class NSY_Model {
 	Helper for PDO Multi Execute
 	 */
 	protected function multi_exec() {
-		// Check if there's connection defined on the models
-		if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
-			echo "No Connection Bro, Please check your connection again!";
-		} else {
-			$stmt = $this->connection->prepare($this->query);
-			// if vars null, execute queies without vars, else execute it with defined on the models
-			if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
-				$executed = $stmt->execute();
-				if (!$executed) {
+		if(config_app('csrf_token') === 'true') {
+			try {
+			    // Run CSRF check, on POST data, in exception mode, for 10 minutes, in one-time mode.
+			    \NoCSRF::check( 'csrf_token', $_POST, true, 60*10, false );
+
+				// Check if there's connection defined on the models
+				if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
+					echo "No Connection Bro, Please check your connection again!";
+				} else {
+					$stmt = $this->connection->prepare($this->query);
+					// if vars null, execute queies without vars, else execute it with defined on the models
+					if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
+						$executed = $stmt->execute();
+						if (!$executed) {
+							$errors = $stmt->errorInfo();
+							echo "Error Query : ".($errors[0]);
+							echo ", No parameter were bound for query, Please check your query again!";
+							exit();
+						}
+					} else {
+						foreach($this->variables as $key => $params) {
+							$executed = $stmt->execute(array($params));
+						}
+					}
+
+					// Check the errors, if no errors then return the results
+					if ($stmt->errorCode() == 0) {
+						return $executed;
+					} else {
+						// if there's errors, then display the message
+						$errors = $stmt->errorInfo();
+						echo "Error Query : ".($errors[0].", ".$errors[1].", ".$errors[2]);
+						exit();
+					}
+				}
+				$result = 'CSRF check passed. Form parsed.';
+			}
+			catch ( \Exception $e ) {
+				// CSRF attack detected
+				echo $result = $e->getMessage() . ' Form ignored.';
+			}
+		} elseif(config_app('csrf_token') === 'false') {
+			// Check if there's connection defined on the models
+			if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
+				echo "No Connection Bro, Please check your connection again!";
+			} else {
+				$stmt = $this->connection->prepare($this->query);
+				// if vars null, execute queies without vars, else execute it with defined on the models
+				if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
+					$executed = $stmt->execute();
+					if (!$executed) {
+						$errors = $stmt->errorInfo();
+						echo "Error Query : ".($errors[0]);
+						echo ", No parameter were bound for query, Please check your query again!";
+						exit();
+					}
+				} else {
+					foreach($this->variables as $key => $params) {
+						$executed = $stmt->execute(array($params));
+					}
+				}
+
+				// Check the errors, if no errors then return the results
+				if ($stmt->errorCode() == 0) {
+					return $executed;
+				} else {
+					// if there's errors, then display the message
 					$errors = $stmt->errorInfo();
-					echo "Error Query : ".($errors[0]);
-					echo ", No parameter were bound for query, Please check your query again!";
+					echo "Error Query : ".($errors[0].", ".$errors[1].", ".$errors[2]);
 					exit();
 				}
-			} else {
-				foreach($this->variables as $key => $params) {
-					$executed = $stmt->execute(array($params));
-				}
 			}
-
-			// Check the errors, if no errors then return the results
-			if ($stmt->errorCode() == 0) {
-				return $executed;
-			} else {
-				// if there's errors, then display the message
-				$errors = $stmt->errorInfo();
-				echo "Error Query : ".($errors[0].", ".$errors[1].", ".$errors[2]);
-				exit();
-			}
+		} else {
+			echo 'The CSRF Token Protection is not set correctly. Please check in the system/config/app.php';
+			exit();
 		}
 
 		// Close the statement & connection
