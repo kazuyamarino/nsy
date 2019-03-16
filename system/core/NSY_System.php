@@ -129,7 +129,7 @@ CSRF Token
  */
 function csrf_token() {
 	$csrf_token = NoCSRF::generate( 'csrf_token' );
-	echo $csrf_token;
+	return $csrf_token;
 }
 
 /*
@@ -137,7 +137,7 @@ CSRF Form Token
  */
 function form_csrf_token() {
 	$csrf_token = NoCSRF::generate( 'csrf_token' );
-	echo '<input type="hidden" name="csrf_token" value=' . $csrf_token . '">';
+	return '<input type="hidden" name="csrf_token" value=' . $csrf_token . '">';
 }
 
 // Define base_url() method

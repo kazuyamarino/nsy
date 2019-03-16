@@ -5,7 +5,6 @@ defined('ROOT') OR exit('No direct script access allowed');
 	<div>
 		<h3>Hi, iam NSY!&nbsp;|&nbsp;<a href="<?php echo base_url('hmvc'); ?>">Go To HMVC Page</a></h3>
 		<p>NSY is a simple PHP Framework that works well on MVC or HMVC mode, its a core of NSY Framework, with no more Stylesheet and Javascript.</p>
-
 		<div>
 			<div>
 				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/README.md#nsy-folder-structure">NSY Folder Structure</a><br />See the structure.</p>
