@@ -53,7 +53,10 @@ Class Assets extends NSY_AssetManager
 
 	public static function footer_assets()
 	{
-		// Base JS
+		// System JS
+		add::script('system.js', 'text/javascript', 'UTF-8', null);
+
+		// Main JS
 		add::script('main.js', 'text/javascript', 'UTF-8', null);
 	}
 
