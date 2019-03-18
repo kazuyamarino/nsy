@@ -2,6 +2,3 @@ language: php
 
 php:
   - 7.0
-
-script:
-  - vendor/bin/phpunit
