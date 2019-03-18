@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true" bootstrap="system/vendor/autoload.php">
+    <testsuites>
+        <testsuite name="NSY Test Suite">
+            <directory>nsy</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
