@@ -22,7 +22,9 @@ Site example :
 │   │   └── sites-available
 │   │       └── default
 │   └── USERGUIDE.md
-├── INSTALL-CLI.sh
+├── dump
+│   └── DUMP.md
+├── INSTALL.CLI.sh
 ├── LICENSE.txt
 ├── phpunit.xml
 ├── public
@@ -37,7 +39,8 @@ Site example :
 │   │   └── logo.png
 │   ├── index.php
 │   ├── js
-│   │   └── main.js
+│   │   ├── main.js
+│   │   └── system.js
 │   └── robots.txt
 ├── README.md
 └── system
