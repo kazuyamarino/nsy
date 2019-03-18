@@ -11,8 +11,7 @@
     ],
 	"require": {
         "nesbot/carbon": "^2.14",
-        "vlucas/phpdotenv": "^3.3",
-        "voku/anti-xss": "^4.1"
+        "vlucas/phpdotenv": "^3.3"
     },
     "autoload": {
         "psr-4": {
