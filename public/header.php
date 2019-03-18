@@ -14,7 +14,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
 	<![endif]-->
 
-	<header class="header">
+	<header style="text-align:center" class="header">
 		<a href="<?php echo base_url(); ?>"><img src="<?php echo IMG_DIR; ?>logo.png" width="100"/></a>
 		<h2><?php echo $my_name; ?></h2>
 		<a target="_blank" href="https://github.com/kazuyamarino/nsy">View On Github</a>

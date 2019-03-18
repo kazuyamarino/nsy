@@ -8,7 +8,7 @@ Site example :
 * Composer
 * Framework Configuration
 * Routes
-* main.js
+* system.js
 
 <hr>
 
@@ -201,11 +201,11 @@ If you don't specify an error callback, NSY_Router will just echo `404`.
 
 <hr>
 
-### main.js file
+### system.js file
 
->main.js is located in `public/js/main.js` folder.
+>system.js is located in `public/js/system.js` folder.
 
-In main.js there is a `base_url` configuration for javascript *(see line 1 to 20)*. This `base_url` is used for the purpose of initializing the function of the <strong>Datatable Ajax URL</strong> in the `public/js/datatables/init.js`*
+In system.js there is a `base_url` configuration for javascript *(see line 1 to 20)*. This `base_url` is used for the purpose of initializing the function of the <strong>Datatable Ajax URL</strong> in the `public/js/datatables/init.js`*
 
 (*) For Example see NSY Foundation repository [https://github.com/kazuyamarino/nsy-foundation](Here!)
 
