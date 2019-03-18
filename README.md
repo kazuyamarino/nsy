@@ -10,7 +10,6 @@ Site example :
 ## NSY folder structure
 
 ```bash
-.
 ├── composer.json
 ├── composer.lock
 ├── docs
@@ -25,6 +24,7 @@ Site example :
 │   └── USERGUIDE.md
 ├── INSTALL-CLI.sh
 ├── LICENSE.txt
+├── phpunit.xml
 ├── public
 │   ├── 403.html
 │   ├── 404.html
@@ -50,6 +50,7 @@ Site example :
     ├── core
     │   ├── NSY_AssetManager.php
     │   ├── NSY_Controller.php
+    │   ├── NSY_CSRF.php
     │   ├── NSY_DB.php
     │   ├── NSY_Model.php
     │   ├── NSY_Router.php
@@ -92,7 +93,7 @@ Here it is [NSY CRUD Example](https://github.com/kazuyamarino/crud)
 * NSY Assets Manager
 * PSR-4 Autoloading
 * Composer
-* .env (Environment Variables)
+* .env (Environment Variables) Config
 
 
 ## User Guide.

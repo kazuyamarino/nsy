@@ -22,23 +22,23 @@ class NSY_Model {
 	 */
 	public function __construct() {
 		// Define binding variable type
-		define('PARAM_INT', \PDO::PARAM_INT);
-		define('PARAM_STR', \PDO::PARAM_STR);
+		defined('PARAM_INT') or define('PARAM_INT', \PDO::PARAM_INT);
+		defined('PARAM_STR') or define('PARAM_STR', \PDO::PARAM_STR);
 
 		// Define binding type
-		define('BINDVALUE', "BINDVALUE");
-		define('BINDPARAM', "BINDPARAM");
+		defined('BINDVALUE') or define('BINDVALUE', "BINDVALUE");
+		defined('BINDPARAM') or define('BINDPARAM', "BINDPARAM");
 
-		define('FETCH_NUM', \PDO::FETCH_NUM);
-		define('FETCH_ASSOC', \PDO::FETCH_ASSOC);
-		define('FETCH_BOTH', \PDO::FETCH_BOTH);
-		define('FETCH_OBJ', \PDO::FETCH_OBJ);
-		define('FETCH_LAZY', \PDO::FETCH_LAZY);
-		define('FETCH_CLASS', \PDO::FETCH_CLASS);
-		define('FETCH_KEY_PAIR', \PDO::FETCH_KEY_PAIR);
-		define('FETCH_UNIQUE', \PDO::FETCH_UNIQUE);
-		define('FETCH_GROUP', \PDO::FETCH_GROUP);
-		define('FETCH_FUNC', \PDO::FETCH_FUNC);
+		defined('FETCH_NUM') or define('FETCH_NUM', \PDO::FETCH_NUM);
+		defined('FETCH_ASSOC') or define('FETCH_ASSOC', \PDO::FETCH_ASSOC);
+		defined('FETCH_BOTH') or define('FETCH_BOTH', \PDO::FETCH_BOTH);
+		defined('FETCH_OBJ') or define('FETCH_OBJ', \PDO::FETCH_OBJ);
+		defined('FETCH_LAZY') or define('FETCH_LAZY', \PDO::FETCH_LAZY);
+		defined('FETCH_CLASS') or define('FETCH_CLASS', \PDO::FETCH_CLASS);
+		defined('FETCH_KEY_PAIR') or define('FETCH_KEY_PAIR', \PDO::FETCH_KEY_PAIR);
+		defined('FETCH_UNIQUE') or define('FETCH_UNIQUE', \PDO::FETCH_UNIQUE);
+		defined('FETCH_GROUP') or define('FETCH_GROUP', \PDO::FETCH_GROUP);
+		defined('FETCH_FUNC') or define('FETCH_FUNC', \PDO::FETCH_FUNC);
 	}
 
 	protected function connect() {
@@ -526,22 +526,38 @@ class NSY_Model {
 	/*
 	Helper for PDO Begin Transaction
 	 */
-	protected function begin() {
+	protected function begin_trans() {
 		$this->connection->beginTransaction();
     }
 
 	/*
 	Helper for PDO Commit Transaction
 	 */
-	protected function commit() {
+	protected function end_trans() {
 		$this->connection->commit();
     }
 
 	/*
 	Helper for PDO Rollback Transaction
 	 */
-	protected function rollback() {
+	protected function rollback_trans() {
 		$this->connection->rollback();
     }
+
+	/*
+	The PHP superglobals $_GET and $_POST are used to collect form-data.
+	 */
+	protected function post($param) {
+		 $result = isset($_POST[$param]) ? $_POST[$param] : NULL;
+		 return $result;
+ 	}
+
+	protected function get($param) {
+		 $result = isset($_GET[$param]) ? $_GET[$param] : NULL;
+		 return $result;
+ 	}
+	/*
+	End The PHP superglobals $_GET and $_POST are used to collect form-data.
+	 */
 
 }
