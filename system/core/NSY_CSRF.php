@@ -1,4 +1,5 @@
 <?php
+namespace Core;
 /**
  * NoCSRF, an anti CSRF token generation/checking class.
  *
@@ -8,7 +9,7 @@
  * @author Thibaut Despoulain <http://bkcore.com>
  * @version 1.0
  */
-class NoCSRF
+class NSY_CSRF
 {
 
     protected static $doOriginCheck = false;

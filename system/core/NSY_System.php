@@ -1,4 +1,6 @@
 <?php
+use Core\NSY_CSRF;
+
 defined('ROOT') OR exit('No direct script access allowed');
 
 class NSY_System {
@@ -128,7 +130,7 @@ function secure_form($form) {
 CSRF Token
  */
 function csrf_token() {
-	$csrf_token = NoCSRF::generate( 'csrf_token' );
+	$csrf_token = NSY_CSRF::generate( 'csrf_token' );
 	return $csrf_token;
 }
 
@@ -136,7 +138,7 @@ function csrf_token() {
 CSRF Form Token
  */
 function form_csrf_token() {
-	$csrf_token = NoCSRF::generate( 'csrf_token' );
+	$csrf_token = NSY_CSRF::generate( 'csrf_token' );
 	return '<input type="hidden" name="csrf_token" value=' . $csrf_token . '">';
 }
 
