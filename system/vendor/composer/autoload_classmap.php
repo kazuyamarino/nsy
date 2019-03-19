@@ -42,7 +42,7 @@ return array(
     'Core\\NSY_DB' => $baseDir . '/system/core/NSY_DB.php',
     'Core\\NSY_Model' => $baseDir . '/system/core/NSY_Model.php',
     'Core\\NSY_Router' => $baseDir . '/system/core/NSY_Router.php',
-    'Core\\xss_filter' => $baseDir . '/system/core/NSY_XSS_Filter.php',
+    'Core\\NSY_XSS_Filter' => $baseDir . '/system/core/NSY_XSS_Filter.php',
     'Dotenv\\Dotenv' => $vendorDir . '/vlucas/phpdotenv/src/Dotenv.php',
     'Dotenv\\Environment\\AbstractVariables' => $vendorDir . '/vlucas/phpdotenv/src/Environment/AbstractVariables.php',
     'Dotenv\\Environment\\Adapter\\AdapterInterface' => $vendorDir . '/vlucas/phpdotenv/src/Environment/Adapter/AdapterInterface.php',

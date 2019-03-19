@@ -136,7 +136,7 @@ class ComposerStaticInityour_suffixed
         'Core\\NSY_DB' => __DIR__ . '/../../..' . '/system/core/NSY_DB.php',
         'Core\\NSY_Model' => __DIR__ . '/../../..' . '/system/core/NSY_Model.php',
         'Core\\NSY_Router' => __DIR__ . '/../../..' . '/system/core/NSY_Router.php',
-        'Core\\xss_filter' => __DIR__ . '/../../..' . '/system/core/NSY_XSS_Filter.php',
+        'Core\\NSY_XSS_Filter' => __DIR__ . '/../../..' . '/system/core/NSY_XSS_Filter.php',
         'Dotenv\\Dotenv' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Dotenv.php',
         'Dotenv\\Environment\\AbstractVariables' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Environment/AbstractVariables.php',
         'Dotenv\\Environment\\Adapter\\AdapterInterface' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Environment/Adapter/AdapterInterface.php',

@@ -7,7 +7,8 @@ namespace Core;
 * @copyright Copyright (c) 2013 - 2017
 * @access public
  */
-class xss_filter {
+
+class NSY_XSS_Filter {
 
 	/**
 	* @var bool $allow_http_value
@@ -59,11 +60,12 @@ class xss_filter {
 		'SLEEP(' => '',
 		'AND (' => '',
 		' AND' => '',
+		'DROP' => '',
 		'(CASE' => ''
 	);
 
 	/**
-	* xss_filter::filter_it()
+	* NSY_XSS_Filter::filter_it()
 	*
 	* @access public
 	* @param string $input
@@ -77,7 +79,7 @@ class xss_filter {
 	}
 
 	/**
-	* xss_filter::allow_http()
+	* NSY_XSS_Filter::allow_http()
 	*
 	* @access public
 	*/
@@ -86,7 +88,7 @@ class xss_filter {
 	}
 
 	/**
-	* xss_filter::disallow_http()
+	* NSY_XSS_Filter::disallow_http()
 	*
 	* @access public
 	*/
@@ -95,7 +97,7 @@ class xss_filter {
 	}
 
 	/**
-	* xss_filter::remove_get_parameters()
+	* NSY_XSS_Filter::remove_get_parameters()
 	*
 	* @access public
 	* @param $url string
@@ -106,7 +108,7 @@ class xss_filter {
 	}
 
 	/**
-	* xss_filter::normal_replace()
+	* NSY_XSS_Filter::normal_replace()
 	*
 	* @access private
 	*/
@@ -125,7 +127,7 @@ class xss_filter {
 	}
 
 	/**
-	* xss_filter::do_grep()
+	* NSY_XSS_Filter::do_grep()
 	*
 	* @access private
 	*/

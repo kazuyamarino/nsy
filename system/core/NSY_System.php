@@ -1,5 +1,6 @@
 <?php
 use Core\NSY_CSRF;
+use Core\NSY_XSS_Filter;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
@@ -140,6 +141,60 @@ CSRF Form Token
 function form_csrf_token() {
 	$csrf_token = NSY_CSRF::generate( 'csrf_token' );
 	return '<input type="hidden" name="csrf_token" value=' . $csrf_token . '">';
+}
+
+/*
+XSS Filter
+ */
+function xss_filter($value) {
+	$xss_filter = new NSY_XSS_Filter();
+	$string = $xss_filter->filter_it($value);
+	return $string;
+}
+
+/*
+Allow http
+ */
+function allow_http() {
+	$allow_http = new NSY_XSS_Filter();
+	$func = $allow_http->allow_http();
+	return $func;
+}
+
+/*
+Disallow http
+ */
+function disallow_http() {
+	$disallow_http = new NSY_XSS_Filter();
+	$func = $disallow_http->disallow_http();
+	return $func;
+}
+
+/*
+Remove url get parameter
+ */
+function remove_get_parameters($url) {
+	$remove_get_parameters = new NSY_XSS_Filter();
+	$func = $remove_get_parameters->remove_get_parameters($url);
+	return $func;
+}
+
+/*
+Normal Replace
+ */
+function normal_replace() {
+	$normal_replace = new NSY_XSS_Filter();
+	$func = $normal_replace->normal_replace();
+	return $func;
+}
+
+/*
+Do Grep
+ */
+function do_grep() {
+	$do_grep = new NSY_XSS_Filter();
+	$func = $do_grep->do_grep();
+	return $func;
 }
 
 // Define base_url() method
