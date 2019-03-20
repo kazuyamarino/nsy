@@ -57,7 +57,8 @@ Site example :
     │   ├── NSY_DB.php
     │   ├── NSY_Model.php
     │   ├── NSY_Router.php
-    │   └── NSY_System.php
+    │   ├── NSY_System.php
+    │   └── NSY_XSS_Filter.php
     ├── helpers
     │   └── NSY_Helper.php
     ├── libraries
@@ -97,6 +98,8 @@ Here it is [NSY CRUD Example](https://github.com/kazuyamarino/crud)
 * PSR-4 Autoloading
 * Composer
 * .env (Environment Variables) Config
+* Anti XSS & CSRF Token
+* NSY CLI (Command Line)
 
 
 ## User Guide.

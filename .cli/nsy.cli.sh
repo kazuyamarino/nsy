@@ -1,6 +1,6 @@
 #!/bin/bash
 
-alias dump_db='sh ./.cli/dump.db.sh'
+alias mysql_dump_db='sh ./.cli/dump.db.sh'
 alias show_modules='sh ./.cli/ls.modules.sh'
 alias show_controllers='sh ./.cli/ls.controllers.sh'
 alias show_models='sh ./.cli/ls.models.sh'

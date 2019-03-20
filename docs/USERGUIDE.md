@@ -265,5 +265,74 @@ pull::footer_assets();
 
 <hr>
 
+## NSY CLI (Command Line)
+NSY CLI is a collection of commands to facilitate users in operating NSY. To start, open the terminal or git bash, then install it with:
+* `chmod +x INSTALL.CLI.sh`
+* ./INSTALL.CLI.sh
+* Close the terminal or git bash, & open it again
+* Then type command `hi_nsy` should display
+```
+Welcome to NSY CLI
+NSY CLI installed successfully
+```
+
+For example of commands see below.
+* Show list of HMVC Modules directory :
+```
+show_modules
+```
+---
+* Show list of HMVC Controller files :
+```
+show_controllers hmvc <module-directory-name>
+```
+---
+* Show list of HMVC Model files :
+```
+show_models hmvc <module-directory-name>
+```
+---
+* Show list of MVC Controller files :
+```
+show_controllers mvc
+```
+---
+* Show list of MVC Model files :
+```
+show_models mvc
+```
+---
+* Show Welcome Message :
+```
+hi_nsy
+```
+---
+* Dump mysql databases :
+```
+mysql_dump_db <database-name> <username> <password>
+```
+---
+* Make HMVC Controller :
+```
+make_controller hmvc <module-directory-name> <controller-name>
+```
+---
+* Make HMVC Model :
+```
+make_model hmvc <module-directory-name> <model-name>
+```
+---
+* Make MVC Controller :
+```
+make_controller mvc <controller-name>
+```
+---
+* Make MVC Model :
+```
+make_model mvc <model-name>
+```
+
+<hr>
+
 ## License
 The code is available under the [MIT license](LICENSE.txt)..
