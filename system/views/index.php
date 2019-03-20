@@ -46,6 +46,9 @@ defined('ROOT') OR exit('No direct script access allowed');
 			<div>
 				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#helpers">NSY Helper</a><br />Creating custom methods with ease.</p>
 			</div>
+			<div>
+				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#framework-configuration">Framework Configuration</a><br />Simple config.</p>
+			</div>
 		</div>
 	</div>
 </div>

@@ -213,7 +213,7 @@ made with love by Vikry Yuansah
 
 How to use it? Simply follow this.
 * First, you need to go to `system/libraries/`, there are 1 files, that is `Assets.php`.
-* `NSY_AssetManager.php` is the core, it is located in 'system/core' folder. `Assets.php` is the controller which regulates assets, if you want to manage the assets, please go to `Assets.php`.
+* `NSY_AssetManager.php` is the core, it is located in `system/core` folder. `Assets.php` is the controller which regulates assets, if you want to manage the assets, please go to `Assets.php`.
 
 Create `<meta>` tag :
 ```
