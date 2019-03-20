@@ -96,6 +96,16 @@ The NSY_Framework Configuration is very simple. There are 3 config file in `syst
 
 By default NSY support `phpdotenv` library, that can read `.env` file *(see `.env` file on root directory)*.
 
+* system.js file
+
+>system.js is located in `public/js/system.js` folder.
+
+In system.js there is a `base_url` configuration for javascript *(see line 1 to 20)*. This `base_url` is used for the purpose of initializing the function of the <strong>Datatable Ajax URL</strong> in the `public/js/datatables/init.js`*
+
+(*) For Example see NSY Foundation repository [https://github.com/kazuyamarino/nsy-foundation](Here!)
+
+<hr>
+
 <hr>
 
 ### Helpers
@@ -198,16 +208,6 @@ route::error(function() {
 ```
 
 If you don't specify an error callback, NSY_Router will just echo `404`.
-
-<hr>
-
-### system.js file
-
->system.js is located in `public/js/system.js` folder.
-
-In system.js there is a `base_url` configuration for javascript *(see line 1 to 20)*. This `base_url` is used for the purpose of initializing the function of the <strong>Datatable Ajax URL</strong> in the `public/js/datatables/init.js`*
-
-(*) For Example see NSY Foundation repository [https://github.com/kazuyamarino/nsy-foundation](Here!)
 
 <hr>
 

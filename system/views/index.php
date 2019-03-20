@@ -35,7 +35,16 @@ defined('ROOT') OR exit('No direct script access allowed');
 				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#psr-4-autoloading">PSR-4 Autoloading</a><br />See explanation.</p>
 			</div>
 			<div>
-				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#composer-on-nsy-framework">Composer on NSY</a><br />See explanation.</p>
+				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#composer-on-nsy-framework">Composer on NSY</a><br />NSY support Composer for install/update libraries.</p>
+			</div>
+			<div>
+				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#nsy-cli-command-line">NSY CLI</a><br />A commands to facilitate users in operating NSY.</p>
+			</div>
+			<div>
+				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#routes">Routing</a><br />Simple routing system.</p>
+			</div>
+			<div>
+				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#helpers">NSY Helper</a><br />Creating custom methods with ease.</p>
 			</div>
 		</div>
 	</div>
