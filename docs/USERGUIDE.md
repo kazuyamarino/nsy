@@ -4,14 +4,6 @@ NSY is a simple PHP Framework that works well on MVC or HMVC mode.
 Site example :
 <a href="https://nsy.kazuyamarino.com/" target="_blank">https://nsy.kazuyamarino.com/</a>
 
-## Configuration File
-* Composer
-* Framework Configuration
-* Routes
-* system.js
-
-<hr>
-
 ### Composer
 Composer helps you declare, manage, and install dependencies of PHP projects.
 
@@ -103,8 +95,6 @@ By default NSY support `phpdotenv` library, that can read `.env` file *(see `.en
 In system.js there is a `base_url` configuration for javascript *(see line 1 to 20)*. This `base_url` is used for the purpose of initializing the function of the <strong>Datatable Ajax URL</strong> in the `public/js/datatables/init.js`*
 
 (*) For Example see NSY Foundation repository [https://github.com/kazuyamarino/nsy-foundation](Here!)
-
-<hr>
 
 <hr>
 
