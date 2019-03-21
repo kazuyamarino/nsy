@@ -35,7 +35,7 @@ class Welcome extends NSY_Controller
 		$this->set($d);
 
 		// Load MVC view page
-		$this->load_template("header")->load_view("index")->load_template("footer");
+		$this->load_template("header")->load_view(null, "index")->load_template("footer");
 	}
 
 }

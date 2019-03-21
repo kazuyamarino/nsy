@@ -140,7 +140,7 @@ return [
     | defines the HMVC View directory path
     |
     */
-	'hmvc_dir' => __DIR__ . '/../modules/*/views',
+	'hmvc_dir' => __DIR__ . '/../modules',
 
 	/*
     |--------------------------------------------------------------------------

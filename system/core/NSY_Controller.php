@@ -17,29 +17,22 @@ class NSY_Controller {
     }
 
     /*
-    MVC View Folder
+    HMVC & MVC View Folder
      */
-    protected function load_view($filename) {
+    protected function load_view($module = null, $filename = null) {
         extract($this->vars);
-        require_once(MVC_VIEW_DIR . $filename . '.php');
-		return $this;
-    }
-
-    /*
-    HMVC View Folder
-     */
-    protected function load_hview($filename) {
-        extract($this->vars);
-        foreach (glob(HMVC_VIEW_DIR . $filename . '.php') as $results) {
-            require_once($results);
-        }
+		if( $module == "" || $module == null || empty($module) || !isset($module) ) {
+			require_once(MVC_VIEW_DIR . $filename . '.php');
+		} else {
+			require_once(HMVC_VIEW_DIR . $module . '/views/' . $filename . '.php');
+		}
 		return $this;
     }
 
     /*
     Template Directory
      */
-    protected function load_template($filename) {
+    protected function load_template($filename = null) {
 		extract($this->vars);
         require_once(SYS_TMP_DIR . $filename . '.php');
 		return $this;

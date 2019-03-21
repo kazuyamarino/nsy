@@ -35,7 +35,7 @@ class Hello extends NSY_Controller
 		$this->set($d);
 
 		// Load HMVC view page
-		$this->load_template("header")->load_hview("index")->load_template("footer");
+		$this->load_template("header")->load_view("homepage", "index")->load_template("footer");
 	}
 
 }
