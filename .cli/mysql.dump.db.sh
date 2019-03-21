@@ -11,10 +11,10 @@
 # for more information.
 #----------------------------------------------------------
 
-if [ -z $1 ] || [ -z $2 ] || [ -z $3 ]
+if [ -z $1 ] || [ -z $2 ]
 then
 	printf "Database name, username, & password undefined\n"
-	printf "There must be 'dump_db <database name> <username> <password>'\n"
+	printf "There must be 'mysql_dump_db <database name> <username> <password>'\n"
 elif [ -n $1 ]
 then
 	# (1) set up all the mysqldump variables
@@ -35,7 +35,7 @@ then
 	#mysqldump --opt --protocol=TCP --user=${USER} --password=${PASS} --host=${DBSERVER} ${DATABASE} > ${FILE}
 
 	# use this command for a database server on localhost. add other options if need be.
-	mysqldump --opt --user=${USER} --password=${PASS} ${DATABASE} > ./dump/${FILE}
+	mysqldump -u ${USER} -p${PASS} ${DATABASE} > ./dump/${FILE}
 
 	# (4) gzip the mysql database dump file
 	# gzip $FILE

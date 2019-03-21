@@ -19,6 +19,9 @@ defined('ROOT') OR exit('No direct script access allowed');
 			<div>
 				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md">NSY User Guide</a><br />The guide before starting to use NSY.</p>
 			</div>
+			<div>
+				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md">NSY System Guide</a><br />The guide for starting to use NSY System.</p>
+			</div>
 		</div>
 
 		<hr>
