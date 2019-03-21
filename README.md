@@ -21,6 +21,7 @@ Site example :
 │   │   ├── nginx.conf
 │   │   └── sites-available
 │   │       └── default
+│   ├── SYSGUIDE.md
 │   └── USERGUIDE.md
 ├── dump
 │   └── DUMP.md
