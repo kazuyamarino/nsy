@@ -93,7 +93,7 @@ function redirect($url = "") {
 /*
 Redirect Back URL
  */
-function redirectBack() {
+function redirect_back() {
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit;
 }
