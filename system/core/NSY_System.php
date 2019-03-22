@@ -179,24 +179,6 @@ function remove_get_parameters($url) {
 	return $func;
 }
 
-/*
-Normal Replace
- */
-function normal_replace() {
-	$normal_replace = new NSY_XSS_Filter();
-	$func = $normal_replace->normal_replace();
-	return $func;
-}
-
-/*
-Do Grep
- */
-function do_grep() {
-	$do_grep = new NSY_XSS_Filter();
-	$func = $do_grep->do_grep();
-	return $func;
-}
-
 // Define base_url() method
 function base_url($url = "") {
 	// set the default application or project directory

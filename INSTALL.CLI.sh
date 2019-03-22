@@ -8,5 +8,6 @@ then
 	printf "NSY CLI installed\n"
 	printf "Please close the Terminal & reopen it again\n"
 else
+	cp .cli/nsy.cli.sh ~/nsy.cli.sh
 	printf "NSI CLI already installed\n"
 fi

@@ -12,7 +12,7 @@ use Dotenv\Dotenv;
 /*
 NSY Framework
 MIT License
-Copyright (c) 2018 Vikry Yuansah
+Copyright (c) 2019 Vikry Yuansah
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

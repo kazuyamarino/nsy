@@ -2,6 +2,7 @@
 if [ -z $1 ]
 then
 	printf "Mode undefined, must be hmvc or mvc\n"
+	printf "There must be 'show_models <mode>'\n"
 elif [ -n $1 ]
 then
 	mode=$1
@@ -18,6 +19,7 @@ then
 			if [ -z $2 ]
 			then
 				printf "Module name undefined\n"
+				printf "There must be 'show_models <mode> <module>'\n"
 			elif [ -n $2 ]
 			then
 				dirname=$2

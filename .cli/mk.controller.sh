@@ -2,6 +2,7 @@
 if [ -z $1 ]
 then
 	printf "Mode undefined, must be hmvc or mvc\n"
+	printf "There must be 'make_controller <mode>'\n"
 elif [ -n $1 ]
 then
 	mode=$1
@@ -11,6 +12,7 @@ then
 			if [ -z $2 ]
 			then
 				printf "Controller name undefined\n"
+				printf "There must be 'make_controller <mode> <controller-name>'\n"
 			elif [ -n $2 ]
 			then
 				conname=$2
@@ -33,6 +35,7 @@ then
 			if [ -z $2 ]
 			then
 				printf "Module name undefined\n"
+				printf "There must be 'make_controller <mode> <module>'\n"
 			elif [ -n $2 ]
 			then
 				dirname=$2
@@ -45,6 +48,7 @@ then
 					if [ -z $3 ]
 					then
 						printf "Controller name undefined\n"
+						printf "There must be 'make_controller <mode> <module> <controller-name>'\n"
 					elif [ -n $3 ]
 					then
 						conname=$3
