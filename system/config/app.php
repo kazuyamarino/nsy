@@ -39,7 +39,7 @@ return [
     | set the default 'true' or 'false'
     |
     */
-	'csrf_token' => 'true',
+	'csrf_token' => 'false',
 
 
 	/*
