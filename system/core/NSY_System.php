@@ -11,15 +11,14 @@ class NSY_System {
 		ob_start();
 
 		// set the default public/css/js path
-		define('PUBLIC_DIR', config_app('public_dir')); // TEMPLATE PATH
-		define('CSS_DIR', base_url() . PUBLIC_DIR . '/' . config_app('css_dir') . '/'); // CSS PATH
-		define('JS_DIR', base_url() . PUBLIC_DIR . '/' . config_app('js_dir') . '/'); // JS PATH
-		define('IMG_DIR', base_url() . PUBLIC_DIR . '/' . config_app('img_dir') . '/'); // IMG PATH
+		define('CSS_DIR', base_url() . config_app('public_dir') . config_app('css_dir')); // CSS PATH
+		define('JS_DIR', base_url() . config_app('public_dir') . config_app('js_dir')); // JS PATH
+		define('IMG_DIR', base_url() . config_app('public_dir') . config_app('img_dir')); // IMG PATH
 
 		//set the default view path
-		define('SYS_TMP_DIR', config_app('tmp_dir') . '/');
-		define('MVC_VIEW_DIR', config_app('mvc_dir') . '/');
-		define('HMVC_VIEW_DIR', config_app('hmvc_dir') . '/');
+		define('SYS_TMP_DIR', config_app('tmp_dir') . config_app('public_dir'));
+		define('MVC_VIEW_DIR', config_app('mvc_dir'));
+		define('HMVC_VIEW_DIR', config_app('hmvc_dir'));
 
 		// set a default language
 		define('LANGUAGE_CODE', config_app('locale'));

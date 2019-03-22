@@ -80,7 +80,7 @@ return [
     | set the default public directory
     |
     */
-	'public_dir' => 'public',
+	'public_dir' => 'public/',
 
 	/*
     |--------------------------------------------------------------------------
@@ -90,7 +90,7 @@ return [
     | set the default css directory
     |
     */
-	'css_dir' => 'css',
+	'css_dir' => 'css/',
 
 	/*
     |--------------------------------------------------------------------------
@@ -100,7 +100,7 @@ return [
     | set the default javascript directory
     |
     */
-	'js_dir' => 'js',
+	'js_dir' => 'js/',
 
 	/*
     |--------------------------------------------------------------------------
@@ -110,7 +110,7 @@ return [
     | set the default image directory
     |
     */
-	'img_dir' => 'img',
+	'img_dir' => 'img/',
 
 	/*
     |--------------------------------------------------------------------------
@@ -120,7 +120,7 @@ return [
     | defines the template directory path
     |
     */
-	'tmp_dir' => __DIR__ . '/../../public',
+	'tmp_dir' => __DIR__ . '/../../',
 
 	/*
     |--------------------------------------------------------------------------
@@ -130,7 +130,7 @@ return [
     | defines the MVC View directory path
     |
     */
-	'mvc_dir' => __DIR__ . '/../views',
+	'mvc_dir' => __DIR__ . '/../views/',
 
 	/*
     |--------------------------------------------------------------------------
@@ -140,7 +140,7 @@ return [
     | defines the HMVC View directory path
     |
     */
-	'hmvc_dir' => __DIR__ . '/../modules',
+	'hmvc_dir' => __DIR__ . '/../modules/',
 
 	/*
     |--------------------------------------------------------------------------
