@@ -33,8 +33,6 @@ Site example :
 │   ├── 404.html
 │   ├── css
 │   │   └── main.css
-│   ├── footer.php
-│   ├── header.php
 │   ├── img
 │   │   ├── favicon.png
 │   │   └── logo.png
@@ -77,6 +75,9 @@ Site example :
     ├── routes
     │   ├── Api.php
     │   └── Web.php
+    ├── templates
+    │   ├── footer.php
+    │   └── header.php
     └── views
         └── index.php
 ```
