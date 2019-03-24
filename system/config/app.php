@@ -154,10 +154,10 @@ return [
 
 	/*
     |--------------------------------------------------------------------------
-    | Default NSY_System Path
+    | Default .env File Checking
     |--------------------------------------------------------------------------
     |
-    | defines the NSY_System file path
+    | defines the .env file path
     |
     */
 	'env_checking_dir' => __DIR__ . '/../../.env',
