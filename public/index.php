@@ -52,8 +52,10 @@ require(__DIR__ . '/../system/vendor/autoload.php');
 * Check Config File
 *---------------------------------------------------------------
 */
-if (!is_readable(config_app('nsy_sys_dir'))) {
+if ( !is_readable(config_app('nsy_sys_dir')) ) {
 	die('No NSY_System.php found, configure and rename System file to NSY_System.php in system/core.');
+} elseif ( !is_readable(config_app('env_checking_dir')) ) {
+	die('No .env file found, please check in the root folder.');
 }
 
 /*
