@@ -112,4 +112,4 @@ See [SYSGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.
 
 
 ## License
-The code is available under the [MIT license](LICENSE.txt)..
+The code is available under the [MIT license](LICENSE.txt)

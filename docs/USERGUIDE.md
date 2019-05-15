@@ -319,4 +319,4 @@ make_model mvc <model-name>
 <hr>
 
 ## License
-The code is available under the [MIT license](https://github.com/kazuyamarino/nsy/blob/master/LICENSE.txt)..
+The code is available under the [MIT license](https://github.com/kazuyamarino/nsy/blob/master/LICENSE.txt)

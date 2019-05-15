@@ -172,4 +172,4 @@ $this->bind('placeholders')->vars('variable')->sequence()
 ```
 
 ## License
-The code is available under the [MIT license](https://github.com/kazuyamarino/nsy/blob/master/LICENSE.txt)..
+The code is available under the [MIT license](https://github.com/kazuyamarino/nsy/blob/master/LICENSE.txt)
