@@ -291,9 +291,13 @@ show_models mvc
 ```
 hi_nsy
 ```
-* Dump mysql databases :
+* Dump mysql database :
 ```
 mysql_dump_db <database-name> <username> <password>
+```
+* Dump mysql database (table only) :
+```
+mysql_dump_db <database-name> <username> <password> <table-name>
 ```
 * Make HMVC Controller :
 ```
