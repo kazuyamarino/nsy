@@ -186,6 +186,20 @@ function remove_get_parameters($url) {
 	return $func;
 }
 
+/*
+Get URI Segment
+ */
+function get_uri_segment($key) {
+	$uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+
+	if (array_key_exists($key, $uriSegments)) {
+		return $uriSegments[$key];
+	} else {
+		return "Segment doesn't exist";
+	}
+}
+
+
 // Define base_url() method
 function base_url($url = "") {
 	// set the default application or project directory

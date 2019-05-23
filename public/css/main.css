@@ -16,6 +16,24 @@ body, h1, h2, h3, h4, h5 {
 	font-family: 'Lato', sans-serif !important;
 }
 
+/*
+* Styling for Sticky Footer with Flexbox
+*/
+body {
+	display: flex;
+	flex-direction: column;
+	height: 100vh; /* Avoid the IE 10-11 `min-height` bug. */
+}
+
+header, .wrap {
+	flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+}
+
+footer {
+	flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+	text-align: center;
+}
+
 /* ==========================================================================
 Browser Upgrade Prompt
 ========================================================================== */
@@ -31,34 +49,16 @@ Browser Upgrade Prompt
 Author's custom styles
 ========================================================================== */
 
-/*
-* Styling for Sticky Footer with Flexbox
-*/
-body {
-	display: flex;
-	flex-direction: column;
-	height: 100vh; /* Avoid the IE 10-11 `min-height` bug. */
-}
-
-.header, .content {
-	flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
-}
-
-.footer {
-	flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
-	text-align: center;
-}
-
 .header a:link {
 	text-decoration: none;
 	color: rgb(90, 146, 241);
 }
 
-.content h3 {
+.wrap h3 {
 	color: rgb(82, 82, 82);
-} .content h1 {
+} .wrap h1 {
 	color: rgb(82, 82, 82);
-} .content a:link {
+} .wrap a:link {
 	text-decoration: none;
 	color: rgb(90, 146, 241);
 }

@@ -1,7 +1,7 @@
 <?php
 defined('ROOT') OR exit('No direct script access allowed');
 ?>
-<div class="content">
+<div class="wrap">
 	<div style="text-align:center">
 		<h3>Hi, iam NSY!&nbsp;|&nbsp;<a href="<?php echo base_url('hmvc'); ?>">Go To HMVC Page</a></h3>
 		<h1><?php echo $mvc_page; ?></h1>
