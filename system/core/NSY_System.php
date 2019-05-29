@@ -69,6 +69,15 @@ function config_db($d1 = "",$d2 = "") {
 	}
 }
 
+function config_db_sec($d1 = "",$d2 = "") {
+	$database = require(__DIR__ . '/../config/database.php');
+	if ($d2 == "" || empty($d2) || !isset($d2) || $d2 == null) {
+		return $database[$d1];
+	} else {
+		return $database['connections_sec'][$d1][$d2];
+	}
+}
+
 // Get config value from system/config/app.php
 function config_app($d1 = "") {
 	$app = require(__DIR__ . '/../config/app.php');

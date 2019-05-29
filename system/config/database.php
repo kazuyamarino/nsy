@@ -12,7 +12,12 @@ return [
     | you may use many connections at once using the Database library.
     |
     */
+
+   	// Primary/Default Connection DB
 	'default' => getenv('DB_CONNECTION'),
+
+	// Secondary Connection DB
+	'secondary' => getenv('DB_CONNECTION_SEC'),
 
 	/*
     |--------------------------------------------------------------------------
@@ -29,6 +34,8 @@ return [
     | choice installed on your machine before you begin development.
     |
     */
+
+   	// Default/Primary Connection
 	'connections' => [
 
         'mysql' => [
@@ -71,6 +78,55 @@ return [
 		    'DB_NAME' => getenv('DB_NAME'),
 		    'DB_USER' => getenv('DB_USER'),
 		    'DB_PASS' => getenv('DB_PASS'),
+            'DB_CHARSET' => 'utf8',
+            'PREFIX' => ''
+        ]
+
+	],
+
+	// Second Connection
+	'connections_sec' => [
+
+        'mysql' => [
+			'DB_DRIVER' => 'mysql',
+		    'DB_HOST' => getenv('DB_HOST_SEC'),
+		    'DB_PORT' => getenv('DB_PORT_SEC'),
+		    'DB_NAME' => getenv('DB_NAME_SEC'),
+		    'DB_USER' => getenv('DB_USER_SEC'),
+		    'DB_PASS' => getenv('DB_PASS_SEC'),
+            'DB_CHARSET' => 'utf8',
+            'PREFIX' => ''
+        ],
+
+		'dblib' => [
+			'DB_DRIVER' => 'dblib',
+			'DB_HOST' => getenv('DB_HOST_SEC'),
+		    'DB_PORT' => getenv('DB_PORT_SEC'),
+		    'DB_NAME' => getenv('DB_NAME_SEC'),
+		    'DB_USER' => getenv('DB_USER_SEC'),
+		    'DB_PASS' => getenv('DB_PASS_SEC'),
+            'DB_CHARSET' => 'utf8',
+            'PREFIX' => ''
+        ],
+
+		'sqlsrv' => [
+			'DB_DRIVER' => 'sqlsrv',
+			'DB_HOST' => getenv('DB_HOST_SEC'),
+		    'DB_PORT' => getenv('DB_PORT_SEC'),
+		    'DB_NAME' => getenv('DB_NAME_SEC'),
+		    'DB_USER' => getenv('DB_USER_SEC'),
+		    'DB_PASS' => getenv('DB_PASS_SEC'),
+            'DB_CHARSET' => 'utf8',
+            'PREFIX' => ''
+        ],
+
+		'pgsql' => [
+			'DB_DRIVER' => 'pgsql',
+			'DB_HOST' => getenv('DB_HOST_SEC'),
+		    'DB_PORT' => getenv('DB_PORT_SEC'),
+		    'DB_NAME' => getenv('DB_NAME_SEC'),
+		    'DB_USER' => getenv('DB_USER_SEC'),
+		    'DB_PASS' => getenv('DB_PASS_SEC'),
             'DB_CHARSET' => 'utf8',
             'PREFIX' => ''
         ]

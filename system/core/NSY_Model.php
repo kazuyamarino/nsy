@@ -41,6 +41,7 @@ class NSY_Model {
 		defined('FETCH_FUNC') or define('FETCH_FUNC', \PDO::FETCH_FUNC);
 	}
 
+	// Default Connection
 	protected function connect() {
 		switch (config_db('default', null)) {
 		    case "mysql":
@@ -60,7 +61,31 @@ class NSY_Model {
 				return $this;
 		        break;
 		    default:
-		        echo "Default database connection not found or undefined, please configure it in system/config/database.php.";
+		        echo "Default database connection not found or undefined, please configure it in .env file 'DB_CONNECTION'.";
+		}
+	}
+
+	// Secondary Connection
+	protected function connect_sec() {
+		switch (config_db_sec('secondary', null)) {
+		    case "mysql":
+				$this->connection = NSY_DB::connect_mysql_sec();
+				return $this;
+		        break;
+		    case "dblib":
+				$this->connection = NSY_DB::connect_dblib_sec();
+				return $this;
+		        break;
+		    case "sqlsrv":
+				$this->connection = NSY_DB::connect_sqlsrv_sec();
+				return $this;
+		        break;
+			case "pgsql":
+				$this->connection = NSY_DB::connect_pgsql_sec();
+				return $this;
+		        break;
+		    default:
+		        echo "Default database connection not found or undefined, please configure it in .env file 'DB_CONNECTION'.";
 		}
 	}
 
