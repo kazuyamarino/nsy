@@ -150,6 +150,7 @@ $this->get('hello');
 // Same as $_GET['hello'];
 ```
 
+### Sequence variable
 Create a sequence of the named placeholders, e.g. `:id0`, `:id1`, `:id2`. So the code would be:
 ```
 $this->bind('placeholders')->vars('variable')->sequence()
@@ -170,6 +171,21 @@ $this->bind('placeholders')->vars('variable')->sequence()
 //        )
 // )
 ```
+
+### Instantiate Model class in the controller
+Instantiate the Model class in the controller is useful to make it easier for us to give variables to it.
+So there is no need to rewrite the instantiate class in another method.
+
+Just have to write it in the contruct method, like this:
+```
+public function __construct() {
+	// Instantiate Model Crud
+	$this->m_crud = new m_crud;
+}
+```
+then `$this->m_crud` is the variable.
+
+<hr>
 
 ## License
 The code is available under the [MIT license](https://github.com/kazuyamarino/nsy/blob/master/LICENSE.txt)
