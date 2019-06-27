@@ -97,7 +97,7 @@ Site example :
 
 
 ## CRUD Example?
-Here it is [vylma CRUD Example](https://github.com/kazuyamarino/vylma-crud)
+Here it is [Vylma CRUD Example](https://github.com/kazuyamarino/vylma-crud)
 And [Shyffon CRUD Example](https://github.com/kazuyamarino/shyffon-crud)
 
 
