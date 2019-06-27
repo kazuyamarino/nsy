@@ -10,6 +10,7 @@ Site example :
 ## NSY folder structure
 
 ```bash
+.
 ├── composer.json
 ├── composer.lock
 ├── docs
@@ -17,6 +18,7 @@ Site example :
 │   │   ├── for_public
 │   │   ├── for_root
 │   │   └── Readme.txt
+│   ├── env
 │   ├── nginx
 │   │   ├── nginx.conf
 │   │   └── sites-available
@@ -31,15 +33,18 @@ Site example :
 ├── public
 │   ├── 403.html
 │   ├── 404.html
+│   ├── browserconfig.xml
 │   ├── css
 │   │   └── main.css
+│   ├── humans.txt
 │   ├── img
 │   │   ├── favicon.png
 │   │   └── logo.png
 │   ├── index.php
 │   ├── js
-│   │   ├── main.js
-│   │   └── system.js
+│   │   ├── config
+│   │   │   └── system.js
+│   │   └── main.js
 │   └── robots.txt
 ├── README.md
 └── system
@@ -92,7 +97,8 @@ Site example :
 
 
 ## CRUD Example?
-Here it is [NSY CRUD Example](https://github.com/kazuyamarino/crud)
+Here it is [vylma CRUD Example](https://github.com/kazuyamarino/vylma-crud)
+And [Shyffon CRUD Example](https://github.com/kazuyamarino/shyffon-crud)
 
 
 ## NSY Feature :

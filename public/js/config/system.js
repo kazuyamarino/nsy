@@ -1,15 +1,15 @@
 /*
 BASE_URL Config Javascript
 */
+// change according to the name of your project folder
+var dirname = "nsy"; // defined
+// var dirname = ""; // undefined
+
 function base_url(url) {
 	var slash = "/";
 	var slashes ="//";
 	var protocol = location.protocol;
 	var host = window.location.hostname;
-
-	// change according to the name of your project folder
-	var dirname = "nsy"; // defined
-	// var dirname = ""; // undefined
 
 	// if dirname not empty or defined
 	if ( dirname ) {

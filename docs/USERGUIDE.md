@@ -90,7 +90,7 @@ By default NSY support `phpdotenv` library, that can read `.env` file *(see `.en
 
 * system.js file
 
->system.js is located in `public/js/system.js` folder.
+>system.js is located in `public/js/config/system.js` folder.
 
 In system.js there is a `base_url` configuration for javascript *(see line 1 to 20)*. This `base_url` is used for the purpose of initializing the function of the <strong>Datatable Ajax URL</strong> in the `public/js/datatables/init.js`*
 
