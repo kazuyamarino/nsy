@@ -299,6 +299,10 @@ mysql_dump_db <database-name> <username> <password>
 ```
 mysql_dump_db <database-name> <username> <password> <table-name>
 ```
+* Make HMVC Module :
+```
+make_module <module-directory-name>
+```
 * Make HMVC Controller :
 ```
 make_controller hmvc <module-directory-name> <controller-name>
