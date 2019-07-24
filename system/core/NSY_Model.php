@@ -346,7 +346,7 @@ class NSY_Model {
 		if(config_app('csrf_token') === 'true') {
 			try {
 			    // Run CSRF check, on POST data, in exception mode, for 10 minutes, in one-time mode.
-			    \NoCSRF::check( 'csrf_token', $_POST, true, 60*10, false );
+			    \NSY_CSRF::check( 'csrf_token', $_POST, true, 60*10, false );
 
 				// Check if there's connection defined on the models
 				if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
@@ -428,7 +428,7 @@ class NSY_Model {
 		if(config_app('csrf_token') === 'true') {
 			try {
 			    // Run CSRF check, on POST data, in exception mode, for 10 minutes, in one-time mode.
-			    \NoCSRF::check( 'csrf_token', $_POST, true, 60*10, false );
+			    \NSY_CSRF::check( 'csrf_token', $_POST, true, 60*10, false );
 
 				// Check if there's connection defined on the models
 				if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {

@@ -1,5 +1,4 @@
 <?php
-namespace Core;
 /**
  * NoCSRF, an anti CSRF token generation/checking class.
  *

@@ -1,5 +1,4 @@
 <?php
-use Core\NSY_CSRF;
 use Core\NSY_XSS_Filter;
 
 defined('ROOT') OR exit('No direct script access allowed');
@@ -140,7 +139,7 @@ CSRF Token
  */
 function csrf_token() {
 	if(config_app('csrf_token') === 'true') {
-		$csrf_token = NSY_CSRF::generate( 'csrf_token' );
+		$csrf_token = \NSY_CSRF::generate( 'csrf_token' );
 		return $csrf_token;
 	} elseif(config_app('csrf_token') === 'false') {
 		return "CSRF Token Protection must be set 'true'";
@@ -152,7 +151,7 @@ CSRF Form Token
  */
 function form_csrf_token() {
 	if(config_app('csrf_token') === 'true') {
-		$csrf_token = NSY_CSRF::generate( 'csrf_token' );
+		$csrf_token = \NSY_CSRF::generate( 'csrf_token' );
 		return '<input type="hidden" name="csrf_token" value=' . $csrf_token . '">';
 	} elseif(config_app('csrf_token') === 'false') {
 		return "CSRF Token Protection must be set 'true'";
