@@ -141,7 +141,7 @@ class NSY_DB {
 
 		static $db = null;
 		if ($db === null) {
-			$dsn = '' . $DB_DRIVER . ':Server=' . $DB_HOST . ',' . $DB_PORT . ';Database=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			$dsn = '' . $DB_DRIVER . ':Server=' . $DB_HOST . ',' . $DB_PORT . ';Database=' . $DB_NAME . '';
 			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
 
 			// Throw an Exception when an error occurs
@@ -161,7 +161,7 @@ class NSY_DB {
 
 		static $db = null;
 		if ($db === null) {
-			$dsn = '' . $DB_DRIVER . ':Server=' . $DB_HOST . ',' . $DB_PORT . ';Database=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			$dsn = '' . $DB_DRIVER . ':Server=' . $DB_HOST . ',' . $DB_PORT . ';Database=' . $DB_NAME . '';
 			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
 
 			// Throw an Exception when an error occurs
