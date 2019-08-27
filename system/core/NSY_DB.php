@@ -137,7 +137,6 @@ class NSY_DB {
 		$DB_NAME = config_db('sqlsrv', 'DB_NAME');
 		$DB_USER = config_db('sqlsrv', 'DB_USER');
 		$DB_PASS = config_db('sqlsrv', 'DB_PASS');
-		$DB_CHARSET = config_db('sqlsrv', 'DB_CHARSET');
 
 		static $db = null;
 		if ($db === null) {
@@ -157,7 +156,6 @@ class NSY_DB {
 		$DB_NAME = config_db_sec('sqlsrv', 'DB_NAME');
 		$DB_USER = config_db_sec('sqlsrv', 'DB_USER');
 		$DB_PASS = config_db_sec('sqlsrv', 'DB_PASS');
-		$DB_CHARSET = config_db_sec('sqlsrv', 'DB_CHARSET');
 
 		static $db = null;
 		if ($db === null) {
