@@ -59,7 +59,7 @@ class NSY_System {
 }
 
 // Get config value from system/config/database.php
-function config_db($d1 = "",$d2 = "") {
+function config_db($d1 = null,$d2 = null) {
 	$database = require(__DIR__ . '/../config/database.php');
 	if ($d2 == "" || empty($d2) || !isset($d2) || $d2 == null) {
 		return $database[$d1];
@@ -68,7 +68,7 @@ function config_db($d1 = "",$d2 = "") {
 	}
 }
 
-function config_db_sec($d1 = "",$d2 = "") {
+function config_db_sec($d1 = null,$d2 = null) {
 	$database = require(__DIR__ . '/../config/database.php');
 	if ($d2 == "" || empty($d2) || !isset($d2) || $d2 == null) {
 		return $database[$d1];
@@ -78,13 +78,13 @@ function config_db_sec($d1 = "",$d2 = "") {
 }
 
 // Get config value from system/config/app.php
-function config_app($d1 = "") {
+function config_app($d1 = null) {
 	$app = require(__DIR__ . '/../config/app.php');
 	return $app[$d1];
 }
 
 // Get config value from system/config/site.php
-function config_site($d1 = "") {
+function config_site($d1 = null) {
 	$site = require(__DIR__ . '/../config/site.php');
 	return $site[$d1];
 }
@@ -92,7 +92,7 @@ function config_site($d1 = "") {
 /*
 Redirect URL
  */
-function redirect($url = "") {
+function redirect($url = null) {
 	header('location:'. base_url($url));
 	exit();
 }
@@ -108,7 +108,7 @@ function redirect_back() {
 /*
 Fetching to json format
  */
-function fetch_json($data = "") {
+function fetch_json($data = null) {
 	$json_data = $data;
 	$json_result = json_encode($json_data);
 
@@ -118,7 +118,7 @@ function fetch_json($data = "") {
 /*
 Secure Input Element
  */
-function secure_input($data) {
+function secure_input($data = null) {
 	$data = trim($data);
 	$data = stripslashes($data);
 	$data = htmlspecialchars($data);
@@ -128,7 +128,7 @@ function secure_input($data) {
 /*
 Secure Form
  */
-function secure_form($form) {
+function secure_form($form = null) {
 	foreach ($form as $key => $value) {
 		$form[$key] = $this->secure_input($value);
 	}
@@ -161,7 +161,7 @@ function form_csrf_token() {
 /*
 XSS Filter
  */
-function xss_filter($value) {
+function xss_filter($value = null) {
 	$xss_filter = new NSY_XSS_Filter();
 	$string = $xss_filter->filter_it($value);
 	return $string;
@@ -188,7 +188,7 @@ function disallow_http() {
 /*
 Remove url get parameter
  */
-function remove_get_parameters($url) {
+function remove_get_parameters($url = null) {
 	$remove_get_parameters = new NSY_XSS_Filter();
 	$func = $remove_get_parameters->remove_get_parameters($url);
 	return $func;
@@ -197,7 +197,7 @@ function remove_get_parameters($url) {
 /*
 Get URI Segment
  */
-function get_uri_segment($key) {
+function get_uri_segment($key = null) {
 	$uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
 	if (array_key_exists($key, $uriSegments)) {
@@ -209,7 +209,7 @@ function get_uri_segment($key) {
 
 
 // Define base_url() method
-function base_url($url = "") {
+function base_url($url = null) {
 	// set the default application or project directory
 	$APP_DIR = config_app('app_dir');
 

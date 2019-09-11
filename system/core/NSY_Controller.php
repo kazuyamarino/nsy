@@ -12,7 +12,7 @@ class NSY_Controller {
     /*
     Set The Variables
      */
-    protected function set($d) {
+    protected function set($d = null) {
         $this->vars = array_merge($this->vars, $d);
     }
 
@@ -41,12 +41,12 @@ class NSY_Controller {
 	/*
 	Start method for variables sequence
 	 */
-	protected function vars($variables = "") {
+	protected function vars($variables = null) {
  		$this->variables = $variables;
  		return $this;
  	}
 
-	protected function bind($bind = "") {
+	protected function bind($bind = null) {
 		$this->bind = $bind;
 		return $this;
 	}
@@ -71,17 +71,33 @@ class NSY_Controller {
 	/*
 	The PHP superglobals $_GET and $_POST are used to collect form-data.
 	 */
-	protected function post($param) {
-		 $result = isset($_POST[$param]) ? $_POST[$param] : NULL;
+	protected function post($param = null) {
+		 $result = isset($_POST[$param]) ? $_POST[$param] : null;
 		 return $result;
  	}
 
-	protected function get($param) {
-		 $result = isset($_GET[$param]) ? $_GET[$param] : NULL;
+	protected function get($param = null) {
+		 $result = isset($_GET[$param]) ? $_GET[$param] : null;
 		 return $result;
  	}
 	/*
 	End The PHP superglobals $_GET and $_POST are used to collect form-data.
 	 */
+
+	/*
+  	The PHP $_SESSION are used to create and show session.
+  	 */
+ 	protected function add_session($index = null, $value = null) {
+		$_SESSION[$index] = $value;
+	 	return $_SESSION[$index];
+   	}
+
+ 	protected function show_session($index = null) {
+ 		if(isset($_SESSION[$index])) {
+ 			return $_SESSION[$index];
+ 		} else {
+ 			return null;
+ 		}
+   	}
 
 }
