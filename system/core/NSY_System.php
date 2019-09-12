@@ -207,6 +207,17 @@ function get_uri_segment($key = null) {
 	}
 }
 
+/*
+Create Random Number
+ */
+function generate_num($prefix = 'NSY-', $id_length = 6, $num_length = 10) {
+	$zeros = str_pad(null, $id_length, 0, STR_PAD_LEFT);
+	$nines = str_pad(null, $id_length, 9, STR_PAD_LEFT);
+
+	$ids = str_pad(mt_rand($zeros, $nines), $num_length, $prefix, STR_PAD_LEFT);
+	return $ids;
+}
+
 
 // Define base_url() method
 function base_url($url = null) {
