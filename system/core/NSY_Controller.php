@@ -68,36 +68,4 @@ class NSY_Controller {
 	End method for variables sequence
 	 */
 
-	/*
-	The PHP superglobals $_GET and $_POST are used to collect form-data.
-	 */
-	protected function post($param = null) {
-		 $result = isset($_POST[$param]) ? $_POST[$param] : null;
-		 return $result;
- 	}
-
-	protected function get($param = null) {
-		 $result = isset($_GET[$param]) ? $_GET[$param] : null;
-		 return $result;
- 	}
-	/*
-	End The PHP superglobals $_GET and $_POST are used to collect form-data.
-	 */
-
-	/*
-  	The PHP $_SESSION are used to create and show session.
-  	 */
- 	protected function add_session($index = null, $value = null) {
-		$_SESSION[$index] = $value;
-	 	return $_SESSION[$index];
-   	}
-
- 	protected function show_session($index = null) {
- 		if(isset($_SESSION[$index])) {
- 			return $_SESSION[$index];
- 		} else {
- 			return null;
- 		}
-   	}
-
 }
