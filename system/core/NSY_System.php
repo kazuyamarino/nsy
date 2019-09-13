@@ -235,6 +235,14 @@ function show_session($index = null) {
 }
 
 /*
+PHP Shorthand If/Else Using Ternary Operators
+ */
+function ternary($condition = null, $result_one = null, $result_two = null) {
+	$result = ($condition ? $result_one : $result_two);
+	return $result;
+}
+
+/*
 The PHP superglobals $_GET and $_POST are used to collect form-data.
  */
 function post($param = null) {
