@@ -234,6 +234,10 @@ function show_session($index = null) {
 	}
 }
 
+function unset_session($index = null) {
+	unset($_SESSION[$index]);
+}
+
 /*
 PHP Shorthand If/Else Using Ternary Operators
  */
