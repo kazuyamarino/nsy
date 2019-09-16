@@ -120,6 +120,22 @@ class NSY_Model {
 	}
 
 	/*
+	Helper for NSY_Model to create a sequence of the named placeholders
+	 */
+	protected function sequence() {
+		$in = "";
+		foreach ($this->variables as $i => $item)
+		{
+		    $key = "$this->bind".$i;
+		    $in .= "$key,";
+		    $in_params[$key] = $item; // collecting values into key-value array
+		}
+		$in = rtrim($in,","); // :id0,:id1,:id2
+
+		return [$in, $in_params];
+	}
+
+	/*
 	Helper for PDO FetchAll
 	 */
 	protected function fetch_all() {
@@ -506,22 +522,6 @@ class NSY_Model {
 		$stmt = null;
 		$db = null;
     }
-
-	/*
-	Helper for NSY_Model to create a sequence of the named placeholders
-	 */
-	protected function sequence() {
-		$in = "";
-		foreach ($this->variables as $i => $item)
-		{
-		    $key = "$this->bind".$i;
-		    $in .= "$key,";
-		    $in_params[$key] = $item; // collecting values into key-value array
-		}
-		$in = rtrim($in,","); // :id0,:id1,:id2
-
-		return [$in, $in_params];
-	}
 
 	/*
 	Helper for PDO Emulation False
