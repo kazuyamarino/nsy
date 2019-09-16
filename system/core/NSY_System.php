@@ -219,7 +219,7 @@ function generate_num($prefix = 'NSY-', $id_length = 6, $num_length = 10) {
 }
 
 /*
-The PHP $_SESSION are used to create and show session.
+The PHP $_SESSION are used to create, show, unset session.
  */
 function add_session($index = null, $value = null) {
 	$_SESSION[$index] = $value;
