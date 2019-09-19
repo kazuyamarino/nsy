@@ -590,4 +590,25 @@ class NSY_Model {
  		}
  	}
 
+	/*
+	Function for basic field validation (present and neither filled nor not empty)
+	 */
+	protected function is_filled($str = '') {
+ 		if (is_array($str)) {
+ 			echo 'This is an array variable, use "is_filled_array()" method instead';
+ 			exit();
+ 		} else {
+ 			return (!empty($str));
+ 		}
+ 	}
+
+ 	protected function is_filled_array($str = '') {
+ 		if (is_array($str)) {
+ 			return (!empty($str));
+ 		} else {
+ 			echo 'This is not an array variable, use "is_filled()" method instead';
+ 			exit();
+ 		}
+ 	}
+
 }
