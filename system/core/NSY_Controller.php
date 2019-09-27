@@ -68,46 +68,36 @@ class NSY_Controller {
 	End method for variables sequence
 	 */
 
-	 /*
+	/*
  	Function for basic field validation (present and neither empty nor only white space
  	 */
- 	 protected function not_filled($str = '') {
-  		if (is_array($str)) {
-  			echo 'This is an array variable, use "not_filled_array()" method instead';
-  			exit();
-  		} else {
-  			return (!isset($str) || trim($str) === '' || empty($str));
-  		}
-  	}
-
-  	protected function not_filled_array($str = '') {
-  		if (is_array($str)) {
-  			return (!isset($str) || empty($str));
-  		} else {
-  			echo 'This is not an array variable, use "not_filled()" method instead';
-  			exit();
-  		}
+ 	protected function not_filled($str = '') {
+		if (!empty($str)) {
+			return false;
+			exit();
+		} else {
+	  		if (is_array($str)) {
+				return (!isset($str) || empty($str));
+	  		} else {
+	  			return (!isset($str) || $str == '' || empty($str));
+	  		}
+		}
   	}
 
  	/*
  	Function for basic field validation (present and neither filled nor not empty)
  	 */
  	protected function is_filled($str = '') {
-  		if (is_array($str)) {
-  			echo 'This is an array variable, use "is_filled_array()" method instead';
-  			exit();
-  		} else {
-  			return (!empty($str));
-  		}
-  	}
-
-  	protected function is_filled_array($str = '') {
-  		if (is_array($str)) {
-  			return (!empty($str));
-  		} else {
-  			echo 'This is not an array variable, use "is_filled()" method instead';
-  			exit();
-  		}
+		if (!isset($str)) {
+			return false;
+			exit();
+		} else {
+			if (is_array($str)) {
+				return (isset($key) || !empty($str));
+	  		} else {
+				return (isset($key) || !empty($str));
+	  		}
+		}
   	}
 
 }
