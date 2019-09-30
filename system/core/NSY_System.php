@@ -260,6 +260,38 @@ function get($param = null) {
 }
 
 /*
+Function for basic field validation (present and neither empty nor only white space
+ */
+function not_filled($str = '') {
+	if (!empty($str)) {
+		return false;
+		exit();
+	} else {
+		if (is_array($str)) {
+			return (!isset($str) || empty($str));
+		} else {
+			return (!isset($str) || $str == '' || empty($str));
+		}
+	}
+}
+
+/*
+Function for basic field validation (present and neither filled nor not empty)
+ */
+function is_filled($str = '') {
+	if (!isset($str)) {
+		return false;
+		exit();
+	} else {
+		if (is_array($str)) {
+			return (isset($key) || !empty($str));
+		} else {
+			return (isset($key) || !empty($str));
+		}
+	}
+}
+
+/*
 Define base_url() method
  */
 function base_url($url = null) {

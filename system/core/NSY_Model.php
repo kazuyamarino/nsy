@@ -569,36 +569,4 @@ class NSY_Model {
 		$this->connection->rollback();
     }
 
-	/*
- 	Function for basic field validation (present and neither empty nor only white space
- 	 */
- 	protected function not_filled($str = '') {
-		if (!empty($str)) {
-			return false;
-			exit();
-		} else {
-	  		if (is_array($str)) {
-				return (!isset($str) || empty($str));
-	  		} else {
-	  			return (!isset($str) || $str == '' || empty($str));
-	  		}
-		}
-  	}
-
- 	/*
- 	Function for basic field validation (present and neither filled nor not empty)
- 	 */
- 	protected function is_filled($str = '') {
-		if (!isset($str)) {
-			return false;
-			exit();
-		} else {
-			if (is_array($str)) {
-				return (isset($key) || !empty($str));
-	  		} else {
-				return (isset($key) || !empty($str));
-	  		}
-		}
-  	}
-
 }
