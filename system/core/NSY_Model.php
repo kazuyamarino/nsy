@@ -62,6 +62,7 @@ class NSY_Model {
 		        break;
 		    default:
 		        echo "Default database connection not found or undefined, please configure it in .env file 'DB_CONNECTION'.";
+				exit();
 		}
 	}
 
@@ -86,6 +87,7 @@ class NSY_Model {
 		        break;
 		    default:
 		        echo "Default database connection not found or undefined, please configure it in .env file 'DB_CONNECTION'.";
+				exit();
 		}
 	}
 
@@ -140,12 +142,13 @@ class NSY_Model {
 	 */
 	protected function fetch_all() {
 		// Check if there's connection defined on the models
-		if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
-			echo "No Connection Bro, Please check your code again!";
+		if ( not_filled($this->connection) ) {
+			echo "No Connection Bro, Please check your connection again!";
+			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
-			if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
+			if ( not_filled($this->variables) ) {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
@@ -155,25 +158,42 @@ class NSY_Model {
 				}
 			} else {
 				if ($this->bind == "BINDVALUE") {
-					if ($this->type == "" || empty($this->type) || !isset($this->type)) {
+					if ( not_filled($this->type) ) {
 						echo "BindValue parameter type undefined, for example use PARAM_INT or PARAM_STR";
+						exit();
 					} else {
-						foreach ($this->variables as $key => $res) {
-							$stmt->bindValue($key, $res, $this->type);
+						foreach ($this->variables as $key => &$res) {
+							$stmt->bindParam($key, $res, $this->type[$key]);
 						}
-						$stmt->execute();
+						$executed = $stmt->execute();
+						if (!$executed) {
+							$errors = $stmt->errorInfo();
+							echo "Error Query : ".($errors[0]);
+							exit();
+						}
 					}
 				} elseif ($this->bind == "BINDPARAM") {
-					if ($this->type == "" || empty($this->type) || !isset($this->type)) {
+					if ( not_filled($this->type) ) {
 						echo "BindParam parameter type undefined, for example use PARAM_INT or PARAM_STR";
+						exit();
 					} else {
-						foreach ($this->variables as $key => $res) {
-							$stmt->bindParam($key, $res, $this->type);
+						foreach ($this->variables as $key => &$res) {
+							$stmt->bindParam($key, $res, $this->type[$key]);
 						}
-						$stmt->execute();
+						$executed = $stmt->execute();
+						if (!$executed) {
+							$errors = $stmt->errorInfo();
+							echo "Error Query : ".($errors[0]);
+							exit();
+						}
 					}
-				} elseif ($this->bind == "" || empty($this->bind) || !isset($this->bind)) {
-					$stmt->execute($this->variables);
+				} else {
+					$executed = $stmt->execute($this->variables);
+					if (!$executed) {
+						$errors = $stmt->errorInfo();
+						echo "Error Query : ".($errors[0]);
+						exit();
+					}
 				}
 			}
 
@@ -200,12 +220,13 @@ class NSY_Model {
 	 */
 	protected function fetch() {
 		// Check if there's connection defined on the models
-		if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
+		if ( not_filled($this->connection) ) {
 			echo "No Connection Bro, Please check your connection again!";
+			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
-			if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
+			if ( not_filled($this->variables) ) {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
@@ -215,25 +236,42 @@ class NSY_Model {
 				}
 			} else {
 				if ($this->bind == "BINDVALUE") {
-					if ($this->type == "" || empty($this->type) || !isset($this->type)) {
+					if ( not_filled($this->type) ) {
 						echo "BindValue parameter type undefined, for example use PARAM_INT or PARAM_STR";
+						exit();
 					} else {
-						foreach ($this->variables as $key => $res) {
-							$stmt->bindValue($key, $res, $this->type);
+						foreach ($this->variables as $key => &$res) {
+							$stmt->bindParam($key, $res, $this->type[$key]);
 						}
-						$stmt->execute();
+						$executed = $stmt->execute();
+						if (!$executed) {
+							$errors = $stmt->errorInfo();
+							echo "Error Query : ".($errors[0]);
+							exit();
+						}
 					}
 				} elseif ($this->bind == "BINDPARAM") {
-					if ($this->type == "" || empty($this->type) || !isset($this->type)) {
+					if ( not_filled($this->type) ) {
 						echo "BindParam parameter type undefined, for example use PARAM_INT or PARAM_STR";
+						exit();
 					} else {
-						foreach ($this->variables as $key => $res) {
-							$stmt->bindParam($key, $res, $this->type);
+						foreach ($this->variables as $key => &$res) {
+							$stmt->bindParam($key, $res, $this->type[$key]);
 						}
-						$stmt->execute();
+						$executed = $stmt->execute();
+						if (!$executed) {
+							$errors = $stmt->errorInfo();
+							echo "Error Query : ".($errors[0]);
+							exit();
+						}
 					}
-				} elseif ($this->bind == "" || empty($this->bind) || !isset($this->bind)) {
-					$stmt->execute($this->variables);
+				} else {
+					$executed = $stmt->execute($this->variables);
+					if (!$executed) {
+						$errors = $stmt->errorInfo();
+						echo "Error Query : ".($errors[0]);
+						exit();
+					}
 				}
 			}
 
@@ -260,12 +298,13 @@ class NSY_Model {
 	 */
 	protected function fetch_column() {
 		// Check if there's connection defined on the models
-		if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
+		if ( not_filled($this->connection) ) {
 			echo "No Connection Bro, Please check your connection again!";
+			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
-			if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
+			if ( not_filled($this->variables) ) {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
@@ -275,25 +314,42 @@ class NSY_Model {
 				}
 			} else {
 				if ($this->bind == "BINDVALUE") {
-					if ($this->type == "" || empty($this->type) || !isset($this->type)) {
+					if ( not_filled($this->type) ) {
 						echo "BindValue parameter type undefined, for example use PARAM_INT or PARAM_STR";
+						exit();
 					} else {
-						foreach ($this->variables as $key => $res) {
-							$stmt->bindValue($key, $res, $this->type);
+						foreach ($this->variables as $key => &$res) {
+							$stmt->bindParam($key, $res, $this->type[$key]);
 						}
-						$stmt->execute();
+						$executed = $stmt->execute();
+						if (!$executed) {
+							$errors = $stmt->errorInfo();
+							echo "Error Query : ".($errors[0]);
+							exit();
+						}
 					}
 				} elseif ($this->bind == "BINDPARAM") {
-					if ($this->type == "" || empty($this->type) || !isset($this->type)) {
+					if ( not_filled($this->type) ) {
 						echo "BindParam parameter type undefined, for example use PARAM_INT or PARAM_STR";
+						exit();
 					} else {
-						foreach ($this->variables as $key => $res) {
-							$stmt->bindParam($key, $res, $this->type);
+						foreach ($this->variables as $key => &$res) {
+							$stmt->bindParam($key, $res, $this->type[$key]);
 						}
-						$stmt->execute();
+						$executed = $stmt->execute();
+						if (!$executed) {
+							$errors = $stmt->errorInfo();
+							echo "Error Query : ".($errors[0]);
+							exit();
+						}
 					}
-				} elseif ($this->bind == "" || empty($this->bind) || !isset($this->bind)) {
-					$stmt->execute($this->variables);
+				} else {
+					$executed = $stmt->execute($this->variables);
+					if (!$executed) {
+						$errors = $stmt->errorInfo();
+						echo "Error Query : ".($errors[0]);
+						exit();
+					}
 				}
 			}
 
@@ -320,12 +376,13 @@ class NSY_Model {
 	 */
 	protected function row_count() {
 		// Check if there's connection defined on the models
-		if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
+		if ( not_filled($this->connection) ) {
 			echo "No Connection Bro, Please check your connection again!";
+			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queies without vars, else execute it with defined on the models
-			if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
+			if ( not_filled($this->variables) ) {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
@@ -334,7 +391,12 @@ class NSY_Model {
 					exit();
 				}
 			} else {
-				$stmt->execute($this->variables);
+				$executed = $stmt->execute($this->variables);
+				if (!$executed) {
+					$errors = $stmt->errorInfo();
+					echo "Error Query : ".($errors[0]);
+					exit();
+				}
 			}
 
 			// Check the errors, if no errors then return the results
@@ -365,12 +427,13 @@ class NSY_Model {
 			    \NSY_CSRF::check( 'csrf_token', $_POST, true, 60*10, false );
 
 				// Check if there's connection defined on the models
-				if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
+				if ( not_filled($this->connection) ) {
 					echo "No Connection Bro, Please check your connection again!";
+					exit();
 				} else {
 					$stmt = $this->connection->prepare($this->query);
 					// if vars null, execute queies without vars, else execute it with defined on the models
-					if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
+					if ( not_filled($this->variables) ) {
 						$executed = $stmt->execute();
 						if (!$executed) {
 							$errors = $stmt->errorInfo();
@@ -380,6 +443,11 @@ class NSY_Model {
 						}
 					} else {
 						$executed = $stmt->execute($this->variables);
+						if (!$executed) {
+							$errors = $stmt->errorInfo();
+							echo "Error Query : ".($errors[0]);
+							exit();
+						}
 					}
 
 					// Check the errors, if no errors then return the results
@@ -400,12 +468,13 @@ class NSY_Model {
 			}
 		} elseif(config_app('csrf_token') === 'false') {
 			// Check if there's connection defined on the models
-			if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
+			if ( not_filled($this->connection) ) {
 				echo "No Connection Bro, Please check your connection again!";
+				exit();
 			} else {
 				$stmt = $this->connection->prepare($this->query);
 				// if vars null, execute queies without vars, else execute it with defined on the models
-				if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
+				if ( not_filled($this->variables) ) {
 					$executed = $stmt->execute();
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
@@ -415,6 +484,11 @@ class NSY_Model {
 					}
 				} else {
 					$executed = $stmt->execute($this->variables);
+					if (!$executed) {
+						$errors = $stmt->errorInfo();
+						echo "Error Query : ".($errors[0]);
+						exit();
+					}
 				}
 
 				// Check the errors, if no errors then return the results
@@ -447,12 +521,13 @@ class NSY_Model {
 			    \NSY_CSRF::check( 'csrf_token', $_POST, true, 60*10, false );
 
 				// Check if there's connection defined on the models
-				if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
+				if ( not_filled($this->connection) ) {
 					echo "No Connection Bro, Please check your connection again!";
+					exit();
 				} else {
 					$stmt = $this->connection->prepare($this->query);
 					// if vars null, execute queies without vars, else execute it with defined on the models
-					if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
+					if ( not_filled($this->variables) ) {
 						$executed = $stmt->execute();
 						if (!$executed) {
 							$errors = $stmt->errorInfo();
@@ -463,6 +538,11 @@ class NSY_Model {
 					} else {
 						foreach($this->variables as $key => $params) {
 							$executed = $stmt->execute(array($params));
+							if (!$executed) {
+								$errors = $stmt->errorInfo();
+								echo "Error Query : ".($errors[0]);
+								exit();
+							}
 						}
 					}
 
@@ -484,12 +564,13 @@ class NSY_Model {
 			}
 		} elseif(config_app('csrf_token') === 'false') {
 			// Check if there's connection defined on the models
-			if ($this->connection == "" || empty($this->connection) || !isset($this->connection)) {
+			if ( not_filled($this->connection) ) {
 				echo "No Connection Bro, Please check your connection again!";
+				exit();
 			} else {
 				$stmt = $this->connection->prepare($this->query);
 				// if vars null, execute queies without vars, else execute it with defined on the models
-				if ($this->variables == "" || empty($this->variables) || !isset($this->variables)) {
+				if ( not_filled($this->variables) ) {
 					$executed = $stmt->execute();
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
@@ -500,6 +581,11 @@ class NSY_Model {
 				} else {
 					foreach($this->variables as $key => $params) {
 						$executed = $stmt->execute(array($params));
+						if (!$executed) {
+							$errors = $stmt->errorInfo();
+							echo "Error Query : ".($errors[0]);
+							exit();
+						}
 					}
 				}
 
