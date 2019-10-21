@@ -80,12 +80,14 @@ function config_db_sec($d1 = null,$d2 = null) {
 // Get config value from system/config/app.php
 function config_app($d1 = null) {
 	$app = require(__DIR__ . '/../config/app.php');
+
 	return $app[$d1];
 }
 
 // Get config value from system/config/site.php
 function config_site($d1 = null) {
 	$site = require(__DIR__ . '/../config/site.php');
+
 	return $site[$d1];
 }
 
@@ -102,7 +104,7 @@ Redirect Back URL
  */
 function redirect_back() {
     header('location: ' . $_SERVER['HTTP_REFERER']);
-    exit;
+    exit();
 }
 
 /*
@@ -122,6 +124,7 @@ function secure_input($data = null) {
 	$data = trim($data);
 	$data = stripslashes($data);
 	$data = htmlspecialchars($data);
+
 	return $data;
 }
 
@@ -140,9 +143,11 @@ CSRF Token
 function csrf_token() {
 	if(config_app('csrf_token') === 'true') {
 		$csrf_token = \NSY_CSRF::generate( 'csrf_token' );
+
 		return $csrf_token;
 	} elseif(config_app('csrf_token') === 'false') {
 		return "CSRF Token Protection must be set 'true'";
+		exit();
 	}
 }
 
@@ -152,9 +157,11 @@ CSRF Form Token
 function form_csrf_token() {
 	if(config_app('csrf_token') === 'true') {
 		$csrf_token = \NSY_CSRF::generate( 'csrf_token' );
+
 		return '<input type="hidden" name="csrf_token" value=' . $csrf_token . '">';
 	} elseif(config_app('csrf_token') === 'false') {
 		return "CSRF Token Protection must be set 'true'";
+		exit();
 	}
 }
 
@@ -164,6 +171,7 @@ XSS Filter
 function xss_filter($value = null) {
 	$xss_filter = new NSY_XSS_Filter();
 	$string = $xss_filter->filter_it($value);
+
 	return $string;
 }
 
@@ -173,6 +181,7 @@ Allow http
 function allow_http() {
 	$allow_http = new NSY_XSS_Filter();
 	$func = $allow_http->allow_http();
+
 	return $func;
 }
 
@@ -182,6 +191,7 @@ Disallow http
 function disallow_http() {
 	$disallow_http = new NSY_XSS_Filter();
 	$func = $disallow_http->disallow_http();
+
 	return $func;
 }
 
@@ -191,6 +201,7 @@ Remove url get parameter
 function remove_get_parameters($url = null) {
 	$remove_get_parameters = new NSY_XSS_Filter();
 	$func = $remove_get_parameters->remove_get_parameters($url);
+
 	return $func;
 }
 
@@ -204,6 +215,7 @@ function get_uri_segment($key = null) {
 		return $uriSegments[$key];
 	} else {
 		return "Segment doesn't exist";
+		exit();
 	}
 }
 
@@ -215,6 +227,7 @@ function generate_num($prefix = 'NSY-', $id_length = 6, $num_length = 10) {
 	$nines = str_pad(null, $id_length, 9, STR_PAD_LEFT);
 
 	$ids = str_pad(mt_rand($zeros, $nines), $num_length, $prefix, STR_PAD_LEFT);
+
 	return $ids;
 }
 
@@ -223,6 +236,7 @@ The PHP $_SESSION are used to create, show, unset session.
  */
 function add_session($index = null, $value = null) {
 	$_SESSION[$index] = $value;
+
 	return $_SESSION[$index];
 }
 
@@ -231,6 +245,7 @@ function show_session($index = null) {
 		return $_SESSION[$index];
 	} else {
 		return null;
+		exit();
 	}
 }
 
@@ -243,6 +258,7 @@ PHP Shorthand If/Else Using Ternary Operators
  */
 function ternary($condition = null, $result_one = null, $result_two = null) {
 	$result = ($condition ? $result_one : $result_two);
+
 	return $result;
 }
 
@@ -251,11 +267,13 @@ The PHP superglobals $_GET and $_POST are used to collect form-data.
  */
 function post($param = null) {
 	 $result = isset($_POST[$param]) ? $_POST[$param] : null;
+
 	 return $result;
 }
 
 function get($param = null) {
 	 $result = isset($_GET[$param]) ? $_GET[$param] : null;
+
 	 return $result;
 }
 

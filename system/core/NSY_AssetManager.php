@@ -31,6 +31,7 @@ Class NSY_AssetManager {
 			echo '<link rel="'.$rel.'" href="'.IMG_DIR.$filename.'">';
 		} else {
 			echo 'Please check the format of <link> tag';
+			exit();
 		}
 	}
 
