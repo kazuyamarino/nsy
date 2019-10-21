@@ -11,7 +11,6 @@ class NSY_Model {
 	private $variables;
 	private $fetch_style;
 	private $bind;
-	private $type;
 	private $column;
 	private $bind_name;
 	private $attr;
@@ -22,12 +21,12 @@ class NSY_Model {
 	 */
 	public function __construct() {
 		// Define binding variable type
-		defined('PARAM_INT') or define('PARAM_INT', \PDO::PARAM_INT);
-		defined('PARAM_STR') or define('PARAM_STR', \PDO::PARAM_STR);
+		defined('PAR_INT') or define('PAR_INT', \PDO::PARAM_INT);
+		defined('PAR_STR') or define('PAR_STR', \PDO::PARAM_STR);
 
 		// Define binding type
-		defined('BINDVALUE') or define('BINDVALUE', "BINDVALUE");
-		defined('BINDPARAM') or define('BINDPARAM', "BINDPARAM");
+		defined('BINDVAL') or define('BINDVAL', "BINDVALUE");
+		defined('BINDPAR') or define('BINDPAR', "BINDPARAM");
 
 		defined('FETCH_NUM') or define('FETCH_NUM', \PDO::FETCH_NUM);
 		defined('FETCH_ASSOC') or define('FETCH_ASSOC', \PDO::FETCH_ASSOC);
@@ -111,11 +110,6 @@ class NSY_Model {
 		return $this;
 	}
 
-	protected function type($type = null) {
-		$this->type = $type;
-		return $this;
-	}
-
 	protected function column($column = 0) {
 		$this->column = $column;
 		return $this;
@@ -147,7 +141,7 @@ class NSY_Model {
 			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
-			// if vars null, execute queies without vars, else execute it with defined on the models
+			// if vars null, execute queries without vars, else execute it with defined on the models
 			if ( not_filled($this->variables) ) {
 				$executed = $stmt->execute();
 				if (!$executed) {
@@ -158,34 +152,34 @@ class NSY_Model {
 				}
 			} else {
 				if ($this->bind == "BINDVALUE") {
-					if ( not_filled($this->type) ) {
-						echo "BindValue parameter type undefined, for example use PARAM_INT or PARAM_STR";
-						exit();
-					} else {
-						foreach ($this->variables as $key => &$res) {
-							$stmt->bindParam($key, $res, $this->type[$key]);
-						}
-						$executed = $stmt->execute();
-						if (!$executed) {
-							$errors = $stmt->errorInfo();
-							echo "Error Query : ".($errors[0]);
+					foreach ($this->variables as $key => &$res) {
+						if ( not_filled($res[1]) || not_filled($res[0]) ) {
+							echo "BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>".$key." => ".$res[0].", <strong>null</strong>";
 							exit();
+						} else {
+							$stmt->bindValue($key, $res[0], $res[1]);
 						}
 					}
-				} elseif ($this->bind == "BINDPARAM") {
-					if ( not_filled($this->type) ) {
-						echo "BindParam parameter type undefined, for example use PARAM_INT or PARAM_STR";
+					$executed = $stmt->execute();
+					if (!$executed) {
+						$errors = $stmt->errorInfo();
+						echo "Error Query : ".($errors[0]);
 						exit();
-					} else {
-						foreach ($this->variables as $key => &$res) {
-							$stmt->bindParam($key, $res, $this->type[$key]);
-						}
-						$executed = $stmt->execute();
-						if (!$executed) {
-							$errors = $stmt->errorInfo();
-							echo "Error Query : ".($errors[0]);
+					}
+				} elseif ($this->bind == "BINDPARAM") {
+					foreach ($this->variables as $key => &$res) {
+						if ( not_filled($res[1]) || not_filled($res[0]) ) {
+							echo "BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>".$key." => ".$res[0].", <strong>null</strong>";
 							exit();
+						} else {
+							$stmt->bindParam($key, $res[0], $res[1]);
 						}
+					}
+					$executed = $stmt->execute();
+					if (!$executed) {
+						$errors = $stmt->errorInfo();
+						echo "Error Query : ".($errors[0]);
+						exit();
 					}
 				} else {
 					$executed = $stmt->execute($this->variables);
@@ -212,7 +206,7 @@ class NSY_Model {
 
 		// Close the statement & connection
 		$stmt = null;
-		$db = null;
+		$this->connection = null;
     }
 
 	/*
@@ -225,7 +219,7 @@ class NSY_Model {
 			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
-			// if vars null, execute queies without vars, else execute it with defined on the models
+			// if vars null, execute queries without vars, else execute it with defined on the models
 			if ( not_filled($this->variables) ) {
 				$executed = $stmt->execute();
 				if (!$executed) {
@@ -236,34 +230,34 @@ class NSY_Model {
 				}
 			} else {
 				if ($this->bind == "BINDVALUE") {
-					if ( not_filled($this->type) ) {
-						echo "BindValue parameter type undefined, for example use PARAM_INT or PARAM_STR";
-						exit();
-					} else {
-						foreach ($this->variables as $key => &$res) {
-							$stmt->bindParam($key, $res, $this->type[$key]);
-						}
-						$executed = $stmt->execute();
-						if (!$executed) {
-							$errors = $stmt->errorInfo();
-							echo "Error Query : ".($errors[0]);
+					foreach ($this->variables as $key => &$res) {
+						if ( not_filled($res[1]) || not_filled($res[0]) ) {
+							echo "BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>".$key." => ".$res[0].", <strong>null</strong>";
 							exit();
+						} else {
+							$stmt->bindValue($key, $res[0], $res[1]);
 						}
 					}
-				} elseif ($this->bind == "BINDPARAM") {
-					if ( not_filled($this->type) ) {
-						echo "BindParam parameter type undefined, for example use PARAM_INT or PARAM_STR";
+					$executed = $stmt->execute();
+					if (!$executed) {
+						$errors = $stmt->errorInfo();
+						echo "Error Query : ".($errors[0]);
 						exit();
-					} else {
-						foreach ($this->variables as $key => &$res) {
-							$stmt->bindParam($key, $res, $this->type[$key]);
-						}
-						$executed = $stmt->execute();
-						if (!$executed) {
-							$errors = $stmt->errorInfo();
-							echo "Error Query : ".($errors[0]);
+					}
+				} elseif ($this->bind == "BINDPARAM") {
+					foreach ($this->variables as $key => &$res) {
+						if ( not_filled($res[1]) || not_filled($res[0]) ) {
+							echo "BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>".$key." => ".$res[0].", <strong>null</strong>";
 							exit();
+						} else {
+							$stmt->bindParam($key, $res[0], $res[1]);
 						}
+					}
+					$executed = $stmt->execute();
+					if (!$executed) {
+						$errors = $stmt->errorInfo();
+						echo "Error Query : ".($errors[0]);
+						exit();
 					}
 				} else {
 					$executed = $stmt->execute($this->variables);
@@ -290,7 +284,7 @@ class NSY_Model {
 
 		// Close the statement & connection
 		$stmt = null;
-		$db = null;
+		$this->connection = null;
     }
 
 	/*
@@ -303,7 +297,7 @@ class NSY_Model {
 			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
-			// if vars null, execute queies without vars, else execute it with defined on the models
+			// if vars null, execute queries without vars, else execute it with defined on the models
 			if ( not_filled($this->variables) ) {
 				$executed = $stmt->execute();
 				if (!$executed) {
@@ -314,34 +308,34 @@ class NSY_Model {
 				}
 			} else {
 				if ($this->bind == "BINDVALUE") {
-					if ( not_filled($this->type) ) {
-						echo "BindValue parameter type undefined, for example use PARAM_INT or PARAM_STR";
-						exit();
-					} else {
-						foreach ($this->variables as $key => &$res) {
-							$stmt->bindParam($key, $res, $this->type[$key]);
-						}
-						$executed = $stmt->execute();
-						if (!$executed) {
-							$errors = $stmt->errorInfo();
-							echo "Error Query : ".($errors[0]);
+					foreach ($this->variables as $key => &$res) {
+						if ( not_filled($res[1]) || not_filled($res[0]) ) {
+							echo "BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>".$key." => ".$res[0].", <strong>null</strong>";
 							exit();
+						} else {
+							$stmt->bindValue($key, $res[0], $res[1]);
 						}
 					}
-				} elseif ($this->bind == "BINDPARAM") {
-					if ( not_filled($this->type) ) {
-						echo "BindParam parameter type undefined, for example use PARAM_INT or PARAM_STR";
+					$executed = $stmt->execute();
+					if (!$executed) {
+						$errors = $stmt->errorInfo();
+						echo "Error Query : ".($errors[0]);
 						exit();
-					} else {
-						foreach ($this->variables as $key => &$res) {
-							$stmt->bindParam($key, $res, $this->type[$key]);
-						}
-						$executed = $stmt->execute();
-						if (!$executed) {
-							$errors = $stmt->errorInfo();
-							echo "Error Query : ".($errors[0]);
+					}
+				} elseif ($this->bind == "BINDPARAM") {
+					foreach ($this->variables as $key => &$res) {
+						if ( not_filled($res[1]) || not_filled($res[0]) ) {
+							echo "BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>".$key." => ".$res[0].", <strong>null</strong>";
 							exit();
+						} else {
+							$stmt->bindParam($key, $res[0], $res[1]);
 						}
+					}
+					$executed = $stmt->execute();
+					if (!$executed) {
+						$errors = $stmt->errorInfo();
+						echo "Error Query : ".($errors[0]);
+						exit();
 					}
 				} else {
 					$executed = $stmt->execute($this->variables);
@@ -368,7 +362,7 @@ class NSY_Model {
 
 		// Close the statement & connection
 		$stmt = null;
-		$db = null;
+		$this->connection = null;
     }
 
 	/*
@@ -381,7 +375,7 @@ class NSY_Model {
 			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
-			// if vars null, execute queies without vars, else execute it with defined on the models
+			// if vars null, execute queries without vars, else execute it with defined on the models
 			if ( not_filled($this->variables) ) {
 				$executed = $stmt->execute();
 				if (!$executed) {
@@ -414,7 +408,7 @@ class NSY_Model {
 
 		// Close the statement & connection
 		$stmt = null;
-		$db = null;
+		$this->connection = null;
     }
 
 	/*
@@ -432,7 +426,7 @@ class NSY_Model {
 					exit();
 				} else {
 					$stmt = $this->connection->prepare($this->query);
-					// if vars null, execute queies without vars, else execute it with defined on the models
+					// if vars null, execute queries without vars, else execute it with defined on the models
 					if ( not_filled($this->variables) ) {
 						$executed = $stmt->execute();
 						if (!$executed) {
@@ -465,6 +459,7 @@ class NSY_Model {
 			catch ( \Exception $e ) {
 			    // CSRF attack detected
 			    echo $result = $e->getMessage() . ' Form ignored.';
+				exit();
 			}
 		} elseif(config_app('csrf_token') === 'false') {
 			// Check if there's connection defined on the models
@@ -473,7 +468,7 @@ class NSY_Model {
 				exit();
 			} else {
 				$stmt = $this->connection->prepare($this->query);
-				// if vars null, execute queies without vars, else execute it with defined on the models
+				// if vars null, execute queries without vars, else execute it with defined on the models
 				if ( not_filled($this->variables) ) {
 					$executed = $stmt->execute();
 					if (!$executed) {
@@ -508,7 +503,7 @@ class NSY_Model {
 
 		// Close the statement & connection
 		$stmt = null;
-		$db = null;
+		$this->connection = null;
     }
 
 	/*
@@ -526,7 +521,7 @@ class NSY_Model {
 					exit();
 				} else {
 					$stmt = $this->connection->prepare($this->query);
-					// if vars null, execute queies without vars, else execute it with defined on the models
+					// if vars null, execute queries without vars, else execute it with defined on the models
 					if ( not_filled($this->variables) ) {
 						$executed = $stmt->execute();
 						if (!$executed) {
@@ -561,6 +556,7 @@ class NSY_Model {
 			catch ( \Exception $e ) {
 				// CSRF attack detected
 				echo $result = $e->getMessage() . ' Form ignored.';
+				exit();
 			}
 		} elseif(config_app('csrf_token') === 'false') {
 			// Check if there's connection defined on the models
@@ -569,7 +565,7 @@ class NSY_Model {
 				exit();
 			} else {
 				$stmt = $this->connection->prepare($this->query);
-				// if vars null, execute queies without vars, else execute it with defined on the models
+				// if vars null, execute queries without vars, else execute it with defined on the models
 				if ( not_filled($this->variables) ) {
 					$executed = $stmt->execute();
 					if (!$executed) {
@@ -606,7 +602,7 @@ class NSY_Model {
 
 		// Close the statement & connection
 		$stmt = null;
-		$db = null;
+		$this->connection = null;
     }
 
 	/*
