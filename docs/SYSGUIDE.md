@@ -138,14 +138,14 @@ Load HMVC view file :
 $this->load_view('module-name', 'filename');
 ```
 
-The PHP superglobals `$this->post` and `$this->get` are used to collect form-data.
+The PHP superglobals `post()` and `get()` are used to collect form-data.
 ```
-$this->post('hello');
+post('hello');
 
 // Same as $_POST['hello'];
 ```
 ```
-$this->get('hello');
+get('hello');
 
 // Same as $_GET['hello'];
 ```
@@ -184,6 +184,129 @@ public function __construct() {
 }
 ```
 then `$this->m_crud` is the variable.
+
+### Get URI Segment
+To help in retrieving data in URIs
+```
+get_uri_segment(segment number)
+```
+Example :
+```
+http://localhost/nsy/hmvc
+
+echo get_uri_segment(1);
+// Output is nsy
+
+echo get_uri_segment(2);
+// Output is hmvc
+```
+
+### Generate Random Number
+To generate a sequence of random numbers that correspond to the desired number or prefix.
+```
+generate_num(prefix, random_number_length, total_number/char_length);
+```
+Example :
+```
+echo generate_num();
+// Default output NSY-617807
+
+echo generate_num("VYLMA-", 4, 10);
+// Output VYLMA-6906
+```
+
+### PHP SESSION
+Create session :
+```
+add_session(session_name, value);
+
+Example : add_session('my_name', 'vikry');
+```
+
+Show specific session :
+```
+show_session(session_name);
+
+Example : show_session('my_name');
+```
+Unset/destroy specific session :
+```
+unset_session(session_name);
+
+Example : unset_session('my_name');
+```
+
+### Simple Ternary
+Ternary operator logic is the process of using "`(condition) ? (true return value) : (false return value)`" statements to shorten your if/else structures.
+```
+ternary(condition, return true, return false)
+```
+Example :
+```
+/* most basic usage */
+$var = 5;
+$var_is_greater_than_two = ternary($var > 2, true, false);
+// output returns true
+```
+
+### Specify an empty variable or not
+In NSY, there is a function to make it easy for users to see whether a value is empty or not in a variable. i.e. only with 2 methods `not_filled()` and `is_filled()`.
+
+`not_filled()`, s to determine a variable that has no value. Example :
+```
+$var = null;
+not_filled($var); // output return true.
+```
+
+`is_filled()`, is to determine a variable has a value. Example :
+```
+$var = 5;
+is_filled($var); // output return true.
+```
+
+Reference of the method :
+```
+$random = "";
+
+$var1 = "";
+$var2 = " ";
+$var3 = false;
+$var4 = true;
+$var5 = array();
+$var6 = null;
+$var7 = "0";
+$var8 = 0;
+$var9 = 0.0;
+$var10 = $random;
+```
+
+`not_filled()` :
+```
+$var1 = no value
+$var2 = valued
+$var3 = no value
+$var4 = valued
+$var5 = no value
+$var6 = no value
+$var7 = no value
+$var8 = no value
+$var9 = no value
+$var10 = no value
+```
+
+`is_filled()` :
+```
+$var1 = no value
+$var2 = valued
+$var3 = no value
+$var4 = valued
+$var5 = no value
+$var6 = no value
+$var7 = no value
+$var8 = no value
+$var9 = no value
+$var10 = no value
+```
 
 <hr>
 
