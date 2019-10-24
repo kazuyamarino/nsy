@@ -44,13 +44,13 @@ class NSY_System {
 		date_default_timezone_set(config_app('timezone'));
 
 		// Aliasing NSY_AssetManager class name
-		class_alias("Core\NSY_AssetManager", "add");
+		class_alias('Core\NSY_AssetManager', 'add');
 
 		// Aliasing Assets class name
-		class_alias("Assets", "pull");
+		class_alias('Assets', 'pull');
 
 		// Aliasing NSY_Router class name
-		class_alias("Core\NSY_Router", "route");
+		class_alias('Core\NSY_Router', 'route');
 
 		// start session
 		session_start();
@@ -146,7 +146,7 @@ function csrf_token() {
 
 		return $csrf_token;
 	} elseif(config_app('csrf_token') === 'false') {
-		return "CSRF Token Protection must be set 'true'";
+		return '<p>CSRF Token Protection must be set <strong><i>true</i></strong></p>';
 		exit();
 	}
 }
@@ -160,7 +160,7 @@ function form_csrf_token() {
 
 		return '<input type="hidden" name="csrf_token" value=' . $csrf_token . '">';
 	} elseif(config_app('csrf_token') === 'false') {
-		return "CSRF Token Protection must be set 'true'";
+		return '<p>CSRF Token Protection must be set <strong><i>true</i></strong></p>';
 		exit();
 	}
 }
@@ -214,7 +214,7 @@ function get_uri_segment($key = null) {
 	if (array_key_exists($key, $uriSegments)) {
 		return $uriSegments[$key];
 	} else {
-		return "Segment doesn't exist";
+		return "<p>Segment doesn't exist</p>";
 		exit();
 	}
 }
@@ -280,7 +280,7 @@ function get($param = null) {
 /*
 Function for basic field validation (present and neither empty nor only white space
  */
-function not_filled($str = '') {
+function not_filled($str = null) {
 	if (!empty($str)) {
 		return false;
 		exit();
@@ -296,7 +296,7 @@ function not_filled($str = '') {
 /*
 Function for basic field validation (present and neither filled nor not empty)
  */
-function is_filled($str = '') {
+function is_filled($str = null) {
 	if (!isset($str)) {
 		return false;
 		exit();
@@ -306,6 +306,120 @@ function is_filled($str = '') {
 		} else {
 			return (isset($key) || !empty($str));
 		}
+	}
+}
+
+/*
+Export File
+ */
+function aurora($ext = null, $name = null, $sep = null, $h = null, $d = null, $s = null) {
+	if ( not_filled($ext) ) {
+		echo "<p>File extension not yet filled</p>";
+		echo "<p>aurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);</p>";
+		exit();
+	} elseif ( not_filled($name) ) {
+		echo "<p>Filename not yet filled</p>";
+		echo "<p>aurora(file_extension, <strong><i>filename</i></strong>, separator, header, data, string_delimiter);</p>";
+		exit();
+	} elseif ( not_filled($sep) ) {
+		echo "<p>Separator not yet filled</p>";
+		echo "<p>aurora(file_extension, filename, <strong><i>separator</i></strong>, header, data, string_delimiter);</p>";
+		exit();
+	} elseif ( not_filled($h) ) {
+		echo "<p>Header of the table undefined</p>";
+		echo "<p>aurora(file_extension, filename, separator, <strong><i>header</i></strong>, data, string_delimiter);</p>";
+		exit();
+	} elseif ( not_filled($d) ) {
+		echo "<p>Record of data empty or unreadable</p>";
+		echo "<p>aurora(file_extension, filename, separator, header, <strong><i>data</i></strong>, string_delimiter);</p>";
+		exit();
+	} else {
+		// export filename
+		$filename  = $name;
+
+		// separator
+		if ( $sep == "tab" ) {
+			$separator = "\011";
+		} elseif ( $sep == "comma" ) {
+			$separator = "\054";
+		} elseif ( $sep == "semicolon" ) {
+			$separator = "\073";
+		} elseif ( $sep == "space" ) {
+			$separator = "\040";
+		} elseif ( $sep == "dot" ) {
+			$separator = "\056";
+		} elseif ( $sep == "pipe" ) {
+			$separator = "\174";
+		} else {
+			echo "<p>There is no such separator name (<strong>example:</strong> tab, comma, semicolon, space, pipe, &amp; dot)</p>";
+			echo "<p>aurora(file_extension, filename, <strong><i>separator</i></strong>, header, data, string_delimiter);</p>";
+			exit();
+		}
+
+		// string delimiter (double = "" & single = '')
+		if ( $s == "double" ) {
+			$s = "\042";
+		} elseif ( $s == "single" ) {
+			$s = "\047";
+		} elseif ( $s == null ) {
+			$s = null;
+		} else {
+			echo "<p>There is no such string delimiter name (<strong>example:</strong> \042double\042 for doublequote, &amp; \047single\047 for singlequote)</p>";
+			echo "<p>aurora(file_extension, filename, separator, header, data, <strong><i>string_delimiter</i></strong>);</p>";
+			exit();
+		}
+
+		// header file text (.txt)
+		if ( $ext == "txt" ) {
+			header("Content-type: text/plain");
+			header("Content-Disposition:attachment;filename =".$filename.".txt");
+		} elseif ( $ext == "csv" ) {
+			header("Content-type: text/csv");
+			header("Content-Disposition:attachment;filename =".$filename.".csv");
+		} elseif ( $ext == "xls" ) {
+			header("Content-type: application/vnd.ms-excel");
+			header("Content-Disposition:attachment;filename =".$filename.".xls");
+		} elseif ( $ext == "xlsx" ) {
+			header("Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+			header("Content-Disposition:attachment;filename =".$filename.".xlsx");
+		} elseif ( $ext == "ods" ) {
+			header("Content-type: application/vnd.oasis.opendocument.spreadsheet");
+			header("Content-Disposition:attachment;filename =".$filename.".ods");
+		} else {
+			echo "<p>There is no such file extension name (<strong>example:</strong> txt, csv, xls, xlsx, &amp; ods)</p>";
+			echo "<p>aurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);</p>";
+			exit();
+		}
+
+		// display header
+		$i = 0;
+		$len_h = count($h);
+		foreach ( $h as $key_h => $val_h ) {
+			if ($i == $len_h - 1) {
+				echo $s.$val_h.$s;
+			} else {
+				echo $s.$val_h.$s.$separator;
+			}
+			$i++;
+		}
+
+		// newline
+		echo "\r\n";
+
+		// display records
+		foreach ( $d as $key_d => $val_d ) {
+			for ($x = 0; $x <= $len_h - 1; $x++) {
+				if ($x == $len_h - 1) {
+					echo $s.$val_d[$x].$s;
+				} else {
+					echo $s.$val_d[$x].$s.$separator;
+				}
+			}
+
+			// newline
+			echo "\r\n";
+		}
+		exit;
 	}
 }
 
