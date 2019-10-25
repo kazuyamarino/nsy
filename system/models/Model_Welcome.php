@@ -10,7 +10,7 @@ class Model_Welcome extends NSY_Model
 
 	public function welcome()
 	{
-		return "Welcome to NSY PHP Framework";
+		return 'Welcome to NSY PHP Framework';
 	}
 
 }

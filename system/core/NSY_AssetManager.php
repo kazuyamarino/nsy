@@ -30,7 +30,7 @@ Class NSY_AssetManager {
 		} elseif ($rel == 'shortcut icon')  {
 			echo '<link rel="'.$rel.'" href="'.IMG_DIR.$filename.'">';
 		} else {
-			echo 'Please check the format of <link> tag';
+			echo '<p>Please check the format of <link> tag</p>';
 			exit();
 		}
 	}

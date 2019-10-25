@@ -61,7 +61,7 @@ class NSY_System {
 // Get config value from system/config/database.php
 function config_db($d1 = null,$d2 = null) {
 	$database = require(__DIR__ . '/../config/database.php');
-	if ($d2 == "" || empty($d2) || !isset($d2) || $d2 == null) {
+	if ( not_filled($d2) ) {
 		return $database[$d1];
 	} else {
 		return $database['connections'][$d1][$d2];
@@ -70,7 +70,7 @@ function config_db($d1 = null,$d2 = null) {
 
 function config_db_sec($d1 = null,$d2 = null) {
 	$database = require(__DIR__ . '/../config/database.php');
-	if ($d2 == "" || empty($d2) || !isset($d2) || $d2 == null) {
+	if ( not_filled($d2) ) {
 		return $database[$d1];
 	} else {
 		return $database['connections_sec'][$d1][$d2];
@@ -209,12 +209,12 @@ function remove_get_parameters($url = null) {
 Get URI Segment
  */
 function get_uri_segment($key = null) {
-	$uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+	$uriSegments = explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
 	if (array_key_exists($key, $uriSegments)) {
 		return $uriSegments[$key];
 	} else {
-		return "<p>Segment doesn't exist</p>";
+		return '<p>Segment does not exist</p>';
 		exit();
 	}
 }

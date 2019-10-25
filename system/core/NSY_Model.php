@@ -43,24 +43,24 @@ class NSY_Model {
 	// Default Connection
 	protected function connect() {
 		switch (config_db('default', null)) {
-		    case "mysql":
+		    case 'mysql':
 				$this->connection = NSY_DB::connect_mysql();
 				return $this;
 		        break;
-		    case "dblib":
+		    case 'dblib':
 				$this->connection = NSY_DB::connect_dblib();
 				return $this;
 		        break;
-		    case "sqlsrv":
+		    case 'sqlsrv':
 				$this->connection = NSY_DB::connect_sqlsrv();
 				return $this;
 		        break;
-			case "pgsql":
+			case 'pgsql':
 				$this->connection = NSY_DB::connect_pgsql();
 				return $this;
 		        break;
 		    default:
-		        echo "Default database connection not found or undefined, please configure it in .env file 'DB_CONNECTION'.";
+		        echo '<p>Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong></p>';
 				exit();
 		}
 	}
@@ -68,24 +68,24 @@ class NSY_Model {
 	// Secondary Connection
 	protected function connect_sec() {
 		switch (config_db_sec('secondary', null)) {
-		    case "mysql":
+		    case 'mysql':
 				$this->connection = NSY_DB::connect_mysql_sec();
 				return $this;
 		        break;
-		    case "dblib":
+		    case 'dblib':
 				$this->connection = NSY_DB::connect_dblib_sec();
 				return $this;
 		        break;
-		    case "sqlsrv":
+		    case 'sqlsrv':
 				$this->connection = NSY_DB::connect_sqlsrv_sec();
 				return $this;
 		        break;
-			case "pgsql":
+			case 'pgsql':
 				$this->connection = NSY_DB::connect_pgsql_sec();
 				return $this;
 		        break;
 		    default:
-		        echo "Default database connection not found or undefined, please configure it in .env file 'DB_CONNECTION'.";
+		        echo '<p>Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION_SEC</i></strong></p>';
 				exit();
 		}
 	}
@@ -137,7 +137,7 @@ class NSY_Model {
 	protected function fetch_all() {
 		// Check if there's connection defined on the models
 		if ( not_filled($this->connection) ) {
-			echo "No Connection Bro, Please check your connection again!";
+			echo '<p>No Connection, Please check your connection again!</p>';
 			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
@@ -146,15 +146,15 @@ class NSY_Model {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
-					echo "Error Query : ".($errors[0]);
-					echo ", No parameter were bound for query, Please check your query again!";
+					echo '<p>Error Query : '.($errors[0]).'</p>';
+					echo '<p>, No parameter were bound for query, Please check your query again!</p>';
 					exit();
 				}
 			} else {
-				if ($this->bind == "BINDVALUE") {
+				if ($this->bind == 'BINDVALUE') {
 					foreach ($this->variables as $key => &$res) {
 						if ( not_filled($res[1]) || not_filled($res[0]) ) {
-							echo "BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>".$key." => ".$res[0].", <strong>null</strong>";
+							echo '<p>BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
 							exit();
 						} else {
 							$stmt->bindValue($key, $res[0], $res[1]);
@@ -163,13 +163,13 @@ class NSY_Model {
 					$executed = $stmt->execute();
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
-						echo "Error Query : ".($errors[0]);
+						echo '<p>Error Query : '.($errors[0]).'</p>';
 						exit();
 					}
-				} elseif ($this->bind == "BINDPARAM") {
+				} elseif ($this->bind == 'BINDPARAM') {
 					foreach ($this->variables as $key => &$res) {
 						if ( not_filled($res[1]) || not_filled($res[0]) ) {
-							echo "BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>".$key." => ".$res[0].", <strong>null</strong>";
+							echo '<p>BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
 							exit();
 						} else {
 							$stmt->bindParam($key, $res[0], $res[1]);
@@ -178,14 +178,14 @@ class NSY_Model {
 					$executed = $stmt->execute();
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
-						echo "Error Query : ".($errors[0]);
+						echo '<p>Error Query : '.($errors[0]).'</p>';
 						exit();
 					}
 				} else {
 					$executed = $stmt->execute($this->variables);
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
-						echo "Error Query : ".($errors[0]);
+						echo '<p>Error Query : '.($errors[0]).'</p>';
 						exit();
 					}
 				}
@@ -199,7 +199,7 @@ class NSY_Model {
 			} else {
 				// if there's errors, then display the message
 				$errors = $stmt->errorInfo();
-				echo "Error Query : ".($errors[0].", ".$errors[1].", ".$errors[2]);
+				echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
 				exit();
 			}
 		}
@@ -215,7 +215,7 @@ class NSY_Model {
 	protected function fetch() {
 		// Check if there's connection defined on the models
 		if ( not_filled($this->connection) ) {
-			echo "No Connection Bro, Please check your connection again!";
+			echo '<p>No Connection, Please check your connection again!</p>';
 			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
@@ -224,15 +224,15 @@ class NSY_Model {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
-					echo "Error Query : ".($errors[0]);
-					echo ", No parameter were bound for query, Please check your query again!";
+					echo '<p>Error Query : '.($errors[0]).'</p>';
+					echo '<p>, No parameter were bound for query, Please check your query again!</p>';
 					exit();
 				}
 			} else {
-				if ($this->bind == "BINDVALUE") {
+				if ($this->bind == 'BINDVALUE') {
 					foreach ($this->variables as $key => &$res) {
 						if ( not_filled($res[1]) || not_filled($res[0]) ) {
-							echo "BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>".$key." => ".$res[0].", <strong>null</strong>";
+							echo '<p>BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
 							exit();
 						} else {
 							$stmt->bindValue($key, $res[0], $res[1]);
@@ -241,13 +241,13 @@ class NSY_Model {
 					$executed = $stmt->execute();
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
-						echo "Error Query : ".($errors[0]);
+						echo '<p>Error Query : '.($errors[0]).'</p>';
 						exit();
 					}
-				} elseif ($this->bind == "BINDPARAM") {
+				} elseif ($this->bind == 'BINDPARAM') {
 					foreach ($this->variables as $key => &$res) {
 						if ( not_filled($res[1]) || not_filled($res[0]) ) {
-							echo "BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>".$key." => ".$res[0].", <strong>null</strong>";
+							echo '<p>BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
 							exit();
 						} else {
 							$stmt->bindParam($key, $res[0], $res[1]);
@@ -256,14 +256,14 @@ class NSY_Model {
 					$executed = $stmt->execute();
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
-						echo "Error Query : ".($errors[0]);
+						echo '<p>Error Query : '.($errors[0]).'</p>';
 						exit();
 					}
 				} else {
 					$executed = $stmt->execute($this->variables);
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
-						echo "Error Query : ".($errors[0]);
+						echo '<p>Error Query : '.($errors[0]).'</p>';
 						exit();
 					}
 				}
@@ -277,7 +277,7 @@ class NSY_Model {
 			} else {
 				// if there's errors, then display the message
 				$errors = $stmt->errorInfo();
-				echo "Error Query : ".($errors[0].", ".$errors[1].", ".$errors[2]);
+				echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
 				exit();
 			}
 		}
@@ -293,7 +293,7 @@ class NSY_Model {
 	protected function fetch_column() {
 		// Check if there's connection defined on the models
 		if ( not_filled($this->connection) ) {
-			echo "No Connection Bro, Please check your connection again!";
+			echo '<p>No Connection, Please check your connection again!</p>';
 			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
@@ -302,15 +302,15 @@ class NSY_Model {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
-					echo "Error Query : ".($errors[0]);
-					echo ", No parameter were bound for query, Please check your query again!";
+					echo '<p>Error Query : '.($errors[0]).'</p>';
+					echo '<p>, No parameter were bound for query, Please check your query again!</p>';
 					exit();
 				}
 			} else {
-				if ($this->bind == "BINDVALUE") {
+				if ($this->bind == 'BINDVALUE') {
 					foreach ($this->variables as $key => &$res) {
 						if ( not_filled($res[1]) || not_filled($res[0]) ) {
-							echo "BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>".$key." => ".$res[0].", <strong>null</strong>";
+							echo '<p>BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
 							exit();
 						} else {
 							$stmt->bindValue($key, $res[0], $res[1]);
@@ -319,13 +319,13 @@ class NSY_Model {
 					$executed = $stmt->execute();
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
-						echo "Error Query : ".($errors[0]);
+						echo '<p>Error Query : '.($errors[0]).'</p>';
 						exit();
 					}
-				} elseif ($this->bind == "BINDPARAM") {
+				} elseif ($this->bind == 'BINDPARAM') {
 					foreach ($this->variables as $key => &$res) {
 						if ( not_filled($res[1]) || not_filled($res[0]) ) {
-							echo "BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>".$key." => ".$res[0].", <strong>null</strong>";
+							echo '<p>BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
 							exit();
 						} else {
 							$stmt->bindParam($key, $res[0], $res[1]);
@@ -334,14 +334,14 @@ class NSY_Model {
 					$executed = $stmt->execute();
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
-						echo "Error Query : ".($errors[0]);
+						echo '<p>Error Query : '.($errors[0]).'</p>';
 						exit();
 					}
 				} else {
 					$executed = $stmt->execute($this->variables);
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
-						echo "Error Query : ".($errors[0]);
+						echo '<p>Error Query : '.($errors[0]).'</p>';
 						exit();
 					}
 				}
@@ -355,7 +355,7 @@ class NSY_Model {
 			} else {
 				// if there's errors, then display the message
 				$errors = $stmt->errorInfo();
-				echo "Error Query : ".($errors[0].", ".$errors[1].", ".$errors[2]);
+				echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
 				exit();
 			}
 		}
@@ -371,7 +371,7 @@ class NSY_Model {
 	protected function row_count() {
 		// Check if there's connection defined on the models
 		if ( not_filled($this->connection) ) {
-			echo "No Connection Bro, Please check your connection again!";
+			echo '<p>No Connection, Please check your connection again!</p>';
 			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
@@ -380,15 +380,15 @@ class NSY_Model {
 				$executed = $stmt->execute();
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
-					echo "Error Query : ".($errors[0]);
-					echo ", No parameter were bound for query, Please check your query again!";
+					echo '<p>Error Query : '.($errors[0]).'</p>';
+					echo '<p>, No parameter were bound for query, Please check your query again!</p>';
 					exit();
 				}
 			} else {
 				$executed = $stmt->execute($this->variables);
 				if (!$executed) {
 					$errors = $stmt->errorInfo();
-					echo "Error Query : ".($errors[0]);
+					echo '<p>Error Query : '.($errors[0]).'</p>';
 					exit();
 				}
 			}
@@ -401,7 +401,7 @@ class NSY_Model {
 			} else {
 				// if there's errors, then display the message
 				$errors = $stmt->errorInfo();
-				echo "Error Query : ".($errors[0].", ".$errors[1].", ".$errors[2]);
+				echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
 				exit();
 			}
 		}
@@ -422,7 +422,7 @@ class NSY_Model {
 
 				// Check if there's connection defined on the models
 				if ( not_filled($this->connection) ) {
-					echo "No Connection Bro, Please check your connection again!";
+					echo '<p>No Connection, Please check your connection again!</p>';
 					exit();
 				} else {
 					$stmt = $this->connection->prepare($this->query);
@@ -431,15 +431,15 @@ class NSY_Model {
 						$executed = $stmt->execute();
 						if (!$executed) {
 							$errors = $stmt->errorInfo();
-							echo "Error Query : ".($errors[0]);
-							echo ", No parameter were bound for query, Please check your query again!";
+							echo '<p>Error Query : '.($errors[0]).'</p>';
+							echo '<p>, No parameter were bound for query, Please check your query again!</p>';
 							exit();
 						}
 					} else {
 						$executed = $stmt->execute($this->variables);
 						if (!$executed) {
 							$errors = $stmt->errorInfo();
-							echo "Error Query : ".($errors[0]);
+							echo '<p>Error Query : '.($errors[0]).'</p>';
 							exit();
 						}
 					}
@@ -450,21 +450,21 @@ class NSY_Model {
 					} else {
 						// if there's errors, then display the message
 						$errors = $stmt->errorInfo();
-						echo "Error Query : ".($errors[0].", ".$errors[1].", ".$errors[2]);
+						echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
 						exit();
 					}
 				}
-			    $result = 'CSRF check passed. Form parsed.';
+			    $result = 'CSRF check passed. Form parsed.'; // Just info
 			}
 			catch ( \Exception $e ) {
 			    // CSRF attack detected
-			    echo $result = $e->getMessage() . ' Form ignored.';
+			    echo $result = $e->getMessage() . ' Form ignored.'; // Just info
 				exit();
 			}
 		} elseif(config_app('csrf_token') === 'false') {
 			// Check if there's connection defined on the models
 			if ( not_filled($this->connection) ) {
-				echo "No Connection Bro, Please check your connection again!";
+				echo '<p>No Connection, Please check your connection again!</p>';
 				exit();
 			} else {
 				$stmt = $this->connection->prepare($this->query);
@@ -473,15 +473,15 @@ class NSY_Model {
 					$executed = $stmt->execute();
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
-						echo "Error Query : ".($errors[0]);
-						echo ", No parameter were bound for query, Please check your query again!";
+						echo '<p>Error Query : '.($errors[0]).'</p>';
+						echo '<p>, No parameter were bound for query, Please check your query again!</p>';
 						exit();
 					}
 				} else {
 					$executed = $stmt->execute($this->variables);
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
-						echo "Error Query : ".($errors[0]);
+						echo '<p>Error Query : '.($errors[0]).'</p>';
 						exit();
 					}
 				}
@@ -492,12 +492,12 @@ class NSY_Model {
 				} else {
 					// if there's errors, then display the message
 					$errors = $stmt->errorInfo();
-					echo "Error Query : ".($errors[0].", ".$errors[1].", ".$errors[2]);
+					echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
 					exit();
 				}
 			}
 		} else {
-			echo 'The CSRF Token Protection is not set correctly. Please check in the system/config/app.php';
+			echo '<p>The CSRF Token Protection is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></p>';
 			exit();
 		}
 
@@ -517,7 +517,7 @@ class NSY_Model {
 
 				// Check if there's connection defined on the models
 				if ( not_filled($this->connection) ) {
-					echo "No Connection Bro, Please check your connection again!";
+					echo '<p>No Connection, Please check your connection again!</p>';
 					exit();
 				} else {
 					$stmt = $this->connection->prepare($this->query);
@@ -526,8 +526,8 @@ class NSY_Model {
 						$executed = $stmt->execute();
 						if (!$executed) {
 							$errors = $stmt->errorInfo();
-							echo "Error Query : ".($errors[0]);
-							echo ", No parameter were bound for query, Please check your query again!";
+							echo '<p>Error Query : '.($errors[0]).'</p>';
+							echo '<p>, No parameter were bound for query, Please check your query again!</p>';
 							exit();
 						}
 					} else {
@@ -535,7 +535,7 @@ class NSY_Model {
 							$executed = $stmt->execute(array($params));
 							if (!$executed) {
 								$errors = $stmt->errorInfo();
-								echo "Error Query : ".($errors[0]);
+								echo '<p>Error Query : '.($errors[0]).'</p>';
 								exit();
 							}
 						}
@@ -547,21 +547,21 @@ class NSY_Model {
 					} else {
 						// if there's errors, then display the message
 						$errors = $stmt->errorInfo();
-						echo "Error Query : ".($errors[0].", ".$errors[1].", ".$errors[2]);
+						echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
 						exit();
 					}
 				}
-				$result = 'CSRF check passed. Form parsed.';
+				$result = 'CSRF check passed. Form parsed.'; // Just info
 			}
 			catch ( \Exception $e ) {
 				// CSRF attack detected
-				echo $result = $e->getMessage() . ' Form ignored.';
+				echo $result = $e->getMessage() . ' Form ignored.'; // Just info
 				exit();
 			}
 		} elseif(config_app('csrf_token') === 'false') {
 			// Check if there's connection defined on the models
 			if ( not_filled($this->connection) ) {
-				echo "No Connection Bro, Please check your connection again!";
+				echo '<p>No Connection, Please check your connection again!</p>';
 				exit();
 			} else {
 				$stmt = $this->connection->prepare($this->query);
@@ -570,8 +570,8 @@ class NSY_Model {
 					$executed = $stmt->execute();
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
-						echo "Error Query : ".($errors[0]);
-						echo ", No parameter were bound for query, Please check your query again!";
+						echo '<p>Error Query : '.($errors[0]).'</p>';
+						echo '<p>, No parameter were bound for query, Please check your query again!</p>';
 						exit();
 					}
 				} else {
@@ -579,7 +579,7 @@ class NSY_Model {
 						$executed = $stmt->execute(array($params));
 						if (!$executed) {
 							$errors = $stmt->errorInfo();
-							echo "Error Query : ".($errors[0]);
+							echo '<p>Error Query : '.($errors[0]).'</p>';
 							exit();
 						}
 					}
@@ -591,12 +591,12 @@ class NSY_Model {
 				} else {
 					// if there's errors, then display the message
 					$errors = $stmt->errorInfo();
-					echo "Error Query : ".($errors[0].", ".$errors[1].", ".$errors[2]);
+					echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
 					exit();
 				}
 			}
 		} else {
-			echo 'The CSRF Token Protection is not set correctly. Please check in the system/config/app.php';
+			echo '<p>The CSRF Token Protection is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></p>';
 			exit();
 		}
 
