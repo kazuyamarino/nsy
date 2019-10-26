@@ -55,21 +55,18 @@ class NSY_Controller {
 		return $this;
 	}
 
-	// Helper for NSY_Model to create a sequence of the named placeholders
+	// Helper for NSY_Controller to create a sequence of the named placeholders
 	protected function sequence() {
-		$in = "";
+		$in = '';
 		foreach ($this->variables as $i => $item)
 		{
-		    $key = "$this->bind".$i;
-		    $in .= "$key,";
+		    $key = $this->bind.$i;
+		    $in .= $key.',';
 		    $in_params[$key] = $item; // collecting values into key-value array
 		}
-		$in = rtrim($in,","); // :id0,:id1,:id2
+		$in = rtrim($in,','); // example = :id0,:id1,:id2
 
 		return [$in, $in_params];
 	}
-	/*
-	End method for variables sequence
-	 */
 
 }

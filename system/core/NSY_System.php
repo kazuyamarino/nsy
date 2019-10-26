@@ -314,80 +314,80 @@ Export File
  */
 function aurora($ext = null, $name = null, $sep = null, $h = null, $d = null, $s = null) {
 	if ( not_filled($ext) ) {
-		echo "<p>File extension not yet filled</p>";
-		echo "<p>aurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);</p>";
+		echo '<p>File extension not yet filled</p>';
+		echo '<p>aurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);</p>';
 		exit();
 	} elseif ( not_filled($name) ) {
-		echo "<p>Filename not yet filled</p>";
-		echo "<p>aurora(file_extension, <strong><i>filename</i></strong>, separator, header, data, string_delimiter);</p>";
+		echo '<p>Filename not yet filled</p>';
+		echo '<p>aurora(file_extension, <strong><i>filename</i></strong>, separator, header, data, string_delimiter);</p>';
 		exit();
 	} elseif ( not_filled($sep) ) {
-		echo "<p>Separator not yet filled</p>";
-		echo "<p>aurora(file_extension, filename, <strong><i>separator</i></strong>, header, data, string_delimiter);</p>";
+		echo '<p>Separator not yet filled</p>';
+		echo '<p>aurora(file_extension, filename, <strong><i>separator</i></strong>, header, data, string_delimiter);</p>';
 		exit();
 	} elseif ( not_filled($h) ) {
-		echo "<p>Header of the table undefined</p>";
-		echo "<p>aurora(file_extension, filename, separator, <strong><i>header</i></strong>, data, string_delimiter);</p>";
+		echo '<p>Header of the table undefined</p>';
+		echo '<p>aurora(file_extension, filename, separator, <strong><i>header</i></strong>, data, string_delimiter);</p>';
 		exit();
 	} elseif ( not_filled($d) ) {
-		echo "<p>Record of data empty or unreadable</p>";
-		echo "<p>aurora(file_extension, filename, separator, header, <strong><i>data</i></strong>, string_delimiter);</p>";
+		echo '<p>Record of data empty or unreadable</p>';
+		echo '<p>aurora(file_extension, filename, separator, header, <strong><i>data</i></strong>, string_delimiter);</p>';
 		exit();
 	} else {
 		// export filename
 		$filename  = $name;
 
 		// separator
-		if ( $sep == "tab" ) {
+		if ( $sep == 'tab' ) {
 			$separator = "\011";
-		} elseif ( $sep == "comma" ) {
+		} elseif ( $sep == 'comma' ) {
 			$separator = "\054";
-		} elseif ( $sep == "semicolon" ) {
+		} elseif ( $sep == 'semicolon' ) {
 			$separator = "\073";
-		} elseif ( $sep == "space" ) {
+		} elseif ( $sep == 'space' ) {
 			$separator = "\040";
-		} elseif ( $sep == "dot" ) {
+		} elseif ( $sep == 'dot' ) {
 			$separator = "\056";
-		} elseif ( $sep == "pipe" ) {
+		} elseif ( $sep == 'pipe' ) {
 			$separator = "\174";
 		} else {
-			echo "<p>There is no such separator name (<strong>example:</strong> tab, comma, semicolon, space, pipe, &amp; dot)</p>";
-			echo "<p>aurora(file_extension, filename, <strong><i>separator</i></strong>, header, data, string_delimiter);</p>";
+			echo '<p>There is no such separator name (<strong>example:</strong> tab, comma, semicolon, space, pipe, &amp; dot)</p>';
+			echo '<p>aurora(file_extension, filename, <strong><i>separator</i></strong>, header, data, string_delimiter);</p>';
 			exit();
 		}
 
 		// string delimiter (double = "" & single = '')
-		if ( $s == "double" ) {
+		if ( $s == 'double' ) {
 			$s = "\042";
-		} elseif ( $s == "single" ) {
+		} elseif ( $s == 'single' ) {
 			$s = "\047";
 		} elseif ( $s == null ) {
 			$s = null;
 		} else {
-			echo "<p>There is no such string delimiter name (<strong>example:</strong> \042double\042 for doublequote, &amp; \047single\047 for singlequote)</p>";
-			echo "<p>aurora(file_extension, filename, separator, header, data, <strong><i>string_delimiter</i></strong>);</p>";
+			echo '<p>There is no such string delimiter name (<strong>example:</strong> "double" for double quote, &amp; \'single\' for singlequote)</p>';
+			echo '<p>aurora(file_extension, filename, separator, header, data, <strong><i>string_delimiter</i></strong>);</p>';
 			exit();
 		}
 
 		// header file text (.txt)
-		if ( $ext == "txt" ) {
-			header("Content-type: text/plain");
-			header("Content-Disposition:attachment;filename =".$filename.".txt");
-		} elseif ( $ext == "csv" ) {
-			header("Content-type: text/csv");
-			header("Content-Disposition:attachment;filename =".$filename.".csv");
-		} elseif ( $ext == "xls" ) {
-			header("Content-type: application/vnd.ms-excel");
-			header("Content-Disposition:attachment;filename =".$filename.".xls");
-		} elseif ( $ext == "xlsx" ) {
-			header("Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-			header("Content-Disposition:attachment;filename =".$filename.".xlsx");
-		} elseif ( $ext == "ods" ) {
-			header("Content-type: application/vnd.oasis.opendocument.spreadsheet");
-			header("Content-Disposition:attachment;filename =".$filename.".ods");
+		if ( $ext == 'txt' ) {
+			header('Content-type: text/plain');
+			header('Content-Disposition:attachment;filename ='.$filename.'.txt');
+		} elseif ( $ext == 'csv' ) {
+			header('Content-type: text/csv');
+			header('Content-Disposition:attachment;filename ='.$filename.'.csv');
+		} elseif ( $ext == 'xls' ) {
+			header('Content-type: application/vnd.ms-excel');
+			header('Content-Disposition:attachment;filename ='.$filename.'.xls');
+		} elseif ( $ext == 'xlsx' ) {
+			header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			header('Content-Disposition:attachment;filename ='.$filename.'.xlsx');
+		} elseif ( $ext == 'ods' ) {
+			header('Content-type: application/vnd.oasis.opendocument.spreadsheet');
+			header('Content-Disposition:attachment;filename ='.$filename.'.ods');
 		} else {
-			echo "<p>There is no such file extension name (<strong>example:</strong> txt, csv, xls, xlsx, &amp; ods)</p>";
-			echo "<p>aurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);</p>";
+			echo '<p>There is no such file extension name (<strong>example:</strong> txt, csv, xls, xlsx, &amp; ods)</p>';
+			echo '<p>aurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);</p>';
 			exit();
 		}
 
@@ -421,6 +421,86 @@ function aurora($ext = null, $name = null, $sep = null, $h = null, $d = null, $s
 		}
 		exit;
 	}
+}
+
+/*
+User Agent
+
+try it :
+$ua = get_ua();
+echo $ua['name'];
+echo '<br>';
+echo $ua['version'];
+echo '<br>';
+echo $ua['platform'];
+echo '<br>';
+echo $ua['userAgent'];
+ */
+// http://www.php.net/manual/en/function.get-browser.php#101125
+function get_ua() {
+	$u_agent = $_SERVER['HTTP_USER_AGENT'];
+	$bname = 'Unknown';
+	$platform = 'Unknown';
+	$version= "";
+	// First get the platform?
+	if (preg_match('/Android/i', $u_agent)) {
+		$platform = 'Android';
+	} elseif (preg_match('/linux/i', $u_agent)) {
+		$platform = 'Linux';
+	} elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
+		$platform = 'Macintosh';
+	} elseif (preg_match('/windows|win32/i', $u_agent)) {
+		$platform = 'Windows';
+	}
+	// Next get the name of the useragent yes seperately and for good reason
+	if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) {
+		$bname = 'Internet Explorer';
+		$ub = "MSIE";
+	} elseif(preg_match('/Firefox/i',$u_agent)) {
+		$bname = 'Mozilla Firefox';
+		$ub = "Firefox";
+	} elseif(preg_match('/OPR/i',$u_agent) && !preg_match('/OPR1/i',$u_agent)) {
+		$bname = 'Opera';
+		$ub = "OPR";
+	} elseif(preg_match('/Chrome/i',$u_agent)) {
+		$bname = 'Google Chrome';
+		$ub = "Chrome";
+	} elseif(preg_match('/Safari/i',$u_agent)) {
+		$bname = 'Apple Safari';
+		$ub = "Safari";
+	} elseif(preg_match('/Netscape/i',$u_agent)) {
+		$bname = 'Netscape';
+		$ub = "Netscape";
+	}
+	// finally get the correct version number
+	$known = array('Version', $ub, 'other');
+	$pattern = '#(?<browser>' . join('|', $known) . ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+	if (!preg_match_all($pattern, $u_agent, $matches)) {
+		// we have no matching number just continue
+	}
+	// see how many we have
+	$i = count($matches['browser']);
+	if ($i != 1) {
+		//we will have two since we are not using 'other' argument yet
+		//see if version is before or after the name
+		if (strripos($u_agent,"Version") < strripos($u_agent,$ub)){
+			$version= $matches['version'][0];
+		} else {
+			$version= $matches['version'][1];
+		}
+	} else {
+		$version= $matches['version'][0];
+	}
+	// check if we have a number
+	if ($version==null || $version=="") {$version="?";}
+
+	return array(
+		'userAgent' => $u_agent,
+		'name'      => $bname,
+		'version'   => $version,
+		'platform'  => $platform,
+		'pattern'    => $pattern
+	);
 }
 
 /*
