@@ -22,9 +22,9 @@ class NSY_Controller {
     protected function load_view($module = null, $filename = null) {
         extract($this->vars);
 		if( not_filled($module) ) {
-			require_once(MVC_VIEW_DIR . $filename . '.php');
+			require(MVC_VIEW_DIR . $filename . '.php');
 		} else {
-			require_once(HMVC_VIEW_DIR . $module . '/views/' . $filename . '.php');
+			require(HMVC_VIEW_DIR . $module . '/views/' . $filename . '.php');
 		}
 
 		return $this;
@@ -35,7 +35,7 @@ class NSY_Controller {
      */
     protected function load_template($filename = null) {
 		extract($this->vars);
-        require_once(SYS_TMP_DIR . $filename . '.php');
+        require(SYS_TMP_DIR . $filename . '.php');
 
 		return $this;
     }
