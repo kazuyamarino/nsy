@@ -7,4 +7,5 @@ $baseDir = dirname(dirname($vendorDir));
 
 return array(
     'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src'),
+    'FtpClient' => array($vendorDir . '/nicolab/php-ftp-client/src'),
 );

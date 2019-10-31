@@ -83,6 +83,8 @@ trait Localization
     }
 
     /**
+     * Return default humanDiff() options (merged flags as integer).
+     *
      * @return int
      */
     public static function getHumanDiffOptions()
@@ -202,7 +204,7 @@ trait Localization
     {
         $message = static::getTranslationMessageWith($translator, $key, null, $key);
         if ($message instanceof Closure) {
-            return $message(...array_values($parameters));
+            return (string) $message(...array_values($parameters));
         }
 
         if ($number !== null) {
@@ -212,7 +214,7 @@ trait Localization
             $parameters[':count'] = $parameters['%count%'];
         }
 
-        return $translator->transChoice($key, $number, $parameters);
+        return (string) $translator->transChoice($key, $number, $parameters);
     }
 
     /**
@@ -225,9 +227,65 @@ trait Localization
      *
      * @return string
      */
-    public function translate(string $key, array $parameters = [], $number = null, TranslatorInterface $translator = null): string
+    public function translate(string $key, array $parameters = [], $number = null, TranslatorInterface $translator = null, bool $altNumbers = false): string
     {
-        return static::translateWith($translator ?: $this->getLocalTranslator(), $key, $parameters, $number);
+        $translation = static::translateWith($translator ?: $this->getLocalTranslator(), $key, $parameters, $number);
+
+        if ($number !== null && $altNumbers) {
+            return str_replace($number, $this->translateNumber($number), $translation);
+        }
+
+        return $translation;
+    }
+
+    /**
+     * Returns the alternative number for a given integer if available in the current locale.
+     *
+     * @param int $number
+     *
+     * @return string
+     */
+    public function translateNumber(int $number): string
+    {
+        $translateKey = "alt_numbers.$number";
+        $symbol = $this->translate($translateKey);
+
+        if ($symbol !== $translateKey) {
+            return $symbol;
+        }
+
+        if ($number > 99 && $this->translate('alt_numbers.99') !== 'alt_numbers.99') {
+            $start = '';
+            foreach ([10000, 1000, 100] as $exp) {
+                $key = "alt_numbers_pow.$exp";
+                if ($number >= $exp && $number < $exp * 10 && ($pow = $this->translate($key)) !== $key) {
+                    $unit = floor($number / $exp);
+                    $number -= $unit * $exp;
+                    $start .= ($unit > 1 ? $this->translate("alt_numbers.$unit") : '').$pow;
+                }
+            }
+            $result = '';
+            while ($number) {
+                $chunk = $number % 100;
+                $result = $this->translate("alt_numbers.$chunk").$result;
+                $number = floor($number / 100);
+            }
+
+            return "$start$result";
+        }
+
+        if ($number > 9 && $this->translate('alt_numbers.9') !== 'alt_numbers.9') {
+            $result = '';
+            while ($number) {
+                $chunk = $number % 10;
+                $result = $this->translate("alt_numbers.$chunk").$result;
+                $number = floor($number / 10);
+            }
+
+            return $result;
+        }
+
+        return "$number";
     }
 
     /**
@@ -327,7 +385,7 @@ trait Localization
 
             foreach ($fromTranslations as $index => $word) {
                 if (preg_match("/^$word\$/i", $chunk)) {
-                    return $toTranslations[$index];
+                    return $toTranslations[$index] ?? '';
                 }
             }
 

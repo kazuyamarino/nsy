@@ -9,7 +9,11 @@
  * file that was distributed with this source code.
  */
 
-return array_replace_recursive(require __DIR__.'/en.php', [
+/**
+ * Authors:
+ * - DarkoDevelop
+ */
+return array_replace_recursive(require __DIR__.'/hr.php', [
     'weekdays' => ['nedjelja', 'ponedjeljak', 'utorak', 'srijeda', 'četvrtak', 'petak', 'subota'],
     'weekdays_short' => ['ned', 'pon', 'uto', 'sri', 'čet', 'pet', 'sub'],
     'weekdays_min' => ['ned', 'pon', 'uto', 'sri', 'čet', 'pet', 'sub'],
