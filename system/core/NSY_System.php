@@ -372,19 +372,23 @@ function aurora($ext = null, $name = null, $sep = null, $h = null, $d = null, $s
 		// header file text (.txt)
 		if ( $ext == 'txt' ) {
 			header('Content-type: text/plain');
-			header('Content-Disposition:attachment;filename ='.$filename.'.txt');
+			header('Content-Disposition:attachment;filename ='.$filename.'.'.$ext);
 		} elseif ( $ext == 'csv' ) {
 			header('Content-type: text/csv');
-			header('Content-Disposition:attachment;filename ='.$filename.'.csv');
+			header('Content-Disposition:attachment;filename ='.$filename.'.'.$ext);
 		} elseif ( $ext == 'xls' ) {
 			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition:attachment;filename ='.$filename.'.xls');
+			header('Content-Disposition:attachment;filename ='.$filename.'.'.$ext);
 		} elseif ( $ext == 'xlsx' ) {
 			header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-			header('Content-Disposition:attachment;filename ='.$filename.'.xlsx');
+			header('Content-Disposition:attachment;filename ='.$filename.'.'.$ext);
 		} elseif ( $ext == 'ods' ) {
 			header('Content-type: application/vnd.oasis.opendocument.spreadsheet');
-			header('Content-Disposition:attachment;filename ='.$filename.'.ods');
+			header('Content-Disposition:attachment;filename ='.$filename.'.'.$ext);
+		} elseif ( $ext == 'debug' ) {
+			/**
+			 * Debug test / See raw data
+			 */
 		} else {
 			echo '<p>There is no such file extension name (<strong>example:</strong> txt, csv, xls, xlsx, &amp; ods)</p>';
 			echo '<p>aurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);</p>';
@@ -419,7 +423,6 @@ function aurora($ext = null, $name = null, $sep = null, $h = null, $d = null, $s
 			// newline
 			echo "\r\n";
 		}
-		exit;
 	}
 }
 
