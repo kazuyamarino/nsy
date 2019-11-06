@@ -308,6 +308,70 @@ $var9 = no value
 $var10 = no value
 ```
 
+
+### Get User Agent
+This is how to get user agent data with ease.
+```
+get_ua()
+```
+Example :
+```
+$d = get_ua();
+print_r($d);
+
+// output
+Array
+(
+    [userAgent] => Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/77.0.3865.90 Chrome/77.0.3865.90 Safari/537.36
+    [name] => Google Chrome
+    [version] => 77.0.3865.90
+    [platform] => Linux
+    [pattern] => #(?Version|Chrome|other)[/ ]+(?[0-9.|a-zA-Z.]*)#
+)
+```
+
+
+### Aurora File Export
+Aurora is a library created to export data into several file formats supported by aurora such as txt, xls, ods, & etc.
+```
+aurora(file_extension, filename, separator, header, data, string_delimiter);
+```
+Variable explanation :
+1. `file_extension` is a supported file extension by aurora. `(txt, csv, xls, xlsx, & ods)`.
+2. `filename` is a filename defined by user.
+3. `separator` is a delimiter of each data or table column `(tab, comma, semicolon, space, pipe, & dot)`.
+4. `header` is the top or title of each column.
+5. `data` is the contents of the table data or record.
+6. `string_delimiter` is quote each string `("double" for double quote, & 'single' for singlequote)`.
+
+
+Example :
+```
+$header = [ 'Col1', 'Col2', 'Col3' ];
+
+$data = Array
+(
+    [0] => Array
+        (
+            [name] => Vikry Yuansah
+            [0] => Vikry Yuansah
+            [user_name] => vikry
+            [1] => vikry
+            [user_code] => 1
+            [2] => 1
+        )
+
+);
+
+aurora('txt', 'nsy_aurora', 'pipe', $header, $data, 'single');
+
+// Will generate nsy_aurora.txt, See output file at `public` folder.
+
+// This is how it looks inside nsy_aurora.txt
+'Col1'|'Col2'|'Col3'
+'Vikry Yuansah'|'vikry'|'1'
+```
+
 <hr>
 
 
