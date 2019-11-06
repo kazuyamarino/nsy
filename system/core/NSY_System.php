@@ -370,58 +370,44 @@ function aurora($ext = null, $name = null, $sep = null, $h = null, $d = null, $s
 		}
 
 		// header file text (.txt)
-		if ( $ext == 'txt' ) {
-			header('Content-type: text/plain');
-			header('Content-Disposition:attachment;filename ='.$filename.'.'.$ext);
-		} elseif ( $ext == 'csv' ) {
-			header('Content-type: text/csv');
-			header('Content-Disposition:attachment;filename ='.$filename.'.'.$ext);
-		} elseif ( $ext == 'xls' ) {
-			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition:attachment;filename ='.$filename.'.'.$ext);
-		} elseif ( $ext == 'xlsx' ) {
-			header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-			header('Content-Disposition:attachment;filename ='.$filename.'.'.$ext);
-		} elseif ( $ext == 'ods' ) {
-			header('Content-type: application/vnd.oasis.opendocument.spreadsheet');
-			header('Content-Disposition:attachment;filename ='.$filename.'.'.$ext);
-		} elseif ( $ext == 'debug' ) {
-			/**
-			 * Debug test / See raw data
-			 */
+		if ( $ext == 'txt' || $ext == 'csv' || $ext == 'xls' || $ext == 'xlsx' || $ext == 'ods' ) {
+			// display header
+			$i = 0;
+			$len_h = count($h);
+			foreach ( $h as $key_h => $val_h ) {
+				if ($i == $len_h - 1) {
+					$roles[] = $s.$val_h.$s;
+				} else {
+					$roles[] = $s.$val_h.$s.$separator;
+				}
+				$i++;
+			}
+
+			// newline
+			$roles[] = "\r\n";
+
+			// display records
+			foreach ( $d as $key_d => $val_d ) {
+				for ($x = 0; $x <= $len_h - 1; $x++) {
+					if ($x == $len_h - 1) {
+						$roles[] = $s.$val_d[$x].$s;
+					} else {
+						$roles[] = $s.$val_d[$x].$s.$separator;
+					}
+				}
+
+				// newline
+				$roles[] = "\r\n";
+			}
+
+			// return $roles;
+			$file = $filename.'.'.$ext;
+			$data = $roles;
+			file_put_contents($file, $data);
 		} else {
 			echo '<p>There is no such file extension name (<strong>example:</strong> txt, csv, xls, xlsx, &amp; ods)</p>';
 			echo '<p>aurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);</p>';
 			exit();
-		}
-
-		// display header
-		$i = 0;
-		$len_h = count($h);
-		foreach ( $h as $key_h => $val_h ) {
-			if ($i == $len_h - 1) {
-				echo $s.$val_h.$s;
-			} else {
-				echo $s.$val_h.$s.$separator;
-			}
-			$i++;
-		}
-
-		// newline
-		echo "\r\n";
-
-		// display records
-		foreach ( $d as $key_d => $val_d ) {
-			for ($x = 0; $x <= $len_h - 1; $x++) {
-				if ($x == $len_h - 1) {
-					echo $s.$val_d[$x].$s;
-				} else {
-					echo $s.$val_d[$x].$s.$separator;
-				}
-			}
-
-			// newline
-			echo "\r\n";
 		}
 	}
 }
