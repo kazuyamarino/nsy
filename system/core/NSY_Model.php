@@ -29,6 +29,7 @@ class NSY_Model {
 		defined('BINDPAR') or define('BINDPAR', "BINDPARAM");
 
 		defined('FETCH_NUM') or define('FETCH_NUM', \PDO::FETCH_NUM);
+		defined('FETCH_COLUMN') or define('FETCH_COLUMN', \PDO::FETCH_COLUMN);
 		defined('FETCH_ASSOC') or define('FETCH_ASSOC', \PDO::FETCH_ASSOC);
 		defined('FETCH_BOTH') or define('FETCH_BOTH', \PDO::FETCH_BOTH);
 		defined('FETCH_OBJ') or define('FETCH_OBJ', \PDO::FETCH_OBJ);

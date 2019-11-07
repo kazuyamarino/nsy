@@ -377,7 +377,217 @@ aurora('txt', 'nsy_aurora', 'pipe', $header, $data, 'single');
 
 ## The Models
 
-### Under Construction...
+### Primary & Secondary Database Connections
+NSY has supported 2 database connections in one running application.
+
+You can see the .env in root. There seems to be a configuration like this :
+```
+# Define Primary Connection
+DB_CONNECTION=
+DB_HOST=
+DB_PORT=
+DB_NAME=
+DB_USER=
+DB_PASS=
+
+# Define Secondary Connection
+DB_CONNECTION_SEC=
+DB_HOST_SEC=
+DB_PORT_SEC=
+DB_NAME_SEC=
+DB_USER_SEC=
+DB_PASS_SEC=
+```
+
+For example, in the model you want to run an sql query on the first database connection :
+```
+$q = 'SELECT * FROM blabla';
+$this->connect()->query($q);
+```
+
+Then, if you want to run an sql query on the second database connection :
+```
+$q = 'SELECT * FROM blabla';
+$this->connect_sec()->query($q);
+```
+
+### Getting data out of statement in dozens different formats. fetch_all()
+That's most interesting function, with most astonishing features. Mostly thanks to its existence one can call PDO a wrapper, as this function can automate many operations otherwise performed manually.
+
+`fetch_all()` returns an array that consists of all the rows returned by the query. From this fact we can make two conclusions:
+
+This function should not be used, if many rows has been selected. In such a case conventional while loop ave to be used, fetching rows one by one instead of getting them all into array at once. "Many" means more than it is suitable to be shown on the average web page.
+
+This function is mostly useful in a modern web application that never outputs data right away during fetching, but rather passes it to template.
+You'd be amazed, in how many different formats this function can return data in (and how little an average PHP user knows of them), all controlled by `FETCH...` variables. Some of them are: `FETCH_NUM, FETCH_ASSOC, FETCH_BOTH, FETCH_CLASS, FETCH_KEY_PAIR, FETCH_UNIQUE, FETCH_GROUP, and FETCH_FUNC`.
+
+#### Getting a plain array.
+By default, this function will return just simple enumerated array consists of all the returned rows. Row formatting constants, such as `FETCH_NUM, FETCH_ASSOC, FETCH_COLUMN` etc can change the row format.
+```
+$q = 'SELECT id, name, username FROM users';
+$this->connect()->query($q)->style(FETCH_ASSOC)->fetch_all;
+
+// output
+Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [name] => Vikry Yuansah
+            [user_name] => vikry
+        )
+
+)
+```
+
+#### Getting a column number.
+It is often very handy to get plain one-dimensional array right out of the query, if only one column out of many rows being fetched. Here you go:
+```
+$q = 'SELECT name FROM users';
+$this->connect()->query($q)->style(FETCH_COLUMN)->fetch_all;
+
+// output
+Array
+(
+    [0] => Vikry Yuansah
+)
+```
+
+#### Getting key-value pairs.
+Also extremely useful format, when we need to get the same column, but indexed not by numbers in order but by another field. Here goes `FETCH_KEY_PAIR` constant:
+```
+$q = 'SELECT name FROM users';
+$this->connect()->query($q)->style(FETCH_KEY_PAIR)->fetch_all;
+
+// output
+Array
+(
+    [1] => Vikry Yuansah
+    [2] => Nayla Syifa
+)
+```
+and many other modes in fetch_all.
+
+### Getting data out of statement. fetch()
+It fetches a single row from database, and moves the internal pointer in the result set, so consequent calls to this function will return all the resulting rows one by one.
+```
+$q = 'SELECT id, name FROM users';
+$this->connect()->query($q)->style(FETCH_NUM)->fetch;
+
+// output
+Array
+(
+    [0] => 1
+    [1] => Vikry Yuansah
+)
+```
+
+Another way would be to bind these variables explicitly while setting the proper param type:
+
+Binds a PHP variable to a corresponding named or question mark placeholder in the SQL statement that was used to prepare the statement.
+
+BindValue with PARAM_INT (Defines variable type as integer/number) :
+```
+$id = [
+	':id' => [3, PAR_INT]
+];
+$q = "SELECT
+		id, name, user_name
+	FROM tbl_users WHERE id = :id";
+$this->connect()->query($q)->vars($id)->bind(BINDVAL)->fetch();
+
+// output
+Array
+(
+    [id] => 3
+    [0] => 3
+    [name] => Tialuna
+    [1] => Tialuna
+    [user_name] => tia
+    [2] => tia
+)
+```
+
+BindParam with PARAM_STR (Defines the variable type as a text string) :
+```
+$string = [
+	':name' => ['%yuan%', PAR_STR]
+];
+$q = "SELECT
+		id, name, user_name
+	FROM tbl_users WHERE name LIKE :name";
+$this->connect()->query($q)->vars($string)->bind(BINDPAR)->fetch();
+
+// output
+Array
+(
+    [id] => 1
+    [0] => 1
+    [name] => Vikry Yuansah
+    [1] => Vikry Yuansah
+    [user_name] => vikry
+    [2] => vikry
+)
+```
+Unlike `BINDVAL`, the variable is bound as a reference and will only be evaluated at the time that `exec()` is called.
+
+`BINDPAR` to bind PHP variables to the parameter markers: bound variables pass their value as input and receive the output value, if any, of their associated parameter markers
+
+### Getting data out of statement. fetch_column()
+A neat helper function that returns value of the single field of returned row. Very handy when we are selecting only one field:
+```
+// Getting the name based on id
+$id = [
+	':id' => 2
+];
+$q = "SELECT
+		name
+	FROM tbl_users WHERE id = :id";
+$this->connect()->query($q)->vars($id)->fetch_column();
+
+// output
+Nayla Syifa
+```
+```
+// getting number of rows in the table utilizing method chaining
+$q = "SELECT
+		count(*)
+	FROM tbl_users";
+$this->connect()->query($q)->fetch_column();
+
+// output
+3 => number of row data
+```
+
+### Getting row count
+NSY uses PDO. PDO offers a function for returning the number of rows found by the query, row_count(), for example:
+```
+$q = "SELECT
+		*
+	FROM tbl_users";
+$this->connect()->query($q)->row_count();
+
+// output
+3 => number of row data
+```
+
+However, if you want to get the number of affected rows, here is an example:
+```
+$id = [
+	':id' => 2
+];
+
+$q = "DELETE FROM tbl_users WHERE id = :id";
+
+$deleted_data = $this->connect()->vars($id)->query($q)->row_count();
+
+return deleted_data;
+
+// output
+1 => number of row data that was deleted
+```
+
+<hr>
 
 ## License
 The code is available under the [MIT license](https://github.com/kazuyamarino/nsy/blob/master/LICENSE.txt)
