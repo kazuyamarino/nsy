@@ -487,9 +487,7 @@ Binds a PHP variable to a corresponding named or question mark placeholder in th
 
 BindValue with PARAM_INT (Defines variable type as integer/number) :
 ```
-$id = [
-	':id' => [3, PAR_INT]
-];
+$id = [ ':id' => [3, PAR_INT] ];
 $q = "SELECT id, name, user_name FROM tbl_users WHERE id = :id";
 $this->connect()->query($q)->vars($id)->bind(BINDVAL)->fetch();
 
@@ -507,9 +505,7 @@ Array
 
 BindParam with PARAM_STR (Defines the variable type as a text string) :
 ```
-$string = [
-	':name' => ['%yuan%', PAR_STR]
-];
+$string = [ ':name' => ['%yuan%', PAR_STR] ];
 $q = "SELECT id, name, user_name FROM tbl_users WHERE name LIKE :name";
 $this->connect()->query($q)->vars($string)->bind(BINDPAR)->fetch();
 
@@ -532,9 +528,7 @@ Unlike `BINDVAL`, the variable is bound as a reference and will only be evaluate
 A neat helper function that returns value of the single field of returned row. Very handy when we are selecting only one field:
 ```
 // Getting the name based on id
-$id = [
-	':id' => 2
-];
+$id = [ ':id' => 2 ];
 $q = "SELECT name FROM tbl_users WHERE id = :id";
 $this->connect()->query($q)->vars($id)->fetch_column();
 
@@ -562,9 +556,7 @@ $this->connect()->query($q)->row_count();
 
 However, if you want to get the number of affected rows, here is an example:
 ```
-$id = [
-	':id' => 2
-];
+$id = [ ':id' => 2 ];
 
 $q = "DELETE FROM tbl_users WHERE id = :id";
 $deleted_data = $this->connect()->vars($id)->query($q)->row_count();
@@ -579,9 +571,7 @@ return deleted_data;
 
 Update data :
 ```
-$id = [
-	':id' => 2
-];
+$id = [ ':id' => 2 ];
 
 $q = "UPDATE tbl_users SET name = :name WHERE id = :id";
 $this->connect()->query($q)->vars($id)->exec();
@@ -589,9 +579,7 @@ $this->connect()->query($q)->vars($id)->exec();
 
 Delete data :
 ```
-$id = [
-	':id' => 2
-];
+$id = [ ':id' => 2 ];
 
 $q = "DELETE FROM tbl_users WHERE id = :id";
 $this->connect()->query($q)->vars($p)->exec();
@@ -599,9 +587,7 @@ $this->connect()->query($q)->vars($p)->exec();
 
 Insert data :
 ```
-$p = [
-	':user_name' => 'Harmoni'
-];
+$p = [ ':user_name' => 'Harmoni' ];
 
 $q = "INSERT INTO tbl_users (user_name) VALUES (:user_name)";
 $this->connect()->query($q)->vars($p)->exec();
@@ -610,7 +596,7 @@ $this->connect()->query($q)->vars($p)->exec();
 #### Multi execution
 Example :
 ```
-Undercontruction
+Underconstruction
 ```
 
 <hr>
