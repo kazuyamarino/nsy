@@ -488,6 +488,7 @@ Binds a PHP variable to a corresponding named or question mark placeholder in th
 BindValue with PARAM_INT (Defines variable type as integer/number) :
 ```
 $id = [ ':id' => [3, PAR_INT] ];
+
 $q = "SELECT id, name, user_name FROM tbl_users WHERE id = :id";
 $this->connect()->query($q)->vars($id)->bind(BINDVAL)->fetch();
 
@@ -506,6 +507,7 @@ Array
 BindParam with PARAM_STR (Defines the variable type as a text string) :
 ```
 $string = [ ':name' => ['%yuan%', PAR_STR] ];
+
 $q = "SELECT id, name, user_name FROM tbl_users WHERE name LIKE :name";
 $this->connect()->query($q)->vars($string)->bind(BINDPAR)->fetch();
 
@@ -529,6 +531,7 @@ A neat helper function that returns value of the single field of returned row. V
 ```
 // Getting the name based on id
 $id = [ ':id' => 2 ];
+
 $q = "SELECT name FROM tbl_users WHERE id = :id";
 $this->connect()->query($q)->vars($id)->fetch_column();
 
