@@ -545,7 +545,7 @@ $this->connect()->query($q)->fetch_column();
 ```
 
 ### Getting row count
-NSY uses PDO. PDO offers a function for returning the number of rows found by the query, row_count(), for example:
+NSY uses PDO. PDO offers a function for returning the number of rows found by the query, `row_count()`, for example:
 ```
 $q = "SELECT * FROM tbl_users";
 $this->connect()->query($q)->row_count();
@@ -567,7 +567,7 @@ return deleted_data;
 1 => number of row data that was deleted
 ```
 
-### Executes a prepared statement
+### Executes a prepared statement. exec()
 
 Update data :
 ```
