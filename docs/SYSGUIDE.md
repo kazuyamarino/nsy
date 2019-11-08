@@ -436,7 +436,6 @@ Array
             [name] => Vikry Yuansah
             [user_name] => vikry
         )
-
 )
 ```
 
@@ -491,9 +490,7 @@ BindValue with PARAM_INT (Defines variable type as integer/number) :
 $id = [
 	':id' => [3, PAR_INT]
 ];
-$q = "SELECT
-		id, name, user_name
-	FROM tbl_users WHERE id = :id";
+$q = "SELECT id, name, user_name FROM tbl_users WHERE id = :id";
 $this->connect()->query($q)->vars($id)->bind(BINDVAL)->fetch();
 
 // output
@@ -513,9 +510,7 @@ BindParam with PARAM_STR (Defines the variable type as a text string) :
 $string = [
 	':name' => ['%yuan%', PAR_STR]
 ];
-$q = "SELECT
-		id, name, user_name
-	FROM tbl_users WHERE name LIKE :name";
+$q = "SELECT id, name, user_name FROM tbl_users WHERE name LIKE :name";
 $this->connect()->query($q)->vars($string)->bind(BINDPAR)->fetch();
 
 // output
@@ -540,9 +535,7 @@ A neat helper function that returns value of the single field of returned row. V
 $id = [
 	':id' => 2
 ];
-$q = "SELECT
-		name
-	FROM tbl_users WHERE id = :id";
+$q = "SELECT name FROM tbl_users WHERE id = :id";
 $this->connect()->query($q)->vars($id)->fetch_column();
 
 // output
@@ -550,9 +543,7 @@ Nayla Syifa
 ```
 ```
 // getting number of rows in the table utilizing method chaining
-$q = "SELECT
-		count(*)
-	FROM tbl_users";
+$q = "SELECT count(*) FROM tbl_users";
 $this->connect()->query($q)->fetch_column();
 
 // output
@@ -562,9 +553,7 @@ $this->connect()->query($q)->fetch_column();
 ### Getting row count
 NSY uses PDO. PDO offers a function for returning the number of rows found by the query, row_count(), for example:
 ```
-$q = "SELECT
-		*
-	FROM tbl_users";
+$q = "SELECT * FROM tbl_users";
 $this->connect()->query($q)->row_count();
 
 // output
@@ -578,7 +567,6 @@ $id = [
 ];
 
 $q = "DELETE FROM tbl_users WHERE id = :id";
-
 $deleted_data = $this->connect()->vars($id)->query($q)->row_count();
 
 return deleted_data;
@@ -595,9 +583,7 @@ $id = [
 	':id' => 2
 ];
 
-$q = "UPDATE tbl_users SET
-			name = :name
-		WHERE id = :id";
+$q = "UPDATE tbl_users SET name = :name WHERE id = :id";
 $this->connect()->query($q)->vars($id)->exec();
 ```
 
@@ -617,18 +603,14 @@ $p = [
 	':user_name' => 'Harmoni'
 ];
 
-$q = "INSERT INTO tbl_users
-						user_name
-					)
-					VALUES(
-						:user_name,
-					)";
+$q = "INSERT INTO tbl_users (user_name) VALUES (:user_name)";
 $this->connect()->query($q)->vars($p)->exec();
 ```
 
 #### Multi execution
 Example :
 ```
+Undercontruction
 ```
 
 <hr>
