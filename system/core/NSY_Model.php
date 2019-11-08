@@ -508,9 +508,9 @@ class NSY_Model {
     }
 
 	/*
-	Helper for PDO Multi Execute
+	Helper for PDO Multi Insert
 	 */
-	protected function multi_exec() {
+	protected function multi_insert() {
 		if(config_app('csrf_token') === 'true') {
 			try {
 			    // Run CSRF check, on POST data, in exception mode, for 10 minutes, in one-time mode.
@@ -521,9 +521,14 @@ class NSY_Model {
 					echo '<p>No Connection, Please check your connection again!</p>';
 					exit();
 				} else {
-					$stmt = $this->connection->prepare($this->query);
+					$rows = count($this->variables);
+			        $cols = count($this->variables[0]);
+			        $rowString = '(' . rtrim(str_repeat('?,', $cols), ',') . '),';
+			        $valString = rtrim(str_repeat($rowString, $rows), ',');
+
 					// if vars null, execute queries without vars, else execute it with defined on the models
 					if ( not_filled($this->variables) ) {
+						$stmt = $this->connection->prepare($this->query);
 						$executed = $stmt->execute();
 						if (!$executed) {
 							$errors = $stmt->errorInfo();
@@ -532,13 +537,15 @@ class NSY_Model {
 							exit();
 						}
 					} else {
-						foreach($this->variables as $key => $params) {
-							$executed = $stmt->execute(array($params));
-							if (!$executed) {
-								$errors = $stmt->errorInfo();
-								echo '<p>Error Query : '.($errors[0]).'</p>';
-								exit();
-							}
+						$stmt = $this->connection->prepare($this->query . ' VALUES '. $valString);
+
+						$bindArray = array();
+						array_walk_recursive($this->variables, function($item) use (&$bindArray) { $bindArray[] = $item; });
+						$executed = $stmt->execute($bindArray);
+						if (!$executed) {
+							$errors = $stmt->errorInfo();
+							echo '<p>Error Query : '.($errors[0]).'</p>';
+							exit();
 						}
 					}
 
@@ -565,9 +572,14 @@ class NSY_Model {
 				echo '<p>No Connection, Please check your connection again!</p>';
 				exit();
 			} else {
-				$stmt = $this->connection->prepare($this->query);
+				$rows = count($this->variables);
+		        $cols = count($this->variables[0]);
+		        $rowString = '(' . rtrim(str_repeat('?,', $cols), ',') . '),';
+		        $valString = rtrim(str_repeat($rowString, $rows), ',');
+
 				// if vars null, execute queries without vars, else execute it with defined on the models
 				if ( not_filled($this->variables) ) {
+					$stmt = $this->connection->prepare($this->query);
 					$executed = $stmt->execute();
 					if (!$executed) {
 						$errors = $stmt->errorInfo();
@@ -576,13 +588,15 @@ class NSY_Model {
 						exit();
 					}
 				} else {
-					foreach($this->variables as $key => $params) {
-						$executed = $stmt->execute(array($params));
-						if (!$executed) {
-							$errors = $stmt->errorInfo();
-							echo '<p>Error Query : '.($errors[0]).'</p>';
-							exit();
-						}
+					$stmt = $this->connection->prepare($this->query . ' VALUES '. $valString);
+
+					$bindArray = array();
+					array_walk_recursive($this->variables, function($item) use (&$bindArray) { $bindArray[] = $item; });
+					$executed = $stmt->execute($bindArray);
+					if (!$executed) {
+						$errors = $stmt->errorInfo();
+						echo '<p>Error Query : '.($errors[0]).'</p>';
+						exit();
 					}
 				}
 

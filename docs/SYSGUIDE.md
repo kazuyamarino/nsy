@@ -587,6 +587,50 @@ return deleted_data;
 1 => number of row data that was deleted
 ```
 
+### Executes a prepared statement
+
+Update data :
+```
+$id = [
+	':id' => 2
+];
+
+$q = "UPDATE tbl_users SET
+			name = :name
+		WHERE id = :id";
+$this->connect()->query($q)->vars($id)->exec();
+```
+
+Delete data :
+```
+$id = [
+	':id' => 2
+];
+
+$q = "DELETE FROM tbl_users WHERE id = :id";
+$this->connect()->query($q)->vars($p)->exec();
+```
+
+Insert data :
+```
+$p = [
+	':user_name' => 'Harmoni'
+];
+
+$q = "INSERT INTO tbl_users
+						user_name
+					)
+					VALUES(
+						:user_name,
+					)";
+$this->connect()->query($q)->vars($p)->exec();
+```
+
+#### Multi execution
+Example :
+```
+```
+
 <hr>
 
 ## License
