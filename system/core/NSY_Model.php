@@ -427,6 +427,7 @@ class NSY_Model {
 					exit();
 				} else {
 					$stmt = $this->connection->prepare($this->query);
+
 					// if vars null, execute queries without vars, else execute it with defined on the models
 					if ( not_filled($this->variables) ) {
 						$executed = $stmt->execute();
@@ -469,6 +470,7 @@ class NSY_Model {
 				exit();
 			} else {
 				$stmt = $this->connection->prepare($this->query);
+
 				// if vars null, execute queries without vars, else execute it with defined on the models
 				if ( not_filled($this->variables) ) {
 					$executed = $stmt->execute();
@@ -522,9 +524,9 @@ class NSY_Model {
 					exit();
 				} else {
 					$rows = count($this->variables);
-			        $cols = count($this->variables[0]);
-			        $rowString = '(' . rtrim(str_repeat('?,', $cols), ',') . '),';
-			        $valString = rtrim(str_repeat($rowString, $rows), ',');
+					$cols = count($this->variables[0]);
+					$rowString = '(' . rtrim(str_repeat('?,', $cols), ',') . '),';
+					$valString = rtrim(str_repeat($rowString, $rows), ',');
 
 					// if vars null, execute queries without vars, else execute it with defined on the models
 					if ( not_filled($this->variables) ) {
@@ -541,6 +543,7 @@ class NSY_Model {
 
 						$bindArray = array();
 						array_walk_recursive($this->variables, function($item) use (&$bindArray) { $bindArray[] = $item; });
+
 						$executed = $stmt->execute($bindArray);
 						if (!$executed) {
 							$errors = $stmt->errorInfo();
@@ -573,9 +576,9 @@ class NSY_Model {
 				exit();
 			} else {
 				$rows = count($this->variables);
-		        $cols = count($this->variables[0]);
-		        $rowString = '(' . rtrim(str_repeat('?,', $cols), ',') . '),';
-		        $valString = rtrim(str_repeat($rowString, $rows), ',');
+				$cols = count($this->variables[0]);
+				$rowString = '(' . rtrim(str_repeat('?,', $cols), ',') . '),';
+				$valString = rtrim(str_repeat($rowString, $rows), ',');
 
 				// if vars null, execute queries without vars, else execute it with defined on the models
 				if ( not_filled($this->variables) ) {

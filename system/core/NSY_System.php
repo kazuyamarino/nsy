@@ -493,6 +493,21 @@ function get_ua() {
 }
 
 /*
+PHP array_flatten() function. Convert a multi-dimensional array into a single-dimensional array.
+https://gist.github.com/SeanCannon/6585889#gistcomment-2922278
+ */
+function array_flatten($items)
+{
+    if (! is_array($items)) {
+        return [$items];
+    }
+
+    return array_reduce($items, function ($carry, $item) {
+        return array_merge($carry, array_flatten($item));
+    }, []);
+}
+
+/*
 Define base_url() method
  */
 function base_url($url = null) {
