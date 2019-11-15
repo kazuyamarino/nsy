@@ -564,7 +564,9 @@ $this->connect()->query($q)->fetch_column();
 NSY uses PDO. PDO offers a function for returning the number of rows found by the query, `row_count()`, for example:
 ```
 $q = "SELECT * FROM tbl_users";
-$this->connect()->query($q)->row_count();
+$d = $this->connect()->query($q)->row_count();
+
+return $d->result;
 
 // output
 3 => number of row data
@@ -577,7 +579,7 @@ $id = [ ':id' => 2 ];
 $q = "DELETE FROM tbl_users WHERE id = :id";
 $deleted_data = $this->connect()->vars($id)->query($q)->row_count();
 
-return deleted_data;
+return deleted_data->result;
 
 // output
 1 => number of row data that was deleted
