@@ -16,9 +16,12 @@ Site example :
 ├── docs
 │   ├── apache
 │   │   ├── for_public
+│   │   │   └── .htaccess
 │   │   ├── for_root
+│   │   │   └── .htaccess
 │   │   └── Readme.txt
 │   ├── env
+│   │   └── .env.example
 │   ├── nginx
 │   │   ├── nginx.conf
 │   │   └── sites-available
@@ -27,6 +30,10 @@ Site example :
 │   └── USERGUIDE.md
 ├── dump
 │   └── DUMP.md
+├── .editorconfig
+├── .env
+├── .gitattributes
+├── .gitignore
 ├── INSTALL.CLI.sh
 ├── LICENSE.txt
 ├── phpunit.xml
@@ -47,44 +54,47 @@ Site example :
 │   │   └── main.js
 │   └── robots.txt
 ├── README.md
-└── system
-    ├── config
-    │   ├── app.php
-    │   ├── database.php
-    │   └── site.php
-    ├── controllers
-    │   └── Welcome.php
-    ├── core
-    │   ├── NSY_AssetManager.php
-    │   ├── NSY_Controller.php
-    │   ├── NSY_CSRF.php
-    │   ├── NSY_DB.php
-    │   ├── NSY_Model.php
-    │   ├── NSY_Router.php
-    │   ├── NSY_System.php
-    │   └── NSY_XSS_Filter.php
-    ├── helpers
-    │   └── NSY_Helper.php
-    ├── libraries
-    │   └── Assets.php
-    ├── models
-    │   └── Model_Welcome.php
-    ├── modules
-    │   └── homepage
-    │       ├── controllers
-    │       │   └── Hello.php
-    │       ├── models
-    │       │   └── Model_Hello.php
-    │       └── views
-    │           └── index.php
-    ├── routes
-    │   ├── Api.php
-    │   └── Web.php
-    ├── templates
-    │   ├── footer.php
-    │   └── header.php
-    └── views
-        └── index.php
+├── system
+│   ├── config
+│   │   ├── app.php
+│   │   ├── database.php
+│   │   └── site.php
+│   ├── controllers
+│   │   └── Welcome.php
+│   ├── core
+│   │   ├── .htaccess
+│   │   ├── NSY_AssetManager.php
+│   │   ├── NSY_Controller.php
+│   │   ├── NSY_CSRF.php
+│   │   ├── NSY_DB.php
+│   │   ├── NSY_Model.php
+│   │   ├── NSY_Router.php
+│   │   ├── NSY_System.php
+│   │   └── NSY_XSS_Filter.php
+│   ├── helpers
+│   │   └── NSY_Helper.php
+│   ├── libraries
+│   │   ├── Assets.php
+│   │   └── .htaccess
+│   ├── models
+│   │   └── Model_Welcome.php
+│   ├── modules
+│   │   └── homepage
+│   │       ├── controllers
+│   │       │   └── Hello.php
+│   │       ├── models
+│   │       │   └── Model_Hello.php
+│   │       └── views
+│   │           └── index.php
+│   ├── routes
+│   │   ├── Api.php
+│   │   └── Web.php
+│   ├── templates
+│   │   ├── footer.php
+│   │   └── header.php
+│   └── views
+│       └── index.php
+└── .travis.yml
 ```
 
 
