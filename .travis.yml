@@ -6,6 +6,4 @@ php:
   - 7.3
 
 env:
-  - APP_ENV=development
-  - APP_DIR=nsy
   - DB_CONNECTION=mysql
