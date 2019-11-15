@@ -39,6 +39,19 @@ The above example would return redirect to previous page.
 
 <hr>
 
+### Array Flatten
+PHP array_flatten() function. Convert a multi-dimensional array into a single-dimensional array :
+```
+array_flatten($items);
+
+// $id = array_flatten([1, [2, [3], 4], 5]);
+// print_r($id);
+//
+// Will return : [1, 2, 3, 4, 5]
+```
+
+<hr>
+
 ### Fetch to JSON
 If you want to display data values ​​in json form, you can do this method :
 ```
@@ -425,7 +438,7 @@ You'd be amazed, in how many different formats this function can return data in 
 By default, this function will return just simple enumerated array consists of all the returned rows. Row formatting constants, such as `FETCH_NUM, FETCH_ASSOC, FETCH_COLUMN` etc can change the row format.
 ```
 $q = 'SELECT id, name, username FROM users';
-$this->connect()->query($q)->style(FETCH_ASSOC)->fetch_all;
+$this->connect()->query($q)->style(FETCH_ASSOC)->fetch_all();
 
 // output
 Array
@@ -443,7 +456,7 @@ Array
 It is often very handy to get plain one-dimensional array right out of the query, if only one column out of many rows being fetched. Here you go:
 ```
 $q = 'SELECT name FROM users';
-$this->connect()->query($q)->style(FETCH_COLUMN)->fetch_all;
+$this->connect()->query($q)->style(FETCH_COLUMN)->fetch_all();
 
 // output
 Array
@@ -456,7 +469,7 @@ Array
 Also extremely useful format, when we need to get the same column, but indexed not by numbers in order but by another field. Here goes `FETCH_KEY_PAIR` constant:
 ```
 $q = 'SELECT name FROM users';
-$this->connect()->query($q)->style(FETCH_KEY_PAIR)->fetch_all;
+$this->connect()->query($q)->style(FETCH_KEY_PAIR)->fetch_all();
 
 // output
 Array
@@ -471,7 +484,7 @@ and many other modes in fetch_all.
 It fetches a single row from database, and moves the internal pointer in the result set, so consequent calls to this function will return all the resulting rows one by one.
 ```
 $q = 'SELECT id, name FROM users';
-$this->connect()->query($q)->style(FETCH_NUM)->fetch;
+$this->connect()->query($q)->style(FETCH_NUM)->fetch();
 
 // output
 Array
@@ -578,6 +591,23 @@ $id = [ ':id' => 2 ];
 
 $q = "UPDATE tbl_users SET name = :name WHERE id = :id";
 $this->connect()->query($q)->vars($id)->exec();
+
+// Update field name from tbl_users where id is 2
+```
+
+Multi Update data :
+```
+$id = [ 11025, 11026 ];
+foreach ( $id as $key => $ids ) {
+  $params = [
+    ':id' => $ids,
+    ':user_name' => 'nsy_for_kids'
+  ];
+  $q = "UPDATE tbl_users SET user_name = :user_name WHERE id = :id";
+  $this->connect()->query($q)->vars($params)->exec();
+}
+
+// Update field user_name to 'nsy_for_kids' from tbl_users where id is 11025 & 11026
 ```
 
 Delete data :
@@ -585,21 +615,52 @@ Delete data :
 $id = [ ':id' => 2 ];
 
 $q = "DELETE FROM tbl_users WHERE id = :id";
-$this->connect()->query($q)->vars($p)->exec();
+$this->connect()->query($q)->vars($id)->exec();
+
+// Delete data from tbl_users where id is 2
+```
+
+Multi Delete data :
+```
+$id = [ 11025, 11026 ];
+foreach ( $id as $key => $ids ) {
+  $params = [
+    ':id' => $ids
+  ];
+  $q = "DELETE FROM tbl_users WHERE id = :id";
+  $this->connect()->query($q)->vars($params)->exec();
+}
+
+// Delete data from tbl_users where id is 11025 & 11026
 ```
 
 Insert data :
 ```
-$p = [ ':user_name' => 'Harmoni' ];
+$param = [ ':user_name' => 'Harmoni' ];
 
 $q = "INSERT INTO tbl_users (user_name) VALUES (:user_name)";
-$this->connect()->query($q)->vars($p)->exec();
+$this->connect()->query($q)->vars($param)->exec();
+
+// Insert data to field user_name from tbl_users where user_name is 'Harmoni'
 ```
 
-#### Multi execution
-Example :
+#### Multi Insert. multi_insert()
+To input multiple data into the database at once in one command.
 ```
-Underconstruction
+$arr = [
+    [0] => [
+        [0] => 11043 // for column id on tbl_users
+        [1] => Vikry Yuansah // for column name on tbl_user
+        [2] => vikry // for column user_name on tbl_user
+    ],
+    [1] => [
+        [0] => 11042 // for column id on tbl_users
+        [1] => Tialuna // for column name on tbl_user
+        [2] => tia // for column user_name on tbl_user
+    ]
+];
+$q = "INSERT INTO tbl_users (id, name, user_name)";
+$this->connect()->query($q)->vars($arr)->multi_insert();
 ```
 
 <hr>

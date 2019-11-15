@@ -375,35 +375,53 @@ class NSY_Model {
 			echo '<p>No Connection, Please check your connection again!</p>';
 			exit();
 		} else {
-			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queries without vars, else execute it with defined on the models
 			if ( not_filled($this->variables) ) {
-				$executed = $stmt->execute();
-				if (!$executed) {
-					$errors = $stmt->errorInfo();
-					echo '<p>Error Query : '.($errors[0]).'</p>';
-					echo '<p>, No parameter were bound for query, Please check your query again!</p>';
-					exit();
-				}
+				$stmt = $this->connection->prepare($this->query);
+				$stmt->execute();
+				$this->result = $stmt->rowCount();
 			} else {
-				$executed = $stmt->execute($this->variables);
-				if (!$executed) {
-					$errors = $stmt->errorInfo();
-					echo '<p>Error Query : '.($errors[0]).'</p>';
-					exit();
-				}
+				$stmt = $this->connection->prepare($this->query);
+				$stmt->execute($this->variables);
+				$this->result = $stmt->rowCount();
 			}
 
 			// Check the errors, if no errors then return the results
 			if ($stmt->errorCode() == 0) {
-				$show_result = $stmt->rowCount();
-
-				return $show_result;
+				return $this->result;
 			} else {
-				// if there's errors, then display the message
-				$errors = $stmt->errorInfo();
-				echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
-				exit();
+				if(config_app('transaction') === 'on') {
+					$this->connection->rollback();
+
+					if ( not_filled($this->variables) ) {
+						// if there's errors, then display the message
+						$errors = $stmt->errorInfo();
+						echo '<p>Error Query : '.($errors[0]).'</p>';
+						echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+						exit();
+					} else {
+						// if there's errors, then display the message
+						$errors = $stmt->errorInfo();
+						echo '<p>Error Query : '.($errors[0]).'</p>';
+						exit();
+					}
+				} elseif(config_app('transaction') === 'off') {
+					if ( not_filled($this->variables) ) {
+						// if there's errors, then display the message
+						$errors = $stmt->errorInfo();
+						echo '<p>Error Query : '.($errors[0]).'</p>';
+						echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+						exit();
+					} else {
+						// if there's errors, then display the message
+						$errors = $stmt->errorInfo();
+						echo '<p>Error Query : '.($errors[0]).'</p>';
+						exit();
+					}
+				} else {
+					echo '<p>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></p>';
+					exit();
+				}
 			}
 		}
 
@@ -426,34 +444,51 @@ class NSY_Model {
 					echo '<p>No Connection, Please check your connection again!</p>';
 					exit();
 				} else {
-					$stmt = $this->connection->prepare($this->query);
-
 					// if vars null, execute queries without vars, else execute it with defined on the models
 					if ( not_filled($this->variables) ) {
-						$executed = $stmt->execute();
-						if (!$executed) {
-							$errors = $stmt->errorInfo();
-							echo '<p>Error Query : '.($errors[0]).'</p>';
-							echo '<p>, No parameter were bound for query, Please check your query again!</p>';
-							exit();
-						}
+						$stmt = $this->connection->prepare($this->query);
+						$this->executed = $stmt->execute();
 					} else {
-						$executed = $stmt->execute($this->variables);
-						if (!$executed) {
-							$errors = $stmt->errorInfo();
-							echo '<p>Error Query : '.($errors[0]).'</p>';
-							exit();
-						}
+						$stmt = $this->connection->prepare($this->query);
+						$this->executed = $stmt->execute($this->variables);
 					}
 
 					// Check the errors, if no errors then return the results
 					if ($stmt->errorCode() == 0) {
-						return $executed;
+						return $this;
 					} else {
-						// if there's errors, then display the message
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
-						exit();
+						if(config_app('transaction') === 'on') {
+							$this->connection->rollback();
+
+							if ( not_filled($this->variables) ) {
+								// if there's errors, then display the message
+								$errors = $stmt->errorInfo();
+								echo '<p>Error Query : '.($errors[0]).'</p>';
+								echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+								exit();
+							} else {
+								// if there's errors, then display the message
+								$errors = $stmt->errorInfo();
+								echo '<p>Error Query : '.($errors[0]).'</p>';
+								exit();
+							}
+						} elseif(config_app('transaction') === 'off') {
+							if ( not_filled($this->variables) ) {
+								// if there's errors, then display the message
+								$errors = $stmt->errorInfo();
+								echo '<p>Error Query : '.($errors[0]).'</p>';
+								echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+								exit();
+							} else {
+								// if there's errors, then display the message
+								$errors = $stmt->errorInfo();
+								echo '<p>Error Query : '.($errors[0]).'</p>';
+								exit();
+							}
+						} else {
+							echo '<p>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></p>';
+							exit();
+						}
 					}
 				}
 			    $result = 'CSRF check passed. Form parsed.'; // Just info
@@ -469,34 +504,51 @@ class NSY_Model {
 				echo '<p>No Connection, Please check your connection again!</p>';
 				exit();
 			} else {
-				$stmt = $this->connection->prepare($this->query);
-
 				// if vars null, execute queries without vars, else execute it with defined on the models
 				if ( not_filled($this->variables) ) {
-					$executed = $stmt->execute();
-					if (!$executed) {
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						echo '<p>, No parameter were bound for query, Please check your query again!</p>';
-						exit();
-					}
+					$stmt = $this->connection->prepare($this->query);
+					$this->executed = $stmt->execute();
 				} else {
-					$executed = $stmt->execute($this->variables);
-					if (!$executed) {
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						exit();
-					}
+					$stmt = $this->connection->prepare($this->query);
+					$this->executed = $stmt->execute($this->variables);
 				}
 
 				// Check the errors, if no errors then return the results
 				if ($stmt->errorCode() == 0) {
-					return $executed;
+					return $this;
 				} else {
-					// if there's errors, then display the message
-					$errors = $stmt->errorInfo();
-					echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
-					exit();
+					if(config_app('transaction') === 'on') {
+						$this->connection->rollback();
+
+						if ( not_filled($this->variables) ) {
+							// if there's errors, then display the message
+							$errors = $stmt->errorInfo();
+							echo '<p>Error Query : '.($errors[0]).'</p>';
+							echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+							exit();
+						} else {
+							// if there's errors, then display the message
+							$errors = $stmt->errorInfo();
+							echo '<p>Error Query : '.($errors[0]).'</p>';
+							exit();
+						}
+					} elseif(config_app('transaction') === 'off') {
+						if ( not_filled($this->variables) ) {
+							// if there's errors, then display the message
+							$errors = $stmt->errorInfo();
+							echo '<p>Error Query : '.($errors[0]).'</p>';
+							echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+							exit();
+						} else {
+							// if there's errors, then display the message
+							$errors = $stmt->errorInfo();
+							echo '<p>Error Query : '.($errors[0]).'</p>';
+							exit();
+						}
+					} else {
+						echo '<p>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></p>';
+						exit();
+					}
 				}
 			}
 		} else {
@@ -530,36 +582,36 @@ class NSY_Model {
 
 					// if vars null, execute queries without vars, else execute it with defined on the models
 					if ( not_filled($this->variables) ) {
-						$stmt = $this->connection->prepare($this->query);
-						$executed = $stmt->execute();
-						if (!$executed) {
-							$errors = $stmt->errorInfo();
-							echo '<p>Error Query : '.($errors[0]).'</p>';
-							echo '<p>, No parameter were bound for query, Please check your query again!</p>';
-							exit();
-						}
+						echo '<p>Error Query : '.($errors[0]).'</p>';
+						echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+						exit();
 					} else {
 						$stmt = $this->connection->prepare($this->query . ' VALUES '. $valString);
 
 						$bindArray = array();
 						array_walk_recursive($this->variables, function($item) use (&$bindArray) { $bindArray[] = $item; });
-
-						$executed = $stmt->execute($bindArray);
-						if (!$executed) {
-							$errors = $stmt->errorInfo();
-							echo '<p>Error Query : '.($errors[0]).'</p>';
-							exit();
-						}
+						$this->executed = $stmt->execute($bindArray);
 					}
 
 					// Check the errors, if no errors then return the results
 					if ($stmt->errorCode() == 0) {
-						return $executed;
+						return $this;
 					} else {
-						// if there's errors, then display the message
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
-						exit();
+						if(config_app('transaction') === 'on') {
+							// if there's errors, then display the message
+							$this->connection->rollback();
+							$errors = $stmt->errorInfo();
+							echo '<p>Error Query : '.($errors[0]).'</p>';
+							exit();
+						} elseif(config_app('transaction') === 'off') {
+							// if there's errors, then display the message
+							$errors = $stmt->errorInfo();
+							echo '<p>Error Query : '.($errors[0]).'</p>';
+							exit();
+						} else {
+							echo '<p>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></p>';
+							exit();
+						}
 					}
 				}
 				$result = 'CSRF check passed. Form parsed.'; // Just info
@@ -582,35 +634,36 @@ class NSY_Model {
 
 				// if vars null, execute queries without vars, else execute it with defined on the models
 				if ( not_filled($this->variables) ) {
-					$stmt = $this->connection->prepare($this->query);
-					$executed = $stmt->execute();
-					if (!$executed) {
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						echo '<p>, No parameter were bound for query, Please check your query again!</p>';
-						exit();
-					}
+					echo '<p>Error Query : '.($errors[0]).'</p>';
+					echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+					exit();
 				} else {
 					$stmt = $this->connection->prepare($this->query . ' VALUES '. $valString);
 
 					$bindArray = array();
 					array_walk_recursive($this->variables, function($item) use (&$bindArray) { $bindArray[] = $item; });
-					$executed = $stmt->execute($bindArray);
-					if (!$executed) {
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						exit();
-					}
+					$this->executed = $stmt->execute($bindArray);
 				}
 
 				// Check the errors, if no errors then return the results
 				if ($stmt->errorCode() == 0) {
-					return $executed;
+					return $this;
 				} else {
-					// if there's errors, then display the message
-					$errors = $stmt->errorInfo();
-					echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
-					exit();
+					if(config_app('transaction') === 'on') {
+						// if there's errors, then display the message
+						$this->connection->rollback();
+						$errors = $stmt->errorInfo();
+						echo '<p>Error Query : '.($errors[0]).'</p>';
+						exit();
+					} elseif(config_app('transaction') === 'off') {
+						// if there's errors, then display the message
+						$errors = $stmt->errorInfo();
+						echo '<p>Error Query : '.($errors[0]).'</p>';
+						exit();
+					} else {
+						echo '<p>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></p>';
+						exit();
+					}
 				}
 			}
 		} else {
@@ -628,6 +681,7 @@ class NSY_Model {
 	 */
 	protected function emulate_prepares_false() {
 		$this->connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, FALSE);
+		return $this;
     }
 
 	/*
@@ -635,10 +689,12 @@ class NSY_Model {
 	 */
 	protected function use_buffer_query_true() {
 		$this->connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, TRUE);
+		return $this;
     }
 
 	protected function use_buffer_query_false() {
 		$this->connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, FALSE);
+		return $this;
     }
 
 	/*
@@ -646,6 +702,7 @@ class NSY_Model {
 	 */
 	protected function stringify_fetches_true() {
 		$this->connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, TRUE);
+		return $this;
     }
 
 	/*
@@ -653,20 +710,21 @@ class NSY_Model {
 	 */
 	protected function begin_trans() {
 		$this->connection->beginTransaction();
+		return $this;
     }
-
 	/*
 	Helper for PDO Commit Transaction
 	 */
 	protected function end_trans() {
 		$this->connection->commit();
+		return $this;
     }
-
 	/*
 	Helper for PDO Rollback Transaction
 	 */
-	protected function rollback_trans() {
+	protected function null_trans() {
 		$this->connection->rollback();
+		return $this;
     }
 
 }
