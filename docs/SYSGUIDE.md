@@ -663,6 +663,95 @@ $q = "INSERT INTO tbl_users (id, name, user_name)";
 $this->connect()->query($q)->vars($arr)->multi_insert();
 ```
 
+### NSY Transaction
+Database transactions ensure that a set of data changes will only be made permanent if every statement is successful. Any query or code failure during a transaction can be caught and you then have the option to roll back the attempted changes.
+
+NSY provides simple methods for beginning, committing, and rollbacking back transactions.
+
+Begin transaction :
+```
+$this->begin_trans();
+```
+
+Commit transaction :
+```
+$this->end_trans();
+```
+
+Rollback transaction :
+```
+$this->null_trans();
+```
+
+First example of transaction in `multi_insert()`.
+```
+$arr = [
+    [0] => [
+        [0] => 11043 // for column id on tbl_users
+        [1] => Vikry Yuansah // for column name on tbl_user
+        [2] => vikry // for column user_name on tbl_user
+    ],
+    [1] => [
+        [0] => 11042 // for column id on tbl_users
+        [1] => Tialuna // for column name on tbl_user
+        [2] => tia // for column user_name on tbl_user
+    ]
+];
+$q = "INSERT INTO tbl_users (id, name, user_name)";
+$this->connect()->begin_trans()->query($q)->vars($arr)->multi_insert()->end_trans();
+```
+
+Second example of transaction in `multi_insert()`.
+```
+$arr = [
+    [0] => [
+        [0] => 11043 // for column id on tbl_users
+        [1] => Vikry Yuansah // for column name on tbl_user
+        [2] => vikry // for column user_name on tbl_user
+    ],
+    [1] => [
+        [0] => 11042 // for column id on tbl_users
+        [1] => Tialuna // for column name on tbl_user
+        [2] => tia // for column user_name on tbl_user
+    ]
+];
+$q = "INSERT INTO tbl_users (id, name, user_name)";
+$conn = $this->connect();
+$conn->begin_trans();
+$conn->query($q);
+$conn->vars($arr);
+$conn->multi_insert();
+$conn->end_trans();
+```
+
+`begin_trans()` must be located in each code after we define the connection `$this->connect()`.
+
+And before using a transaction, you must turn on the transaction mode in `config/app.php` => `transaction` to `on` (default is `off`), to turn on the rollback function (The rollback function is enabled by default when `transaction = on`, so there's no need to call the `null_trans()`).
+
+### Emulation mode, set ATTR_EMULATE_PREPARES to FALSE
+For more information about this, go to the following URL [Emulation mode](https://phpdelusions.net/pdo#emulation).
+```
+$this->emulate_prepares_false();
+```
+
+### Mysqlnd and buffered queries. Huge datasets.
+For more information about this, go to the following URL [Mysqlnd and buffered queries](https://phpdelusions.net/pdo#mysqlnd).
+
+set MYSQL_ATTR_USE_BUFFERED_QUERY to FALSE
+```
+$this->use_buffer_query_false();
+```
+
+set MYSQL_ATTR_USE_BUFFERED_QUERY to TRUE
+```
+$this->use_buffer_query_true();
+```
+
+### Return type, set ATTR_STRINGIFY_FETCHES to TRUE
+For more information about this, go to the following URL [Return type](https://phpdelusions.net/pdo#returntypes).
+```
+$this->stringify_fetches_true();
+```
 <hr>
 
 ## License
