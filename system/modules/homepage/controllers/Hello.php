@@ -22,20 +22,14 @@ class Hello extends NSY_Controller
 
 	public function index_hmvc()
 	{
-		// Call my_name method from Model_Welcome
-		$d['my_name'] = $this->m_welcome->welcome();
-
-		// Call my_name method from Model_Hello
-		$d['hmvc_page'] = $this->m_hello->hmvc_page();
-
-		// Instantiate today date with Carbon
-		$d['date'] = Carbon::now();
-
-		// Passing variable into view
-		$this->set($d);
+		$arr = [
+			'my_name' => $this->m_welcome->welcome(), // Call my_name method from Model_Welcome
+			'hmvc_page' => $this->m_hello->hmvc_page(), // Call my_name method from Model_Hello
+			'date' => Carbon::now() // Instantiate today date with Carbon
+		];
 
 		// Load HMVC view page
-		$this->load_template('header')->load_view('homepage', 'index')->load_template('footer');
+		$this->load_template('header', $arr)->load_view('homepage', 'index', $arr)->load_template('footer', $arr);
 	}
 
 }

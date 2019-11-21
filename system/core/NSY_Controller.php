@@ -4,23 +4,17 @@ namespace Core;
 defined('ROOT') OR exit('No direct script access allowed');
 
 class NSY_Controller {
-    /*
-    Define Variables as Array
+    /**
+     * HMVC & MVC View Folder
      */
-    var $vars = [];
+    protected function load_view($module = null, $filename = null, $vars = null) {
+		if (is_array($vars) || is_object($vars))
+		{
+			foreach($vars as $key => $value) {
+		   		$$key = $value;
+			}
+		}
 
-    /*
-    Set The Variables
-     */
-    protected function set($d = null) {
-        $this->vars = array_merge($this->vars, $d);
-    }
-
-    /*
-    HMVC & MVC View Folder
-     */
-    protected function load_view($module = null, $filename = null) {
-        extract($this->vars);
 		if( not_filled($module) ) {
 			require(MVC_VIEW_DIR . $filename . '.php');
 		} else {
@@ -30,18 +24,24 @@ class NSY_Controller {
 		return $this;
     }
 
-    /*
-    Template Directory
+    /**
+     * Template Directory
      */
-    protected function load_template($filename = null) {
-		extract($this->vars);
+    protected function load_template($filename = null, $vars = null) {
+		if (is_array($vars) || is_object($vars))
+		{
+			foreach($vars as $key => $value) {
+		   		$$key = $value;
+			}
+		}
+
         require(SYS_TMP_DIR . $filename . '.php');
 
 		return $this;
     }
 
-	/*
-	Start method for variables sequence
+	/**
+	 * Start method for variables sequence
 	 */
 	protected function vars($variables = null) {
  		$this->variables = $variables;
@@ -55,14 +55,19 @@ class NSY_Controller {
 		return $this;
 	}
 
-	// Helper for NSY_Controller to create a sequence of the named placeholders
+	/**
+	 * Helper for NSY_Controller to create a sequence of the named placeholders
+	 */
 	protected function sequence() {
 		$in = '';
-		foreach ($this->variables as $i => $item)
+		if (is_array($this->variables) || is_object($this->variables))
 		{
-		    $key = $this->bind.$i;
-		    $in .= $key.',';
-		    $in_params[$key] = $item; // collecting values into key-value array
+			foreach ($this->variables as $i => $item)
+			{
+			    $key = $this->bind.$i;
+			    $in .= $key.',';
+			    $in_params[$key] = $item; // collecting values into key-value array
+			}
 		}
 		$in = rtrim($in,','); // example = :id0,:id1,:id2
 
