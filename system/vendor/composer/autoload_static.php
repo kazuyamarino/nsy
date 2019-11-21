@@ -13,7 +13,6 @@ class ComposerStaticInityour_suffixed
         'ce564d6aef323e866fd3713f3a20fd9d' => __DIR__ . '/../../..' . '/system/routes/Api.php',
         'bb6781dfca4c09d664c5ca0b848c068f' => __DIR__ . '/../../..' . '/system/core/NSY_System.php',
         '887df5e0a40eac69d235aa433d4dc91d' => __DIR__ . '/../../..' . '/system/libraries/Assets.php',
-        '8c11eb9457c2202b0be75e49609744ae' => __DIR__ . '/../../..' . '/system/libraries/Cookie.php',
         'a115b62f8205d01c1cfbcebfe7ad3611' => __DIR__ . '/../../..' . '/system/helpers/NSY_Helpers.php',
         '9f1c5d35252e92a6055b5bb9005512d7' => __DIR__ . '/../../..' . '/system/helpers/CI_Helpers.php',
     );
@@ -31,6 +30,10 @@ class ComposerStaticInityour_suffixed
             'Modules\\Models\\' => 15,
             'Modules\\Controllers\\' => 20,
             'Models\\' => 7,
+        ),
+        'L' => 
+        array (
+            'Libraries\\' => 10,
         ),
         'D' => 
         array (
@@ -72,6 +75,10 @@ class ComposerStaticInityour_suffixed
         'Models\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/system/models',
+        ),
+        'Libraries\\' => 
+        array (
+            0 => __DIR__ . '/../../..' . '/system/libraries',
         ),
         'Dotenv\\' => 
         array (
@@ -178,6 +185,7 @@ class ComposerStaticInityour_suffixed
         'FtpClient\\FtpClient' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpClient.php',
         'FtpClient\\FtpException' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpException.php',
         'FtpClient\\FtpWrapper' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpWrapper.php',
+        'Libraries\\Cookie' => __DIR__ . '/../../..' . '/system/libraries/Cookie.php',
         'Models\\Model_Welcome' => __DIR__ . '/../../..' . '/system/models/Model_Welcome.php',
         'Modules\\Controllers\\Hello' => __DIR__ . '/../../..' . '/system/modules/homepage/controllers/Hello.php',
         'Modules\\Models\\Model_Hello' => __DIR__ . '/../../..' . '/system/modules/homepage/models/Model_Hello.php',

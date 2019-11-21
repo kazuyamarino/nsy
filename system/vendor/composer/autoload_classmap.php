@@ -75,6 +75,7 @@ return array(
     'FtpClient\\FtpClient' => $vendorDir . '/nicolab/php-ftp-client/src/FtpClient/FtpClient.php',
     'FtpClient\\FtpException' => $vendorDir . '/nicolab/php-ftp-client/src/FtpClient/FtpException.php',
     'FtpClient\\FtpWrapper' => $vendorDir . '/nicolab/php-ftp-client/src/FtpClient/FtpWrapper.php',
+    'Libraries\\Cookie' => $baseDir . '/system/libraries/Cookie.php',
     'Models\\Model_Welcome' => $baseDir . '/system/models/Model_Welcome.php',
     'Modules\\Controllers\\Hello' => $baseDir . '/system/modules/homepage/controllers/Hello.php',
     'Modules\\Models\\Model_Hello' => $baseDir . '/system/modules/homepage/models/Model_Hello.php',

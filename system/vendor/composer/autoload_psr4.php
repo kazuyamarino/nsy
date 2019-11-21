@@ -13,6 +13,7 @@ return array(
     'Modules\\Models\\' => array($baseDir . '/system/modules/homepage/models'),
     'Modules\\Controllers\\' => array($baseDir . '/system/modules/homepage/controllers'),
     'Models\\' => array($baseDir . '/system/models'),
+    'Libraries\\' => array($baseDir . '/system/libraries'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
     'Core\\' => array($baseDir . '/system/core'),
     'Controllers\\' => array($baseDir . '/system/controllers'),

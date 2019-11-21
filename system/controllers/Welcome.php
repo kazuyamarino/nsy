@@ -7,6 +7,7 @@ use Core\NSY_Controller;
 use Models\Model_Welcome;
 use Modules\Models\Model_Hello;
 use Carbon\Carbon;
+use Libraries\Cookie;
 
 class Welcome extends NSY_Controller
 {

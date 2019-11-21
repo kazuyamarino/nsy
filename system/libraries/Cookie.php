@@ -1,4 +1,5 @@
 <?php
+namespace Libraries;
 /**
  * PHP library for handling cookies.
  *

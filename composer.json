@@ -16,6 +16,7 @@
     },
     "autoload": {
         "psr-4": {
+            "Libraries\\": "system/libraries/",
             "Core\\": "system/core/",
             "Models\\": "system/models/",
             "Controllers\\": "system/controllers/",
@@ -31,7 +32,6 @@
 			"system/routes/Api.php",
 			"system/core/NSY_System.php",
 			"system/libraries/Assets.php",
-			"system/libraries/Cookie.php",
 			"system/helpers/NSY_Helpers.php",
 			"system/helpers/CI_Helpers.php"
 		]
