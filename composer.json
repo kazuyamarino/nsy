@@ -30,9 +30,10 @@
 			"system/routes/Web.php",
 			"system/routes/Api.php",
 			"system/core/NSY_System.php",
-			"system/core/NSY_CSRF.php",
 			"system/libraries/Assets.php",
-			"system/helpers/NSY_Helper.php"
+			"system/libraries/Cookie.php",
+			"system/helpers/NSY_Helpers.php",
+			"system/helpers/CI_Helpers.php"
 		]
     },
     "config": {

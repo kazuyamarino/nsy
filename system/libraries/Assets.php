@@ -1,28 +1,28 @@
 <?php
-/*
-Hi Welcome to NSY Asset Manager.
-The easiest & best asset manager in history
-Made with love by Vikry Yuansah
-
-How to use it? Simply follow this format.
-Create <meta> tag :
-add::meta('name', 'content');
-
-Create <link> tag :
-add::link('filename/url_filename', 'attribute_rel', 'attribute_type');
-
-Create <script> tag :
-add::script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
-
-You can write any html tags with custom method :
-add::custom('anythings');
-
-After that, to use it in View, you only need to call the static method name that you created like this :
-pull::method_name();
-
-For example :
-pull::header_assets();
-pull::footer_assets();
+/**
+ * Hi Welcome to NSY Asset Manager.
+ * The easiest & best asset manager in history
+ * Made with love by Vikry Yuansah
+ *
+ * How to use it? Simply follow this format.
+ * Create <meta> tag :
+ * add::meta('name', 'content');
+ *
+ * Create <link> tag :
+ * add::link('filename/url_filename', 'attribute_rel', 'attribute_type');
+ *
+ * Create <script> tag :
+ * add::script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
+ *
+ * You can write any html tags with custom method :
+ * add::custom('anythings');
+ *
+ * After that, to use it in View, you only need to call the static method name that you created like this :
+ * pull::method_name();
+ *
+ * For example :
+ * pull::header_assets();
+ * pull::footer_assets();
 */
 defined('ROOT') OR exit('No direct script access allowed');
 

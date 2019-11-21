@@ -1,2 +1,0 @@
-<?php
-// Define helper here.

@@ -1,8 +1,8 @@
 <?php
 namespace Core;
 /*
-This is the core of NSY Asset Manager
-2018 - Vikry Yuansah
+ * This is the core of NSY Asset Manager
+ * 2018 - Vikry Yuansah
  */
 defined('ROOT') OR exit('No direct script access allowed');
 

@@ -11,7 +11,8 @@ return array(
     'f2d74c7746313beed1fb6dbcda0bf61e' => $baseDir . '/system/routes/Web.php',
     'ce564d6aef323e866fd3713f3a20fd9d' => $baseDir . '/system/routes/Api.php',
     'bb6781dfca4c09d664c5ca0b848c068f' => $baseDir . '/system/core/NSY_System.php',
-    'd7d5b695f452fe19cc16a8ceeffacd88' => $baseDir . '/system/core/NSY_CSRF.php',
     '887df5e0a40eac69d235aa433d4dc91d' => $baseDir . '/system/libraries/Assets.php',
-    '79168aa2ef8eda0feffefbde0165e3b0' => $baseDir . '/system/helpers/NSY_Helper.php',
+    '8c11eb9457c2202b0be75e49609744ae' => $baseDir . '/system/libraries/Cookie.php',
+    'a115b62f8205d01c1cfbcebfe7ad3611' => $baseDir . '/system/helpers/NSY_Helpers.php',
+    '9f1c5d35252e92a6055b5bb9005512d7' => $baseDir . '/system/helpers/CI_Helpers.php',
 );
