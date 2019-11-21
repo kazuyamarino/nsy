@@ -245,8 +245,11 @@ if ( ! function_exists('secure_form'))
 	 * @return string
 	 */
 	function secure_form($form = null) {
-		foreach ($form as $key => $value) {
-			$form[$key] = $this->secure_input($value);
+		if (is_array($form) || is_object($form))
+		{
+			foreach ($form as $key => $value) {
+				$form[$key] = $this->secure_input($value);
+			}
 		}
 	}
 }

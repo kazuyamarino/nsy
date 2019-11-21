@@ -121,12 +121,15 @@ class NSY_Model {
 	 */
 	protected function sequence() {
  		$in = '';
- 		foreach ($this->variables as $i => $item)
- 		{
- 		    $key = $this->bind.$i;
- 		    $in .= $key.',';
- 		    $in_params[$key] = $item; // collecting values into key-value array
- 		}
+		if (is_array($this->variables) || is_object($this->variables))
+		{
+	 		foreach ($this->variables as $i => $item)
+	 		{
+	 		    $key = $this->bind.$i;
+	 		    $in .= $key.',';
+	 		    $in_params[$key] = $item; // collecting values into key-value array
+	 		}
+		}
  		$in = rtrim($in,','); // example = :id0,:id1,:id2
 
  		return [$in, $in_params];
@@ -153,12 +156,15 @@ class NSY_Model {
 				}
 			} else {
 				if ($this->bind == 'BINDVALUE') {
-					foreach ($this->variables as $key => &$res) {
-						if ( not_filled($res[1]) || not_filled($res[0]) ) {
-							echo '<p>BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
-							exit();
-						} else {
-							$stmt->bindValue($key, $res[0], $res[1]);
+					if (is_array($this->variables) || is_object($this->variables))
+					{
+						foreach ($this->variables as $key => &$res) {
+							if ( not_filled($res[1]) || not_filled($res[0]) ) {
+								echo '<p>BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
+								exit();
+							} else {
+								$stmt->bindValue($key, $res[0], $res[1]);
+							}
 						}
 					}
 					$executed = $stmt->execute();
@@ -168,12 +174,15 @@ class NSY_Model {
 						exit();
 					}
 				} elseif ($this->bind == 'BINDPARAM') {
-					foreach ($this->variables as $key => &$res) {
-						if ( not_filled($res[1]) || not_filled($res[0]) ) {
-							echo '<p>BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
-							exit();
-						} else {
-							$stmt->bindParam($key, $res[0], $res[1]);
+					if (is_array($this->variables) || is_object($this->variables))
+					{
+						foreach ($this->variables as $key => &$res) {
+							if ( not_filled($res[1]) || not_filled($res[0]) ) {
+								echo '<p>BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
+								exit();
+							} else {
+								$stmt->bindParam($key, $res[0], $res[1]);
+							}
 						}
 					}
 					$executed = $stmt->execute();
@@ -231,12 +240,15 @@ class NSY_Model {
 				}
 			} else {
 				if ($this->bind == 'BINDVALUE') {
-					foreach ($this->variables as $key => &$res) {
-						if ( not_filled($res[1]) || not_filled($res[0]) ) {
-							echo '<p>BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
-							exit();
-						} else {
-							$stmt->bindValue($key, $res[0], $res[1]);
+					if (is_array($this->variables) || is_object($this->variables))
+					{
+						foreach ($this->variables as $key => &$res) {
+							if ( not_filled($res[1]) || not_filled($res[0]) ) {
+								echo '<p>BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
+								exit();
+							} else {
+								$stmt->bindValue($key, $res[0], $res[1]);
+							}
 						}
 					}
 					$executed = $stmt->execute();
@@ -246,12 +258,15 @@ class NSY_Model {
 						exit();
 					}
 				} elseif ($this->bind == 'BINDPARAM') {
-					foreach ($this->variables as $key => &$res) {
-						if ( not_filled($res[1]) || not_filled($res[0]) ) {
-							echo '<p>BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
-							exit();
-						} else {
-							$stmt->bindParam($key, $res[0], $res[1]);
+					if (is_array($this->variables) || is_object($this->variables))
+					{
+						foreach ($this->variables as $key => &$res) {
+							if ( not_filled($res[1]) || not_filled($res[0]) ) {
+								echo '<p>BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
+								exit();
+							} else {
+								$stmt->bindParam($key, $res[0], $res[1]);
+							}
 						}
 					}
 					$executed = $stmt->execute();
@@ -309,12 +324,15 @@ class NSY_Model {
 				}
 			} else {
 				if ($this->bind == 'BINDVALUE') {
-					foreach ($this->variables as $key => &$res) {
-						if ( not_filled($res[1]) || not_filled($res[0]) ) {
-							echo '<p>BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
-							exit();
-						} else {
-							$stmt->bindValue($key, $res[0], $res[1]);
+					if (is_array($this->variables) || is_object($this->variables))
+					{
+						foreach ($this->variables as $key => &$res) {
+							if ( not_filled($res[1]) || not_filled($res[0]) ) {
+								echo '<p>BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
+								exit();
+							} else {
+								$stmt->bindValue($key, $res[0], $res[1]);
+							}
 						}
 					}
 					$executed = $stmt->execute();
@@ -324,12 +342,15 @@ class NSY_Model {
 						exit();
 					}
 				} elseif ($this->bind == 'BINDPARAM') {
-					foreach ($this->variables as $key => &$res) {
-						if ( not_filled($res[1]) || not_filled($res[0]) ) {
-							echo '<p>BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
-							exit();
-						} else {
-							$stmt->bindParam($key, $res[0], $res[1]);
+					if (is_array($this->variables) || is_object($this->variables))
+					{
+						foreach ($this->variables as $key => &$res) {
+							if ( not_filled($res[1]) || not_filled($res[0]) ) {
+								echo '<p>BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
+								exit();
+							} else {
+								$stmt->bindParam($key, $res[0], $res[1]);
+							}
 						}
 					}
 					$executed = $stmt->execute();
