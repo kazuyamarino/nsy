@@ -132,13 +132,15 @@ remove_get_parameters('url');
 ### Passing variable to view
 If you want to passing variable to view, you can use example below :
 ```
-$d['hello'] = 'Hello';
+$arr = [
+	'my_name' => $this->m_welcome->welcome(),
+	'mvc_page' => $this->m_hello->mvc_page(),
+	'date' => Carbon::now()
+];
 
-$d['world'] = 'World';
-
-$this->set($d);
+$this->load_template('header', $arr);
 ```
-The above example will generate variable `$hello` and `$world` in view.
+The above example will generate variable `$my_name`, `$date` and `$mvc_page` in view.
 
 ### Load MVC or HMVC view file
 Load MVC view file :

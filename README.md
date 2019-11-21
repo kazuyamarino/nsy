@@ -52,12 +52,14 @@ Site example :
 │   │   ├── config
 │   │   │   └── system.js
 │   │   └── main.js
+│   ├── logo.txt
 │   └── robots.txt
 ├── README.md
 ├── system
 │   ├── config
 │   │   ├── app.php
 │   │   ├── database.php
+│   │   ├── mimes.php
 │   │   └── site.php
 │   ├── controllers
 │   │   └── Welcome.php
@@ -72,9 +74,11 @@ Site example :
 │   │   ├── NSY_System.php
 │   │   └── NSY_XSS_Filter.php
 │   ├── helpers
-│   │   └── NSY_Helper.php
+│   │   ├── CI_Helpers.php
+│   │   └── NSY_Helpers.php
 │   ├── libraries
 │   │   ├── Assets.php
+│   │   ├── Cookie.php
 │   │   └── .htaccess
 │   ├── models
 │   │   └── Model_Welcome.php
@@ -125,6 +129,7 @@ And [Shyffon CRUD Example](https://github.com/kazuyamarino/shyffon-crud)
 
 ## User Guide.
 See [USERGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md).
+
 
 ## System Guide.
 See [SYSGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md).
