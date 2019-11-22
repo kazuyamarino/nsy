@@ -7,6 +7,7 @@ use Core\NSY_Controller;
 use Models\Model_Welcome;
 use Modules\Models\Model_Hello;
 use Carbon\Carbon;
+use Libraries\Cookie;
 
 class Hello extends NSY_Controller
 {
@@ -24,7 +25,7 @@ class Hello extends NSY_Controller
 	{
 		$arr = [
 			'my_name' => $this->m_welcome->welcome(), // Call my_name method from Model_Welcome
-			'hmvc_page' => $this->m_hello->hmvc_page(), // Call my_name method from Model_Hello
+			'hmvc_page' => $this->m_hello->hmvc_page(), // Call hmvc_page method from Model_Hello
 			'date' => Carbon::now() // Instantiate today date with Carbon
 		];
 

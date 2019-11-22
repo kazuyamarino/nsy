@@ -1,36 +1,40 @@
 <?php
-/*
-Use NSY_Router namespace
+/**
+ * Use NSY_System class
+ */
+use Core\NSY_System;
+
+/**
+ * Use NSY_Router class
  */
 use Core\NSY_Router;
 
-/*
-Use Dotenv namespace
+/**
+ * Use Web class
+ */
+use Routes\Web;
+
+/**
+ * Use Api class
+ */
+use Routes\Api;
+
+/**
+ * phpdotenv class
  */
 use Dotenv\Dotenv;
 
-/*
-NSY Framework
-MIT License
-Copyright (c) 2019 Vikry Yuansah
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+/**
+ * NSY Framework
+ * MIT License
+ * Copyright (c) 2019 Vikry Yuansah
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
 */
 
 /*
@@ -40,10 +44,10 @@ SOFTWARE.
 */
 define('ROOT', str_replace("index.php", "", $_SERVER["SCRIPT_FILENAME"]));
 
-/*
-The PSR-4 Autoloader, generate via composer (composer dump-autoload) *see composer.json
-The default autoload.php file path.
-You can set the file path itself according to your settings.
+/**
+ * The PSR-4 Autoloader, generate via composer (composer dump-autoload) *see composer.json
+ * The default autoload.php file path.
+ * You can set the file path itself according to your settings.
  */
 require(__DIR__ . '/../system/vendor/autoload.php');
 
@@ -63,24 +67,24 @@ if ( !is_readable(config_app('nsy_sys_dir')) ) {
 * Don't change anythings about this instantiate
 *---------------------------------------------------------------
 */
-/*
-Load Environment Variables from .env file
+/**
+ * Load Environment Variables from .env file
  */
 $dotenv = Dotenv::create(config_app('env_dir'));
 $dotenv->load();
 
-/*
-Instantiate System
+/**
+ * Instantiate System
  */
 new NSY_System();
 
-/*
-Instantiate Api route
+/**
+ * Instantiate Api route
  */
 new Api();
 
-/*
-Instantiate Web route
+/**
+ * Instantiate Web route
  */
 new Web();
 
@@ -130,7 +134,7 @@ if (defined('ENVIRONMENT')) {
 	}
 }
 
-/*
-Execute matched routes
+/**
+ * Execute matched routes
  */
-route::dispatch();
+NSY_Router::dispatch();

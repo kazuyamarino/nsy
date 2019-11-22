@@ -1,11 +1,14 @@
 <?php
 namespace Core;
+
+defined('ROOT') OR exit('No direct script access allowed');
+
 /**
  * NoCSRF, an anti CSRF token generation/checking class.
  *
  * Copyright (c) 2011 Thibaut Despoulain <http://bkcore.com/blog/code/nocsrf-php-class.html>
  * Licensed under the MIT license <http://www.opensource.org/licenses/mit-license.php>
- *
+ * Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
  * @author Thibaut Despoulain <http://bkcore.com>
  * @version 1.0
  */

@@ -1,5 +1,11 @@
 <?php
+namespace Libraries;
+
+defined('ROOT') OR exit('No direct script access allowed');
+
 /**
+ * Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
+ *
  * Hi Welcome to NSY Asset Manager.
  * The easiest & best asset manager in history
  * Made with love by Vikry Yuansah
@@ -24,11 +30,10 @@
  * pull::header_assets();
  * pull::footer_assets();
 */
-defined('ROOT') OR exit('No direct script access allowed');
 
-use Core\NSY_AssetManager;
+use Core\NSY_AssetManager as add;
 
-Class Assets extends NSY_AssetManager
+Class Assets extends \Core\NSY_AssetManager
 {
 
 	public static function header_assets()

@@ -1,7 +1,11 @@
 <?php
 namespace Core;
+
+defined('ROOT') OR exit('No direct script access allowed');
+
 /**
 * xss_filter
+* Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
 *
 * @author mario.brandt
 * @copyright Copyright (c) 2013 - 2017

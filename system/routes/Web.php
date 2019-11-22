@@ -1,7 +1,9 @@
 <?php
+namespace Routes;
+
 defined('ROOT') OR exit('No direct script access allowed');
 
-use Core\NSY_Router;
+use Core\NSY_Router as route;
 
 Class Web
 {

@@ -1,4 +1,6 @@
 <?php
+defined('ROOT') OR exit('No direct script access allowed');
+
 // Application config
 return [
 

@@ -1,6 +1,11 @@
 <?php
 namespace Libraries;
+
+defined('ROOT') OR exit('No direct script access allowed');
+
 /**
+ * Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
+ *
  * PHP library for handling cookies.
  *
  * @author    Josantonius <hello@josantonius.com>

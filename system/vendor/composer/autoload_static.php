@@ -9,10 +9,6 @@ class ComposerStaticInityour_suffixed
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        'f2d74c7746313beed1fb6dbcda0bf61e' => __DIR__ . '/../../..' . '/system/routes/Web.php',
-        'ce564d6aef323e866fd3713f3a20fd9d' => __DIR__ . '/../../..' . '/system/routes/Api.php',
-        'bb6781dfca4c09d664c5ca0b848c068f' => __DIR__ . '/../../..' . '/system/core/NSY_System.php',
-        '887df5e0a40eac69d235aa433d4dc91d' => __DIR__ . '/../../..' . '/system/libraries/Assets.php',
         'a115b62f8205d01c1cfbcebfe7ad3611' => __DIR__ . '/../../..' . '/system/helpers/NSY_Helpers.php',
         '9f1c5d35252e92a6055b5bb9005512d7' => __DIR__ . '/../../..' . '/system/helpers/CI_Helpers.php',
     );
@@ -24,6 +20,10 @@ class ComposerStaticInityour_suffixed
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Component\\Translation\\' => 30,
+        ),
+        'R' => 
+        array (
+            'Routes\\' => 7,
         ),
         'M' => 
         array (
@@ -63,6 +63,10 @@ class ComposerStaticInityour_suffixed
         'Symfony\\Component\\Translation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
+        'Routes\\' => 
+        array (
+            0 => __DIR__ . '/../../..' . '/system/routes',
         ),
         'Modules\\Models\\' => 
         array (
@@ -157,6 +161,7 @@ class ComposerStaticInityour_suffixed
         'Core\\NSY_DB' => __DIR__ . '/../../..' . '/system/core/NSY_DB.php',
         'Core\\NSY_Model' => __DIR__ . '/../../..' . '/system/core/NSY_Model.php',
         'Core\\NSY_Router' => __DIR__ . '/../../..' . '/system/core/NSY_Router.php',
+        'Core\\NSY_System' => __DIR__ . '/../../..' . '/system/core/NSY_System.php',
         'Core\\NSY_XSS_Filter' => __DIR__ . '/../../..' . '/system/core/NSY_XSS_Filter.php',
         'Dotenv\\Dotenv' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Dotenv.php',
         'Dotenv\\Environment\\AbstractVariables' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Environment/AbstractVariables.php',
@@ -185,6 +190,7 @@ class ComposerStaticInityour_suffixed
         'FtpClient\\FtpClient' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpClient.php',
         'FtpClient\\FtpException' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpException.php',
         'FtpClient\\FtpWrapper' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpWrapper.php',
+        'Libraries\\Assets' => __DIR__ . '/../../..' . '/system/libraries/Assets.php',
         'Libraries\\Cookie' => __DIR__ . '/../../..' . '/system/libraries/Cookie.php',
         'Models\\Model_Welcome' => __DIR__ . '/../../..' . '/system/models/Model_Welcome.php',
         'Modules\\Controllers\\Hello' => __DIR__ . '/../../..' . '/system/modules/homepage/controllers/Hello.php',
@@ -193,6 +199,8 @@ class ComposerStaticInityour_suffixed
         'PhpOption\\None' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/None.php',
         'PhpOption\\Option' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/Option.php',
         'PhpOption\\Some' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/Some.php',
+        'Routes\\Api' => __DIR__ . '/../../..' . '/system/routes/Api.php',
+        'Routes\\Web' => __DIR__ . '/../../..' . '/system/routes/Web.php',
         'Symfony\\Component\\Translation\\Catalogue\\AbstractOperation' => __DIR__ . '/..' . '/symfony/translation/Catalogue/AbstractOperation.php',
         'Symfony\\Component\\Translation\\Catalogue\\MergeOperation' => __DIR__ . '/..' . '/symfony/translation/Catalogue/MergeOperation.php',
         'Symfony\\Component\\Translation\\Catalogue\\OperationInterface' => __DIR__ . '/..' . '/symfony/translation/Catalogue/OperationInterface.php',

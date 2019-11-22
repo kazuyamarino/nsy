@@ -10,6 +10,7 @@ return array(
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Symfony\\Contracts\\Translation\\' => array($vendorDir . '/symfony/translation-contracts'),
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
+    'Routes\\' => array($baseDir . '/system/routes'),
     'Modules\\Models\\' => array($baseDir . '/system/modules/homepage/models'),
     'Modules\\Controllers\\' => array($baseDir . '/system/modules/homepage/controllers'),
     'Models\\' => array($baseDir . '/system/models'),

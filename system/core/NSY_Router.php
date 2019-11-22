@@ -11,6 +11,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 * @method static Macaw options(string $route, Callable $callback)
 * @method static Macaw head(string $route, Callable $callback)
 * NoahBuscher/Macaw https://github.com/noahbuscher/macaw/blob/master/Macaw.php
+* Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
 */
 class NSY_Router {
     public static $halts = false;

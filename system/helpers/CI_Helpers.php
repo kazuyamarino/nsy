@@ -1,10 +1,14 @@
 <?php
+defined('ROOT') OR exit('No direct script access allowed');
+
 /**
  * NSY PHP Framework
  *
- * A helpers for NSY from Codeigniter
+ * A several CI helpers of NSY PHP Framework from Codeigniter
  *
- * @package	NSY
+ * Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
+ *
+ * @package	NSY PHP Framework
  * @author	EllisLab Dev Team
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
@@ -12,9 +16,76 @@
  * @link	https://nsy.kazuyamarino.com
  * @since	Version 1.0.0
  * @filesource
+ *
  */
 
-defined('ROOT') OR exit('No direct script access allowed');
+//---------------------------------------------------------------------
+
+/**
+ * stringify_attributes function
+ *
+ * @return string
+ */
+function stringify_attributes($attributes, $js = FALSE)
+{
+	if (is_object($attributes) && count($attributes) > 0)
+	{
+		$attributes = (array) $attributes;
+	}
+
+	if (is_array($attributes))
+	{
+		$atts = '';
+		if (count($attributes) === 0)
+		{
+			return $atts;
+		}
+		foreach ($attributes as $key => $val)
+		{
+			if ($js)
+			{
+				$atts .= $key.'='.$val.',';
+			}
+			else
+			{
+				$atts .= ' '.$key.'="'.$val.'"';
+			}
+		}
+		return rtrim($atts, ',');
+	}
+	elseif (is_string($attributes) && strlen($attributes) > 0)
+	{
+		return ' '.$attributes;
+	}
+
+	return $attributes;
+}
+
+// ------------------------------------------------------------------------
+
+/**
+ * Returns the MIME types array from config/mimes.php
+ *
+ * @return	array
+ */
+function &get_mimes()
+{
+	static $_mimes;
+
+	if (empty($_mimes))
+	{
+		$_mimes = file_exists(__DIR__ . '/../config/mimes.php')
+			? include(__DIR__ . '/../config/mimes.php')
+			: array();
+
+		if (file_exists(__DIR__ . '/../config/mimes.php'))
+		{
+			$_mimes = array_merge($_mimes, include(__DIR__ . '/../config/mimes.php'));
+		}
+	}
+
+	return $_mimes;
+}
 
 // ------------------------------------------------------------------------
 

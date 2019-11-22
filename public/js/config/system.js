@@ -1,7 +1,11 @@
-/*
-BASE_URL Config Javascript
+/**
+ * BASE_URL Config Javascript
 */
-// change according to the name of your project folder
+
+/**
+ * change according to the name of your project folder
+ * @type {String}
+ */
 var dirname = "nsy"; // defined
 // var dirname = ""; // undefined
 
