@@ -5,6 +5,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 
 use Core\NSY_Controller;
 use Carbon\Carbon;
+use Libraries\Cookie;
 
 class md_ctrl extends NSY_Controller
 {
