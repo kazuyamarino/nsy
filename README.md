@@ -52,7 +52,6 @@ Site example :
 │   │   ├── config
 │   │   │   └── system.js
 │   │   └── main.js
-│   ├── logo.txt
 │   └── robots.txt
 ├── README.md
 ├── system
