@@ -1,12 +1,11 @@
 <?php
+defined('ROOT') OR exit('No direct script access allowed');
+
 /*
  * This is the core of NSY Helpers
  * 2018 - Vikry Yuansah
  * Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
  */
-
-defined('ROOT') OR exit('No direct script access allowed');
-
 use Core\NSY_XSS_Filter;
 use Core\NSY_CSRF;
 
