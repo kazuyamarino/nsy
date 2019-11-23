@@ -125,6 +125,7 @@ And [Shyffon CRUD Example](https://github.com/kazuyamarino/shyffon-crud)
 * FTP Client, See [php-ftp-client](https://github.com/Nicolab/php-ftp-client) **NEW!**
 * Carbon DateTime, [Carbon](https://github.com/briannesbitt/Carbon)
 * Cookie Library, [PHP library for handling cookies](https://github.com/Josantonius/PHP-Cookie) **NEW!**
+* Add several Codeigniter Helpers **NEW!**
 
 
 ## User Guide.
