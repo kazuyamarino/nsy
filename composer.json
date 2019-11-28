@@ -16,6 +16,12 @@
     },
     "autoload": {
         "psr-4": {
+			"Razr\\": "system/core/Razr",
+            "Razr\\Directive\\": "system/core/Razr/Directive",
+            "Razr\\Exception\\": "system/core/Razr/Exception",
+            "Razr\\Extension\\": "system/core/Razr/Extension",
+            "Razr\\Loader\\": "system/core/Razr/Loader",
+            "Razr\\Storage\\": "system/core/Razr/Storage",
             "Routes\\": "system/routes/",
             "Libraries\\": "system/libraries/",
             "Core\\": "system/core/",

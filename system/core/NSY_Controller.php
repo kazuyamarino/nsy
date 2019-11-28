@@ -4,26 +4,29 @@ namespace Core;
 defined('ROOT') OR exit('No direct script access allowed');
 
 /*
+ * Razr Template Engine
+ */
+use Razr\Engine;
+use Razr\Loader\FilesystemLoader;
+
+/*
  * This is the core of NSY Controller
  * 2018 - Vikry Yuansah
  * Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
  */
 class NSY_Controller {
+
     /**
      * HMVC & MVC View Folder
      */
     protected function load_view($module = null, $filename = null, $vars = null) {
-		if (is_array($vars) || is_object($vars))
-		{
-			foreach($vars as $key => $value) {
-		   		$$key = $value;
-			}
-		}
+		// Instantiate Razr Template Engine
+		$this->razr = new Engine(new FilesystemLoader(VENDOR_DIR));
 
 		if( not_filled($module) ) {
-			require(MVC_VIEW_DIR . $filename . '.php');
+			echo $this->razr->render(MVC_VIEW_DIR . $filename . '.php', $vars);
 		} else {
-			require(HMVC_VIEW_DIR . $module . '/views/' . $filename . '.php');
+			echo $this->razr->render(HMVC_VIEW_DIR . $module . '/views/' . $filename . '.php', $vars);
 		}
 
 		return $this;
@@ -33,14 +36,10 @@ class NSY_Controller {
      * Template Directory
      */
     protected function load_template($filename = null, $vars = null) {
-		if (is_array($vars) || is_object($vars))
-		{
-			foreach($vars as $key => $value) {
-		   		$$key = $value;
-			}
-		}
+		// Instantiate Razr Template Engine
+		$this->razr = new Engine(new FilesystemLoader(VENDOR_DIR));
 
-        require(SYS_TMP_DIR . $filename . '.php');
+		echo $this->razr->render(SYS_TMP_DIR . $filename . '.php', $vars);
 
 		return $this;
     }

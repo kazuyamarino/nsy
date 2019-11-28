@@ -5,15 +5,13 @@ defined('ROOT') OR exit('No direct script access allowed');
 <footer class="footer">
 	<hr>
 	<div class="fcontent">
-		<a target="_blank" href="mailto:admin@kazuyamarino.com">Vikry Yuansah</a>
+		@raw( mailto('admin@kazuyamarino.com', 'Vikry Yuansah', null) )
 		<span>-</span>
-		<span>NSY 2018 - <?php echo date("Y"); ?>.</span><br>
-		<p><?php echo $date->isoFormat('dddd, D MMMM Y'); ?>.</p>
+		<span>NSY 2018 - @( $date->isoFormat('Y') ).</span><br>
+		<p>@( $date->isoFormat('dddd, D MMMM Y') ).</p>
 	</div>
 </footer>
-<?php
-// call footer assets method
-pull::footer_assets();
-?>
+<!-- call footer assets method -->
+@( pull::footer_assets() )
 </body>
 </html>

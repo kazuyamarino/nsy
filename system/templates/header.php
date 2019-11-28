@@ -2,12 +2,10 @@
 defined('ROOT') OR exit('No direct script access allowed');
 ?>
 <!doctype html>
-<html class="no-js" lang="<?php echo LANGUAGE_CODE; ?>">
+<html class="no-js" lang="@( LANGUAGE_CODE )">
 <head>
-	<?php
-	// call header assets method
-	pull::header_assets();
-	?>
+	<!-- call header assets method -->
+	@( pull::header_assets() )
 </head>
 <body>
 	<!--[if lte IE 9]>
@@ -15,8 +13,10 @@ defined('ROOT') OR exit('No direct script access allowed');
 	<![endif]-->
 
 	<header style="text-align:center" class="header">
-		<a href="<?php echo base_url(); ?>"><img src="<?php echo IMG_DIR; ?>logo.png" width="100"/></a>
-		<h2><?php echo $my_name; ?></h2>
+		<a href="@( base_url() )">
+			@raw( img( IMG_DIR.'logo.png', 'width="100"' ) )
+		</a>
+		<h2>@( $my_name )</h2>
 		<a target="_blank" href="https://github.com/kazuyamarino/nsy">View On Github</a>
 		<hr>
 	</header>

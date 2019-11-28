@@ -24,6 +24,12 @@ class ComposerStaticInityour_suffixed
         'R' => 
         array (
             'Routes\\' => 7,
+            'Razr\\Storage\\' => 13,
+            'Razr\\Loader\\' => 12,
+            'Razr\\Extension\\' => 15,
+            'Razr\\Exception\\' => 15,
+            'Razr\\Directive\\' => 15,
+            'Razr\\' => 5,
         ),
         'M' => 
         array (
@@ -67,6 +73,30 @@ class ComposerStaticInityour_suffixed
         'Routes\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/system/routes',
+        ),
+        'Razr\\Storage\\' => 
+        array (
+            0 => __DIR__ . '/../../..' . '/system/core/Razr/Storage',
+        ),
+        'Razr\\Loader\\' => 
+        array (
+            0 => __DIR__ . '/../../..' . '/system/core/Razr/Loader',
+        ),
+        'Razr\\Extension\\' => 
+        array (
+            0 => __DIR__ . '/../../..' . '/system/core/Razr/Extension',
+        ),
+        'Razr\\Exception\\' => 
+        array (
+            0 => __DIR__ . '/../../..' . '/system/core/Razr/Exception',
+        ),
+        'Razr\\Directive\\' => 
+        array (
+            0 => __DIR__ . '/../../..' . '/system/core/Razr/Directive',
+        ),
+        'Razr\\' => 
+        array (
+            0 => __DIR__ . '/../../..' . '/system/core/Razr',
         ),
         'Modules\\Models\\' => 
         array (
@@ -200,6 +230,33 @@ class ComposerStaticInityour_suffixed
         'PhpOption\\None' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/None.php',
         'PhpOption\\Option' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/Option.php',
         'PhpOption\\Some' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/Some.php',
+        'Razr\\Directive\\BlockDirective' => __DIR__ . '/../../..' . '/system/core/Razr/Directive/BlockDirective.php',
+        'Razr\\Directive\\ControlDirective' => __DIR__ . '/../../..' . '/system/core/Razr/Directive/ControlDirective.php',
+        'Razr\\Directive\\Directive' => __DIR__ . '/../../..' . '/system/core/Razr/Directive/Directive.php',
+        'Razr\\Directive\\DirectiveInterface' => __DIR__ . '/../../..' . '/system/core/Razr/Directive/DirectiveInterface.php',
+        'Razr\\Directive\\ExtendDirective' => __DIR__ . '/../../..' . '/system/core/Razr/Directive/ExtendDirective.php',
+        'Razr\\Directive\\FunctionDirective' => __DIR__ . '/../../..' . '/system/core/Razr/Directive/FunctionDirective.php',
+        'Razr\\Directive\\IncludeDirective' => __DIR__ . '/../../..' . '/system/core/Razr/Directive/IncludeDirective.php',
+        'Razr\\Directive\\RawDirective' => __DIR__ . '/../../..' . '/system/core/Razr/Directive/RawDirective.php',
+        'Razr\\Directive\\SetDirective' => __DIR__ . '/../../..' . '/system/core/Razr/Directive/SetDirective.php',
+        'Razr\\Engine' => __DIR__ . '/../../..' . '/system/core/Razr/Engine.php',
+        'Razr\\Exception\\ExceptionInterface' => __DIR__ . '/../../..' . '/system/core/Razr/Exception/ExceptionInterface.php',
+        'Razr\\Exception\\InvalidArgumentException' => __DIR__ . '/../../..' . '/system/core/Razr/Exception/InvalidArgumentException.php',
+        'Razr\\Exception\\RuntimeException' => __DIR__ . '/../../..' . '/system/core/Razr/Exception/RuntimeException.php',
+        'Razr\\Exception\\SyntaxErrorException' => __DIR__ . '/../../..' . '/system/core/Razr/Exception/SyntaxErrorException.php',
+        'Razr\\Extension\\CoreExtension' => __DIR__ . '/../../..' . '/system/core/Razr/Extension/CoreExtension.php',
+        'Razr\\Extension\\ExtensionInterface' => __DIR__ . '/../../..' . '/system/core/Razr/Extension/ExtensionInterface.php',
+        'Razr\\Lexer' => __DIR__ . '/../../..' . '/system/core/Razr/Lexer.php',
+        'Razr\\Loader\\ChainLoader' => __DIR__ . '/../../..' . '/system/core/Razr/Loader/ChainLoader.php',
+        'Razr\\Loader\\FilesystemLoader' => __DIR__ . '/../../..' . '/system/core/Razr/Loader/FilesystemLoader.php',
+        'Razr\\Loader\\LoaderInterface' => __DIR__ . '/../../..' . '/system/core/Razr/Loader/LoaderInterface.php',
+        'Razr\\Loader\\StringLoader' => __DIR__ . '/../../..' . '/system/core/Razr/Loader/StringLoader.php',
+        'Razr\\Parser' => __DIR__ . '/../../..' . '/system/core/Razr/Parser.php',
+        'Razr\\Storage\\FileStorage' => __DIR__ . '/../../..' . '/system/core/Razr/Storage/FileStorage.php',
+        'Razr\\Storage\\Storage' => __DIR__ . '/../../..' . '/system/core/Razr/Storage/Storage.php',
+        'Razr\\Storage\\StringStorage' => __DIR__ . '/../../..' . '/system/core/Razr/Storage/StringStorage.php',
+        'Razr\\Token' => __DIR__ . '/../../..' . '/system/core/Razr/Token.php',
+        'Razr\\TokenStream' => __DIR__ . '/../../..' . '/system/core/Razr/TokenStream.php',
         'Routes\\Api' => __DIR__ . '/../../..' . '/system/routes/Api.php',
         'Routes\\Web' => __DIR__ . '/../../..' . '/system/routes/Web.php',
         'Symfony\\Component\\Translation\\Catalogue\\AbstractOperation' => __DIR__ . '/..' . '/symfony/translation/Catalogue/AbstractOperation.php',

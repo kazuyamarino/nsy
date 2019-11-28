@@ -1,4 +1,29 @@
 <?php
+/*
+*---------------------------------------------------------------
+* ROOT path
+*---------------------------------------------------------------
+*/
+define('ROOT', str_replace("index.php", "", $_SERVER["SCRIPT_FILENAME"]));
+
+/**
+ * The PSR-4 Autoloader, generate via composer (composer dump-autoload) *see composer.json
+ * The default autoload.php file path.
+ * You can set the file path itself according to your settings.
+ */
+require(__DIR__ . '/../system/vendor/autoload.php');
+
+/*
+*---------------------------------------------------------------
+* Check Config File
+*---------------------------------------------------------------
+*/
+if ( !is_readable(config_app('nsy_sys_dir')) && is_file(config_app('nsy_sys_dir')) ) {
+	die('No NSY_System.php found, configure and rename System file to NSY_System.php in system/core.');
+} elseif ( !is_readable(config_app('env_checking_dir')) && is_file(config_app('env_checking_dir')) ) {
+	die('No .env file found, please check in the root folder.');
+}
+
 /**
  * Use NSY_System class
  */
@@ -36,31 +61,6 @@ use Dotenv\Dotenv;
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
 */
-
-/*
-*---------------------------------------------------------------
-* ROOT path
-*---------------------------------------------------------------
-*/
-define('ROOT', str_replace("index.php", "", $_SERVER["SCRIPT_FILENAME"]));
-
-/**
- * The PSR-4 Autoloader, generate via composer (composer dump-autoload) *see composer.json
- * The default autoload.php file path.
- * You can set the file path itself according to your settings.
- */
-require(__DIR__ . '/../system/vendor/autoload.php');
-
-/*
-*---------------------------------------------------------------
-* Check Config File
-*---------------------------------------------------------------
-*/
-if ( !is_readable(config_app('nsy_sys_dir')) ) {
-	die('No NSY_System.php found, configure and rename System file to NSY_System.php in system/core.');
-} elseif ( !is_readable(config_app('env_checking_dir')) ) {
-	die('No .env file found, please check in the root folder.');
-}
 
 /*
 *---------------------------------------------------------------

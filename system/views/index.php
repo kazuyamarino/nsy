@@ -3,8 +3,8 @@ defined('ROOT') OR exit('No direct script access allowed');
 ?>
 <div class="wrap">
 	<div style="text-align:center">
-		<h3>Hi, iam NSY!&nbsp;|&nbsp;<a href="<?php echo base_url('hmvc'); ?>">Go To HMVC Page</a></h3>
-		<h1><?php echo $mvc_page; ?></h1>
+		<h3>Hi, iam NSY!&nbsp;|&nbsp;<a href="@( base_url('hmvc') )">Go To HMVC Page</a></h3>
+		<h1>@( $mvc_page )</h1>
 		<p>NSY is a simple PHP Framework that works well on MVC or HMVC mode.</p>
 		<div>
 			<div>

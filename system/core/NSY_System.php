@@ -31,6 +31,8 @@ class NSY_System {
 
 		define('HMVC_VIEW_DIR', config_app('hmvc_dir') . '/');
 
+		define('VENDOR_DIR', config_app('vendor_dir') . '/');
+
 		// set a default language
 		define('LANGUAGE_CODE', config_app('locale'));
 
