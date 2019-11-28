@@ -11,22 +11,6 @@ Site example :
 
 ```bash
 .
-├── .cli
-│   ├── ls.controllers.sh
-│   ├── ls.models.sh
-│   ├── ls.modules.sh
-│   ├── mk.controller.sh
-│   ├── mk.model.sh
-│   ├── mk.module.sh
-│   ├── mysql.dump.db.sh
-│   ├── nsy.cli.sh
-│   ├── nsy.greeting.sh
-│   ├── nsy.help.sh
-│   └── tmp
-│       ├── cm_ctrl.php
-│       ├── cm_mdl.php
-│       ├── md_ctrl.php
-│       └── md_mdl.php
 ├── composer.json
 ├── composer.lock
 ├── docs
