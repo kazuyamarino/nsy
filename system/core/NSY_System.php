@@ -18,19 +18,25 @@ class NSY_System {
 		ob_start();
 
 		// set the default public/css/js path
-		define('CSS_DIR', base_url() . config_app('public_dir') . config_app('css_dir') . '/'); // CSS PATH
+		define('CSS_DIR', base_url() . config_app('public_dir') . config_app('css_dir') . '/'); // CSS directory path
 
-		define('JS_DIR', base_url() . config_app('public_dir') . config_app('js_dir') . '/'); // JS PATH
+		define('JS_DIR', base_url() . config_app('public_dir') . config_app('js_dir') . '/'); // JS directory path
 
-		define('IMG_DIR', base_url() . config_app('public_dir') . config_app('img_dir') . '/'); // IMG PATH
+		define('IMG_DIR', base_url() . config_app('public_dir') . config_app('img_dir') . '/'); // IMG directory path
 
-		//set the default view path
+		/**
+		 * set the default view path
+		 */
+		// Template directory path
 		define('SYS_TMP_DIR', config_app('tmp_dir') . '/');
 
+		// MVC directory path
 		define('MVC_VIEW_DIR', config_app('mvc_dir') . '/');
 
+		// HMVC directory path
 		define('HMVC_VIEW_DIR', config_app('hmvc_dir') . '/');
 
+		// Vendor directory path
 		define('VENDOR_DIR', config_app('vendor_dir') . '/');
 
 		// set a default language
@@ -57,7 +63,7 @@ class NSY_System {
 		// set timezone
 		date_default_timezone_set(config_app('timezone'));
 
-		// Aliasing Assets class name
+		// aliasing Assets class name
 		class_alias('Libraries\Assets', 'pull');
 
 		// start session

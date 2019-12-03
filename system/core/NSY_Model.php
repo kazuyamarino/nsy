@@ -3,12 +3,13 @@ namespace Core;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
+use Core\NSY_Desk;
 /*
  * This is the core of NSY Model
  * 2018 - Vikry Yuansah
  * Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
  */
-class NSY_Model {
+class NSY_Model extends NSY_Desk {
 
 	// Declare properties for Helper
 	private $connection;
@@ -20,6 +21,7 @@ class NSY_Model {
 	private $bind_name;
 	private $attr;
 	private $param;
+	private $num;
 
 	/*
 	Helper for NSY_Model PDO variables
@@ -66,7 +68,8 @@ class NSY_Model {
 				return $this;
 		        break;
 		    default:
-		        echo '<p>Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong></p>';
+				$var_msg = "Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong>";
+				$this->error_handler($var_msg);
 				exit();
 		}
 	}
@@ -91,33 +94,79 @@ class NSY_Model {
 				return $this;
 		        break;
 		    default:
-		        echo '<p>Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION_SEC</i></strong></p>';
+				$var_msg = "Second database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION_SEC</i></strong>";
+				$this->error_handler($var_msg);
 				exit();
 		}
 	}
 
 	protected function query($query = null) {
-		$this->query = $query;
+		if ( is_filled($query) )
+		{
+			$this->query = $query;
+		} else
+		{
+			$var_msg = "The value of query in the <mark>query(<strong>value</strong>)</mark> is empty or undefined";
+			$this->error_handler($var_msg);
+			exit();
+		}
+
 		return $this;
 	}
 
-	protected function vars($variables = null) {
-		$this->variables = $variables;
-		return $this;
+	protected function vars($variables = array()) {
+		if ( is_array($variables) || is_object($variables) )
+		{
+ 			$this->variables = $variables;
+		} else
+		{
+			$var_msg = "The variable in the <mark>vars(<strong>variables</strong>)</mark> is improper or not an array";
+			$this->error_handler($var_msg);
+			exit();
+		}
+
+ 		return $this;
 	}
 
 	protected function style($fetch_style = FETCH_BOTH) {
-		$this->fetch_style = $fetch_style;
+		if ( is_filled($fetch_style) )
+		{
+			$this->fetch_style = $fetch_style;
+		} else
+		{
+			$var_msg = "The value of style in the <mark>style(<strong>value</strong>)</mark> is empty or undefined";
+			$this->error_handler($var_msg);
+			exit();
+		}
+
 		return $this;
 	}
 
 	protected function bind($bind = null) {
-		$this->bind = $bind;
+		if ( is_filled($bind) )
+		{
+			$this->bind = $bind;
+		} else
+		{
+			$var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)->vars()->sequence()</mark> is empty or undefined";
+			$this->error_handler($var_msg);
+			exit();
+		}
+
 		return $this;
 	}
 
 	protected function column($column = 0) {
-		$this->column = $column;
+		if ( is_filled($column) )
+		{
+			$this->column = $column;
+		} else
+		{
+			$var_msg = "The value of column in the <mark>column(<strong>value</strong>)</mark> is empty or undefined";
+			$this->error_handler($var_msg);
+			exit();
+		}
+
 		return $this;
 	}
 
@@ -125,19 +174,24 @@ class NSY_Model {
 	Helper for NSY_Model to create a sequence of the named placeholders
 	 */
 	protected function sequence() {
- 		$in = '';
-		if (is_array($this->variables) || is_object($this->variables))
+		$in = '';
+		if ( is_array($this->variables) || is_object($this->variables) )
 		{
-	 		foreach ($this->variables as $i => $item)
-	 		{
-	 		    $key = $this->bind.$i;
-	 		    $in .= $key.',';
-	 		    $in_params[$key] = $item; // collecting values into key-value array
-	 		}
+			foreach ($this->variables as $i => $item)
+			{
+			    $key = $this->bind.$i;
+			    $in .= $key.',';
+			    $in_params[$key] = $item; // collecting values into key-value array
+			}
+		} else
+		{
+			$var_msg = "The variable in the <mark>vars(<strong>variables</strong>)->sequence()</mark> is improper or not an array";
+			$this->error_handler($var_msg);
+			exit();
 		}
- 		$in = rtrim($in,','); // example = :id0,:id1,:id2
+		$in = rtrim($in,','); // example = :id0,:id1,:id2
 
- 		return [$in, $in_params];
+		return [$in, $in_params];
  	}
 
 	/*
@@ -146,75 +200,57 @@ class NSY_Model {
 	protected function fetch_all() {
 		// Check if there's connection defined on the models
 		if ( not_filled($this->connection) ) {
-			echo '<p>No Connection, Please check your connection again!</p>';
+			echo '<pre>No Connection, Please check your connection again!</pre>';
 			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queries without vars, else execute it with defined on the models
 			if ( not_filled($this->variables) ) {
 				$executed = $stmt->execute();
-				if (!$executed) {
-					$errors = $stmt->errorInfo();
-					echo '<p>Error Query : '.($errors[0]).'</p>';
-					echo '<p>, No parameter were bound for query, Please check your query again!</p>';
-					exit();
-				}
 			} else {
 				if ($this->bind == 'BINDVALUE') {
 					if (is_array($this->variables) || is_object($this->variables))
 					{
 						foreach ($this->variables as $key => &$res) {
 							if ( not_filled($res[1]) || not_filled($res[0]) ) {
-								echo '<p>BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
+								$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
+								$this->error_handler($var_msg);
 								exit();
 							} else {
 								$stmt->bindValue($key, $res[0], $res[1]);
 							}
 						}
-					}
-					$executed = $stmt->execute();
-					if (!$executed) {
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						exit();
+
+						$executed = $stmt->execute();
 					}
 				} elseif ($this->bind == 'BINDPARAM') {
 					if (is_array($this->variables) || is_object($this->variables))
 					{
 						foreach ($this->variables as $key => &$res) {
 							if ( not_filled($res[1]) || not_filled($res[0]) ) {
-								echo '<p>BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
+								$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
+								$this->error_handler($var_msg);
 								exit();
 							} else {
 								$stmt->bindParam($key, $res[0], $res[1]);
 							}
 						}
-					}
-					$executed = $stmt->execute();
-					if (!$executed) {
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						exit();
+
+						$executed = $stmt->execute();
 					}
 				} else {
 					$executed = $stmt->execute($this->variables);
-					if (!$executed) {
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						exit();
-					}
 				}
 			}
 
 			// Check the errors, if no errors then return the results
-			if ($stmt->errorCode() == 0) {
+			if ($executed || $stmt->errorCode() == 0) {
 				$show_result = $stmt->fetchAll($this->fetch_style);
 
 				return $show_result;
 			} else {
-				// if there's errors, then display the message
-				$errors = $stmt->errorInfo();
-				echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
+				$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+				$this->error_handler($var_msg);
 				exit();
 			}
 		}
@@ -230,75 +266,57 @@ class NSY_Model {
 	protected function fetch() {
 		// Check if there's connection defined on the models
 		if ( not_filled($this->connection) ) {
-			echo '<p>No Connection, Please check your connection again!</p>';
+			echo '<pre>No Connection, Please check your connection again!</pre>';
 			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queries without vars, else execute it with defined on the models
 			if ( not_filled($this->variables) ) {
 				$executed = $stmt->execute();
-				if (!$executed) {
-					$errors = $stmt->errorInfo();
-					echo '<p>Error Query : '.($errors[0]).'</p>';
-					echo '<p>, No parameter were bound for query, Please check your query again!</p>';
-					exit();
-				}
 			} else {
 				if ($this->bind == 'BINDVALUE') {
 					if (is_array($this->variables) || is_object($this->variables))
 					{
 						foreach ($this->variables as $key => &$res) {
 							if ( not_filled($res[1]) || not_filled($res[0]) ) {
-								echo '<p>BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
+								$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
+								$this->error_handler($var_msg);
 								exit();
 							} else {
 								$stmt->bindValue($key, $res[0], $res[1]);
 							}
 						}
-					}
-					$executed = $stmt->execute();
-					if (!$executed) {
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						exit();
+
+						$executed = $stmt->execute();
 					}
 				} elseif ($this->bind == 'BINDPARAM') {
 					if (is_array($this->variables) || is_object($this->variables))
 					{
 						foreach ($this->variables as $key => &$res) {
 							if ( not_filled($res[1]) || not_filled($res[0]) ) {
-								echo '<p>BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
+								$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
+								$this->error_handler($var_msg);
 								exit();
 							} else {
 								$stmt->bindParam($key, $res[0], $res[1]);
 							}
 						}
-					}
-					$executed = $stmt->execute();
-					if (!$executed) {
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						exit();
+
+						$executed = $stmt->execute();
 					}
 				} else {
 					$executed = $stmt->execute($this->variables);
-					if (!$executed) {
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						exit();
-					}
 				}
 			}
 
 			// Check the errors, if no errors then return the results
-			if ($stmt->errorCode() == 0) {
+			if ($executed || $stmt->errorCode() == 0) {
 				$show_result = $stmt->fetch($this->fetch_style);
 
 				return $show_result;
 			} else {
-				// if there's errors, then display the message
-				$errors = $stmt->errorInfo();
-				echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
+				$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+				$this->error_handler($var_msg);
 				exit();
 			}
 		}
@@ -314,75 +332,57 @@ class NSY_Model {
 	protected function fetch_column() {
 		// Check if there's connection defined on the models
 		if ( not_filled($this->connection) ) {
-			echo '<p>No Connection, Please check your connection again!</p>';
+			echo '<pre>No Connection, Please check your connection again!</pre>';
 			exit();
 		} else {
 			$stmt = $this->connection->prepare($this->query);
 			// if vars null, execute queries without vars, else execute it with defined on the models
 			if ( not_filled($this->variables) ) {
 				$executed = $stmt->execute();
-				if (!$executed) {
-					$errors = $stmt->errorInfo();
-					echo '<p>Error Query : '.($errors[0]).'</p>';
-					echo '<p>, No parameter were bound for query, Please check your query again!</p>';
-					exit();
-				}
 			} else {
 				if ($this->bind == 'BINDVALUE') {
 					if (is_array($this->variables) || is_object($this->variables))
 					{
 						foreach ($this->variables as $key => &$res) {
 							if ( not_filled($res[1]) || not_filled($res[0]) ) {
-								echo '<p>BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
+								$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
+								$this->error_handler($var_msg);
 								exit();
 							} else {
 								$stmt->bindValue($key, $res[0], $res[1]);
 							}
 						}
-					}
-					$executed = $stmt->execute();
-					if (!$executed) {
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						exit();
+
+						$executed = $stmt->execute();
 					}
 				} elseif ($this->bind == 'BINDPARAM') {
 					if (is_array($this->variables) || is_object($this->variables))
 					{
 						foreach ($this->variables as $key => &$res) {
 							if ( not_filled($res[1]) || not_filled($res[0]) ) {
-								echo '<p>BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>'.$key.' => '.$res[0].', <strong>null</strong></p>';
+								$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
+								$this->error_handler($var_msg);
 								exit();
 							} else {
 								$stmt->bindParam($key, $res[0], $res[1]);
 							}
 						}
-					}
-					$executed = $stmt->execute();
-					if (!$executed) {
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						exit();
+
+						$executed = $stmt->execute();
 					}
 				} else {
 					$executed = $stmt->execute($this->variables);
-					if (!$executed) {
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						exit();
-					}
 				}
 			}
 
 			// Check the errors, if no errors then return the results
-			if ($stmt->errorCode() == 0) {
+			if ($executed || $stmt->errorCode() == 0) {
 				$show_result = $stmt->fetchColumn($this->column);
 
 				return $show_result;
 			} else {
-				// if there's errors, then display the message
-				$errors = $stmt->errorInfo();
-				echo '<p>Error Query : '.($errors[0].', '.$errors[1].', '.$errors[2]).'</p>';
+				$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+				$this->error_handler($var_msg);
 				exit();
 			}
 		}
@@ -398,7 +398,7 @@ class NSY_Model {
 	protected function row_count() {
 		// Check if there's connection defined on the models
 		if ( not_filled($this->connection) ) {
-			echo '<p>No Connection, Please check your connection again!</p>';
+			echo '<pre>No Connection, Please check your connection again!</pre>';
 			exit();
 		} else {
 			// if vars null, execute queries without vars, else execute it with defined on the models
@@ -407,45 +407,48 @@ class NSY_Model {
 				$stmt->execute();
 				$this->result = $stmt->rowCount();
 			} else {
+				$arr_keys = array_keys($this->variables);
+				foreach ( $arr_keys as $dt ) {
+					if ( is_numeric($dt) ) {
+						$var_msg = "Array keys doesn't exist on <mark>vars(<strong>variables</strong>)</mark>";
+						$this->error_handler($var_msg);
+						exit();
+					}
+				}
+
 				$stmt = $this->connection->prepare($this->query);
 				$stmt->execute($this->variables);
 				$this->result = $stmt->rowCount();
 			}
 
 			// Check the errors, if no errors then return the results
-			if ($stmt->errorCode() == 0) {
+			if ($this->result || $stmt->errorCode() == 0) {
 				return $this->result;
 			} else {
 				if(config_app('transaction') === 'on') {
 					$this->connection->rollback();
 
 					if ( not_filled($this->variables) ) {
-						// if there's errors, then display the message
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
+						$this->error_handler($var_msg);
 						exit();
 					} else {
-						// if there's errors, then display the message
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
+						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+						$this->error_handler($var_msg);
 						exit();
 					}
 				} elseif(config_app('transaction') === 'off') {
 					if ( not_filled($this->variables) ) {
-						// if there's errors, then display the message
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
+						$this->error_handler($var_msg);
 						exit();
 					} else {
-						// if there's errors, then display the message
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
+						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+						$this->error_handler($var_msg);
 						exit();
 					}
 				} else {
-					echo '<p>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></p>';
+					echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></pre>';
 					exit();
 				}
 			}
@@ -467,7 +470,7 @@ class NSY_Model {
 
 				// Check if there's connection defined on the models
 				if ( not_filled($this->connection) ) {
-					echo '<p>No Connection, Please check your connection again!</p>';
+					echo '<pre>No Connection, Please check your connection again!</pre>';
 					exit();
 				} else {
 					// if vars null, execute queries without vars, else execute it with defined on the models
@@ -480,54 +483,48 @@ class NSY_Model {
 					}
 
 					// Check the errors, if no errors then return the results
-					if ($stmt->errorCode() == 0) {
+					if ($this->executed || $stmt->errorCode() == 0) {
 						return $this;
 					} else {
 						if(config_app('transaction') === 'on') {
 							$this->connection->rollback();
 
 							if ( not_filled($this->variables) ) {
-								// if there's errors, then display the message
-								$errors = $stmt->errorInfo();
-								echo '<p>Error Query : '.($errors[0]).'</p>';
-								echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+								$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
+								$this->error_handler($var_msg);
 								exit();
 							} else {
-								// if there's errors, then display the message
-								$errors = $stmt->errorInfo();
-								echo '<p>Error Query : '.($errors[0]).'</p>';
+								$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+								$this->error_handler($var_msg);
 								exit();
 							}
 						} elseif(config_app('transaction') === 'off') {
 							if ( not_filled($this->variables) ) {
-								// if there's errors, then display the message
-								$errors = $stmt->errorInfo();
-								echo '<p>Error Query : '.($errors[0]).'</p>';
-								echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+								$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
+								$this->error_handler($var_msg);
 								exit();
 							} else {
-								// if there's errors, then display the message
-								$errors = $stmt->errorInfo();
-								echo '<p>Error Query : '.($errors[0]).'</p>';
+								$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+								$this->error_handler($var_msg);
 								exit();
 							}
 						} else {
-							echo '<p>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></p>';
+							echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></pre>';
 							exit();
 						}
 					}
 				}
-			    $result = 'CSRF check passed. Form parsed.'; // Just info
+			    $result = '<pre>CSRF check passed. Form parsed.</pre>'; // Just info
 			}
 			catch ( \Exception $e ) {
 			    // CSRF attack detected
-			    echo $result = $e->getMessage() . ' Form ignored.'; // Just info
+			    echo $result = '<pre>' . $e->getMessage() . ' Form ignored.</pre>'; // Just info
 				exit();
 			}
 		} elseif(config_app('csrf_token') === 'false') {
 			// Check if there's connection defined on the models
 			if ( not_filled($this->connection) ) {
-				echo '<p>No Connection, Please check your connection again!</p>';
+				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// if vars null, execute queries without vars, else execute it with defined on the models
@@ -540,45 +537,39 @@ class NSY_Model {
 				}
 
 				// Check the errors, if no errors then return the results
-				if ($stmt->errorCode() == 0) {
+				if ($this->executed || $stmt->errorCode() == 0) {
 					return $this;
 				} else {
 					if(config_app('transaction') === 'on') {
 						$this->connection->rollback();
 
 						if ( not_filled($this->variables) ) {
-							// if there's errors, then display the message
-							$errors = $stmt->errorInfo();
-							echo '<p>Error Query : '.($errors[0]).'</p>';
-							echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+							$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
+							$this->error_handler($var_msg);
 							exit();
 						} else {
-							// if there's errors, then display the message
-							$errors = $stmt->errorInfo();
-							echo '<p>Error Query : '.($errors[0]).'</p>';
+							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+							$this->error_handler($var_msg);
 							exit();
 						}
 					} elseif(config_app('transaction') === 'off') {
 						if ( not_filled($this->variables) ) {
-							// if there's errors, then display the message
-							$errors = $stmt->errorInfo();
-							echo '<p>Error Query : '.($errors[0]).'</p>';
-							echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+							$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
+							$this->error_handler($var_msg);
 							exit();
 						} else {
-							// if there's errors, then display the message
-							$errors = $stmt->errorInfo();
-							echo '<p>Error Query : '.($errors[0]).'</p>';
+							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+							$this->error_handler($var_msg);
 							exit();
 						}
 					} else {
-						echo '<p>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></p>';
+						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></pre>';
 						exit();
 					}
 				}
 			}
 		} else {
-			echo '<p>The CSRF Token Protection is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></p>';
+			echo '<pre>The CSRF Token Protection is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></pre>';
 			exit();
 		}
 
@@ -598,7 +589,7 @@ class NSY_Model {
 
 				// Check if there's connection defined on the models
 				if ( not_filled($this->connection) ) {
-					echo '<p>No Connection, Please check your connection again!</p>';
+					echo '<pre>No Connection, Please check your connection again!</pre>';
 					exit();
 				} else {
 					$rows = count($this->variables);
@@ -608,8 +599,8 @@ class NSY_Model {
 
 					// if vars null, execute queries without vars, else execute it with defined on the models
 					if ( not_filled($this->variables) ) {
-						echo '<p>Error Query : '.($errors[0]).'</p>';
-						echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
+						$this->error_handler($var_msg);
 						exit();
 					} else {
 						$stmt = $this->connection->prepare($this->query . ' VALUES '. $valString);
@@ -620,37 +611,35 @@ class NSY_Model {
 					}
 
 					// Check the errors, if no errors then return the results
-					if ($stmt->errorCode() == 0) {
+					if ($this->executed || $stmt->errorCode() == 0) {
 						return $this;
 					} else {
 						if(config_app('transaction') === 'on') {
-							// if there's errors, then display the message
 							$this->connection->rollback();
-							$errors = $stmt->errorInfo();
-							echo '<p>Error Query : '.($errors[0]).'</p>';
+							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+							$this->error_handler($var_msg);
 							exit();
 						} elseif(config_app('transaction') === 'off') {
-							// if there's errors, then display the message
-							$errors = $stmt->errorInfo();
-							echo '<p>Error Query : '.($errors[0]).'</p>';
+							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+							$this->error_handler($var_msg);
 							exit();
 						} else {
-							echo '<p>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></p>';
+							echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></pre>';
 							exit();
 						}
 					}
 				}
-				$result = 'CSRF check passed. Form parsed.'; // Just info
+				$result = '<pre>CSRF check passed. Form parsed.</pre>'; // Just info
 			}
 			catch ( \Exception $e ) {
 				// CSRF attack detected
-				echo $result = $e->getMessage() . ' Form ignored.'; // Just info
+				echo $result = '<pre>' . $e->getMessage() . ' Form ignored.</pre>'; // Just info
 				exit();
 			}
 		} elseif(config_app('csrf_token') === 'false') {
 			// Check if there's connection defined on the models
 			if ( not_filled($this->connection) ) {
-				echo '<p>No Connection, Please check your connection again!</p>';
+				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				$rows = count($this->variables);
@@ -660,8 +649,8 @@ class NSY_Model {
 
 				// if vars null, execute queries without vars, else execute it with defined on the models
 				if ( not_filled($this->variables) ) {
-					echo '<p>Error Query : '.($errors[0]).'</p>';
-					echo '<p>, No parameter were bound for query, Please check your query again!</p>';
+					$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
+					$this->error_handler($var_msg);
 					exit();
 				} else {
 					$stmt = $this->connection->prepare($this->query . ' VALUES '. $valString);
@@ -678,22 +667,21 @@ class NSY_Model {
 					if(config_app('transaction') === 'on') {
 						// if there's errors, then display the message
 						$this->connection->rollback();
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
+						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+						$this->error_handler($var_msg);
 						exit();
 					} elseif(config_app('transaction') === 'off') {
-						// if there's errors, then display the message
-						$errors = $stmt->errorInfo();
-						echo '<p>Error Query : '.($errors[0]).'</p>';
+						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+						$this->error_handler($var_msg);
 						exit();
 					} else {
-						echo '<p>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></p>';
+						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></pre>';
 						exit();
 					}
 				}
 			}
 		} else {
-			echo '<p>The CSRF Token Protection is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></p>';
+			echo '<pre>The CSRF Token Protection is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></pre>';
 			exit();
 		}
 

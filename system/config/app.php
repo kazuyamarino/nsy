@@ -45,7 +45,7 @@ return [
 
 	/*
     |--------------------------------------------------------------------------
-    | Default Database Transaction Setting
+    | Default Database Transaction Mode Setting
     |--------------------------------------------------------------------------
     |
     | set the default 'on' or 'off'
