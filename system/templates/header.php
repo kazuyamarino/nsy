@@ -2,10 +2,10 @@
 defined('ROOT') OR exit('No direct script access allowed');
 ?>
 <!doctype html>
-<html class="no-js" lang="@( LANGUAGE_CODE )">
+<html class="no-js" lang="@( LANGUAGE_CODE )" prefix="@( PREFIX )">
 <head>
 	<!-- call header assets method -->
-	@( pull::header_assets() )
+	@( pull::header_assets( $test_meta ) )
 </head>
 <body>
 	<!--[if lte IE 9]>

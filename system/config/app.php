@@ -81,7 +81,17 @@ return [
     | set the default locale
     |
     */
-	'locale' => 'id',
+	'locale' => 'id-ID',
+
+	/*
+    |--------------------------------------------------------------------------
+    | Default Prefix Attribute
+    |--------------------------------------------------------------------------
+    |
+    | set the default namespace prefix for Open Graph protocol
+    |
+    */
+	'prefix_attr' => 'og: http://ogp.me/ns#',
 
 	/*
     |--------------------------------------------------------------------------

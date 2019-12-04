@@ -42,6 +42,9 @@ class NSY_System {
 		// set a default language
 		define('LANGUAGE_CODE', config_app('locale'));
 
+		// set a default prefix OG
+		define('PREFIX', config_app('prefix_attr'));
+
 		// set prefix for sessions
 		define('SESSION_PREFIX', config_app('session_prefix'));
 
