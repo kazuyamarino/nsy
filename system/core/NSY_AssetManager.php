@@ -32,10 +32,12 @@ Class NSY_AssetManager extends NSY_Desk {
 	}
 
 	// generate link tags
-	protected static function link($filename = null, $rel = null, $type = null) {
+	protected static function link($filename = null, $rel = null, $type = null, $title = null) {
 		// if content is empty
 		if (strpos($filename, 'http') !== false || strpos($filename, 'https') !== false) {
 			echo '<link rel="'.$rel.'" href="'.$filename.'" type="'.$type.'">';
+		} elseif (is_filled($title)) {
+			echo '<link rel="'.$rel.'" href="'.$filename.'" type="'.$type.'" title="'.$title.'">';
 		} elseif ($rel == 'stylesheet') {
 			echo '<link rel="'.$rel.'" href="'.CSS_DIR.$filename.'" type="'.$type.'">';
 		} elseif ($rel == 'shortcut icon')  {
