@@ -190,6 +190,7 @@ class ComposerStaticInityour_suffixed
         'Core\\NSY_CSRF' => __DIR__ . '/../../..' . '/system/core/NSY_CSRF.php',
         'Core\\NSY_Controller' => __DIR__ . '/../../..' . '/system/core/NSY_Controller.php',
         'Core\\NSY_DB' => __DIR__ . '/../../..' . '/system/core/NSY_DB.php',
+        'Core\\NSY_Desk' => __DIR__ . '/../../..' . '/system/core/NSY_Desk.php',
         'Core\\NSY_Model' => __DIR__ . '/../../..' . '/system/core/NSY_Model.php',
         'Core\\NSY_Router' => __DIR__ . '/../../..' . '/system/core/NSY_Router.php',
         'Core\\NSY_System' => __DIR__ . '/../../..' . '/system/core/NSY_System.php',

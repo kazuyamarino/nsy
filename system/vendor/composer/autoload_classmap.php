@@ -46,6 +46,7 @@ return array(
     'Core\\NSY_CSRF' => $baseDir . '/system/core/NSY_CSRF.php',
     'Core\\NSY_Controller' => $baseDir . '/system/core/NSY_Controller.php',
     'Core\\NSY_DB' => $baseDir . '/system/core/NSY_DB.php',
+    'Core\\NSY_Desk' => $baseDir . '/system/core/NSY_Desk.php',
     'Core\\NSY_Model' => $baseDir . '/system/core/NSY_Model.php',
     'Core\\NSY_Router' => $baseDir . '/system/core/NSY_Router.php',
     'Core\\NSY_System' => $baseDir . '/system/core/NSY_System.php',
