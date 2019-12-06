@@ -25,6 +25,11 @@ use Routes\Web;
 use Routes\Api;
 
 /**
+ * Use Migration class
+ */
+use Routes\Migration;
+
+/**
  * phpdotenv class
  */
 use Dotenv\Dotenv;
@@ -84,14 +89,19 @@ $dotenv->load();
 new NSY_System();
 
 /**
+ * Instantiate Web route
+ */
+new Web();
+
+/**
  * Instantiate Api route
  */
 new Api();
 
 /**
- * Instantiate Web route
+ * Instantiate Migration route
  */
-new Web();
+new Migration();
 
 /*
 |--------------------------------------------------------------------------

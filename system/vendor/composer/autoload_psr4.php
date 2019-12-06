@@ -20,6 +20,7 @@ return array(
     'Modules\\Models\\' => array($baseDir . '/system/modules/homepage/models'),
     'Modules\\Controllers\\' => array($baseDir . '/system/modules/homepage/controllers'),
     'Models\\' => array($baseDir . '/system/models'),
+    'Migrations\\' => array($baseDir . '/system/migrations'),
     'Libraries\\' => array($baseDir . '/system/libraries'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
     'Core\\' => array($baseDir . '/system/core'),

@@ -1,7 +1,9 @@
 <?php
 defined('ROOT') OR exit('No direct script access allowed');
 
-// database details ONLY NEEDED IF USING A DATABASE
+/**
+ * Database details ONLY NEEDED IF USING A DATABASE
+ */
 return [
 
 	/*

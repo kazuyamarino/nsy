@@ -24,6 +24,7 @@
             "Razr\\Storage\\": "system/core/Razr/Storage",
             "Routes\\": "system/routes/",
             "Libraries\\": "system/libraries/",
+            "Migrations\\": "system/migrations/",
             "Core\\": "system/core/",
             "Models\\": "system/models/",
             "Controllers\\": "system/controllers/",

@@ -4,7 +4,7 @@ namespace Core;
 defined('ROOT') OR exit('No direct script access allowed');
 
 /*
- * This is the core of NSY System Settings
+ * This is the core of NSY Desk Settings
  * 2018 - Vikry Yuansah
  * Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
  */
@@ -90,5 +90,45 @@ class NSY_Desk {
 			}
 		}
 	}
+
+	/**
+	 * Start migration
+	 */
+ 	public function mig_up($string = null) {
+		$classname = 'Migrations\\'.$string;
+
+		if ( class_exists($classname) ) {
+			$mig = new $classname;
+			$mig->up();
+
+			echo "<pre>The database has been successfully <strong>migrated up</strong></pre>";
+			exit();
+		} else {
+			$var_msg = "Class name not found! \nSee the class name list in the <strong>system/migrations</strong> directory";
+			$this->error_handler($var_msg);
+			exit();
+		}
+ 	}
+
+	 /**
+	  * Rollback migration
+	  */
+  	public function mig_down($string = null) {
+ 		$classname = 'Migrations\\'.$string;
+
+		if ( class_exists($classname) ) {
+			$mig = new $classname;
+			$mig->down();
+
+			echo "<pre>The database has been successfully <strong>migrated down</strong></pre>";
+			exit();
+		} else {
+			$var_msg = "Class name not found! \nSee the class name list in the <strong>system/migrations</strong> directory";
+			$this->error_handler($var_msg);
+			exit();
+		}
+
+
+  	}
 
 }

@@ -1,7 +1,9 @@
 <?php
 defined('ROOT') OR exit('No direct script access allowed');
 
-// Site config
+/**
+ * Site config
+ */
 return [
 
 	/*
