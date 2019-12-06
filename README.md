@@ -69,6 +69,7 @@ Site example :
 │   │   ├── NSY_Controller.php
 │   │   ├── NSY_CSRF.php
 │   │   ├── NSY_DB.php
+│   │   ├── NSY_Desk.php
 │   │   ├── NSY_Model.php
 │   │   ├── NSY_Router.php
 │   │   ├── NSY_System.php
@@ -120,6 +121,7 @@ Site example :
 │   │   ├── Assets.php
 │   │   ├── Cookie.php
 │   │   └── .htaccess
+│   ├── migrations
 │   ├── models
 │   │   └── Model_Welcome.php
 │   ├── modules
@@ -133,6 +135,7 @@ Site example :
 │   ├── routes
 │   │   ├── Api.php
 │   │   ├── .htaccess
+│   │   ├── Migration.php
 │   │   └── Web.php
 │   ├── templates
 │   │   ├── footer.php
