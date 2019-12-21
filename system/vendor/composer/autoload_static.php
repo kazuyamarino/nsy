@@ -31,6 +31,10 @@ class ComposerStaticInityour_suffixed
             'Razr\\Directive\\' => 15,
             'Razr\\' => 5,
         ),
+        'P' => 
+        array (
+            'PhpOption\\' => 10,
+        ),
         'M' => 
         array (
             'Modules\\Models\\' => 15,
@@ -99,6 +103,10 @@ class ComposerStaticInityour_suffixed
         array (
             0 => __DIR__ . '/../../..' . '/system/core/Razr',
         ),
+        'PhpOption\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
         'Modules\\Models\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/system/modules/homepage/models',
@@ -138,13 +146,6 @@ class ComposerStaticInityour_suffixed
     );
 
     public static $prefixesPsr0 = array (
-        'P' => 
-        array (
-            'PhpOption\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
-            ),
-        ),
         'F' => 
         array (
             'FtpClient' => 
