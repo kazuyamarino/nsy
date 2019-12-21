@@ -5,7 +5,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 <html class="no-js" lang="@( LANGUAGE_CODE )" prefix="@( PREFIX )">
 <head>
 	<!-- call header assets method -->
-	@( pull::header_assets( $test_meta ) )
+	@( pull::header_assets() )
 </head>
 <body>
 	<!--[if lte IE 9]>

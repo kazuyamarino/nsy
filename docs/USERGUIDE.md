@@ -259,10 +259,10 @@ pull::footer_assets();
 
 ## NSY CLI (Command Line)
 NSY CLI is a collection of commands to facilitate users in operating NSY. To start, open the terminal or git bash, then install it with:
-* `chmod +x INSTALL.CLI.sh`
-* ./INSTALL.CLI.sh
+* `chmod +x INSTALL.sh`
+* ./INSTALL.sh
 * Close the terminal or git bash, & open it again
-* Then type command `hi_nsy` should display
+* Then type command `hi` should display
 ```
 Welcome to NSY CLI
 NSY CLI installed successfully
@@ -291,35 +291,35 @@ show_models mvc
 ```
 * Show Welcome Message :
 ```
-hi_nsy
+hi
 ```
 * Dump mysql database :
 ```
-mysql_dump_db <database-name> <username> <password>
+mysql_dump <database-name> <username> <password>
 ```
 * Dump mysql database (table only) :
 ```
-mysql_dump_db <database-name> <username> <password> <table-name>
+mysql_dump <database-name> <username> <password> <table-name>
 ```
 * Make HMVC Module :
 ```
-make_module <module-directory-name>
+module <module-directory-name>
 ```
 * Make HMVC Controller :
 ```
-make_controller hmvc <module-directory-name> <controller-name>
+controller hmvc <module-directory-name> <controller-name>
 ```
 * Make HMVC Model :
 ```
-make_model hmvc <module-directory-name> <model-name>
+model hmvc <module-directory-name> <model-name>
 ```
 * Make MVC Controller :
 ```
-make_controller mvc <controller-name>
+controller mvc <controller-name>
 ```
 * Make MVC Model :
 ```
-make_model mvc <model-name>
+model mvc <model-name>
 ```
 
 <hr>

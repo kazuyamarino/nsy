@@ -20,11 +20,11 @@ Class Migration extends NSY_Desk
 		// Format = route::type('url', 'namespace\class_controller@method')
 
 		// Migration Route
-		route::any('nsy/mig_up=(:any)', function($class) {
+		route::any('nsy/migup=(:any)', function($class) {
 			$this->desk->mig_up($class);
 		});
 
-		route::any('nsy/mig_down=(:any)', function($class) {
+		route::any('nsy/migdown=(:any)', function($class) {
 			$this->desk->mig_down($class);
 		});
 	}

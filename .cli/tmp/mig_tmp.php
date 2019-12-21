@@ -3,31 +3,33 @@ namespace Migrations;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
-use Core\NSY_Model;
+use Core\NSY_Migration;
 
-class mig_tmp extends NSY_Model
+class mig_tmp extends NSY_Migration
 {
 
 	/**
 	 * NSY Migration
 	 */
 
-	// Commit migration
+	 /**
+	  * Run the migrations.
+	  *
+	  * @return void
+	  */
 	public function up()
- 	{
- 		$q = "CREATE TABLE my_table (
-				create_date datetime NOT NULL,
-				update_date datetime NOT NULL,
-				additional_date datetime NOT NULL
- 	  	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
- 		$this->connect()->query($q)->exec();
- 	}
+	{
 
-	// Rollback migration
+	}
+
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
 	public function down()
- 	{
-		$q = "DROP TABLE my_table";
-		$this->connect()->query($q)->exec();
+	{
+
 	}
 
 }

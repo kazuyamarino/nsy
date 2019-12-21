@@ -36,6 +36,11 @@ class NSY_Desk {
 		}
 	}
 
+	/**
+	 * Function static error handler
+	 *
+	 * @return string
+	 */
 	public static function static_error_handler($var_msg = null) {
 		if (defined('ENVIRONMENT')) {
 			switch (ENVIRONMENT) {
@@ -59,7 +64,6 @@ class NSY_Desk {
 
 	/**
 	 * Function error swith
-	 *
 	 */
 	public function error_switch() {
 		if (defined('ENVIRONMENT')) {
@@ -127,8 +131,6 @@ class NSY_Desk {
 			$this->error_handler($var_msg);
 			exit();
 		}
-
-
   	}
 
 }

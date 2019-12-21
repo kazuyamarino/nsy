@@ -4,6 +4,7 @@ namespace Core;
 defined('ROOT') OR exit('No direct script access allowed');
 
 use Core\NSY_Desk;
+
 /*
  * This is the core of NSY Model
  * 2018 - Vikry Yuansah
