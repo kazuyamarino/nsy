@@ -774,9 +774,8 @@ For more information about this, go to the following URL [Return type](https://p
 ```
 $this->stringify_fetches_true();
 ```
-<hr>
 
-**Go to [SYSGUIDE Part 2]((https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md))**
+**Go to [SYSGUIDE Part 2](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md)**
 
 <hr>
 
