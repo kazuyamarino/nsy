@@ -19,6 +19,11 @@ class Welcome extends NSY_Controller
 
 		// Instantiate Model_Hello class
 		$this->m_hello = new Model_Hello;
+
+		$this->ftp = new \FtpClient\FtpClient();
+		$this->ftp->connect('kazuyamarino.com');
+		$this->ftp->login('admin@kazuyamarino.com', 'exveemon@FTP');
+		$this->ftp->pasv(true);
 	}
 
 	public function index()

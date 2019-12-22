@@ -332,7 +332,163 @@ Use the `@block` directive to define blocks inside a template. Other template fi
 
 <hr>
 
+## NSY FTP Client Library
 
+NSY supports a flexible FTP and SSL-FTP client for PHP. This library provides helpers easy to use to manage the remote files. [nicolab/php-ftp-client](https://github.com/Nicolab/php-ftp-client).
+
+You only need to instantiate the class in the construct method `__contruct`.
+[See Instantiate Model class in the controller](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md#instantiate-model-class-in-the-controller).
+
+#### Login to FTP
+```
+$this->ftp = new \FtpClient\FtpClient();
+$this->ftp->connect('website.com');
+$this->ftp->login('admin@website.com', 'password');
+
+// Turns passive mode on or off
+$this->ftp->pasv(true);
+```
+
+#### Returns the last modified time of the given file
+```
+$this->ftp->modifiedTime('path/of/file');
+```
+
+#### Changes to the parent directory
+```
+$this->ftp->up();
+```
+
+#### Returns a list of files in the given directory
+```
+$this->ftp->nlist('path/of/directory', true);
+```
+
+#### Removes a directory
+```
+$this->ftp->rmdir('path/of/directory/to/remove');
+```
+
+#### Removes a directory (recursive)
+```
+$this->ftp->rmdir('path/of/directory/to/remove', true);
+```
+
+#### Creates a directory
+```
+$this->ftp->mkdir('path/of/directory/to/create');
+```
+
+#### Creates a directory (recursive), creates automaticaly the sub directory if not exist
+```
+$this->ftp->mkdir('path/of/directory/to/create', true);
+```
+
+#### Check if a directory exist
+```
+$this->ftp->isDir('path/of/directory');
+```
+
+#### Check if a directory is empty
+```
+$this->ftp->isEmpty('path/of/directory');
+```
+
+#### Scan a directory and returns the details of each item
+```
+$this->ftp->scanDir('path/of/directory');
+```
+
+#### Returns the total size of the given directory in bytes
+```
+$this->ftp->dirSize(''path/of/directory'');
+```
+### Count method
+* count in the current directory
+```
+$total = $this->ftp->count();
+```
+
+* count in a given directory
+```
+$total = $this->ftp->count('/path/of/directory');
+```
+
+* count only the "files" in the current directory
+```
+$total_file = $this->ftp->count('.', 'file');
+```
+
+* count only the "files" in a given directory
+```
+$total_file = $this->ftp->count('/path/of/directory', 'file');
+```
+
+* count only the "directories" in a given directory
+```
+$total_dir = $this->ftp->count('/path/of/directory', 'directory');
+```
+
+* count only the "symbolic links" in a given directory
+```
+$total_link = $this->ftp->count('/path/of/directory', 'link');
+```
+
+#### Downloads a file from the FTP server into a string
+```
+$this->ftp->getContent('path/of/file');
+```
+### Upload method
+* Uploads a file to the server from a string
+```
+$this->ftp->putFromString('path/of/file', 'string');
+```
+
+* Uploads a file to the server
+```
+$this->ftp->putFromPath('path/of/file');
+```
+
+* upload with the BINARY mode
+```
+$this->ftp->putAll('source_directory', 'target_directory');
+```
+
+* Is equal to
+```
+$this->ftp->putAll('source_directory', 'target_directory', FTP_BINARY);
+```
+
+* or upload with the ASCII mode
+```
+$this->ftp->putAll('source_directory', 'target_directory', FTP_ASCII);
+```
+
+#### Downloads all files from remote FTP directory
+```
+$this->ftp->getAll('source_directory', 'target_directory', FTP_BINARY);
+```
+
+#### Returns a detailed list of files in the given directory
+```
+$this->ftp->rawlist('path/of/directory');
+```
+
+#### Parse raw list
+```
+$d = $this->ftp->rawlist('path/of/directory');
+$e = $this->ftp->parseRawList($d);
+```
+
+#### Convert raw info (drwx---r-x ...) to type (file, directory, link, unknown)
+```
+$this->ftp->rawToType('drwx---r-x');
+```
+
+#### Set permissions on a file via FTP
+```
+$this->ftp->chmod('0775', 'path/of/file');
+```
 
 <hr>
 
