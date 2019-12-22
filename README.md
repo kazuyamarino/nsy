@@ -175,7 +175,7 @@ And [Shyffon CRUD Example](https://github.com/kazuyamarino/shyffon-crud)
 * Cookie Library, [Cookie Library Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md#cookie-library) **NEW!**
 * Add several Codeigniter Helpers **NEW!**
 * Razr Template Engine, [Razr Engine Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md#razr---the-powerful-php-template-engine) **NEW!**
-* Migrations, [See Documentation]() **NEW!**
+* Migrations, [See Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md#nsy-migrations) **NEW!**
 
 
 ## User Guide.
