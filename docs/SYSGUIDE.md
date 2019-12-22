@@ -143,12 +143,12 @@ $this->load_template('header', $arr);
 The above example will generate variable `$my_name`, `$date` and `$mvc_page` in view.
 
 ### Load MVC or HMVC view file
-Load MVC view file :
+#### Load MVC view file :
 ```
 $this->load_view(null, 'filename');
 ```
 
-Load HMVC view file :
+#### Load HMVC view file :
 ```
 $this->load_view('module-name', 'filename');
 ```
@@ -231,20 +231,20 @@ echo generate_num("VYLMA-", 4, 10);
 ```
 
 ### PHP SESSION
-Create session :
+#### Create session :
 ```
 add_session(session_name, value);
 
 Example : add_session('my_name', 'vikry');
 ```
 
-Show specific session :
+#### Show specific session :
 ```
 show_session(session_name);
 
 Example : show_session('my_name');
 ```
-Unset/destroy specific session :
+#### Unset/destroy specific session :
 ```
 unset_session(session_name);
 
@@ -607,7 +607,7 @@ return deleted_data->result;
 
 ### Executes a prepared statement. exec()
 
-Update data :
+#### Update data :
 ```
 $id = [ ':id' => 2 ];
 
@@ -617,7 +617,7 @@ $this->connect()->query($q)->vars($id)->exec();
 // Update field name from tbl_users where id is 2
 ```
 
-Multi Update data :
+#### Multi Update data :
 ```
 $id = [ 11025, 11026 ];
 foreach ( $id as $key => $ids ) {
@@ -632,7 +632,7 @@ foreach ( $id as $key => $ids ) {
 // Update field user_name to 'nsy_for_kids' from tbl_users where id is 11025 & 11026
 ```
 
-Delete data :
+#### Delete data :
 ```
 $id = [ ':id' => 2 ];
 
@@ -642,7 +642,7 @@ $this->connect()->query($q)->vars($id)->exec();
 // Delete data from tbl_users where id is 2
 ```
 
-Multi Delete data :
+#### Multi Delete data :
 ```
 $id = [ 11025, 11026 ];
 foreach ( $id as $key => $ids ) {
@@ -656,7 +656,7 @@ foreach ( $id as $key => $ids ) {
 // Delete data from tbl_users where id is 11025 & 11026
 ```
 
-Insert data :
+#### Insert data :
 ```
 $param = [ ':user_name' => 'Harmoni' ];
 
@@ -666,7 +666,7 @@ $this->connect()->query($q)->vars($param)->exec();
 // Insert data to field user_name from tbl_users where user_name is 'Harmoni'
 ```
 
-#### Multi Insert. multi_insert()
+### Multi Insert. multi_insert()
 To input multiple data into the database at once in one command.
 ```
 $arr = [
@@ -690,22 +690,22 @@ Database transactions ensure that a set of data changes will only be made perman
 
 NSY provides simple methods for beginning, committing, and rollbacking back transactions.
 
-Begin transaction :
+#### Begin transaction :
 ```
 $this->begin_trans();
 ```
 
-Commit transaction :
+#### Commit transaction :
 ```
 $this->end_trans();
 ```
 
-Rollback transaction :
+#### Rollback transaction :
 ```
 $this->null_trans();
 ```
 
-First example of transaction in `multi_insert()`.
+#### First example of transaction in `multi_insert()`.
 ```
 $arr = [
     [0] => [
@@ -723,7 +723,7 @@ $q = "INSERT INTO tbl_users (id, name, user_name)";
 $this->connect()->begin_trans()->query($q)->vars($arr)->multi_insert()->end_trans();
 ```
 
-Second example of transaction in `multi_insert()`.
+#### Second example of transaction in `multi_insert()`.
 ```
 $arr = [
     [0] => [
@@ -759,12 +759,12 @@ $this->emulate_prepares_false();
 ### Mysqlnd and buffered queries. Huge datasets.
 For more information about this, go to the following URL [Mysqlnd and buffered queries](https://phpdelusions.net/pdo#mysqlnd).
 
-set MYSQL_ATTR_USE_BUFFERED_QUERY to FALSE
+#### set MYSQL_ATTR_USE_BUFFERED_QUERY to FALSE
 ```
 $this->use_buffer_query_false();
 ```
 
-set MYSQL_ATTR_USE_BUFFERED_QUERY to TRUE
+#### set MYSQL_ATTR_USE_BUFFERED_QUERY to TRUE
 ```
 $this->use_buffer_query_true();
 ```
@@ -776,7 +776,7 @@ $this->stringify_fetches_true();
 ```
 <hr>
 
-### Go to [SYSGUIDE Part 2]((https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md))
+**Go to [SYSGUIDE Part 2]((https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md))**
 
 <hr>
 

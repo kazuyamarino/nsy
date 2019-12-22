@@ -160,18 +160,21 @@ And [Shyffon CRUD Example](https://github.com/kazuyamarino/shyffon-crud)
 
 
 ## NSY Feature :
-* MVC or HMVC
-* NSY Assets Manager
-* PSR-4 Autoloading
-* Composer
-* .env (Environment Variables) Config
-* Anti XSS & CSRF Token
-* NSY CLI (Command Line)
+* Primary and Secondary Database Connection, [See Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md#primary--secondary-database-connections)
+* Aurora File Export, [Aurora Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#routes)
+* NSY Routing System, [Routes Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#routes)
+* [MVC or HMVC](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#mvc--hmvc)
+* NSY Assets Manager, [See Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#introducting-to-nsy-assets-manager)
+* [PSR-4 Autoloading](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#psr-4-autoloading)
+* Composer, [Composer on NSY](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#composer-on-nsy-framework)
+* .env (Environment Variables) Config, [Framework Config](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#framework-configuration)
+* Anti XSS & CSRF Token, [Security helper](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md#security-helper)
+* NSY CLI (Command Line), [See Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#nsy-cli-command-line)
 * Carbon DateTime, [Carbon Documentation](https://carbon.nesbot.com/docs/)
 * FTP Client, See [php-ftp-client Documentation](https://github.com/Nicolab/php-ftp-client) **NEW!**
-* Cookie Library, [Cookie Lib Documentation](https://github.com/Josantonius/PHP-Cookie) **NEW!**
+* Cookie Library, [Cookie Library Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md#cookie-library) **NEW!**
 * Add several Codeigniter Helpers **NEW!**
-* Razr Template Engine, [Razr Engine Documentation](https://github.com/pagekit/razr) **NEW!**
+* Razr Template Engine, [Razr Engine Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md#razr---the-powerful-php-template-engine) **NEW!**
 
 
 ## User Guide.
