@@ -94,7 +94,7 @@ By default NSY support `phpdotenv` library, that can read `.env` file *(see `.en
 
 In system.js there is a `base_url` configuration for javascript *(see line 1 to 20)*. This `base_url` is used for the purpose of initializing the function of the <strong>Datatable Ajax URL</strong> in the `public/js/datatables/init.js`*
 
-(*) For Example see NSY Foundation repository [https://github.com/kazuyamarino/nsy-foundation](Here!)
+(*) For Example see Shyffon repository [https://github.com/kazuyamarino/shyffon](Here!)
 
 <hr>
 
@@ -269,6 +269,10 @@ NSY CLI installed successfully
 ```
 
 For example of commands see below.
+* Show list of Migration Class file :
+```
+show_migrations
+```
 * Show list of HMVC Modules directory :
 ```
 show_modules
@@ -320,6 +324,10 @@ controller mvc <controller-name>
 * Make MVC Model :
 ```
 model mvc <model-name>
+```
+* Make Migration Class :
+```
+migrate <class-name>
 ```
 
 <hr>

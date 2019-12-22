@@ -362,8 +362,10 @@ Variable explanation :
 
 Example :
 ```
+// header data array structure must be like this
 $header = [ 'Col1', 'Col2', 'Col3' ];
 
+// columns data array structure must be like this
 $data = Array
 (
     [0] => Array
@@ -440,7 +442,9 @@ You'd be amazed, in how many different formats this function can return data in 
 By default, this function will return just simple enumerated array consists of all the returned rows. Row formatting constants, such as `FETCH_NUM, FETCH_ASSOC, FETCH_COLUMN` etc can change the row format.
 ```
 $q = 'SELECT id, name, username FROM users';
-$this->connect()->query($q)->style(FETCH_ASSOC)->fetch_all();
+$d = $this->connect()->query($q)->style(FETCH_ASSOC)->fetch_all();
+
+print_r($d);
 
 // output
 Array
@@ -458,7 +462,9 @@ Array
 It is often very handy to get plain one-dimensional array right out of the query, if only one column out of many rows being fetched. Here you go:
 ```
 $q = 'SELECT name FROM users';
-$this->connect()->query($q)->style(FETCH_COLUMN)->fetch_all();
+$d = $this->connect()->query($q)->style(FETCH_COLUMN)->fetch_all();
+
+print_r($d);
 
 // output
 Array
@@ -471,7 +477,9 @@ Array
 Also extremely useful format, when we need to get the same column, but indexed not by numbers in order but by another field. Here goes `FETCH_KEY_PAIR` constant:
 ```
 $q = 'SELECT name FROM users';
-$this->connect()->query($q)->style(FETCH_KEY_PAIR)->fetch_all();
+$d = $this->connect()->query($q)->style(FETCH_KEY_PAIR)->fetch_all();
+
+print_r($d);
 
 // output
 Array
@@ -486,7 +494,9 @@ and many other modes in fetch_all.
 It fetches a single row from database, and moves the internal pointer in the result set, so consequent calls to this function will return all the resulting rows one by one.
 ```
 $q = 'SELECT id, name FROM users';
-$this->connect()->query($q)->style(FETCH_NUM)->fetch();
+$d = $this->connect()->query($q)->style(FETCH_NUM)->fetch();
+
+print_r($d);
 
 // output
 Array
@@ -505,7 +515,9 @@ BindValue with PARAM_INT (Defines variable type as integer/number) :
 $id = [ ':id' => [3, PAR_INT] ];
 
 $q = "SELECT id, name, user_name FROM tbl_users WHERE id = :id";
-$this->connect()->query($q)->vars($id)->bind(BINDVAL)->fetch();
+$d = $this->connect()->query($q)->vars($id)->bind(BINDVAL)->fetch();
+
+print_r($d);
 
 // output
 Array
@@ -524,7 +536,9 @@ BindParam with PARAM_STR (Defines the variable type as a text string) :
 $string = [ ':name' => ['%yuan%', PAR_STR] ];
 
 $q = "SELECT id, name, user_name FROM tbl_users WHERE name LIKE :name";
-$this->connect()->query($q)->vars($string)->bind(BINDPAR)->fetch();
+$d = $this->connect()->query($q)->vars($string)->bind(BINDPAR)->fetch();
+
+print_r($d);
 
 // output
 Array
@@ -548,7 +562,9 @@ A neat helper function that returns value of the single field of returned row. V
 $id = [ ':id' => 2 ];
 
 $q = "SELECT name FROM tbl_users WHERE id = :id";
-$this->connect()->query($q)->vars($id)->fetch_column();
+$d = $this->connect()->query($q)->vars($id)->fetch_column();
+
+return $d;
 
 // output
 Nayla Syifa
@@ -556,7 +572,9 @@ Nayla Syifa
 ```
 // getting number of rows in the table utilizing method chaining
 $q = "SELECT count(*) FROM tbl_users";
-$this->connect()->query($q)->fetch_column();
+$d = $this->connect()->query($q)->fetch_column();
+
+return $d;
 
 // output
 3 => number of row data
@@ -756,6 +774,10 @@ For more information about this, go to the following URL [Return type](https://p
 ```
 $this->stringify_fetches_true();
 ```
+<hr>
+
+### Go to [SYSGUIDE Part 2]((https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md))
+
 <hr>
 
 ## License

@@ -167,11 +167,11 @@ And [Shyffon CRUD Example](https://github.com/kazuyamarino/shyffon-crud)
 * .env (Environment Variables) Config
 * Anti XSS & CSRF Token
 * NSY CLI (Command Line)
-* Carbon DateTime, [Carbon](https://github.com/briannesbitt/Carbon)
-* FTP Client, See [php-ftp-client](https://github.com/Nicolab/php-ftp-client) **NEW!**
-* Cookie Library, [PHP library for handling cookies](https://github.com/Josantonius/PHP-Cookie) **NEW!**
+* Carbon DateTime, [Carbon Documentation](https://carbon.nesbot.com/docs/)
+* FTP Client, See [php-ftp-client Documentation](https://github.com/Nicolab/php-ftp-client) **NEW!**
+* Cookie Library, [Cookie Lib Documentation](https://github.com/Josantonius/PHP-Cookie) **NEW!**
 * Add several Codeigniter Helpers **NEW!**
-* Razr Template Engine, [Razr Engine](https://github.com/pagekit/razr) **NEW!**
+* Razr Template Engine, [Razr Engine Documentation](https://github.com/pagekit/razr) **NEW!**
 
 
 ## User Guide.
@@ -179,7 +179,8 @@ See [USERGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUID
 
 
 ## System Guide.
-See [SYSGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md).
+Part 1 of [SYSGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md).<br/>
+Part 2 of [SYSGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md).
 
 
 ## License
