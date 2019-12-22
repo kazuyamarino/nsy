@@ -332,7 +332,7 @@ Use the `@block` directive to define blocks inside a template. Other template fi
 
 <hr>
 
-## NSY FTP Client Library
+# NSY FTP Client Library
 
 NSY supports a flexible FTP and SSL-FTP client for PHP. This library provides helpers easy to use to manage the remote files. [nicolab/php-ftp-client](https://github.com/Nicolab/php-ftp-client).
 
@@ -345,7 +345,7 @@ $this->ftp = new \FtpClient\FtpClient();
 $this->ftp->connect('website.com');
 $this->ftp->login('admin@website.com', 'password');
 
-// Turns passive mode on or off
+// Turns passive mode on (true) or off (false)
 $this->ftp->pasv(true);
 ```
 
@@ -401,7 +401,7 @@ $this->ftp->scanDir('path/of/directory');
 
 #### Returns the total size of the given directory in bytes
 ```
-$this->ftp->dirSize(''path/of/directory'');
+$this->ftp->dirSize('path/of/directory');
 ```
 ### Count method
 * count in the current directory
