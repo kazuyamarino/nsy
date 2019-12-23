@@ -155,13 +155,13 @@ Site example :
 
 
 ## CRUD Example?
-Here it is [Vylma CRUD Example](https://github.com/kazuyamarino/vylma-crud)
-And [Shyffon CRUD Example](https://github.com/kazuyamarino/shyffon-crud)
+Here it is [Vylma CRUD Example](https://vylma.kazuyamarino.com/)
+And [Shyffon CRUD Example](https://shyffon.kazuyamarino.com/)
 
 
 ## NSY Feature :
 * Primary and Secondary Database Connection, [See Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md#primary--secondary-database-connections)
-* Aurora File Export, [Aurora Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#routes)
+* Aurora File Export, [Aurora Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md#aurora-file-export)
 * NSY Routing System, [Routes Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#routes)
 * [MVC or HMVC](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#mvc--hmvc)
 * NSY Assets Manager, [See Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#introducting-to-nsy-assets-manager)
