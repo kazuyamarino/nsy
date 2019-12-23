@@ -36,23 +36,15 @@ Example make a `homepage` folder in the HMVC module folder and dump it with comp
 		"Core\\": "system/core/",
 		"Models\\": "system/models/",
 		"Controllers\\": "system/controllers/",
-		"Modules\\Models\\": [
-			"system/modules/homepage/models/"
-		],
-		"Modules\\Controllers\\": [
-			"system/modules/homepage/controllers/"
-		]
+		"Modules\\Models\\Homepage\\": "system/modules/homepage/models/",
+		"Modules\\Controllers\\Homepage\\": "system/modules/homepage/controllers/"
 	},
 ```
 
 * There is an example folder named in the module folder that was created named `homepage`, along with the namespaces.
 ```
-"Modules\\Models\\": [
-	"system/modules/homepage/models/"
-],
-"Modules\\Controllers\\": [
-	"system/modules/homepage/controllers/"
-]
+"Modules\\Models\\Homepage\\": "system/modules/homepage/models/",
+"Modules\\Controllers\\Homepage\\": "system/modules/homepage/controllers/"
 ```
 The namespace is separated with `\\`, and then the path with `/`. There are 2 folders that will be autoloaded, first `system/modules/homepage/models/`, and second `system/modules/homepage/controllers/`.
 
