@@ -70,7 +70,15 @@ class NSY_Router {
 
         $found_route = false;
 
-        self::$routes = preg_replace('/\/+/', '/', self::$routes);
+		/*
+		Modified by Vikry Yuansah for Best NSY Routing System
+		 */
+		$arr_routes = array();
+		foreach (self::$routes as $key => $routes) {
+			$arr_routes[] = '/' . config_app('app_dir') . $routes;
+		}
+		self::$routes = $arr_routes;
+		self::$routes = preg_replace('/\/+/', '/', self::$routes);
 
         // Check if route is defined without regex
         if (in_array($uri, self::$routes)) {

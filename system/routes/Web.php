@@ -15,10 +15,10 @@ Class Web
 		// Route type : any, get, post, put, delete, options, & head
 
 		// MVC Route
-		route::any('nsy/', 'Controllers\Welcome@index');
+		route::any('', 'Controllers\Welcome@index');
 
 		// HMVC Route
-		route::any('nsy/hmvc', 'Modules\Controllers\Homepage\Hello@index_hmvc');
+		route::any('hmvc', 'Modules\Controllers\Homepage\Hello@index_hmvc');
 	}
 
 }
