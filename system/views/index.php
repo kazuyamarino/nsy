@@ -67,7 +67,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#helpers">NSY Helper</a><br />Creating custom methods with ease.</p>
 			</div>
 			<div>
-				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#helpers">Razr Template Engine</a><br />Razr - The powerful PHP template engine.</p>
+				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md#razr---the-powerful-php-template-engine">Razr Template Engine</a><br />Razr - The powerful PHP template engine.</p>
 			</div>
 			<div>
 				<p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md#nsy-migrations">Database Migrations</a><br />Simple database migration.</p>
