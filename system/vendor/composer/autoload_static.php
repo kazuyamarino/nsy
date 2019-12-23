@@ -37,8 +37,8 @@ class ComposerStaticInityour_suffixed
         ),
         'M' => 
         array (
-            'Modules\\Models\\Homepage\\' => 24,
-            'Modules\\Controllers\\Homepage\\' => 29,
+            'Modules\\Homepage\\Models\\' => 24,
+            'Modules\\Homepage\\Controllers\\' => 29,
             'Models\\' => 7,
             'Migrations\\' => 11,
         ),
@@ -107,11 +107,11 @@ class ComposerStaticInityour_suffixed
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
-        'Modules\\Models\\Homepage\\' => 
+        'Modules\\Homepage\\Models\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/system/modules/homepage/models',
         ),
-        'Modules\\Controllers\\Homepage\\' => 
+        'Modules\\Homepage\\Controllers\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/system/modules/homepage/controllers',
         ),
@@ -232,8 +232,8 @@ class ComposerStaticInityour_suffixed
         'Libraries\\Assets' => __DIR__ . '/../../..' . '/system/libraries/Assets.php',
         'Libraries\\Cookie' => __DIR__ . '/../../..' . '/system/libraries/Cookie.php',
         'Models\\Model_Welcome' => __DIR__ . '/../../..' . '/system/models/Model_Welcome.php',
-        'Modules\\Controllers\\Homepage\\Hello' => __DIR__ . '/../../..' . '/system/modules/homepage/controllers/Hello.php',
-        'Modules\\Models\\Homepage\\Model_Hello' => __DIR__ . '/../../..' . '/system/modules/homepage/models/Model_Hello.php',
+        'Modules\\Homepage\\Controllers\\Hello' => __DIR__ . '/../../..' . '/system/modules/homepage/controllers/Hello.php',
+        'Modules\\Homepage\\Models\\Model_Hello' => __DIR__ . '/../../..' . '/system/modules/homepage/models/Model_Hello.php',
         'PhpOption\\LazyOption' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/LazyOption.php',
         'PhpOption\\None' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/None.php',
         'PhpOption\\Option' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/Option.php',

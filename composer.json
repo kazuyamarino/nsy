@@ -28,8 +28,8 @@
             "Core\\": "system/core/",
             "Models\\": "system/models/",
             "Controllers\\": "system/controllers/",
-            "Modules\\Models\\Homepage\\": "system/modules/homepage/models/",
-			"Modules\\Controllers\\Homepage\\": "system/modules/homepage/controllers/"
+            "Modules\\Homepage\\Models\\": "system/modules/homepage/models/",
+			"Modules\\Homepage\\Controllers\\": "system/modules/homepage/controllers/"
         },
         "files": [
 			"system/helpers/NSY_Helpers.php",
