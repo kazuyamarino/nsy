@@ -17,6 +17,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 			@raw( img( IMG_DIR.'logo.png', 'width="100"' ) )
 		</a>
 		<h2>@( $my_name )</h2>
+		<p>NSY is a simple PHP Framework that works well on MVC or HMVC mode.</p>
 		<a target="_blank" href="https://github.com/kazuyamarino/nsy">View On Github</a>
 		<hr>
 	</header>
