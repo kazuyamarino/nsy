@@ -18,7 +18,7 @@ Class Web
 		route::any('nsy/', 'Controllers\Welcome@index');
 
 		// HMVC Route
-		route::any('nsy/hmvc', 'Modules\Controllers\Hello@index_hmvc');
+		route::any('nsy/hmvc', 'Modules\Controllers\Homepage\Hello@index_hmvc');
 	}
 
 }

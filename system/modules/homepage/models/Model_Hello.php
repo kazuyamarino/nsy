@@ -1,5 +1,5 @@
 <?php
-namespace Modules\Models;
+namespace Modules\Models\Homepage;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
