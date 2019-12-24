@@ -103,7 +103,7 @@ return [
     | set the default public directory
     |
     */
-	'public_dir' => 'public/',
+	'public_dir' => getenv('PUBLIC_DIR'),
 
 	/*
     |--------------------------------------------------------------------------
@@ -140,7 +140,7 @@ return [
     | Default Template Path
     |--------------------------------------------------------------------------
     |
-    | defines the template directory path
+    | define the template directory path
     |
     */
 	'tmp_dir' => __DIR__ . '/../templates',
@@ -150,7 +150,7 @@ return [
     | Default MVC View Path
     |--------------------------------------------------------------------------
     |
-    | defines the MVC View directory path
+    | define the MVC View directory path
     |
     */
 	'mvc_dir' => __DIR__ . '/../views',
@@ -160,7 +160,7 @@ return [
     | Default HMVC View Path
     |--------------------------------------------------------------------------
     |
-    | defines the HMVC View directory path
+    | define the HMVC View directory path
     |
     */
 	'hmvc_dir' => __DIR__ . '/../modules',
@@ -170,7 +170,7 @@ return [
     | Default Vendor Directory Path
     |--------------------------------------------------------------------------
     |
-    | defines the Vendor directory path
+    | define the Vendor directory path
     |
     */
 	'vendor_dir' => __DIR__ . '/../vendor',
@@ -180,7 +180,7 @@ return [
     | Default NSY_System Path
     |--------------------------------------------------------------------------
     |
-    | defines the NSY_System file path
+    | define the NSY_System file path
     |
     */
 	'nsy_sys_dir' => __DIR__ . '/../core/NSY_System.php',
@@ -190,7 +190,7 @@ return [
     | Default .env File Checking
     |--------------------------------------------------------------------------
     |
-    | defines the .env file path
+    | define the .env file path
     |
     */
 	'env_checking_dir' => __DIR__ . '/../../.env',
@@ -200,7 +200,7 @@ return [
     | Default .env File Path Location
     |--------------------------------------------------------------------------
     |
-    | defines the .env file path
+    | define the .env file path
     |
     */
 	'env_dir' => __DIR__ . '/../..'
