@@ -516,29 +516,29 @@ There are 2 methods in the file, namely `up()` and `down()` methods. If you want
 ```
 migup=class_name
 
-Example : localhost/nsy/migup=create_database_and_table_supplier
+Example : http://localhost/nsy/migup=create_database_and_table_supplier
 ```
 
 And for `down()`,
 ```
 migdown=class_name
 
-Example : localhost/nsy/migdown=drop_table_supplier
+Example : http://localhost/nsy/migdown=drop_table_supplier
 ```
 
 Well, in that method, you can fill it with some help methods that have been defined by NSY to support migration like the method below:
 
-### create database
+### Create database
 ```
 $this->connect()->create_db('example_db');
 ```
 
-### delete database
+### Delete database
 ```
 $this->connect()->drop_db('example_db');
 ```
 
-### create table with several columns (mysql/mariadb/mssql)
+### Create table with several columns (mysql/mariadb/mssql)
 ```
 $this->connect()->create_table('example', function() {
 	return $this->cols([
@@ -553,7 +553,7 @@ $this->connect()->create_table('example', function() {
 });
 ```
 
-### create table with primary key & unique key (mysql/mariadb/mssql)
+### Create table with primary key & unique key (mysql/mariadb/mssql)
 ```
 $this->connect()->create_table('example', function() {
 	return $this->cols([
@@ -572,7 +572,7 @@ $this->connect()->create_table('example', function() {
 });
 ```
 
-### create table with timestamps column e.g. create_date/update_date/additional_date (mysql/mariadb/mssql)
+### Create table with timestamps column e.g. create_date/update_date/additional_date (mysql/mariadb/mssql)
 ```
 $this->connect()->create_table('example', function() {
 	return $this->cols([
@@ -591,32 +591,32 @@ $this->connect()->create_table('example', function() {
 });
 ```
 
-### rename table (mysql/mariadb)
+### Rename table (mysql/mariadb)
 ```
 $this->connect()->rename_table('example', 'newExample');
 ```
 
-### rename table (postgre)
+### Rename table (postgre)
 ```
 $this->connect()->alter_rename_table('example', 'newExample');
 ```
 
-### rename table (mssql)
+### Rename table (mssql)
 ```
 $this->connect()->sp_rename_table('example', 'newExample');
 ```
 
-### delete table if exist (mysql/mariadb)
+### Delete table if exist (mysql/mariadb)
 ```
 $this->connect()->drop_exist_table('example');
 ```
 
-### delete table
+### Delete table
 ```
 $this->connect()->drop_table('example');
 ```
 
-### add columns (mysql/mariadb/postgre)
+### Add columns (mysql/mariadb/postgre)
 ```
 $this->connect()->add_cols('example', function() {
 	return $this->cols([
@@ -627,7 +627,7 @@ $this->connect()->add_cols('example', function() {
 });
 ```
 
-### add columns (mssql)
+### Add columns (mssql)
 ```
 $this->connect()->add('example', function() {
 	return $this->cols([
@@ -638,7 +638,7 @@ $this->connect()->add('example', function() {
 });
 ```
 
-### delete column (mysql/mariadb/postgre/mssql)
+### Delete column (mysql/mariadb/postgre/mssql)
 ```
 $this->connect()->drop_cols('example', function() {
 	return $this->cols([
@@ -648,7 +648,7 @@ $this->connect()->drop_cols('example', function() {
 });
 ```
 
-### rename columns (mysql/mariadb)
+### Rename columns (mysql/mariadb)
 ```
 $this->connect()->change_cols('example', function() {
 	return $this->cols([
@@ -659,7 +659,7 @@ $this->connect()->change_cols('example', function() {
 });
 ```
 
-### rename columns (postgre)
+### Rename columns (postgre)
 ```
 $this->connect()->rename_cols('example', function() {
 	return $this->cols([
@@ -670,7 +670,7 @@ $this->connect()->rename_cols('example', function() {
 });
 ```
 
-### rename columns (mssql)
+### Rename columns (mssql)
 ```
 $this->connect()->sp_rename_cols('example', function() {
 	return $this->cols([
@@ -681,7 +681,7 @@ $this->connect()->sp_rename_cols('example', function() {
 });
 ```
 
-### modify columns datatype (mysql/mariadb)
+### Modify columns datatype (mysql/mariadb)
 ```
 $this->connect()->modify_cols('example', function() {
 	return $this->cols([
@@ -692,7 +692,7 @@ $this->connect()->modify_cols('example', function() {
 });
 ```
 
-### modify columns primary and unique key (mysql/mariadb)
+### Modify columns primary and unique key (mysql/mariadb)
 ```
 $this->connect()->modify_cols('example', function() {
 	return $this->cols([
@@ -708,7 +708,7 @@ $this->connect()->modify_cols('example', function() {
 });
 ```
 
-### modify columns datatype (mssql/postgre)
+### Modify columns datatype (mssql/postgre)
 ```
 $this->connect()->alter_cols('example', function() {
 	return $this->cols([
@@ -719,7 +719,7 @@ $this->connect()->alter_cols('example', function() {
 });
 ```
 
-### modify columns primary and unique key (mssql/postgre)
+### Modify columns primary and unique key (mssql/postgre)
 ```
 $this->connect()->alter_cols('example', function() {
 	return $this->cols([
