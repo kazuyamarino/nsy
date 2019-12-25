@@ -78,7 +78,7 @@ The NSY_Framework Configuration is very simple. There are 3 config file in `syst
     │   └── site.php
 ```
 
-By default NSY support `phpdotenv` library, that can read `.env` file *(see `.env` file on root directory)*.
+By default NSY support `phpdotenv` library, that can read `env` file *(see `env` file on root directory)*.
 
 * system.js file
 

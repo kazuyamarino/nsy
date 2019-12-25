@@ -397,7 +397,7 @@ aurora('txt', 'nsy_aurora', 'pipe', $header, $data, 'single');
 ### Primary & Secondary Database Connections
 NSY has supported 2 database connections in one running application.
 
-You can see the .env in root. There seems to be a configuration like this :
+You can see the env in root. There seems to be a configuration like this :
 ```
 # Define Primary Connection
 DB_CONNECTION=
