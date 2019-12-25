@@ -11,7 +11,7 @@ Site example :
 * Simply rename the folder that has been downloaded to `nsy` & copy it to your `html` or `htdocs` folder or anythings folder.
 * For apache, please go to the `docs/apache` folder and read the Readme.txt.
 * For nginx, please go to the `docs/nginx` folder.
-* Go to the `docs/env` folder and copy the `env.example` to root folder, and rename it to `env`.
+* Go to the `docs/env.example` folder and copy the `env.example` to root folder, and rename it to `env`.
 * And save the date..
 
 
