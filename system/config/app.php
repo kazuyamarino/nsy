@@ -193,7 +193,7 @@ return [
     | define the .env file path
     |
     */
-	'env_checking_dir' => __DIR__ . '/../../.env',
+	'env_checking_dir' => __DIR__ . '/../../env',
 
 	/*
     |--------------------------------------------------------------------------

@@ -80,7 +80,7 @@ if ( !is_readable(config_app('nsy_sys_dir')) ) {
 /**
  * Load Environment Variables from .env file
  */
-$dotenv = Dotenv::create(config_app('env_dir'));
+$dotenv = Dotenv::create(config_app('env_dir'), 'env');
 $dotenv->load();
 
 /**
