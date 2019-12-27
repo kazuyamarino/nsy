@@ -7,7 +7,7 @@ Site example :
 [https://nsy.kazuyamarino.com/](https://nsy.kazuyamarino.com/)
 
 ## Codename
-Tifa is a musical instrument typical of Eastern Indonesia, especially Maluku and Papua. This instrument looks like a drum and is made of wood with a hole in the middle.
+Tifa is a musical instrument typical of Eastern Indonesia, especially Maluku and Papua. This instrument looks like a drum and is made of wood with a hole in the middle. *Wikipedia - https://id.wikipedia.org/wiki/Tifa*
 
 ## How to dating with NSY?
 * Simply rename the folder that has been downloaded to `nsy` & copy it to your `html` or `htdocs` folder or anythings folder.
