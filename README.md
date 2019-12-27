@@ -10,12 +10,18 @@ Site example :
 Tifa is a musical instrument typical of Eastern Indonesia, especially Maluku and Papua. This instrument looks like a drum and is made of wood with a hole in the middle. *Wikipedia - https://id.wikipedia.org/wiki/Tifa*
 
 ## How to dating with NSY?
-* Simply rename the folder that has been downloaded to `nsy` & copy it to your `html` or `htdocs` folder or anythings folder.
-* For apache, please go to the `docs/apache` folder and read the Readme.txt.
+### Download from Github
+* Download source from this link [https://github.com/kazuyamarino/nsy/releases](https://github.com/kazuyamarino/nsy/releases).
+* Simply rename the source folder that has been downloaded to `nsy` & copy it to your `html` or `htdocs` folder or anythings folder.
+* For apache, please go to the `docs/apache` folder and read the `Readme.txt`.
 * For nginx, please go to the `docs/nginx` folder.
 * Go to the `docs/env.example` folder and copy the `env.example` to root folder, and rename it to `env`.
 * And save the date..
 
+### From Composer
+```
+composer create-project vikry/nsy
+```
 
 ## CRUD Example?
 Here it is [Vylma CRUD Example](https://vylma.kazuyamarino.com/)

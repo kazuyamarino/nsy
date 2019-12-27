@@ -533,6 +533,11 @@ Well, in that method, you can fill it with some help methods that have been defi
 $this->connect()->create_db('example_db');
 ```
 
+### Use database
+```
+$this->connect()->use_db('example_db');
+```
+
 ### Delete database
 ```
 $this->connect()->drop_db('example_db');

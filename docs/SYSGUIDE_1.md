@@ -416,6 +416,16 @@ DB_USER_SEC=
 DB_PASS_SEC=
 ```
 
+Example for define Connection :
+```
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=dev_example
+DB_USER=root
+DB_PASS=password
+```
+
 For example, in the model you want to run an sql query on the first database connection :
 ```
 $q = 'SELECT * FROM blabla';
