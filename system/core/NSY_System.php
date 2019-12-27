@@ -63,6 +63,12 @@ class NSY_System {
 		// optional set a site email address
 		define('SITEEMAIL', config_site('siteemail'));
 
+		// optional set a version of the application
+		define('VERSION', config_site('version'));
+
+		// optional set a codename of the application
+		define('CODENAME', config_site('codename'));
+
 		// set timezone
 		date_default_timezone_set(config_app('timezone'));
 

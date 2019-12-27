@@ -39,7 +39,7 @@ Class Assets extends \Core\NSY_AssetManager
 	public static function header_assets()
 	{
 		// Site Title
-		add::custom('<title>' . SITETITLE . '</title>');
+		add::custom('<title>' . SITETITLE . ' ' . VERSION . ' | ' . CODENAME . '</title>');
 
 		// Meta Tag
 		add::meta('charset="utf-8"', null);
