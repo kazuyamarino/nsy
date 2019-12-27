@@ -6,6 +6,8 @@ NSY is a simple PHP Framework that works well on MVC or HMVC mode.
 Site example :
 [https://nsy.kazuyamarino.com/](https://nsy.kazuyamarino.com/)
 
+## Codename
+Tifa is a musical instrument typical of Eastern Indonesia, especially Maluku and Papua. This instrument looks like a drum and is made of wood with a hole in the middle.
 
 ## How to dating with NSY?
 * Simply rename the folder that has been downloaded to `nsy` & copy it to your `html` or `htdocs` folder or anythings folder.
@@ -44,7 +46,7 @@ See [USERGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUID
 
 
 ## System Guide.
-Part 1 of [SYSGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md).<br/>
+Part 1 of [SYSGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_1.md).<br/>
 Part 2 of [SYSGUIDE.md](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md).
 
 
