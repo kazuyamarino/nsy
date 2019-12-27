@@ -1,0 +1,1 @@
+# Migrations class folder
