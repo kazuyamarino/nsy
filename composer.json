@@ -1,11 +1,11 @@
 {
-    "name": "nsy/nsy",
+    "name": "vikry/nsy",
     "description": "NSY is a simple PHP Framework that works well on MVC or HMVC mode",
     "type": "project",
     "license": "MIT",
     "authors": [
         {
-            "name": "Vikry Ganteng",
+            "name": "Vikry Yuansah",
             "email": "admin@kazuyamarino.com"
         }
     ],
