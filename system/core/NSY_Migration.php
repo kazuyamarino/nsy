@@ -120,58 +120,6 @@ class NSY_Migration extends NSY_Desk {
 	}
 
 	/**
-	 * Function for use database
-	 *
-	 * @return void
-	 */
-	protected function use_db($db = null) {
-		if ( is_filled($db) )
-		{
-			$query = "USE $db;";
-			echo '<pre>'. $query . '</pre>';
-
-			// Check if there's connection defined on the models
-			if ( not_filled($this->connection) ) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				// execute it
-				$stmt = $this->connection->prepare($query);
-				$executed = $stmt->execute();
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
-				} else {
-					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						$this->error_handler($var_msg);
-						exit();
-					} elseif(config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						$this->error_handler($var_msg);
-						exit();
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></pre>';
-						exit();
-					}
-				}
-			}
-		} else
-		{
-			$var_msg = "Database name in the <mark>use_db(<strong>value</strong>)</mark> is empty or undefined";
-			$this->error_handler($var_msg);
-			exit();
-		}
-
-		// Close the statement & connection
-		$stmt = null;
-		$this->connection = null;
-	}
-
-	/**
 	 * Function for delete database
 	 *
 	 * @return void
