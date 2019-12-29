@@ -231,24 +231,211 @@ echo generate_num("VYLMA-", 4, 10);
 ```
 
 ### PHP SESSION
-#### Create session :
-```
-add_session(session_name, value);
 
-Example : add_session('my_name', 'vikry');
+Use this namespace in the controller :
+```
+use Libraries\Session;
 ```
 
-#### Show specific session :
-```
-show_session(session_name);
+Available methods in this library:
 
-Example : show_session('my_name');
-```
-#### Unset/destroy specific session :
-```
-unset_session(session_name);
+#### - Set prefix for sessions:
 
-Example : unset_session('my_name');
+```php
+Session::setPrefix($prefix);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $prefix | Prefix for sessions. | object | Yes | |
+
+**# Return** (boolean)
+
+#### - Get sessions prefix:
+
+```php
+Session::getPrefix();
+```
+
+**# Return** (string) → sessions prefix
+
+#### - Start session if session has not started:
+
+```php
+Session::init($lifeTime);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $lifeTime | Life time during session. | int | No | 0 |
+
+**# Return** (boolean)
+
+#### - Add value to a session:
+
+```php
+Session::set($key, $value);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $key | Session name. | string | Yes | |
+| $value | The data to save. | mixed | No | false |
+
+**# Return** (boolean true)
+
+#### - Extract session item, delete session item and finally return the item:
+
+```php
+Session::pull($key);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $key | Item to extract. | string | Yes | |
+
+**# Return** (mixed|null) → return item or null when key does not exists
+
+#### - Get item from session:
+
+```php
+Session::get($key, $secondkey);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $key | Item to look for in session. | string | No | '' |
+| $secondkey | If used then use as a second key. | string|boolean | No | false |
+
+**# Return** (mixed|null) → return item or null when key does not exists
+
+#### - Get session id:
+
+```php
+Session::id();
+```
+
+**# Return** (string) → the session id or empty
+
+#### - Regenerate session_id:
+
+```php
+Session::regenerate();
+```
+
+**# Return** (string) → the new session id
+
+#### - Empties and destroys the session:
+
+```php
+Session::destroy($key, $prefix);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $key | Session ID to destroy. | string | No | '' |
+| $prefix | If true clear all sessions for current prefix. | boolean | No | false |
+
+**# Return** (boolean)
+
+### Usage
+
+Example of use for this library:
+
+#### - Set prefix for sessions:
+
+```php
+Session::setPrefix('_prefix');
+```
+
+#### - Get sessions prefix:
+
+```php
+Session::getPrefix();
+```
+
+#### - Start session:
+
+```php
+Session::init();
+```
+
+#### - Start session by setting the session duration:
+
+```php
+Session::init(3600);
+```
+
+#### - Add value to a session:
+
+```php
+Session::set('name', 'Joseph');
+```
+
+#### - Add multiple value to sessions:
+
+```php
+$data = [
+    'name'     => 'Joseph',
+    'age'      => '28',
+    'business' => ['name' => 'Company'],
+];
+
+Session::set($data);
+```
+
+#### - Extract session item, delete session item and finally return the item:
+
+```php
+Session::pull('age');
+```
+
+#### - Get item from session:
+
+```php
+Session::get('name');
+```
+
+#### - Get item from session entering two indexes:
+
+```php
+Session::get('business', 'name');
+```
+
+#### - Return the session array:
+
+```php
+Session::get();
+```
+
+#### - Get session id:
+
+```php
+Session::id();
+```
+
+#### - Regenerate session_id:
+
+```php
+Session::regenerate();
+```
+
+#### - Destroys one key session:
+
+```php
+Session::destroy('name');
+```
+
+#### - Destroys sessions by prefix:
+
+```php
+Session::destroy('ses_', true);
+```
+
+#### - Destroys all sessions:
+
+```php
+Session::destroy();
 ```
 
 ### Simple Ternary

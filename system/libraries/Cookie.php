@@ -1,8 +1,4 @@
 <?php
-namespace Libraries;
-
-defined('ROOT') OR exit('No direct script access allowed');
-
 /**
  * Attention, don't try to change the structure of the code, delete, or change.
  * Because there is some code connected to the NSY system. So, be careful.
@@ -15,6 +11,9 @@ defined('ROOT') OR exit('No direct script access allowed');
  * @link      https://github.com/Josantonius/PHP-Cookie
  * @since     1.0.0
  */
+namespace Libraries;
+
+defined('ROOT') OR exit('No direct script access allowed');
 
 /**
  * Cookie handler.

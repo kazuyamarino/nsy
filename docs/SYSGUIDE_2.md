@@ -7,6 +7,12 @@ Site example :
 <hr>
 
 # Cookie Library
+
+Use this namespace in the controller :
+```
+use Libraries\Cookie;
+```
+
 PHP library for handling cookies, NSY has supported the use of Cookie library class in the controller (mvc or hmvc).<br/>
 Available methods in this library:
 
@@ -733,6 +739,55 @@ $this->connect()->alter_cols('example', function() {
 		])
 	]);
 });
+```
+
+# IP Library
+
+Use this namespace in the controller :
+```
+use Libraries\Ip;
+```
+
+## Available Methods
+
+Available methods in this library:
+
+### - Get user's IP:
+
+```php
+Ip::get();
+```
+
+**# Return** (string|false) → user IP or false
+
+### - Validate IP:
+
+```php
+Ip::validate($ip);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $ip | IP address to be validated. | string | Yes | |
+
+**# Return** (boolean)
+
+## Usage
+
+Example of use for this library:
+
+### - Get user's IP:
+
+```php
+Ip::get();
+```
+
+### - Validate IP:
+
+```php
+$ip = Ip::get();
+
+Ip::validate($ip);
 ```
 
 <hr>

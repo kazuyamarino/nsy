@@ -274,39 +274,6 @@ if (! function_exists('remove_get_parameters')) {
 
 // ------------------------------------------------------------------------
 
-/**
- * The PHP $_SESSION are used to create, show, unset session.
- */
-if (! function_exists('add_session')) {
-    function add_session($index = null, $value = null)
-    {
-        $_SESSION[$index] = $value;
-
-        return $_SESSION[$index];
-    }
-}
-
-if (! function_exists('show_session')) {
-    function show_session($index = null)
-    {
-        if(isset($_SESSION[$index])) {
-            return $_SESSION[$index];
-        } else {
-            return null;
-            exit();
-        }
-    }
-}
-
-if (! function_exists('unset_session')) {
-    function unset_session($index = null)
-    {
-        unset($_SESSION[$index]);
-    }
-}
-
-// ------------------------------------------------------------------------
-
 if (! function_exists('ternary')) {
     /**
      * PHP Shorthand If/Else Using Ternary Operators

@@ -3,6 +3,7 @@ namespace Core;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
+use Libraries\Session;
 /**
  * This is the core of NSY System Settings
  * Attention, don't try to change the structure of the code, delete, or change.
@@ -42,7 +43,7 @@ class NSY_System
         define('LANGUAGE_CODE', config_app('locale'));
 
         // set a default prefix OG
-        define('PREFIX', config_app('prefix_attr'));
+        define('OG_PREFIX', config_app('prefix_attr'));
 
         // set prefix for sessions
         define('SESSION_PREFIX', config_app('session_prefix'));
@@ -75,7 +76,7 @@ class NSY_System
         class_alias('Libraries\Assets', 'pull');
 
         // start session
-        session_start();
+        Session::init();
     }
 
 }
