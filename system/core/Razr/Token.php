@@ -82,7 +82,7 @@ class Token
     /**
      * Returns the token name.
      *
-     * @param  int    $type
+     * @param  int $type
      * @return string
      */
     public static function getName($type)

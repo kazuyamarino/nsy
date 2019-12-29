@@ -6,7 +6,7 @@ defined('ROOT') OR exit('No direct script access allowed');
  */
 return [
 
-	/*
+    /*
     *---------------------------------------------------------------
     * APPLICATION ENVIRONMENT
     *---------------------------------------------------------------
@@ -23,9 +23,9 @@ return [
     * NOTE: If you change these, also change the error_reporting() code below
     *
     */
-	'app_env' => getenv('APP_ENV'),
+    'app_env' => getenv('APP_ENV'),
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default Application Directory Name
     |--------------------------------------------------------------------------
@@ -33,9 +33,9 @@ return [
     | set the default application or project directory
     |
     */
-	'app_dir' => getenv('APP_DIR'),
+    'app_dir' => getenv('APP_DIR'),
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default CSRF Token Protection
     |--------------------------------------------------------------------------
@@ -43,9 +43,9 @@ return [
     | set the default 'true' or 'false'
     |
     */
-	'csrf_token' => 'false',
+    'csrf_token' => 'false',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default Database Transaction Mode Setting
     |--------------------------------------------------------------------------
@@ -53,9 +53,9 @@ return [
     | set the default 'on' or 'off'
     |
     */
-	'transaction' => 'off',
+    'transaction' => 'off',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default SESSION_PREFIX
     |--------------------------------------------------------------------------
@@ -63,9 +63,9 @@ return [
     | set the default prefix for session
     |
     */
-	'session_prefix' => getenv('SESSION_PREFIX'),
+    'session_prefix' => getenv('SESSION_PREFIX'),
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default Set Timezone
     |--------------------------------------------------------------------------
@@ -73,9 +73,9 @@ return [
     | set the default timezone location
     |
     */
-	'timezone' => 'Asia/Jakarta',
+    'timezone' => 'Asia/Jakarta',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default Locale
     |--------------------------------------------------------------------------
@@ -83,9 +83,9 @@ return [
     | set the default locale
     |
     */
-	'locale' => 'id-ID',
+    'locale' => 'id-ID',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default Prefix Attribute
     |--------------------------------------------------------------------------
@@ -93,9 +93,9 @@ return [
     | set the default namespace prefix for Open Graph protocol
     |
     */
-	'prefix_attr' => 'og: http://ogp.me/ns#',
+    'prefix_attr' => 'og: http://ogp.me/ns#',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default Public Directory Name
     |--------------------------------------------------------------------------
@@ -103,9 +103,9 @@ return [
     | set the default public directory
     |
     */
-	'public_dir' => getenv('PUBLIC_DIR'),
+    'public_dir' => getenv('PUBLIC_DIR'),
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default CSS Directory Name
     |--------------------------------------------------------------------------
@@ -113,9 +113,9 @@ return [
     | set the default css directory
     |
     */
-	'css_dir' => 'css',
+    'css_dir' => 'css',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default Javascript Directory Name
     |--------------------------------------------------------------------------
@@ -123,9 +123,9 @@ return [
     | set the default javascript directory
     |
     */
-	'js_dir' => 'js',
+    'js_dir' => 'js',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default Image Directory Name
     |--------------------------------------------------------------------------
@@ -133,9 +133,9 @@ return [
     | set the default image directory
     |
     */
-	'img_dir' => 'img',
+    'img_dir' => 'img',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default Template Path
     |--------------------------------------------------------------------------
@@ -143,9 +143,9 @@ return [
     | define the template directory path
     |
     */
-	'tmp_dir' => __DIR__ . '/../templates',
+    'tmp_dir' => __DIR__ . '/../templates',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default MVC View Path
     |--------------------------------------------------------------------------
@@ -153,9 +153,9 @@ return [
     | define the MVC View directory path
     |
     */
-	'mvc_dir' => __DIR__ . '/../views',
+    'mvc_dir' => __DIR__ . '/../views',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default HMVC View Path
     |--------------------------------------------------------------------------
@@ -163,9 +163,9 @@ return [
     | define the HMVC View directory path
     |
     */
-	'hmvc_dir' => __DIR__ . '/../modules',
+    'hmvc_dir' => __DIR__ . '/../modules',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default Vendor Directory Path
     |--------------------------------------------------------------------------
@@ -173,9 +173,9 @@ return [
     | define the Vendor directory path
     |
     */
-	'vendor_dir' => __DIR__ . '/../vendor',
+    'vendor_dir' => __DIR__ . '/../vendor',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default NSY_System Path
     |--------------------------------------------------------------------------
@@ -183,9 +183,9 @@ return [
     | define the NSY_System file path
     |
     */
-	'nsy_sys_dir' => __DIR__ . '/../core/NSY_System.php',
+    'nsy_sys_dir' => __DIR__ . '/../core/NSY_System.php',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default Environment Variable File name
     |--------------------------------------------------------------------------
@@ -193,9 +193,9 @@ return [
     | set the default env file name
     |
     */
-	'env_file' => 'env',
+    'env_file' => 'env',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default .env File Checking
     |--------------------------------------------------------------------------
@@ -203,9 +203,9 @@ return [
     | define the .env file path
     |
     */
-	'env_checking_dir' => __DIR__ . '/../../env',
+    'env_checking_dir' => __DIR__ . '/../../env',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default .env File Path Location
     |--------------------------------------------------------------------------
@@ -213,6 +213,6 @@ return [
     | define the .env file path
     |
     */
-	'env_dir' => __DIR__ . '/../..'
+    'env_dir' => __DIR__ . '/../..'
 
 ];

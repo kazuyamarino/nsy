@@ -38,7 +38,8 @@ class ChainLoader implements LoaderInterface
         foreach ($this->loaders as $loader) {
             try {
                 return $loader->getSource($name);
-            } catch (RuntimeException $e) {}
+            } catch (RuntimeException $e) {
+            }
         }
 
         throw new RuntimeException(sprintf('Template "%s" is not defined (%s).', $name));
@@ -52,7 +53,8 @@ class ChainLoader implements LoaderInterface
         foreach ($this->loaders as $loader) {
             try {
                 return $loader->getCacheKey($name);
-            } catch (RuntimeException $e) {}
+            } catch (RuntimeException $e) {
+            }
         }
 
         throw new RuntimeException(sprintf('Template "%s" is not defined (%s).', $name));
@@ -66,7 +68,8 @@ class ChainLoader implements LoaderInterface
         foreach ($this->loaders as $loader) {
             try {
                 return $loader->isFresh($name, $time);
-            } catch (RuntimeException $e) {}
+            } catch (RuntimeException $e) {
+            }
         }
 
         return false;

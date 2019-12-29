@@ -4,16 +4,17 @@ namespace Core;
 defined('ROOT') OR exit('No direct script access allowed');
 
 /**
-* @method static Macaw get(string $route, Callable $callback)
-* @method static Macaw post(string $route, Callable $callback)
-* @method static Macaw put(string $route, Callable $callback)
-* @method static Macaw delete(string $route, Callable $callback)
-* @method static Macaw options(string $route, Callable $callback)
-* @method static Macaw head(string $route, Callable $callback)
-* NoahBuscher/Macaw https://github.com/noahbuscher/macaw/blob/master/Macaw.php
-* Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
-*/
-class NSY_Router {
+ * @method static Macaw get(string $route, Callable $callback)
+ * @method static Macaw post(string $route, Callable $callback)
+ * @method static Macaw put(string $route, Callable $callback)
+ * @method static Macaw delete(string $route, Callable $callback)
+ * @method static Macaw options(string $route, Callable $callback)
+ * @method static Macaw head(string $route, Callable $callback)
+ * NoahBuscher/Macaw https://github.com/noahbuscher/macaw/blob/master/Macaw.php
+ * Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
+ */
+class NSY_Router
+{
     public static $halts = false;
     public static $routes = array();
     public static $methods = array();
@@ -27,9 +28,10 @@ class NSY_Router {
     public static $error_callback;
 
     /**
-    * Defines a route w/ callback and method
-    */
-    public static function __callstatic($method, $params) {
+     * Defines a route w/ callback and method
+     */
+    public static function __callstatic($method, $params)
+    {
 
         if ($method == 'map') {
             $maps = array_map('strtoupper', $params[0]);
@@ -48,20 +50,23 @@ class NSY_Router {
     }
 
     /**
-    * Defines callback if route is not found
-    */
-    public static function error($callback) {
+     * Defines callback if route is not found
+     */
+    public static function error($callback)
+    {
         self::$error_callback = $callback;
     }
 
-    public static function haltOnMatch($flag = true) {
+    public static function haltOnMatch($flag = true)
+    {
         self::$halts = $flag;
     }
 
     /**
-    * Runs the callback for the given request
-    */
-    public static function dispatch(){
+     * Runs the callback for the given request
+     */
+    public static function dispatch()
+    {
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $method = $_SERVER['REQUEST_METHOD'];
 
@@ -70,15 +75,15 @@ class NSY_Router {
 
         $found_route = false;
 
-		/*
-		Modified by Vikry Yuansah for Best NSY Routing System
-		 */
-		$arr_routes = array();
-		foreach (self::$routes as $key => $routes) {
-			$arr_routes[] = '/' . config_app('app_dir') . $routes;
-		}
-		self::$routes = $arr_routes;
-		self::$routes = preg_replace('/\/+/', '/', self::$routes);
+        /*
+        Modified by Vikry Yuansah for Best NSY Routing System
+        */
+        $arr_routes = array();
+        foreach (self::$routes as $key => $routes) {
+            $arr_routes[] = '/' . config_app('app_dir') . $routes;
+        }
+        self::$routes = $arr_routes;
+        self::$routes = preg_replace('/\/+/', '/', self::$routes);
 
         // Check if route is defined without regex
         if (in_array($uri, self::$routes)) {
@@ -93,13 +98,13 @@ class NSY_Router {
                     if (!is_object(self::$callbacks[$route])) {
 
                         // Grab all parts based on a / separator
-                        $parts = explode('/',self::$callbacks[$route]);
+                        $parts = explode('/', self::$callbacks[$route]);
 
                         // Collect the last index of the array
                         $last = end($parts);
 
                         // Grab the controller name and method call
-                        $segments = explode('@',$last);
+                        $segments = explode('@', $last);
 
                         // Instanitate controller
                         $controller = new $segments[0]();
@@ -107,12 +112,14 @@ class NSY_Router {
                         // Call method
                         $controller->{$segments[1]}();
 
-                        if (self::$halts) return;
+                        if (self::$halts) { return;
+                        }
                     } else {
                         // Call closure
                         call_user_func(self::$callbacks[$route]);
 
-                        if (self::$halts) return;
+                        if (self::$halts) { return;
+                        }
                     }
                 }
             }
@@ -134,13 +141,13 @@ class NSY_Router {
                         if (!is_object(self::$callbacks[$pos])) {
 
                             // Grab all parts based on a / separator
-                            $parts = explode('/',self::$callbacks[$pos]);
+                            $parts = explode('/', self::$callbacks[$pos]);
 
                             // Collect the last index of the array
                             $last = end($parts);
 
                             // Grab the controller name and method call
-                            $segments = explode('@',$last);
+                            $segments = explode('@', $last);
 
                             // Instanitate controller
                             $controller = new $segments[0]();
@@ -152,11 +159,13 @@ class NSY_Router {
                                 call_user_func_array(array($controller, $segments[1]), $matched);
                             }
 
-                            if (self::$halts) return;
+                            if (self::$halts) { return;
+                            }
                         } else {
                             call_user_func_array(self::$callbacks[$pos], $matched);
 
-                            if (self::$halts) return;
+                            if (self::$halts) { return;
+                            }
                         }
                     }
                 }
@@ -167,7 +176,7 @@ class NSY_Router {
         // Run the error callback if the route was not found
         if ($found_route == false) {
             if (!self::$error_callback) {
-                self::$error_callback = function() {
+                self::$error_callback = function () {
                     header($_SERVER['SERVER_PROTOCOL']." 404 Not Found");
                     header('location: ../../404.html');
                 };

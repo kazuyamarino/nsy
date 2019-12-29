@@ -4,7 +4,8 @@ namespace Libraries;
 defined('ROOT') OR exit('No direct script access allowed');
 
 /**
- * Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
+ * Attention, don't try to change the structure of the code, delete, or change.
+ * Because there is some code connected to the NSY system. So, be careful.
  *
  * Hi Welcome to NSY Asset Manager.
  * The easiest & best asset manager in history
@@ -36,33 +37,33 @@ use Core\NSY_AssetManager as add;
 Class Assets extends \Core\NSY_AssetManager
 {
 
-	public static function header_assets()
-	{
-		// Site Title
-		add::custom('<title>' . SITETITLE . ' ' . VERSION . ' | ' . CODENAME . '</title>');
+    public static function header_assets()
+    {
+        // Site Title
+        add::custom('<title>' . SITETITLE . ' ' . VERSION . ' | ' . CODENAME . '</title>');
 
-		// Meta Tag
-		add::meta('charset="utf-8"', null);
-		add::meta('http-equiv="x-ua-compatible"', 'ie=edge');
-		add::meta('name="description"', SITEDESCRIPTION);
-		add::meta('name="keywords"', SITEKEYWORDS);
-		add::meta('name="author"', SITEAUTHOR);
-		add::meta('name="viewport"', 'width=device-width, initial-scale=1, shrink-to-fit=no');
+        // Meta Tag
+        add::meta('charset="utf-8"', null);
+        add::meta('http-equiv="x-ua-compatible"', 'ie=edge');
+        add::meta('name="description"', SITEDESCRIPTION);
+        add::meta('name="keywords"', SITEKEYWORDS);
+        add::meta('name="author"', SITEAUTHOR);
+        add::meta('name="viewport"', 'width=device-width, initial-scale=1, shrink-to-fit=no');
 
-		// Favicon
-		add::link('favicon.png', 'shortcut icon', null);
+        // Favicon
+        add::link('favicon.png', 'shortcut icon', null);
 
-		// Main Style
-		add::link('main.css', 'stylesheet', 'text/css');
-	}
+        // Main Style
+        add::link('main.css', 'stylesheet', 'text/css');
+    }
 
-	public static function footer_assets()
-	{
-		// System JS
-		add::script('config/system.js', 'text/javascript', 'UTF-8', null);
+    public static function footer_assets()
+    {
+        // System JS
+        add::script('config/system.js', 'text/javascript', 'UTF-8', null);
 
-		// Main JS
-		add::script('main.js', 'text/javascript', 'UTF-8', null);
-	}
+        // Main JS
+        add::script('main.js', 'text/javascript', 'UTF-8', null);
+    }
 
 }

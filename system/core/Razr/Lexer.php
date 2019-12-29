@@ -69,17 +69,17 @@ class Lexer
 
         while ($this->cursor < $this->end) {
             switch ($this->state) {
-                case self::STATE_DATA:
-                    $this->lexData();
-                    break;
+            case self::STATE_DATA:
+                $this->lexData();
+                break;
 
-                case self::STATE_OUTPUT:
-                    $this->lexOutput();
-                    break;
+            case self::STATE_OUTPUT:
+                $this->lexOutput();
+                break;
 
-                case self::STATE_DIRECTIVE:
-                    $this->lexDirective();
-                    break;
+            case self::STATE_DIRECTIVE:
+                $this->lexDirective();
+                break;
             }
         }
 
