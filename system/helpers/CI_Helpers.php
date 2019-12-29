@@ -6,7 +6,8 @@ defined('ROOT') OR exit('No direct script access allowed');
  *
  * A several CI helpers of NSY PHP Framework from Codeigniter
  *
- * Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
+ * Attention, don't try to change the structure of the code, delete, or change.
+ * Because there is some code connected to the NSY system. So, be careful.
  *
  * @package	NSY PHP Framework
  * @author	EllisLab Dev Team
