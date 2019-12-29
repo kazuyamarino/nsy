@@ -9,8 +9,8 @@ class ComposerStaticInityour_suffixed
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        'f3001b2d3b447163dc3f7cf0b0806362' => __DIR__ . '/../../..' . '/system/helpers/NSY_Helpers.php',
-        '902c05a8f63df8bfe9d1ccfdea0f6e4e' => __DIR__ . '/../../..' . '/system/helpers/CI_Helpers.php',
+        '9beeb7b9b632485bf1f3218d0987d2de' => __DIR__ . '/../../..' . '/system/helpers/Helpers.php',
+        '9ac2559de43d0c35d23814e693a424d2' => __DIR__ . '/../../..' . '/system/helpers/Helpers_CI.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -231,6 +231,8 @@ class ComposerStaticInityour_suffixed
         'FtpClient\\FtpWrapper' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpWrapper.php',
         'Libraries\\Assets' => __DIR__ . '/../../..' . '/system/libraries/Assets.php',
         'Libraries\\Cookie' => __DIR__ . '/../../..' . '/system/libraries/Cookie.php',
+        'Libraries\\Curl' => __DIR__ . '/../../..' . '/system/libraries/Curl.php',
+        'Libraries\\File' => __DIR__ . '/../../..' . '/system/libraries/File.php',
         'Libraries\\Ip' => __DIR__ . '/../../..' . '/system/libraries/Ip.php',
         'Libraries\\Session' => __DIR__ . '/../../..' . '/system/libraries/Session.php',
         'Models\\Model_Welcome' => __DIR__ . '/../../..' . '/system/models/Model_Welcome.php',

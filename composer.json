@@ -32,8 +32,8 @@
 			"Modules\\Homepage\\Controllers\\": "system/modules/homepage/controllers/"
         },
         "files": [
-			"system/helpers/NSY_Helpers.php",
-			"system/helpers/CI_Helpers.php"
+			"system/helpers/Helpers.php",
+			"system/helpers/Helpers_CI.php"
 		]
     },
     "config": {

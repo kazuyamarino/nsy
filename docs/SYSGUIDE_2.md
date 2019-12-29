@@ -790,6 +790,340 @@ $ip = Ip::get();
 Ip::validate($ip);
 ```
 
+# File Library
+
+Use this namespace in the controller :
+```
+use Libraries\File;
+```
+
+## Available Methods
+
+Available methods in this library:
+
+### - Check if a file exists in a path or url:
+
+```php
+File::exists($file);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $file | Path or file url. | string | Yes | |
+
+**# Return** (boolean)
+
+### - Delete file if exists:
+
+```php
+File::delete($file);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $file | File path. | string | Yes | |
+
+**# Return** (boolean)
+
+### - Create directory if not exists:
+
+```php
+File::createDir($path);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $path | Path where to create directory. | string | Yes | |
+
+**# Return** (boolean)
+
+### - Copy directory recursively:
+
+```php
+File::copyDirRecursively($from, $to);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $from| Path from copy. | string | Yes | |
+| $to| Path to copy. | string | Yes | |
+
+**# Return** (boolean)
+
+### - Delete empty directory:
+
+```php
+File::deleteEmptyDir($path);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $path | Path to delete. | string | Yes | |
+
+**# Return** (boolean)
+
+### - Delete directory recursively:
+
+```php
+File::deleteDirRecursively($path);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $path | Path to delete. | string | Yes | |
+
+**# Return** (boolean)
+
+### - Get files from directory:
+
+```php
+File::getFilesFromDir($path);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $path | Path where get file paths. | string | Yes | |
+
+**# Return** (boolean)
+
+## Usage
+
+Example of use for this library:
+
+### - Check if a local file exists:
+
+```php
+<?php
+File::exists('path/to/file.php');
+```
+
+### - Check if a external file exists:
+
+```php
+<?php
+File::exists('https://raw.githubusercontent.com/Josantonius/PHP-File/master/composer.json');
+```
+
+### - Delete a local file:
+
+```php
+<?php
+File::delete(__DIR__ . '/test.txt');
+```
+
+### - Create directory:
+
+```php
+<?php
+File::createDir(__DIR__ . '/test/');
+```
+
+### - Delete empty directory:
+
+```php
+<?php
+File::deleteEmptyDir(__DIR__ . '/test/');
+```
+
+### - Delete directory recursively:
+
+```php
+<?php
+File::deleteDirRecursively(__DIR__ . '/test/');
+```
+
+### - Copy directory recursively:
+
+```php
+<?php
+File::copyDirRecursively(__DIR__ . '/test/', __DIR__ . '/copy/');
+```
+
+### - Get file paths from directory:
+
+```php
+<?php
+get_class(File::getFilesFromDir(__DIR__));
+```
+
+# Curl Library
+
+Use this namespace in the controller :
+```
+use Libraries\Curl;
+```
+
+## Available Methods
+
+Available methods in this library:
+
+### - Make request and get response website:
+
+```php
+Curl::request($url, $params, $result);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $url | Url when get content. | string | Yes | |
+
+| Attribute | Key | Description | Type | Required | Default
+| --- | --- | --- | --- | --- | --- |
+| $params | | Parameters. | array | No | array() |
+| | 'referer' | The referrer URL. | string | No | |
+| | 'timeout' | Timeout. | int | No | |
+| | 'agent' | Useragent. | string | No | |
+| | 'headers' | HTTP headers. | array | No | |
+| | 'data' | Parameters to send. | array | No | |
+| | 'type' | Type of request. | string | No | |
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $result | Returns result as array or object. | string | No | 'array' |
+
+**# Return** (array|object) → response
+
+## Usage
+
+Example of use for this library:
+
+### - Send GET request and obtain response as array:
+
+```php
+Curl::request('https://graph.facebook.com/zuck');
+```
+
+### - Send GET request and obtain response as object:
+
+```php
+Curl::request('https://graph.facebook.com/zuck', false, 'object');
+```
+
+### - Send GET request with params and obtain response as array:
+
+```php
+$data = [
+    'timeout' => 10,
+    'referer' => 'http://site.com',
+];
+
+Curl::request('https://graph.facebook.com/zuck', $data);
+```
+
+### - Send GET request with params and obtain response as object:
+
+```php
+$data = [
+    'timeout' => 10,
+    'referer' => 'http://site.com',
+];
+
+Curl::request('https://graph.facebook.com/zuck', $data, 'object');
+```
+
+### - Send POST request and obtain response as array:
+
+```php
+$data = [
+    'type'    => 'post',
+    'data'    => array('user' => '123456', 'password' => 'xxxxx'),
+    'timeout' => 10,
+    'referer' => 'http://' . $_SERVER['HTTP_HOST'],
+    'headers' => [
+        'Content-Type:application/json',
+        'Authorization:0kdm3hzmb4h3cf',
+    ],
+];
+
+Curl::request('https://graph.facebook.com/zuck', $data);
+```
+
+### - Send POST request and obtain response as object:
+
+```php
+$data = [
+    'type'    => 'post',
+    'data'    => array('user' => '123456', 'password' => 'xxxxx'),
+    'timeout' => 10,
+    'referer' => 'http://' . $_SERVER['HTTP_HOST'],
+    'headers' => [
+        'Content-Type:application/json',
+        'Authorization:0kdm3hzmb4h3cf',
+    ],
+];
+
+Curl::request('https://graph.facebook.com/zuck', $data, 'object');
+```
+
+### - Send PUT request and obtain response as array:
+
+```php
+$data = [
+    'type'    => 'put',
+    'data'    => array('email' => 'new@email.com'),
+    'timeout' => 30,
+    'referer' => 'http://' . $_SERVER['HTTP_HOST'],
+    'headers' => [
+        'Content-Type:application/json',
+        'Authorization:0kdm3hzmb4h3cf',
+    ],
+];
+
+Curl::request('https://graph.facebook.com/zuck', $data);
+```
+
+### - Send PUT request and obtain response as object:
+
+```php
+$data = [
+    'type'    => 'put',
+    'data'    => array('email' => 'new@email.com'),
+    'timeout' => 30,
+    'referer' => 'http://' . $_SERVER['HTTP_HOST'],
+    'headers' => [
+        'Content-Type:application/json',
+        'Authorization:0kdm3hzmb4h3cf',
+    ],
+];
+
+Curl::request('https://graph.facebook.com/zuck', $data, 'object');
+```
+
+### - Send DELETE request and obtain response as array:
+
+```php
+$data = [
+
+    'type'    => 'delete',
+    'data'    => ['userId' => 10],
+    'timeout' => 30,
+    'referer' => 'http://' . $_SERVER['HTTP_HOST'],
+    'headers' => [
+        'Content-Type:application/json',
+        'Authorization:0kdm3hzmb4h3cf',
+    ],
+];
+
+Curl::request('https://graph.facebook.com/zuck', $data);
+```
+
+### - Send DELETE request and obtain response as object:
+
+```php
+$data = [
+    'type'    => 'delete',
+    'data'    => ['userId' => 10],
+    'timeout' => 30,
+    'referer' => 'http://' . $_SERVER['HTTP_HOST'],
+    'headers' => [
+        'Content-Type:application/json',
+        'Authorization:0kdm3hzmb4h3cf',
+    ],
+];
+
+Curl::request('https://graph.facebook.com/zuck', $data, 'object');
+```
+
 <hr>
 
 ## License

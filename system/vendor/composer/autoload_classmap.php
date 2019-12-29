@@ -81,6 +81,8 @@ return array(
     'FtpClient\\FtpWrapper' => $vendorDir . '/nicolab/php-ftp-client/src/FtpClient/FtpWrapper.php',
     'Libraries\\Assets' => $baseDir . '/system/libraries/Assets.php',
     'Libraries\\Cookie' => $baseDir . '/system/libraries/Cookie.php',
+    'Libraries\\Curl' => $baseDir . '/system/libraries/Curl.php',
+    'Libraries\\File' => $baseDir . '/system/libraries/File.php',
     'Libraries\\Ip' => $baseDir . '/system/libraries/Ip.php',
     'Libraries\\Session' => $baseDir . '/system/libraries/Session.php',
     'Models\\Model_Welcome' => $baseDir . '/system/models/Model_Welcome.php',
