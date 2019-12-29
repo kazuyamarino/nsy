@@ -5,31 +5,34 @@ defined('ROOT') OR exit('No direct script access allowed');
 
 use Core\NSY_Migration;
 
+/**
+ * The migration class
+ */
 class mig_tmp extends NSY_Migration
 {
 
-	/**
-	 * NSY Migration
-	 */
+    /**
+     * NSY Migration
+     */
 
-	 /**
-	  * Run the migrations.
-	  *
-	  * @return void
-	  */
-	public function up()
-	{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
 
-	}
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
 
-	}
+    }
 
 }
