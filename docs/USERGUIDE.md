@@ -254,7 +254,7 @@ NSY CLI is a collection of commands to facilitate users in operating NSY. To sta
 * `chmod +x INSTALL.sh`
 * `./INSTALL.sh`
 * Close the `terminal` or `git bash`, & open it again
-* Then type command `hi` should display
+* Then type command `nsy_hi` should display
 ```
 Welcome to NSY CLI
 NSY CLI installed successfully
