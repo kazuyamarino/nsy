@@ -13,14 +13,27 @@ Tifa is a musical instrument typical of Eastern Indonesia, especially Maluku and
 ### Download from Github
 * Download source from this link [https://github.com/kazuyamarino/nsy/releases](https://github.com/kazuyamarino/nsy/releases).
 * Simply rename the source folder that has been downloaded to `nsy` & copy it to your `html` or `htdocs` folder or anythings folder.
+
+### From Composer
+```
+composer create-project vikry/nsy
+```
+
+### Setting up NSY
+#### Manual
 * For apache, please go to the `docs/apache` folder and read the `Readme.txt`.
 * For nginx, please go to the `docs/nginx` folder.
 * Go to the `docs/env.example` folder and copy the `env.example` to root folder, and rename it to `env`.
 * And save the date..
 
-### From Composer
+#### NSY CLI (Command Line), [See Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#nsy-cli-command-line)
 ```
-composer create-project vikry/nsy
+setting_up <application-name-directory>
+```
+
+##### Example
+```
+setting_up nsy
 ```
 
 ## CRUD Example?
