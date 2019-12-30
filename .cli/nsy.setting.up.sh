@@ -13,6 +13,7 @@ then
 		cp docs/apache/for_public/.htaccess ./public/.htaccess
 		cp docs/apache/for_root/.htaccess ./.htaccess
 		sed -i "s/nsy/$app_dir/g" ./env
+		sed -i "s/nsy/$app_dir/g" ./public/js/config/system.js
 
 		printf "NSY successfully prepared\n"
 	else

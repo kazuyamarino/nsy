@@ -18,6 +18,10 @@ Tifa is a musical instrument typical of Eastern Indonesia, especially Maluku and
 ```
 composer create-project vikry/nsy
 ```
+#### Install NSY by creating a new directory called `blog`
+```
+composer create-project --prefer-dist vikry/nsy blog
+```
 
 ### Setting up NSY
 #### Manual
@@ -31,9 +35,9 @@ composer create-project vikry/nsy
 setting_up <application-directory-name>
 ```
 
-##### Example
+##### Example, setting up NSY with the application directory called `blog`
 ```
-setting_up nsy
+setting_up blog
 ```
 
 ## CRUD Example?
