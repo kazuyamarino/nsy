@@ -287,15 +287,19 @@ show_models mvc
 ```
 * Show Welcome Message :
 ```
-hi
+nsy_hi
+```
+* Show Help Message :
+```
+nsy_help
 ```
 * Dump mysql database :
 ```
-mysql_dump <database-name> <username> <password>
+nsy_mysql_dump <database-name> <username> <password>
 ```
 * Dump mysql database (table only) :
 ```
-mysql_dump <database-name> <username> <password> <table-name>
+nsy_mysql_dump <database-name> <username> <password> <table-name>
 ```
 * Make HMVC Module :
 ```
@@ -320,6 +324,18 @@ model mvc <model-name>
 * Make Migration Class :
 ```
 migrate <class-name>
+```
+* First time setting up NSY :
+```
+nsy_setting_up <application-directory-name>
+```
+* Generate optimized composer autoload :
+```
+nsy_autoload
+```
+* NSY CLI update :
+```
+nsy_cli_update
 ```
 
 <hr>
