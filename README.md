@@ -28,7 +28,7 @@ composer create-project vikry/nsy
 
 #### NSY CLI (Command Line), [See Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#nsy-cli-command-line)
 ```
-setting_up <application-name-directory>
+setting_up <application-directory-name>
 ```
 
 ##### Example

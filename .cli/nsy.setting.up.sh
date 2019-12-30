@@ -2,7 +2,7 @@
 if [ -z $1 ]
 then
 	printf "Application directory name undefined\n"
-	printf "There must be 'setting_up <app-name>'\n"
+	printf "There must be 'setting_up <app-dir-name>'\n"
 elif [ -n $1 ]
 then
 	app_dir=$1
