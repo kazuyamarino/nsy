@@ -36,9 +36,10 @@ class Curl
     /**
      * Make request and get response website.
      *
-     * @param string $url → url when get content
+     * @param string $url    → url when get
+     *                       content
      *
-     * @param array $params
+     * @param array  $params
      *                      string $params['referer'] → the referrer URL
      *                      int    $params['timeout'] → timeout
      *                      string $params['agent']   → useragent
