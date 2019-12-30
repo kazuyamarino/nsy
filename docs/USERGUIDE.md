@@ -250,10 +250,10 @@ pull::footer_assets();
 <hr>
 
 ## NSY CLI (Command Line)
-NSY CLI is a collection of commands to facilitate users in operating NSY. To start, open the terminal or git bash, then install it with:
+NSY CLI is a collection of commands to facilitate users in operating NSY. To start, open the `terminal` or `git bash`, then install it with:
 * `chmod +x INSTALL.sh`
 * ./INSTALL.sh
-* Close the terminal or git bash, & open it again
+* Close the `terminal` or `git bash`, & open it again
 * Then type command `hi` should display
 ```
 Welcome to NSY CLI
