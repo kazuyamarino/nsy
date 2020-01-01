@@ -6,6 +6,14 @@ Site example :
 
 ## Usefull Method
 
+### Public path
+Returns your site public directory, as specified in your config file.
+```
+echo public_path();
+
+// html/nsy/public/
+```
+
 ### Base URL
 Returns your site base URL, as specified in your config file.
 ```

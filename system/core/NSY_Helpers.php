@@ -31,7 +31,7 @@ function public_path($url = null)
 	if ( is_filled($url) ) {
 		return __DIR__ . '/../../' . config_app('public_dir') . '/' . $url;
 	} else {
-		return __DIR__ . '/../../' . config_app('public_dir') . '/';
+		return __DIR__ . '/../../' . config_app('public_dir');
 	}
 }
 

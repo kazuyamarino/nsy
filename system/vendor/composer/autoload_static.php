@@ -192,6 +192,7 @@ class ComposerStaticInityour_suffixed
         'Carbon\\Traits\\Week' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Week.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
         'Controllers\\Welcome' => __DIR__ . '/../../..' . '/system/controllers/Welcome.php',
+        'Core\\Migration_Impl' => __DIR__ . '/../../..' . '/system/core/NSY_Interface.php',
         'Core\\NSY_AssetManager' => __DIR__ . '/../../..' . '/system/core/NSY_AssetManager.php',
         'Core\\NSY_CSRF' => __DIR__ . '/../../..' . '/system/core/NSY_CSRF.php',
         'Core\\NSY_Controller' => __DIR__ . '/../../..' . '/system/core/NSY_Controller.php',
