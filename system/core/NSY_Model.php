@@ -3,6 +3,9 @@ namespace Core;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
+/**
+ * Use NSY_Desk class
+ */
 use Core\NSY_Desk;
 
 /**

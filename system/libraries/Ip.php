@@ -1,5 +1,8 @@
 <?php
 /**
+ * Attention, don't try to change the structure of the code, delete, or change.
+ * Because there is some code connected to the NSY system. So, be careful.
+ *
  * PHP class to get user IP.
  *
  * @author    MASNathan - <https://github.com/MASNathan>

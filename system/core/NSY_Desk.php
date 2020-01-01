@@ -42,7 +42,7 @@ class NSY_Desk
      *
      * @return true|false
      */
-    public static function error_switch()
+    public static function static_error_switch()
     {
         if (defined('ENVIRONMENT')) {
             switch (ENVIRONMENT) {

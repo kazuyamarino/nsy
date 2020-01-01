@@ -7,8 +7,20 @@ defined('ROOT') OR exit('No direct script access allowed');
  * Attention, don't try to change the structure of the code, delete, or change.
  * Because there is some code connected to the NSY system. So, be careful.
  */
+
+ /**
+  * Use NSY_XSS_Filter class
+  */
 use Core\NSY_XSS_Filter;
+
+/**
+ * Use NSY_CSRF class
+ */
 use Core\NSY_CSRF;
+
+/**
+ * Use NSY_Desk class
+ */
 use Core\NSY_Desk;
 
 /**
@@ -603,7 +615,3 @@ if (! function_exists('get_uri_segment')) {
         }
     }
 }
-
-// ------------------------------------------------------------------------
-
-// Define helpers here.

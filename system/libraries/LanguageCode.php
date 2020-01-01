@@ -1,5 +1,8 @@
 <?php
 /**
+ * Attention, don't try to change the structure of the code, delete, or change.
+ * Because there is some code connected to the NSY system. So, be careful.
+ *
  * List of 217 language codes: ISO 639-1.
  *
  * @author    Josantonius <hello@josantonius.com>

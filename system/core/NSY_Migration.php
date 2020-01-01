@@ -3,10 +3,13 @@ namespace Core;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
+/**
+ * Use NSY_Desk class
+ */
 use Core\NSY_Desk;
 
 /**
- * This is the core of NSY Model
+ * This is the core of NSY Migration
  * Attention, don't try to change the structure of the code, delete, or change.
  * Because there is some code connected to the NSY system. So, be careful.
  */

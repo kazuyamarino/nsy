@@ -1,5 +1,8 @@
 <?php
 /**
+ * Attention, don't try to change the structure of the code, delete, or change.
+ * Because there is some code connected to the NSY system. So, be careful.
+ *
  * Parses and verifies the doc comments for files.
  *
  * PHP version 7.4
@@ -126,9 +129,9 @@ define('ENVIRONMENT', config_app('app_env'));
 * By default development will show errors but production will hide them.
 */
 /**
- * Instantiate Desk (Error Switch)
+ * Get Application Environment
  */
-NSY_Desk::error_switch();
+NSY_Desk::static_error_switch();
 
 /**
  * Execute matched routes
