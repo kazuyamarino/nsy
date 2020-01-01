@@ -71,11 +71,11 @@ function base_url($url = null)
 // ------------------------------------------------------------------------
 
 /**
- * Get config value from system/config/database.php
+ * Get config value from system/config/Database.php
  */
 function config_db($d1 = null,$d2 = null)
 {
-    $database = include __DIR__ . '/../config/database.php';
+    $database = include __DIR__ . '/../config/Database.php';
     if (not_filled($d2) ) {
         return $database[$d1];
     } else {
@@ -84,11 +84,11 @@ function config_db($d1 = null,$d2 = null)
 }
 
 /**
- * Get config value from system/config/database.php
+ * Get config value from system/config/Database.php
  */
 function config_db_sec($d1 = null,$d2 = null)
 {
-    $database = include __DIR__ . '/../config/database.php';
+    $database = include __DIR__ . '/../config/Database.php';
     if (not_filled($d2) ) {
         return $database[$d1];
     } else {
@@ -103,7 +103,7 @@ function config_db_sec($d1 = null,$d2 = null)
  */
 function config_app($d1 = null)
 {
-    $app = include __DIR__ . '/../config/app.php';
+    $app = include __DIR__ . '/../config/App.php';
 
     return $app[$d1];
 }
@@ -115,7 +115,7 @@ function config_app($d1 = null)
  */
 function config_site($d1 = null)
 {
-    $site = include __DIR__ . '/../config/site.php';
+    $site = include __DIR__ . '/../config/Site.php';
 
     return $site[$d1];
 }

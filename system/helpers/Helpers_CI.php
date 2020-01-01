@@ -59,7 +59,7 @@ function stringify_attributes($attributes, $js = false)
 // ------------------------------------------------------------------------
 
 /**
- * Returns the MIME types array from config/mimes.php
+ * Returns the MIME types array from config/Mimes.php
  *
  * @return array
  */
@@ -68,12 +68,12 @@ function &get_mimes()
     static $_mimes;
 
     if (empty($_mimes)) {
-        $_mimes = file_exists(__DIR__ . '/../config/mimes.php')
-        ? include __DIR__ . '/../config/mimes.php'
+        $_mimes = file_exists(__DIR__ . '/../config/Mimes.php')
+        ? include __DIR__ . '/../config/Mimes.php'
         : array();
 
-        if (file_exists(__DIR__ . '/../config/mimes.php')) {
-            $_mimes = array_merge($_mimes, include __DIR__ . '/../config/mimes.php');
+        if (file_exists(__DIR__ . '/../config/Mimes.php')) {
+            $_mimes = array_merge($_mimes, include __DIR__ . '/../config/Mimes.php');
         }
     }
 
@@ -187,7 +187,7 @@ if (! function_exists('directory_map')) {
      * directory will be mapped as well.
      *
      * @param  string $source_dir      Path to source
-     * @param  int    $directory_depth Depth of directories to traverse                             
+     * @param  int    $directory_depth Depth of directories to traverse
      * @param  bool   $hidden          Whether to show hidden files
      * @return array
      */
@@ -1847,7 +1847,7 @@ if (! function_exists('get_mime_by_extension')) {
     /**
      * Get Mime by Extension
      *
-     * Translates a file extension into a mime type based on config/mimes.php.
+     * Translates a file extension into a mime type based on config/Mimes.php.
      * Returns FALSE if it can't determine the type, or open the mime config file
      *
      * Note: this is NOT an accurate way of determining file mime types, and is here strictly as a convenience

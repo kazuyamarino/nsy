@@ -68,14 +68,14 @@ Should be like this. That it is!
 
 ### Framework Configuration
 The NSY_Framework Configuration is very simple. There are 3 config file in `system/config` directory :
-* `app.php` for application setting such as system path of the framework.
-* `database.php` for database connection setting.
-* `site.php` for meta site configuration.
+* `App.php` for application setting such as system path of the framework.
+* `Database.php` for database connection setting.
+* `Site.php` for meta site configuration.
 ```
 ├── config
-    │   ├── app.php
-    │   ├── database.php
-    │   └── site.php
+    │   ├── App.php
+    │   ├── Database.php
+    │   └── Site.php
 ```
 
 By default NSY support `phpdotenv` library, that can read `env` file *(see `env` file on root directory)*.
