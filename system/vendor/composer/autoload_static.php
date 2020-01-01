@@ -234,6 +234,8 @@ class ComposerStaticInityour_suffixed
         'Libraries\\Curl' => __DIR__ . '/../../..' . '/system/libraries/Curl.php',
         'Libraries\\Exception\\JsonException' => __DIR__ . '/../../..' . '/system/libraries/Exception/JsonException.php',
         'Libraries\\File' => __DIR__ . '/../../..' . '/system/libraries/File.php',
+        'Libraries\\ImageResize' => __DIR__ . '/../../..' . '/system/libraries/ImageResize.php',
+        'Libraries\\ImageResizeException' => __DIR__ . '/../../..' . '/system/libraries/ImageResizeException.php',
         'Libraries\\Ip' => __DIR__ . '/../../..' . '/system/libraries/Ip.php',
         'Libraries\\Json' => __DIR__ . '/../../..' . '/system/libraries/Json.php',
         'Libraries\\JsonLastError' => __DIR__ . '/../../..' . '/system/libraries/JsonLastError.php',

@@ -84,6 +84,8 @@ return array(
     'Libraries\\Curl' => $baseDir . '/system/libraries/Curl.php',
     'Libraries\\Exception\\JsonException' => $baseDir . '/system/libraries/Exception/JsonException.php',
     'Libraries\\File' => $baseDir . '/system/libraries/File.php',
+    'Libraries\\ImageResize' => $baseDir . '/system/libraries/ImageResize.php',
+    'Libraries\\ImageResizeException' => $baseDir . '/system/libraries/ImageResizeException.php',
     'Libraries\\Ip' => $baseDir . '/system/libraries/Ip.php',
     'Libraries\\Json' => $baseDir . '/system/libraries/Json.php',
     'Libraries\\JsonLastError' => $baseDir . '/system/libraries/JsonLastError.php',

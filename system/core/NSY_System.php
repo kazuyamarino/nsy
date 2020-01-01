@@ -25,7 +25,7 @@ class NSY_System
 
         define('JS_DIR', base_url() . config_app('public_dir') . config_app('js_dir') . '/'); // JS directory path
 
-        define('IMG_DIR', base_url() . config_app('public_dir') . config_app('img_dir') . '/'); // IMG directory path
+        define('IMG_DIR', base_url() . config_app('public_dir') . config_app('img_dir') . '/'); // IMG directory
 
         // Template directory path
         define('SYS_TMP_DIR', config_app('tmp_dir') . '/');

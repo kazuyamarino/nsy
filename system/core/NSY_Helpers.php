@@ -24,6 +24,18 @@ use Core\NSY_CSRF;
 use Core\NSY_Desk;
 
 /**
+ * Define public_path() method
+ */
+function public_path($url = null)
+{
+	if ( is_filled($url) ) {
+		return __DIR__ . '/../../' . config_app('public_dir') . '/' . $url;
+	} else {
+		return __DIR__ . '/../../' . config_app('public_dir') . '/';
+	}
+}
+
+/**
  * Define base_url() method
  */
 function base_url($url = null)
