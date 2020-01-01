@@ -10,7 +10,7 @@ use Core\NSY_Desk;
  * Attention, don't try to change the structure of the code, delete, or change.
  * Because there is some code connected to the NSY system. So, be careful.
  */
-class NSY_Model extends NSY_Desk
+class NSY_Model
 {
 
     // Declare properties for Helper
@@ -79,7 +79,7 @@ class NSY_Model extends NSY_Desk
                 break;
         default:
             $var_msg = "Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong>";
-            $this->error_handler($var_msg);
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
     }
@@ -110,7 +110,7 @@ class NSY_Model extends NSY_Desk
                 break;
         default:
             $var_msg = "Second database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION_SEC</i></strong>";
-            $this->error_handler($var_msg);
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
     }
@@ -128,7 +128,7 @@ class NSY_Model extends NSY_Desk
         } else
         {
             $var_msg = "The value of query in the <mark>query(<strong>value</strong>)</mark> is empty or undefined";
-            $this->error_handler($var_msg);
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
 
@@ -148,7 +148,7 @@ class NSY_Model extends NSY_Desk
         } else
         {
             $var_msg = "The variable in the <mark>vars(<strong>variables</strong>)</mark> is improper or not an array";
-            $this->error_handler($var_msg);
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
 
@@ -168,7 +168,7 @@ class NSY_Model extends NSY_Desk
         } else
         {
             $var_msg = "The value of style in the <mark>style(<strong>value</strong>)</mark> is empty or undefined";
-            $this->error_handler($var_msg);
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
 
@@ -188,7 +188,7 @@ class NSY_Model extends NSY_Desk
         } else
         {
             $var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)->vars()->sequence()</mark> is empty or undefined";
-            $this->error_handler($var_msg);
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
 
@@ -208,7 +208,7 @@ class NSY_Model extends NSY_Desk
         } else
         {
             $var_msg = "The value of column in the <mark>column(<strong>value</strong>)</mark> is empty or undefined";
-            $this->error_handler($var_msg);
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
 
@@ -233,7 +233,7 @@ class NSY_Model extends NSY_Desk
         } else
         {
             $var_msg = "The variable in the <mark>vars(<strong>variables</strong>)->sequence()</mark> is improper or not an array";
-            $this->error_handler($var_msg);
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
         $in = rtrim($in, ','); // example = :id0,:id1,:id2
@@ -261,7 +261,7 @@ class NSY_Model extends NSY_Desk
                         foreach ($this->variables as $key => &$res) {
                             if (not_filled($res[1]) || not_filled($res[0]) ) {
                                 $var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
-                                $this->error_handler($var_msg);
+                                NSY_Desk::static_error_handler($var_msg);
                                 exit();
                             } else {
                                 $stmt->bindValue($key, $res[0], $res[1]);
@@ -275,7 +275,7 @@ class NSY_Model extends NSY_Desk
                         foreach ($this->variables as $key => &$res) {
                             if (not_filled($res[1]) || not_filled($res[0]) ) {
                                 $var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
-                                $this->error_handler($var_msg);
+                                NSY_Desk::static_error_handler($var_msg);
                                 exit();
                             } else {
                                 $stmt->bindParam($key, $res[0], $res[1]);
@@ -296,7 +296,7 @@ class NSY_Model extends NSY_Desk
                 return $show_result;
             } else {
                 $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                $this->error_handler($var_msg);
+                NSY_Desk::static_error_handler($var_msg);
                 exit();
             }
         }
@@ -326,7 +326,7 @@ class NSY_Model extends NSY_Desk
                         foreach ($this->variables as $key => &$res) {
                             if (not_filled($res[1]) || not_filled($res[0]) ) {
                                 $var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
-                                $this->error_handler($var_msg);
+                                NSY_Desk::static_error_handler($var_msg);
                                 exit();
                             } else {
                                 $stmt->bindValue($key, $res[0], $res[1]);
@@ -340,7 +340,7 @@ class NSY_Model extends NSY_Desk
                         foreach ($this->variables as $key => &$res) {
                             if (not_filled($res[1]) || not_filled($res[0]) ) {
                                 $var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
-                                $this->error_handler($var_msg);
+                                NSY_Desk::static_error_handler($var_msg);
                                 exit();
                             } else {
                                 $stmt->bindParam($key, $res[0], $res[1]);
@@ -361,7 +361,7 @@ class NSY_Model extends NSY_Desk
                 return $show_result;
             } else {
                 $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                $this->error_handler($var_msg);
+                NSY_Desk::static_error_handler($var_msg);
                 exit();
             }
         }
@@ -391,7 +391,7 @@ class NSY_Model extends NSY_Desk
                         foreach ($this->variables as $key => &$res) {
                             if (not_filled($res[1]) || not_filled($res[0]) ) {
                                 $var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
-                                $this->error_handler($var_msg);
+                                NSY_Desk::static_error_handler($var_msg);
                                 exit();
                             } else {
                                 $stmt->bindValue($key, $res[0], $res[1]);
@@ -405,7 +405,7 @@ class NSY_Model extends NSY_Desk
                         foreach ($this->variables as $key => &$res) {
                             if (not_filled($res[1]) || not_filled($res[0]) ) {
                                 $var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
-                                $this->error_handler($var_msg);
+                                NSY_Desk::static_error_handler($var_msg);
                                 exit();
                             } else {
                                 $stmt->bindParam($key, $res[0], $res[1]);
@@ -426,7 +426,7 @@ class NSY_Model extends NSY_Desk
                 return $show_result;
             } else {
                 $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                $this->error_handler($var_msg);
+                NSY_Desk::static_error_handler($var_msg);
                 exit();
             }
         }
@@ -456,7 +456,7 @@ class NSY_Model extends NSY_Desk
                 foreach ( $arr_keys as $dt ) {
                     if (is_numeric($dt) ) {
                         $var_msg = "Array keys doesn't exist on <mark>vars(<strong>variables</strong>)</mark>";
-                        $this->error_handler($var_msg);
+                        NSY_Desk::static_error_handler($var_msg);
                         exit();
                     }
                 }
@@ -475,21 +475,21 @@ class NSY_Model extends NSY_Desk
 
                     if (not_filled($this->variables) ) {
                         $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-                        $this->error_handler($var_msg);
+                        NSY_Desk::static_error_handler($var_msg);
                         exit();
                     } else {
                         $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                        $this->error_handler($var_msg);
+                        NSY_Desk::static_error_handler($var_msg);
                         exit();
                     }
                 } elseif(config_app('transaction') === 'off') {
                     if (not_filled($this->variables) ) {
                         $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-                        $this->error_handler($var_msg);
+                        NSY_Desk::static_error_handler($var_msg);
                         exit();
                     } else {
                         $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                        $this->error_handler($var_msg);
+                        NSY_Desk::static_error_handler($var_msg);
                         exit();
                     }
                 } else {
@@ -537,21 +537,21 @@ class NSY_Model extends NSY_Desk
 
                             if (not_filled($this->variables) ) {
                                 $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-                                $this->error_handler($var_msg);
+                                NSY_Desk::static_error_handler($var_msg);
                                 exit();
                             } else {
                                 $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                                $this->error_handler($var_msg);
+                                NSY_Desk::static_error_handler($var_msg);
                                 exit();
                             }
                         } elseif(config_app('transaction') === 'off') {
                             if (not_filled($this->variables) ) {
                                 $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-                                $this->error_handler($var_msg);
+                                NSY_Desk::static_error_handler($var_msg);
                                 exit();
                             } else {
                                 $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                                $this->error_handler($var_msg);
+                                NSY_Desk::static_error_handler($var_msg);
                                 exit();
                             }
                         } else {
@@ -591,21 +591,21 @@ class NSY_Model extends NSY_Desk
 
                         if (not_filled($this->variables) ) {
                                $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-                               $this->error_handler($var_msg);
+                               NSY_Desk::static_error_handler($var_msg);
                                exit();
                         } else {
                             $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                            $this->error_handler($var_msg);
+                            NSY_Desk::static_error_handler($var_msg);
                             exit();
                         }
                     } elseif(config_app('transaction') === 'off') {
                         if (not_filled($this->variables) ) {
                             $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-                            $this->error_handler($var_msg);
+                            NSY_Desk::static_error_handler($var_msg);
                             exit();
                         } else {
                             $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                            $this->error_handler($var_msg);
+                            NSY_Desk::static_error_handler($var_msg);
                             exit();
                         }
                     } else {
@@ -647,7 +647,7 @@ class NSY_Model extends NSY_Desk
                     // if vars null, execute queries without vars, else execute it with defined on the models
                     if (not_filled($this->variables) ) {
                         $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-                        $this->error_handler($var_msg);
+                        NSY_Desk::static_error_handler($var_msg);
                         exit();
                     } else {
                         $stmt = $this->connection->prepare($this->query . ' VALUES '. $valString);
@@ -668,11 +668,11 @@ class NSY_Model extends NSY_Desk
                         if(config_app('transaction') === 'on') {
                             $this->connection->rollback();
                             $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                            $this->error_handler($var_msg);
+                            NSY_Desk::static_error_handler($var_msg);
                             exit();
                         } elseif(config_app('transaction') === 'off') {
                             $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                            $this->error_handler($var_msg);
+                            NSY_Desk::static_error_handler($var_msg);
                             exit();
                         } else {
                             echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></pre>';
@@ -701,7 +701,7 @@ class NSY_Model extends NSY_Desk
                 // if vars null, execute queries without vars, else execute it with defined on the models
                 if (not_filled($this->variables) ) {
                     $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-                    $this->error_handler($var_msg);
+                    NSY_Desk::static_error_handler($var_msg);
                     exit();
                 } else {
                     $stmt = $this->connection->prepare($this->query . ' VALUES '. $valString);
@@ -723,11 +723,11 @@ class NSY_Model extends NSY_Desk
                         // if there's errors, then display the message
                         $this->connection->rollback();
                         $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                        $this->error_handler($var_msg);
+                        NSY_Desk::static_error_handler($var_msg);
                         exit();
                     } elseif(config_app('transaction') === 'off') {
                         $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                        $this->error_handler($var_msg);
+                        NSY_Desk::static_error_handler($var_msg);
                         exit();
                     } else {
                         echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>system/config/app.php</i></strong></pre>';

@@ -9,9 +9,9 @@
  * @link      https://github.com/Josantonius/PHP-Ip
  * @since     1.0.0
  */
- namespace Libraries;
+namespace Libraries;
 
- defined('ROOT') OR exit('No direct script access allowed');
+defined('ROOT') OR exit('No direct script access allowed');
 
 /**
  * IP handler.

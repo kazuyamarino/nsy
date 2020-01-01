@@ -9,7 +9,7 @@ class ComposerStaticInityour_suffixed
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        '9beeb7b9b632485bf1f3218d0987d2de' => __DIR__ . '/../../..' . '/system/helpers/Helpers.php',
+        '182b55b2b69e7e1b561ee34d36775279' => __DIR__ . '/../../..' . '/system/core/NSY_Helpers.php',
         '9ac2559de43d0c35d23814e693a424d2' => __DIR__ . '/../../..' . '/system/helpers/Helpers_CI.php',
     );
 
@@ -232,9 +232,16 @@ class ComposerStaticInityour_suffixed
         'Libraries\\Assets' => __DIR__ . '/../../..' . '/system/libraries/Assets.php',
         'Libraries\\Cookie' => __DIR__ . '/../../..' . '/system/libraries/Cookie.php',
         'Libraries\\Curl' => __DIR__ . '/../../..' . '/system/libraries/Curl.php',
+        'Libraries\\Exception\\JsonException' => __DIR__ . '/../../..' . '/system/libraries/Exception/JsonException.php',
         'Libraries\\File' => __DIR__ . '/../../..' . '/system/libraries/File.php',
         'Libraries\\Ip' => __DIR__ . '/../../..' . '/system/libraries/Ip.php',
+        'Libraries\\Json' => __DIR__ . '/../../..' . '/system/libraries/Json.php',
+        'Libraries\\JsonLastError' => __DIR__ . '/../../..' . '/system/libraries/JsonLastError.php',
+        'Libraries\\LanguageCode' => __DIR__ . '/../../..' . '/system/libraries/LanguageCode.php',
+        'Libraries\\LanguageCodeCollection' => __DIR__ . '/../../..' . '/system/libraries/LanguageCodeCollection.php',
+        'Libraries\\LoadTime' => __DIR__ . '/../../..' . '/system/libraries/LoadTime.php',
         'Libraries\\Session' => __DIR__ . '/../../..' . '/system/libraries/Session.php',
+        'Libraries\\Str' => __DIR__ . '/../../..' . '/system/libraries/Str.php',
         'Models\\Model_Welcome' => __DIR__ . '/../../..' . '/system/models/Model_Welcome.php',
         'Modules\\Homepage\\Controllers\\Hello' => __DIR__ . '/../../..' . '/system/modules/homepage/controllers/Hello.php',
         'Modules\\Homepage\\Models\\Model_Hello' => __DIR__ . '/../../..' . '/system/modules/homepage/models/Model_Hello.php',

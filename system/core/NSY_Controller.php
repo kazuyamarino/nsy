@@ -18,7 +18,7 @@ use Core\NSY_Desk;
  * This is the core of NSY Controller
  * Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
  */
-class NSY_Controller extends NSY_Desk
+class NSY_Controller
 {
 
     /**
@@ -42,8 +42,8 @@ class NSY_Controller extends NSY_Desk
             }
         } else
         {
-            $var_msg = "The variable in the <mark>load_view()</mark> is improper or not an array";
-            $this->error_handler($var_msg);
+            $var_msg = 'The variable in the <mark>load_view()</mark> is improper or not an array';
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
 
@@ -66,8 +66,8 @@ class NSY_Controller extends NSY_Desk
             echo $this->razr->render(SYS_TMP_DIR . $filename . '.php', $vars);
         } else
         {
-            $var_msg = "The variable in the <mark>load_template()</mark> is improper or not an array";
-            $this->error_handler($var_msg);
+            $var_msg = 'The variable in the <mark>load_template()</mark> is improper or not an array';
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
 
@@ -86,8 +86,8 @@ class NSY_Controller extends NSY_Desk
             $this->variables = $variables;
         } else
         {
-            $var_msg = "The variable in the <mark>vars(<strong>variables</strong>)->sequence()</mark> is improper or not an array";
-            $this->error_handler($var_msg);
+            $var_msg = 'The variable in the <mark>vars(<strong>variables</strong>)->sequence()</mark> is improper or not an array';
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
 
@@ -106,8 +106,8 @@ class NSY_Controller extends NSY_Desk
             $this->bind = $bind;
         } else
         {
-            $var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)->vars()->sequence()</mark> is empty or undefined";
-            $this->error_handler($var_msg);
+            $var_msg = 'The value that binds in the <mark>bind(<strong>value</strong>)->vars()->sequence()</mark> is empty or undefined';
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
 
@@ -131,8 +131,8 @@ class NSY_Controller extends NSY_Desk
             }
         } else
         {
-            $var_msg = "The variable in the <mark>vars(<strong>variables</strong>)->sequence()</mark> is improper or not an array";
-            $this->error_handler($var_msg);
+            $var_msg = 'The variable in the <mark>vars(<strong>variables</strong>)->sequence()</mark> is improper or not an array';
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
         $in = rtrim($in, ','); // example = :id0,:id1,:id2

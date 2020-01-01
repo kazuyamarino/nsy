@@ -66,9 +66,13 @@ require __DIR__ . '/../system/vendor/autoload.php';
 * Check Config File
 *---------------------------------------------------------------
 */
+// NSY System file check
 if (!is_readable(config_app('nsy_sys_dir')) ) {
     die('NSY_System.php not found,  please check in system/core.');
-} elseif (!is_readable(config_app('env_checking_dir')) ) {
+}
+
+// Env file check
+if (!is_readable(config_app('env_checking_dir')) ) {
     die('env file not found, please check in root folder.');
 }
 
@@ -122,10 +126,9 @@ define('ENVIRONMENT', config_app('app_env'));
 * By default development will show errors but production will hide them.
 */
 /**
- * Instantiate Desk
+ * Instantiate Desk (Error Switch)
  */
-$desk = new NSY_Desk();
-$desk->error_switch();
+NSY_Desk::error_switch();
 
 /**
  * Execute matched routes

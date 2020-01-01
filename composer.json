@@ -32,7 +32,7 @@
 			"Modules\\Homepage\\Controllers\\": "system/modules/homepage/controllers/"
         },
         "files": [
-			"system/helpers/Helpers.php",
+			"system/core/NSY_Helpers.php",
 			"system/helpers/Helpers_CI.php"
 		]
     },

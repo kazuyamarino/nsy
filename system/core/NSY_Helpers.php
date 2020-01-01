@@ -9,6 +9,7 @@ defined('ROOT') OR exit('No direct script access allowed');
  */
 use Core\NSY_XSS_Filter;
 use Core\NSY_CSRF;
+use Core\NSY_Desk;
 
 /**
  * Define base_url() method
@@ -185,7 +186,8 @@ if (! function_exists('csrf_token')) {
 
             return $csrf_token;
         } elseif(config_app('csrf_token') === 'false') {
-            return '<p>CSRF Token Protection must be set <strong><i>true</i></strong></p><p>See <strong>system/config/app.php</strong></p>';
+            $var_msg = "CSRF Token Protection must be set <strong><i>true</i></strong></p><p>See <strong>system/config/app.php</strong>";
+			NSY_Desk::static_error_handler($var_msg);
             exit();
         }
     }
@@ -204,7 +206,8 @@ if (! function_exists('form_csrf_token')) {
 
             return '<input type="hidden" name="csrf_token" value=' . $csrf_token . '">';
         } elseif(config_app('csrf_token') === 'false') {
-            return '<p>CSRF Token Protection must be set <strong><i>true</i></strong></p><p>See <strong>system/config/app.php</strong></p>';
+            $var_msg = "CSRF Token Protection must be set <strong><i>true</i></strong></p><p>See <strong>system/config/app.php</strong>";
+			NSY_Desk::static_error_handler($var_msg);
             exit();
         }
     }
@@ -358,24 +361,24 @@ if (! function_exists('aurora')) {
     function aurora($ext = null, $name = null, $sep = null, $h = null, $d = null, $s = null)
     {
         if (not_filled($ext) ) {
-            echo '<p>File extension not yet filled</p>';
-            echo '<p>aurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);</p>';
+            $var_msg = "File extension not yet filled \naurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);";
+			NSY_Desk::static_error_handler($var_msg);
             exit();
         } elseif (not_filled($name) ) {
-            echo '<p>Filename not yet filled</p>';
-            echo '<p>aurora(file_extension, <strong><i>filename</i></strong>, separator, header, data, string_delimiter);</p>';
+            $var_msg = "Filename not yet filled \naurora(file_extension, <strong><i>filename</i></strong>, separator, header, data, string_delimiter);";
+			NSY_Desk::static_error_handler($var_msg);
             exit();
         } elseif (not_filled($sep) ) {
-            echo '<p>Separator not yet filled</p>';
-            echo '<p>aurora(file_extension, filename, <strong><i>separator</i></strong>, header, data, string_delimiter);</p>';
+            $var_msg = "Separator not yet filled \naurora(file_extension, filename, <strong><i>separator</i></strong>, header, data, string_delimiter);";
+			NSY_Desk::static_error_handler($var_msg);
             exit();
         } elseif (not_filled($h) ) {
-            echo '<p>Header of the table undefined</p>';
-            echo '<p>aurora(file_extension, filename, separator, <strong><i>header</i></strong>, data, string_delimiter);</p>';
+            $var_msg = "Header of the table undefined \naurora(file_extension, filename, separator, <strong><i>header</i></strong>, data, string_delimiter);";
+			NSY_Desk::static_error_handler($var_msg);
             exit();
         } elseif (not_filled($d) ) {
-            echo '<p>Record of data empty or unreadable</p>';
-            echo '<p>aurora(file_extension, filename, separator, header, <strong><i>data</i></strong>, string_delimiter);</p>';
+            $var_msg = "Record of data empty or unreadable \naurora(file_extension, filename, separator, header, <strong><i>data</i></strong>, string_delimiter);";
+			NSY_Desk::static_error_handler($var_msg);
             exit();
         } else {
             // export filename
@@ -395,8 +398,8 @@ if (! function_exists('aurora')) {
             } elseif ($sep == 'pipe' ) {
                 $separator = "\174";
             } else {
-                echo '<p>There is no such separator name (<strong>example:</strong> tab, comma, semicolon, space, pipe, &amp; dot)</p>';
-                echo '<p>aurora(file_extension, filename, <strong><i>separator</i></strong>, header, data, string_delimiter);</p>';
+                $var_msg = "There is no such separator name (<strong>example:</strong> tab, comma, semicolon, space, pipe, &amp; dot) \naurora(file_extension, filename, <strong><i>separator</i></strong>, header, data, string_delimiter);";
+				NSY_Desk::static_error_handler($var_msg);
                 exit();
             }
 
@@ -408,8 +411,8 @@ if (! function_exists('aurora')) {
             } elseif ($s == null ) {
                 $s = null;
             } else {
-                echo '<p>There is no such string delimiter name (<strong>example:</strong> "double" for double quote, &amp; \'single\' for singlequote)</p>';
-                echo '<p>aurora(file_extension, filename, separator, header, data, <strong><i>string_delimiter</i></strong>);</p>';
+                $var_msg = "There is no such string delimiter name (<strong>example:</strong> \042double\042 for double quote, &amp; \047single\047 for singlequote) \naurora(file_extension, filename, separator, header, data, <strong><i>string_delimiter</i></strong>);";
+				NSY_Desk::static_error_handler($var_msg);
                 exit();
             }
 
@@ -449,8 +452,8 @@ if (! function_exists('aurora')) {
                 $data = $roles;
                 file_put_contents($file, $data);
             } else {
-                echo '<p>There is no such file extension name (<strong>example:</strong> txt, csv, xls, xlsx, &amp; ods)</p>';
-                echo '<p>aurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);</p>';
+                $var_msg = "There is no such file extension name (<strong>example:</strong> txt, csv, xls, xlsx, &amp; ods) \naurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);";
+				NSY_Desk::static_error_handler($var_msg);
                 exit();
             }
         }
@@ -534,11 +537,11 @@ if (! function_exists('get_ua')) {
         }
 
         return array(
-        'userAgent' => $u_agent,
-        'name'      => $bname,
-        'version'   => $version,
-        'platform'  => $platform,
-        'pattern'    => $pattern
+	        'userAgent' => $u_agent,
+	        'name'      => $bname,
+	        'version'   => $version,
+	        'platform'  => $platform,
+	        'pattern'    => $pattern
         );
     }
 }
@@ -594,7 +597,8 @@ if (! function_exists('get_uri_segment')) {
         if (array_key_exists($key, $uriSegments)) {
             return $uriSegments[$key];
         } else {
-            return '<p>Segment does not exist</p>';
+            $var_msg = "Segment does not exist";
+			NSY_Desk::static_error_handler($var_msg);
             exit();
         }
     }

@@ -17,52 +17,22 @@ class NSY_Desk
      * @param  string $var_msg
      * @return true|string
      */
-    public function error_handler($var_msg = null)
-    {
-        if (defined('ENVIRONMENT')) {
-            switch (ENVIRONMENT) {
-             // Set as under development
-            case 'development':
-                try {
-                        throw new \Exception($var_msg);
-                }
-                catch (\Exception $e) {
-                      $err = $e->getTrace();
-                      // echo '<pre>', print_r($e->getTrace()), '</pre>';
-                      // echo '<pre>', $e->__toString(), '</pre>';
-                      echo "<pre>Message:\n" . $e->getMessage() ." in ".  $err[1]['file'] . "(". $err[1]['line'] .')' ."</pre>";
-                      echo "<pre>Stack trace:\n#0 ". $err[1]['file'] . "(" . $err[1]['line'] . "): " . $err[2]['class'] . "->" . $err[2]['function'] . "()" ."</pre>";
-                }
-                break;
-            default:
-            }
-        }
-    }
-
-    /**
-     * Function static error handler
-     *
-     * @param  string $var_msg
-     * @return true|string
-     */
     public static function static_error_handler($var_msg = null)
     {
         if (defined('ENVIRONMENT')) {
             switch (ENVIRONMENT) {
-             // Set as under development
-            case 'development':
-                try {
-                        throw new \Exception($var_msg);
-                }
-                catch (\Exception $e) {
-                      $err = $e->getTrace();
-                      // echo '<pre>', print_r($e->getTrace()), '</pre>';
-                      // echo '<pre>', $e->__toString(), '</pre>';
-                      echo "<pre>Message:\n" . $e->getMessage() ." in ".  $err[1]['file'] . "(". $err[1]['line'] .')' ."</pre>";
-                      echo "<pre>Stack trace:\n#0 ". $err[1]['file'] . "(" . $err[1]['line'] . "): " . $err[2]['class'] . "->" . $err[2]['function'] . "()" ."</pre>";
-                }
-                break;
-            default:
+	            // Set as under development
+	            case 'development':
+	                try {
+	                    throw new \Exception($var_msg);
+	                }
+	                catch (\Exception $e) {
+	                      $err = $e->getTrace();
+	                      echo "<pre>Message:\n" . $e->getMessage() ." in ".  $err[1]['file'] . "(". $err[1]['line'] .')' ."</pre>";
+	                      echo "<pre>Stack trace:\n#0 ". $err[1]['file'] . "(" . $err[1]['line'] . "): " . $err[2]['class'] . "->" . $err[2]['function'] . "()" ."</pre>";
+	                }
+	                break;
+	            default:
             }
         }
     }
@@ -72,7 +42,7 @@ class NSY_Desk
      *
      * @return true|false
      */
-    public function error_switch()
+    public static function error_switch()
     {
         if (defined('ENVIRONMENT')) {
             switch (ENVIRONMENT) {
@@ -95,9 +65,8 @@ class NSY_Desk
                 }
                 break;
             default:
-
                 header('HTTP/1.1 503 Service Unavailable.', true, 503);
-                exit('The application environment is not set correctly.');
+                exit('<pre>The application environment is not set correctly. Please check the <strong>APP_ENV</strong> inside env file in the root directory.</pre>');
                 exit(1); // EXIT_ERROR
             }
         }
@@ -109,7 +78,7 @@ class NSY_Desk
      * @param  string $string
      * @return string
      */
-    public function mig_up($string = null)
+    public static function mig_up($string = null)
     {
         $classname = 'Migrations\\'.$string;
 
@@ -121,7 +90,7 @@ class NSY_Desk
             exit();
         } else {
             $var_msg = "Class name not found! \nSee the class name list in the <strong>system/migrations</strong> directory";
-            $this->error_handler($var_msg);
+            self::static_error_handler($var_msg);
             exit();
         }
     }
@@ -132,7 +101,7 @@ class NSY_Desk
      * @param  string $string
      * @return string
      */
-    public function mig_down($string = null)
+    public static function mig_down($string = null)
     {
         $classname = 'Migrations\\'.$string;
 
@@ -144,7 +113,7 @@ class NSY_Desk
              exit();
         } else {
             $var_msg = "Class name not found! \nSee the class name list in the <strong>system/migrations</strong> directory";
-            $this->error_handler($var_msg);
+            self::static_error_handler($var_msg);
             exit();
         }
     }

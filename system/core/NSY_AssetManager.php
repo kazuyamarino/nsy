@@ -13,7 +13,7 @@ use Core\NSY_Desk;
  * Attention, don't try to change the structure of the code, delete, or change.
  * Because there is some code connected to the NSY system. So, be careful.
  */
-Class NSY_AssetManager extends NSY_Desk
+Class NSY_AssetManager
 {
 
     /**
@@ -34,7 +34,7 @@ Class NSY_AssetManager extends NSY_Desk
             echo '<meta '.$attr.' content="'.$content.'">';
         } else {
             $var_msg = 'Please check the format of <mark>add::meta</mark> tag';
-            self::static_error_handler($var_msg);
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
     }
@@ -61,7 +61,7 @@ Class NSY_AssetManager extends NSY_Desk
             echo '<link rel="'.$rel.'" href="'.IMG_DIR.$filename.'">';
         } else {
             $var_msg = 'Please check the format of <mark>add::link</mark> tag';
-            self::static_error_handler($var_msg);
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         }
     }
@@ -106,7 +106,7 @@ Class NSY_AssetManager extends NSY_Desk
     {
         if (not_filled($values)) {
             $var_msg = 'No value in <mark>add::custom()</mark> tag';
-            self::static_error_handler($var_msg);
+            NSY_Desk::static_error_handler($var_msg);
             exit();
         } else {
             echo $values;

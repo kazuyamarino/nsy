@@ -91,9 +91,9 @@ In system.js there is a `base_url` configuration for javascript *(see line 1 to 
 <hr>
 
 ### Helpers
-NSY_Helper is provided in the `system/helpers` folder, which is useful for creating custom methods that match what you want.
+The `system/helpers` folder is useful for creating custom methods that match what you want.
 
-There are 2 helper files that are by default available in NSY, namely `Helpers` dan `Helpers_CI`. `Helpers` is a collection of helper methods to run NSY systems or make it easier for users to operate NSY, and `Helpers_CI`, are a set of `Codeigniter` built-in helper (there are only a few) methods that can run on NSY.
+There are 2 helper files that are by default available in NSY, namely `Helpers_CI`. `Helpers_CI` are a set of `Codeigniter` built-in helper (there are only a few) methods that can run on NSY.
 
 <hr>
 

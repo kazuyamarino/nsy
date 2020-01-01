@@ -23,9 +23,9 @@ class Welcome extends NSY_Controller
     public function index()
     {
         $arr = [
-        'my_name' => $this->m_welcome->welcome(), // Call my_name method from Model_Welcome
-        'mvc_page' => $this->m_hello->mvc_page(), // Call mvc_page method from Model_Hello
-        'date' => Carbon::now() // Instantiate today date with Carbon
+	        'my_name' => $this->m_welcome->welcome(), // Call my_name method from Model_Welcome
+	        'mvc_page' => $this->m_hello->mvc_page(), // Call mvc_page method from Model_Hello
+	        'date' => Carbon::now() // Instantiate today date with Carbon
         ];
 
         // Load MVC view page
