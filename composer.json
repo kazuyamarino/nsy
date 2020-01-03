@@ -45,7 +45,9 @@
 	    ],
 	    "setup": [
 	        "sudo chmod +x INSTALL.sh",
-			"./INSTALL.sh"
+			"./INSTALL.sh",
+			"source ~/.bashrc",
+			". ~/.bashrc"
 	    ]
 	}
 }
