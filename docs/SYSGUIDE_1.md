@@ -6,12 +6,42 @@ Site example :
 
 ## Usefull Method
 
-### Public path
+### Base path
 Returns your site public directory, as specified in your config file.
 ```
-echo public_path();
+echo base_path();
 
 // html/nsy/public/
+```
+
+### Get Version
+Get application version.
+```
+echo get_version();
+
+// 3.0.0
+```
+
+### Get Codename
+Get application codename.
+```
+echo get_codename();
+
+// Tifa
+```
+
+### Get Language Code
+Get application language code.
+```
+echo get_lang_code();
+
+// en
+```
+
+### Open Graph Prefix
+Get open graph prefix.
+```
+echo get_og_prefix();
 ```
 
 ### Base URL

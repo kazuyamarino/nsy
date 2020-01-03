@@ -3,7 +3,6 @@ defined('ROOT') OR exit('No direct script access allowed');
 
 /*
  * This is the core of NSY Helpers
- * 2018 - Vikry Yuansah
  * Attention, don't try to change the structure of the code, delete, or change.
  * Because there is some code connected to the NSY system. So, be careful.
  */
@@ -24,14 +23,22 @@ use Core\NSY_CSRF;
 use Core\NSY_Desk;
 
 /**
- * Define public_path() method
+ * Define base_path() method
  */
-function public_path($url = null)
+function base_path($url = null)
 {
 	if ( is_filled($url) ) {
-		return __DIR__ . '/../../' . config_app('public_dir') . '/' . $url;
+		if ( is_filled(config_app('public_dir')) ) {
+			return __DIR__ . '/../../' . config_app('public_dir') . '/' . $url;
+		} else {
+			return __DIR__ . '/../../' . $url;
+		}
 	} else {
-		return __DIR__ . '/../../' . config_app('public_dir');
+		if ( is_filled(config_app('public_dir')) ) {
+			return __DIR__ . '/../../' . config_app('public_dir');
+		} else {
+			return __DIR__ . '/../../';
+		}
 	}
 }
 
@@ -645,7 +652,7 @@ function get_codename()
 }
 
 /**
- * Get application language
+ * Get application language code
  */
 function get_lang_code()
 {

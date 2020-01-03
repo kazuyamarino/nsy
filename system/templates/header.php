@@ -14,7 +14,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 
     <header style="text-align:center" class="header">
         <a href="@( base_url() )">
-            @raw( img( IMG_DIR.'logo.png', 'width="100"' ) )
+            <!-- @raw( img( base_url('img/logo.png'), 'width="100"' ) ) -->
         </a>
         <h2>@( $my_name )</h2>
         <p>NSY is a simple PHP Framework that works well on MVC or HMVC mode.</p>
