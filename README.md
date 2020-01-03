@@ -24,11 +24,15 @@ composer create-project --prefer-dist vikry/nsy blog
 ```
 
 ### Setting up NSY
+There are 2 ways to setup NSY.
+
 #### Manual
 * For apache, please go to the `docs/apache` folder and read the `Readme.txt`.
 * For nginx, please go to the `docs/nginx` folder.
 * Go to the `docs/env.example` folder and copy the `env.example` to root folder, and rename it to `env`.
 * And save the date..
+
+Or...
 
 #### NSY CLI (Command Line), [See Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#nsy-cli-command-line)
 ```
