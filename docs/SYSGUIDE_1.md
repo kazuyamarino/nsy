@@ -6,16 +6,16 @@ Site example :
 
 ## Usefull Method
 
-### Base path
+### Public directory path
 Returns your site public directory, as specified in your config file.
 ```
-echo base_path();
+echo public_path();
 
 // html/nsy/public/
 ```
 
 ### Get Version
-Get application version.
+Get application version from config/site.php.
 ```
 echo get_version();
 
@@ -23,7 +23,7 @@ echo get_version();
 ```
 
 ### Get Codename
-Get application codename.
+Get application codename from config/site.php.
 ```
 echo get_codename();
 
@@ -31,7 +31,7 @@ echo get_codename();
 ```
 
 ### Get Language Code
-Get application language code.
+Get application language code from config/app.php.
 ```
 echo get_lang_code();
 
@@ -39,9 +39,45 @@ echo get_lang_code();
 ```
 
 ### Open Graph Prefix
-Get open graph prefix.
+Get open graph prefix from config/app.php.
 ```
 echo get_og_prefix();
+```
+
+### Get Site Title
+Get site title from config/site.php.
+```
+echo get_title();
+```
+
+### Get Site Description
+Get site description from config/site.php.
+```
+echo get_desc();
+```
+
+### Get Site Keywords
+Get site keywords from config/site.php.
+```
+echo get_keywords();
+```
+
+### Get Site Author
+Get site author from config/site.php.
+```
+echo get_author();
+```
+
+### Get Session Prefix
+Get session prefix from config/app.php.
+```
+echo get_session_prefix();
+```
+
+### Get Site Email
+Get site email from config/site.php.
+```
+echo get_site_email();
 ```
 
 ### Base URL

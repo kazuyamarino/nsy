@@ -39,14 +39,14 @@ Class Assets extends \Core\NSY_AssetManager
     public static function header_assets()
     {
         // Site Title
-        add::custom('<title>' . SITETITLE . ' ' . VERSION . ' | ' . CODENAME . '</title>');
+        add::custom('<title>' . get_title() . ' ' . get_version() . ' | ' . get_codename() . '</title>');
 
         // Meta Tag
         add::meta('charset="utf-8"', null);
         add::meta('http-equiv="x-ua-compatible"', 'ie=edge');
-        add::meta('name="description"', SITEDESCRIPTION);
-        add::meta('name="keywords"', SITEKEYWORDS);
-        add::meta('name="author"', SITEAUTHOR);
+        add::meta('name="description"', get_desc());
+        add::meta('name="keywords"', get_keywords());
+        add::meta('name="author"', get_author());
         add::meta('name="viewport"', 'width=device-width, initial-scale=1, shrink-to-fit=no');
 
         // Favicon

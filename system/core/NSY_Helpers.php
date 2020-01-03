@@ -23,9 +23,9 @@ use Core\NSY_CSRF;
 use Core\NSY_Desk;
 
 /**
- * Define base_path() method
+ * Define public_path() method
  */
-function base_path($url = null)
+function public_path($url = null)
 {
 	if ( is_filled($url) ) {
 		if ( is_filled(config_app('public_dir')) ) {
@@ -665,4 +665,52 @@ function get_lang_code()
 function get_og_prefix()
 {
     return OG_PREFIX;
+}
+
+/**
+ * Get site title
+ */
+function get_title()
+{
+    return SITETITLE;
+}
+
+/**
+ * Get site description
+ */
+function get_desc()
+{
+    return SITEDESCRIPTION;
+}
+
+/**
+ * Get site keywords
+ */
+function get_keywords()
+{
+    return SITEKEYWORDS;
+}
+
+/**
+ * Get site author
+ */
+function get_author()
+{
+    return SITEAUTHOR;
+}
+
+/**
+ * Get session prefix
+ */
+function get_session_prefix()
+{
+    return SESSION_PREFIX;
+}
+
+/**
+ * Get site email
+ */
+function get_site_email()
+{
+    return SITEEMAIL;
 }
