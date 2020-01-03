@@ -26,7 +26,7 @@ Composer on NSY framework
 
 The composer on the nsy framework has a function to generate autoload in the HMVC module folder.
 
-NSY applies the concept of PSR-4 Autoloading. NSY has the `composer.json` file that can be dumped with [composer](https://getcomposer.org/download/) command `composer dump-autoload -o` when creating a folder structure that contains new class files.
+NSY applies the concept of PSR-4 Autoloading. NSY has the `composer.json` file that can be dumped with [composer](https://getcomposer.org/download/) command `composer dump-autoload -o` or [NSY CLI](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#nsy-cli-command-line) command `nsy_autoload` when creating a folder structure that contains new class files.
 
 Example make a `homepage` folder in the HMVC module folder and dump it with composer autoload :
 * See line autoload on composer.json.
@@ -62,7 +62,7 @@ modules
 ```
 Should be like this. That it is!
 
-* Now, you can generate autoload class in the `models` folder & `controllers` folder for the `homepage` with `composer dump-autoload -o` on the command line terminal.
+* Now, you can generate autoload class in the `models` folder & `controllers` folder for the `homepage` with `composer dump-autoload -o` or [NSY CLI](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#nsy-cli-command-line) command `nsy_autoload` on the command line terminal.
 
 <hr>
 

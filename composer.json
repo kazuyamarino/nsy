@@ -38,5 +38,14 @@
     },
     "config": {
         "vendor-dir": "system/vendor/"
-    }
+    },
+	"scripts": {
+	    "post-install-cmd": [
+	        "@setup"
+	    ],
+	    "setup": [
+	        "sudo chmod +x INSTALL.sh",
+			"./INSTALL.sh"
+	    ]
+	}
 }
