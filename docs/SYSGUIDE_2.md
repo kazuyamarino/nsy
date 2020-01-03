@@ -1124,6 +1124,577 @@ $data = [
 Curl::request('https://graph.facebook.com/zuck', $data, 'object');
 ```
 
+# Json Library
+
+Use this namespace in the controller :
+```
+use Libraries\Json;
+```
+
+## Available Methods
+
+Available methods in this library:
+
+### - Creating JSON file from array:
+
+```php
+Json::arrayToFile($array, $file);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $array | Array to be converted to JSON. | array | Yes | |
+| $file | Path to the file. | string | Yes | |
+
+**# Return** (boolean)
+
+### - Save to array the JSON file content:
+
+```php
+Json::fileToArray($file);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $file | Path or external url to JSON file. | string | Yes | |
+
+**# Return** (array|false)
+
+### - Check for errors:
+
+```php
+JsonLastError::check();
+```
+
+**# Return** (array|null) → Null if there are no errors or array with state  code and error message.
+
+### - Get collection of JSON errors:
+
+```php
+JsonLastError::getCollection();
+```
+
+**# Return** (array) → Collection of JSON errors.
+
+## Usage
+
+Example of use for this library:
+
+### - Creating JSON file from array:
+
+```php
+
+$array = [
+	'name'  => 'Josantonius',
+    'email' => 'info@josantonius.com',
+    'url'   => 'https://github.com/josantonius/PHP-Json'
+];
+
+$pathfile = __DIR__ . '/filename.json';
+
+Json::arrayToFile($array, $pathfile);
+
+```
+
+### - Save to array the JSON file content:
+
+```php
+$pathfile = __DIR__ . '/filename.json';
+
+$array = Json::fileToArray($pathfile);
+
+```
+
+### - Check for errors:
+
+```php
+$lastError = JsonLastError::check();
+
+if (!is_null($lastError)) {
+    var_dump($lastError);
+}
+```
+
+### - Get collection of JSON errors:
+
+```php
+$jsonLastErrorCollection = JsonLastError::getCollection();
+```
+
+# LoadTime Library
+
+Use this namespace in the controller :
+```
+use Libraries\LoadTime;
+```
+
+## Available Methods
+
+Available methods in this library:
+
+### - Set initial time:
+
+```php
+LoadTime::start();
+```
+
+**# Return** (float) → microtime
+
+### - Set end time:
+
+```php
+LoadTime::end();
+```
+
+**# Return** (float) → seconds
+
+### - Check if the timer has been started:
+
+```php
+LoadTime::isActive();
+```
+
+**# Return** (boolean)
+
+## Usage
+
+Example of use for this library:
+
+```php
+<?php
+require __DIR__ . '/vendor/autoload.php';
+
+use Josantonius\LoadTime\LoadTime;
+
+LoadTime::start();
+
+for ($i=0; $i < 100000; $i++) {
+    // print_r($i . ' ');
+}
+
+print_r('Script executed in: ' . LoadTime::end() . ' seconds.');
+
+/* Script executed in: 0.0012 seconds. */
+```
+
+# LanguageCode Library
+
+Use this namespace in the controller :
+```
+use Libraries\LanguageCode;
+```
+
+## Available Methods
+
+Available methods in this library:
+
+### - Get all language codes as array:
+
+```php
+LanguageCode::get();
+```
+
+**# Return** (array) → language codes and language names
+
+### - Get language name from language code:
+
+```php
+LanguageCode::getLanguageFromCode($languageCode);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $languageCode | Language code, e.g. 'es'. | string | Yes | |
+
+**# Return** (tring|false) → country name
+
+### - Get language code from language name:
+
+```php
+LanguageCode::getCodeFromLanguage($languageName);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $languageName | Language name, e.g. 'Spanish'. | string | Yes | |
+
+**# Return** (tring|false) → language code
+
+## Usage
+
+Example of use for this library:
+```php
+LanguageCode::get();
+```
+
+# String Library
+
+Use this namespace in the controller :
+```
+use Libraries\Str;
+```
+
+## Available Methods
+
+### - Check if the string starts with a certain value:
+
+```php
+Str::startsWith($search, $string);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $search | The string to search. | string | Yes | |
+| $string | The string where search. | string | Yes | |
+
+**# Return** (boolean)
+
+### - Check if the string ends with a certain value:
+
+```php
+Str::endsWith($search, $string);
+```
+
+| Attribute | Description | Type | Required | Default
+| --- | --- | --- | --- | --- |
+| $search | The string to search. | string | Yes | |
+| $string | The string where search. | string | Yes | |
+
+**# Return** (boolean)
+
+## Usage
+
+Example of use for this library:
+
+### - Check if the string starts with a certain value:
+
+```php
+Str::startsWith("Hello", "Hello world");
+```
+
+### - Check if the string ends with a certain value:
+
+```php
+Str::endsWith("world", "Hello World");
+```
+
+# ImageResize Library
+
+Use this namespace in the controller :
+```
+use Libraries\ImageResize;
+```
+
+Resize
+------
+
+To scale an image, in this case to half it's size (scaling is percentage based):
+
+```php
+$image = new ImageResize('image.jpg');
+$image->scale(50);
+$image->save('image2.jpg')
+```
+
+To resize an image according to one dimension (keeping aspect ratio):
+
+```php
+$image = new ImageResize('image.jpg');
+$image->resizeToHeight(500);
+$image->save('image2.jpg');
+
+$image = new ImageResize('image.jpg');
+$image->resizeToWidth(300);
+$image->save('image2.jpg');
+```
+
+To resize an image according to a given measure regardingless its orientation (keeping aspect ratio):
+
+```php
+$image = new ImageResize('image.jpg');
+$image->resizeToLongSide(500);
+$image->save('image2.jpg');
+
+$image = new ImageResize('image.jpg');
+$image->resizeToShortSide(300);
+$image->save('image2.jpg');
+```
+
+To resize an image to best fit a given set of dimensions (keeping aspet ratio):
+```php
+$image = new ImageResize('image.jpg');
+$image->resizeToBestFit(500, 300);
+$image->save('image2.jpg');
+```
+
+All resize functions have ```$allow_enlarge``` option which is set to false by default.
+You can enable by passing ```true``` to any resize function:
+```php
+$image = new ImageResize('image.jpg');
+$image->resize(500, 300, $allow_enlarge = True);
+$image->save('image2.jpg');
+```
+
+If you are happy to handle aspect ratios yourself, you can resize directly:
+
+```php
+$image = new ImageResize('image.jpg');
+$image->resize(800, 600);
+$image->save('image2.jpg');
+```
+
+This will cause your image to skew if you do not use the same width/height ratio as the source image.
+
+Crop
+----
+
+To to crop an image:
+
+```php
+$image = new ImageResize('image.jpg');
+$image->crop(200, 200);
+$image->save('image2.jpg');
+```
+
+This will scale the image to as close as it can to the passed dimensions, and then crop and center the rest.
+
+In the case of the example above, an image of 400px &times; 600px will be resized down to 200px &times; 300px, and then 50px will be taken off the top and bottom, leaving you with 200px &times; 200px.
+
+Crop modes:
+
+Few crop mode options are available in order for you to choose how you want to handle the eventual exceeding width or height after resizing down your image.
+The default crop mode used is the `CROPCENTER`.
+As a result those pieces of code are equivalent:
+
+```php
+$image = new ImageResize('image.jpg');
+$image->crop(200, 200);
+$image->save('image2.jpg');
+```
+
+```php
+$image = new ImageResize('image.jpg');
+$image->crop(200, 200, true, ImageResize::CROPCENTER);
+$image->save('image2.jpg');
+```
+
+In the case you have an image of 400px &times; 600px and you want to crop it to 200px &times; 200px the image will be resized down to 200px &times; 300px, then you can indicate how you want to handle those 100px exceeding passing the value of the crop mode you want to use.
+
+For instance passing the crop mode `CROPTOP` will result as 100px taken off the bottom leaving you with 200px &times; 200px.
+
+
+```php
+$image = new ImageResize('image.jpg');
+$image->crop(200, 200, true, ImageResize::CROPTOP);
+$image->save('image2.jpg');
+```
+
+On the contrary passing the crop mode `CROPBOTTOM` will result as 100px taken off the top leaving you with 200px &times; 200px.
+
+```php
+$image = new ImageResize('image.jpg');
+$image->crop(200, 200, true, ImageResize::CROPBOTTOM);
+$image->save('image2.jpg');
+```
+
+Freecrop:
+
+There is also a way to define custom crop position.
+You can define $x and $y in ```freecrop``` method:
+
+```php
+$image = new ImageResize('image.jpg');
+$image->freecrop(200, 200, $x =  20, $y = 20);
+$image->save('image2.jpg');
+```
+
+Loading and saving images from string
+-------------------------------------
+
+To load an image from a string:
+
+```php
+$image = ImageResize::createFromString(base64_decode('R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=='));
+$image->scale(50);
+$image->save('image.jpg');
+```
+
+You can also return the result as a string:
+
+```php
+$image = ImageResize::createFromString(base64_decode('R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=='));
+$image->scale(50);
+echo $image->getImageAsString();
+```
+
+Magic `__toString()` is also supported:
+
+```php
+$image = ImageResize::createFromString(base64_decode('R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=='));
+$image->resize(10, 10);
+echo (string)$image;
+```
+
+Displaying
+----------
+
+As seen above, you can call `$image->save('image.jpg');`
+
+To render the image directly into the browser, you can call `$image->output()`;
+
+Image Types
+-----------
+
+When saving to disk or outputting into the browser, the script assumes the same output type as input.
+
+If you would like to save/output in a different image type, you need to pass a (supported) PHP [`IMAGETYPE_`* constant](http://www.php.net/manual/en/image.constants.php):
+
+- `IMAGETYPE_GIF`
+- `IMAGETYPE_JPEG`
+- `IMAGETYPE_PNG`
+
+This allows you to save in a different type to the source:
+
+```php
+$image = new ImageResize('image.jpg');
+$image->resize(800, 600);
+$image->save('image.png', IMAGETYPE_PNG);
+```
+
+Quality
+-------
+
+The properties `$quality_jpg` and `$quality_png` are available for you to configure:
+
+```php
+$image = new ImageResize('image.jpg');
+$image->quality_jpg = 100;
+$image->resize(800, 600);
+$image->save('image2.jpg');
+```
+
+By default they are set to 85 and 6 respectively. See the manual entries for [`imagejpeg()`](http://www.php.net/manual/en/function.imagejpeg.php) and [`imagepng()`](http://www.php.net/manual/en/function.imagepng.php) for more info.
+
+You can also pass the quality directly to the `save()`, `output()` and `getImageAsString()` methods:
+
+```php
+$image = new ImageResize('image.jpg');
+$image->crop(200, 200);
+$image->save('image2.jpg', null, 100);
+
+$image = new ImageResize('image.jpg');
+$image->resizeToWidth(300);
+$image->output(IMAGETYPE_PNG, 4);
+
+$image = new ImageResize('image.jpg');
+$image->scale(50);
+$result = $image->getImageAsString(IMAGETYPE_PNG, 4);
+```
+
+We're passing `null` for the image type in the example above to skip over it and provide the quality. In this case, the image type is assumed to be the same as the input.
+
+Interlacing
+-----------
+
+By default, [image interlacing](http://php.net/manual/en/function.imageinterlace.php) is turned on. It can be disabled by setting `$interlace` to `0`:
+
+```php
+$image = new ImageResize('image.jpg');
+$image->scale(50);
+$image->interlace = 0;
+$image->save('image2.jpg');
+```
+
+Chaining
+--------
+
+When performing operations, the original image is retained, so that you can chain operations without excessive destruction.
+
+This is useful for creating multiple sizes:
+
+```php
+$image = new ImageResize('image.jpg');
+$image
+    ->scale(50)
+    ->save('image2.jpg')
+
+    ->resizeToWidth(300)
+    ->save('image3.jpg')
+
+    ->crop(100, 100)
+    ->save('image4.jpg')
+;
+```
+
+Exceptions
+--------
+
+ImageResize throws ImageResizeException for it's own for errors. You can catch that or catch the general \Exception which it's extending.
+
+It is not to be expected, but should anything go horribly wrong mid way then notice or warning Errors could be shown from the PHP GD and Image Functions (http://php.net/manual/en/ref.image.php)
+
+```php
+try{
+    $image = new ImageResize(null);
+    echo "This line will not be printed";
+} catch (ImageResizeException $e) {
+    echo "Something went wrong" . $e->getMessage();
+}
+```
+
+Filters
+--------
+
+You can apply special effects for new image like blur or add banner.
+
+```php
+$image = new ImageResize('image.jpg');
+
+// Add blure
+$image->addFilter(function ($imageDesc) {
+    imagefilter($imageDesc, IMG_FILTER_GAUSSIAN_BLUR);
+});
+
+// Add banner on bottom left corner
+$image18Plus = 'banner.png'
+$image->addFilter(function ($imageDesc) use ($image18Plus) {
+    $logo = imagecreatefrompng($image18Plus);
+    $logo_width = imagesx($logo);
+    $logo_height = imagesy($logo);
+    $image_width = imagesx($imageDesc);
+    $image_height = imagesy($imageDesc);
+    $image_x = $image_width - $logo_width - 10;
+    $image_y = $image_height - $logo_height - 10;
+    imagecopy($imageDesc, $logo, $image_x, $image_y, 0, 0, $logo_width, $logo_height);
+});
+
+```
+
+Flip
+--------
+
+Flips an image using a given mode and this method is only for PHP version 5.4.
+
+```php
+$flip = new ImageResize('image.png');
+$image = imagecreatetruecolor(200, 100);
+
+$flip->imageFlip($image, 0);
+
+```
+
+Both functions will be used in the order in which they were added.
+
+Gamma color correction
+--------
+
+You can disable the gamma color correction enabled by default.
+
+```php
+$image = new ImageResize('image.png');
+$image->gamma(false);
+```
+
 <hr>
 
 ## License
