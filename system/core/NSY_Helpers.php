@@ -627,3 +627,35 @@ if (! function_exists('get_uri_segment')) {
         }
     }
 }
+
+/**
+ * Get application version
+ */
+function get_version()
+{
+    return VERSION;
+}
+
+/**
+ * Get application codename
+ */
+function get_codename()
+{
+    return CODENAME;
+}
+
+/**
+ * Get application language
+ */
+function get_lang_code()
+{
+    return LANGUAGE_CODE;
+}
+
+/**
+ * Get open graph prefix
+ */
+function get_og_prefix()
+{
+    return OG_PREFIX;
+}

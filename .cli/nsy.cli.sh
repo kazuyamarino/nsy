@@ -1,5 +1,4 @@
 #!/bin/bash
-
 alias nsy_mysql_dump='sh ./.cli/mysql.dump.db.sh'
 alias show_modules='sh ./.cli/ls.modules.sh'
 alias show_migrations='sh ./.cli/ls.migrations.sh'

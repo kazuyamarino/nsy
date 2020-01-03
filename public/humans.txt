@@ -3,13 +3,12 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+	Vikry -- Founder -- uybeye
 
 # THANKS
 
-    <name>
+	Mom, Dad, Wife, and Daughter
 
 # TECHNOLOGY COLOPHON
 
-    CSS3, HTML5
-    Apache Server Configs, jQuery, Modernizr, Normalize.css
+    PHP, CSS3, HTML5, JQuery, Composer, Bash Script

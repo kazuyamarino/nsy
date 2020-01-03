@@ -2,7 +2,7 @@
 defined('ROOT') OR exit('No direct script access allowed');
 ?>
 <!doctype html>
-<html class="no-js" lang="@( LANGUAGE_CODE )" prefix="@( OG_PREFIX )">
+<html class="no-js" lang="@( get_lang_code() )" prefix="@( get_og_prefix() )">
 <head>
     <!-- call header assets method -->
     @( pull::header_assets() )
