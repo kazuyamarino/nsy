@@ -14,10 +14,9 @@ then
 		cp docs/apache/for_root/.htaccess ./.htaccess
 		sed -i "s/nsy/$app_dir/g" ./env
 		sed -i "s/nsy/$app_dir/g" ./public/js/config/system.js
+		sed -i "s/nsy/$app_dir/g" ./docs/nginx/sites-enabled/default
 
 		printf "NSY successfully prepared\n"
-		printf "NSY CLI installed\n"
-		printf "Please close the Terminal & reopen it again\n"
 	else
 	    printf "NSY already prepared\n"
 	fi

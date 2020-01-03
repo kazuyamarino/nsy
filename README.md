@@ -28,7 +28,7 @@ There are 2 ways to setup NSY.
 
 #### Manual
 * For apache, please go to the `docs/apache` folder and read the `Readme.txt`.
-* For nginx, please go to the `docs/nginx` folder.
+* For nginx, please go to the `docs/nginx` folder and read the `Readme.txt` too.
 * Go to the `docs/env.example` folder and copy the `env.example` to root folder, and rename it to `env`.
 * And save the date..
 
