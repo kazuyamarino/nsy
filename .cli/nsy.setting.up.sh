@@ -23,5 +23,4 @@ then
 	fi
 else
 	printf "Application directory name undefined\n"
-	printf "There must be 'nsy_setting_up <app-dir-name>'\n"
 fi
