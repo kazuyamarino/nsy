@@ -41,13 +41,11 @@
     },
 	"scripts": {
 	    "post-install-cmd": [
-	        "@setup"
+	        "@nsy_cli_install"
 	    ],
-	    "setup": [
-	        "sudo chmod +x INSTALL.sh",
-			"./INSTALL.sh",
-			"source ~/.bashrc",
-			". ~/.bashrc"
+	    "nsy_cli_install": [
+			"sudo chmod +x INSTALL.sh",
+			"./INSTALL.sh"
 	    ]
 	}
 }

@@ -250,11 +250,26 @@ pull::footer_assets();
 <hr>
 
 ## NSY CLI (Command Line)
-NSY CLI is a collection of commands to facilitate users in operating NSY. To start, open the `terminal` or `git bash`, then install it with:
-* `chmod +x INSTALL.sh`
+NSY CLI is a collection of commands to facilitate users in operating NSY. To start, open the `terminal` or `git bash` on your project directory, then install it with:
+
+---
+
+### Note
+If you install the NSY Framework through the `composer create-project`, it automatically includes the NSY CLI.
+
+---
+
+* `sudo chmod +x INSTALL.sh`
 * `./INSTALL.sh`
-* Close the `terminal` or `git bash`, & open it again
-* Then type command `nsy_hi` should display
+* Close the `terminal` or `git bash`, & open it again or reset bashrc with the command `source ~/.bashrc`
+* If NSY CLI installer successfully, it should display
+```
+NSY CLI installed
+Please close the Terminal & reopen it again
+Or
+Please reset bashrc with the command 'source ~/.bashrc'
+```
+* Then if you type command `nsy_hi` it should display
 ```
 Welcome to NSY CLI
 NSY CLI installed successfully

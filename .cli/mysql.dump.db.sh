@@ -3,6 +3,7 @@
 #----------------------------------------------------------
 # a simple mysql database backup script.
 # version 2, updated March 26, 2011.
+# modified by Vikry Yuansah 2019.
 # copyright 2011 alvin alexander, http://alvinalexander.com
 #----------------------------------------------------------
 # This work is licensed under a Creative Commons

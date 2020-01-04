@@ -7,7 +7,7 @@
  *
  * @type {String}
  */
-var dirname = "nsy"; // defined
+var dirname = "blog"; // defined
 // var dirname = ""; // undefined
 
 function base_url(url)
