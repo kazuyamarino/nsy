@@ -259,15 +259,16 @@ If you install the NSY Framework through the `composer create-project`, it autom
 
 ---
 
+### NSY CLI Manual Install
 * `sudo chmod +x INSTALL.sh`
 * `./INSTALL.sh`
-* Close the `terminal` or `git bash`, & open it again or reset bashrc with the command `source ~/.bashrc`
+* Close the `terminal` or `git bash`, & open it again or reset bashrc with the command `source RELOADER.sh`
 * If NSY CLI installer successfully, it should display
 ```
 NSY CLI installed
 Please close the Terminal & reopen it again
 Or
-Please reset bashrc with the command 'source ~/.bashrc'
+Please reset bashrc with the command 'source RELOADER.sh'
 ```
 * Then if you type command `nsy_hi` it should display
 ```
@@ -342,7 +343,7 @@ migrate <class-name>
 ```
 * First time setting up NSY :
 ```
-nsy_setting_up <application-directory-name>
+nsy_setup
 ```
 * Generate optimized composer autoload :
 ```

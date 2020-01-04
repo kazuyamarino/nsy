@@ -36,12 +36,22 @@ Or...
 
 #### NSY CLI (Command Line), [See Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#nsy-cli-command-line)
 ```
-setting_up <application-directory-name>
+nsy_setup
+
+---
+
+Enter directory name >
+<application-directory-name>
 ```
 
 ##### Example, setting up NSY with the application directory called `blog`
 ```
-setting_up blog
+nsy_setup
+
+---
+
+Enter directory name >
+blog
 ```
 
 ## CRUD Example?
