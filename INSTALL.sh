@@ -8,7 +8,7 @@ then
 	echo 'test -f ~/.profile && . ~/.profile' >> ~/.bash_profile
 
 	printf "Please wait...\n"
-	sleep 5
+	sleep 3
 
 	printf "NSY CLI installed\n"
 	printf "Please close the Terminal & reopen it again\n"
@@ -18,7 +18,7 @@ else
 	cp .cli/nsy.cli.sh ~/nsy.cli.sh
 
 	printf "Please wait...\n"
-	sleep 5
+	sleep 3
 
 	printf "NSI CLI already installed and has been updated\n"
 	printf "Please close the Terminal & reopen it again\n"

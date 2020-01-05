@@ -5,7 +5,6 @@ defined('ROOT') OR exit('No direct script access allowed');
 
 use Core\NSY_Controller;
 use Carbon\Carbon;
-use Libraries\ImageResize;
 use Models\Model_Welcome;
 use Modules\Homepage\Models\Model_Hello;
 
