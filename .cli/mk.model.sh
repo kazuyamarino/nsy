@@ -2,7 +2,7 @@
 if [ -z $1 ]
 then
 	printf "Mode undefined, must be hmvc or mvc\n"
-	printf "There must be 'make_model <mode>'\n"
+	printf "There must be 'model <mode>'\n"
 elif [ -n $1 ]
 then
 	mode=$1
@@ -12,7 +12,7 @@ then
 			if [ -z $2 ]
 			then
 				printf "Model name undefined\n"
-				printf "There must be 'make_model <mode> <model-name>'\n"
+				printf "There must be 'model <mode> <model-name>'\n"
 			elif [ -n $2 ]
 			then
 				conname=$2
@@ -35,7 +35,7 @@ then
 			if [ -z $2 ]
 			then
 				printf "Module name undefined\n"
-				printf "There must be 'make_model <mode> <module>'\n"
+				printf "There must be 'model <mode> <module>'\n"
 			elif [ -n $2 ]
 			then
 				dirname=$2
@@ -48,7 +48,7 @@ then
 					if [ -z $3 ]
 					then
 						printf "Model name undefined\n"
-						printf "There must be 'make_model <mode> <module> <model-name>'\n"
+						printf "There must be 'model <mode> <module> <model-name>'\n"
 					elif [ -n $3 ]
 					then
 						conname=$3
@@ -58,6 +58,7 @@ then
 						then
 							cp .cli/tmp/md_mdl.php ./system/modules/$dirname/models/"$conname.php"
 							sed -i "s/md_mdl/$conname/g" ./system/modules/$dirname/models/"$conname.php"
+							sed -i "s/ModuleName/${dirname^}/g" ./system/modules/$dirname/models/"$conname.php"
 
 						    printf "Model created\n"
 							printf "see the results in the 'system/modules/$dirname/models' directory\n"
