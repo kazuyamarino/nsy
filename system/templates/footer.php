@@ -12,6 +12,6 @@ defined('ROOT') OR exit('No direct script access allowed');
     </div>
 </footer>
 <!-- call footer assets method -->
-@( pull::footer_assets() )
+@( Pull::footer_assets() )
 </body>
 </html>

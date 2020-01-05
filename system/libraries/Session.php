@@ -43,7 +43,7 @@ class Session
      *
      * @return bool
      */
-    public static function setPrefix($prefix)
+    public static function set_prefix($prefix)
     {
         return is_string(self::$prefix = $prefix);
     }
@@ -55,7 +55,7 @@ class Session
      *
      * @return string
      */
-    public static function getPrefix()
+    public static function get_prefix()
     {
         return self::$prefix;
     }

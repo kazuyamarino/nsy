@@ -9,29 +9,29 @@
  *
  * How to use it? Simply follow this format.
  * Create <meta> tag :
- * add::meta('name', 'content');
+ * Add::meta('name', 'content');
  *
  * Create <link> tag :
- * add::link('filename/url_filename', 'attribute_rel', 'attribute_type');
+ * Add::link('filename/url_filename', 'attribute_rel', 'attribute_type');
  *
  * Create <script> tag :
- * add::script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
+ * Add::script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
  *
  * You can write any html tags with custom method :
- * add::custom('anythings');
+ * Add::custom('anythings');
  *
  * After that, to use it in View, you only need to call the static method name that you created like this :
- * pull::method_name();
+ * Pull::method_name();
  *
  * For example :
- * pull::header_assets();
- * pull::footer_assets();
+ * Pull::header_assets();
+ * Pull::footer_assets();
 */
 namespace Libraries;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
-use Core\NSY_AssetManager as add;
+use Core\NSY_AssetManager as Add;
 
 Class Assets extends \Core\NSY_AssetManager
 {
@@ -39,30 +39,30 @@ Class Assets extends \Core\NSY_AssetManager
     public static function header_assets()
     {
         // Site Title
-        add::custom('<title>' . get_title() . ' ' . get_version() . ' | ' . get_codename() . '</title>');
+        Add::custom('<title>' . get_title() . ' ' . get_version() . ' | ' . get_codename() . '</title>');
 
         // Meta Tag
-        add::meta('charset="utf-8"', null);
-        add::meta('http-equiv="x-ua-compatible"', 'ie=edge');
-        add::meta('name="description"', get_desc());
-        add::meta('name="keywords"', get_keywords());
-        add::meta('name="author"', get_author());
-        add::meta('name="viewport"', 'width=device-width, initial-scale=1, shrink-to-fit=no');
+        Add::meta('charset="utf-8"', null);
+        Add::meta('http-equiv="x-ua-compatible"', 'ie=edge');
+        Add::meta('name="description"', get_desc());
+        Add::meta('name="keywords"', get_keywords());
+        Add::meta('name="author"', get_author());
+        Add::meta('name="viewport"', 'width=device-width, initial-scale=1, shrink-to-fit=no');
 
         // Favicon
-        add::link('favicon.png', 'shortcut icon', null);
+        Add::link('favicon.png', 'shortcut icon', null);
 
         // Main Style
-        add::link('main.css', 'stylesheet', 'text/css');
+        Add::link('main.css', 'stylesheet', 'text/css');
     }
 
     public static function footer_assets()
     {
         // System JS
-        add::script('config/system.js', 'text/javascript', 'UTF-8', null);
+        Add::script('config/system.js', 'text/javascript', 'UTF-8', null);
 
         // Main JS
-        add::script('main.js', 'text/javascript', 'UTF-8', null);
+        Add::script('main.js', 'text/javascript', 'UTF-8', null);
     }
 
 }

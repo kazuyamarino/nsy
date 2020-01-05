@@ -42,7 +42,7 @@ class Ip
         ];
 
         foreach ($possibleKeys as $key) {
-            if ($ip = static::getGlobalValue($key)) {
+            if ($ip = static::get_global_value($key)) {
                 return $ip;
             }
         }
@@ -73,7 +73,7 @@ class Ip
      *
      * @return string|null
      */
-    protected static function getGlobalValue($key)
+    protected static function get_global_value($key)
     {
         if (isset($_SERVER[$key]) && static::validate($_SERVER[$key])) {
             return $_SERVER[$key];

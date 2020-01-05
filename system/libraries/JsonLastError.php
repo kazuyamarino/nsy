@@ -25,7 +25,7 @@ class JsonLastError
      */
     public static function check()
     {
-        $collections = self::getCollection();
+        $collections = self::get_collection();
 
         $jsonLastError = json_last_error();
 
@@ -37,7 +37,7 @@ class JsonLastError
      *
      * @return array
      */
-    public static function getCollection()
+    public static function get_collection()
     {
         $collections = [
             JSON_ERROR_NONE => null,

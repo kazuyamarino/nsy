@@ -110,35 +110,35 @@ NSY Routing system using classes from [Macaw route by Noah Buscher](https://gith
 #### Examples :
 
 ```PHP
-route::get('/', function() {
+Route::get('/', function() {
   echo 'Hello world!';
 });
 
-route::dispatch();
+Route::dispatch();
 ```
 
-route also supports lambda URIs, such as:
+Route also supports lambda URIs, such as:
 
 ```PHP
-route::get('/(:any)', function($slug) {
+Route::get('/(:any)', function($slug) {
   echo 'The slug is: ' . $slug;
 });
 
-route::dispatch();
+Route::dispatch();
 ```
 
 You can also make requests for HTTP methods in NSY_Router, so you could also do:
 
 ```PHP
-route::get('/', function() {
+Route::get('/', function() {
   echo 'I'm a GET request!';
 });
 
-route::post('/', function() {
+Route::post('/', function() {
   echo 'I'm a POST request!';
 });
 
-route::any('/', function() {
+Route::any('/', function() {
   echo 'I can be both a GET and a POST request!';
 });
 ```
@@ -152,9 +152,9 @@ For this demo lets say I have a folder called controllers with a demo.php
 index.php:
 
 ```php
-route::get('/', 'Controllers\demo@index');
-route::get('page', 'Controllers\demo@page');
-route::get('view/(:num)', 'Controllers\demo@view');
+Route::get('/', 'Controllers\demo@index');
+Route::get('page', 'Controllers\demo@page');
+Route::get('view/(:num)', 'Controllers\demo@view');
 ```
 
 demo.php:
@@ -186,7 +186,7 @@ class Demo {
 Lastly, if there is no route defined for a certain location, you can make NSY_Router run a custom callback, like:
 
 ```PHP
-route::error(function() {
+Route::error(function() {
   echo '404 :: Not Found';
 });
 ```
@@ -211,35 +211,34 @@ How to use it? Simply follow this.
 
 Create `<meta>` tag :
 ```
-add::meta('name', 'content');
+Add::meta('name', 'content');
 ```
 
 Create `<link>` tag :
 ```
-add::link('filename/url_filename', 'attribute_rel', 'attribute_type');
+Add::link('filename/url_filename', 'attribute_rel', 'attribute_type');
 ```
 
 Create `<script>` tag :
 ```
-add::script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
+Add::script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
 ```
 
 You can write any html tags with custom method :
 ```
-add::custom('anythings');
+Add::custom('anythings');
 ```
 
 * After that, to use it in View, you only need to call the static method name that you created like this.
 ```
-pull::method_name();
+Pull::method_name();
 ```
 
 For example :
 ```
-pull::header_assets();
-pull::footer_assets();
+Pull::header_assets();
+Pull::footer_assets();
 ```
-
 
 <hr>
 

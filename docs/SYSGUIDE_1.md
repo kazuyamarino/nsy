@@ -316,7 +316,7 @@ Available methods in this library:
 #### - Set prefix for sessions:
 
 ```php
-Session::setPrefix($prefix);
+Session::set_prefix($prefix);
 ```
 
 | Attribute | Description | Type | Required | Default
@@ -328,7 +328,7 @@ Session::setPrefix($prefix);
 #### - Get sessions prefix:
 
 ```php
-Session::getPrefix();
+Session::get_prefix();
 ```
 
 **# Return** (string) → sessions prefix
@@ -419,13 +419,13 @@ Example of use for this library:
 #### - Set prefix for sessions:
 
 ```php
-Session::setPrefix('_prefix');
+Session::set_prefix('_prefix');
 ```
 
 #### - Get sessions prefix:
 
 ```php
-Session::getPrefix();
+Session::get_prefix();
 ```
 
 #### - Start session:

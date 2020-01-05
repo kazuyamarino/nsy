@@ -26,7 +26,7 @@ class Str
      *
      * @return bool
      */
-    public static function startsWith($search, $string)
+    public static function starts_with($search, $string)
     {
         return substr($string, 0, strlen($search)) === $search;
     }
@@ -39,7 +39,7 @@ class Str
      *
      * @return bool
      */
-    public static function endsWith($search, $string)
+    public static function ends_with($search, $string)
     {
         return substr($string, -strlen($search)) == $search;
     }

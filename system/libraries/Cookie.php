@@ -114,7 +114,7 @@ class Cookie
      *
      * @return boolean
      */
-    public static function setPrefix($prefix)
+    public static function set_prefix($prefix)
     {
         if (!empty($prefix) && is_string($prefix)) {
             self::$prefix = $prefix;
@@ -131,7 +131,7 @@ class Cookie
      *
      * @return string
      */
-    public static function getPrefix()
+    public static function get_prefix()
     {
         return self::$prefix;
     }

@@ -8,6 +8,7 @@ use Libraries\ImageResizeException;
  * Because there is some code connected to the NSY system. So, be careful.
  *
  * PHP class to resize and scale images
+ * https://github.com/gumlet/php-image-resize
  */
 class ImageResize
 {
@@ -60,7 +61,7 @@ class ImageResize
      * @return ImageResize
      * @throws ImageResizeException
      */
-    public static function createFromString($image_data)
+    public static function create_from_string($image_data)
     {
         if (empty($image_data) || $image_data === null) {
             throw new ImageResizeException('image_data must not be empty');
@@ -76,7 +77,7 @@ class ImageResize
      * @param callable $filter
      * @return $this
      */
-    public function addFilter(callable $filter)
+    public function add_filter(callable $filter)
     {
         $this->filters[] = $filter;
         return $this;
@@ -88,7 +89,7 @@ class ImageResize
      * @param $image resource an image resource identifier
      * @param $filterType filter type and default value is IMG_FILTER_NEGATE
      */
-    protected function applyFilter($image, $filterType = IMG_FILTER_NEGATE)
+    protected function apply_filter($image, $filterType = IMG_FILTER_NEGATE)
     {
         foreach ($this->filters as $function) {
             $function($image, $filterType);
@@ -136,7 +137,7 @@ class ImageResize
             break;
 
         case IMAGETYPE_JPEG:
-            $this->source_image = $this->imageCreateJpegfromExif($filename);
+            $this->source_image = $this->image_create_jpeg_from_exif($filename);
 
             // set new width and height for image, maybe it has changed
             $this->original_w = imagesx($this->source_image);
@@ -167,7 +168,7 @@ class ImageResize
     }
 
     // http://stackoverflow.com/a/28819866
-    public function imageCreateJpegfromExif($filename)
+    public function image_create_jpeg_from_exif($filename)
     {
         $img = imagecreatefromjpeg($filename);
 
@@ -196,10 +197,10 @@ class ImageResize
         }
 
         if ($orientation === 5 || $orientation === 4 || $orientation === 7) {
-            if(function_exists('imageflip')) {
-                imageflip($img, IMG_FLIP_HORIZONTAL);
+            if(function_exists('image_flip')) {
+                image_flip($img, IMG_FLIP_HORIZONTAL);
             } else {
-                $this->imageFlip($img, IMG_FLIP_HORIZONTAL);
+                $this->image_flip($img, IMG_FLIP_HORIZONTAL);
             }
         }
 
@@ -283,7 +284,7 @@ class ImageResize
         imagegammacorrect($dest_image, 1.0, 2.2);
 
 
-        $this->applyFilter($dest_image);
+        $this->apply_filter($dest_image);
 
         switch ($image_type) {
         case IMAGETYPE_GIF:
@@ -334,7 +335,7 @@ class ImageResize
      * @param int $quality
      * @return string
      */
-    public function getImageAsString($image_type = null, $quality = null)
+    public function get_image_as_string($image_type = null, $quality = null)
     {
         $string_temp = tempnam(sys_get_temp_dir(), '');
 
@@ -354,7 +355,7 @@ class ImageResize
      */
     public function __toString()
     {
-        return $this->getImageAsString();
+        return $this->get_image_as_string();
     }
 
     /**
@@ -378,7 +379,7 @@ class ImageResize
      * @param boolean $allow_enlarge
      * @return static
      */
-    public function resizeToShortSide($max_short, $allow_enlarge = false)
+    public function resize_to_short_side($max_short, $allow_enlarge = false)
     {
         if ($this->getSourceHeight() < $this->getSourceWidth()) {
             $ratio = $max_short / $this->getSourceHeight();
@@ -402,7 +403,7 @@ class ImageResize
      * @param boolean $allow_enlarge
      * @return static
      */
-    public function resizeToLongSide($max_long, $allow_enlarge = false)
+    public function resize_to_long_side($max_long, $allow_enlarge = false)
     {
         if ($this->getSourceHeight() > $this->getSourceWidth()) {
             $ratio = $max_long / $this->getSourceHeight();
@@ -426,7 +427,7 @@ class ImageResize
      * @param boolean $allow_enlarge
      * @return static
      */
-    public function resizeToHeight($height, $allow_enlarge = false)
+    public function resize_to_height($height, $allow_enlarge = false)
     {
         $ratio = $height / $this->getSourceHeight();
         $width = $this->getSourceWidth() * $ratio;
@@ -443,7 +444,7 @@ class ImageResize
      * @param boolean $allow_enlarge
      * @return static
      */
-    public function resizeToWidth($width, $allow_enlarge = false)
+    public function resize_to_width($width, $allow_enlarge = false)
     {
         $ratio  = $width / $this->getSourceWidth();
         $height = $this->getSourceHeight() * $ratio;
@@ -461,7 +462,7 @@ class ImageResize
      * @param boolean $allow_enlarge
      * @return static
      */
-    public function resizeToBestFit($max_width, $max_height, $allow_enlarge = false)
+    public function resize_to_best_fit($max_width, $max_height, $allow_enlarge = false)
     {
         if ($this->getSourceWidth() <= $max_width && $this->getSourceHeight() <= $max_height && $allow_enlarge === false) {
             return $this;
@@ -557,21 +558,21 @@ class ImageResize
         $ratio_dest = $width / $height;
 
         if ($ratio_dest < $ratio_source) {
-            $this->resizeToHeight($height, $allow_enlarge);
+            $this->resize_to_height($height, $allow_enlarge);
 
             $excess_width = ($this->getDestWidth() - $width) / $this->getDestWidth() * $this->getSourceWidth();
 
             $this->source_w = $this->getSourceWidth() - $excess_width;
-            $this->source_x = $this->getCropPosition($excess_width, $position);
+            $this->source_x = $this->get_crop_position($excess_width, $position);
 
             $this->dest_w = $width;
         } else {
-            $this->resizeToWidth($width, $allow_enlarge);
+            $this->resize_to_width($width, $allow_enlarge);
 
             $excess_height = ($this->getDestHeight() - $height) / $this->getDestHeight() * $this->getSourceHeight();
 
             $this->source_h = $this->getSourceHeight() - $excess_height;
-            $this->source_y = $this->getCropPosition($excess_height, $position);
+            $this->source_y = $this->get_crop_position($excess_height, $position);
 
             $this->dest_h = $height;
         }
@@ -659,7 +660,7 @@ class ImageResize
      * @param integer $position
      * @return float|integer
      */
-    protected function getCropPosition($expectedSize, $position = self::CROPCENTER)
+    protected function get_crop_position($expectedSize, $position = self::CROPCENTER)
     {
         $size = 0;
         switch ($position) {
@@ -685,7 +686,7 @@ class ImageResize
      * @param  integer  $mode
      * @return null
      */
-    public function imageFlip($image, $mode)
+    public function image_flip($image, $mode)
     {
         switch($mode) {
             case self::IMG_FLIP_HORIZONTAL: {

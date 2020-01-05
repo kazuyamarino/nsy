@@ -28,15 +28,15 @@ class Json
      *
      * @return boolean → true if the file is created without errors
      */
-    public static function arrayToFile($array, $file)
+    public static function array_to_file($array, $file)
     {
-        self::createDirectory($file);
+        self::create_directory($file);
 
         $lastError = JsonLastError::check();
 
         $json = json_encode($lastError ? $lastError : $array, JSON_PRETTY_PRINT);
 
-        self::saveFile($file, $json);
+        self::save_file($file, $json);
 
         return is_null($lastError);
     }
@@ -48,10 +48,10 @@ class Json
      *
      * @return array|false
      */
-    public static function fileToArray($file)
+    public static function file_to_array($file)
     {
         if (! is_file($file) && ! filter_var($file, FILTER_VALIDATE_URL)) {
-            self::arrayToFile([], $file);
+            self::array_to_file([], $file);
         }
 
         $json = @file_get_contents($file);
@@ -70,7 +70,7 @@ class Json
      *
      * @throws JsonException → couldn't create directory
      */
-    private static function createDirectory($file)
+    private static function create_directory($file)
     {
         $basename = is_string($file) ? basename($file) : '';
         $path = str_replace($basename, '', $file);
@@ -93,7 +93,7 @@ class Json
      *
      * @throws JsonException → couldn't create file
      */
-    private static function saveFile($file, $json)
+    private static function save_file($file, $json)
     {
         if (@file_put_contents($file, $json) === false) {
             $message = 'Could not create file in';

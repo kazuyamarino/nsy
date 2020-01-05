@@ -57,7 +57,7 @@ class LoadTime
      *
      * @return boolean
      */
-    public static function isActive()
+    public static function is_active()
     {
         return (self::$startTime) ? true : false;
     }

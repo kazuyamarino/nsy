@@ -60,9 +60,9 @@ class Curl
     {
         $init = curl_init($url);
 
-        $params = self::checkParams($params);
+        $params = self::check_params($params);
 
-        if (! $curl = self::setCurlOptions($params)) {
+        if (! $curl = self::set_curl_options($params)) {
             return false;
         }
 
@@ -88,7 +88,7 @@ class Curl
      *
      * @return array → request params
      */
-    private static function checkParams($params)
+    private static function check_params($params)
     {
         $values = ['data', 'type', 'referer', 'timeout', 'agent', 'headers'];
 
@@ -110,11 +110,11 @@ class Curl
      *
      * @return array → request params
      */
-    private static function setCurlOptions($param)
+    private static function set_curl_options($param)
     {
         return in_array($param['type'], ['get', 'post', 'put', 'delete'], true) ? [
             CURLOPT_VERBOSE => true,
-            CURLOPT_REFERER => $param['referer'] ?: self::getUrl(),
+            CURLOPT_REFERER => $param['referer'] ?: self::get_url(),
             CURLOPT_TIMEOUT => $param['timeout'],
             CURLOPT_USERAGENT => $param['agent'],
             CURLOPT_HTTPHEADER => $param['headers'],
@@ -130,7 +130,7 @@ class Curl
      *
      * @return string → full url
      */
-    private static function getUrl()
+    private static function get_url()
     {
         if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
             return 'https://' . $_SERVER['HTTP_HOST'];

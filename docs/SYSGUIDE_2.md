@@ -69,7 +69,7 @@ Cookie::destroy($key);
 ### - Set cookie prefix:
 
 ```php
-Cookie::setPrefix($prefix);
+Cookie::set_prefix($prefix);
 ```
 
 | Attribute | Description | Type | Required | Default
@@ -81,7 +81,7 @@ Cookie::setPrefix($prefix);
 ### - Get cookie prefix:
 
 ```php
-Cookie::getPrefix();
+Cookie::get_prefix();
 ```
 
 **# Return** (string) → cookie prefix
@@ -129,13 +129,13 @@ Cookie::destroy();
 ### - Set cookie prefix:
 
 ```php
-Cookie::setPrefix('prefix_');
+Cookie::set_prefix('prefix_');
 ```
 
 ### - Get cookie prefix:
 
 ```php
-Cookie::getPrefix();
+Cookie::get_prefix();
 ```
 
 <hr>
@@ -828,7 +828,7 @@ File::delete($file);
 ### - Create directory if not exists:
 
 ```php
-File::createDir($path);
+File::create_dir($path);
 ```
 
 | Attribute | Description | Type | Required | Default
@@ -840,7 +840,7 @@ File::createDir($path);
 ### - Copy directory recursively:
 
 ```php
-File::copyDirRecursively($from, $to);
+File::copy_dir_recursively($from, $to);
 ```
 
 | Attribute | Description | Type | Required | Default
@@ -853,7 +853,7 @@ File::copyDirRecursively($from, $to);
 ### - Delete empty directory:
 
 ```php
-File::deleteEmptyDir($path);
+File::delete_empty_dir($path);
 ```
 
 | Attribute | Description | Type | Required | Default
@@ -865,7 +865,7 @@ File::deleteEmptyDir($path);
 ### - Delete directory recursively:
 
 ```php
-File::deleteDirRecursively($path);
+File::delete_dir_recursively($path);
 ```
 
 | Attribute | Description | Type | Required | Default
@@ -877,7 +877,7 @@ File::deleteDirRecursively($path);
 ### - Get files from directory:
 
 ```php
-File::getFilesFromDir($path);
+File::get_files_from_dir($path);
 ```
 
 | Attribute | Description | Type | Required | Default
@@ -915,35 +915,35 @@ File::delete(__DIR__ . '/test.txt');
 
 ```php
 <?php
-File::createDir(__DIR__ . '/test/');
+File::create_dir(__DIR__ . '/test/');
 ```
 
 ### - Delete empty directory:
 
 ```php
 <?php
-File::deleteEmptyDir(__DIR__ . '/test/');
+File::delete_empty_dir(__DIR__ . '/test/');
 ```
 
 ### - Delete directory recursively:
 
 ```php
 <?php
-File::deleteDirRecursively(__DIR__ . '/test/');
+File::delete_dir_recursively(__DIR__ . '/test/');
 ```
 
 ### - Copy directory recursively:
 
 ```php
 <?php
-File::copyDirRecursively(__DIR__ . '/test/', __DIR__ . '/copy/');
+File::copy_dir_recursively(__DIR__ . '/test/', __DIR__ . '/copy/');
 ```
 
 ### - Get file paths from directory:
 
 ```php
 <?php
-get_class(File::getFilesFromDir(__DIR__));
+get_class(File::get_files_from_dir(__DIR__));
 ```
 
 # Curl Library
@@ -1138,7 +1138,7 @@ Available methods in this library:
 ### - Creating JSON file from array:
 
 ```php
-Json::arrayToFile($array, $file);
+Json::array_to_file($array, $file);
 ```
 
 | Attribute | Description | Type | Required | Default
@@ -1151,7 +1151,7 @@ Json::arrayToFile($array, $file);
 ### - Save to array the JSON file content:
 
 ```php
-Json::fileToArray($file);
+Json::file_to_array($file);
 ```
 
 | Attribute | Description | Type | Required | Default
@@ -1171,7 +1171,7 @@ JsonLastError::check();
 ### - Get collection of JSON errors:
 
 ```php
-JsonLastError::getCollection();
+JsonLastError::get_collection();
 ```
 
 **# Return** (array) → Collection of JSON errors.
@@ -1192,7 +1192,7 @@ $array = [
 
 $pathfile = __DIR__ . '/filename.json';
 
-Json::arrayToFile($array, $pathfile);
+Json::array_to_file($array, $pathfile);
 
 ```
 
@@ -1201,7 +1201,7 @@ Json::arrayToFile($array, $pathfile);
 ```php
 $pathfile = __DIR__ . '/filename.json';
 
-$array = Json::fileToArray($pathfile);
+$array = Json::file_to_array($pathfile);
 
 ```
 
@@ -1218,7 +1218,7 @@ if (!is_null($lastError)) {
 ### - Get collection of JSON errors:
 
 ```php
-$jsonLastErrorCollection = JsonLastError::getCollection();
+$jsonLastErrorCollection = JsonLastError::get_collection();
 ```
 
 # LoadTime Library
@@ -1251,7 +1251,7 @@ LoadTime::end();
 ### - Check if the timer has been started:
 
 ```php
-LoadTime::isActive();
+LoadTime::is_active();
 ```
 
 **# Return** (boolean)
@@ -1299,7 +1299,7 @@ LanguageCode::get();
 ### - Get language name from language code:
 
 ```php
-LanguageCode::getLanguageFromCode($languageCode);
+LanguageCode::get_language_from_code($languageCode);
 ```
 
 | Attribute | Description | Type | Required | Default
@@ -1311,7 +1311,7 @@ LanguageCode::getLanguageFromCode($languageCode);
 ### - Get language code from language name:
 
 ```php
-LanguageCode::getCodeFromLanguage($languageName);
+LanguageCode::get_code_from_language($languageName);
 ```
 
 | Attribute | Description | Type | Required | Default
@@ -1339,7 +1339,7 @@ use Libraries\Str;
 ### - Check if the string starts with a certain value:
 
 ```php
-Str::startsWith($search, $string);
+Str::starts_with($search, $string);
 ```
 
 | Attribute | Description | Type | Required | Default
@@ -1352,7 +1352,7 @@ Str::startsWith($search, $string);
 ### - Check if the string ends with a certain value:
 
 ```php
-Str::endsWith($search, $string);
+Str::ends_with($search, $string);
 ```
 
 | Attribute | Description | Type | Required | Default
@@ -1369,13 +1369,13 @@ Example of use for this library:
 ### - Check if the string starts with a certain value:
 
 ```php
-Str::startsWith("Hello", "Hello world");
+Str::starts_with("Hello", "Hello world");
 ```
 
 ### - Check if the string ends with a certain value:
 
 ```php
-Str::endsWith("world", "Hello World");
+Str::ends_with("world", "Hello World");
 ```
 
 # ImageResize Library
@@ -1400,11 +1400,11 @@ To resize an image according to one dimension (keeping aspect ratio):
 
 ```php
 $image = new ImageResize('image.jpg');
-$image->resizeToHeight(500);
+$image->resize_to_height(500);
 $image->save('image2.jpg');
 
 $image = new ImageResize('image.jpg');
-$image->resizeToWidth(300);
+$image->resize_to_width(300);
 $image->save('image2.jpg');
 ```
 
@@ -1412,18 +1412,18 @@ To resize an image according to a given measure regardingless its orientation (k
 
 ```php
 $image = new ImageResize('image.jpg');
-$image->resizeToLongSide(500);
+$image->resize_to_long_side(500);
 $image->save('image2.jpg');
 
 $image = new ImageResize('image.jpg');
-$image->resizeToShortSide(300);
+$image->resize_to_short_side(300);
 $image->save('image2.jpg');
 ```
 
 To resize an image to best fit a given set of dimensions (keeping aspet ratio):
 ```php
 $image = new ImageResize('image.jpg');
-$image->resizeToBestFit(500, 300);
+$image->resize_to_best_fit(500, 300);
 $image->save('image2.jpg');
 ```
 
@@ -1514,7 +1514,7 @@ Loading and saving images from string
 To load an image from a string:
 
 ```php
-$image = ImageResize::createFromString(base64_decode('R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=='));
+$image = ImageResize::create_from_string(base64_decode('R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=='));
 $image->scale(50);
 $image->save('image.jpg');
 ```
@@ -1522,7 +1522,7 @@ $image->save('image.jpg');
 You can also return the result as a string:
 
 ```php
-$image = ImageResize::createFromString(base64_decode('R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=='));
+$image = ImageResize::create_from_string(base64_decode('R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=='));
 $image->scale(50);
 echo $image->getImageAsString();
 ```
@@ -1530,7 +1530,7 @@ echo $image->getImageAsString();
 Magic `__toString()` is also supported:
 
 ```php
-$image = ImageResize::createFromString(base64_decode('R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=='));
+$image = ImageResize::create_from_string(base64_decode('R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=='));
 $image->resize(10, 10);
 echo (string)$image;
 ```
@@ -1583,12 +1583,12 @@ $image->crop(200, 200);
 $image->save('image2.jpg', null, 100);
 
 $image = new ImageResize('image.jpg');
-$image->resizeToWidth(300);
+$image->resize_to_width(300);
 $image->output(IMAGETYPE_PNG, 4);
 
 $image = new ImageResize('image.jpg');
 $image->scale(50);
-$result = $image->getImageAsString(IMAGETYPE_PNG, 4);
+$result = $image->get_image_as_string(IMAGETYPE_PNG, 4);
 ```
 
 We're passing `null` for the image type in the example above to skip over it and provide the quality. In this case, the image type is assumed to be the same as the input.
@@ -1618,7 +1618,7 @@ $image
     ->scale(50)
     ->save('image2.jpg')
 
-    ->resizeToWidth(300)
+    ->resize_to_width(300)
     ->save('image3.jpg')
 
     ->crop(100, 100)
@@ -1640,59 +1640,6 @@ try{
 } catch (ImageResizeException $e) {
     echo "Something went wrong" . $e->getMessage();
 }
-```
-
-Filters
---------
-
-You can apply special effects for new image like blur or add banner.
-
-```php
-$image = new ImageResize('image.jpg');
-
-// Add blure
-$image->addFilter(function ($imageDesc) {
-    imagefilter($imageDesc, IMG_FILTER_GAUSSIAN_BLUR);
-});
-
-// Add banner on bottom left corner
-$image18Plus = 'banner.png'
-$image->addFilter(function ($imageDesc) use ($image18Plus) {
-    $logo = imagecreatefrompng($image18Plus);
-    $logo_width = imagesx($logo);
-    $logo_height = imagesy($logo);
-    $image_width = imagesx($imageDesc);
-    $image_height = imagesy($imageDesc);
-    $image_x = $image_width - $logo_width - 10;
-    $image_y = $image_height - $logo_height - 10;
-    imagecopy($imageDesc, $logo, $image_x, $image_y, 0, 0, $logo_width, $logo_height);
-});
-
-```
-
-Flip
---------
-
-Flips an image using a given mode and this method is only for PHP version 5.4.
-
-```php
-$flip = new ImageResize('image.png');
-$image = imagecreatetruecolor(200, 100);
-
-$flip->imageFlip($image, 0);
-
-```
-
-Both functions will be used in the order in which they were added.
-
-Gamma color correction
---------
-
-You can disable the gamma color correction enabled by default.
-
-```php
-$image = new ImageResize('image.png');
-$image->gamma(false);
 ```
 
 <hr>

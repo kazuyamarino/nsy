@@ -70,7 +70,7 @@ class File
      *
      * @return bool
      */
-    public static function createDir($path)
+    public static function create_dir($path)
     {
         return ! is_dir($path) && @mkdir($path, 0777, true);
     }
@@ -85,13 +85,13 @@ class File
      *
      * @return bool
      */
-    public static function copyDirRecursively($from, $to)
+    public static function copy_dir_recursively($from, $to)
     {
-        if (! $path = self::getFilesFromDir($from)) {
+        if (! $path = self::get_files_from_dir($from)) {
             return false;
         }
 
-        self::createDir($to = rtrim($to, '/') . '/');
+        self::create_dir($to = rtrim($to, '/') . '/');
 
         foreach ($path as $file) {
             if ($file->isFile()) {
@@ -99,7 +99,7 @@ class File
                     return false;
                 }
             } elseif (! $file->isDot() && $file->isDir()) {
-                self::copyDirRecursively($file->getRealPath(), $to . $path);
+                self::copy_dir_recursively($file->getRealPath(), $to . $path);
             }
         }
 
@@ -115,7 +115,7 @@ class File
      *
      * @return bool
      */
-    public static function deleteEmptyDir($path)
+    public static function delete_empty_dir($path)
     {
         return is_dir($path) && @rmdir($path);
     }
@@ -129,9 +129,9 @@ class File
      *
      * @return bool
      */
-    public static function deleteDirRecursively($path)
+    public static function delete_dir_recursively($path)
     {
-        if (! $paths = self::getFilesFromDir($path)) {
+        if (! $paths = self::get_files_from_dir($path)) {
             return false;
         }
 
@@ -141,12 +141,12 @@ class File
                     return false;
                 }
             } elseif (! $file->isDot() && $file->isDir()) {
-                self::deleteDirRecursively($file->getRealPath());
-                self::deleteEmptyDir($file->getRealPath());
+                self::delete_dir_recursively($file->getRealPath());
+                self::delete_empty_dir($file->getRealPath());
             }
         }
 
-        return self::deleteEmptyDir($path);
+        return self::delete_empty_dir($path);
     }
 
     /**
@@ -158,7 +158,7 @@ class File
      *
      * @return object|false →
      */
-    public static function getFilesFromDir($path)
+    public static function get_files_from_dir($path)
     {
         if (! is_dir($path)) {
             return false;
