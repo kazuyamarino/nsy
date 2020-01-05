@@ -58,7 +58,7 @@ then
 						then
 							cp .cli/tmp/md_mdl.php ./system/modules/$dirname/models/"$conname.php"
 							sed -i "s/md_mdl/$conname/g" ./system/modules/$dirname/models/"$conname.php"
-							sed -i "s/ModuleName/${dirname^}/g" ./system/modules/$dirname/models/"$conname.php"
+							sed -i "s/ModuleName/"$(echo "$dirname" |sed -e "s/\b\(.\)/\u\1/g")"/g" ./system/modules/$dirname/models/"$conname.php"
 
 						    printf "Model created\n"
 							printf "see the results in the 'system/modules/$dirname/models' directory\n"

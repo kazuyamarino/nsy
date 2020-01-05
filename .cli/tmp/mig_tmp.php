@@ -1,10 +1,10 @@
 <?php
-namespace Migrations;
+namespace System\Migrations;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
-use Core\NSY_Migration;
-use Core\Migration_Impl;
+use System\Core\NSY_Migration;
+use System\Core\Migration_Impl;
 
 /**
  * The migration class

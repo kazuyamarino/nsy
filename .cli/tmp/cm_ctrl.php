@@ -1,10 +1,9 @@
 <?php
-namespace Controllers;
+namespace System\Controllers;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
-use Core\NSY_Controller;
-use Carbon\Carbon;
+use System\Core\NSY_Controller;
 
 class cm_ctrl extends NSY_Controller
 {
