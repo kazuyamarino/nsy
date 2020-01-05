@@ -10,7 +10,7 @@ Site example :
 
 Use this namespace in the controller :
 ```
-use Libraries\Cookie;
+use System\Libraries\Cookie;
 ```
 
 PHP library for handling cookies, NSY has supported the use of Cookie library class in the controller (mvc or hmvc).<br/>
@@ -745,7 +745,7 @@ $this->connect()->alter_cols('example', function() {
 
 Use this namespace in the controller :
 ```
-use Libraries\Ip;
+use System\Libraries\Ip;
 ```
 
 ## Available Methods
@@ -794,7 +794,7 @@ Ip::validate($ip);
 
 Use this namespace in the controller :
 ```
-use Libraries\File;
+use System\Libraries\File;
 ```
 
 ## Available Methods
@@ -950,7 +950,7 @@ get_class(File::get_files_from_dir(__DIR__));
 
 Use this namespace in the controller :
 ```
-use Libraries\Curl;
+use System\Libraries\Curl;
 ```
 
 ## Available Methods
@@ -1128,7 +1128,7 @@ Curl::request('https://graph.facebook.com/zuck', $data, 'object');
 
 Use this namespace in the controller :
 ```
-use Libraries\Json;
+use System\Libraries\Json;
 ```
 
 ## Available Methods
@@ -1225,7 +1225,7 @@ $jsonLastErrorCollection = JsonLastError::get_collection();
 
 Use this namespace in the controller :
 ```
-use Libraries\LoadTime;
+use System\Libraries\LoadTime;
 ```
 
 ## Available Methods
@@ -1281,7 +1281,7 @@ print_r('Script executed in: ' . LoadTime::end() . ' seconds.');
 
 Use this namespace in the controller :
 ```
-use Libraries\LanguageCode;
+use System\Libraries\LanguageCode;
 ```
 
 ## Available Methods
@@ -1331,7 +1331,7 @@ LanguageCode::get();
 
 Use this namespace in the controller :
 ```
-use Libraries\Str;
+use System\Libraries\Str;
 ```
 
 ## Available Methods
@@ -1382,7 +1382,7 @@ Str::ends_with("world", "Hello World");
 
 Use this namespace in the controller :
 ```
-use Libraries\ImageResize;
+use System\Libraries\ImageResize;
 ```
 
 Resize
@@ -1641,6 +1641,14 @@ try{
     echo "Something went wrong" . $e->getMessage();
 }
 ```
+
+# Carbon Library
+
+Use this namespace in the controller :
+```
+use Carbon\Carbon;
+```
+Carbon DateTime, [Carbon Documentation](https://carbon.nesbot.com/docs/)
 
 <hr>
 

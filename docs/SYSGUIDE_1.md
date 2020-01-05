@@ -308,7 +308,7 @@ echo generate_num("VYLMA-", 4, 10);
 
 Use this namespace in the controller :
 ```
-use Libraries\Session;
+use System\Libraries\Session;
 ```
 
 Available methods in this library:
