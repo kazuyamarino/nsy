@@ -1,16 +1,16 @@
 <?php
 
-namespace Razr\Extension;
+namespace System\Razr\Extension;
 
-use Razr\Directive\BlockDirective;
-use Razr\Directive\ControlDirective;
-use Razr\Directive\ExtendDirective;
-use Razr\Directive\IncludeDirective;
-use Razr\Directive\RawDirective;
-use Razr\Directive\SetDirective;
-use Razr\Engine;
-use Razr\Exception\InvalidArgumentException;
-use Razr\Exception\RuntimeException;
+use System\Razr\Directive\BlockDirective;
+use System\Razr\Directive\ControlDirective;
+use System\Razr\Directive\ExtendDirective;
+use System\Razr\Directive\IncludeDirective;
+use System\Razr\Directive\RawDirective;
+use System\Razr\Directive\SetDirective;
+use System\Razr\Engine;
+use System\Razr\Exception\InvalidArgumentException;
+use System\Razr\Exception\RuntimeException;
 
 class CoreExtension implements ExtensionInterface
 {

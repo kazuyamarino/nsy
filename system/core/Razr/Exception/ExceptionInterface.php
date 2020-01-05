@@ -1,6 +1,6 @@
 <?php
 
-namespace Razr\Exception;
+namespace System\Razr\Exception;
 
 interface ExceptionInterface
 {

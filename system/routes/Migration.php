@@ -1,10 +1,10 @@
 <?php
-namespace Routes;
+namespace System\Routes;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
-use Core\NSY_Router as Route;
-use Core\NSY_Desk;
+use System\Core\NSY_Router as Route;
+use System\Core\NSY_Desk;
 
 Class Migration
 {

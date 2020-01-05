@@ -10,17 +10,17 @@ defined('ROOT') OR exit('No direct script access allowed');
  /**
   * Use NSY_XSS_Filter class
   */
-use Core\NSY_XSS_Filter;
+use System\Core\NSY_XSS_Filter;
 
 /**
  * Use NSY_CSRF class
  */
-use Core\NSY_CSRF;
+use System\Core\NSY_CSRF;
 
 /**
  * Use NSY_Desk class
  */
-use Core\NSY_Desk;
+use System\Core\NSY_Desk;
 
 /**
  * Define public_path() method

@@ -1,9 +1,9 @@
 <?php
-namespace Routes;
+namespace System\Routes;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
-use Core\NSY_Router as Route;
+use System\Core\NSY_Router as Route;
 
 Class Web
 {
@@ -15,10 +15,10 @@ Class Web
         // Route type : any, get, post, put, delete, options, & head
 
         // MVC Route
-        Route::any('', 'Controllers\Welcome@index');
+        Route::any('', 'System\Controllers\Welcome@index');
 
         // HMVC Route
-        Route::any('hmvc', 'Modules\Homepage\Controllers\Hello@index_hmvc');
+        Route::any('hmvc', 'System\Modules\Homepage\Controllers\Hello@index_hmvc');
     }
 
 }

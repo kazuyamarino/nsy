@@ -16,20 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-			"Razr\\": "system/core/Razr",
-            "Razr\\Directive\\": "system/core/Razr/Directive",
-            "Razr\\Exception\\": "system/core/Razr/Exception",
-            "Razr\\Extension\\": "system/core/Razr/Extension",
-            "Razr\\Loader\\": "system/core/Razr/Loader",
-            "Razr\\Storage\\": "system/core/Razr/Storage",
-            "Routes\\": "system/routes/",
-            "Libraries\\": "system/libraries/",
-            "Migrations\\": "system/migrations/",
-            "Core\\": "system/core/",
-            "Models\\": "system/models/",
-            "Controllers\\": "system/controllers/",
-            "Modules\\Homepage\\Models\\": "system/modules/homepage/models/",
-			"Modules\\Homepage\\Controllers\\": "system/modules/homepage/controllers/"
+			"System\\": "system/"
         },
         "files": [
 			"system/core/NSY_Helpers.php",

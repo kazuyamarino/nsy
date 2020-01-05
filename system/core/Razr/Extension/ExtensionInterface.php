@@ -1,8 +1,8 @@
 <?php
 
-namespace Razr\Extension;
+namespace System\Razr\Extension;
 
-use Razr\Engine;
+use System\Razr\Engine;
 
 interface ExtensionInterface
 {

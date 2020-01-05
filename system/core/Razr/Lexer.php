@@ -1,9 +1,9 @@
 <?php
 
-namespace Razr;
+namespace System\Razr;
 
-use Razr\Exception\RuntimeException;
-use Razr\Exception\SyntaxErrorException;
+use System\Razr\Exception\RuntimeException;
+use System\Razr\Exception\SyntaxErrorException;
 
 class Lexer
 {

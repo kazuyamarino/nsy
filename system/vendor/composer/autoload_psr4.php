@@ -6,25 +6,12 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    'System\\' => array($baseDir . '/system'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Symfony\\Contracts\\Translation\\' => array($vendorDir . '/symfony/translation-contracts'),
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
-    'Routes\\' => array($baseDir . '/system/routes'),
-    'Razr\\Storage\\' => array($baseDir . '/system/core/Razr/Storage'),
-    'Razr\\Loader\\' => array($baseDir . '/system/core/Razr/Loader'),
-    'Razr\\Extension\\' => array($baseDir . '/system/core/Razr/Extension'),
-    'Razr\\Exception\\' => array($baseDir . '/system/core/Razr/Exception'),
-    'Razr\\Directive\\' => array($baseDir . '/system/core/Razr/Directive'),
-    'Razr\\' => array($baseDir . '/system/core/Razr'),
     'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src/PhpOption'),
-    'Modules\\Homepage\\Models\\' => array($baseDir . '/system/modules/homepage/models'),
-    'Modules\\Homepage\\Controllers\\' => array($baseDir . '/system/modules/homepage/controllers'),
-    'Models\\' => array($baseDir . '/system/models'),
-    'Migrations\\' => array($baseDir . '/system/migrations'),
-    'Libraries\\' => array($baseDir . '/system/libraries'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
-    'Core\\' => array($baseDir . '/system/core'),
-    'Controllers\\' => array($baseDir . '/system/controllers'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
 );

@@ -1,8 +1,8 @@
 <?php
 
-namespace Razr\Directive;
+namespace System\Razr\Directive;
 
-use Razr\Engine;
+use System\Razr\Engine;
 
 abstract class Directive implements DirectiveInterface
 {

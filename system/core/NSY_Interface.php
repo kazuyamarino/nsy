@@ -1,5 +1,5 @@
 <?php
-namespace Core;
+namespace System\Core;
 
 defined('ROOT') OR exit('No direct script access allowed');
 

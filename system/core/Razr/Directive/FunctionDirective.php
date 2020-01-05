@@ -1,9 +1,9 @@
 <?php
 
-namespace Razr\Directive;
+namespace System\Razr\Directive;
 
-use Razr\Token;
-use Razr\TokenStream;
+use System\Razr\Token;
+use System\Razr\TokenStream;
 
 class FunctionDirective extends Directive
 {

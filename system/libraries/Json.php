@@ -11,9 +11,9 @@
  * @link      https://github.com/Josantonius/PHP-Json
  * @since     1.0.0
  */
-namespace Libraries;
+namespace System\Libraries;
 
-use Libraries\Exception\JsonException;
+use System\Libraries\Exception\JsonException;
 
 /**
  * Json handler.

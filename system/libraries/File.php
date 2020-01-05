@@ -11,7 +11,7 @@
  * @link      https://github.com/Josantonius/PHP-File
  * @since     1.0.0
  */
-namespace Libraries;
+namespace System\Libraries;
 
 defined('ROOT') OR exit('No direct script access allowed');
 

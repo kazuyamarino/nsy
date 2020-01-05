@@ -1,18 +1,18 @@
 <?php
-namespace Core;
+namespace System\Core;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
 /**
  * Razr Template Engine
  */
-use Razr\Engine;
-use Razr\Loader\FilesystemLoader;
+use System\Razr\Engine;
+use System\Razr\Loader\FilesystemLoader;
 
 /**
  * Use NSY_Desk class
  */
-use Core\NSY_Desk;
+use System\Core\NSY_Desk;
 
 /**
  * This is the core of NSY Controller

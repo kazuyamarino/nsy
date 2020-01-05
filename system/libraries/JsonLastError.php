@@ -11,7 +11,7 @@
  * @link      https://github.com/Josantonius/PHP-Json
  * @since     1.1.7
  */
-namespace Libraries;
+namespace System\Libraries;
 
 /**
  * The JSON last error collection.

@@ -1,8 +1,8 @@
 <?php
 
-namespace Razr;
+namespace System\Razr;
 
-use Razr\Exception\SyntaxErrorException;
+use System\Razr\Exception\SyntaxErrorException;
 
 class TokenStream
 {

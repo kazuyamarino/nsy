@@ -1,8 +1,8 @@
 <?php
 
-namespace Razr\Loader;
+namespace System\Razr\Loader;
 
-use Razr\Exception\RuntimeException;
+use System\Razr\Exception\RuntimeException;
 
 class FilesystemLoader implements LoaderInterface
 {

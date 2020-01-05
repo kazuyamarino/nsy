@@ -1,10 +1,10 @@
 <?php
 
-namespace Razr\Directive;
+namespace System\Razr\Directive;
 
-use Razr\Engine;
-use Razr\Token;
-use Razr\TokenStream;
+use System\Razr\Engine;
+use System\Razr\Token;
+use System\Razr\TokenStream;
 
 interface DirectiveInterface
 {

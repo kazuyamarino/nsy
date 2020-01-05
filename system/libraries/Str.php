@@ -11,7 +11,7 @@
  * @link      https://github.com/Josantonius/PHP-Str
  * @since     1.0.0
  */
-namespace Libraries;
+namespace System\Libraries;
 
 /**
  * String handler.

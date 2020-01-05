@@ -1,5 +1,5 @@
 <?php
-namespace Libraries;
+namespace System\Libraries;
 
 /**
  * Attention, don't try to change the structure of the code, delete, or change.

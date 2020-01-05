@@ -18,32 +18,32 @@
 /**
  * Use NSY_System class
  */
-use Core\NSY_System;
+use System\Core\NSY_System;
 
 /**
  * Use NSY_Desk class
  */
-use Core\NSY_Desk;
+use System\Core\NSY_Desk;
 
 /**
  * Use NSY_Router class
  */
-use Core\NSY_Router;
+use System\Core\NSY_Router;
 
 /**
  * Use Web class
  */
-use Routes\Web;
+use System\Routes\Web;
 
 /**
  * Use Api class
  */
-use Routes\Api;
+use System\Routes\Api;
 
 /**
  * Use Migration class
  */
-use Routes\Migration;
+use System\Routes\Migration;
 
 /**
  * Phpdotenv class

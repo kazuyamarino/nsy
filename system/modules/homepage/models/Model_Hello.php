@@ -1,9 +1,9 @@
 <?php
-namespace Modules\Homepage\Models;
+namespace System\Modules\Homepage\Models;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
-use Core\NSY_Model;
+use System\Core\NSY_Model;
 
 class Model_Hello extends NSY_Model
 {

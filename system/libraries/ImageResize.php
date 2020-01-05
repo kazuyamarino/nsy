@@ -1,7 +1,7 @@
 <?php
-namespace Libraries;
+namespace System\Libraries;
 
-use Libraries\ImageResizeException;
+use System\Libraries\ImageResizeException;
 
 /**
  * Attention, don't try to change the structure of the code, delete, or change.

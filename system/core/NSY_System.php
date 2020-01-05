@@ -1,9 +1,9 @@
 <?php
-namespace Core;
+namespace System\Core;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
-use Libraries\Session;
+use System\Libraries\Session;
 /**
  * This is the core of NSY System Settings
  * Attention, don't try to change the structure of the code, delete, or change.
@@ -82,7 +82,7 @@ class NSY_System
         date_default_timezone_set(config_app('timezone'));
 
         // aliasing Assets class name
-        class_alias('Libraries\Assets', 'Pull');
+        class_alias('System\Libraries\Assets', 'Pull');
 
         // start session
         Session::init();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Razr;
+namespace System\Razr;
 
 class Parser
 {

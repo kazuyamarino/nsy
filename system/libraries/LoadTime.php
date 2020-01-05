@@ -11,7 +11,7 @@
  * @link      https://github.com/Josantonius/PHP-LoadTime
  * @since     1.0.0
  */
-namespace Libraries;
+namespace System\Libraries;
 
 /**
  * Load time handler.

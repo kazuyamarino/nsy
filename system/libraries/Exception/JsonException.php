@@ -11,7 +11,7 @@
  * @link      https://github.com/Josantonius/PHP-Json
  * @since     1.0.0
  */
-namespace Libraries\Exception;
+namespace System\Libraries\Exception;
 
 /**
  * Exception class for Json library.

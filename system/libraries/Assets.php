@@ -27,13 +27,13 @@
  * Pull::header_assets();
  * Pull::footer_assets();
 */
-namespace Libraries;
+namespace System\Libraries;
 
 defined('ROOT') OR exit('No direct script access allowed');
 
-use Core\NSY_AssetManager as Add;
+use System\Core\NSY_AssetManager as Add;
 
-Class Assets extends \Core\NSY_AssetManager
+Class Assets extends \System\Core\NSY_AssetManager
 {
 
     public static function header_assets()

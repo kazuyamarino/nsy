@@ -1,16 +1,16 @@
 <?php
 
-namespace Razr;
+namespace System\Razr;
 
-use Razr\Directive\Directive;
-use Razr\Directive\DirectiveInterface;
-use Razr\Exception\RuntimeException;
-use Razr\Extension\CoreExtension;
-use Razr\Extension\ExtensionInterface;
-use Razr\Loader\LoaderInterface;
-use Razr\Storage\FileStorage;
-use Razr\Storage\Storage;
-use Razr\Storage\StringStorage;
+use System\Razr\Directive\Directive;
+use System\Razr\Directive\DirectiveInterface;
+use System\Razr\Exception\RuntimeException;
+use System\Razr\Extension\CoreExtension;
+use System\Razr\Extension\ExtensionInterface;
+use System\Razr\Loader\LoaderInterface;
+use System\Razr\Storage\FileStorage;
+use System\Razr\Storage\Storage;
+use System\Razr\Storage\StringStorage;
 
 class Engine
 {

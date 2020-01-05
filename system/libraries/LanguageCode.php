@@ -11,7 +11,7 @@
  * @link      https://github.com/Josantonius/PHP-LanguageCode
  * @since     1.0.0
  */
-namespace Libraries;
+namespace System\Libraries;
 
 /**
  * Language code handler.
