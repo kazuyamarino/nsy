@@ -12,6 +12,7 @@ then
 		cp docs/apache/for_root/.htaccess ./.htaccess
 		sed -i "s/nsy/$filename/g" ./env
 		sed -i "s/nsy/$filename/g" ./public/js/config/system.js
+		sed -i "s/$filename/$filename/g" ./docs/nginx/sites-enabled/default
 		sed -i "s/nsy/$filename/g" ./docs/nginx/sites-enabled/default
 
 		printf "Please wait...\n"

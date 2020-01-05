@@ -24,9 +24,9 @@ class Hello extends NSY_Controller
     public function index_hmvc()
     {
         $arr = [
-        'my_name' => $this->m_welcome->welcome(), // Call my_name method from Model_Welcome
-        'hmvc_page' => $this->m_hello->hmvc_page(), // Call hmvc_page method from Model_Hello
-        'date' => Carbon::now() // Instantiate today date with Carbon
+	        'my_name' => $this->m_welcome->welcome(), // Call my_name method from Model_Welcome
+	        'hmvc_page' => $this->m_hello->hmvc_page(), // Call hmvc_page method from Model_Hello
+	        'date' => Carbon::now() // Instantiate today date with Carbon
         ];
 
         // Load HMVC view page
