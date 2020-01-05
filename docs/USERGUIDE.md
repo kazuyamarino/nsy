@@ -255,8 +255,17 @@ If you install the NSY Framework through the `composer create-project`, it autom
 
 ### NSY CLI Manual Install
 * `sudo chmod +x INSTALL.sh`
+```
+html/nsy$ sudo chmod +x INSTALL.sh
+```
 * `./INSTALL.sh`
+```
+html/nsy$ ./INSTALL.sh
+```
 * Close the `terminal` or `git bash`, & open it again or reset bashrc with the command `source RELOADER.sh`
+```
+html/nsy$ source RELOADER.sh
+```
 * If NSY CLI installer successfully, it should display
 ```
 NSY CLI installed
@@ -266,6 +275,8 @@ Please reset bashrc with the command 'source RELOADER.sh'
 ```
 * Then if you type command `nsy_hi` it should display
 ```
+html/nsy$ nsy_hi
+
 Welcome to NSY CLI
 NSY CLI installed successfully
 ```

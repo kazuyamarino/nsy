@@ -36,7 +36,7 @@ Or...
 
 #### NSY CLI (Command Line), [See Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#nsy-cli-command-line)
 ```
-nsy_setup
+html/nsy$ nsy_setup
 
 ---
 
@@ -46,7 +46,7 @@ Enter directory name >
 
 ##### Example, setting up NSY with the application directory called `blog`
 ```
-nsy_setup
+html/nsy$ nsy_setup
 
 ---
 
