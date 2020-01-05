@@ -28,26 +28,8 @@ The composer on the nsy framework has a function to generate autoload in the HMV
 
 NSY applies the concept of PSR-4 Autoloading. NSY has the `composer.json` file that can be dumped with [composer](https://getcomposer.org/download/) command `composer dump-autoload -o` or [NSY CLI](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#nsy-cli-command-line) command `nsy_autoload` when creating a folder structure that contains new class files.
 
-Example make a `homepage` folder in the HMVC module folder and dump it with composer autoload :
-* See line autoload on composer.json.
-```
-"autoload": {
-	"psr-4": {
-		"Core\\": "system/core/",
-		"Models\\": "system/models/",
-		"Controllers\\": "system/controllers/",
-		"Modules\\Homepage\\Models\\": "system/modules/homepage/models/",
-		"Modules\\Homepage\\Controllers\\": "system/modules/homepage/controllers/"
-	},
-```
-
-* There is an example folder named in the module folder that was created named `homepage`, along with the namespaces.
-```
-"Modules\\Homepage\\Models\\": "system/modules/homepage/models/",
-"Modules\\Homepage\\Controllers\\": "system/modules/homepage/controllers/"
-```
-The namespace is separated with `\\`, and then the path with `/`. There are 2 folders that will be autoloaded, first `system/modules/homepage/models/`, and second `system/modules/homepage/controllers/`.
-
+For example,
+* There is an example folder in the module folder that was created named `homepage`, along with the namespaces.
 
 * In the `homepage` folder there must be a `models` folder, `views` folder, and `controllers` folder.
 ```
@@ -91,9 +73,22 @@ In system.js there is a `base_url` configuration for javascript *(see line 1 to 
 <hr>
 
 ### Helpers
-The `system/helpers` folder is useful for creating custom methods that match what you want.
+The `system/helpers` folder is useful for creating custom methods that match what you want and need.
 
-There are 2 helper files that are by default available in NSY, namely `Helpers_CI`. `Helpers_CI` are a set of `Codeigniter` built-in helper (there are only a few) methods that can run on NSY.
+There is a helper files that are by default available in NSY, namely `Helpers_CI`. `Helpers_CI` are a set of `Codeigniter` built-in helper (there are only a few) methods that can run on NSY.
+
+If you want to make your own helper, then just make the desired method in the php file then save it in system/helpers. And don't forget to autoload it on `composer.json` in the parameters `files`.
+```
+"autoload": {
+	"psr-4": {
+		"System\\": "system/"
+	},
+	"files": [
+		"system/helpers/Helpers_CI.php"
+		"system/helpers/Custom_Method.php" // your custom helpers file
+	]
+}
+```
 
 <hr>
 
