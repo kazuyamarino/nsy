@@ -28,7 +28,18 @@ There are 2 ways to setup NSY.
 
 #### Manual
 * For apache, please go to the `docs/apache` folder and read the `Readme.txt`.
+```
+// Apache Readme.txt
+1. Copy .htaccess inside 'for_public' folder to 'public' folder
+2. Copy .htaccess inside 'for_root' folder to 'root(nsy)' folder
+```
 * For nginx, please go to the `docs/nginx` folder and read the `Readme.txt` too.
+```
+// Nginx Readme.txt
+1. Open 'sudo nano /etc/nginx/sites-enabled/default'
+2. Copy the text in the 'default' file and paste it to /etc/nginx/sites-enabled/default
+3. And restart nginx service, 'sudo service nginx restart'
+```
 * Go to the `docs/env.example` folder and copy the `env.example` to root folder, and rename it to `env`.
 * And save the date..
 
