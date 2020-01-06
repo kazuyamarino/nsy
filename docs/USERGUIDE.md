@@ -254,7 +254,7 @@ If you install the NSY Framework through the `composer create-project`, it autom
 ---
 
 ### NSY CLI Manual Install
-* `sudo chmod +x INSTALL.sh` `(use this if you want to install on a linux operating system that requires permission, or if you are a Windows user, then skip this command)`
+* `sudo chmod +x INSTALL.sh` (use this if you want to install on a linux operating system that requires permission, or if you are a Windows user, then skip this command)
 ```
 html/nsy$ sudo chmod +x INSTALL.sh
 ```
