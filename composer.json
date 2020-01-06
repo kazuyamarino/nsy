@@ -32,7 +32,7 @@
 			"composer dump-autoload -o"
 	    ],
 	    "nsy_cli_install": [
-			"./INSTALL.sh"
+			"bash INSTALL.sh"
 	    ]
 	}
 }

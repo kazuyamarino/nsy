@@ -258,9 +258,9 @@ If you install the NSY Framework through the `composer create-project`, it autom
 ```
 html/nsy$ sudo chmod +x INSTALL.sh
 ```
-* `./INSTALL.sh`
+* `bash INSTALL.sh` or `./INSTALL.sh`
 ```
-html/nsy$ ./INSTALL.sh
+html/nsy$ bash INSTALL.sh
 ```
 * Close the `terminal` or `git bash`, & open it again or reset bashrc with the command `source RELOADER.sh`
 ```

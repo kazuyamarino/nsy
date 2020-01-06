@@ -1,2 +1,2 @@
 #!/bin/bash
-./INSTALL.sh
+bash INSTALL.sh
