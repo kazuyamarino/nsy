@@ -28,10 +28,10 @@
     },
 	"scripts": {
 	    "post-install-cmd": [
-	        "@nsy_cli_install"
+	        "@nsy_cli_install",
+			"composer dump-autoload -o"
 	    ],
 	    "nsy_cli_install": [
-			"sudo chmod +x INSTALL.sh",
 			"./INSTALL.sh"
 	    ]
 	}
