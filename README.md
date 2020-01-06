@@ -12,7 +12,7 @@ Tifa is a musical instrument typical of Eastern Indonesia, especially Maluku and
 ## How to dating with NSY?
 ### Download from Github
 * Download source from this link [https://github.com/kazuyamarino/nsy/releases](https://github.com/kazuyamarino/nsy/releases).
-* Simply rename the source folder that has been downloaded to `nsy` & copy it to your `html` or `htdocs` folder or anythings folder.
+* Simply rename the source folder that has been downloaded to `nsy` & copy it to your `html` or `htdocs` or anythings folder.
 
 ### From Composer
 ```
