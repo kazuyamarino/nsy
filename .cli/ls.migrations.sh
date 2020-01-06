@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # List of modules
 printf "List of 'migrations' class :\n"
 printf "==========================\n"

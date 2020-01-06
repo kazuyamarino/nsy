@@ -1,4 +1,5 @@
 #!/bin/bash
+
 if [ -z $1 ]
 then
 	printf "Mode undefined, must be hmvc or mvc\n"

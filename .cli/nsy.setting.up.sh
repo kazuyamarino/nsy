@@ -1,4 +1,5 @@
 #!/bin/bash
+
 echo "Enter directory name > "
 read response
 if [ -n "$response" ];
