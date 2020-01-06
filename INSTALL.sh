@@ -15,9 +15,10 @@ then
 	printf "NSY CLI installed\n"
 	printf "Please close the Terminal & reopen it again\n"
 	printf "Or\n"
-	printf "Please reset bashrc with the command 'source ~/reloader.sh'\n"
+	printf "Please run 'source ~/reloader.sh'\n"
 else
 	cp .cli/nsy.cli.sh ~/nsy.cli.sh
+	cp .cli/reloader.sh ~/reloader.sh
 
 	printf "Please wait...\n"
 	sleep 3
@@ -25,5 +26,5 @@ else
 	printf "NSI CLI already installed and has been updated\n"
 	printf "Please close the Terminal & reopen it again\n"
 	printf "Or\n"
-	printf "Please reset bashrc with the command 'source RELOADER.sh'\n"
+	printf "Please run 'source ~/reloader.sh'\n"
 fi
