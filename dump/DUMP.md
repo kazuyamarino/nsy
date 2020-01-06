@@ -1,1 +1,1 @@
-# Database dump folder
+# Database dump files folder

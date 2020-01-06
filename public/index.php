@@ -5,7 +5,7 @@
  *
  * Parses and verifies the doc comments for files.
  *
- * PHP version 7.4
+ * PHP version 7
  *
  * @category  PHP
  * @package   NSY_PHP_Framework
