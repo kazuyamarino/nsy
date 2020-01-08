@@ -13,57 +13,49 @@ Tifa is a musical instrument typical of Eastern Indonesia, especially Maluku and
 ### Download from Github
 * Download source from this link [https://github.com/kazuyamarino/nsy/releases](https://github.com/kazuyamarino/nsy/releases).
 * Simply rename the source folder that has been downloaded to `nsy` & copy it to your `html` or `htdocs` or anythings folder.
-
-### From Composer
-```
-composer create-project vikry/nsy
-```
-#### Install NSY by creating a new directory called `blog`
-```
-composer create-project --prefer-dist vikry/nsy blog
-```
-
-### Setting up NSY
-There are 2 ways to setup NSY.
-
-#### Manual
 * For apache, please go to the `docs/apache` folder and read the `Readme.txt`.
+
 ```
 // Apache Readme.txt
 1. Copy .htaccess inside 'for_public' folder to 'public' folder
 2. Copy .htaccess inside 'for_root' folder to 'root(nsy)' folder
 ```
-* For nginx, please go to the `docs/nginx` folder and read the `Readme.txt` too.
+* Go to the `docs/env.example` folder and copy the `env.example` to root folder, and rename it to `env`.
+* And save the date..
+
+### From Composer
+
+### Install NSY by creating a new directory called `blog`
+```
+composer create-project --prefer-dist vikry/nsy blog
+```
+
+##### 2. Restart Bash
+```
+source ~/reloader.sh
+```
+
+##### 3. NSY Setup
+```
+cd blog && nsy_setup
+
+Enter directory name >
+blog
+```
+
+---
+
+**Note :**
+For nginx, please go to the `docs/nginx` folder and read the `Readme.txt` too.
+
 ```
 // Nginx Readme.txt
 1. Open 'sudo nano /etc/nginx/sites-enabled/default'
 2. Copy the text in the 'default' file and paste it to /etc/nginx/sites-enabled/default
 3. And restart nginx service, 'sudo service nginx restart'
 ```
-* Go to the `docs/env.example` folder and copy the `env.example` to root folder, and rename it to `env`.
-* And save the date..
-
-Or...
-
-#### NSY CLI (Command Line), [See Documentation](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#nsy-cli-command-line)
-```
-html/nsy$ nsy_setup
 
 ---
-
-Enter directory name >
-<application-directory-name>
-```
-
-##### Example, setting up NSY with the application directory called `blog`
-```
-html/nsy$ nsy_setup
-
----
-
-Enter directory name >
-blog
-```
 
 ## CRUD Example?
 Here it is [Vylma CRUD Example](https://vylma.kazuyamarino.com/)
