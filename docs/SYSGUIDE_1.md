@@ -7,15 +7,16 @@ Site example :
 ## Usefull Method
 
 ### Public directory path
-Returns your site public directory, as specified in your config file.
+Returns your site full path `public` directory, as specified in your config file.
 ```
 echo public_path();
 
-// html/nsy/public/
+// for Example
+usr/share/../html/nsy/public/
 ```
 
 ### Get Version
-Get application version from config/site.php.
+Get `version` parameter value from config/Site.php.
 ```
 echo get_version();
 
@@ -23,7 +24,7 @@ echo get_version();
 ```
 
 ### Get Codename
-Get application codename from config/site.php.
+Get `codename` parameter value from config/Site.php.
 ```
 echo get_codename();
 
@@ -31,7 +32,7 @@ echo get_codename();
 ```
 
 ### Get Language Code
-Get application language code from config/app.php.
+Get `locale` parameter value from config/App.php.
 ```
 echo get_lang_code();
 
@@ -39,43 +40,43 @@ echo get_lang_code();
 ```
 
 ### Open Graph Prefix
-Get open graph prefix from config/app.php.
+Get `prefix_attr` parameter value from config/App.php.
 ```
 echo get_og_prefix();
 ```
 
 ### Get Site Title
-Get site title from config/site.php.
+Get `sitetitle` parameter value from config/Site.php.
 ```
 echo get_title();
 ```
 
 ### Get Site Description
-Get site description from config/site.php.
+Get `sitedesc` parameter value from config/Site.php.
 ```
 echo get_desc();
 ```
 
 ### Get Site Keywords
-Get site keywords from config/site.php.
+Get `sitekeywords` parameter value from config/Site.php.
 ```
 echo get_keywords();
 ```
 
 ### Get Site Author
-Get site author from config/site.php.
+Get `siteauthor` parameter value from config/Site.php.
 ```
 echo get_author();
 ```
 
 ### Get Session Prefix
-Get session prefix from config/app.php.
+Get `session_prefix` parameter value from config/App.php.
 ```
 echo get_session_prefix();
 ```
 
 ### Get Site Email
-Get site email from config/site.php.
+Get `siteemail` parameter value from config/Site.php.
 ```
 echo get_site_email();
 ```
@@ -151,17 +152,17 @@ fetch_json(data);
 ### Getting config value
 If you want to take values ​​in the config file on the `system/config`, this is the way :
 
-* Get value from `app.php` :
+* Get value from `App.php` :
 ```
 config_app('value_name');
 // config_app('app_env');
 ```
-* Get value from `database.php` :
+* Get value from `Database.php` :
 ```
 config_db('connection', 'value_name');
 // config_db('mysql', 'DB_HOST');
 ```
-* Get value from `site.php` :
+* Get value from `Site.php` :
 ```
 config_site('value_name');
 // config_site('sitetitle');

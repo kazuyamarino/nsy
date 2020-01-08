@@ -908,35 +908,35 @@ File::exists('https://raw.githubusercontent.com/Josantonius/PHP-File/master/comp
 
 ```php
 <?php
-File::delete(__DIR__ . '/test.txt');
+File::delete(public_path('file.txt'));
 ```
 
 ### - Create directory:
 
 ```php
 <?php
-File::create_dir(__DIR__ . '/test/');
+File::create_dir(public_path('/test/'));
 ```
 
 ### - Delete empty directory:
 
 ```php
 <?php
-File::delete_empty_dir(__DIR__ . '/test/');
+File::delete_empty_dir(public_path('/test/'));
 ```
 
 ### - Delete directory recursively:
 
 ```php
 <?php
-File::delete_dir_recursively(__DIR__ . '/test/');
+File::delete_dir_recursively(public_path('/test/'));
 ```
 
 ### - Copy directory recursively:
 
 ```php
 <?php
-File::copy_dir_recursively(__DIR__ . '/test/', __DIR__ . '/copy/');
+File::copy_dir_recursively(public_path('/test/'), public_path('/copy/'));
 ```
 
 ### - Get file paths from directory:
@@ -1190,7 +1190,7 @@ $array = [
     'url'   => 'https://github.com/josantonius/PHP-Json'
 ];
 
-$pathfile = __DIR__ . '/filename.json';
+$pathfile = public_path('file.json');
 
 Json::array_to_file($array, $pathfile);
 
@@ -1199,7 +1199,7 @@ Json::array_to_file($array, $pathfile);
 ### - Save to array the JSON file content:
 
 ```php
-$pathfile = __DIR__ . '/filename.json';
+$pathfile = public_path('file.json');
 
 $array = Json::file_to_array($pathfile);
 
@@ -1262,10 +1262,6 @@ Example of use for this library:
 
 ```php
 <?php
-require __DIR__ . '/vendor/autoload.php';
-
-use Josantonius\LoadTime\LoadTime;
-
 LoadTime::start();
 
 for ($i=0; $i < 100000; $i++) {
@@ -1393,7 +1389,7 @@ To scale an image, in this case to half it's size (scaling is percentage based):
 ```php
 $image = new ImageResize('image.jpg');
 $image->scale(50);
-$image->save('image2.jpg')
+$image->save('image2.jpg');
 ```
 
 To resize an image according to one dimension (keeping aspect ratio):
