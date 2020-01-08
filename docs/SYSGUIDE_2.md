@@ -1524,7 +1524,7 @@ You can also return the result as a string:
 ```php
 $image = ImageResize::create_from_string(base64_decode('R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=='));
 $image->scale(50);
-echo $image->getImageAsString();
+echo $image->();
 ```
 
 Magic `__toString()` is also supported:
@@ -1575,7 +1575,7 @@ $image->save('image2.jpg');
 
 By default they are set to 85 and 6 respectively. See the manual entries for [`imagejpeg()`](http://www.php.net/manual/en/function.imagejpeg.php) and [`imagepng()`](http://www.php.net/manual/en/function.imagepng.php) for more info.
 
-You can also pass the quality directly to the `save()`, `output()` and `getImageAsString()` methods:
+You can also pass the quality directly to the `save()`, `output()` and `()` methods:
 
 ```php
 $image = new ImageResize('image.jpg');

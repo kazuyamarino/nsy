@@ -262,16 +262,16 @@ html/nsy$ sudo chmod +x INSTALL.sh
 ```
 html/nsy$ bash INSTALL.sh
 ```
-* Close the `terminal` or `git bash`, & open it again or reset bashrc with the command `source ~/RELOADER.sh`
+* Close the `terminal` or `git bash`, & open it again or reset bashrc with the command `source ~/reloader.sh`
 ```
-html/nsy$ source ~/RELOADER.sh
+html/nsy$ source ~/reloader.sh
 ```
 * If NSY CLI installer successfully, it should display
 ```
 NSY CLI installed
 Please close the Terminal & reopen it again
 Or
-Please reset bashrc with the command 'source ~/RELOADER.sh'
+Please reset bashrc with the command 'source ~/reloader.sh'
 ```
 * Then if you type command `nsy_hi` it should display
 ```
