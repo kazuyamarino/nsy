@@ -32,6 +32,7 @@ For example,
 * There is an example folder in the module folder that was created named `homepage`, along with the namespaces.
 
 * In the `homepage` folder there must be a `models` folder, `views` folder, and `controllers` folder.
+
 ```
 modules
     │   └── homepage
@@ -42,6 +43,7 @@ modules
     │       └── views
     │           
 ```
+
 Should be like this. That it is!
 
 * Now, you can generate autoload class in the `models` folder & `controllers` folder for the `homepage` with `composer dump-autoload -o` or [NSY CLI](https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#nsy-cli-command-line) command `nsy_autoload` on the command line terminal.
@@ -53,6 +55,7 @@ The NSY_Framework Configuration is very simple. There are 3 config file in `syst
 * `App.php` for application setting such as system path of the framework.
 * `Database.php` for database connection setting.
 * `Site.php` for meta site configuration.
+
 ```
 ├── config
     │   ├── App.php
@@ -78,6 +81,7 @@ The `system/helpers` folder is useful for creating custom methods that match wha
 There is a helper files that are by default available in NSY, namely `Helpers_CI`. `Helpers_CI` are a set of `Codeigniter` built-in helper (there are only a few) methods that can run on NSY.
 
 If you want to make your own helper, then just make the desired method in the php file then save it in system/helpers. And don't forget to autoload it on `composer.json` in the parameters `files`.
+
 ```
 "autoload": {
 	"psr-4": {
@@ -94,6 +98,7 @@ If you want to make your own helper, then just make the desired method in the ph
 
 ### Routes
 NSY Routing system using classes from [Macaw route by Noah Buscher](https://github.com/noahbuscher/macaw), and it's located in the `system/routes` directory.
+
 ```
 ├── routes
     │   ├── Api.php
@@ -205,31 +210,37 @@ How to use it? Simply follow this.
 * `NSY_AssetManager.php` is the core, it is located in `system/core` folder. `Assets.php` is the controller which regulates assets, if you want to manage the assets, please go to `Assets.php`.
 
 Create `<meta>` tag :
+
 ```
 Add::meta('name', 'content');
 ```
 
 Create `<link>` tag :
+
 ```
 Add::link('filename/url_filename', 'attribute_rel', 'attribute_type');
 ```
 
 Create `<script>` tag :
+
 ```
 Add::script('filename/url_filename', 'attribute_type', 'attribute_charset', 'async defer');
 ```
 
 You can write any html tags with custom method :
+
 ```
 Add::custom('anythings');
 ```
 
 * After that, to use it in View, you only need to call the static method name that you created like this.
+
 ```
 Pull::method_name();
 ```
 
 For example :
+
 ```
 Pull::header_assets();
 Pull::footer_assets();
@@ -256,28 +267,38 @@ If you install the NSY Framework through the `composer create-project`, it autom
 ### NSY CLI Manual Install
 * Open Linux Terminal or Git Bash Terminal inside your project directory.
 * `sudo chmod +x INSTALL.sh` (use this if you want to install on a linux operating system that requires permission, or if you are a Windows user, then skip this command).
+
 ```
 html/nsy$ sudo chmod +x INSTALL.sh
 ```
+
 * `bash INSTALL.sh` or `./INSTALL.sh`.
+
 ```
 html/nsy$ bash INSTALL.sh
 ```
+
 * Close the `terminal` or `git bash`, & open it again or reset bashrc with the command `source ~/reloader.sh`.
+
 ```
 html/nsy$ source ~/reloader.sh
 ```
+
 * If NSY CLI installer successfully, it should display.
+
 ```
 NSY CLI installed
 Please close the Terminal & reopen it again
 Or
 Please reset bashrc with the command 'source ~/reloader.sh'
 ```
+
 * Then if you type command `nsy --hello` it should display.
+
 ```
 html/nsy$ nsy --hello
 ```
+
 ```
 Welcome to NSY CLI
 NSY CLI installed successfully
@@ -285,78 +306,115 @@ NSY CLI installed successfully
 
 For example of commands see below.
 * Show list of Migration Class file :
+
 ```
 nsy show:migration
 ```
+
 * Show list of HMVC Modules directory :
+
 ```
 nsy show:module
 ```
+
 * Show list of HMVC Controller files :
+
 ```
 nsy show:controller hmvc <module-directory-name>
 ```
+
 * Show list of HMVC Model files :
+
 ```
 nsy show:model hmvc <module-directory-name>
 ```
+
 * Show list of MVC Controller files :
+
 ```
 nsy show:controller mvc
 ```
+
 * Show list of MVC Model files :
+
 ```
 nsy show:model mvc
 ```
+
 * Show Welcome Message :
+
 ```
 nsy --hello
 ```
+
 * Show Help Message :
+
 ```
 nsy --help
 ```
+
 * Dump mysql database :
+
 ```
 nsy dump:mysql <database-name> <username> <password>
 ```
+
 * Dump mysql database (table only) :
+
 ```
 nsy dump:mysql <database-name> <username> <password> <table-name>
 ```
+
 * Make HMVC Module :
+
 ```
 nsy make:module <module-directory-name>
 ```
+
 * Make HMVC Controller :
+
 ```
 nsy make:controller hmvc <module-directory-name> <controller-name>
 ```
+
 * Make HMVC Model :
+
 ```
 nsy make:model hmvc <module-directory-name> <model-name>
 ```
+
 * Make MVC Controller :
+
 ```
 nsy make:controller mvc <controller-name>
 ```
+
 * Make MVC Model :
+
 ```
 nsy make:model mvc <model-name>
 ```
+
 * Make Migration Class :
+
 ```
 nsy make:migration <class-name>
 ```
+
 * First time setting up NSY :
+
 ```
 nsy --setup
 ```
+
 * Generate optimized composer autoload :
+
 ```
 nsy dump:autoload
 ```
+
 * NSY CLI install/update :
+
 ```
 nsy --install
 ```

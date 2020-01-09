@@ -8,6 +8,7 @@ Site example :
 
 ### Public directory path
 Returns your site full path `public` directory, as specified in your config file.
+
 ```
 echo public_path();
 
@@ -17,6 +18,7 @@ usr/share/../html/nsy/public/
 
 ### Get Version
 Get `version` parameter value from config/Site.php.
+
 ```
 echo get_version();
 
@@ -25,6 +27,7 @@ echo get_version();
 
 ### Get Codename
 Get `codename` parameter value from config/Site.php.
+
 ```
 echo get_codename();
 
@@ -33,6 +36,7 @@ echo get_codename();
 
 ### Get Language Code
 Get `locale` parameter value from config/App.php.
+
 ```
 echo get_lang_code();
 
@@ -41,48 +45,56 @@ echo get_lang_code();
 
 ### Open Graph Prefix
 Get `prefix_attr` parameter value from config/App.php.
+
 ```
 echo get_og_prefix();
 ```
 
 ### Get Site Title
 Get `sitetitle` parameter value from config/Site.php.
+
 ```
 echo get_title();
 ```
 
 ### Get Site Description
 Get `sitedesc` parameter value from config/Site.php.
+
 ```
 echo get_desc();
 ```
 
 ### Get Site Keywords
 Get `sitekeywords` parameter value from config/Site.php.
+
 ```
 echo get_keywords();
 ```
 
 ### Get Site Author
 Get `siteauthor` parameter value from config/Site.php.
+
 ```
 echo get_author();
 ```
 
 ### Get Session Prefix
 Get `session_prefix` parameter value from config/App.php.
+
 ```
 echo get_session_prefix();
 ```
 
 ### Get Site Email
 Get `siteemail` parameter value from config/Site.php.
+
 ```
 echo get_site_email();
 ```
 
 ### Base URL
 Returns your site base URL, as specified in your config file.
+
 ```
 echo base_url();
 
@@ -90,32 +102,40 @@ echo base_url();
 ```
 
 You can supply segments as a string. Here is a string example:
+
 ```
 echo base_url("hmvc/action");
 ```
+
 The above example would return something like: http://example.com/hmvc/action
 
 You can supply a string to a file, such as an image or stylesheet. For example:
+
 ```
 echo base_url("images/edit.png");
 ```
+
 This would give you something like: http://example.com/images/edit.png
 
 Redirect method is used to send a raw HTTP header. Here is the example:
+
 ```
 redirect('hmvc/success');
 ```
+
 The above example would return redirect url to: http://example.com/hmvc/success
 
 ```
 redirect_back();
 ```
+
 The above example would return redirect to previous page.
 
 <hr>
 
 ### Array Flatten
 PHP array_flatten() function. Convert a multi-dimensional array into a single-dimensional array :
+
 ```
 array_flatten($items);
 
@@ -129,6 +149,7 @@ array_flatten($items);
 
 ### Fetch to JSON
 If you want to display data values ​​in json form, you can do this method :
+
 ```
 fetch_json(data);
 
@@ -153,16 +174,21 @@ fetch_json(data);
 If you want to take values ​​in the config file on the `system/config`, this is the way :
 
 * Get value from `App.php` :
+
 ```
 config_app('value_name');
 // config_app('app_env');
 ```
+
 * Get value from `Database.php` :
+
 ```
 config_db('connection', 'value_name');
 // config_db('mysql', 'DB_HOST');
 ```
+
 * Get value from `Site.php` :
+
 ```
 config_site('value_name');
 // config_site('sitetitle');
@@ -172,30 +198,43 @@ config_site('value_name');
 
 ### Security helper
 * For filtering input value :
+
 ```
 secure_input('attr_name')
 ```
+
 * Get CSRF Token on form :
+
 ```
 echo form_csrf_token();
 ```
+
 * Get CSRF Token/Only Token :
+
 ```
 echo csrf_token();
 ```
+
 * Filtering variable from XSS :
+
 ```
 xss_filter('value');
 ```
+
 * Allow http :
+
 ```
 allow_http();
 ```
+
 * Disallow http :
+
 ```
 disallow_http();
 ```
+
 * Remove get parameter :
+
 ```
 remove_get_parameters('url');
 ```
@@ -206,6 +245,7 @@ remove_get_parameters('url');
 
 ### Passing variable to view
 If you want to passing variable to view, you can use example below :
+
 ```
 $arr = [
 	'my_name' => $this->m_welcome->welcome(),
@@ -215,25 +255,30 @@ $arr = [
 
 $this->load_template('header', $arr);
 ```
+
 The above example will generate variable `$my_name`, `$date` and `$mvc_page` in view.
 
 ### Load MVC or HMVC view file
 #### Load MVC view file :
+
 ```
 $this->load_view(null, 'filename');
 ```
 
 #### Load HMVC view file :
+
 ```
 $this->load_view('module-name', 'filename');
 ```
 
 The PHP superglobals `post()` and `get()` are used to collect form-data.
+
 ```
 post('hello');
 
 // Same as $_POST['hello'];
 ```
+
 ```
 get('hello');
 
@@ -242,6 +287,7 @@ get('hello');
 
 ### Sequence variable
 Create a sequence of the named placeholders, e.g. `:id0`, `:id1`, `:id2`. So the code would be:
+
 ```
 $this->bind('placeholders')->vars('variable')->sequence()
 
@@ -267,20 +313,25 @@ Instantiate the Model class in the controller is useful to make it easier for us
 So there is no need to rewrite the instantiate class in another method.
 
 Just have to write it in the contruct method, like this:
+
 ```
 public function __construct() {
 	// Instantiate Model Crud
 	$this->m_crud = new m_crud;
 }
 ```
+
 then `$this->m_crud` is the variable.
 
 ### Get URI Segment
 To help in retrieving data in URIs
+
 ```
 get_uri_segment(segment number)
 ```
+
 Example :
+
 ```
 http://localhost/nsy/hmvc
 
@@ -293,10 +344,13 @@ echo get_uri_segment(2);
 
 ### Generate Random Number
 To generate a sequence of random numbers that correspond to the desired number or prefix.
+
 ```
 generate_num(prefix, random_number_length, total_number/char_length);
 ```
+
 Example :
+
 ```
 echo generate_num();
 // Default output NSY-617807
@@ -308,6 +362,7 @@ echo generate_num("VYLMA-", 4, 10);
 ### PHP SESSION
 
 Use this namespace in the controller :
+
 ```
 use System\Libraries\Session;
 ```
@@ -515,10 +570,13 @@ Session::destroy();
 
 ### Simple Ternary
 Ternary operator logic is the process of using "`(condition) ? (true return value) : (false return value)`" statements to shorten your if/else structures.
+
 ```
 ternary(condition, return true, return false)
 ```
+
 Example :
+
 ```
 /* most basic usage */
 $var = 5;
@@ -530,18 +588,21 @@ $var_is_greater_than_two = ternary($var > 2, true, false);
 In NSY, there is a function to make it easy for users to see whether a value is empty or not in a variable. i.e. only with 2 methods `not_filled()` and `is_filled()`.
 
 `not_filled()`, s to determine a variable that has no value. Example :
+
 ```
 $var = null;
 not_filled($var); // output return true.
 ```
 
 `is_filled()`, is to determine a variable has a value. Example :
+
 ```
 $var = 5;
 is_filled($var); // output return true.
 ```
 
 Reference of the method :
+
 ```
 $random = "";
 
@@ -558,6 +619,7 @@ $var10 = $random;
 ```
 
 `not_filled()` :
+
 ```
 $var1 = no value
 $var2 = valued
@@ -572,6 +634,7 @@ $var10 = no value
 ```
 
 `is_filled()` :
+
 ```
 $var1 = no value
 $var2 = valued
@@ -585,13 +648,15 @@ $var9 = no value
 $var10 = no value
 ```
 
-
 ### Get User Agent
 This is how to get user agent data with ease.
+
 ```
 get_ua()
 ```
+
 Example :
+
 ```
 $d = get_ua();
 print_r($d);
@@ -607,12 +672,13 @@ Array
 )
 ```
 
-
 ### Aurora File Export
 Aurora is a library created to export data into several file formats supported by aurora such as txt, xls, ods, & etc.
+
 ```
 aurora(file_extension, filename, separator, header, data, string_delimiter);
 ```
+
 Variable explanation :
 1. `file_extension` is a supported file extension by aurora. `(txt, csv, xls, xlsx, & ods)`.
 2. `filename` is a filename defined by user.
@@ -623,6 +689,7 @@ Variable explanation :
 
 
 Example :
+
 ```
 // header data array structure must be like this
 $header = [ 'Col1', 'Col2', 'Col3' ];
@@ -660,6 +727,7 @@ aurora('txt', 'nsy_aurora', 'pipe', $header, $data, 'single');
 NSY has supported 2 database connections in one running application.
 
 You can see the env in root. There seems to be a configuration like this :
+
 ```
 # Define Primary Connection
 DB_CONNECTION=
@@ -679,6 +747,7 @@ DB_PASS_SEC=
 ```
 
 Example for define Connection :
+
 ```
 DB_CONNECTION=mysql
 DB_HOST=localhost
@@ -689,12 +758,14 @@ DB_PASS=password
 ```
 
 For example, in the model you want to run an sql query on the first database connection :
+
 ```
 $q = 'SELECT * FROM blabla';
 $this->connect()->query($q);
 ```
 
 Then, if you want to run an sql query on the second database connection :
+
 ```
 $q = 'SELECT * FROM blabla';
 $this->connect_sec()->query($q);
@@ -712,6 +783,7 @@ You'd be amazed, in how many different formats this function can return data in 
 
 #### Getting a plain array.
 By default, this function will return just simple enumerated array consists of all the returned rows. Row formatting constants, such as `FETCH_NUM, FETCH_ASSOC, FETCH_COLUMN` etc can change the row format.
+
 ```
 $q = 'SELECT id, name, username FROM users';
 $d = $this->connect()->query($q)->style(FETCH_ASSOC)->fetch_all();
@@ -732,6 +804,7 @@ Array
 
 #### Getting a column number.
 It is often very handy to get plain one-dimensional array right out of the query, if only one column out of many rows being fetched. Here you go:
+
 ```
 $q = 'SELECT name FROM users';
 $d = $this->connect()->query($q)->style(FETCH_COLUMN)->fetch_all();
@@ -747,6 +820,7 @@ Array
 
 #### Getting key-value pairs.
 Also extremely useful format, when we need to get the same column, but indexed not by numbers in order but by another field. Here goes `FETCH_KEY_PAIR` constant:
+
 ```
 $q = 'SELECT name FROM users';
 $d = $this->connect()->query($q)->style(FETCH_KEY_PAIR)->fetch_all();
@@ -760,10 +834,12 @@ Array
     [2] => Nayla Syifa
 )
 ```
+
 and many other modes in fetch_all.
 
 ### Getting data out of statement. fetch()
 It fetches a single row from database, and moves the internal pointer in the result set, so consequent calls to this function will return all the resulting rows one by one.
+
 ```
 $q = 'SELECT id, name FROM users';
 $d = $this->connect()->query($q)->style(FETCH_NUM)->fetch();
@@ -783,6 +859,7 @@ Another way would be to bind these variables explicitly while setting the proper
 Binds a PHP variable to a corresponding named or question mark placeholder in the SQL statement that was used to prepare the statement.
 
 BindValue with PARAM_INT (Defines variable type as integer/number) :
+
 ```
 $id = [ ':id' => [3, PAR_INT] ];
 
@@ -804,6 +881,7 @@ Array
 ```
 
 BindParam with PARAM_STR (Defines the variable type as a text string) :
+
 ```
 $string = [ ':name' => ['%yuan%', PAR_STR] ];
 
@@ -823,12 +901,14 @@ Array
     [2] => vikry
 )
 ```
+
 Unlike `BINDVAL`, the variable is bound as a reference and will only be evaluated at the time that `exec()` is called.
 
 `BINDPAR` to bind PHP variables to the parameter markers: bound variables pass their value as input and receive the output value, if any, of their associated parameter markers
 
 ### Getting data out of statement. fetch_column()
 A neat helper function that returns value of the single field of returned row. Very handy when we are selecting only one field:
+
 ```
 // Getting the name based on id
 $id = [ ':id' => 2 ];
@@ -841,6 +921,7 @@ return $d;
 // output
 Nayla Syifa
 ```
+
 ```
 // getting number of rows in the table utilizing method chaining
 $q = "SELECT count(*) FROM tbl_users";
@@ -854,6 +935,7 @@ return $d;
 
 ### Getting row count
 NSY uses PDO. PDO offers a function for returning the number of rows found by the query, `row_count()`, for example:
+
 ```
 $q = "SELECT * FROM tbl_users";
 $d = $this->connect()->query($q)->row_count();
@@ -865,6 +947,7 @@ return $d->result;
 ```
 
 However, if you want to get the number of affected rows, here is an example:
+
 ```
 $id = [ ':id' => 2 ];
 
@@ -880,6 +963,7 @@ return deleted_data->result;
 ### Executes a prepared statement. exec()
 
 #### Update data :
+
 ```
 $id = [ ':id' => 2 ];
 
@@ -890,6 +974,7 @@ $this->connect()->query($q)->vars($id)->exec();
 ```
 
 #### Multi Update data :
+
 ```
 $id = [ 11025, 11026 ];
 foreach ( $id as $key => $ids ) {
@@ -905,6 +990,7 @@ foreach ( $id as $key => $ids ) {
 ```
 
 #### Delete data :
+
 ```
 $id = [ ':id' => 2 ];
 
@@ -915,6 +1001,7 @@ $this->connect()->query($q)->vars($id)->exec();
 ```
 
 #### Multi Delete data :
+
 ```
 $id = [ 11025, 11026 ];
 foreach ( $id as $key => $ids ) {
@@ -929,6 +1016,7 @@ foreach ( $id as $key => $ids ) {
 ```
 
 #### Insert data :
+
 ```
 $param = [ ':user_name' => 'Harmoni' ];
 
@@ -940,6 +1028,7 @@ $this->connect()->query($q)->vars($param)->exec();
 
 ### Multi Insert. multi_insert()
 To input multiple data into the database at once in one command.
+
 ```
 $arr = [
     [0] => [
@@ -963,21 +1052,25 @@ Database transactions ensure that a set of data changes will only be made perman
 NSY provides simple methods for beginning, committing, and rollbacking back transactions.
 
 #### Begin transaction :
+
 ```
 $this->begin_trans();
 ```
 
 #### Commit transaction :
+
 ```
 $this->end_trans();
 ```
 
 #### Rollback transaction :
+
 ```
 $this->null_trans();
 ```
 
 #### First example of transaction in `multi_insert()`.
+
 ```
 $arr = [
     [0] => [
@@ -996,6 +1089,7 @@ $this->connect()->begin_trans()->query($q)->vars($arr)->multi_insert()->end_tran
 ```
 
 #### Second example of transaction in `multi_insert()`.
+
 ```
 $arr = [
     [0] => [
@@ -1024,6 +1118,7 @@ And before using a transaction, you must turn on the transaction mode in `config
 
 ### Emulation mode, set ATTR_EMULATE_PREPARES to FALSE
 For more information about this, go to the following URL [Emulation mode](https://phpdelusions.net/pdo#emulation).
+
 ```
 $this->emulate_prepares_false();
 ```
@@ -1032,20 +1127,24 @@ $this->emulate_prepares_false();
 For more information about this, go to the following URL [Mysqlnd and buffered queries](https://phpdelusions.net/pdo#mysqlnd).
 
 #### set MYSQL_ATTR_USE_BUFFERED_QUERY to FALSE
+
 ```
 $this->use_buffer_query_false();
 ```
 
 #### set MYSQL_ATTR_USE_BUFFERED_QUERY to TRUE
+
 ```
 $this->use_buffer_query_true();
 ```
 
 ### Return type, set ATTR_STRINGIFY_FETCHES to TRUE
 For more information about this, go to the following URL [Return type](https://phpdelusions.net/pdo#returntypes).
+
 ```
 $this->stringify_fetches_true();
 ```
+
 <br/>
 
 **Go to [SYSGUIDE Part 2](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md)**

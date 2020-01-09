@@ -20,22 +20,26 @@ Tifa is a musical instrument typical of Eastern Indonesia, especially Maluku and
 1. Copy .htaccess inside 'for_public' folder to 'public' folder
 2. Copy .htaccess inside 'for_root' folder to 'root(nsy)' folder
 ```
+
 * Go to the `docs/env.example` folder and copy the `env.example` to root folder, and rename it to `env`.
 * And save the date..
 
 ### From Composer
 
 ### Install NSY by creating a new directory called `blog`
+
 ```
 composer create-project --prefer-dist vikry/nsy blog
 ```
 
 ##### 2. Restart Bash
+
 ```
 source ~/reloader.sh
 ```
 
 ##### 3. NSY Setup
+
 ```
 cd blog && nsy --setup
 

@@ -9,6 +9,7 @@ Site example :
 # Cookie Library
 
 Use this namespace in the controller :
+
 ```
 use System\Libraries\Cookie;
 ```
@@ -346,6 +347,7 @@ You only need to instantiate the class in the construct method `__contruct`.
 [See Instantiate Model class in the controller](https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md#instantiate-model-class-in-the-controller).
 
 #### Login to FTP
+
 ```
 $this->ftp = new \FtpClient\FtpClient();
 $this->ftp->connect('website.com');
@@ -356,142 +358,172 @@ $this->ftp->pasv(true);
 ```
 
 #### Returns the last modified time of the given file
+
 ```
 $this->ftp->modifiedTime('path/of/file');
 ```
 
 #### Changes to the parent directory
+
 ```
 $this->ftp->up();
 ```
 
 #### Returns a list of files in the given directory
+
 ```
 $this->ftp->nlist('path/of/directory', true);
 ```
 
 #### Removes a directory
+
 ```
 $this->ftp->rmdir('path/of/directory/to/remove');
 ```
 
 #### Removes a directory (recursive)
+
 ```
 $this->ftp->rmdir('path/of/directory/to/remove', true);
 ```
 
 #### Creates a directory
+
 ```
 $this->ftp->mkdir('path/of/directory/to/create');
 ```
 
 #### Creates a directory (recursive), creates automaticaly the sub directory if not exist
+
 ```
 $this->ftp->mkdir('path/of/directory/to/create', true);
 ```
 
 #### Check if a directory exist
+
 ```
 $this->ftp->isDir('path/of/directory');
 ```
 
 #### Check if a directory is empty
+
 ```
 $this->ftp->isEmpty('path/of/directory');
 ```
 
 #### Scan a directory and returns the details of each item
+
 ```
 $this->ftp->scanDir('path/of/directory');
 ```
 
 #### Returns the total size of the given directory in bytes
+
 ```
 $this->ftp->dirSize('path/of/directory');
 ```
+
 ### Count method
 * count in the current directory
+
 ```
 $total = $this->ftp->count();
 ```
 
 * count in a given directory
+
 ```
 $total = $this->ftp->count('/path/of/directory');
 ```
 
 * count only the "files" in the current directory
+
 ```
 $total_file = $this->ftp->count('.', 'file');
 ```
 
 * count only the "files" in a given directory
+
 ```
 $total_file = $this->ftp->count('/path/of/directory', 'file');
 ```
 
 * count only the "directories" in a given directory
+
 ```
 $total_dir = $this->ftp->count('/path/of/directory', 'directory');
 ```
 
 * count only the "symbolic links" in a given directory
+
 ```
 $total_link = $this->ftp->count('/path/of/directory', 'link');
 ```
 
 #### Downloads a file from the FTP server into a string
+
 ```
 $this->ftp->getContent('path/of/file');
 ```
+
 ### Upload method
 * Uploads a file to the server from a string
+
 ```
 $this->ftp->putFromString('path/of/file', 'string');
 ```
 
 * Uploads a file to the server
+
 ```
 $this->ftp->putFromPath('path/of/file');
 ```
 
 * upload with the BINARY mode
+
 ```
 $this->ftp->putAll('source_directory', 'target_directory');
 ```
 
 * Is equal to
+
 ```
 $this->ftp->putAll('source_directory', 'target_directory', FTP_BINARY);
 ```
 
 * or upload with the ASCII mode
+
 ```
 $this->ftp->putAll('source_directory', 'target_directory', FTP_ASCII);
 ```
 
 #### Downloads all files from remote FTP directory
+
 ```
 $this->ftp->getAll('source_directory', 'target_directory', FTP_BINARY);
 ```
 
 #### Returns a detailed list of files in the given directory
+
 ```
 $this->ftp->rawlist('path/of/directory');
 ```
 
 #### Parse raw list
+
 ```
 $d = $this->ftp->rawlist('path/of/directory');
 $e = $this->ftp->parseRawList($d);
 ```
 
 #### Convert raw info (drwx---r-x ...) to type (file, directory, link, unknown)
+
 ```
 $this->ftp->rawToType('drwx---r-x');
 ```
 
 #### Set permissions on a file via FTP
+
 ```
 $this->ftp->chmod('0775', 'path/of/file');
 ```
@@ -505,20 +537,26 @@ Migration is like version control for your database, allowing your team to easil
 Migration is usually paired with the NSY schema builder to easily build your application's database schema. If you have told teammates to manually add columns to their local database schema, you have experienced problems that were resolved by database migration.
 
 How to use migration on NSY, you only need to create the migration class by typing on the Terminal or CMD:
+
 ```
 migrate <migration-name>
 ```
 
 **For example**
+
 ```
 migrate create_database_and_table_supplier
 ```
+
 And the result will be a file created from the results of the command earlier in the `system/migrations`.
+
 ```
 └── migrations
        └── create_database_and_table_supplier.php
 ```
+
 There are 2 methods in the file, namely `up()` and `down()` methods. If you want to run the method `up()` then the command is,
+
 ```
 migup=class_name
 
@@ -526,6 +564,7 @@ Example : http://localhost/nsy/migup=create_database_and_table_supplier
 ```
 
 And for `down()`,
+
 ```
 migdown=class_name
 
@@ -535,16 +574,19 @@ Example : http://localhost/nsy/migdown=drop_table_supplier
 Well, in that method, you can fill it with some help methods that have been defined by NSY to support migration like the method below:
 
 ### Create database
+
 ```
 $this->connect()->create_db('example_db');
 ```
 
 ### Delete database
+
 ```
 $this->connect()->drop_db('example_db');
 ```
 
 ### Create table with several columns (mysql/mariadb/mssql)
+
 ```
 $this->connect()->create_table('example', function() {
 	return $this->cols([
@@ -560,6 +602,7 @@ $this->connect()->create_table('example', function() {
 ```
 
 ### Create table with primary key & unique key (mysql/mariadb/mssql)
+
 ```
 $this->connect()->create_table('example', function() {
 	return $this->cols([
@@ -579,6 +622,7 @@ $this->connect()->create_table('example', function() {
 ```
 
 ### Create table with timestamps column e.g. create_date/update_date/additional_date (mysql/mariadb/mssql)
+
 ```
 $this->connect()->create_table('example', function() {
 	return $this->cols([
@@ -598,31 +642,37 @@ $this->connect()->create_table('example', function() {
 ```
 
 ### Rename table (mysql/mariadb)
+
 ```
 $this->connect()->rename_table('example', 'newExample');
 ```
 
 ### Rename table (postgre)
+
 ```
 $this->connect()->alter_rename_table('example', 'newExample');
 ```
 
 ### Rename table (mssql)
+
 ```
 $this->connect()->sp_rename_table('example', 'newExample');
 ```
 
 ### Delete table if exist (mysql/mariadb)
+
 ```
 $this->connect()->drop_exist_table('example');
 ```
 
 ### Delete table
+
 ```
 $this->connect()->drop_table('example');
 ```
 
 ### Add columns (mysql/mariadb/postgre)
+
 ```
 $this->connect()->add_cols('example', function() {
 	return $this->cols([
@@ -634,6 +684,7 @@ $this->connect()->add_cols('example', function() {
 ```
 
 ### Add columns (mssql)
+
 ```
 $this->connect()->add('example', function() {
 	return $this->cols([
@@ -645,6 +696,7 @@ $this->connect()->add('example', function() {
 ```
 
 ### Delete column (mysql/mariadb/postgre/mssql)
+
 ```
 $this->connect()->drop_cols('example', function() {
 	return $this->cols([
@@ -655,6 +707,7 @@ $this->connect()->drop_cols('example', function() {
 ```
 
 ### Rename columns (mysql/mariadb)
+
 ```
 $this->connect()->change_cols('example', function() {
 	return $this->cols([
@@ -666,6 +719,7 @@ $this->connect()->change_cols('example', function() {
 ```
 
 ### Rename columns (postgre)
+
 ```
 $this->connect()->rename_cols('example', function() {
 	return $this->cols([
@@ -677,6 +731,7 @@ $this->connect()->rename_cols('example', function() {
 ```
 
 ### Rename columns (mssql)
+
 ```
 $this->connect()->sp_rename_cols('example', function() {
 	return $this->cols([
@@ -688,6 +743,7 @@ $this->connect()->sp_rename_cols('example', function() {
 ```
 
 ### Modify columns datatype (mysql/mariadb)
+
 ```
 $this->connect()->modify_cols('example', function() {
 	return $this->cols([
@@ -699,6 +755,7 @@ $this->connect()->modify_cols('example', function() {
 ```
 
 ### Modify columns primary and unique key (mysql/mariadb)
+
 ```
 $this->connect()->modify_cols('example', function() {
 	return $this->cols([
@@ -715,6 +772,7 @@ $this->connect()->modify_cols('example', function() {
 ```
 
 ### Modify columns datatype (mssql/postgre)
+
 ```
 $this->connect()->alter_cols('example', function() {
 	return $this->cols([
@@ -726,6 +784,7 @@ $this->connect()->alter_cols('example', function() {
 ```
 
 ### Modify columns primary and unique key (mssql/postgre)
+
 ```
 $this->connect()->alter_cols('example', function() {
 	return $this->cols([
@@ -744,6 +803,7 @@ $this->connect()->alter_cols('example', function() {
 # IP Library
 
 Use this namespace in the controller :
+
 ```
 use System\Libraries\Ip;
 ```
@@ -793,6 +853,7 @@ Ip::validate($ip);
 # File Library
 
 Use this namespace in the controller :
+
 ```
 use System\Libraries\File;
 ```
@@ -949,6 +1010,7 @@ get_class(File::get_files_from_dir(__DIR__));
 # Curl Library
 
 Use this namespace in the controller :
+
 ```
 use System\Libraries\Curl;
 ```
@@ -1127,6 +1189,7 @@ Curl::request('https://graph.facebook.com/zuck', $data, 'object');
 # Json Library
 
 Use this namespace in the controller :
+
 ```
 use System\Libraries\Json;
 ```
@@ -1224,6 +1287,7 @@ $jsonLastErrorCollection = JsonLastError::get_collection();
 # LoadTime Library
 
 Use this namespace in the controller :
+
 ```
 use System\Libraries\LoadTime;
 ```
@@ -1276,6 +1340,7 @@ print_r('Script executed in: ' . LoadTime::end() . ' seconds.');
 # LanguageCode Library
 
 Use this namespace in the controller :
+
 ```
 use System\Libraries\LanguageCode;
 ```
@@ -1326,6 +1391,7 @@ LanguageCode::get();
 # String Library
 
 Use this namespace in the controller :
+
 ```
 use System\Libraries\Str;
 ```
@@ -1377,6 +1443,7 @@ Str::ends_with("world", "Hello World");
 # ImageResize Library
 
 Use this namespace in the controller :
+
 ```
 use System\Libraries\ImageResize;
 ```
@@ -1417,6 +1484,7 @@ $image->save('image2.jpg');
 ```
 
 To resize an image to best fit a given set of dimensions (keeping aspet ratio):
+
 ```php
 $image = new ImageResize('image.jpg');
 $image->resize_to_best_fit(500, 300);
@@ -1425,6 +1493,7 @@ $image->save('image2.jpg');
 
 All resize functions have ```$allow_enlarge``` option which is set to false by default.
 You can enable by passing ```true``` to any resize function:
+
 ```php
 $image = new ImageResize('image.jpg');
 $image->resize(500, 300, $allow_enlarge = True);
@@ -1641,6 +1710,7 @@ try{
 # Carbon Library
 
 Use this namespace in the controller :
+
 ```
 use Carbon\Carbon;
 ```
