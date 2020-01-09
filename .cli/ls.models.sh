@@ -1,9 +1,9 @@
 #!/bin/bash
-show_models() {
+show_model() {
 	if [ -z $1 ]
 	then
 		printf "Mode undefined, must be hmvc or mvc\n"
-		printf "There must be 'show_models <mode>'\n"
+		printf "It should be like this 'show:model <mode>'\n"
 	elif [ -n $1 ]
 	then
 		mode=$1
@@ -20,7 +20,7 @@ show_models() {
 				if [ -z $2 ]
 				then
 					printf "Module name undefined\n"
-					printf "There must be 'show_models <mode> <module>'\n"
+					printf "It should be like this 'show:model $mode <module>'\n"
 				elif [ -n $2 ]
 				then
 					dirname=$2
@@ -39,7 +39,7 @@ show_models() {
 				fi
 			;;
 			*)
-				printf "Hmm, seems NSY never used that mode.\n"
+				printf "Hmm, it seems NSY never use that mode.\n"
 			;;
 		esac
 	fi

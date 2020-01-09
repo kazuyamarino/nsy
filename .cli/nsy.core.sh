@@ -37,7 +37,7 @@ else
 	elif [ $1 = "dump:autoload" ]; then
 		run_dump_autoload
 	elif [ $1 = "dump:mysql" ]; then
-		run_dump_mysql
+		run_dump_mysql $2 $3 $4 $5
 	elif [ $1 = "make:controller" ]; then
 		make_controller $2 $3 $4
 	elif [ $1 = "make:model" ]; then

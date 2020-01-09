@@ -3,7 +3,7 @@ make_migration() {
 	if [ -z $1 ]
 	then
 		printf "Migration name or table name undefined\n"
-		printf "There must be 'migrate <migration-name>'\n"
+		printf "It should be like this 'make:migration <migration-name>'\n"
 	elif [ -n $1 ]
 	then
 		mig=$1
