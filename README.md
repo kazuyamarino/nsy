@@ -37,7 +37,7 @@ source ~/reloader.sh
 
 ##### 3. NSY Setup
 ```
-cd blog && nsy_setup
+cd blog && nsy --setup
 
 Enter directory name >
 blog

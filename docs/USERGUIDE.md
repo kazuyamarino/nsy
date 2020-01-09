@@ -254,29 +254,31 @@ If you install the NSY Framework through the `composer create-project`, it autom
 ---
 
 ### NSY CLI Manual Install
-* `sudo chmod +x INSTALL.sh` (use this if you want to install on a linux operating system that requires permission, or if you are a Windows user, then skip this command)
+* Open Linux Terminal or Git Bash Terminal inside your project directory.
+* `sudo chmod +x INSTALL.sh` (use this if you want to install on a linux operating system that requires permission, or if you are a Windows user, then skip this command).
 ```
 html/nsy$ sudo chmod +x INSTALL.sh
 ```
-* `bash INSTALL.sh` or `./INSTALL.sh`
+* `bash INSTALL.sh` or `./INSTALL.sh`.
 ```
 html/nsy$ bash INSTALL.sh
 ```
-* Close the `terminal` or `git bash`, & open it again or reset bashrc with the command `source ~/reloader.sh`
+* Close the `terminal` or `git bash`, & open it again or reset bashrc with the command `source ~/reloader.sh`.
 ```
 html/nsy$ source ~/reloader.sh
 ```
-* If NSY CLI installer successfully, it should display
+* If NSY CLI installer successfully, it should display.
 ```
 NSY CLI installed
 Please close the Terminal & reopen it again
 Or
 Please reset bashrc with the command 'source ~/reloader.sh'
 ```
-* Then if you type command `nsy_hi` it should display
+* Then if you type command `nsy --hello` it should display.
 ```
-html/nsy$ nsy_hi
-
+html/nsy$ nsy --hello
+```
+```
 Welcome to NSY CLI
 NSY CLI installed successfully
 ```
@@ -284,79 +286,79 @@ NSY CLI installed successfully
 For example of commands see below.
 * Show list of Migration Class file :
 ```
-show_migrations
+nsy show:migration
 ```
 * Show list of HMVC Modules directory :
 ```
-show_modules
+nsy show:module
 ```
 * Show list of HMVC Controller files :
 ```
-show_controllers hmvc <module-directory-name>
+nsy show:controller hmvc <module-directory-name>
 ```
 * Show list of HMVC Model files :
 ```
-show_models hmvc <module-directory-name>
+nsy show:model hmvc <module-directory-name>
 ```
 * Show list of MVC Controller files :
 ```
-show_controllers mvc
+nsy show:controller mvc
 ```
 * Show list of MVC Model files :
 ```
-show_models mvc
+nsy show:model mvc
 ```
 * Show Welcome Message :
 ```
-nsy_hi
+nsy --hello
 ```
 * Show Help Message :
 ```
-nsy_help
+nsy --help
 ```
 * Dump mysql database :
 ```
-nsy_mysql_dump <database-name> <username> <password>
+nsy dump:mysql <database-name> <username> <password>
 ```
 * Dump mysql database (table only) :
 ```
-nsy_mysql_dump <database-name> <username> <password> <table-name>
+nsy dump:mysql <database-name> <username> <password> <table-name>
 ```
 * Make HMVC Module :
 ```
-module <module-directory-name>
+nsy make:module <module-directory-name>
 ```
 * Make HMVC Controller :
 ```
-controller hmvc <module-directory-name> <controller-name>
+nsy make:controller hmvc <module-directory-name> <controller-name>
 ```
 * Make HMVC Model :
 ```
-model hmvc <module-directory-name> <model-name>
+nsy make:model hmvc <module-directory-name> <model-name>
 ```
 * Make MVC Controller :
 ```
-controller mvc <controller-name>
+nsy make:controller mvc <controller-name>
 ```
 * Make MVC Model :
 ```
-model mvc <model-name>
+nsy make:model mvc <model-name>
 ```
 * Make Migration Class :
 ```
-migrate <class-name>
+nsy make:migration <class-name>
 ```
 * First time setting up NSY :
 ```
-nsy_setup
+nsy --setup
 ```
 * Generate optimized composer autoload :
 ```
-nsy_autoload
+nsy dump:autoload
 ```
-* NSY CLI update :
+* NSY CLI install/update :
 ```
-nsy_cli_update
+nsy --install
 ```
 
 <hr>
