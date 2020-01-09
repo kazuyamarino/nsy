@@ -13,7 +13,7 @@ show_model() {
 				# List of 'mvc' models
 				printf "List of '$mode' models :\n"
 				printf "==========================\n"
-				ls -1 ./system/models/* | awk -F"/" '{print NR".", $NF}'
+				ls -1 ./system/models/*.php | awk -F"/" '{print NR".", $NF}'
 				printf "==========================\n"
 			;;
 			"hmvc")
@@ -30,11 +30,20 @@ show_model() {
 					then
 						printf "Module doesn't exists\n"
 					else # if exist
-						# List of 'hmvc' models;
-						printf "List of '$mode' models :\n"
-						printf "==========================\n"
-						ls -1 ./system/modules/$dirname/models/* | awk -F"/" '{print NR".", $NF}'
-						printf "==========================\n"
+						count=`ls -1 ./system/modules/$dirname/controllers/*.php 2>/dev/null | wc -l`
+						if [ $count != 0 ]; then
+							# List of 'hmvc' models
+							printf "List of '$mode' models :\n"
+							printf "==========================\n"
+							ls -1 ./system/modules/$dirname/models/*.php | awk -F"/" '{print NR".", $NF}'
+							printf "==========================\n"
+						else
+							# List of empty 'hmvc' models
+							printf "List of '$mode' models :\n"
+							printf "==========================\n"
+							printf "No such file or directory\n"
+							printf "==========================\n"
+						fi
 					fi
 				fi
 			;;

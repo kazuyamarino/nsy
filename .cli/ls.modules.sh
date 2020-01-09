@@ -8,7 +8,7 @@ show_module() {
 		ls -d system/modules/* | awk -F"/" '{print NR".", $NF}'
 		printf "==========================\n"
 	else
-		# List of modules
+		# List of empty modules
 		printf "List of 'hmvc' modules :\n"
 		printf "==========================\n"
 		printf "No such file or directory\n"
