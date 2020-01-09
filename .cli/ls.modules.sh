@@ -1,5 +1,5 @@
 #!/bin/bash
-show_modules() {
+show_module() {
 	count=`ls -1 system/modules/* 2>/dev/null | wc -l`
 	if [ $count != 0 ]; then
 		# List of modules
@@ -11,7 +11,7 @@ show_modules() {
 		# List of modules
 		printf "List of 'hmvc' modules :\n"
 		printf "==========================\n"
-		printf "No directory\n"
+		printf "No such file or directory\n"
 		printf "==========================\n"
 	fi
 }

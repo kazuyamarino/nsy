@@ -19,13 +19,13 @@ if [ -z $1 ]; then
 	printf "It should be like this 'nsy <command>'\n"
 else
 	if [ $1 = "show:module" ]; then
-		show_modules
+		show_module
 	elif [ $1 = "show:controller" ]; then
-		show_controllers $2 $3
+		show_controller $2 $3
 	elif [ $1 = "show:model" ]; then
-		show_models $2 $3
+		show_model $2 $3
 	elif [ $1 = "show:migration" ]; then
-		show_migrations
+		show_migration
 	elif [ $1 = "--install" ]; then
 		run_install
 	elif [ $1 = "--hello" ]; then

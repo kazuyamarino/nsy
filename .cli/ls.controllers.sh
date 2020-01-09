@@ -1,5 +1,5 @@
 #!/bin/bash
-show_controllers() {
+show_controller() {
 	if [ -z $1 ]
 	then
 		printf "Mode undefined, must be hmvc or mvc\n"

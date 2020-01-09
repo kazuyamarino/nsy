@@ -1,5 +1,5 @@
 #!/bin/bash
-show_migrations() {
+show_migration() {
 	count=`ls -1 system/migrations/*.php 2>/dev/null | wc -l`
 	if [ $count != 0 ]; then
 		# List of migrations class
@@ -11,7 +11,7 @@ show_migrations() {
 		# List of migrations class
 		printf "List of 'migrations' class :\n"
 		printf "==========================\n"
-		printf "No files\n"
+		printf "No such file or directory\n"
 		printf "==========================\n"
 	fi
 }
