@@ -27,7 +27,7 @@ else
 	elif [ $1 = "show:migration" ]; then
 		show_migrations
 	elif [ $1 = "--install" ]; then
-		run_update
+		run_install
 	elif [ $1 = "--hello" ]; then
 		run_hello
 	elif [ $1 = "--help" ]; then

@@ -1,4 +1,4 @@
 #!/bin/bash
-run_update() {
+run_install() {
 	bash INSTALL.sh
 }
