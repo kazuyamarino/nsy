@@ -16,7 +16,7 @@ defined('ROOT') OR exit('No direct script access allowed');
                 <p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md">NSY User Guide</a><br />The guide before starting to use NSY.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md">NSY System Guide Part 1</a>&nbsp;|&nbsp;<a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md">NSY System Guide Part 2</a><br />The guide for starting to use NSY System.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_1.md">NSY System Guide Part 1</a>&nbsp;|&nbsp;<a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_2.md">NSY System Guide Part 2</a><br />The guide for starting to use NSY System.</p>
             </div>
         </div>
 
@@ -25,10 +25,10 @@ defined('ROOT') OR exit('No direct script access allowed');
         <div>
             <h3><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/README.md#nsy-feature-">NSY Feature</a></h3>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md#primary--secondary-database-connections">Primary and Secondary Database Connection</a><br />Database connection.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_1.md#primary--secondary-database-connections">Primary and Secondary Database Connection</a><br />Database connection.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md#aurora-file-export">Aurora File Export</a><br />Aurora library.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_1.md#aurora-file-export">Aurora File Export</a><br />Aurora library.</p>
             </div>
             <div>
                 <p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#routes">NSY Routing System</a><br />The Routes.</p>
@@ -49,7 +49,7 @@ defined('ROOT') OR exit('No direct script access allowed');
                 <p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#framework-configuration">Framework Configuration</a><br />Simple config.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE.md#security-helper">Anti XSS & CSRF Token</a><br />Security helper.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/SYSGUIDE_1.md#security-helper">Anti XSS & CSRF Token</a><br />Security helper.</p>
             </div>
             <div>
                 <p><a target="_blank" href="https://github.com/kazuyamarino/nsy/blob/master/docs/USERGUIDE.md#nsy-cli-command-line">NSY CLI</a><br />A commands to facilitate users in operating NSY.</p>
