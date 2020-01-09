@@ -1,2 +1,2 @@
 #!/bin/bash
-alias nsy='sh ./.cli/nsy.core.sh'
+alias nsy='bash ./.cli/nsy.core.sh'
