@@ -13,10 +13,10 @@ defined('ROOT') OR exit('No direct script access allowed');
                 <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#crud-example">NSY CRUD Example</a><br />The CRUD example build by NSY.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/USERGUIDE.md">NSY User Guide</a><br />The guide before starting to use NSY.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md">NSY User Guide</a><br />The guide before starting to use NSY.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/SYSGUIDE_1.md">NSY System Guide Part 1</a>&nbsp;|&nbsp;<a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/SYSGUIDE_2.md">NSY System Guide Part 2</a><br />The guide for starting to use NSY System.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_1.md">NSY System Guide Part 1</a>&nbsp;|&nbsp;<a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_2.md">NSY System Guide Part 2</a><br />The guide for starting to use NSY System.</p>
             </div>
         </div>
 
@@ -25,52 +25,52 @@ defined('ROOT') OR exit('No direct script access allowed');
         <div>
             <h3><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#nsy-feature-">NSY Feature</a></h3>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/SYSGUIDE_1.md#primary--secondary-database-connections">Primary and Secondary Database Connection</a><br />Database connection.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_1.md#primary--secondary-database-connections">Primary and Secondary Database Connection</a><br />Database connection.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/SYSGUIDE_1.md#aurora-file-export">Aurora File Export</a><br />Aurora library.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_1.md#aurora-file-export">Aurora File Export</a><br />Aurora library.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/USERGUIDE.md#routes">NSY Routing System</a><br />The Routes.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#routes">NSY Routing System</a><br />The Routes.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/USERGUIDE.md#mvc--hmvc">MVC & HMVC</a><br />The design pattern.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#mvc--hmvc">MVC & HMVC</a><br />The design pattern.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/USERGUIDE.md#introducting-to-nsy-docs-assets-manager">NSY Assets Manager</a><br />Introducting to NSY Assets Manager.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#introducting-to-nsy-assets-manager">NSY Assets Manager</a><br />Introducting to NSY Assets Manager.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/USERGUIDE.md#psr-4-autoloading">PSR-4 Autoloading</a><br />See explanation.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#psr-4-autoloading">PSR-4 Autoloading</a><br />See explanation.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/USERGUIDE.md#composer-on-nsy-framework">Composer on NSY</a><br />NSY support Composer for install/update libraries.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#composer-on-nsy-framework">Composer on NSY</a><br />NSY support Composer for install/update libraries.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/USERGUIDE.md#framework-configuration">Framework Configuration</a><br />Simple config.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#framework-configuration">Framework Configuration</a><br />Simple config.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/SYSGUIDE_1.md#security-helper">Anti XSS & CSRF Token</a><br />Security helper.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_1.md#security-helper">Anti XSS & CSRF Token</a><br />Security helper.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/USERGUIDE.md#nsy-cli-command-line">NSY CLI</a><br />A commands to facilitate users in operating NSY.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#nsy-cli-command-line">NSY CLI</a><br />A commands to facilitate users in operating NSY.</p>
             </div>
             <div>
                 <p><a target="_blank" href="https://carbon.nesbot.com/docs/">Carbon DateTime</a><br />Simple PHP API extension for DateTime.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/SYSGUIDE_2.md#nsy-ftp-client-library">FTP Client</a><br />A flexible FTP and SSL-FTP client for PHP.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_2.md#nsy-ftp-client-library">FTP Client</a><br />A flexible FTP and SSL-FTP client for PHP.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/SYSGUIDE_2.md#cookie-library">Cookie Library</a><br />PHP library for handling cookies.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_2.md#cookie-library">Cookie Library</a><br />PHP library for handling cookies.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/USERGUIDE.md#helpers">NSY Helper</a><br />Creating custom methods with ease.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#helpers">NSY Helper</a><br />Creating custom methods with ease.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/SYSGUIDE_2.md#razr---the-powerful-php-template-engine">Razr Template Engine</a><br />Razr - The powerful PHP template engine.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_2.md#razr---the-powerful-php-template-engine">Razr Template Engine</a><br />Razr - The powerful PHP template engine.</p>
             </div>
             <div>
-                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/docs/SYSGUIDE_2.md#nsy-migrations">Database Migrations</a><br />Simple database migration.</p>
+                <p><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_2.md#nsy-migrations">Database Migrations</a><br />Simple database migration.</p>
             </div>
         </div>
     </div>
