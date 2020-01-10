@@ -52,17 +52,37 @@ function public_path($url = null)
 function img_url($url = null)
 {
 	if ( is_filled($url) ) {
-		if ( is_filled(config_app('public_dir')) ) {
-			return __DIR__ . '/../../' . config_app('public_dir') . '/' . $url;
-		} else {
-			return __DIR__ . '/../../' . $url;
-		}
+		return IMG_DIR . $url;
 	} else {
-		if ( is_filled(config_app('public_dir')) ) {
-			return __DIR__ . '/../../' . config_app('public_dir');
-		} else {
-			return __DIR__ . '/../../';
-		}
+		return IMG_DIR;
+	}
+}
+
+/**
+ * Define js_url method, get js directory location on the 'public' directory
+ * @param  string $url
+ * @return string
+ */
+function js_url($url = null)
+{
+	if ( is_filled($url) ) {
+		return JS_DIR . $url;
+	} else {
+		return JS_DIR;
+	}
+}
+
+/**
+ * Define css_url method, get css directory location on the 'public' directory
+ * @param  string $url
+ * @return string
+ */
+function css_url($url = null)
+{
+	if ( is_filled($url) ) {
+		return CSS_DIR . $url;
+	} else {
+		return CSS_DIR;
 	}
 }
 
