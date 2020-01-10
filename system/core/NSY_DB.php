@@ -16,7 +16,7 @@ class NSY_DB
     /**
      * Open connection function for mysql/mariadb PDO
      *
-     * @return true
+     * @return void
      */
     public static function connect_mysql()
     {
@@ -42,7 +42,7 @@ class NSY_DB
     /**
      * Open second connection function for mysql/mariadb PDO
      *
-     * @return true
+     * @return void
      */
     public static function connect_mysql_sec()
     {
@@ -68,7 +68,7 @@ class NSY_DB
     /**
      * Open connection function for dblib sql server PDO
      *
-     * @return true
+     * @return void
      */
     public static function connect_dblib()
     {
@@ -94,7 +94,7 @@ class NSY_DB
     /**
      * Open second connection function for dblib sql server PDO
      *
-     * @return true
+     * @return void
      */
     public static function connect_dblib_sec()
     {
@@ -120,7 +120,7 @@ class NSY_DB
     /**
      * Open connection function for postgresql PDO
      *
-     * @return true
+     * @return void
      */
     public static function connect_pgsql()
     {
@@ -146,7 +146,7 @@ class NSY_DB
     /**
      * Open second connection function for postgresql PDO
      *
-     * @return true
+     * @return void
      */
     public static function connect_pgsql_sec()
     {
@@ -172,7 +172,7 @@ class NSY_DB
     /**
      * Open connection function for sql server PDO
      *
-     * @return true
+     * @return void
      */
     public static function connect_sqlsrv()
     {
@@ -197,7 +197,7 @@ class NSY_DB
     /**
      * Open second connection function for sql server PDO
      *
-     * @return true
+     * @return void
      */
     public static function connect_sqlsrv_sec()
     {

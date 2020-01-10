@@ -22,7 +22,7 @@ class NSY_Migration
     /**
      * Default Connection
      *
-     * @return $this
+     * @return void
      */
     protected function connect()
     {
@@ -53,7 +53,7 @@ class NSY_Migration
     /**
      * Secondary Connection
      *
-     * @return $this
+     * @return void
      */
     protected function connect_sec()
     {

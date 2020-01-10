@@ -23,7 +23,9 @@ use System\Core\NSY_CSRF;
 use System\Core\NSY_Desk;
 
 /**
- * Define public_path() method
+ * Define public_path() method, get the fullpath 'public' directory
+ * @param  string $url
+ * @return string
  */
 function public_path($url = null)
 {
@@ -43,7 +45,31 @@ function public_path($url = null)
 }
 
 /**
- * Define base_url() method
+ * Define img_url method, get img directory location on the 'public' directory
+ * @param  string $url
+ * @return string
+ */
+function img_url($url = null)
+{
+	if ( is_filled($url) ) {
+		if ( is_filled(config_app('public_dir')) ) {
+			return __DIR__ . '/../../' . config_app('public_dir') . '/' . $url;
+		} else {
+			return __DIR__ . '/../../' . $url;
+		}
+	} else {
+		if ( is_filled(config_app('public_dir')) ) {
+			return __DIR__ . '/../../' . config_app('public_dir');
+		} else {
+			return __DIR__ . '/../../';
+		}
+	}
+}
+
+/**
+ * Define base_url() method, get base url with default project directory
+ * @param  string $url
+ * @return string
  */
 function base_url($url = null)
 {
@@ -79,6 +105,9 @@ function base_url($url = null)
 
 /**
  * Get config value from system/config/Database.php
+ * @param  string|int $d1
+ * @param  string|int $d2
+ * @return array
  */
 function config_db($d1 = null,$d2 = null)
 {
@@ -92,6 +121,9 @@ function config_db($d1 = null,$d2 = null)
 
 /**
  * Get config value from system/config/Database.php
+ * @param  string|int $d1
+ * @param  string|int $d2
+ * @return array
  */
 function config_db_sec($d1 = null,$d2 = null)
 {
@@ -107,6 +139,8 @@ function config_db_sec($d1 = null,$d2 = null)
 
 /**
  * Get config value from system/config/app.php
+ * @param  string|int $d1
+ * @return array
  */
 function config_app($d1 = null)
 {
@@ -119,6 +153,8 @@ function config_app($d1 = null)
 
 /**
  * Get config value from system/config/site.php
+ * @param  string|int $d1
+ * @return array
  */
 function config_site($d1 = null)
 {
@@ -131,7 +167,9 @@ function config_site($d1 = null)
 
 if (! function_exists('redirect')) {
     /**
-     * Redirect URL
+     * Method for Redirect to specified URI
+     * @param  string $url
+     * @return void
      */
     function redirect($url = null)
     {
@@ -142,7 +180,8 @@ if (! function_exists('redirect')) {
 
 if (! function_exists('redirect_back')) {
     /**
-     * Redirect Back URL
+     * Redirect Back URI
+     * @return void
      */
     function redirect_back()
     {
@@ -155,8 +194,8 @@ if (! function_exists('redirect_back')) {
 
 if (! function_exists('fetch_json')) {
     /**
-     * Fetching to json format
-     *
+     * Fetch data to json format
+     * @param  array $data
      * @return string
      */
     function fetch_json($data = null)
@@ -173,7 +212,7 @@ if (! function_exists('fetch_json')) {
 if (! function_exists('secure_input')) {
     /**
      * Secure Input Element
-     *
+     * @param  string $data
      * @return string
      */
     function secure_input($data = null)
@@ -189,8 +228,8 @@ if (! function_exists('secure_input')) {
 if (! function_exists('secure_form')) {
     /**
      * Secure Form
-     *
-     * @return string
+     * @param  string $form
+     * @return void
      */
     function secure_form($form = null)
     {
@@ -206,8 +245,7 @@ if (! function_exists('secure_form')) {
 
 if (! function_exists('csrf_token')) {
     /**
-     * CSRF Token
-     *
+     * Return only CSRF Token
      * @return string
      */
     function csrf_token()
@@ -226,8 +264,7 @@ if (! function_exists('csrf_token')) {
 
 if (! function_exists('form_csrf_token')) {
     /**
-     * CSRF Form Token
-     *
+     * Return CSRF Input form with Token
      * @return string
      */
     function form_csrf_token()
@@ -249,7 +286,7 @@ if (! function_exists('form_csrf_token')) {
 if (! function_exists('xss_filter')) {
     /**
      * XSS Filter
-     *
+     * @param  string $value
      * @return string
      */
     function xss_filter($value = null)
@@ -264,7 +301,6 @@ if (! function_exists('xss_filter')) {
 if (! function_exists('allow_http')) {
     /**
      * Allow http
-     *
      * @return string
      */
     function allow_http()
@@ -279,7 +315,6 @@ if (! function_exists('allow_http')) {
 if (! function_exists('disallow_http')) {
     /**
      * Disallow http
-     *
      * @return string
      */
     function disallow_http()
@@ -294,7 +329,7 @@ if (! function_exists('disallow_http')) {
 if (! function_exists('remove_get_parameters')) {
     /**
      * Remove url get parameter
-     *
+     * @param  string $url
      * @return string
      */
     function remove_get_parameters($url = null)
@@ -311,6 +346,10 @@ if (! function_exists('remove_get_parameters')) {
 if (! function_exists('ternary')) {
     /**
      * PHP Shorthand If/Else Using Ternary Operators
+     * @param  string|int $condition
+     * @param  string|int $result_one
+     * @param  string|int $result_two
+     * @return string|int
      */
     function ternary($condition = null, $result_one = null, $result_two = null)
     {
@@ -324,8 +363,14 @@ if (! function_exists('ternary')) {
 
 /**
  * The PHP superglobals $_GET and $_POST are used to collect form-data.
+ * @var string
  */
 if (! function_exists('post')) {
+	/**
+	 * Post method
+	 * @param  string|int $param
+	 * @return string|int
+	 */
     function post($param = null)
     {
         $result = isset($_POST[$param]) ? $_POST[$param] : null;
@@ -335,6 +380,11 @@ if (! function_exists('post')) {
 }
 
 if (! function_exists('get')) {
+	/**
+	 * Get method
+	 * @param  string|int $param
+	 * @return string|int
+	 */
     function get($param = null)
     {
         $result = isset($_GET[$param]) ? $_GET[$param] : null;
@@ -348,6 +398,8 @@ if (! function_exists('get')) {
 if (! function_exists('not_filled')) {
     /**
      * Function for basic field validation (present and neither empty nor only white space
+     * @param  string|int|array $str
+     * @return string|int|array
      */
     function not_filled($str = null)
     {
@@ -365,8 +417,10 @@ if (! function_exists('not_filled')) {
 }
 
 if (! function_exists('is_filled')) {
-    /**
+	/**
      * Function for basic field validation (present and neither filled nor not empty)
+     * @param  string|int|array $str
+     * @return string|int|array
      */
     function is_filled($str = null)
     {
@@ -387,7 +441,14 @@ if (! function_exists('is_filled')) {
 
 if (! function_exists('aurora')) {
     /**
-     * Export File
+     * Aurora File Exporter
+     * @param  string $ext
+     * @param  string $name
+     * @param  string $sep
+     * @param  string $h
+     * @param  string $d
+     * @param  string $s
+     * @return string
      */
     function aurora($ext = null, $name = null, $sep = null, $h = null, $d = null, $s = null)
     {
@@ -495,7 +556,7 @@ if (! function_exists('aurora')) {
 
 /**
  * User Agent
- *
+ * @return array
  * try it :
  * $ua = get_ua();
  * echo $ua['name'];
@@ -579,11 +640,13 @@ if (! function_exists('get_ua')) {
 
 // ------------------------------------------------------------------------
 
-/**
- * PHP array_flatten() function. Convert a multi-dimensional array into a single-dimensional array.
- * https://gist.github.com/SeanCannon/6585889#gistcomment-2922278
- */
 if (! function_exists('array_flatten')) {
+	/**
+	 * PHP array_flatten() function. Convert a multi-dimensional array into a single-dimensional array.
+	 * https://gist.github.com/SeanCannon/6585889#gistcomment-2922278
+	 * @param  array $items
+	 * @return array
+	 */
     function array_flatten($items)
     {
         if (! is_array($items)) {
@@ -600,10 +663,14 @@ if (! function_exists('array_flatten')) {
 
 // ------------------------------------------------------------------------
 
-/**
- * Create Random Number
- */
 if (! function_exists('generate_num')) {
+	/**
+	 * Create Random Number
+	 * @param  string  $prefix
+	 * @param  integer $id_length
+	 * @param  integer $num_length
+	 * @return integer|string
+	 */
     function generate_num($prefix = 'NSY-', $id_length = 6, $num_length = 10)
     {
         $zeros = str_pad(null, $id_length, 0, STR_PAD_LEFT);
@@ -617,10 +684,12 @@ if (! function_exists('generate_num')) {
 
 // ------------------------------------------------------------------------
 
-/**
- * Get URI Segment
- */
 if (! function_exists('get_uri_segment')) {
+	/**
+	 * Get URI Segment
+	 * @param  integer $key
+	 * @return string
+	 */
     function get_uri_segment($key = null)
     {
         $uriSegments = explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
@@ -637,6 +706,7 @@ if (! function_exists('get_uri_segment')) {
 
 /**
  * Get application version
+ * @return string
  */
 function get_version()
 {
@@ -645,6 +715,7 @@ function get_version()
 
 /**
  * Get application codename
+ * @return string
  */
 function get_codename()
 {
@@ -653,6 +724,7 @@ function get_codename()
 
 /**
  * Get application language code
+ * @return string
  */
 function get_lang_code()
 {
@@ -661,6 +733,7 @@ function get_lang_code()
 
 /**
  * Get open graph prefix
+ * @return string
  */
 function get_og_prefix()
 {
@@ -669,6 +742,7 @@ function get_og_prefix()
 
 /**
  * Get site title
+ * @return string
  */
 function get_title()
 {
@@ -677,6 +751,7 @@ function get_title()
 
 /**
  * Get site description
+ * @return string
  */
 function get_desc()
 {
@@ -685,6 +760,7 @@ function get_desc()
 
 /**
  * Get site keywords
+ * @return string
  */
 function get_keywords()
 {
@@ -693,6 +769,7 @@ function get_keywords()
 
 /**
  * Get site author
+ * @return string
  */
 function get_author()
 {
@@ -701,6 +778,7 @@ function get_author()
 
 /**
  * Get session prefix
+ * @return string
  */
 function get_session_prefix()
 {
@@ -709,6 +787,7 @@ function get_session_prefix()
 
 /**
  * Get site email
+ * @return string
  */
 function get_site_email()
 {

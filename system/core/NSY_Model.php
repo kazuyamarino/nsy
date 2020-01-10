@@ -59,7 +59,7 @@ class NSY_Model
     /**
      * Default Connection
      *
-     * @return $this
+     * @return void
      */
     protected function connect()
     {
@@ -90,7 +90,7 @@ class NSY_Model
     /**
      * Secondary Connection
      *
-     * @return $this
+     * @return void
      */
     protected function connect_sec()
     {
@@ -122,7 +122,7 @@ class NSY_Model
      * Function as a query declaration
      *
      * @param  string $query
-     * @return $this
+     * @return string
      */
     protected function query($query = null)
     {
@@ -142,7 +142,7 @@ class NSY_Model
      * Function as a variable container
      *
      * @param  array $variables
-     * @return $this
+     * @return array
      */
     protected function vars($variables = array())
     {
@@ -162,7 +162,7 @@ class NSY_Model
      * Function as a fetch style declaration
      *
      * @param  string $fetch_style
-     * @return $this
+     * @return string
      */
     protected function style($fetch_style = FETCH_BOTH)
     {
