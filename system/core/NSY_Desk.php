@@ -80,7 +80,7 @@ class NSY_Desk
      */
     public static function mig_up($string = null)
     {
-        $classname = 'Migrations\\'.$string;
+        $classname = 'System\\Migrations\\'.$string;
 
         if (class_exists($classname) ) {
             $mig = new $classname;
@@ -103,7 +103,7 @@ class NSY_Desk
      */
     public static function mig_down($string = null)
     {
-        $classname = 'Migrations\\'.$string;
+        $classname = 'System\\Migrations\\'.$string;
 
         if (class_exists($classname) ) {
              $mig = new $classname;
