@@ -2,6 +2,6 @@
 defined('ROOT') OR exit('No direct script access allowed');
 ?>
 <div style="text-align:center" class="wrap">
-    <h3>Hi, NSY Users!&nbsp;|&nbsp;<a href="@( base_url() )">Go To MVC Page</a></h3>
-    <h1>@( $hmvc_page )</h1>
+	<h2>Hello, @( $hmvc_page )!</h2>
+    <h4><a href="@( base_url() )">Back To MVC Page</a></h4>
 </div>
