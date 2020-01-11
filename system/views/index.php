@@ -62,7 +62,7 @@ defined('ROOT') OR exit('No direct script access allowed');
                 <h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_1.md#security-helper">Anti XSS & CSRF Token</a>&nbsp;<&nbsp;<code>A Security helper method.</code></h4>
             </div>
 			<div>
-                <h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_1.md#primary--secondary-database-connections">Primary and Secondary Database Connection</a>&nbsp;<&nbsp;<code>Database connection.</code></h4>
+                <h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_2.md#primary--secondary-database-connections">Primary and Secondary Database Connection</a>&nbsp;<&nbsp;<code>Database connection.</code></h4>
             </div>
 			<div>
 				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_1.md#generate-random-number">Generate Number</a>&nbsp;<&nbsp;<code>To generate a sequence of random numbers that correspond to the desired number or prefix.</code></h4>
