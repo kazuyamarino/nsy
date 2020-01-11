@@ -91,7 +91,7 @@ defined('ROOT') OR exit('No direct script access allowed');
 
 			<hr>
 
-			<h2>NSY System Guide :</h2>
+			<h2><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_2.md#nsy-system-guide-part-2">NSY System Guide :</a></h2>
             <div>
                 <h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_2.md#nsy-migrations">NSY Database Migrations</a>&nbsp;<&nbsp;<code>Simple database migration.</code></h4>
             </div>
