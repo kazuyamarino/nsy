@@ -1,12 +1,8 @@
-<?php
-defined('ROOT') OR exit('No direct script access allowed');
-?>
 <!doctype html>
 <html class="no-js" lang="@( get_lang_code() )" prefix="@( get_og_prefix() )">
 <head>
 	<!-- call header assets method -->
 	@( Pull::header_assets() )
-	@( $test )
 </head>
 <body>
 	<!--[if lte IE 9]>

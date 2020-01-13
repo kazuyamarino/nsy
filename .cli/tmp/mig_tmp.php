@@ -1,8 +1,6 @@
 <?php
 namespace System\Migrations;
 
-defined('ROOT') OR exit('No direct script access allowed');
-
 use System\Core\NSY_Migration;
 use System\Core\Migration_Impl;
 

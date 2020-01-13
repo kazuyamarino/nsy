@@ -1,8 +1,6 @@
 <?php
 namespace System\Core;
 
-defined('ROOT') OR exit('No direct script access allowed');
-
 /**
 * This is the core of NSY Desk Settings
 * Attention, don't try to change the structure of the code, delete, or change.

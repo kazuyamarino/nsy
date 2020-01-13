@@ -1,5 +1,4 @@
 <?php
-
 namespace System\Razr\Directive;
 
 use System\Razr\Token;

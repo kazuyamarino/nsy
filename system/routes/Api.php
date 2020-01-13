@@ -1,8 +1,6 @@
 <?php
 namespace System\Routes;
 
-defined('ROOT') OR exit('No direct script access allowed');
-
 use System\Core\NSY_Router as Route;
 
 Class Api

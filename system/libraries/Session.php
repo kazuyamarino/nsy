@@ -1,4 +1,6 @@
 <?php
+namespace System\Libraries;
+
 /**
  * Attention, don't try to change the structure of the code, delete, or change.
  * Because there is some code connected to the NSY system. So, be careful.
@@ -12,10 +14,6 @@
  * @link      https://github.com/Josantonius/PHP-Session
  * @since     1.0.0
  */
-namespace System\Libraries;
-
-defined('ROOT') OR exit('No direct script access allowed');
-
 
 /**
  * Session handler.

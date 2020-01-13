@@ -1,4 +1,8 @@
 <?php
+namespace System\Libraries;
+
+use System\Core\NSY_AssetManager as Add;
+
 /**
 * Attention, don't try to change the structure of the code, delete, or change.
 * Because there is some code connected to the NSY system. So, be careful.
@@ -27,12 +31,6 @@
 * Pull::header_assets();
 * Pull::footer_assets();
 */
-namespace System\Libraries;
-
-defined('ROOT') OR exit('No direct script access allowed');
-
-use System\Core\NSY_AssetManager as Add;
-
 Class Assets extends \System\Core\NSY_AssetManager
 {
 

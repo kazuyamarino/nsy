@@ -1,8 +1,6 @@
 <?php
 namespace System\Core;
 
-defined('ROOT') OR exit('No direct script access allowed');
-
 /**
  * NoCSRF, an anti CSRF token generation/checking class.
  *

@@ -1,5 +1,4 @@
 <?php
-
 namespace System\Razr\Storage;
 
 class FileStorage extends Storage

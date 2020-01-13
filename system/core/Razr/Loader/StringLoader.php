@@ -1,5 +1,4 @@
 <?php
-
 namespace System\Razr\Loader;
 
 class StringLoader implements LoaderInterface

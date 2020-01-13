@@ -1,6 +1,3 @@
-<?php
-defined('ROOT') OR exit('No direct script access allowed');
-?>
 <div class="wrap">
 	<div style="text-align:center">
 		<h2>Hello, @( $mvc_page )!</h2>

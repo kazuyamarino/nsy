@@ -1,5 +1,4 @@
 <?php
-
 namespace System\Razr;
 
 use System\Razr\Exception\SyntaxErrorException;

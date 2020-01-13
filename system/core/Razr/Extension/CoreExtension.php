@@ -1,5 +1,4 @@
 <?php
-
 namespace System\Razr\Extension;
 
 use System\Razr\Directive\BlockDirective;

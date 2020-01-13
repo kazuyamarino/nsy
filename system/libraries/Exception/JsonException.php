@@ -1,4 +1,6 @@
 <?php
+namespace System\Libraries\Exception;
+
 /**
  * Attention, don't try to change the structure of the code, delete, or change.
  * Because there is some code connected to the NSY system. So, be careful.
@@ -11,7 +13,6 @@
  * @link      https://github.com/Josantonius/PHP-Json
  * @since     1.0.0
  */
-namespace System\Libraries\Exception;
 
 /**
  * Exception class for Json library.

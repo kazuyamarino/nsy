@@ -1,5 +1,9 @@
 autoindex off;
 
+error_page 404 /nsy/public/404.html;
+error_page 403 /nsy/public/403.html;
+error_page 500 502 503 504 /nsy/public/50x.html;
+
 location /nsy/ {
 	# sFirst attempt to serve request as file, then
 	# as directory, then fall back to displaying a 404.

@@ -1,6 +1,4 @@
 <?php
-defined('ROOT') OR exit('No direct script access allowed');
-
 /*
 * This is the core of NSY Helpers
 * Attention, don't try to change the structure of the code, delete, or change.

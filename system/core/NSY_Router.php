@@ -1,8 +1,6 @@
 <?php
 namespace System\Core;
 
-defined('ROOT') OR exit('No direct script access allowed');
-
 /**
  * @method static Macaw get(string $route, Callable $callback)
  * @method static Macaw post(string $route, Callable $callback)

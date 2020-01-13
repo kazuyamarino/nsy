@@ -1,5 +1,4 @@
 <?php
-
 namespace System\Razr\Storage;
 
 abstract class Storage

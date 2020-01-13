@@ -1,8 +1,6 @@
 <?php
 namespace System\Controllers;
 
-defined('ROOT') OR exit('No direct script access allowed');
-
 use System\Core\NSY_Controller;
 use System\Models\Model_Welcome;
 use System\Modules\Homepage\Models\Model_Hello;

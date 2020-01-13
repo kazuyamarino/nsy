@@ -1,6 +1,4 @@
 <?php
-defined('ROOT') OR exit('No direct script access allowed');
-
 /**
 * Database details ONLY NEEDED IF USING A DATABASE
 */

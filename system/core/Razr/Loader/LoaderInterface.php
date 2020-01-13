@@ -1,5 +1,4 @@
 <?php
-
 namespace System\Razr\Loader;
 
 interface LoaderInterface
