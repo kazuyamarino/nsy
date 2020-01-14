@@ -18,7 +18,7 @@ return [
 	*     development
 	*     production
 	*
-	* NOTE: If you change these, also change the error_reporting() code below
+	* Note: If you change these, also change the error_reporting() code below
 	*
 	*/
 	'app_env' => getenv('APP_ENV'),
@@ -175,10 +175,10 @@ return [
 
 	/*
 	|--------------------------------------------------------------------------
-	| Default NSY_System Path
+	| Default NSY System Path
 	|--------------------------------------------------------------------------
 	|
-	| define the NSY_System file path
+	| define the NSY System file path
 	|
 	*/
 	'nsy_sys_dir' => __DIR__ . '/../core/NSY_System.php',
@@ -195,20 +195,20 @@ return [
 
 	/*
 	|--------------------------------------------------------------------------
-	| Default .env File Checking
+	| Default env File Checking
 	|--------------------------------------------------------------------------
 	|
-	| define the .env file path
+	| define the env file path
 	|
 	*/
 	'env_checking_dir' => __DIR__ . '/../../env',
 
 	/*
 	|--------------------------------------------------------------------------
-	| Default .env File Path Location
+	| Default env File Path Location
 	|--------------------------------------------------------------------------
 	|
-	| define the .env file path
+	| define the env file path
 	|
 	*/
 	'env_dir' => __DIR__ . '/../..'
