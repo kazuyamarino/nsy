@@ -1,91 +1,110 @@
 <?php
 /*
-* This is the core of NSY Helpers
+* This is the core of NSY Helpers.
 * Attention, don't try to change the structure of the code, delete, or change.
 * Because there is some code connected to the NSY system. So, be careful.
 */
 
 /**
-* Use NSY_XSS_Filter class
+* Use NSY_XSS_Filter class.
 */
 use System\Core\NSY_XSS_Filter;
 
 /**
-* Use NSY_CSRF class
+* Use NSY_CSRF class.
 */
 use System\Core\NSY_CSRF;
 
 /**
-* Use NSY_Desk class
+* Use NSY_Desk class.
 */
 use System\Core\NSY_Desk;
 
 /**
-* Define public_path() method, get the fullpath 'public' directory
-* @param  string $url
-* @return string
+* Use library.
 */
-function public_path($url = null)
-{
-	if ( is_filled($url) ) {
-		if ( is_filled(config_app('public_dir')) ) {
-			return __DIR__ . '/../../' . config_app('public_dir') . '/' . $url;
+use System\Libraries\Request; // Request
+use System\Libraries\Str; // Str
+use System\Libraries\LoadTime; // LoadTime
+use System\Libraries\Ip; // Ip
+use System\Libraries\Json; // Json
+use System\Libraries\JsonLastError; // JsonLastError
+use System\Libraries\LanguageCode; // LanguageCode
+
+if (! function_exists('public_path')) {
+	/**
+	* Define public_path() method, get the fullpath 'public' directory.
+	* @param  string $url
+	* @return string
+	*/
+	function public_path($url = null)
+	{
+		if ( is_filled($url) ) {
+			if ( is_filled(config_app('public_dir')) ) {
+				return __DIR__ . '/../../' . config_app('public_dir') . '/' . $url;
+			} else {
+				return __DIR__ . '/../../' . $url;
+			}
 		} else {
-			return __DIR__ . '/../../' . $url;
+			if ( is_filled(config_app('public_dir')) ) {
+				return __DIR__ . '/../../' . config_app('public_dir');
+			} else {
+				return __DIR__ . '/../../';
+			}
 		}
-	} else {
-		if ( is_filled(config_app('public_dir')) ) {
-			return __DIR__ . '/../../' . config_app('public_dir');
+	}
+}
+
+if (! function_exists('img_url')) {
+	/**
+	* Define img_url method, get img directory location on the 'public' directory.
+	* @param  string $url
+	* @return string
+	*/
+	function img_url($url = null)
+	{
+		if ( is_filled($url) ) {
+			return IMG_DIR . $url;
 		} else {
-			return __DIR__ . '/../../';
+			return IMG_DIR;
+		}
+	}
+}
+
+if (! function_exists('js_url')) {
+	/**
+	* Define js_url method, get js directory location on the 'public' directory.
+	* @param  string $url
+	* @return string
+	*/
+	function js_url($url = null)
+	{
+		if ( is_filled($url) ) {
+			return JS_DIR . $url;
+		} else {
+			return JS_DIR;
+		}
+	}
+}
+
+if (! function_exists('css_url')) {
+	/**
+	* Define css_url method, get css directory location on the 'public' directory.
+	* @param  string $url
+	* @return string
+	*/
+	function css_url($url = null)
+	{
+		if ( is_filled($url) ) {
+			return CSS_DIR . $url;
+		} else {
+			return CSS_DIR;
 		}
 	}
 }
 
 /**
-* Define img_url method, get img directory location on the 'public' directory
-* @param  string $url
-* @return string
-*/
-function img_url($url = null)
-{
-	if ( is_filled($url) ) {
-		return IMG_DIR . $url;
-	} else {
-		return IMG_DIR;
-	}
-}
-
-/**
-* Define js_url method, get js directory location on the 'public' directory
-* @param  string $url
-* @return string
-*/
-function js_url($url = null)
-{
-	if ( is_filled($url) ) {
-		return JS_DIR . $url;
-	} else {
-		return JS_DIR;
-	}
-}
-
-/**
-* Define css_url method, get css directory location on the 'public' directory
-* @param  string $url
-* @return string
-*/
-function css_url($url = null)
-{
-	if ( is_filled($url) ) {
-		return CSS_DIR . $url;
-	} else {
-		return CSS_DIR;
-	}
-}
-
-/**
-* Define base_url() method, get base url with default project directory
+* Define base_url() method, get base url with default project directory.
 * @param  string $url
 * @return string
 */
@@ -122,7 +141,7 @@ function base_url($url = null)
 // ------------------------------------------------------------------------
 
 /**
-* Get config value from system/config/Database.php
+* Get config value from system/config/Database.php.
 * @param  string|int $d1
 * @param  string|int $d2
 * @return array
@@ -138,7 +157,7 @@ function config_db($d1 = null,$d2 = null)
 }
 
 /**
-* Get config value from system/config/Database.php
+* Get config value from system/config/Database.php.
 * @param  string|int $d1
 * @param  string|int $d2
 * @return array
@@ -156,7 +175,7 @@ function config_db_sec($d1 = null,$d2 = null)
 // ------------------------------------------------------------------------
 
 /**
-* Get config value from system/config/app.php
+* Get config value from system/config/app.php.
 * @param  string|int $d1
 * @return array
 */
@@ -170,7 +189,7 @@ function config_app($d1 = null)
 // ------------------------------------------------------------------------
 
 /**
-* Get config value from system/config/site.php
+* Get config value from system/config/site.php.
 * @param  string|int $d1
 * @return array
 */
@@ -185,7 +204,7 @@ function config_site($d1 = null)
 
 if (! function_exists('redirect')) {
 	/**
-	* Method for Redirect to specified URI
+	* Method for Redirect to specified URI.
 	* @param  string $url
 	* @return void
 	*/
@@ -198,7 +217,7 @@ if (! function_exists('redirect')) {
 
 if (! function_exists('redirect_back')) {
 	/**
-	* Redirect Back URI
+	* Redirect Back URI.
 	* @return void
 	*/
 	function redirect_back()
@@ -212,15 +231,17 @@ if (! function_exists('redirect_back')) {
 
 if (! function_exists('fetch_json')) {
 	/**
-	* Fetch data to json format
+	* Fetch data to json format.
 	* @param  array $data
+	* @param  int $status
 	* @return string
 	*/
-	function fetch_json($data = null)
+	function fetch_json($data = array(), $status = null)
 	{
 		$json_data = $data;
 		$json_result = json_encode($json_data);
 
+		http_response_code($status);
 		return $json_result;
 	}
 }
@@ -229,7 +250,7 @@ if (! function_exists('fetch_json')) {
 
 if (! function_exists('secure_input')) {
 	/**
-	* Secure Input Element
+	* Secure Input Element.
 	* @param  string $data
 	* @return string
 	*/
@@ -245,7 +266,7 @@ if (! function_exists('secure_input')) {
 
 if (! function_exists('secure_form')) {
 	/**
-	* Secure Form
+	* Secure Form.
 	* @param  string $form
 	* @return void
 	*/
@@ -263,7 +284,7 @@ if (! function_exists('secure_form')) {
 
 if (! function_exists('csrf_token')) {
 	/**
-	* Return only CSRF Token
+	* Return only CSRF Token.
 	* @return string
 	*/
 	function csrf_token()
@@ -282,7 +303,7 @@ if (! function_exists('csrf_token')) {
 
 if (! function_exists('form_csrf_token')) {
 	/**
-	* Return CSRF Input form with Token
+	* Return CSRF Input form with Token.
 	* @return string
 	*/
 	function form_csrf_token()
@@ -303,7 +324,7 @@ if (! function_exists('form_csrf_token')) {
 
 if (! function_exists('xss_filter')) {
 	/**
-	* XSS Filter
+	* XSS Filter.
 	* @param  string $value
 	* @return string
 	*/
@@ -318,7 +339,7 @@ if (! function_exists('xss_filter')) {
 
 if (! function_exists('allow_http')) {
 	/**
-	* Allow http
+	* Allow http.
 	* @return string
 	*/
 	function allow_http()
@@ -332,7 +353,7 @@ if (! function_exists('allow_http')) {
 
 if (! function_exists('disallow_http')) {
 	/**
-	* Disallow http
+	* Disallow http.
 	* @return string
 	*/
 	function disallow_http()
@@ -346,7 +367,7 @@ if (! function_exists('disallow_http')) {
 
 if (! function_exists('remove_get_parameters')) {
 	/**
-	* Remove url get parameter
+	* Remove url get parameter.
 	* @param  string $url
 	* @return string
 	*/
@@ -363,7 +384,7 @@ if (! function_exists('remove_get_parameters')) {
 
 if (! function_exists('ternary')) {
 	/**
-	* PHP Shorthand If/Else Using Ternary Operators
+	* PHP Shorthand If/Else Using Ternary Operators.
 	* @param  string|int $condition
 	* @param  string|int $result_one
 	* @param  string|int $result_two
@@ -399,7 +420,7 @@ if (! function_exists('post')) {
 
 if (! function_exists('get')) {
 	/**
-	* Get method
+	* Get method.
 	* @param  string|int $param
 	* @return string|int
 	*/
@@ -415,7 +436,7 @@ if (! function_exists('get')) {
 
 if (! function_exists('not_filled')) {
 	/**
-	* Function for basic field validation (present and neither empty nor only white space
+	* Function for basic field validation (present and neither empty nor only white space.
 	* @param  string|int|array $str
 	* @return string|int|array
 	*/
@@ -436,7 +457,7 @@ if (! function_exists('not_filled')) {
 
 if (! function_exists('is_filled')) {
 	/**
-	* Function for basic field validation (present and neither filled nor not empty)
+	* Function for basic field validation (present and neither filled nor not empty).
 	* @param  string|int|array $str
 	* @return string|int|array
 	*/
@@ -457,9 +478,71 @@ if (! function_exists('is_filled')) {
 
 // ------------------------------------------------------------------------
 
+if (! function_exists('is_request_put')) {
+	/**
+	 * Check if it's a PUT request.
+	 * @return boolean
+	 */
+	function is_request_put()
+	{
+		if ( Request::isPut() == true ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+
+if (! function_exists('is_request_delete')) {
+	/**
+	 * Check if it's a DELETE request.
+	 * @return boolean
+	 */
+	function is_request_delete()
+	{
+		if ( Request::isDelete() == true ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+
+if (! function_exists('is_request_get')) {
+	/**
+	 * Check if it's a GET request.
+	 * @return boolean
+	 */
+	function is_request_get()
+	{
+		if ( Request::isGet() == true ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+
+if (! function_exists('is_request_post')) {
+	/**
+	 * Check if it's a POST request.
+	 * @return boolean
+	 */
+	function is_request_post()
+	{
+		if ( Request::isPost() == true ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+
+// ------------------------------------------------------------------------
+
 if (! function_exists('aurora')) {
 	/**
-	* Aurora File Exporter
+	* Aurora File Exporter.
 	* @param  string $ext
 	* @param  string $name
 	* @param  string $sep
@@ -572,21 +655,21 @@ if (! function_exists('aurora')) {
 
 // ------------------------------------------------------------------------
 
-/**
-* User Agent
-* @return array
-* try it :
-* $ua = get_ua();
-* echo $ua['name'];
-* echo '<br>';
-* echo $ua['version'];
-* echo '<br>';
-* echo $ua['platform'];
-* echo '<br>';
-* echo $ua['userAgent'];
-*/
-// http://www.php.net/manual/en/function.get-browser.php#101125
 if (! function_exists('get_ua')) {
+	/**
+	* User Agent.
+	* @return array
+	* try it :
+	* $ua = get_ua();
+	* echo $ua['name'];
+	* echo '<br>';
+	* echo $ua['version'];
+	* echo '<br>';
+	* echo $ua['platform'];
+	* echo '<br>';
+	* echo $ua['userAgent'];
+	*/
+	// http://www.php.net/manual/en/function.get-browser.php#101125
 	function get_ua()
 	{
 		$u_agent = $_SERVER['HTTP_USER_AGENT'];
@@ -683,7 +766,7 @@ if (! function_exists('array_flatten')) {
 
 if (! function_exists('generate_num')) {
 	/**
-	* Create Random Number
+	* Create Random Number.
 	* @param  string  $prefix
 	* @param  integer $id_length
 	* @param  integer $num_length
@@ -704,7 +787,7 @@ if (! function_exists('generate_num')) {
 
 if (! function_exists('get_uri_segment')) {
 	/**
-	* Get URI Segment
+	* Get URI Segment.
 	* @param  integer $key
 	* @return string
 	*/
@@ -722,8 +805,10 @@ if (! function_exists('get_uri_segment')) {
 	}
 }
 
+// ------------------------------------------------------------------------
+
 /**
-* Get application version
+* Get application version.
 * @return string
 */
 function get_version()
@@ -732,7 +817,7 @@ function get_version()
 }
 
 /**
-* Get application codename
+* Get application codename.
 * @return string
 */
 function get_codename()
@@ -741,7 +826,7 @@ function get_codename()
 }
 
 /**
-* Get application language code
+* Get application language code.
 * @return string
 */
 function get_lang_code()
@@ -750,7 +835,7 @@ function get_lang_code()
 }
 
 /**
-* Get open graph prefix
+* Get open graph prefix.
 * @return string
 */
 function get_og_prefix()
@@ -759,7 +844,7 @@ function get_og_prefix()
 }
 
 /**
-* Get site title
+* Get site title.
 * @return string
 */
 function get_title()
@@ -768,7 +853,7 @@ function get_title()
 }
 
 /**
-* Get site description
+* Get site description.
 * @return string
 */
 function get_desc()
@@ -777,7 +862,7 @@ function get_desc()
 }
 
 /**
-* Get site keywords
+* Get site keywords.
 * @return string
 */
 function get_keywords()
@@ -786,7 +871,7 @@ function get_keywords()
 }
 
 /**
-* Get site author
+* Get site author.
 * @return string
 */
 function get_author()
@@ -795,7 +880,7 @@ function get_author()
 }
 
 /**
-* Get session prefix
+* Get session prefix.
 * @return string
 */
 function get_session_prefix()
@@ -804,10 +889,210 @@ function get_session_prefix()
 }
 
 /**
-* Get site email
+* Get site email.
 * @return string
 */
 function get_site_email()
 {
 	return SITEEMAIL;
+}
+
+// ------------------------------------------------------------------------
+
+if (! function_exists('str_starts_with')) {
+	/**
+	 * Check if the string starts with a certain value.
+	 * @param  string $search
+	 * @param  string $string
+	 * @return boolean
+	 */
+	function str_starts_with($search = '', $string = '')
+	{
+		$str = Str::starts_with($search, $string);
+
+		return $str;
+	}
+}
+
+if (! function_exists('str_ends_with')) {
+	/**
+	 * Check if the string ends with a certain value.
+	 * @param  string $search
+	 * @param  string $string
+	 * @return boolean
+	 */
+	function str_ends_with($search = '', $string = '')
+	{
+		$str = Str::ends_with($search, $string);
+
+		return $str;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if (! function_exists('load_time')) {
+	/**
+	 * Calculate load time of pages or scripts.
+	 * Set initial time.
+	 * @return boolean
+	 */
+	function load_time()
+	{
+		$timestart = LoadTime::start();
+
+		return $timestart;
+	}
+}
+
+if (! function_exists('end_time')) {
+	/**
+	 * Calculate end load time of pages or scripts.
+	 * Set end time.
+	 * @return boolean
+	 */
+	function end_time()
+	{
+		$timestart = LoadTime::end();
+
+		return $timestart;
+	}
+}
+
+if (! function_exists('is_active_time')) {
+	/**
+	 * Check if the timer has been started.
+	 * @return boolean
+	 */
+	function is_active_time()
+	{
+		$timestart = LoadTime::is_active();
+
+		return $timestart;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if (! function_exists('get_ip')) {
+	/**
+	 * Get user's IP.
+	 * @return string|false
+	 */
+	function get_ip()
+	{
+		$get_ip = Ip::get();
+
+		return $get_ip;
+	}
+}
+
+if (! function_exists('validate_ip')) {
+	/**
+	 * Validate IP.
+	 * @return string|false
+	 */
+	function validate_ip($ip)
+	{
+		$validate_ip = Ip::validate($ip);
+
+		return $validate_ip;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if (! function_exists('json_array_to_file')) {
+	/**
+	 * Creating JSON file from array.
+	 * @return boolean
+	 */
+	function json_array_to_file($array, $pathfile)
+	{
+		$json = Json::array_to_file($array, $pathfile);
+
+		return $json;
+	}
+}
+
+if (! function_exists('json_file_to_array')) {
+	/**
+	 * Create array from the JSON file content.
+	 * @return array|false
+	 */
+	function json_file_to_array($pathfile)
+	{
+		$json = Json::file_to_array($pathfile);
+
+		return $json;
+	}
+}
+
+if (! function_exists('json_last_error')) {
+	/**
+	 * Check for errors.
+	 * @return array|null
+	 */
+	function json_last_error()
+	{
+		$lastError = JsonLastError::check();
+
+		if (!is_null($lastError)) {
+		    return $lastError;
+		}
+	}
+}
+
+if (! function_exists('json_collection_error')) {
+	/**
+	 * Get collection of JSON errors.
+	 * @return array
+	 */
+	function json_collection_error()
+	{
+		$jsonLastErrorCollection = JsonLastError::get_collection();
+
+		return $jsonLastErrorCollection;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if (! function_exists('parse_language')) {
+	/**
+	 * Get all language codes as array.
+	 * @return array
+	 */
+	function parse_language()
+	{
+		$arr = LanguageCode::get();
+
+		return $arr;
+	}
+}
+
+if (! function_exists('get_language_name')) {
+	/**
+	 * Get language name from language code.
+	 * @return array
+	 */
+	function get_language_name($langcode)
+	{
+		$langname = LanguageCode::get_language_from_code($langcode);
+
+		return $langname;
+	}
+}
+
+if (! function_exists('get_language_code')) {
+	/**
+	 * Get language code from language name.
+	 * @return array
+	 */
+	function get_language_code($langname)
+	{
+		$langcode = LanguageCode::get_code_from_language($langname);
+
+		return $langcode;
+	}
 }
