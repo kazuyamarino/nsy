@@ -1074,7 +1074,7 @@ if (! function_exists('parse_language')) {
 if (! function_exists('get_language_name')) {
 	/**
 	 * Get language name from language code.
-	 * @return array
+	 * @return string
 	 */
 	function get_language_name($langcode)
 	{
@@ -1087,7 +1087,7 @@ if (! function_exists('get_language_name')) {
 if (! function_exists('get_language_code')) {
 	/**
 	 * Get language code from language name.
-	 * @return array
+	 * @return string
 	 */
 	function get_language_code($langname)
 	{
