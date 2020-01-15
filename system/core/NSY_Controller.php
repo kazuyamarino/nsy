@@ -13,6 +13,11 @@ use System\Razr\Loader\FilesystemLoader;
 use System\Core\NSY_Desk;
 
 /**
+* Use Request library
+*/
+use System\Libraries\Request;
+
+/**
 * This is the core of NSY Controller
 * Attention, don't try to change the structure of the code, delete, or change. Because there is some code connected to the NSY system. So, be careful.
 */
@@ -136,6 +141,29 @@ class NSY_Controller
 		$in = rtrim($in, ','); // example = :id0,:id1,:id2
 
 		return [$in, $in_params];
+	}
+
+	/**
+	 * Parse array data depends on api's method
+	 * @return array
+	 */
+	protected function get_parsed_body()
+	{
+		if ( is_post() ) {
+			$req_post = Request::input('POST');
+			$arr = $req_post()->asArray();
+		} elseif ( is_get() ) {
+			$req_get = Request::input('GET');
+			$arr = $req_get()->asArray();
+		} elseif ( is_delete() ) {
+			$req_del = Request::input('DELETE');
+			$arr = $req_del()->asArray();
+		} elseif ( is_put() ) {
+			$req_put = Request::input('PUT');
+			$arr = $req_put()->asArray();
+		}
+
+		return $arr;
 	}
 
 }
