@@ -14,6 +14,8 @@ namespace System\Libraries;
  * @since     1.0.0
  */
 
+use System\Libraries\JsonException;
+
 /**
  * Json handler.
  */

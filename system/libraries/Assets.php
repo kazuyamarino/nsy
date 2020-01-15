@@ -8,8 +8,8 @@ use System\Core\NSY_AssetManager as Add;
 * Because there is some code connected to the NSY system. So, be careful.
 *
 * Hi Welcome to NSY Assets Manager.
-* The easiest & best assets manager in history
-* Made with love by Vikry Yuansah
+* The easiest & best assets manager in history.
+* Made with love by Vikry Yuansah.
 *
 * How to use it? Simply follow this format.
 * Create <meta> tag :
