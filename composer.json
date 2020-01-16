@@ -19,8 +19,7 @@
 			"System\\": "system/"
         },
         "files": [
-			"system/core/NSY_Helpers.php",
-			"system/helpers/Helpers_CI.php"
+			"system/core/NSY_Helpers.php"
 		]
     },
     "config": {
