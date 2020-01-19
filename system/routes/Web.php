@@ -8,15 +8,26 @@ Class Web
 
 	public function __construct()
 	{
-		// define Web Routes, the params format is :
-		// Format = Route::type('url', 'namespace\class_controller@method')
-		// Route type : any, get, post, put, delete, options, & head
+		// define Web Routes.
+		// Format :
+		// Route::method('url', function() {
+		// 		Route::goto('namespace\class_controller@method');
+		// });
+		//
+		// Route::method('url/@id:num', function($id) {
+		// 		Route::goto('namespace\class_controller@method', $id);
+		// });
+		// Route method : any|get|post|put|patch|delete|head|options
 
 		// MVC Route
-		Route::any('', 'System\Controllers\Welcome@index');
+		Route::get('/', function() {
+			Route::goto('Welcome@index');
+		});
 
 		// HMVC Route
-		Route::any('hmvc', 'System\Modules\Homepage\Controllers\Hello@index_hmvc');
+		Route::get('/hmvc', function() {
+			Route::goto('Homepage\Hello@index_hmvc');
+		});
 	}
 
 }

@@ -66,7 +66,7 @@ class Request
                 break;
             case 'PUT':
             case 'DELETE':
-                $self->params = self::getParsedInput();
+                $self->params = self::get_parsed_input();
                 break;
         }
 
@@ -85,12 +85,12 @@ class Request
      * @param array $filters → associative array with data type for each key
      * @param mixed $default → default value for non-existent or incorrect keys
      */
-    public function asArray(array $filters = [], $default = null) : array
+    public function as_array(array $filters = [], $default = null) : array
     {
-        $array = Validate::asArray($this->params[$this->key] ?? $this->params, []);
+        $array = Validate::as_array($this->params[$this->key] ?? $this->params, []);
 
         foreach ($filters as $key => $dataType) {
-            $dataType = 'as' . ucfirst($dataType);
+            $dataType = 'as_' . ucfirst($dataType);
             $array[$key] = Validate::$dataType($array[$key] ?? null, $default);
         }
 
@@ -105,12 +105,12 @@ class Request
      * @param array $filters → object with data type for each key
      * @param mixed $default → default value for non-existent or incorrect keys
      */
-    public function asObject(array $filters = [], $default = null) : \stdClass
+    public function as_object(array $filters = [], $default = null) : \stdClass
     {
-        $object = Validate::asObject($this->params[$this->key] ?? $this->params, (object) []);
+        $object = Validate::as_object($this->params[$this->key] ?? $this->params, (object) []);
 
         foreach ($filters as $key => $dataType) {
-            $dataType = 'as' . ucfirst($dataType);
+            $dataType = 'as_' . ucfirst($dataType);
             $object->{$key} = Validate::$dataType($object->{$key} ?? null, $default);
         }
 
@@ -126,9 +126,9 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asJson($default = null)
+    public function as_json($default = null)
     {
-        return Validate::asJson($this->params[$this->key] ?? $this->params, $default);
+        return Validate::as_json($this->params[$this->key] ?? $this->params, $default);
     }
 
     /**
@@ -140,9 +140,9 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asString($default = null)
+    public function as_string($default = null)
     {
-        return Validate::asString($this->params[$this->key] ?? null, $default);
+        return Validate::as_string($this->params[$this->key] ?? null, $default);
     }
 
     /**
@@ -154,9 +154,9 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asInteger($default = null)
+    public function as_integer($default = null)
     {
-        return Validate::asInteger($this->params[$this->key] ?? null, $default);
+        return Validate::as_integer($this->params[$this->key] ?? null, $default);
     }
 
     /**
@@ -168,9 +168,9 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asFloat($default = null)
+    public function as_float($default = null)
     {
-        return Validate::asFloat($this->params[$this->key] ?? null, $default);
+        return Validate::as_float($this->params[$this->key] ?? null, $default);
     }
 
     /**
@@ -182,9 +182,9 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asBoolean($default = null)
+    public function as_boolean($default = null)
     {
-        return Validate::asBoolean($this->params[$this->key] ?? [], $default);
+        return Validate::as_boolean($this->params[$this->key] ?? [], $default);
     }
 
     /**
@@ -196,9 +196,9 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asIp($default = null)
+    public function as_ip($default = null)
     {
-        return Validate::asIp($this->params[$this->key] ?? null, $default);
+        return Validate::as_ip($this->params[$this->key] ?? null, $default);
     }
 
     /**
@@ -210,9 +210,9 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asUrl($default = null)
+    public function as_url($default = null)
     {
-        return Validate::asUrl($this->params[$this->key] ?? null, $default);
+        return Validate::as_url($this->params[$this->key] ?? null, $default);
     }
 
     /**
@@ -224,15 +224,15 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asEmail($default = null)
+    public function as_email($default = null)
     {
-        return Validate::asEmail($this->params[$this->key] ?? null, $default);
+        return Validate::as_email($this->params[$this->key] ?? null, $default);
     }
 
     /**
      * Check if it is a GET request.
      */
-    public static function isGet() : bool
+    public static function is_get() : bool
     {
         return $_SERVER['REQUEST_METHOD'] === 'GET';
     }
@@ -240,7 +240,7 @@ class Request
     /**
      * Check if it is a POST request.
      */
-    public static function isPost() : bool
+    public static function is_post() : bool
     {
         return $_SERVER['REQUEST_METHOD'] === 'POST';
     }
@@ -248,7 +248,7 @@ class Request
     /**
      * Check if it is a PUT request.
      */
-    public static function isPut() : bool
+    public static function is_put() : bool
     {
         return $_SERVER['REQUEST_METHOD'] === 'PUT';
     }
@@ -256,7 +256,7 @@ class Request
     /**
      * Check if it is a DELETE request.
      */
-    public static function isDelete() : bool
+    public static function is_delete() : bool
     {
         return $_SERVER['REQUEST_METHOD'] === 'DELETE';
     }
@@ -266,11 +266,11 @@ class Request
      *
      * @return mixed|null → value or null
      */
-    private static function getParsedInput()
+    public static function get_parsed_input()
     {
-        $input = file_get_contents('php://input') ?: null;
+        $input = file_get_contents('php://input') ? : null;
 
-        switch (self::getContentType()) {
+        switch (self::get_content_type()) {
             case 'application/atom+xml':
                 $input = new \SimpleXmlElement($input);
                 break;
@@ -283,7 +283,7 @@ class Request
             case 'multipart/form-data':
             case 'application/x-www-form-urlencoded':
                 $data = [];
-                self::parseRaw($input, $data);
+                self::parse_raw($input = '', $data);
                 $input = $data;
                 break;
         }
@@ -296,7 +296,7 @@ class Request
      *
      * @since 2.0.0
      */
-    private static function getContentType() : string
+    public static function get_content_type() : string
     {
         $contentType = $_SERVER['HTTP_CONTENT_TYPE'] ?? '';
 
@@ -312,7 +312,7 @@ class Request
      *
      * @since 2.0.0
      */
-    private static function parseRaw(string $input, array &$data = [])
+    private static function parse_raw(string $input = '', array &$data = [])
     {
         preg_match('/boundary=(.*)$/', $_SERVER['CONTENT_TYPE'], $matches);
 

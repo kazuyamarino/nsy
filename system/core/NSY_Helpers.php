@@ -23,7 +23,6 @@ use System\Core\NSY_Desk;
 /**
 * Use library.
 */
-use System\Libraries\Request; // Request
 use System\Libraries\Str; // Str
 use System\Libraries\LoadTime; // LoadTime
 use System\Libraries\Ip; // Ip
@@ -400,40 +399,6 @@ if (! function_exists('ternary')) {
 
 // ------------------------------------------------------------------------
 
-/**
-* The PHP superglobals $_GET and $_POST are used to collect form-data.
-* @var string
-*/
-if (! function_exists('post')) {
-	/**
-	* Post method
-	* @param  string|int $param
-	* @return string|int
-	*/
-	function post($param = null)
-	{
-		$result = isset($_POST[$param]) ? $_POST[$param] : null;
-
-		return $result;
-	}
-}
-
-if (! function_exists('get')) {
-	/**
-	* Get method.
-	* @param  string|int $param
-	* @return string|int
-	*/
-	function get($param = null)
-	{
-		$result = isset($_GET[$param]) ? $_GET[$param] : null;
-
-		return $result;
-	}
-}
-
-// ------------------------------------------------------------------------
-
 if (! function_exists('not_filled')) {
 	/**
 	* Function for basic field validation (present and neither empty nor only white space.
@@ -472,68 +437,6 @@ if (! function_exists('is_filled')) {
 			} else {
 				return (isset($key) || !empty($str));
 			}
-		}
-	}
-}
-
-// ------------------------------------------------------------------------
-
-if (! function_exists('is_request_put')) {
-	/**
-	 * Check if it's a PUT request.
-	 * @return boolean
-	 */
-	function is_request_put()
-	{
-		if ( Request::isPut() == true ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-}
-
-if (! function_exists('is_request_delete')) {
-	/**
-	 * Check if it's a DELETE request.
-	 * @return boolean
-	 */
-	function is_request_delete()
-	{
-		if ( Request::isDelete() == true ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-}
-
-if (! function_exists('is_request_get')) {
-	/**
-	 * Check if it's a GET request.
-	 * @return boolean
-	 */
-	function is_request_get()
-	{
-		if ( Request::isGet() == true ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-}
-
-if (! function_exists('is_request_post')) {
-	/**
-	 * Check if it's a POST request.
-	 * @return boolean
-	 */
-	function is_request_post()
-	{
-		if ( Request::isPost() == true ) {
-			return true;
-		} else {
-			return false;
 		}
 	}
 }
