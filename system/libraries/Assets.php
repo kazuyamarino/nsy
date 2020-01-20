@@ -31,7 +31,7 @@ use System\Core\NSY_AssetManager as Add;
 * Pull::header_assets();
 * Pull::footer_assets();
 */
-Class Assets extends \System\Core\NSY_AssetManager
+Class Assets
 {
 
 	public static function header_assets()

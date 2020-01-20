@@ -83,9 +83,6 @@ class NSY_System
 		// set timezone
 		date_default_timezone_set(config_app('timezone'));
 
-		// aliasing Assets class name
-		class_alias('System\Libraries\Assets', 'Pull');
-
 		// start session
 		Session::init();
 	}

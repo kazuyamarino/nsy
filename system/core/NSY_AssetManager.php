@@ -2,11 +2,6 @@
 namespace System\Core;
 
 /**
-* Use NSY_Desk class
-*/
-use System\Core\NSY_Desk;
-
-/**
 * This is the core of NSY Asset Manager
 * Attention, don't try to change the structure of the code, delete, or change.
 * Because there is some code connected to the NSY system. So, be careful.
@@ -21,7 +16,7 @@ Class NSY_AssetManager
 	* @param  string $content
 	* @return string
 	*/
-	protected static function meta($attr = null, $content = null)
+	public static function meta($attr = null, $content = null)
 	{
 		// if content is empty
 		if (not_filled($content)) {
@@ -46,7 +41,7 @@ Class NSY_AssetManager
 	* @param  string $title
 	* @return string
 	*/
-	protected static function link($filename = null, $rel = null, $type = null, $title = null)
+	public static function link($filename = null, $rel = null, $type = null, $title = null)
 	{
 		// if content is empty
 		if (strpos($filename, 'http') !== false || strpos($filename, 'https') !== false) {
@@ -73,7 +68,7 @@ Class NSY_AssetManager
 	* @param  string $attr
 	* @return string
 	*/
-	protected static function script($filename = null, $type = null, $charset = null, $attr = null)
+	public static function script($filename = null, $type = null, $charset = null, $attr = null)
 	{
 		// if charset is empty
 		if (strpos($filename, 'http') !== false || strpos($filename, 'https') !== false) {
@@ -100,7 +95,7 @@ Class NSY_AssetManager
 	* @param  string $values
 	* @return string
 	*/
-	protected static function custom($values = null)
+	public static function custom($values = null)
 	{
 		if (not_filled($values)) {
 			$var_msg = 'No value in <mark>add::custom()</mark> tag';

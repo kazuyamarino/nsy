@@ -21,6 +21,11 @@
 use System\Core\NSY_System;
 
 /**
+* Use Aliases class
+*/
+use System\Libraries\Aliases;
+
+/**
 * Use NSY_Desk class
 */
 use System\Core\NSY_Desk;
@@ -94,6 +99,11 @@ $dotenv->load();
 * Instantiate System
 */
 new NSY_System();
+
+/**
+* Instantiate Aliases
+*/
+new Aliases();
 
 /**
 * Instantiate Web route

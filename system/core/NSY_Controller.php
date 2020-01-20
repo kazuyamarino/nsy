@@ -8,11 +8,6 @@ use System\Razr\Engine;
 use System\Razr\Loader\FilesystemLoader;
 
 /**
-* Use NSY_Desk class
-*/
-use System\Core\NSY_Desk;
-
-/**
 * Use Request library
 */
 use System\Libraries\Request;
@@ -37,7 +32,7 @@ class NSY_Controller
 		// Instantiate Razr Template Engine
 		$this->razr = new Engine(new FilesystemLoader(VENDOR_DIR));
 
-		if (is_array($vars) || is_object($vars) ) {
+		if (is_array($vars) || is_object($vars) || is_filled($filename) ) {
 			if(not_filled($module) ) {
 				echo $this->razr->render(MVC_VIEW_DIR . $filename . '.php', $vars);
 			} else {
@@ -460,7 +455,13 @@ class NSY_Controller
 	*/
 	protected function post($param = null)
 	{
-		$result = isset($_POST[$param]) ? $_POST[$param] : null;
+		if ( is_filled($param) ) {
+			$result = isset($_POST[$param]) ? $_POST[$param] : null;
+		} else {
+			$var_msg = 'The variable in the <mark>$this->post(<strong>variable</strong>)</mark> is improper or not an array';
+			NSY_Desk::static_error_handler($var_msg);
+			exit();
+		}
 
 		return $result;
 	}
@@ -472,7 +473,13 @@ class NSY_Controller
 	*/
 	protected function get($param = null)
 	{
-		$result = isset($_GET[$param]) ? $_GET[$param] : null;
+		if ( is_filled($param) ) {
+			$result = isset($_GET[$param]) ? $_GET[$param] : null;
+		} else {
+			$var_msg = 'The variable in the <mark>$this->get(<strong>variable</strong>)</mark> is improper or not an array';
+			NSY_Desk::static_error_handler($var_msg);
+			exit();
+		}
 
 		return $result;
 	}
