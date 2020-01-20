@@ -11,13 +11,13 @@ Class Migration
 	{
 		// Migration Route
 		Route::any(
-			'migup=(:any)', function ($class) {
+			'/migup=(:any)', function ($class) {
 				NSY_Desk::mig_up($class);
 			}
 		);
 
 		Route::any(
-			'migdown=(:any)', function ($class) {
+			'/migdown=(:any)', function ($class) {
 				NSY_Desk::mig_down($class);
 			}
 		);
