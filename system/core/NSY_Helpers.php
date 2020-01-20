@@ -6,22 +6,22 @@
 */
 
 /**
-* Use NSY_XSS_Filter class.
+* Use NSY_XSS_Filter class
 */
 use System\Core\NSY_XSS_Filter;
 
 /**
-* Use NSY_CSRF class.
+* Use NSY_CSRF class
 */
 use System\Core\NSY_CSRF;
 
 /**
-* Use NSY_Desk class.
+* Use NSY_Desk class
 */
 use System\Core\NSY_Desk;
 
 /**
-* Use library.
+* Use library
 */
 use System\Libraries\Str; // Str
 use System\Libraries\LoadTime; // LoadTime
@@ -29,10 +29,11 @@ use System\Libraries\Ip; // Ip
 use System\Libraries\Json; // Json
 use System\Libraries\JsonLastError; // JsonLastError
 use System\Libraries\LanguageCode; // LanguageCode
+use System\Libraries\Validate; // Validate
 
 if (! function_exists('public_path')) {
 	/**
-	* Define public_path() method, get the fullpath 'public' directory.
+	* Define public_path() method, get the fullpath 'public' directory
 	* @param  string $url
 	* @return string
 	*/
@@ -56,7 +57,7 @@ if (! function_exists('public_path')) {
 
 if (! function_exists('img_url')) {
 	/**
-	* Define img_url method, get img directory location on the 'public' directory.
+	* Define img_url method, get img directory location on the 'public' directory
 	* @param  string $url
 	* @return string
 	*/
@@ -72,7 +73,7 @@ if (! function_exists('img_url')) {
 
 if (! function_exists('js_url')) {
 	/**
-	* Define js_url method, get js directory location on the 'public' directory.
+	* Define js_url method, get js directory location on the 'public' directory
 	* @param  string $url
 	* @return string
 	*/
@@ -88,7 +89,7 @@ if (! function_exists('js_url')) {
 
 if (! function_exists('css_url')) {
 	/**
-	* Define css_url method, get css directory location on the 'public' directory.
+	* Define css_url method, get css directory location on the 'public' directory
 	* @param  string $url
 	* @return string
 	*/
@@ -103,7 +104,7 @@ if (! function_exists('css_url')) {
 }
 
 /**
-* Define base_url() method, get base url with default project directory.
+* Define base_url() method, get base url with default project directory
 * @param  string $url
 * @return string
 */
@@ -140,7 +141,7 @@ function base_url($url = null)
 // ------------------------------------------------------------------------
 
 /**
-* Get config value from system/config/Database.php.
+* Get config value from system/config/Database.php
 * @param  string|int $d1
 * @param  string|int $d2
 * @return array
@@ -156,7 +157,7 @@ function config_db($d1 = null,$d2 = null)
 }
 
 /**
-* Get config value from system/config/Database.php.
+* Get config value from system/config/Database.php
 * @param  string|int $d1
 * @param  string|int $d2
 * @return array
@@ -174,7 +175,7 @@ function config_db_sec($d1 = null,$d2 = null)
 // ------------------------------------------------------------------------
 
 /**
-* Get config value from system/config/app.php.
+* Get config value from system/config/app.php
 * @param  string|int $d1
 * @return array
 */
@@ -188,7 +189,7 @@ function config_app($d1 = null)
 // ------------------------------------------------------------------------
 
 /**
-* Get config value from system/config/site.php.
+* Get config value from system/config/site.php
 * @param  string|int $d1
 * @return array
 */
@@ -203,7 +204,7 @@ function config_site($d1 = null)
 
 if (! function_exists('redirect')) {
 	/**
-	* Method for Redirect to specified URI.
+	* Method for Redirect to specified URI
 	* @param  string $url
 	* @return void
 	*/
@@ -216,7 +217,7 @@ if (! function_exists('redirect')) {
 
 if (! function_exists('redirect_back')) {
 	/**
-	* Redirect Back URI.
+	* Redirect Back URI
 	* @return void
 	*/
 	function redirect_back()
@@ -230,7 +231,7 @@ if (! function_exists('redirect_back')) {
 
 if (! function_exists('fetch_json')) {
 	/**
-	* Fetch data to json format.
+	* Fetch data to json format
 	* @param  array $data
 	* @param  int $status
 	* @return string
@@ -249,7 +250,7 @@ if (! function_exists('fetch_json')) {
 
 if (! function_exists('secure_input')) {
 	/**
-	* Secure Input Element.
+	* Secure Input Element
 	* @param  string $data
 	* @return string
 	*/
@@ -265,7 +266,7 @@ if (! function_exists('secure_input')) {
 
 if (! function_exists('secure_form')) {
 	/**
-	* Secure Form.
+	* Secure Form
 	* @param  string $form
 	* @return void
 	*/
@@ -283,7 +284,7 @@ if (! function_exists('secure_form')) {
 
 if (! function_exists('csrf_token')) {
 	/**
-	* Return only CSRF Token.
+	* Return only CSRF Token
 	* @return string
 	*/
 	function csrf_token()
@@ -302,7 +303,7 @@ if (! function_exists('csrf_token')) {
 
 if (! function_exists('form_csrf_token')) {
 	/**
-	* Return CSRF Input form with Token.
+	* Return CSRF Input form with Token
 	* @return string
 	*/
 	function form_csrf_token()
@@ -323,7 +324,7 @@ if (! function_exists('form_csrf_token')) {
 
 if (! function_exists('xss_filter')) {
 	/**
-	* XSS Filter.
+	* XSS Filter
 	* @param  string $value
 	* @return string
 	*/
@@ -338,7 +339,7 @@ if (! function_exists('xss_filter')) {
 
 if (! function_exists('allow_http')) {
 	/**
-	* Allow http.
+	* Allow http
 	* @return string
 	*/
 	function allow_http()
@@ -352,7 +353,7 @@ if (! function_exists('allow_http')) {
 
 if (! function_exists('disallow_http')) {
 	/**
-	* Disallow http.
+	* Disallow http
 	* @return string
 	*/
 	function disallow_http()
@@ -366,7 +367,7 @@ if (! function_exists('disallow_http')) {
 
 if (! function_exists('remove_get_parameters')) {
 	/**
-	* Remove url get parameter.
+	* Remove url get parameter
 	* @param  string $url
 	* @return string
 	*/
@@ -383,7 +384,7 @@ if (! function_exists('remove_get_parameters')) {
 
 if (! function_exists('ternary')) {
 	/**
-	* PHP Shorthand If/Else Using Ternary Operators.
+	* PHP Shorthand If/Else Using Ternary Operators
 	* @param  string|int $condition
 	* @param  string|int $result_one
 	* @param  string|int $result_two
@@ -401,7 +402,7 @@ if (! function_exists('ternary')) {
 
 if (! function_exists('not_filled')) {
 	/**
-	* Function for basic field validation (present and neither empty nor only white space.
+	* Function for basic field validation (present and neither empty nor only white space
 	* @param  string|int|array $str
 	* @return string|int|array
 	*/
@@ -422,7 +423,7 @@ if (! function_exists('not_filled')) {
 
 if (! function_exists('is_filled')) {
 	/**
-	* Function for basic field validation (present and neither filled nor not empty).
+	* Function for basic field validation (present and neither filled nor not empty)
 	* @param  string|int|array $str
 	* @return string|int|array
 	*/
@@ -445,7 +446,7 @@ if (! function_exists('is_filled')) {
 
 if (! function_exists('aurora')) {
 	/**
-	* Aurora File Exporter.
+	* Aurora File Exporter
 	* @param  string $ext
 	* @param  string $name
 	* @param  string $sep
@@ -560,7 +561,7 @@ if (! function_exists('aurora')) {
 
 if (! function_exists('get_ua')) {
 	/**
-	* User Agent.
+	* User Agent
 	* @return array
 	* try it :
 	* $ua = get_ua();
@@ -646,7 +647,7 @@ if (! function_exists('get_ua')) {
 
 if (! function_exists('array_flatten')) {
 	/**
-	* PHP array_flatten() function. Convert a multi-dimensional array into a single-dimensional array.
+	* PHP array_flatten() function. Convert a multi-dimensional array into a single-dimensional array
 	* https://gist.github.com/SeanCannon/6585889#gistcomment-2922278
 	* @param  array $items
 	* @return array
@@ -669,7 +670,7 @@ if (! function_exists('array_flatten')) {
 
 if (! function_exists('generate_num')) {
 	/**
-	* Create Random Number.
+	* Create Random Number
 	* @param  string  $prefix
 	* @param  integer $id_length
 	* @param  integer $num_length
@@ -690,7 +691,7 @@ if (! function_exists('generate_num')) {
 
 if (! function_exists('get_uri_segment')) {
 	/**
-	* Get URI Segment.
+	* Get URI Segment
 	* @param  integer $key
 	* @return string
 	*/
@@ -711,7 +712,7 @@ if (! function_exists('get_uri_segment')) {
 // ------------------------------------------------------------------------
 
 /**
-* Get application version.
+* Get application version
 * @return string
 */
 function get_version()
@@ -720,7 +721,7 @@ function get_version()
 }
 
 /**
-* Get application codename.
+* Get application codename
 * @return string
 */
 function get_codename()
@@ -729,7 +730,7 @@ function get_codename()
 }
 
 /**
-* Get application language code.
+* Get application language code
 * @return string
 */
 function get_lang_code()
@@ -738,7 +739,7 @@ function get_lang_code()
 }
 
 /**
-* Get open graph prefix.
+* Get open graph prefix
 * @return string
 */
 function get_og_prefix()
@@ -747,7 +748,7 @@ function get_og_prefix()
 }
 
 /**
-* Get site title.
+* Get site title
 * @return string
 */
 function get_title()
@@ -756,7 +757,7 @@ function get_title()
 }
 
 /**
-* Get site description.
+* Get site description
 * @return string
 */
 function get_desc()
@@ -765,7 +766,7 @@ function get_desc()
 }
 
 /**
-* Get site keywords.
+* Get site keywords
 * @return string
 */
 function get_keywords()
@@ -774,7 +775,7 @@ function get_keywords()
 }
 
 /**
-* Get site author.
+* Get site author
 * @return string
 */
 function get_author()
@@ -783,7 +784,7 @@ function get_author()
 }
 
 /**
-* Get session prefix.
+* Get session prefix
 * @return string
 */
 function get_session_prefix()
@@ -792,7 +793,7 @@ function get_session_prefix()
 }
 
 /**
-* Get site email.
+* Get site email
 * @return string
 */
 function get_site_email()
@@ -804,7 +805,7 @@ function get_site_email()
 
 if (! function_exists('str_starts_with')) {
 	/**
-	 * Check if the string starts with a certain value.
+	 * Check if the string starts with a certain value
 	 * @param  string $search
 	 * @param  string $string
 	 * @return boolean
@@ -819,7 +820,7 @@ if (! function_exists('str_starts_with')) {
 
 if (! function_exists('str_ends_with')) {
 	/**
-	 * Check if the string ends with a certain value.
+	 * Check if the string ends with a certain value
 	 * @param  string $search
 	 * @param  string $string
 	 * @return boolean
@@ -836,7 +837,7 @@ if (! function_exists('str_ends_with')) {
 
 if (! function_exists('load_time')) {
 	/**
-	 * Calculate load time of pages or scripts.
+	 * Calculate load time of pages or scripts
 	 * Set initial time.
 	 * @return boolean
 	 */
@@ -850,7 +851,7 @@ if (! function_exists('load_time')) {
 
 if (! function_exists('end_time')) {
 	/**
-	 * Calculate end load time of pages or scripts.
+	 * Calculate end load time of pages or scripts
 	 * Set end time.
 	 * @return boolean
 	 */
@@ -864,7 +865,7 @@ if (! function_exists('end_time')) {
 
 if (! function_exists('is_active_time')) {
 	/**
-	 * Check if the timer has been started.
+	 * Check if the timer has been started
 	 * @return boolean
 	 */
 	function is_active_time()
@@ -879,7 +880,7 @@ if (! function_exists('is_active_time')) {
 
 if (! function_exists('get_ip')) {
 	/**
-	 * Get user's IP.
+	 * Get user's IP
 	 * @return string|false
 	 */
 	function get_ip()
@@ -890,16 +891,16 @@ if (! function_exists('get_ip')) {
 	}
 }
 
-if (! function_exists('validate_ip')) {
+if (! function_exists('check_ip')) {
 	/**
-	 * Validate IP.
+	 * Validate IP
 	 * @return string|false
 	 */
-	function validate_ip($ip)
+	function check_ip($ip)
 	{
-		$validate_ip = Ip::validate($ip);
+		$check_ip = Ip::validate($ip);
 
-		return $validate_ip;
+		return $check_ip;
 	}
 }
 
@@ -907,7 +908,7 @@ if (! function_exists('validate_ip')) {
 
 if (! function_exists('json_array_to_file')) {
 	/**
-	 * Creating JSON file from array.
+	 * Creating JSON file from array
 	 * @return boolean
 	 */
 	function json_array_to_file($array, $pathfile)
@@ -920,7 +921,7 @@ if (! function_exists('json_array_to_file')) {
 
 if (! function_exists('json_file_to_array')) {
 	/**
-	 * Create array from the JSON file content.
+	 * Create array from the JSON file content
 	 * @return array|false
 	 */
 	function json_file_to_array($pathfile)
@@ -933,7 +934,7 @@ if (! function_exists('json_file_to_array')) {
 
 if (! function_exists('json_last_error')) {
 	/**
-	 * Check for errors.
+	 * Check for errors
 	 * @return array|null
 	 */
 	function json_last_error()
@@ -948,7 +949,7 @@ if (! function_exists('json_last_error')) {
 
 if (! function_exists('json_collection_error')) {
 	/**
-	 * Get collection of JSON errors.
+	 * Get collection of JSON errors
 	 * @return array
 	 */
 	function json_collection_error()
@@ -963,7 +964,7 @@ if (! function_exists('json_collection_error')) {
 
 if (! function_exists('parse_language')) {
 	/**
-	 * Get all language codes as array.
+	 * Get all language codes as array
 	 * @return array
 	 */
 	function parse_language()
@@ -976,7 +977,7 @@ if (! function_exists('parse_language')) {
 
 if (! function_exists('get_language_name')) {
 	/**
-	 * Get language name from language code.
+	 * Get language name from language code
 	 * @return string
 	 */
 	function get_language_name($langcode)
@@ -989,7 +990,7 @@ if (! function_exists('get_language_name')) {
 
 if (! function_exists('get_language_code')) {
 	/**
-	 * Get language code from language name.
+	 * Get language code from language name
 	 * @return string
 	 */
 	function get_language_code($langname)
@@ -997,6 +998,138 @@ if (! function_exists('get_language_code')) {
 		$langcode = LanguageCode::get_code_from_language($langname);
 
 		return $langcode;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if (! function_exists('validate_array')) {
+	/**
+	 * Parameter return as array
+	 * @return array
+	 */
+	function validate_array($data, $default = null)
+	{
+		$result = Validate::as_array($data, $default = null);
+
+		return $result;
+	}
+}
+
+if (! function_exists('validate_object')) {
+	/**
+	 * Parameter return as object
+	 * @return object
+	 */
+	function validate_object($data, $default = null)
+	{
+		$result = Validate::as_object($data, $default = null);
+
+		return $result;
+	}
+}
+
+if (! function_exists('validate_json')) {
+	/**
+	 * Parameter return as json
+	 * @return string
+	 */
+	function validate_json($data, $default = null)
+	{
+		$result = Validate::as_json($data, $default = null);
+
+		return $result;
+	}
+}
+
+if (! function_exists('validate_string')) {
+	/**
+	 * Parameter return as string
+	 * @return string
+	 */
+	function validate_string($data, $default = null)
+	{
+		$result = Validate::as_string($data, $default = null);
+
+		return $result;
+	}
+}
+
+if (! function_exists('validate_integer')) {
+	/**
+	 * Parameter return as integer
+	 * @return integer
+	 */
+	function validate_integer($data, $default = null)
+	{
+		$result = Validate::as_integer($data, $default = null);
+
+		return $result;
+	}
+}
+
+if (! function_exists('validate_float')) {
+	/**
+	 * Parameter return as float
+	 * @return float
+	 */
+	function validate_float($data, $default = null)
+	{
+		$result = Validate::as_float($data, $default = null);
+
+		return $result;
+	}
+}
+
+if (! function_exists('validate_boolean')) {
+	/**
+	 * Parameter return as boolean
+	 * @return boolean
+	 */
+	function validate_boolean($data, $default = null)
+	{
+		$result = Validate::as_boolean($data, $default = null);
+
+		return $result;
+	}
+}
+
+if (! function_exists('validate_ip')) {
+	/**
+	 * Parameter return as ip
+	 * @return string
+	 */
+	function validate_ip($data, $default = null)
+	{
+		$result = Validate::as_ip($data, $default = null);
+
+		return $result;
+	}
+}
+
+if (! function_exists('validate_url')) {
+	/**
+	 * Parameter return as url
+	 * @return string
+	 */
+	function validate_url($data, $default = null)
+	{
+		$result = Validate::as_url($data, $default = null);
+
+		return $result;
+	}
+}
+
+if (! function_exists('validate_email')) {
+	/**
+	 * Parameter return as email
+	 * @return string
+	 */
+	function validate_email($data, $default = null)
+	{
+		$result = Validate::as_email($data, $default = null);
+
+		return $result;
 	}
 }
 
@@ -1074,26 +1207,6 @@ if (! function_exists('set_realpath')) {
 
 // ------------------------------------------------------------------------
 
-if (! function_exists('element')) {
-    /**
-     * Element
-     *
-     * Lets you determine whether an array index is set and whether it has a value.
-     * If the element is empty it returns NULL (or whatever you specify as the default value.)
-     *
-     * @param  string
-     * @param  array
-     * @param  mixed
-     * @return mixed    depends on what the array contains
-     */
-    function element($item, array $array, $default = null)
-    {
-        return array_key_exists($item, $array) ? $array[$item] : $default;
-    }
-}
-
-// ------------------------------------------------------------------------
-
 if (! function_exists('random_element')) {
     /**
      * Random Element - Takes an array as input and returns a random element
@@ -1108,35 +1221,6 @@ if (! function_exists('random_element')) {
 }
 
 // --------------------------------------------------------------------
-
-if (! function_exists('elements')) {
-    /**
-     * Elements
-     *
-     * Returns only the array items specified. Will return a default value if
-     * it is not set.
-     *
-     * @param  array
-     * @param  array
-     * @param  mixed
-     * @return mixed    depends on what the array contains
-     */
-    function elements($items, array $array, $default = null)
-    {
-        $return = array();
-
-        is_array($items) OR $items = array($items);
-
-        foreach ($items as $item)
-        {
-            $return[$item] = array_key_exists($item, $array) ? $array[$item] : $default;
-        }
-
-        return $return;
-    }
-}
-
-// ------------------------------------------------------------------------
 
 if (! function_exists('directory_map')) {
     /**
@@ -1277,7 +1361,7 @@ if (! function_exists('ascii_to_entities')) {
     /**
      * High ASCII to Entities
      *
-     * Converts high ASCII text and MS Word special characters to character entities
+     * Converts high ASCII text and MS Word special characters to character entities.
      *
      * @param string $str
      *
@@ -1334,7 +1418,7 @@ if (! function_exists('entities_to_ascii')) {
     /**
      * Entities to ASCII
      *
-     * Converts character entities back to ASCII
+     * Converts character entities back to ASCII.
      *
      * @param string  $str
      * @param boolean $all
@@ -1450,7 +1534,7 @@ if (! function_exists('highlight_code')) {
     /**
      * Code Highlighter
      *
-     * Colorizes code strings
+     * Colorizes code strings.
      *
      * @param string $str the text string
      *
@@ -1531,7 +1615,7 @@ if (! function_exists('highlight_phrase')) {
     /**
      * Phrase Highlighter
      *
-     * Highlights a phrase within a text string
+     * Highlights a phrase within a text string.
      *
      * @param string $str       the text string
      * @param string $phrase    the phrase you'd like to highlight
@@ -1648,7 +1732,7 @@ if (! function_exists('ellipsize')) {
     /**
      * Ellipsize String
      *
-     * This function will strip tags from a string, split it at its max_length and ellipsize
+     * This function will strip tags from a string, split it at its max_length and ellipsize.
      *
      * @param string  $str        String to ellipsize
      * @param integer $max_length Max length of string
@@ -1688,7 +1772,7 @@ if (! function_exists('strip_slashes')) {
     /**
      * Strip Slashes
      *
-     * Removes slashes contained in a string or in an array
+     * Removes slashes contained in a string or in an array.
      *
      * @param mixed $str string or array
      *
@@ -1714,7 +1798,7 @@ if (! function_exists('strip_quotes')) {
     /**
      * Strip Quotes
      *
-     * Removes single and double quotes from a string
+     * Removes single and double quotes from a string.
      *
      * @param string $str
      *
@@ -1732,7 +1816,7 @@ if (! function_exists('quotes_to_entities')) {
     /**
      * Quotes to Entities
      *
-     * Converts single and double quotes to entities
+     * Converts single and double quotes to entities.
      *
      * @param string $str
      *
