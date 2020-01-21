@@ -252,11 +252,6 @@ class NSY_Router
 		return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
 	}
 
-	public static function redirect($loc, $code = 301) {
-		header("Location: $loc", true, $code);
-		exit();
-	}
-
 	public static function invalid($msg = '400 Bad Request.') {
 		header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
 		exit($msg);
