@@ -9,6 +9,8 @@ namespace System\Core;
 * Route66 - PHP micro-router as NSY Router System
 */
 
+use Optimus\Onion\Onion;
+
 class NSY_Router
 {
 
@@ -106,7 +108,12 @@ class NSY_Router
 		}
 	}
 
-	// Modified by Vikry Yuansah for NSY Routing System
+	/**
+	 * Modified by Vikry Yuansah for NSY Routing System
+	 * @param  mixed $controllerWithMethod
+	 * @param  array  $vars
+	 * @return mixed
+	 */
 	public static function goto($controllerWithMethod = null, $vars = array())
     {
 		$params = explode('@', $controllerWithMethod);
@@ -126,6 +133,13 @@ class NSY_Router
 			return $defClass->{$params[1]}();
 		}
     }
+
+	public static function middleware()
+    {
+		$onion = new Onion;
+
+		return $onion;
+	}
 
 	protected static function hash($uri, $params) {
 		return hash('md5', $uri . ' ' . json_encode($params));

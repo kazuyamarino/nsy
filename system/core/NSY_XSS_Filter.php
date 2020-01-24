@@ -48,24 +48,23 @@ class NSY_XSS_Filter
     '#</*(?:applet|b(?:ase|gsound|link)|embed|frame(?:set)?|i(?:frame|layer)|l(?:ayer|ink)|meta|object|s(?:cript|tyle)|title|xml)[^>]*+>#i' => ''
     );
 
-    /**
-     * @var array
-     */
-    private $normal_patterns = array(
-    '\'' => '&apos;',
-    '"' => '&quot;',
-    '&' => '&amp;',
-    '<' => '&lt;',
-    '>' => '&gt;',
-    //possible SQL injection remove from string with there is no '
-    'SELECT * FROM' => '',
-    'SELECT(' => '',
-    'SLEEP(' => '',
-    'AND (' => '',
-    ' AND' => '',
-    'DROP' => '',
-    '(CASE' => ''
-    );
+	/**
+	 * @var array
+	 */
+	private $normal_patterns = array(
+		'\'' => '&apos;',
+		'"' => '&quot;',
+		'&' => '&amp;',
+		'<' => '&lt;',
+		'>' => '&gt;',
+		//possible SQL injection remove from string with there is no '
+		'SELECT * FROM' => '',
+		'SELECT(' => '',
+		'SLEEP(' => '',
+		'AND (' => '',
+		' AND' => '',
+		'(CASE' => ''
+	);
 
     /**
      * NSY_XSS_Filter::filter_it()

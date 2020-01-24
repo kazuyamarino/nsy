@@ -23,13 +23,13 @@ use System\Core\NSY_Desk;
 /**
 * Use library
 */
-use System\Libraries\Str; // Str
-use System\Libraries\LoadTime; // LoadTime
-use System\Libraries\Ip; // Ip
-use System\Libraries\Json; // Json
-use System\Libraries\JsonLastError; // JsonLastError
-use System\Libraries\LanguageCode; // LanguageCode
-use System\Libraries\Validate; // Validate
+use System\Libraries\Str; // String Class
+use System\Libraries\LoadTime; // LoadTime Class
+use System\Libraries\Ip; // Ip Class
+use System\Libraries\Json; // Json Class
+use System\Libraries\JsonLastError; // JsonLastError Class
+use System\Libraries\LanguageCode; // LanguageCode Class
+use System\Libraries\Validate; // Validate Class
 
 if (! function_exists('public_path')) {
 	/**
@@ -340,28 +340,24 @@ if (! function_exists('xss_filter')) {
 if (! function_exists('allow_http')) {
 	/**
 	* Allow http
-	* @return string
+	* @return void
 	*/
 	function allow_http()
 	{
 		$allow_http = new NSY_XSS_Filter();
 		$func = $allow_http->allow_http();
-
-		return $func;
 	}
 }
 
 if (! function_exists('disallow_http')) {
 	/**
 	* Disallow http
-	* @return string
+	* @return void
 	*/
 	function disallow_http()
 	{
 		$disallow_http = new NSY_XSS_Filter();
 		$func = $disallow_http->disallow_http();
-
-		return $func;
 	}
 }
 

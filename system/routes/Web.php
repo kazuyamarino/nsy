@@ -3,6 +3,9 @@ namespace System\Routes;
 
 use System\Core\NSY_Router as Route;
 
+use System\Middlewares\BeforeLayer;
+use System\Middlewares\AfterLayer;
+
 Class Web
 {
 
@@ -21,7 +24,14 @@ Class Web
 
 		// MVC Route
 		Route::get('/', function() {
-			Route::goto('Welcome@index');
+			$middleware = [
+				new BeforeLayer(),
+                new AfterLayer()
+            ];
+
+			Route::middleware()->layer($middleware)->peel(null, function(){
+				Route::goto('Welcome@index');
+			});
 		});
 
 		// HMVC Route

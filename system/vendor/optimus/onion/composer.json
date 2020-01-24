@@ -1,0 +1,19 @@
+{
+    "name": "optimus/onion",
+    "autoload": {
+        "psr-4": {
+            "Optimus\\Onion\\": "src/"
+        }
+    },
+    "require": {
+    },
+    "require-dev": {
+        "mockery/mockery": "0.9.*",
+        "orchestra/testbench": "~3.1",
+        "phpunit/phpunit": "~4.7",
+        "satooshi/php-coveralls": "dev-master@dev"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "license": "MIT"
+}

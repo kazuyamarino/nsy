@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+namespace System\Libraries;
 /**
  * PHP simple library for managing of data types.
  *
@@ -9,7 +9,6 @@ declare(strict_types=1);
  * @link      https://github.com/Josantonius/PHP-Validate
  * @since     1.0.0
  */
-namespace System\Libraries;
 
 /**
  * Validation or conversion of data types.

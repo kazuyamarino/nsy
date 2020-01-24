@@ -25,6 +25,10 @@ class ComposerStaticInityour_suffixed
         array (
             'PhpOption\\' => 10,
         ),
+        'O' => 
+        array (
+            'Optimus\\Onion\\' => 14,
+        ),
         'D' => 
         array (
             'Dotenv\\' => 7,
@@ -60,6 +64,10 @@ class ComposerStaticInityour_suffixed
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
+        'Optimus\\Onion\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/optimus/onion/src',
+        ),
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
@@ -91,6 +99,7 @@ class ComposerStaticInityour_suffixed
         'Carbon\\Exceptions\\BadUnitException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/BadUnitException.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
         'Carbon\\Exceptions\\NotAPeriodException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/NotAPeriodException.php',
+        'Carbon\\Exceptions\\NotLocaleAwareException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/NotLocaleAwareException.php',
         'Carbon\\Exceptions\\ParseErrorException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/ParseErrorException.php',
         'Carbon\\Factory' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Factory.php',
         'Carbon\\FactoryImmutable' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/FactoryImmutable.php',
@@ -108,6 +117,7 @@ class ComposerStaticInityour_suffixed
         'Carbon\\Traits\\Mixin' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Mixin.php',
         'Carbon\\Traits\\Modifiers' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Modifiers.php',
         'Carbon\\Traits\\Mutability' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Mutability.php',
+        'Carbon\\Traits\\ObjectInitialisation' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/ObjectInitialisation.php',
         'Carbon\\Traits\\Options' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Options.php',
         'Carbon\\Traits\\Rounding' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Rounding.php',
         'Carbon\\Traits\\Serialization' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Serialization.php',
@@ -143,6 +153,8 @@ class ComposerStaticInityour_suffixed
         'FtpClient\\FtpClient' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpClient.php',
         'FtpClient\\FtpException' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpException.php',
         'FtpClient\\FtpWrapper' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpWrapper.php',
+        'Optimus\\Onion\\LayerInterface' => __DIR__ . '/..' . '/optimus/onion/src/LayerInterface.php',
+        'Optimus\\Onion\\Onion' => __DIR__ . '/..' . '/optimus/onion/src/Onion.php',
         'PhpOption\\LazyOption' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/LazyOption.php',
         'PhpOption\\None' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/None.php',
         'PhpOption\\Option' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/Option.php',
@@ -248,7 +260,8 @@ class ComposerStaticInityour_suffixed
         'System\\Libraries\\Session' => __DIR__ . '/../../..' . '/system/libraries/Session.php',
         'System\\Libraries\\Str' => __DIR__ . '/../../..' . '/system/libraries/Str.php',
         'System\\Libraries\\Validate' => __DIR__ . '/../../..' . '/system/libraries/Validate.php',
-        'System\\Migrations\\timnas' => __DIR__ . '/../../..' . '/system/migrations/timnas.php',
+        'System\\Middlewares\\AfterLayer' => __DIR__ . '/../../..' . '/system/middlewares/AfterLayer.php',
+        'System\\Middlewares\\BeforeLayer' => __DIR__ . '/../../..' . '/system/middlewares/BeforeLayer.php',
         'System\\Models\\Model_Welcome' => __DIR__ . '/../../..' . '/system/models/Model_Welcome.php',
         'System\\Modules\\Homepage\\Controllers\\Hello' => __DIR__ . '/../../..' . '/system/modules/homepage/controllers/Hello.php',
         'System\\Modules\\Homepage\\Models\\Model_Hello' => __DIR__ . '/../../..' . '/system/modules/homepage/models/Model_Hello.php',
