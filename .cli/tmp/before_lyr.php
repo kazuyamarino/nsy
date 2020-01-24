@@ -4,7 +4,7 @@ namespace System\Middlewares;
 use Optimus\Onion\Onion;
 use Optimus\Onion\LayerInterface;
 
-class BeforeLayer implements LayerInterface
+class before_lyr implements LayerInterface
 {
 
 	public function __construct()
