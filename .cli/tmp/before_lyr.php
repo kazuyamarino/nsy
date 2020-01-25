@@ -20,7 +20,7 @@ class before_lyr implements LayerInterface
 
 		if ( $condition == 1 ) {
 			/*
-			Respon if condition true,
+			Response if condition true,
 			Result from before middleware here.
 			 */
 			$object = 'Before Core';
