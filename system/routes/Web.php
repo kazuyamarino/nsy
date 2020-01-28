@@ -1,43 +1,31 @@
 <?php
-namespace System\Routes;
-
-use System\Core\NSY_Router as Route;
-
 use System\Middlewares\BeforeLayer;
 use System\Middlewares\AfterLayer;
 
-Class Web
-{
+// define Web Routes.
+// Format :
+// Route::method('url', function() {
+// 		Route::goto('namespace\class_controller@method');
+// });
+//
+// Route::method('url/@id:num', function($id) {
+// 		Route::goto('namespace\class_controller@method', $id);
+// });
+// Route method : any|get|post|put|patch|delete|head|options
 
-	public function __construct()
-	{
-		// define Web Routes.
-		// Format :
-		// Route::method('url', function() {
-		// 		Route::goto('namespace\class_controller@method');
-		// });
-		//
-		// Route::method('url/@id:num', function($id) {
-		// 		Route::goto('namespace\class_controller@method', $id);
-		// });
-		// Route method : any|get|post|put|patch|delete|head|options
+// MVC Route
+Route::get('/', function() {
+	$middleware = [
+		new BeforeLayer(),
+		new AfterLayer()
+	];
 
-		// MVC Route
-		Route::get('/', function() {
-			$middleware = [
-				new BeforeLayer(),
-                new AfterLayer()
-            ];
+	Route::middleware()->layer($middleware)->peel(null, function(){
+		Route::goto('Welcome@index');
+	});
+});
 
-			Route::middleware()->layer($middleware)->peel(null, function(){
-				Route::goto('Welcome@index');
-			});
-		});
-
-		// HMVC Route
-		Route::get('/hmvc', function() {
-			Route::goto('Homepage\Hello@index_hmvc');
-		});
-	}
-
-}
+// HMVC Route
+Route::get('/hmvc', function() {
+	Route::goto('Homepage\Hello@index_hmvc');
+});

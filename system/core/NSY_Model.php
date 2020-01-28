@@ -212,7 +212,7 @@ class NSY_Model
 	}
 
 	/**
-	* Helper for NSY_Controller to create a sequence of the named placeholders
+	* Helper for NSY_Models to create a sequence of the named placeholders
 	*
 	* @return array
 	*/

@@ -18,6 +18,7 @@ use System\Libraries\Request;
 */
 class NSY_Controller
 {
+	private $module;
 
 	/**
 	* HMVC & MVC View Folder
@@ -30,13 +31,13 @@ class NSY_Controller
 	protected function load_view($module = null, $filename = null, $vars = array())
 	{
 		// Instantiate Razr Template Engine
-		$this->razr = new Engine(new FilesystemLoader(VENDOR_DIR));
+		$this->razr = new Engine(new FilesystemLoader(get_vendor_dir()));
 
 		if (is_array($vars) || is_object($vars) || is_filled($filename) ) {
 			if(not_filled($module) ) {
-				echo $this->razr->render(MVC_VIEW_DIR . $filename . '.php', $vars);
+				echo $this->razr->render(get_mvc_view_dir() . $filename . '.php', $vars);
 			} else {
-				echo $this->razr->render(HMVC_VIEW_DIR . $module . '/views/' . $filename . '.php', $vars);
+				echo $this->razr->render(get_hmvc_view_dir() . $module . '/views/' . $filename . '.php', $vars);
 			}
 		} else
 		{
@@ -58,10 +59,10 @@ class NSY_Controller
 	protected function load_template($filename = null, $vars = array())
 	{
 		// Instantiate Razr Template Engine
-		$this->razr = new Engine(new FilesystemLoader(VENDOR_DIR));
+		$this->razr = new Engine(new FilesystemLoader(get_vendor_dir()));
 
 		if (is_array($vars) || is_object($vars) ) {
-			echo $this->razr->render(SYS_TMP_DIR . $filename . '.php', $vars);
+			echo $this->razr->render(get_system_dir() . $filename . '.php', $vars);
 		} else
 		{
 			$var_msg = 'The variable in the <mark>load_template()</mark> is improper or not an array';
@@ -482,6 +483,50 @@ class NSY_Controller
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Module method for Instantiate Model & Method caller
+	 * @param  [type] $module [description]
+	 * @return [type]         [description]
+	 */
+	protected function module($module = null)
+	{
+		if (is_filled($module) ) {
+			$this->module = $module;
+		} else
+		{
+			$var_msg = 'The value in the <mark>module(<strong>value</strong>)</mark> is empty or undefined';
+			NSY_Desk::static_error_handler($var_msg);
+			exit();
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Instantiate Model & Method caller
+	 * Modified by Vikry Yuansah for NSY System
+	 * @param  mixed $modelWithMethod
+	 * @param  array  $vars
+	 * @return mixed
+	 */
+	protected function model($model = null, $method = null)
+	{
+		if ( not_filled($model) || not_filled($method) ) {
+			$var_msg = 'The variable in the <mark>model()</mark> is improper or not filled';
+			NSY_Desk::static_error_handler($var_msg);
+			exit();
+		}
+
+		if ( is_filled($this->module) ) {
+			$fullclass = 'System\Modules\\'.$this->module.'\Models\\'.$model;
+		} else {
+			$fullclass = 'System\Models\\'.$model;
+		}
+
+		$defClass = new $fullclass;
+		return $defClass->{$method}();
 	}
 
 }

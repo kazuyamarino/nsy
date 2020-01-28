@@ -18,10 +18,7 @@
     "autoload": {
         "psr-4": {
 			"System\\": "system/"
-        },
-        "files": [
-			"system/core/NSY_Helpers.php"
-		]
+        }
     },
     "config": {
         "vendor-dir": "system/vendor/"

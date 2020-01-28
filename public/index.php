@@ -21,11 +21,6 @@
 use System\Core\NSY_System;
 
 /**
-* Use Aliases class
-*/
-use System\Libraries\Aliases;
-
-/**
 * Use NSY_Desk class
 */
 use System\Core\NSY_Desk;
@@ -34,21 +29,6 @@ use System\Core\NSY_Desk;
 * Use NSY_Router class
 */
 use System\Core\NSY_Router;
-
-/**
-* Use Web class
-*/
-use System\Routes\Web;
-
-/**
-* Use Api class
-*/
-use System\Routes\Api;
-
-/**
-* Use Migration class
-*/
-use System\Routes\Migration;
 
 /**
 * Phpdotenv class
@@ -69,19 +49,29 @@ define('ROOT', str_replace("index.php", "", $_SERVER["SCRIPT_FILENAME"]));
 */
 require __DIR__ . '/../system/vendor/autoload.php';
 
+/**
+* NSY Helpers Class
+*/
+require_once __DIR__ . '/../system/core/NSY_Helpers.php';
+
+/**
+* Class Aliases
+*/
+require_once __DIR__ . '/../system/libraries/Aliases.php';
+
 /*
 *---------------------------------------------------------------
 * Check Config File
 *---------------------------------------------------------------
 */
 // NSY System file check
-if (!is_readable(config_app('nsy_sys_dir')) ) {
+if (!is_readable( __DIR__ . '/../system/core/NSY_System.php' ) ) {
 	die('NSY_System.php not found,  please check in system/core.');
 }
 
 // Env file check
-if (!is_readable(config_app('env_checking_dir')) ) {
-	die('env file not found, please check in root folder.');
+if (!is_readable( __DIR__ . '/../' . config_app('env_file')) ) {
+	die('env file not found, please check in root folder and config/App.php => <strong>env_file</strong>.');
 }
 
 /*
@@ -92,7 +82,7 @@ if (!is_readable(config_app('env_checking_dir')) ) {
 /**
 * Load Environment Variables from .env file
 */
-$dotenv = Dotenv::create(config_app('env_dir'), config_app('env_file'));
+$dotenv = Dotenv::create( __DIR__ . '/..', config_app('env_file'));
 $dotenv->load();
 
 /**
@@ -101,24 +91,11 @@ $dotenv->load();
 new NSY_System();
 
 /**
-* Instantiate Aliases
+* Routing System
 */
-new Aliases();
-
-/**
-* Instantiate Web route
-*/
-new Web();
-
-/**
-* Instantiate Api route
-*/
-new Api();
-
-/**
-* Instantiate Migration route
-*/
-new Migration();
+require_once __DIR__ . '/../system/routes/Web.php';
+require_once __DIR__ . '/../system/routes/Api.php';
+require_once __DIR__ . '/../system/routes/Migration.php';
 
 /*
 |--------------------------------------------------------------------------

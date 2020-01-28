@@ -159,7 +159,6 @@ return array(
     'System\\Core\\NSY_Router' => $baseDir . '/system/core/NSY_Router.php',
     'System\\Core\\NSY_System' => $baseDir . '/system/core/NSY_System.php',
     'System\\Core\\NSY_XSS_Filter' => $baseDir . '/system/core/NSY_XSS_Filter.php',
-    'System\\Libraries\\Aliases' => $baseDir . '/system/libraries/Aliases.php',
     'System\\Libraries\\Assets' => $baseDir . '/system/libraries/Assets.php',
     'System\\Libraries\\Cookie' => $baseDir . '/system/libraries/Cookie.php',
     'System\\Libraries\\Curl' => $baseDir . '/system/libraries/Curl.php',
@@ -209,7 +208,4 @@ return array(
     'System\\Razr\\Storage\\StringStorage' => $baseDir . '/system/core/Razr/Storage/StringStorage.php',
     'System\\Razr\\Token' => $baseDir . '/system/core/Razr/Token.php',
     'System\\Razr\\TokenStream' => $baseDir . '/system/core/Razr/TokenStream.php',
-    'System\\Routes\\Api' => $baseDir . '/system/routes/Api.php',
-    'System\\Routes\\Migration' => $baseDir . '/system/routes/Migration.php',
-    'System\\Routes\\Web' => $baseDir . '/system/routes/Web.php',
 );
