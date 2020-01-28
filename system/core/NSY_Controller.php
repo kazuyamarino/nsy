@@ -489,18 +489,18 @@ class NSY_Controller
 	 * Instantiate Model & Method caller
 	 * Modified by Vikry Yuansah for NSY System
 	 * @param  mixed $modelWithMethod
-	 * @param  array  $vars
+	 * @param  mixed $module
 	 * @return mixed
 	 */
-	protected function model($module = null, $controllerWithMethod = null)
+	protected function model($module = null, $modelWithMethod = null)
 	{
-		if ( not_filled($controllerWithMethod) ) {
+		if ( not_filled($modelWithMethod) ) {
 			$var_msg = 'The variable in the <mark>model(<strong>module_name</strong>, <strong>model_class</strong>, <strong>method_name</strong>)</mark> is improper or not filled';
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
 
-		$params = explode('@', $controllerWithMethod);
+		$params = explode('@', $modelWithMethod);
 
 		if ( is_filled($module) ) {
 			$fullclass = 'System\Modules\\'.$module.'\Models\\'.$params[0];

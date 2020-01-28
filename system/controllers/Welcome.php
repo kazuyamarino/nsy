@@ -2,7 +2,6 @@
 namespace System\Controllers;
 
 use System\Core\NSY_Controller;
-use System\Core\Load;
 
 use Carbon\Carbon;
 
