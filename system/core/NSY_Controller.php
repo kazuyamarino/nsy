@@ -486,47 +486,30 @@ class NSY_Controller
 	}
 
 	/**
-	 * Module method for Instantiate Model & Method caller
-	 * @param  [type] $module [description]
-	 * @return [type]         [description]
-	 */
-	protected function module($module = null)
-	{
-		if (is_filled($module) ) {
-			$this->module = $module;
-		} else
-		{
-			$var_msg = 'The value in the <mark>module(<strong>value</strong>)</mark> is empty or undefined';
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
-		}
-
-		return $this;
-	}
-
-	/**
 	 * Instantiate Model & Method caller
 	 * Modified by Vikry Yuansah for NSY System
 	 * @param  mixed $modelWithMethod
 	 * @param  array  $vars
 	 * @return mixed
 	 */
-	protected function model($model = null, $method = null)
+	protected function model($module = null, $controllerWithMethod = null)
 	{
-		if ( not_filled($model) || not_filled($method) ) {
-			$var_msg = 'The variable in the <mark>model()</mark> is improper or not filled';
+		if ( not_filled($controllerWithMethod) ) {
+			$var_msg = 'The variable in the <mark>model(<strong>module_name</strong>, <strong>model_class</strong>, <strong>method_name</strong>)</mark> is improper or not filled';
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
 
-		if ( is_filled($this->module) ) {
-			$fullclass = 'System\Modules\\'.$this->module.'\Models\\'.$model;
+		$params = explode('@', $controllerWithMethod);
+
+		if ( is_filled($module) ) {
+			$fullclass = 'System\Modules\\'.$module.'\Models\\'.$params[0];
 		} else {
-			$fullclass = 'System\Models\\'.$model;
+			$fullclass = 'System\Models\\'.$params[0];
 		}
 
 		$defClass = new $fullclass;
-		return $defClass->{$method}();
+		return $defClass->{$params[1]}();
 	}
 
 }
