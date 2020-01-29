@@ -6,30 +6,9 @@
 */
 
 /**
-* Use NSY_XSS_Filter class
-*/
-use System\Core\NSY_XSS_Filter;
-
-/**
-* Use NSY_CSRF class
-*/
-use System\Core\NSY_CSRF;
-
-/**
 * Use NSY_Desk class
 */
 use System\Core\NSY_Desk;
-
-/**
-* Use library
-*/
-use System\Libraries\Str; // String Class
-use System\Libraries\LoadTime; // LoadTime Class
-use System\Libraries\Ip; // Ip Class
-use System\Libraries\Json; // Json Class
-use System\Libraries\JsonLastError; // JsonLastError Class
-use System\Libraries\LanguageCode; // LanguageCode Class
-use System\Libraries\Validate; // Validate Class
 
 /**
  * URI Helpers
@@ -227,136 +206,6 @@ function config_site($d1 = null)
 
 // ------------------------------------------------------------------------
 
-/**
- * Security Helpers
- * @var mixed
- */
-if (! function_exists('secure_input')) {
-	/**
-	* Secure Input Element
-	* @param  string $data
-	* @return string
-	*/
-	function secure_input($data = null)
-	{
-		$data = trim($data);
-		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
-
-		return $data;
-	}
-}
-
-if (! function_exists('secure_form')) {
-	/**
-	* Secure Form
-	* @param  string $form
-	* @return void
-	*/
-	function secure_form($form = null)
-	{
-		if (is_array($form) || is_object($form)) {
-			foreach ($form as $key => $value) {
-				$form[$key] = $this->secure_input($value);
-			}
-		}
-	}
-}
-
-if (! function_exists('csrf_token')) {
-	/**
-	* Return only CSRF Token
-	* @return string
-	*/
-	function csrf_token()
-	{
-		if(config_app('csrf_token') === 'true') {
-			$csrf_token = NSY_CSRF::generate('csrf_token');
-
-			return $csrf_token;
-		} elseif(config_app('csrf_token') === 'false') {
-			$var_msg = "CSRF Token Protection must be set <strong><i>true</i></strong></p><p>See <strong>system/config/app.php</strong>";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
-		}
-	}
-}
-
-if (! function_exists('form_csrf_token')) {
-	/**
-	* Return CSRF Input form with Token
-	* @return string
-	*/
-	function form_csrf_token()
-	{
-		if(config_app('csrf_token') === 'true') {
-			$csrf_token = NSY_CSRF::generate('csrf_token');
-
-			return '<input type="hidden" name="csrf_token" value=' . $csrf_token . '">';
-		} elseif(config_app('csrf_token') === 'false') {
-			$var_msg = "CSRF Token Protection must be set <strong><i>true</i></strong></p><p>See <strong>system/config/app.php</strong>";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
-		}
-	}
-}
-
-if (! function_exists('xss_filter')) {
-	/**
-	* XSS Filter
-	* @param  string $value
-	* @return string
-	*/
-	function xss_filter($value = null)
-	{
-		$xss_filter = new NSY_XSS_Filter();
-		$string = $xss_filter->filter_it($value);
-
-		return $string;
-	}
-}
-
-if (! function_exists('allow_http')) {
-	/**
-	* Allow http
-	* @return void
-	*/
-	function allow_http()
-	{
-		$allow_http = new NSY_XSS_Filter();
-		$func = $allow_http->allow_http();
-	}
-}
-
-if (! function_exists('disallow_http')) {
-	/**
-	* Disallow http
-	* @return void
-	*/
-	function disallow_http()
-	{
-		$disallow_http = new NSY_XSS_Filter();
-		$func = $disallow_http->disallow_http();
-	}
-}
-
-if (! function_exists('remove_get_parameters')) {
-	/**
-	* Remove url get parameter
-	* @param  string $url
-	* @return string
-	*/
-	function remove_get_parameters($url = null)
-	{
-		$remove_get_parameters = new NSY_XSS_Filter();
-		$func = $remove_get_parameters->remove_get_parameters($url);
-
-		return $func;
-	}
-}
-
-// ------------------------------------------------------------------------
-
 if (! function_exists('ternary')) {
 	/**
 	* PHP Shorthand If/Else Using Ternary Operators
@@ -375,6 +224,9 @@ if (! function_exists('ternary')) {
 
 // ------------------------------------------------------------------------
 
+/**
+ * Variable Checking Helpers
+ */
 if (! function_exists('not_filled')) {
 	/**
 	* Function for basic field validation (present and neither empty nor only white space
@@ -419,6 +271,9 @@ if (! function_exists('is_filled')) {
 
 // ------------------------------------------------------------------------
 
+/**
+ * Aurora Data Export
+ */
 if (! function_exists('aurora')) {
 	/**
 	* Aurora File Exporter
@@ -534,6 +389,9 @@ if (! function_exists('aurora')) {
 
 // ------------------------------------------------------------------------
 
+/**
+ * Get User Agent
+ */
 if (! function_exists('get_ua')) {
 	/**
 	* User Agent
@@ -620,6 +478,9 @@ if (! function_exists('get_ua')) {
 
 // ------------------------------------------------------------------------
 
+/**
+ * Generate Random Number
+ */
 if (! function_exists('generate_num')) {
 	/**
 	* Create Random Number
@@ -641,6 +502,9 @@ if (! function_exists('generate_num')) {
 
 // ------------------------------------------------------------------------
 
+/**
+ * Get URI Segment
+ */
 if (! function_exists('get_uri_segment')) {
 	/**
 	* Get URI Segment
@@ -664,522 +528,158 @@ if (! function_exists('get_uri_segment')) {
 // ------------------------------------------------------------------------
 
 /**
-* Get application version
-* @return string
-*/
-function get_version()
-{
-	return VERSION;
-}
-
-/**
-* Get application codename
-* @return string
-*/
-function get_codename()
-{
-	return CODENAME;
-}
-
-/**
-* Get application language code
-* @return string
-*/
-function get_lang_code()
-{
-	return LANGUAGE_CODE;
-}
-
-/**
-* Get open graph prefix
-* @return string
-*/
-function get_og_prefix()
-{
-	return OG_PREFIX;
-}
-
-/**
-* Get site title
-* @return string
-*/
-function get_title()
-{
-	return SITETITLE;
-}
-
-/**
-* Get site description
-* @return string
-*/
-function get_desc()
-{
-	return SITEDESCRIPTION;
-}
-
-/**
-* Get site keywords
-* @return string
-*/
-function get_keywords()
-{
-	return SITEKEYWORDS;
-}
-
-/**
-* Get site author
-* @return string
-*/
-function get_author()
-{
-	return SITEAUTHOR;
-}
-
-/**
-* Get session prefix
-* @return string
-*/
-function get_session_prefix()
-{
-	return SESSION_PREFIX;
-}
-
-/**
-* Get site email
-* @return string
-*/
-function get_site_email()
-{
-	return SITEEMAIL;
-}
-
-/**
-* Get vendor directory
-* @return string
-*/
-function get_vendor_dir()
-{
-	return VENDOR_DIR;
-}
-
-/**
-* Get MVC View directory
-* @return string
-*/
-function get_mvc_view_dir()
-{
-	return MVC_VIEW_DIR;
-}
-
-/**
-* Get HMVC View directory
-* @return string
-*/
-function get_hmvc_view_dir()
-{
-	return HMVC_VIEW_DIR;
-}
-
-/**
-* Get HMVC View directory
-* @return string
-*/
-function get_system_dir()
-{
-	return SYS_TMP_DIR;
-}
-
-
-// ------------------------------------------------------------------------
-
-/**
- * String Helpers
- * @var mixed
+ * NSY System Const Helpers
  */
-if (! function_exists('str_starts_with')) {
+if (! function_exists('get_version')) {
 	/**
-	 * Check if the string starts with a certain value
-	 * @param  string $search
-	 * @param  string $string
-	 * @return boolean
-	 */
-	function str_starts_with($search = '', $string = '')
+	* Get application version
+	* @return string
+	*/
+	function get_version()
 	{
-		$str = Str::starts_with($search, $string);
-
-		return $str;
+		return VERSION;
 	}
 }
 
-if (! function_exists('str_ends_with')) {
+if (! function_exists('get_codename')) {
 	/**
-	 * Check if the string ends with a certain value
-	 * @param  string $search
-	 * @param  string $string
-	 * @return boolean
-	 */
-	function str_ends_with($search = '', $string = '')
+	* Get application codename
+	* @return string
+	*/
+	function get_codename()
 	{
-		$str = Str::ends_with($search, $string);
-
-		return $str;
+		return CODENAME;
 	}
 }
 
-// ------------------------------------------------------------------------
-
-/**
- * Script Load Time Helpers
- * @var mixed
- */
-if (! function_exists('load_time')) {
+if (! function_exists('get_lang_code')) {
 	/**
-	 * Calculate load time of pages or scripts
-	 * Set initial time.
-	 * @return boolean
-	 */
-	function load_time()
+	* Get application language code
+	* @return string
+	*/
+	function get_lang_code()
 	{
-		$timestart = LoadTime::start();
-
-		return $timestart;
+		return LANGUAGE_CODE;
 	}
 }
 
-if (! function_exists('end_time')) {
+if (! function_exists('get_og_prefix')) {
 	/**
-	 * Calculate end load time of pages or scripts
-	 * Set end time.
-	 * @return boolean
-	 */
-	function end_time()
+	* Get open graph prefix
+	* @return string
+	*/
+	function get_og_prefix()
 	{
-		$timestart = LoadTime::end();
-
-		return $timestart;
+		return OG_PREFIX;
 	}
 }
 
-if (! function_exists('is_active_time')) {
+if (! function_exists('get_title')) {
 	/**
-	 * Check if the timer has been started
-	 * @return boolean
-	 */
-	function is_active_time()
+	* Get site title
+	* @return string
+	*/
+	function get_title()
 	{
-		$timestart = LoadTime::is_active();
-
-		return $timestart;
+		return SITETITLE;
 	}
 }
 
-// ------------------------------------------------------------------------
-
-/**
- * IP getter & checker Helpers
- * @var mixed
- */
-if (! function_exists('get_ip')) {
+if (! function_exists('get_desc')) {
 	/**
-	 * Get user's IP
-	 * @return string|false
-	 */
-	function get_ip()
+	* Get site description
+	* @return string
+	*/
+	function get_desc()
 	{
-		$get_ip = Ip::get();
-
-		return $get_ip;
+		return SITEDESCRIPTION;
 	}
 }
 
-if (! function_exists('check_ip')) {
+if (! function_exists('get_keywords')) {
 	/**
-	 * Validate IP
-	 * @return string|false
-	 */
-	function check_ip($ip)
+	* Get site keywords
+	* @return string
+	*/
+	function get_keywords()
 	{
-		$check_ip = Ip::validate($ip);
-
-		return $check_ip;
+		return SITEKEYWORDS;
 	}
 }
 
-// ------------------------------------------------------------------------
-
-/**
- * Data Conversion Helpers
- * @var mixed
- */
- if (! function_exists('array_flatten')) {
- 	/**
- 	* PHP array_flatten() function. Convert a multi-dimensional array into a single-dimensional array
- 	* https://gist.github.com/SeanCannon/6585889#gistcomment-2922278
- 	* @param  array $items
- 	* @return array
- 	*/
- 	function array_flatten($items)
- 	{
- 		if (! is_array($items)) {
- 			return [$items];
- 		}
-
- 		return array_reduce(
- 			$items, function ($carry, $item) {
- 				return array_merge($carry, array_flatten($item));
- 			}, []
- 		);
- 	}
- }
-
- if (! function_exists('fetch_json')) {
- 	/**
- 	* Fetch data to json format
- 	* @param  array $data
- 	* @param  int $status
- 	* @return string
- 	*/
- 	function fetch_json($data = array(), $status = null)
- 	{
- 		$json_data = $data;
- 		$json_result = json_encode($json_data);
-
- 		http_response_code($status);
- 		return $json_result;
- 	}
- }
-
-if (! function_exists('json_array_to_file')) {
+if (! function_exists('get_author')) {
 	/**
-	 * Creating JSON file from array
-	 * @return boolean
-	 */
-	function json_array_to_file($array, $pathfile)
+	* Get site author
+	* @return string
+	*/
+	function get_author()
 	{
-		$json = Json::array_to_file($array, $pathfile);
-
-		return $json;
+		return SITEAUTHOR;
 	}
 }
 
-if (! function_exists('json_file_to_array')) {
+if (! function_exists('get_session_prefix')) {
 	/**
-	 * Create array from the JSON file content
-	 * @return array|false
-	 */
-	function json_file_to_array($pathfile)
+	* Get session prefix
+	* @return string
+	*/
+	function get_session_prefix()
 	{
-		$json = Json::file_to_array($pathfile);
-
-		return $json;
+		return SESSION_PREFIX;
 	}
 }
 
-if (! function_exists('json_last_error')) {
+if (! function_exists('get_site_email')) {
 	/**
-	 * Check for errors
-	 * @return array|null
-	 */
-	function json_last_error()
+	* Get site email
+	* @return string
+	*/
+	function get_site_email()
 	{
-		$lastError = JsonLastError::check();
-
-		if (!is_null($lastError)) {
-		    return $lastError;
-		}
+		return SITEEMAIL;
 	}
 }
 
-if (! function_exists('json_collection_error')) {
+if (! function_exists('get_vendor_dir')) {
 	/**
-	 * Get collection of JSON errors
-	 * @return array
-	 */
-	function json_collection_error()
+	* Get vendor directory
+	* @return string
+	*/
+	function get_vendor_dir()
 	{
-		$jsonLastErrorCollection = JsonLastError::get_collection();
-
-		return $jsonLastErrorCollection;
+		return VENDOR_DIR;
 	}
 }
 
-// ------------------------------------------------------------------------
-
-/**
- * Language Helpers
- * @var mixed
- */
-if (! function_exists('parse_language')) {
+if (! function_exists('get_mvc_view_dir')) {
 	/**
-	 * Get all language codes as array
-	 * @return array
-	 */
-	function parse_language()
+	* Get MVC View directory
+	* @return string
+	*/
+	function get_mvc_view_dir()
 	{
-		$arr = LanguageCode::get();
-
-		return $arr;
+		return MVC_VIEW_DIR;
 	}
 }
 
-if (! function_exists('get_language_name')) {
+if (! function_exists('get_hmvc_view_dir')) {
 	/**
-	 * Get language name from language code
-	 * @return string
-	 */
-	function get_language_name($langcode)
+	* Get HMVC View directory
+	* @return string
+	*/
+	function get_hmvc_view_dir()
 	{
-		$langname = LanguageCode::get_language_from_code($langcode);
-
-		return $langname;
+		return HMVC_VIEW_DIR;
 	}
 }
 
-if (! function_exists('get_language_code')) {
+if (! function_exists('get_system_dir')) {
 	/**
-	 * Get language code from language name
-	 * @return string
-	 */
-	function get_language_code($langname)
+	* Get HMVC View directory
+	* @return string
+	*/
+	function get_system_dir()
 	{
-		$langcode = LanguageCode::get_code_from_language($langname);
-
-		return $langcode;
-	}
-}
-
-// ------------------------------------------------------------------------
-
-/**
- * Data Validation Helpers
- * @var mixed
- */
-if (! function_exists('validate_array')) {
-	/**
-	 * Parameter return as array
-	 * @return array
-	 */
-	function validate_array($data, $default = null)
-	{
-		$result = Validate::as_array($data, $default = null);
-
-		return $result;
-	}
-}
-
-if (! function_exists('validate_object')) {
-	/**
-	 * Parameter return as object
-	 * @return object
-	 */
-	function validate_object($data, $default = null)
-	{
-		$result = Validate::as_object($data, $default = null);
-
-		return $result;
-	}
-}
-
-if (! function_exists('validate_json')) {
-	/**
-	 * Parameter return as json
-	 * @return string
-	 */
-	function validate_json($data, $default = null)
-	{
-		$result = Validate::as_json($data, $default = null);
-
-		return $result;
-	}
-}
-
-if (! function_exists('validate_string')) {
-	/**
-	 * Parameter return as string
-	 * @return string
-	 */
-	function validate_string($data, $default = null)
-	{
-		$result = Validate::as_string($data, $default = null);
-
-		return $result;
-	}
-}
-
-if (! function_exists('validate_integer')) {
-	/**
-	 * Parameter return as integer
-	 * @return integer
-	 */
-	function validate_integer($data, $default = null)
-	{
-		$result = Validate::as_integer($data, $default = null);
-
-		return $result;
-	}
-}
-
-if (! function_exists('validate_float')) {
-	/**
-	 * Parameter return as float
-	 * @return float
-	 */
-	function validate_float($data, $default = null)
-	{
-		$result = Validate::as_float($data, $default = null);
-
-		return $result;
-	}
-}
-
-if (! function_exists('validate_boolean')) {
-	/**
-	 * Parameter return as boolean
-	 * @return boolean
-	 */
-	function validate_boolean($data, $default = null)
-	{
-		$result = Validate::as_boolean($data, $default = null);
-
-		return $result;
-	}
-}
-
-if (! function_exists('validate_ip')) {
-	/**
-	 * Parameter return as ip
-	 * @return string
-	 */
-	function validate_ip($data, $default = null)
-	{
-		$result = Validate::as_ip($data, $default = null);
-
-		return $result;
-	}
-}
-
-if (! function_exists('validate_url')) {
-	/**
-	 * Parameter return as url
-	 * @return string
-	 */
-	function validate_url($data, $default = null)
-	{
-		$result = Validate::as_url($data, $default = null);
-
-		return $result;
-	}
-}
-
-if (! function_exists('validate_email')) {
-	/**
-	 * Parameter return as email
-	 * @return string
-	 */
-	function validate_email($data, $default = null)
-	{
-		$result = Validate::as_email($data, $default = null);
-
-		return $result;
+		return SYS_TMP_DIR;
 	}
 }

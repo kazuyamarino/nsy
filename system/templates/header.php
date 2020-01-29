@@ -13,7 +13,7 @@
 		<a href="@( base_url() )">
 			<img src="@( img_url('logo.png') )" width="100" />
 		</a>
-		<h1>@( $my_name )</h1>
+		<h1>@( $welcome )</h1>
 		<h3><code>NSY is a simple PHP Framework that works well on MVC or HMVC mode.</code></h3>
 		<hr>
 	</header>

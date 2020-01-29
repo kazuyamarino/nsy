@@ -50,9 +50,17 @@ define('ROOT', str_replace("index.php", "", $_SERVER["SCRIPT_FILENAME"]));
 require __DIR__ . '/../system/vendor/autoload.php';
 
 /**
-* NSY Helpers Class
+* Helpers
 */
-require_once __DIR__ . '/../system/core/NSY_Helpers.php';
+require_once __DIR__ . '/../system/core/NSY_Helpers_DataConversion.php';
+require_once __DIR__ . '/../system/core/NSY_Helpers_Global.php';
+require_once __DIR__ . '/../system/core/NSY_Helpers_IP.php';
+require_once __DIR__ . '/../system/core/NSY_Helpers_Language.php';
+require_once __DIR__ . '/../system/core/NSY_Helpers_LoadTime.php';
+require_once __DIR__ . '/../system/core/NSY_Helpers_Request.php';
+require_once __DIR__ . '/../system/core/NSY_Helpers_Security.php';
+require_once __DIR__ . '/../system/core/NSY_Helpers_String.php';
+require_once __DIR__ . '/../system/core/NSY_Helpers_Validate.php';
 
 /**
 * Class Aliases
