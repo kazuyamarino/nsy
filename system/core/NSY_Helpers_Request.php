@@ -1,67 +1,32 @@
 <?php
 /**
+* Use NSY_Desk class
+*/
+use System\Core\NSY_Desk;
+
+/**
 * Use Request library
 */
 use System\Libraries\Request;
-
-/**
-* Method for variables sequence (vars)
-*
-* @param  array $variables
-* @return array
-*/
-function vars($variables = array())
-{
-	if (is_array($variables) || is_object($variables) ) {
-		$this->variables = $variables;
-	} else
-	{
-		$var_msg = 'The variable in the <mark>vars(<strong>variables</strong>)->sequence()</mark> is improper or not an array';
-		NSY_Desk::static_error_handler($var_msg);
-		exit();
-	}
-
-	return $this;
-}
-
-/**
-* Method for variables sequence (bind)
-*
-* @param  string $bind
-* @return string
-*/
-function bind($bind = null)
-{
-	if (is_filled($bind) ) {
-		$this->bind = $bind;
-	} else
-	{
-		$var_msg = 'The value that binds in the <mark>bind(<strong>value</strong>)->vars()->sequence()</mark> is empty or undefined';
-		NSY_Desk::static_error_handler($var_msg);
-		exit();
-	}
-
-	return $this;
-}
 
 /**
 * Helper for NSY_Controller to create a sequence of the named placeholders
 *
 * @return array
 */
-function sequence()
+function sequence($bind, $variables)
 {
 	$in = '';
-	if (is_array($this->variables) || is_object($this->variables) ) {
-		foreach ($this->variables as $i => $item)
+	if (is_array($variables) || is_object($variables) || is_filled($bind) ) {
+		foreach ($variables as $i => $item)
 		{
-			$key = $this->bind.$i;
+			$key = $bind.$i;
 			$in .= $key.',';
 			$in_params[$key] = $item; // collecting values into key-value array
 		}
 	} else
 	{
-		$var_msg = 'The variable in the <mark>vars(<strong>variables</strong>)->sequence()</mark> is improper or not an array';
+		$var_msg = 'The variable in the <mark>sequence(<strong>bind</strong>, <strong>variables</strong>)</mark> is improper or not an array';
 		NSY_Desk::static_error_handler($var_msg);
 		exit();
 	}

@@ -1,5 +1,10 @@
 <?php
 /**
+* Use NSY_Desk class
+*/
+use System\Core\NSY_Desk;
+
+/**
 * Use NSY_XSS_Filter class
 */
 use System\Core\NSY_XSS_Filter;
