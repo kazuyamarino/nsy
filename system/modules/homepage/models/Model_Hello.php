@@ -1,9 +1,9 @@
 <?php
 namespace System\Modules\Homepage\Models;
 
-use System\Core\NSY_Model;
+use System\Core\DB;
 
-class Model_Hello extends NSY_Model
+class Model_Hello
 {
 
 	public function mvc_page()
