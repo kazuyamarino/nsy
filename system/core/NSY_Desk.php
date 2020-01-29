@@ -117,22 +117,49 @@ class NSY_Desk
 	}
 
 	/**
-	 * Require/Register NSy System
+	 * Require/Register NSY System
 	 * @return void
 	 */
 	public static function register_system()
 	{
-		require_once __DIR__ . '/../../system/core/NSY_Helpers_DataConversion.php';
-		require_once __DIR__ . '/../../system/core/NSY_Helpers_Global.php';
-		require_once __DIR__ . '/../../system/core/NSY_Helpers_IP.php';
-		require_once __DIR__ . '/../../system/core/NSY_Helpers_Language.php';
-		require_once __DIR__ . '/../../system/core/NSY_Helpers_LoadTime.php';
-		require_once __DIR__ . '/../../system/core/NSY_Helpers_Request.php';
-		require_once __DIR__ . '/../../system/core/NSY_Helpers_Security.php';
-		require_once __DIR__ . '/../../system/core/NSY_Helpers_String.php';
-		require_once __DIR__ . '/../../system/core/NSY_Helpers_Validate.php';
-		require_once __DIR__ . '/../../system/libraries/Assets.php';
-		require_once __DIR__ . '/../../system/libraries/Aliases.php';
+		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/core/NSY_Helpers_DataConversion.php';
+		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/core/NSY_Helpers_IP.php';
+		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/core/NSY_Helpers_Language.php';
+		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/core/NSY_Helpers_LoadTime.php';
+		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/core/NSY_Helpers_Request.php';
+		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/core/NSY_Helpers_Security.php';
+		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/core/NSY_Helpers_String.php';
+		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/core/NSY_Helpers_Validate.php';
+		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/libraries/Assets.php';
+		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/libraries/Aliases.php';
+	}
+
+	/**
+	 * Require/Register NSY Route
+	 * @return void
+	 */
+	public static function register_route()
+	{
+		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/routes/Web.php';
+		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/routes/Api.php';
+		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/routes/Migration.php';
+	}
+
+	/**
+	 * Require/Register NSY Config
+	 * @return void
+	 */
+	public static function register_config()
+	{
+		// NSY System file check
+		if (!is_readable( __DIR__ . '/../../'. config_app('sys_dir') .'/core/NSY_System.php' ) ) {
+			die('NSY_System.php not found,  please check in system/core.');
+		}
+
+		// Env file check
+		if (!is_readable( __DIR__ . '/../../' . config_app('env_file')) ) {
+			die('env file not found, please check in root folder and config/App.php => <strong>env_file</strong>.');
+		}
 	}
 
 }

@@ -16,6 +16,18 @@
 */
 
 /**
+* The PSR-4 Autoloader
+* The default autoload.php file path.
+* You can set the file path itself according to your settings.
+*/
+require __DIR__ . '/../system/vendor/autoload.php';
+
+/**
+* NSY GLobal Helpers
+*/
+require_once __DIR__ . '/../system/core/NSY_Helpers_Global.php';
+
+/**
 * Use NSY_System class
 */
 use System\Core\NSY_System;
@@ -35,62 +47,24 @@ use System\Core\NSY_Router;
 */
 use Dotenv\Dotenv;
 
-/**
-* The PSR-4 Autoloader
-* The default autoload.php file path.
-* You can set the file path itself according to your settings.
-*/
-require __DIR__ . '/../system/vendor/autoload.php';
-
-NSY_Desk::register_system();
-
 /*
 *---------------------------------------------------------------
-* ROOT path
+* Check System File
 *---------------------------------------------------------------
 */
-define('ROOT', str_replace("index.php", "", $_SERVER["SCRIPT_FILENAME"]));
+NSY_Desk::register_system();
 
 /*
 *---------------------------------------------------------------
 * Check Config File
 *---------------------------------------------------------------
 */
-// NSY System file check
-if (!is_readable( __DIR__ . '/../system/core/NSY_System.php' ) ) {
-	die('NSY_System.php not found,  please check in system/core.');
-}
-
-// Env file check
-if (!is_readable( __DIR__ . '/../' . config_app('env_file')) ) {
-	die('env file not found, please check in root folder and config/App.php => <strong>env_file</strong>.');
-}
-
-/*
-*---------------------------------------------------------------
-* Don't change anythings about this instantiate
-*---------------------------------------------------------------
-*/
-/**
-* Load Environment Variables from .env file
-*/
-$dotenv = Dotenv::create( __DIR__ . '/..', config_app('env_file'));
-$dotenv->load();
+NSY_Desk::register_config();
 
 /**
 * Instantiate System
 */
 new NSY_System();
-
-/*
-|--------------------------------------------------------------------------
-| Application Environment
-|--------------------------------------------------------------------------
-|
-| you can set this value on 'System/config/app.php'.
-|
-*/
-define('ENVIRONMENT', config_app('app_env'));
 
 /*
 *---------------------------------------------------------------
@@ -108,9 +82,7 @@ NSY_Desk::static_error_switch();
 /**
 * Routing System
 */
-require_once __DIR__ . '/../system/routes/Web.php';
-require_once __DIR__ . '/../system/routes/Api.php';
-require_once __DIR__ . '/../system/routes/Migration.php';
+NSY_Desk::register_route();
 
 /**
 * Execute matched routes

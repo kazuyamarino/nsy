@@ -6,6 +6,8 @@ namespace System\Core;
 */
 use System\Libraries\Session;
 
+use Dotenv\Dotenv;
+
 /**
 * This is the core of NSY System Settings
 * Attention, don't try to change the structure of the code, delete, or change.
@@ -19,8 +21,16 @@ class NSY_System
 	*/
 	public function __construct()
 	{
-		// turn on output buffering
-		ob_start();
+		/*
+		*---------------------------------------------------------------
+		* Don't change anythings about this instantiate
+		*---------------------------------------------------------------
+		*/
+		/**
+		* Load Environment Variables from .env file
+		*/
+		$dotenv = Dotenv::create( __DIR__ . '/../..', config_app('env_file'));
+		$dotenv->load();
 
 		if ( is_filled(config_app('public_dir')) ) {
 			// set the default public/css/js path
@@ -91,6 +101,7 @@ class NSY_System
 		defined('BINDVAL') or define('BINDVAL', "BINDVALUE");
 		defined('BINDPAR') or define('BINDPAR', "BINDPARAM");
 
+		// Define PDO fetch data
 		defined('FETCH_NUM') or define('FETCH_NUM', \PDO::FETCH_NUM);
 		defined('FETCH_COLUMN') or define('FETCH_COLUMN', \PDO::FETCH_COLUMN);
 		defined('FETCH_ASSOC') or define('FETCH_ASSOC', \PDO::FETCH_ASSOC);
@@ -102,6 +113,16 @@ class NSY_System
 		defined('FETCH_UNIQUE') or define('FETCH_UNIQUE', \PDO::FETCH_UNIQUE);
 		defined('FETCH_GROUP') or define('FETCH_GROUP', \PDO::FETCH_GROUP);
 		defined('FETCH_FUNC') or define('FETCH_FUNC', \PDO::FETCH_FUNC);
+
+		/*
+		|--------------------------------------------------------------------------
+		| Application Environment
+		|--------------------------------------------------------------------------
+		|
+		| you can set this value on 'System/config/app.php'.
+		|
+		*/
+		define('ENVIRONMENT', config_app('app_env'));
 
 		// start session
 		Session::init();
