@@ -8,6 +8,6 @@
     </div>
 </footer>
 <!-- call footer assets method -->
-@( Pull::footer_assets() )
+@( footer_assets() )
 </body>
 </html>

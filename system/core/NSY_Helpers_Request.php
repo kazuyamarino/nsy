@@ -10,7 +10,7 @@ use System\Core\NSY_Desk;
 use System\Libraries\Request;
 
 /**
-* Helper for NSY_Controller to create a sequence of the named placeholders
+* Helper for create a sequence of the named placeholders
 *
 * @return array
 */

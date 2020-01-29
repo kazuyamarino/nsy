@@ -2,7 +2,7 @@
 <html class="no-js" lang="@( get_lang_code() )" prefix="@( get_og_prefix() )">
 <head>
 	<!-- call header assets method -->
-	@( Pull::header_assets() )
+	@( header_assets() )
 </head>
 <body>
 	<!--[if lte IE 9]>

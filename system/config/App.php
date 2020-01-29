@@ -194,8 +194,8 @@ return [
 	|
 	*/
 	'aliases' => [
-        'Pull' => System\Libraries\Assets::class,
-        'Route' => System\Core\NSY_Router::class
+        'Route' => System\Core\NSY_Router::class,
+        'Add' => System\Core\NSY_AssetManager::class
 	]
 
 ];

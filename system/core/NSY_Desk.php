@@ -116,4 +116,23 @@ class NSY_Desk
 		}
 	}
 
+	/**
+	 * Require/Register NSy System
+	 * @return void
+	 */
+	public static function register_system()
+	{
+		require_once __DIR__ . '/../../system/core/NSY_Helpers_DataConversion.php';
+		require_once __DIR__ . '/../../system/core/NSY_Helpers_Global.php';
+		require_once __DIR__ . '/../../system/core/NSY_Helpers_IP.php';
+		require_once __DIR__ . '/../../system/core/NSY_Helpers_Language.php';
+		require_once __DIR__ . '/../../system/core/NSY_Helpers_LoadTime.php';
+		require_once __DIR__ . '/../../system/core/NSY_Helpers_Request.php';
+		require_once __DIR__ . '/../../system/core/NSY_Helpers_Security.php';
+		require_once __DIR__ . '/../../system/core/NSY_Helpers_String.php';
+		require_once __DIR__ . '/../../system/core/NSY_Helpers_Validate.php';
+		require_once __DIR__ . '/../../system/libraries/Assets.php';
+		require_once __DIR__ . '/../../system/libraries/Aliases.php';
+	}
+
 }
