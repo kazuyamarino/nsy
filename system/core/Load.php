@@ -15,6 +15,7 @@ class Load
 {
 
 	static $razr;
+	static $module;
 
 	/**
 	* HMVC & MVC View Folder
@@ -72,24 +73,23 @@ class Load
 	 * @param  string $methods
 	 * @return string
 	 */
-	protected static function model($models = '', $methods = '')
-	{
-		if ( not_filled($methods) || not_filled($models) ) {
-			$var_msg = 'The variable in the <mark>model(<strong>model_name</strong>, <strong>method_name</strong>)</mark> is improper or not filled';
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
-		}
+	 protected static function model($models = '')
+ 	{
+ 		if ( not_filled($models) ) {
+ 			$var_msg = 'The variable in the <mark>model(<strong>model_name</strong>, <strong>method_name</strong>)</mark> is improper or not filled';
+ 			NSY_Desk::static_error_handler($var_msg);
+ 			exit();
+ 		}
 
-		$params = explode('\\', $models);
+ 		$params = explode('\\', $models);
 
-		if (count($params) > 1) {
-			$fullclass = 'System\Modules\\'.$params[0].'\Models\\'.$params[1];
-		} else {
-			$fullclass = 'System\Models\\'.$models;
-		}
+ 		if (count($params) > 1) {
+ 			$fullclass = 'System\Modules\\'.$params[0].'\Models\\'.$params[1];
+ 		} else {
+ 			$fullclass = 'System\Models\\'.$models;
+ 		}
 
-		$defClass = new $fullclass;
-		return $defClass->{$methods}();
-	}
+ 		return $defClass = new $fullclass;
+ 	}
 
 }
