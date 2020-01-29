@@ -1,9 +1,9 @@
 <?php
 namespace System\Models;
 
-use System\Core\NSY_Model;
+use System\Core\DB;
 
-class Model_Welcome extends NSY_Model
+class Model_Welcome
 {
 
 	public function welcome()

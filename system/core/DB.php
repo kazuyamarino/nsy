@@ -6,20 +6,22 @@ namespace System\Core;
 * Attention, don't try to change the structure of the code, delete, or change.
 * Because there is some code connected to the NSY system. So, be careful.
 */
-class NSY_Model
+class DB
 {
 
 	// Declare properties for Helper
-	private $connection;
-	private $query;
-	private $variables;
-	private $fetch_style;
-	private $bind;
-	private $column;
-	private $bind_name;
-	private $attr;
-	private $param;
-	private $num;
+	static $connection;
+	static $query;
+	static $variables;
+	static $fetch_style;
+	static $bind;
+	static $column;
+	static $bind_name;
+	static $attr;
+	static $param;
+	static $num;
+	static $result;
+	static $executed;
 
 	/**
 	* Helper for NSY_Model PDO variables
@@ -28,25 +30,7 @@ class NSY_Model
 	*/
 	public function __construct()
 	{
-		// Define binding variable type
-		defined('PAR_INT') or define('PAR_INT', \PDO::PARAM_INT);
-		defined('PAR_STR') or define('PAR_STR', \PDO::PARAM_STR);
 
-		// Define binding type
-		defined('BINDVAL') or define('BINDVAL', "BINDVALUE");
-		defined('BINDPAR') or define('BINDPAR', "BINDPARAM");
-
-		defined('FETCH_NUM') or define('FETCH_NUM', \PDO::FETCH_NUM);
-		defined('FETCH_COLUMN') or define('FETCH_COLUMN', \PDO::FETCH_COLUMN);
-		defined('FETCH_ASSOC') or define('FETCH_ASSOC', \PDO::FETCH_ASSOC);
-		defined('FETCH_BOTH') or define('FETCH_BOTH', \PDO::FETCH_BOTH);
-		defined('FETCH_OBJ') or define('FETCH_OBJ', \PDO::FETCH_OBJ);
-		defined('FETCH_LAZY') or define('FETCH_LAZY', \PDO::FETCH_LAZY);
-		defined('FETCH_CLASS') or define('FETCH_CLASS', \PDO::FETCH_CLASS);
-		defined('FETCH_KEY_PAIR') or define('FETCH_KEY_PAIR', \PDO::FETCH_KEY_PAIR);
-		defined('FETCH_UNIQUE') or define('FETCH_UNIQUE', \PDO::FETCH_UNIQUE);
-		defined('FETCH_GROUP') or define('FETCH_GROUP', \PDO::FETCH_GROUP);
-		defined('FETCH_FUNC') or define('FETCH_FUNC', \PDO::FETCH_FUNC);
 	}
 
 	/**
@@ -54,24 +38,24 @@ class NSY_Model
 	*
 	* @return void
 	*/
-	protected function connect()
+	public static function connect()
 	{
 		switch (config_db('default', null)) {
 			case 'mysql':
-			$this->connection = NSY_DB::connect_mysql();
-			return $this;
+			self::$connection = NSY_DB::connect_mysql();
+			return new self;
 			break;
 			case 'dblib':
-			$this->connection = NSY_DB::connect_dblib();
-			return $this;
+			self::$connection = NSY_DB::connect_dblib();
+			return new self;
 			break;
 			case 'sqlsrv':
-			$this->connection = NSY_DB::connect_sqlsrv();
-			return $this;
+			self::$connection = NSY_DB::connect_sqlsrv();
+			return new self;
 			break;
 			case 'pgsql':
-			$this->connection = NSY_DB::connect_pgsql();
-			return $this;
+			self::$connection = NSY_DB::connect_pgsql();
+			return new self;
 			break;
 			default:
 			$var_msg = "Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong>";
@@ -85,24 +69,24 @@ class NSY_Model
 	*
 	* @return void
 	*/
-	protected function connect_sec()
+	public static function connect_sec()
 	{
 		switch (config_db_sec('secondary', null)) {
 			case 'mysql':
-			$this->connection = NSY_DB::connect_mysql_sec();
-			return $this;
+			self::$connection = NSY_DB::connect_mysql_sec();
+			return new self;
 			break;
 			case 'dblib':
-			$this->connection = NSY_DB::connect_dblib_sec();
-			return $this;
+			self::$connection = NSY_DB::connect_dblib_sec();
+			return new self;
 			break;
 			case 'sqlsrv':
-			$this->connection = NSY_DB::connect_sqlsrv_sec();
-			return $this;
+			self::$connection = NSY_DB::connect_sqlsrv_sec();
+			return new self;
 			break;
 			case 'pgsql':
-			$this->connection = NSY_DB::connect_pgsql_sec();
-			return $this;
+			self::$connection = NSY_DB::connect_pgsql_sec();
+			return new self;
 			break;
 			default:
 			$var_msg = "Second database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION_SEC</i></strong>";
@@ -117,10 +101,10 @@ class NSY_Model
 	* @param  string $query
 	* @return string
 	*/
-	protected function query($query = null)
+	public function query($query = null)
 	{
 		if (is_filled($query) ) {
-			$this->query = $query;
+			self::$query = $query;
 		} else
 		{
 			$var_msg = "The value of query in the <mark>query(<strong>value</strong>)</mark> is empty or undefined";
@@ -128,7 +112,7 @@ class NSY_Model
 			exit();
 		}
 
-		return $this;
+		return new self;
 	}
 
 	/**
@@ -137,10 +121,10 @@ class NSY_Model
 	* @param  array $variables
 	* @return array
 	*/
-	protected function vars($variables = array())
+	public function vars($variables = array())
 	{
 		if (is_array($variables) || is_object($variables) ) {
-			$this->variables = $variables;
+			self::$variables = $variables;
 		} else
 		{
 			$var_msg = "The variable in the <mark>vars(<strong>variables</strong>)</mark> is improper or not an array";
@@ -148,7 +132,7 @@ class NSY_Model
 			exit();
 		}
 
-		return $this;
+		return new self;
 	}
 
 	/**
@@ -157,10 +141,10 @@ class NSY_Model
 	* @param  string $fetch_style
 	* @return string
 	*/
-	protected function style($fetch_style = FETCH_BOTH)
+	public function style($fetch_style = FETCH_BOTH)
 	{
 		if (is_filled($fetch_style) ) {
-			$this->fetch_style = $fetch_style;
+			self::$fetch_style = $fetch_style;
 		} else
 		{
 			$var_msg = "The value of style in the <mark>style(<strong>value</strong>)</mark> is empty or undefined";
@@ -168,7 +152,7 @@ class NSY_Model
 			exit();
 		}
 
-		return $this;
+		return new self;
 	}
 
 	/**
@@ -177,10 +161,10 @@ class NSY_Model
 	* @param  string $bind
 	* @return string
 	*/
-	protected function bind($bind = null)
+	public function bind($bind = null)
 	{
 		if (is_filled($bind) ) {
-			$this->bind = $bind;
+			self::$bind = $bind;
 		} else
 		{
 			$var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)->vars()->sequence()</mark> is empty or undefined";
@@ -188,7 +172,7 @@ class NSY_Model
 			exit();
 		}
 
-		return $this;
+		return new self;
 	}
 
 	/**
@@ -197,10 +181,10 @@ class NSY_Model
 	* @param  int $column
 	* @return int
 	*/
-	protected function column($column = 0)
+	public function column($column = 0)
 	{
 		if (is_filled($column) ) {
-			$this->column = $column;
+			self::$column = $column;
 		} else
 		{
 			$var_msg = "The value of column in the <mark>column(<strong>value</strong>)</mark> is empty or undefined";
@@ -208,53 +192,27 @@ class NSY_Model
 			exit();
 		}
 
-		return $this;
-	}
-
-	/**
-	* Helper for NSY_Models to create a sequence of the named placeholders
-	*
-	* @return array
-	*/
-	protected function sequence()
-	{
-		$in = '';
-		if (is_array($this->variables) || is_object($this->variables) ) {
-			foreach ($this->variables as $i => $item)
-			{
-				$key = $this->bind.$i;
-				$in .= $key.',';
-				$in_params[$key] = $item; // collecting values into key-value array
-			}
-		} else
-		{
-			$var_msg = "The variable in the <mark>vars(<strong>variables</strong>)->sequence()</mark> is improper or not an array";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
-		}
-		$in = rtrim($in, ','); // example = :id0,:id1,:id2
-
-		return [$in, $in_params];
+		return new self;
 	}
 
 	/**
 	* Helper for PDO FetchAll
 	*/
-	protected function fetch_all()
+	public function fetch_all()
 	{
 		// Check if there's connection defined on the models
-		if (not_filled($this->connection) ) {
+		if (not_filled(self::$connection) ) {
 			echo '<pre>No Connection, Please check your connection again!</pre>';
 			exit();
 		} else {
-			$stmt = $this->connection->prepare($this->query);
+			$stmt = self::$connection->prepare(self::$query);
 			// if vars null, execute queries without vars, else execute it with defined on the models
-			if (not_filled($this->variables) ) {
+			if (not_filled(self::$variables) ) {
 				$executed = $stmt->execute();
 			} else {
-				if ($this->bind == 'BINDVALUE') {
-					if (is_array($this->variables) || is_object($this->variables)) {
-						foreach ($this->variables as $key => &$res) {
+				if (self::$bind == 'BINDVALUE') {
+					if (is_array(self::$variables) || is_object(self::$variables)) {
+						foreach (self::$variables as $key => &$res) {
 							if (not_filled($res[1]) || not_filled($res[0]) ) {
 								$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
 								NSY_Desk::static_error_handler($var_msg);
@@ -266,9 +224,9 @@ class NSY_Model
 
 						$executed = $stmt->execute();
 					}
-				} elseif ($this->bind == 'BINDPARAM') {
-					if (is_array($this->variables) || is_object($this->variables)) {
-						foreach ($this->variables as $key => &$res) {
+				} elseif (self::$bind == 'BINDPARAM') {
+					if (is_array(self::$variables) || is_object(self::$variables)) {
+						foreach (self::$variables as $key => &$res) {
 							if (not_filled($res[1]) || not_filled($res[0]) ) {
 								$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
 								NSY_Desk::static_error_handler($var_msg);
@@ -281,13 +239,13 @@ class NSY_Model
 						$executed = $stmt->execute();
 					}
 				} else {
-					$executed = $stmt->execute($this->variables);
+					$executed = $stmt->execute(self::$variables);
 				}
 			}
 
 			// Check the errors, if no errors then return the results
 			if ($executed || $stmt->errorCode() == 0) {
-				$show_result = $stmt->fetchAll($this->fetch_style);
+				$show_result = $stmt->fetchAll(self::$fetch_style);
 
 				return $show_result;
 			} else {
@@ -299,27 +257,27 @@ class NSY_Model
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
 	* Helper for PDO Fetch
 	*/
-	protected function fetch()
+	public function fetch()
 	{
 		// Check if there's connection defined on the models
-		if (not_filled($this->connection) ) {
+		if (not_filled(self::$connection) ) {
 			echo '<pre>No Connection, Please check your connection again!</pre>';
 			exit();
 		} else {
-			$stmt = $this->connection->prepare($this->query);
+			$stmt = self::$connection->prepare(self::$query);
 			// if vars null, execute queries without vars, else execute it with defined on the models
-			if (not_filled($this->variables) ) {
+			if (not_filled(self::$variables) ) {
 				$executed = $stmt->execute();
 			} else {
-				if ($this->bind == 'BINDVALUE') {
-					if (is_array($this->variables) || is_object($this->variables)) {
-						foreach ($this->variables as $key => &$res) {
+				if (self::$bind == 'BINDVALUE') {
+					if (is_array(self::$variables) || is_object(self::$variables)) {
+						foreach (self::$variables as $key => &$res) {
 							if (not_filled($res[1]) || not_filled($res[0]) ) {
 								$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
 								NSY_Desk::static_error_handler($var_msg);
@@ -331,9 +289,9 @@ class NSY_Model
 
 						$executed = $stmt->execute();
 					}
-				} elseif ($this->bind == 'BINDPARAM') {
-					if (is_array($this->variables) || is_object($this->variables)) {
-						foreach ($this->variables as $key => &$res) {
+				} elseif (self::$bind == 'BINDPARAM') {
+					if (is_array(self::$variables) || is_object(self::$variables)) {
+						foreach (self::$variables as $key => &$res) {
 							if (not_filled($res[1]) || not_filled($res[0]) ) {
 								$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
 								NSY_Desk::static_error_handler($var_msg);
@@ -346,13 +304,13 @@ class NSY_Model
 						$executed = $stmt->execute();
 					}
 				} else {
-					$executed = $stmt->execute($this->variables);
+					$executed = $stmt->execute(self::$variables);
 				}
 			}
 
 			// Check the errors, if no errors then return the results
 			if ($executed || $stmt->errorCode() == 0) {
-				$show_result = $stmt->fetch($this->fetch_style);
+				$show_result = $stmt->fetch(self::$fetch_style);
 
 				return $show_result;
 			} else {
@@ -364,27 +322,27 @@ class NSY_Model
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
 	* Helper for PDO FetchColumn
 	*/
-	protected function fetch_column()
+	public function fetch_column()
 	{
 		// Check if there's connection defined on the models
-		if (not_filled($this->connection) ) {
+		if (not_filled(self::$connection) ) {
 			echo '<pre>No Connection, Please check your connection again!</pre>';
 			exit();
 		} else {
-			$stmt = $this->connection->prepare($this->query);
+			$stmt = self::$connection->prepare(self::$query);
 			// if vars null, execute queries without vars, else execute it with defined on the models
-			if (not_filled($this->variables) ) {
+			if (not_filled(self::$variables) ) {
 				$executed = $stmt->execute();
 			} else {
-				if ($this->bind == 'BINDVALUE') {
-					if (is_array($this->variables) || is_object($this->variables)) {
-						foreach ($this->variables as $key => &$res) {
+				if (self::$bind == 'BINDVALUE') {
+					if (is_array(self::$variables) || is_object(self::$variables)) {
+						foreach (self::$variables as $key => &$res) {
 							if (not_filled($res[1]) || not_filled($res[0]) ) {
 								$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
 								NSY_Desk::static_error_handler($var_msg);
@@ -396,9 +354,9 @@ class NSY_Model
 
 						$executed = $stmt->execute();
 					}
-				} elseif ($this->bind == 'BINDPARAM') {
-					if (is_array($this->variables) || is_object($this->variables)) {
-						foreach ($this->variables as $key => &$res) {
+				} elseif (self::$bind == 'BINDPARAM') {
+					if (is_array(self::$variables) || is_object(self::$variables)) {
+						foreach (self::$variables as $key => &$res) {
 							if (not_filled($res[1]) || not_filled($res[0]) ) {
 								$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
 								NSY_Desk::static_error_handler($var_msg);
@@ -411,13 +369,13 @@ class NSY_Model
 						$executed = $stmt->execute();
 					}
 				} else {
-					$executed = $stmt->execute($this->variables);
+					$executed = $stmt->execute(self::$variables);
 				}
 			}
 
 			// Check the errors, if no errors then return the results
 			if ($executed || $stmt->errorCode() == 0) {
-				$show_result = $stmt->fetchColumn($this->column);
+				$show_result = $stmt->fetchColumn(self::$column);
 
 				return $show_result;
 			} else {
@@ -429,26 +387,26 @@ class NSY_Model
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
 	* Helper for PDO RowCount
 	*/
-	protected function row_count()
+	public function row_count()
 	{
 		// Check if there's connection defined on the models
-		if (not_filled($this->connection) ) {
+		if (not_filled(self::$connection) ) {
 			echo '<pre>No Connection, Please check your connection again!</pre>';
 			exit();
 		} else {
 			// if vars null, execute queries without vars, else execute it with defined on the models
-			if (not_filled($this->variables) ) {
-				$stmt = $this->connection->prepare($this->query);
+			if (not_filled(self::$variables) ) {
+				$stmt = self::$connection->prepare(self::$query);
 				$stmt->execute();
-				$this->result = $stmt->rowCount();
+				self::$result = $stmt->rowCount();
 			} else {
-				$arr_keys = array_keys($this->variables);
+				$arr_keys = array_keys(self::$variables);
 				foreach ( $arr_keys as $dt ) {
 					if (is_numeric($dt) ) {
 						$var_msg = "Array keys doesn't exist on <mark>vars(<strong>variables</strong>)</mark>";
@@ -457,19 +415,19 @@ class NSY_Model
 					}
 				}
 
-				$stmt = $this->connection->prepare($this->query);
-				$stmt->execute($this->variables);
-				$this->result = $stmt->rowCount();
+				$stmt = self::$connection->prepare(self::$query);
+				$stmt->execute(self::$variables);
+				self::$result = $stmt->rowCount();
 			}
 
 			// Check the errors, if no errors then return the results
-			if ($this->result || $stmt->errorCode() == 0) {
-				return $this->result;
+			if (self::$result || $stmt->errorCode() == 0) {
+				return self::$result;
 			} else {
 				if(config_app('transaction') === 'on') {
-					$this->connection->rollback();
+					self::$connection->rollback();
 
-					if (not_filled($this->variables) ) {
+					if (not_filled(self::$variables) ) {
 						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
 						exit();
@@ -479,7 +437,7 @@ class NSY_Model
 						exit();
 					}
 				} elseif(config_app('transaction') === 'off') {
-					if (not_filled($this->variables) ) {
+					if (not_filled(self::$variables) ) {
 						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
 						exit();
@@ -497,13 +455,13 @@ class NSY_Model
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
 	* Helper for PDO Execute
 	*/
-	protected function exec()
+	public function exec()
 	{
 		if(config_app('csrf_token') === 'true') {
 			try {
@@ -511,27 +469,27 @@ class NSY_Model
 				\NSY_CSRF::check('csrf_token', $_POST, true, 60*10, false);
 
 				// Check if there's connection defined on the models
-				if (not_filled($this->connection) ) {
+				if (not_filled(self::$connection) ) {
 					echo '<pre>No Connection, Please check your connection again!</pre>';
 					exit();
 				} else {
 					// if vars null, execute queries without vars, else execute it with defined on the models
-					if (not_filled($this->variables) ) {
-						$stmt = $this->connection->prepare($this->query);
-						$this->executed = $stmt->execute();
+					if (not_filled(self::$variables) ) {
+						$stmt = self::$connection->prepare(self::$query);
+						self::$executed = $stmt->execute();
 					} else {
-						$stmt = $this->connection->prepare($this->query);
-						$this->executed = $stmt->execute($this->variables);
+						$stmt = self::$connection->prepare(self::$query);
+						self::$executed = $stmt->execute(self::$variables);
 					}
 
 					// Check the errors, if no errors then return the results
-					if ($this->executed || $stmt->errorCode() == 0) {
-						return $this;
+					if (self::$executed || $stmt->errorCode() == 0) {
+						return new self;
 					} else {
 						if(config_app('transaction') === 'on') {
-							$this->connection->rollback();
+							self::$connection->rollback();
 
-							if (not_filled($this->variables) ) {
+							if (not_filled(self::$variables) ) {
 								$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 								NSY_Desk::static_error_handler($var_msg);
 								exit();
@@ -541,7 +499,7 @@ class NSY_Model
 								exit();
 							}
 						} elseif(config_app('transaction') === 'off') {
-							if (not_filled($this->variables) ) {
+							if (not_filled(self::$variables) ) {
 								$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 								NSY_Desk::static_error_handler($var_msg);
 								exit();
@@ -565,27 +523,27 @@ class NSY_Model
 			}
 		} elseif(config_app('csrf_token') === 'false') {
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// if vars null, execute queries without vars, else execute it with defined on the models
-				if (not_filled($this->variables) ) {
-					$stmt = $this->connection->prepare($this->query);
-					$this->executed = $stmt->execute();
+				if (not_filled(self::$variables) ) {
+					$stmt = self::$connection->prepare(self::$query);
+					self::$executed = $stmt->execute();
 				} else {
-					$stmt = $this->connection->prepare($this->query);
-					$this->executed = $stmt->execute($this->variables);
+					$stmt = self::$connection->prepare(self::$query);
+					self::$executed = $stmt->execute(self::$variables);
 				}
 
 				// Check the errors, if no errors then return the results
-				if ($this->executed || $stmt->errorCode() == 0) {
-					return $this;
+				if (self::$executed || $stmt->errorCode() == 0) {
+					return new self;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
-						if (not_filled($this->variables) ) {
+						if (not_filled(self::$variables) ) {
 							$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 							NSY_Desk::static_error_handler($var_msg);
 							exit();
@@ -595,7 +553,7 @@ class NSY_Model
 							exit();
 						}
 					} elseif(config_app('transaction') === 'off') {
-						if (not_filled($this->variables) ) {
+						if (not_filled(self::$variables) ) {
 							$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 							NSY_Desk::static_error_handler($var_msg);
 							exit();
@@ -617,13 +575,13 @@ class NSY_Model
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
 	* Helper for PDO Multi Insert
 	*/
-	protected function multi_insert()
+	public function multi_insert()
 	{
 		if(config_app('csrf_token') === 'true') {
 			try {
@@ -631,38 +589,38 @@ class NSY_Model
 				\NSY_CSRF::check('csrf_token', $_POST, true, 60*10, false);
 
 				// Check if there's connection defined on the models
-				if (not_filled($this->connection) ) {
+				if (not_filled(self::$connection) ) {
 					echo '<pre>No Connection, Please check your connection again!</pre>';
 					exit();
 				} else {
-					$rows = count($this->variables);
-					$cols = count($this->variables[0]);
+					$rows = count(self::$variables);
+					$cols = count(self::$variables[0]);
 					$rowString = '(' . rtrim(str_repeat('?,', $cols), ',') . '),';
 					$valString = rtrim(str_repeat($rowString, $rows), ',');
 
 					// if vars null, execute queries without vars, else execute it with defined on the models
-					if (not_filled($this->variables) ) {
+					if (not_filled(self::$variables) ) {
 						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
 						exit();
 					} else {
-						$stmt = $this->connection->prepare($this->query . ' VALUES '. $valString);
+						$stmt = self::$connection->prepare(self::$query . ' VALUES '. $valString);
 
 						$bindArray = array();
 						array_walk_recursive(
-							$this->variables, function ($item) use (&$bindArray) {
+							self::$variables, function ($item) use (&$bindArray) {
 								$bindArray[] = $item;
 							}
 						);
-						$this->executed = $stmt->execute($bindArray);
+						self::$executed = $stmt->execute($bindArray);
 					}
 
 					// Check the errors, if no errors then return the results
-					if ($this->executed || $stmt->errorCode() == 0) {
-						return $this;
+					if (self::$executed || $stmt->errorCode() == 0) {
+						return new self;
 					} else {
 						if(config_app('transaction') === 'on') {
-							$this->connection->rollback();
+							self::$connection->rollback();
 							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 							NSY_Desk::static_error_handler($var_msg);
 							exit();
@@ -685,39 +643,39 @@ class NSY_Model
 			}
 		} elseif(config_app('csrf_token') === 'false') {
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				$rows = count($this->variables);
-				$cols = count($this->variables[0]);
+				$rows = count(self::$variables);
+				$cols = count(self::$variables[0]);
 				$rowString = '(' . rtrim(str_repeat('?,', $cols), ',') . '),';
 				$valString = rtrim(str_repeat($rowString, $rows), ',');
 
 				// if vars null, execute queries without vars, else execute it with defined on the models
-				if (not_filled($this->variables) ) {
+				if (not_filled(self::$variables) ) {
 					$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 					NSY_Desk::static_error_handler($var_msg);
 					exit();
 				} else {
-					$stmt = $this->connection->prepare($this->query . ' VALUES '. $valString);
+					$stmt = self::$connection->prepare(self::$query . ' VALUES '. $valString);
 
 					$bindArray = array();
 					array_walk_recursive(
-						$this->variables, function ($item) use (&$bindArray) {
+						self::$variables, function ($item) use (&$bindArray) {
 							$bindArray[] = $item;
 						}
 					);
-					$this->executed = $stmt->execute($bindArray);
+					self::$executed = $stmt->execute($bindArray);
 				}
 
 				// Check the errors, if no errors then return the results
 				if ($stmt->errorCode() == 0) {
-					return $this;
+					return new self;
 				} else {
 					if(config_app('transaction') === 'on') {
 						// if there's errors, then display the message
-						$this->connection->rollback();
+						self::$connection->rollback();
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
 						exit();
@@ -738,65 +696,65 @@ class NSY_Model
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
 	* Helper for PDO Emulation False
 	*/
-	protected function emulate_prepares_false()
+	public function emulate_prepares_false()
 	{
-		$this->connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
-		return $this;
+		self::$connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+		return new self;
 	}
 
 	/**
 	* Helper for PDO MYSQL_ATTR_USE_BUFFERED_QUERY
 	*/
-	protected function use_buffer_query_true()
+	public function use_buffer_query_true()
 	{
-		$this->connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-		return $this;
+		self::$connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+		return new self;
 	}
 
-	protected function use_buffer_query_false()
+	public function use_buffer_query_false()
 	{
-		$this->connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
-		return $this;
+		self::$connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
+		return new self;
 	}
 
 	/**
 	* Helper for PDO ATTR_STRINGIFY_FETCHES
 	*/
-	protected function stringify_fetches_true()
+	public function stringify_fetches_true()
 	{
-		$this->connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, true);
-		return $this;
+		self::$connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, true);
+		return new self;
 	}
 
 	/**
 	* Helper for PDO Begin Transaction
 	*/
-	protected function begin_trans()
+	public function begin_trans()
 	{
-		$this->connection->beginTransaction();
-		return $this;
+		self::$connection->beginTransaction();
+		return new self;
 	}
 	/**
 	* Helper for PDO Commit Transaction
 	*/
-	protected function end_trans()
+	public function end_trans()
 	{
-		$this->connection->commit();
-		return $this;
+		self::$connection->commit();
+		return new self;
 	}
 	/**
 	* Helper for PDO Rollback Transaction
 	*/
-	protected function null_trans()
+	public function null_trans()
 	{
-		$this->connection->rollback();
-		return $this;
+		self::$connection->rollback();
+		return new self;
 	}
 
 }

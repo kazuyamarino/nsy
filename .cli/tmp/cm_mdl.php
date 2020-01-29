@@ -1,9 +1,9 @@
 <?php
 namespace System\Models;
 
-use System\Core\NSY_Model;
+use System\Core\DB;
 
-class cm_mdl extends NSY_Model
+class cm_mdl
 {
 
 	public function yourFunction()

@@ -83,6 +83,26 @@ class NSY_System
 		// set timezone
 		date_default_timezone_set(config_app('timezone'));
 
+		// Define binding variable type
+		defined('PAR_INT') or define('PAR_INT', \PDO::PARAM_INT);
+		defined('PAR_STR') or define('PAR_STR', \PDO::PARAM_STR);
+
+		// Define binding type
+		defined('BINDVAL') or define('BINDVAL', "BINDVALUE");
+		defined('BINDPAR') or define('BINDPAR', "BINDPARAM");
+
+		defined('FETCH_NUM') or define('FETCH_NUM', \PDO::FETCH_NUM);
+		defined('FETCH_COLUMN') or define('FETCH_COLUMN', \PDO::FETCH_COLUMN);
+		defined('FETCH_ASSOC') or define('FETCH_ASSOC', \PDO::FETCH_ASSOC);
+		defined('FETCH_BOTH') or define('FETCH_BOTH', \PDO::FETCH_BOTH);
+		defined('FETCH_OBJ') or define('FETCH_OBJ', \PDO::FETCH_OBJ);
+		defined('FETCH_LAZY') or define('FETCH_LAZY', \PDO::FETCH_LAZY);
+		defined('FETCH_CLASS') or define('FETCH_CLASS', \PDO::FETCH_CLASS);
+		defined('FETCH_KEY_PAIR') or define('FETCH_KEY_PAIR', \PDO::FETCH_KEY_PAIR);
+		defined('FETCH_UNIQUE') or define('FETCH_UNIQUE', \PDO::FETCH_UNIQUE);
+		defined('FETCH_GROUP') or define('FETCH_GROUP', \PDO::FETCH_GROUP);
+		defined('FETCH_FUNC') or define('FETCH_FUNC', \PDO::FETCH_FUNC);
+
 		// start session
 		Session::init();
 	}
