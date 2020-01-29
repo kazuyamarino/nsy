@@ -22,6 +22,7 @@ class NSY_Router
 	static $names	= [];
 	static $cache	= [];
 	static $nomatch	= null;
+	static $response = null;
 	static $rxalias	= [
 		':all'		 => '.*',
 		':any'		 => '[^/]+',
@@ -109,10 +110,34 @@ class NSY_Router
 	}
 
 	/**
+	 * NSY Middleware System
+	 * @param  array $middleware
+	 * @return void
+	 */
+	public static function middleware($middleware)
+    {
+		if ( is_filled($middleware) ) {
+			$object = true;
+			$onion = new Onion;
+
+			self::$response = $onion->layer($middleware)->peel($object, function($object){
+				return $object;
+			});
+		} else {
+			$var_msg = 'The variable in the <mark>middleware()</mark> is improper or not an array';
+			NSY_Desk::static_error_handler($var_msg);
+			exit();
+		}
+
+		return new self;
+	}
+
+	/**
+	 * goto() method for Instantiate controller
 	 * Modified by Vikry Yuansah for NSY Routing System
 	 * @param  mixed $controllerWithMethod
 	 * @param  array  $vars
-	 * @return mixed
+	 * @return void
 	 */
 	public static function goto($controllerWithMethod = null, $vars = array())
     {
@@ -134,12 +159,32 @@ class NSY_Router
 		}
     }
 
-	public static function middleware()
+	/**
+	 * for() method for Instantiate controller from middleware
+	 * Modified by Vikry Yuansah for NSY Routing System
+	 * @param  mixed $controllerWithMethod
+	 * @param  array  $vars
+	 * @return void
+	 */
+	public function for($controllerWithMethod = null, $vars = array())
     {
-		$onion = new Onion;
+		$params = explode('@', $controllerWithMethod);
 
-		return $onion;
-	}
+		$module = explode('\\', $params[0]);
+		if (count($module) > 1) {
+			$fullclass = 'System\Modules\\'.$module[0].'\Controllers\\'.$module[1];
+		} else {
+			$fullclass = 'System\Controllers\\'.$module[0];
+		}
+
+		if ( is_filled($vars) ) {
+			$defClass = new $fullclass;
+			return $defClass->{$params[1]}($vars);
+		} else {
+			$defClass = new $fullclass;
+			return $defClass->{$params[1]}();
+		}
+    }
 
 	protected static function hash($uri, $params) {
 		return hash('md5', $uri . ' ' . json_encode($params));
