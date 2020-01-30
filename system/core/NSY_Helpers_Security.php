@@ -44,7 +44,7 @@ if (! function_exists('secure_form')) {
 	{
 		if (is_array($form) || is_object($form)) {
 			foreach ($form as $key => $value) {
-				$form[$key] = $this->secure_input($value);
+				$form[$key] = secure_input($value);
 			}
 		}
 	}

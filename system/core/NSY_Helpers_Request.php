@@ -95,16 +95,16 @@ function is_request_post()
  */
 function get_parsed_array($filters = array(), $val = null)
 {
-	if ( $this->is_request_post() ) {
+	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post()->as_array($filters, $val);
-	} elseif ( $this->is_request_get() ) {
+	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get()->as_array($filters, $val);
-	} elseif ( $this->is_request_delete() ) {
+	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del()->as_array($filters, $val);
-	} elseif ( $this->is_request_put() ) {
+	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put()->as_array($filters, $val);
 	}
@@ -120,16 +120,16 @@ function get_parsed_array($filters = array(), $val = null)
  */
 function get_parsed_object($filters = array(), $val = null)
 {
-	if ( $this->is_request_post() ) {
+	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post()->as_object($filters, $val);
-	} elseif ( $this->is_request_get() ) {
+	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get()->as_object($filters, $val);
-	} elseif ( $this->is_request_delete() ) {
+	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del()->as_object($filters, $val);
-	} elseif ( $this->is_request_put() ) {
+	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put()->as_object($filters, $val);
 	}
@@ -144,16 +144,16 @@ function get_parsed_object($filters = array(), $val = null)
  */
 function get_parsed_json($params = null)
 {
-	if ( $this->is_request_post() ) {
+	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->as_json();
-	} elseif ( $this->is_request_get() ) {
+	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->as_json();
-	} elseif ( $this->is_request_delete() ) {
+	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->as_json();
-	} elseif ( $this->is_request_put() ) {
+	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->as_json();
 	}
@@ -168,16 +168,16 @@ function get_parsed_json($params = null)
  */
 function get_parsed_string($params = null)
 {
-	if ( $this->is_request_post() ) {
+	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->as_string();
-	} elseif ( $this->is_request_get() ) {
+	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->as_string();
-	} elseif ( $this->is_request_delete() ) {
+	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->as_string();
-	} elseif ( $this->is_request_put() ) {
+	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->as_string();
 	}
@@ -192,16 +192,16 @@ function get_parsed_string($params = null)
  */
 function get_parsed_integer($params = null)
 {
-	if ( $this->is_request_post() ) {
+	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->as_integer();
-	} elseif ( $this->is_request_get() ) {
+	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->as_integer();
-	} elseif ( $this->is_request_delete() ) {
+	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->as_integer();
-	} elseif ( $this->is_request_put() ) {
+	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->as_integer();
 	}
@@ -216,16 +216,16 @@ function get_parsed_integer($params = null)
  */
 function get_parsed_float($params = null)
 {
-	if ( $this->is_request_post() ) {
+	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->as_float();
-	} elseif ( $this->is_request_get() ) {
+	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->as_float();
-	} elseif ( $this->is_request_delete() ) {
+	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->as_float();
-	} elseif ( $this->is_request_put() ) {
+	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->as_float();
 	}
@@ -240,16 +240,16 @@ function get_parsed_float($params = null)
  */
 function get_parsed_boolean($params = null)
 {
-	if ( $this->is_request_post() ) {
+	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->as_boolean();
-	} elseif ( $this->is_request_get() ) {
+	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->as_boolean();
-	} elseif ( $this->is_request_delete() ) {
+	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->as_boolean();
-	} elseif ( $this->is_request_put() ) {
+	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->as_boolean();
 	}
@@ -264,16 +264,16 @@ function get_parsed_boolean($params = null)
  */
 function get_parsed_ip($params = null)
 {
-	if ( $this->is_request_post() ) {
+	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->as_ip();
-	} elseif ( $this->is_request_get() ) {
+	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->as_ip();
-	} elseif ( $this->is_request_delete() ) {
+	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->as_ip();
-	} elseif ( $this->is_request_put() ) {
+	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->as_ip();
 	}
@@ -288,16 +288,16 @@ function get_parsed_ip($params = null)
  */
 function get_parsed_url($params = null)
 {
-	if ( $this->is_request_post() ) {
+	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->as_url();
-	} elseif ( $this->is_request_get() ) {
+	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->as_url();
-	} elseif ( $this->is_request_delete() ) {
+	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->as_url();
-	} elseif ( $this->is_request_put() ) {
+	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->as_url();
 	}
@@ -312,16 +312,16 @@ function get_parsed_url($params = null)
  */
 function get_parsed_email($params = null)
 {
-	if ( $this->is_request_post() ) {
+	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->as_email();
-	} elseif ( $this->is_request_get() ) {
+	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->as_email();
-	} elseif ( $this->is_request_delete() ) {
+	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->as_email();
-	} elseif ( $this->is_request_put() ) {
+	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->as_email();
 	}
@@ -355,7 +355,7 @@ function post($param = null)
 	if ( is_filled($param) ) {
 		$result = isset($_POST[$param]) ? $_POST[$param] : null;
 	} else {
-		$var_msg = 'The variable in the <mark>$this->post(<strong>variable</strong>)</mark> is improper or not an array';
+		$var_msg = 'The variable in the <mark>post(<strong>variable</strong>)</mark> is improper or not an array';
 		NSY_Desk::static_error_handler($var_msg);
 		exit();
 	}
@@ -373,7 +373,7 @@ function get($param = null)
 	if ( is_filled($param) ) {
 		$result = isset($_GET[$param]) ? $_GET[$param] : null;
 	} else {
-		$var_msg = 'The variable in the <mark>$this->get(<strong>variable</strong>)</mark> is improper or not an array';
+		$var_msg = 'The variable in the <mark>get(<strong>variable</strong>)</mark> is improper or not an array';
 		NSY_Desk::static_error_handler($var_msg);
 		exit();
 	}
