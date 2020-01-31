@@ -1,9 +1,4 @@
 <?php
-/**
-* Use NSY_Desk class
-*/
-use System\Core\NSY_Desk;
-
 use System\Libraries\Validate; // Validate Class
 
 /**

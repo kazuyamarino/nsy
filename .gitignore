@@ -1,6 +1,8 @@
 # Include your project-specific ignores in this file
 # Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
 
-env
-.htaccess
+/env
+/.htaccess
+/.travis.yml
+/phpunit.xml
 public/.htaccess
