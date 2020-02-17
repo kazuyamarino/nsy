@@ -683,3 +683,95 @@ if (! function_exists('get_system_dir')) {
 		return SYS_TMP_DIR;
 	}
 }
+
+/**
+ * Simple string encryption/decryption function.
+ * CHANGE $secret_key and $secret_iv !!!
+ * @param  string $action 'encrypt/decrypt'
+ * @param  string $string
+ * @return string
+ */
+function string_encrypt($action = 'encrypt', $string = ''){
+	if ( is_filled($action) || is_filled($string) ) {
+		$output = false;
+
+		$encrypt_method = 'AES-256-CBC';                // Default
+		$secret_key = 'Kazu#Key!';               // Change the key!
+		$secret_iv = '!VI@_$3';  // Change the init vector!
+
+		// hash
+		$key = hash('sha256', $secret_key);
+
+		// iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+		$iv = substr(hash('sha256', $secret_iv), 0, 16);
+
+		if( $action == 'encrypt' ) {
+			$output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+			$output = base64_encode($output);
+		}
+		else if( $action == 'decrypt' ){
+			$output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+		}
+
+		return $output;
+	} else {
+		$var_msg = 'The variable <mark>string_encrypt(<strong>actions</strong>, <strong>string</strong>)</mark> is improper or not an array';
+		NSY_Desk::static_error_handler($var_msg);
+		exit();
+	}
+
+}
+
+/**
+ * Convert image file to base64
+ * @param  string $files
+ * @return array
+ */
+function image_to_base64($files = '')
+{
+	if ( is_filled($files) ) {
+		$fileName = $files['name'];
+		$fileType = $files['type'];
+		$fileContent = file_get_contents($files['tmp_name']);
+		$base64 = base64_encode($fileContent);
+		$dataUrl = 'data:' . $fileType . ';base64,' . base64_encode($fileContent);
+
+		$arr = array(
+			'name' => $fileName,
+			'type' => $fileType,
+			'dataUrl' => $dataUrl,
+			'base64' => $base64
+		);
+
+		return $arr;
+	} else {
+		$var_msg = 'The variable <mark>image_to_base64(<strong>variables</strong>)</mark> is improper or not an array';
+		NSY_Desk::static_error_handler($var_msg);
+		exit();
+	}
+}
+
+/**
+ * Convert image string to base64
+ * @param  string $files
+ * @param  string $ext [File extension]
+ * @return array
+ */
+function string_to_base64($files = '', $ext = 'jpg')
+{
+	if ( is_filled($files) || is_filled($ext) ) {
+		$base64 = base64_encode($files);
+		$dataUrl = 'data:images/' . $ext . ';base64,' . $base64;
+
+		$arr = array(
+			'dataUrl' => $dataUrl,
+			'base64' => $base64
+		);
+
+		return $arr;
+	} else {
+		$var_msg = 'The variable <mark>string_to_base64(<strong>variables</strong>)</mark> is improper or not an array';
+		NSY_Desk::static_error_handler($var_msg);
+		exit();
+	}
+}
