@@ -380,21 +380,3 @@ function get($param = null)
 
 	return $result;
 }
-
-/**
-* File method
-* @param  mixed $param
-* @return mixed
-*/
-function files($param = null)
-{
-	if ( is_filled($param) ) {
-		$result = isset($_FILES[$param]) ? $_FILES[$param] : null;
-	} else {
-		$var_msg = 'The variable in the <mark>files(<strong>variable</strong>)</mark> is improper or not an array';
-		NSY_Desk::static_error_handler($var_msg);
-		exit();
-	}
-
-	return $result;
-}

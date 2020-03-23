@@ -1,4 +1,9 @@
 <?php
+/**
+* Use NSY_Desk class
+*/
+use System\Core\NSY_Desk;
+
 use System\Libraries\Str; // String Class
 
 /**

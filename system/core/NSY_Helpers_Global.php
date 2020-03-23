@@ -684,6 +684,8 @@ if (! function_exists('get_system_dir')) {
 	}
 }
 
+// ------------------------------------------------------------------------
+
 /**
  * Simple string encryption/decryption function.
  * CHANGE $secret_key and $secret_iv !!!
@@ -691,13 +693,14 @@ if (! function_exists('get_system_dir')) {
  * @param  string $string
  * @return string
  */
-function string_encrypt($action = 'encrypt', $string = ''){
+function string_encrypt($action = 'encrypt', $string = '')
+{
 	if ( is_filled($action) || is_filled($string) ) {
 		$output = false;
 
-		$encrypt_method = 'AES-256-CBC';                // Default
-		$secret_key = 'Kazu#Key!';               // Change the key!
-		$secret_iv = '!VI@_$3';  // Change the init vector!
+		$encrypt_method = 'AES-256-CBC'; // Default
+		$secret_key = 'Kazu#Key!'; // Change the key!
+		$secret_iv = '!VI@_$3'; // Change the init vector!
 
 		// hash
 		$key = hash('sha256', $secret_key);
@@ -719,7 +722,6 @@ function string_encrypt($action = 'encrypt', $string = ''){
 		NSY_Desk::static_error_handler($var_msg);
 		exit();
 	}
-
 }
 
 /**
@@ -774,4 +776,45 @@ function string_to_base64($files = '', $ext = 'jpg')
 		NSY_Desk::static_error_handler($var_msg);
 		exit();
 	}
+}
+
+// ------------------------------------------------------------------------
+
+/**
+ * @param $n
+ * @return string
+ * Use to convert large positive numbers in to short form like 1K+, 100K+, 199K+, 1M+, 10M+, 1B+ etc
+ */
+function number_format_short( $n, $precision = 1 )
+{
+	if ($n < 900) {
+		// 0 - 900
+		$n_format = number_format($n, $precision);
+		$suffix = '';
+	} else if ($n < 900000) {
+		// 0.9k-850k
+		$n_format = number_format($n / 1000, $precision);
+		$suffix = 'K';
+	} else if ($n < 900000000) {
+		// 0.9m-850m
+		$n_format = number_format($n / 1000000, $precision);
+		$suffix = 'M';
+	} else if ($n < 900000000000) {
+		// 0.9b-850b
+		$n_format = number_format($n / 1000000000, $precision);
+		$suffix = 'B';
+	} else {
+		// 0.9t+
+		$n_format = number_format($n / 1000000000000, $precision);
+		$suffix = 'T';
+	}
+
+	// Remove unecessary zeroes after decimal. "1.0" -> "1"; "1.00" -> "1"
+	// Intentionally does not affect partials, eg "1.50" -> "1.50"
+	if ( $precision > 0 ) {
+		$dotzero = '.' . str_repeat( '0', $precision );
+		$n_format = str_replace( $dotzero, '', $n_format );
+	}
+
+	return $n_format . $suffix;
 }
