@@ -16,5 +16,5 @@
   # absolute physical path to the directory that contains this htaccess file.
   # RewriteBase /
 
-  RewriteRule ^(.*)$ public/index.php?/$1
+  RewriteRule ^(.*)$ public/index.php?/$1 [QSA,L]
 </IfModule>
