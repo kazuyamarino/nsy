@@ -259,7 +259,7 @@ class NSY_Router {
             if (!self::$error_callback) {
                 self::$error_callback = function() {
                     header($_SERVER['SERVER_PROTOCOL']." 404 Not Found");
-                    header('location: ../../404.html');
+					exit('404 Not Found.');
                 };
             } else {
                 if (is_string(self::$error_callback)) {
