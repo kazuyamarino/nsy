@@ -10,9 +10,9 @@
         }
     ],
 	"require": {
-        "nesbot/carbon": "^2.37.0",
+        "nesbot/carbon": "^2.39.2",
         "vlucas/phpdotenv": "^3.6.7",
-		"nicolab/php-ftp-client": "^1.5.3",
+		"nicolab/php-ftp-client": "^1.5.4",
         "optimus/onion": "~1.0"
     },
     "autoload": {

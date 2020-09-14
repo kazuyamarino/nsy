@@ -135,6 +135,13 @@ class NSY_Router {
 		}
     }
 
+	/**
+	 * group() method for grouping route according to the base route first.
+	 * Modified by Vikry Yuansah for NSY Routing System
+	 * @param  string $base
+	 * @param  array  $callback
+	 * @return void
+	 */
 	public static function group($base, $callback) {
 		$meths = 'group';
 
@@ -191,6 +198,7 @@ class NSY_Router {
                         // Grab the controller name and method call
                         $segments = explode('@',$last);
 
+						print_r($segments);
                         // Instanitate controller
                         $controller = new $segments[0]();
 

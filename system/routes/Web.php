@@ -14,16 +14,18 @@ use System\Middlewares\AfterLayer;
 // Route method : any|get|post|put|patch|delete|head|options
 
 // MVC Route
-Route::get('/', function() {
-	$middleware = [
-		new BeforeLayer(),
-		new AfterLayer()
-	];
-
-	Route::middleware($middleware)->for('Welcome@index');
-});
+// Route::get('/', function() {
+// 	$middleware = [
+// 		new BeforeLayer(),
+// 		new AfterLayer()
+// 	];
+//
+// 	Route::middleware($middleware)->for('Welcome@index');
+// });
+Route::get('/', 'System\Controllers\Welcome@index');
 
 // HMVC Route
-Route::get('/hmvc', function() {
-	Route::goto('Homepage\Hello@index_hmvc');
-});
+// Route::get('/hmvc', function() {
+// 	Route::goto('Homepage\Hello@index_hmvc');
+// });
+Route::get('/hmvc', 'System\Modules\Homepage\Controllers\Homepage\Hello@index_hmvc');
