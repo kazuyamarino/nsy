@@ -6,6 +6,9 @@ namespace System\Core;
 */
 use System\Libraries\Session;
 
+/**
+* Use Dotenv
+*/
 use Dotenv\Dotenv;
 
 /**
@@ -125,7 +128,7 @@ class NSY_System
 		define('ENVIRONMENT', config_app('app_env'));
 
 		// start session
-		Session::init();
+		Session::init(config_app('session_duration'));
 	}
 
 }
