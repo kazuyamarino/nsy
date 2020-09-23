@@ -36,6 +36,12 @@ class NSY_Router {
     * Defines a route w/ callback and method
     */
     public static function __callstatic($method, $params) {
+		if ( $method == 'group' ) {
+			$params[0] = null;
+		} else {
+			$params[0] = '/' . config_app('app_dir') . self::$base . $params[0];
+		}
+
         if ($method == 'map') {
             $maps = array_map('strtoupper', $params[0]);
             $uri = strpos($params[1], '/') === 0 ? $params[1] : '/' . $params[1];
@@ -45,12 +51,6 @@ class NSY_Router {
             $uri = strpos($params[0], '/') === 0 ? $params[0] : '/' . $params[0];
             $callback = $params[1];
         }
-
-		if ( $method == 'group' ) {
-			$uri = null;
-		} else {
-			$uri = '/' . config_app('app_dir') . self::$base . $uri;
-		}
 
         array_push(self::$maps, $maps);
         array_push(self::$routes, $uri);
@@ -147,7 +147,7 @@ class NSY_Router {
 
 		self::$base	= $base;
 
-		self::__callStatic($meths, [$base, $callback()]);
+		self::__callstatic($meths, [$base, $callback()]);
 
 		self::$base = null;
 	}
