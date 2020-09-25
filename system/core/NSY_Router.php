@@ -247,8 +247,16 @@ class NSY_Router {
                             // Grab the controller name and method call
                             $segments = explode('@',$last);
 
-                            // Instanitate controller
-                            $controller = new $segments[0]();
+							$module = explode('\\', $segments[0]);
+
+							if (count($module) > 1) {
+								$fullclass = 'System\Modules\\'.$module[0].'\Controllers\\'.$module[1];
+							} else {
+								$fullclass = 'System\Controllers\\'.$module[0];
+							}
+
+	                        // Instanitate controller
+	                        $controller = new $fullclass;
 
                             // Fix multi parameters
                             if (!method_exists($controller, $segments[1])) {
