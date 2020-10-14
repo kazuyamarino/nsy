@@ -18,9 +18,6 @@
 			<div>
 				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md"><strong>NSY User Guide</strong></a>&nbsp;<&nbsp;<code>The guide before starting to use NSY.</code></h4>
 			</div>
-			<div>
-				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_1.md"><strong>NSY System Guide Part 1</strong></a>&nbsp;&amp;&nbsp;<a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_2.md"><strong>NSY System Guide Part 2</strong></a>&nbsp;<&nbsp;<code>The guide for starting to use NSY System.</code></h4>
-			</div>
 		</div>
 
 		<hr>
@@ -100,6 +97,9 @@
 			</div>
 			<div>
 				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_2.md#razr---the-powerful-php-template-engine">Razr Template Engine</a>&nbsp;<&nbsp;<code>Razr - The powerful PHP template engine.</code></h4>
+			</div>
+			<div>
+				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_1.md"><strong>NSY System Guide Part 1</strong></a>&nbsp;&amp;&nbsp;<a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/SYSGUIDE_2.md"><strong>NSY System Guide Part 2</strong></a>&nbsp;<&nbsp;<code>The guide for starting to use NSY System.</code></h4>
 			</div>
 		</div>
 	</div>
