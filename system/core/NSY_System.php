@@ -32,7 +32,7 @@ class NSY_System
 		/**
 		* Load Environment Variables from .env file
 		*/
-		$dotenv = Dotenv::create( __DIR__ . '/../..', config_app('env_file'));
+		$dotenv = Dotenv::createUnsafeImmutable( __DIR__ . '/../..', config_app('env_file'));
 		$dotenv->load();
 
 		if ( is_filled(config_app('public_dir')) ) {

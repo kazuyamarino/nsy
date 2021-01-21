@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Carbon\\CarbonConverterInterface' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonConverterInterface.php',
     'Carbon\\CarbonImmutable' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonImmutable.php',
@@ -170,8 +171,10 @@ return array(
     'Symfony\\Component\\Translation\\MessageCatalogue' => $vendorDir . '/symfony/translation/MessageCatalogue.php',
     'Symfony\\Component\\Translation\\MessageCatalogueInterface' => $vendorDir . '/symfony/translation/MessageCatalogueInterface.php',
     'Symfony\\Component\\Translation\\MetadataAwareInterface' => $vendorDir . '/symfony/translation/MetadataAwareInterface.php',
+    'Symfony\\Component\\Translation\\PseudoLocalizationTranslator' => $vendorDir . '/symfony/translation/PseudoLocalizationTranslator.php',
     'Symfony\\Component\\Translation\\Reader\\TranslationReader' => $vendorDir . '/symfony/translation/Reader/TranslationReader.php',
     'Symfony\\Component\\Translation\\Reader\\TranslationReaderInterface' => $vendorDir . '/symfony/translation/Reader/TranslationReaderInterface.php',
+    'Symfony\\Component\\Translation\\TranslatableMessage' => $vendorDir . '/symfony/translation/TranslatableMessage.php',
     'Symfony\\Component\\Translation\\Translator' => $vendorDir . '/symfony/translation/Translator.php',
     'Symfony\\Component\\Translation\\TranslatorBagInterface' => $vendorDir . '/symfony/translation/TranslatorBagInterface.php',
     'Symfony\\Component\\Translation\\Util\\ArrayConverter' => $vendorDir . '/symfony/translation/Util/ArrayConverter.php',
@@ -180,6 +183,7 @@ return array(
     'Symfony\\Component\\Translation\\Writer\\TranslationWriterInterface' => $vendorDir . '/symfony/translation/Writer/TranslationWriterInterface.php',
     'Symfony\\Contracts\\Translation\\LocaleAwareInterface' => $vendorDir . '/symfony/translation-contracts/LocaleAwareInterface.php',
     'Symfony\\Contracts\\Translation\\Test\\TranslatorTest' => $vendorDir . '/symfony/translation-contracts/Test/TranslatorTest.php',
+    'Symfony\\Contracts\\Translation\\TranslatableInterface' => $vendorDir . '/symfony/translation-contracts/TranslatableInterface.php',
     'Symfony\\Contracts\\Translation\\TranslatorInterface' => $vendorDir . '/symfony/translation-contracts/TranslatorInterface.php',
     'Symfony\\Contracts\\Translation\\TranslatorTrait' => $vendorDir . '/symfony/translation-contracts/TranslatorTrait.php',
     'Symfony\\Polyfill\\Ctype\\Ctype' => $vendorDir . '/symfony/polyfill-ctype/Ctype.php',
