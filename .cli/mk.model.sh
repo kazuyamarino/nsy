@@ -19,14 +19,14 @@ make_model() {
 					conname=$2
 
 					# Create 'mvc' model
-					if [ ! -e ./system/models/"$conname.php" ]
+					if [ ! -e ./System/Models/"$conname.php" ]
 					then
 						# Create 'mvc' model
-						cp .cli/tmp/cm_mdl.php ./system/models/"$conname.php"
-						sed -i "s/cm_mdl/$conname/g" ./system/models/"$conname.php"
+						cp .cli/tmp/cm_mdl.php ./System/Models/"$conname.php"
+						sed -i "s/cm_mdl/$conname/g" ./System/Models/"$conname.php"
 
 						printf "Model created\n"
-						printf "see the results in the 'system/models' directory\n"
+						printf "see the results in the 'System/Models' directory\n"
 					else
 						printf "Model already exists\n"
 					fi
@@ -42,7 +42,7 @@ make_model() {
 					dirname=$2
 
 					# if directory doesnt exist
-					if [ ! -d ./system/modules/$dirname ]
+					if [ ! -d ./System/Modules/$dirname ]
 					then
 						printf "Module doesn't exists\n"
 					else # if exist
@@ -55,14 +55,14 @@ make_model() {
 							conname=$3
 
 							# Create 'hmvc' model
-							if [ ! -e ./system/modules/$dirname/models/"$conname.php" ]
+							if [ ! -e ./System/Modules/$dirname/Models/"$conname.php" ]
 							then
-								cp .cli/tmp/md_mdl.php ./system/modules/$dirname/models/"$conname.php"
-								sed -i "s/md_mdl/$conname/g" ./system/modules/$dirname/models/"$conname.php"
-								sed -i "s/ModuleName/"$(echo "$dirname" |sed -e "s/\b\(.\)/\u\1/g")"/g" ./system/modules/$dirname/models/"$conname.php"
+								cp .cli/tmp/md_mdl.php ./System/Modules/$dirname/Models/"$conname.php"
+								sed -i "s/md_mdl/$conname/g" ./System/Modules/$dirname/Models/"$conname.php"
+								sed -i "s/ModuleName/"$(echo "$dirname" |sed -e "s/\b\(.\)/\u\1/g")"/g" ./System/Modules/$dirname/Models/"$conname.php"
 
 							    printf "Model created\n"
-								printf "see the results in the 'system/modules/$dirname/models' directory\n"
+								printf "see the results in the 'System/Modules/$dirname/Models' directory\n"
 							else
 								printf "Model already exists\n"
 							fi

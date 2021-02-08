@@ -20,12 +20,12 @@
 * The default autoload.php file path.
 * You can set the file path itself according to your settings.
 */
-require __DIR__ . '/../system/vendor/autoload.php';
+require __DIR__ . '/../System/Vendor/autoload.php';
 
 /**
 * NSY GLobal Helpers
 */
-require_once __DIR__ . '/../system/core/NSY_Helpers_Global.php';
+require_once __DIR__ . '/../System/Core/NSY_Helpers_Global.php';
 
 /**
 * Use NSY_System class

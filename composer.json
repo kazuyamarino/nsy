@@ -17,14 +17,11 @@
     },
     "autoload": {
         "psr-4": {
-			"System\\": "system/"
-        },
-		"files": [
-			"system/helpers/CodeIgniter_Helpers.php"
-		]
+			"System\\": "System/"
+        }
     },
     "config": {
-        "vendor-dir": "system/vendor/"
+        "vendor-dir": "System/Vendor/"
     },
 	"scripts": {
 	    "post-install-cmd": [

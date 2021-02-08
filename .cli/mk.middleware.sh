@@ -9,14 +9,14 @@ make_after_middleware() {
 		mid=$1
 
 		# Create middleware
-		if [ ! -e ./system/middlewares/"$mid.php" ]
+		if [ ! -e ./System/Middlewares/"$mid.php" ]
 		then
 			# Create controller
-			cp .cli/tmp/after_lyr.php ./system/middlewares/"$mid.php"
-			sed -i "s/after_lyr/$mid/g" ./system/middlewares/"$mid.php"
+			cp .cli/tmp/after_lyr.php ./System/Middlewares/"$mid.php"
+			sed -i "s/after_lyr/$mid/g" ./System/Middlewares/"$mid.php"
 
 			printf "After Middleware created\n"
-		    printf "see the results in the 'system/middlewares' directory\n"
+		    printf "see the results in the 'System/Middlewares' directory\n"
 		else
 			printf "After Middleware already exists\n"
 		fi
@@ -33,14 +33,14 @@ make_before_middleware() {
 		mid=$1
 
 		# Create middleware
-		if [ ! -e ./system/middlewares/"$mid.php" ]
+		if [ ! -e ./System/Middlewares/"$mid.php" ]
 		then
 			# Create controller
-			cp .cli/tmp/before_lyr.php ./system/middlewares/"$mid.php"
-			sed -i "s/before_lyr/$mid/g" ./system/middlewares/"$mid.php"
+			cp .cli/tmp/before_lyr.php ./System/Middlewares/"$mid.php"
+			sed -i "s/before_lyr/$mid/g" ./System/Middlewares/"$mid.php"
 
 			printf "Before Middleware created\n"
-		    printf "see the results in the 'system/middlewares' directory\n"
+		    printf "see the results in the 'System/Middlewares' directory\n"
 		else
 			printf "Before Middleware already exists\n"
 		fi
