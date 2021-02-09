@@ -18,7 +18,10 @@
     "autoload": {
         "psr-4": {
 			"System\\": "System/"
-        }
+        },
+		"files": [
+			"System/Helpers/CodeIgniter_Helpers.php"
+		]
     },
     "config": {
         "vendor-dir": "System/Vendor/"
