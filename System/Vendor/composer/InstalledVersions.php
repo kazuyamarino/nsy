@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '8135e71fe75ffb75e4f66eb5917e8b175f3fc57b',
+    'reference' => '6c2e3ff1a92676159f5f54090563aa1a5f210e92',
     'name' => 'vikry/nsy',
   ),
   'versions' => 
@@ -100,12 +100,12 @@ private static $installed = array (
     ),
     'symfony/translation' => 
     array (
-      'pretty_version' => 'v5.2.3',
-      'version' => '5.2.3.0',
+      'pretty_version' => 'v5.2.4',
+      'version' => '5.2.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c021864d4354ee55160ddcfd31dc477a1bc77949',
+      'reference' => '74b0353ab34ff4cca827a2cf909e325d96815e60',
     ),
     'symfony/translation-contracts' => 
     array (
@@ -120,7 +120,7 @@ private static $installed = array (
     array (
       'provided' => 
       array (
-        0 => '2.0',
+        0 => '2.3',
       ),
     ),
     'vikry/nsy' => 
@@ -130,7 +130,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '8135e71fe75ffb75e4f66eb5917e8b175f3fc57b',
+      'reference' => '6c2e3ff1a92676159f5f54090563aa1a5f210e92',
     ),
     'vlucas/phpdotenv' => 
     array (

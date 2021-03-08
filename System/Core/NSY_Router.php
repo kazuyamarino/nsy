@@ -183,7 +183,7 @@ class NSY_Router {
             foreach ($route_pos as $route) {
 
                 // Using an ANY option to match both GET and POST requests
-                if (self::$methods[$route] == $method || self::$methods[$route] == 'ANY' || in_array($method, self::$maps[$route])) {
+                if (self::$methods[$route] == $method || self::$methods[$route] == 'ANY') {
                     $found_route = true;
 
                     // If route is not an object
