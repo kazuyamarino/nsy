@@ -6,19 +6,19 @@
     'aliases' => 
     array (
     ),
-    'reference' => '6c2e3ff1a92676159f5f54090563aa1a5f210e92',
+    'reference' => '8dc37793d617efd93bfb1db74cb6940171d949ed',
     'name' => 'vikry/nsy',
   ),
   'versions' => 
   array (
     'nesbot/carbon' => 
     array (
-      'pretty_version' => '2.45.1',
-      'version' => '2.45.1.0',
+      'pretty_version' => '2.46.0',
+      'version' => '2.46.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '528783b188bdb853eb21239b1722831e0f000a8d',
+      'reference' => '2fd2c4a77d58a4e95234c8a61c5df1f157a91bf4',
     ),
     'nicolab/php-ftp-client' => 
     array (
@@ -76,12 +76,12 @@
     ),
     'symfony/translation' => 
     array (
-      'pretty_version' => 'v5.2.4',
-      'version' => '5.2.4.0',
+      'pretty_version' => 'v5.2.5',
+      'version' => '5.2.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => '74b0353ab34ff4cca827a2cf909e325d96815e60',
+      'reference' => '0947ab1e3aabd22a6bef393874b2555d2bb976da',
     ),
     'symfony/translation-contracts' => 
     array (
@@ -106,7 +106,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '6c2e3ff1a92676159f5f54090563aa1a5f210e92',
+      'reference' => '8dc37793d617efd93bfb1db74cb6940171d949ed',
     ),
     'vlucas/phpdotenv' => 
     array (
