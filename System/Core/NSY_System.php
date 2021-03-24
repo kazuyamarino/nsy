@@ -37,18 +37,18 @@ class NSY_System
 
 		if ( is_filled(config_app('public_dir')) ) {
 			// set the default public/css/js path
-			define('CSS_DIR', base_url() . config_app('public_dir') . '/' . config_app('css_dir') . '/'); // CSS directory path
+			define('CSS_DIR', base_url() . config_app('public_dir') . '/' . 'assets' . '/' . config_app('css_dir') . '/'); // CSS directory path
 
-			define('JS_DIR', base_url() . config_app('public_dir') . '/' . config_app('js_dir') . '/'); // JS directory path
+			define('JS_DIR', base_url() . config_app('public_dir') . '/' . 'assets' . '/' . config_app('js_dir') . '/'); // JS directory path
 
-			define('IMG_DIR', base_url() . config_app('public_dir') . '/' . config_app('img_dir') . '/'); // IMG directory
+			define('IMG_DIR', base_url() . config_app('public_dir') . '/' . 'assets' . '/' . config_app('img_dir') . '/'); // IMG directory
 		} else {
 			// set the default public/css/js path
-			define('CSS_DIR', base_url() . config_app('css_dir') . '/'); // CSS directory path
+			define('CSS_DIR', base_url() . 'assets' . '/' . config_app('css_dir') . '/'); // CSS directory path
 
-			define('JS_DIR', base_url() . config_app('js_dir') . '/'); // JS directory path
+			define('JS_DIR', base_url() . 'assets' . '/' . config_app('js_dir') . '/'); // JS directory path
 
-			define('IMG_DIR', base_url() . config_app('img_dir') . '/'); // IMG directory
+			define('IMG_DIR', base_url() . 'assets' . '/' . config_app('img_dir') . '/'); // IMG directory
 		}
 
 		// Template directory path
