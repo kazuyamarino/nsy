@@ -49,7 +49,7 @@ make_controller() {
 						if [ -z $3 ]
 						then
 							printf "Controller name undefined\n"
-							printf "It should be like this 'controller $mode $dirname <controller-name>'\n"
+							printf "It should be like this 'make:controller $mode $dirname <controller-name>'\n"
 						elif [ -n $3 ]
 						then
 							conname=$3
