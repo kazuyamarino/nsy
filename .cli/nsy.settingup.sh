@@ -12,11 +12,11 @@ run_setup() {
 			cp docs/apache/for_root/.htaccess ./.htaccess
 			cp .cli/tmp/env.example ./env
 			cp .cli/tmp/env.example docs/env.example/env.example
-			cp .cli/tmp/system.js ./public/js/config/system.js
+			cp .cli/tmp/system.js ./public/assets/js/config/system.js
 			cp .cli/tmp/default ./docs/nginx/sites-enabled/default
 			sed -i "s/nsy/$filename/g" ./env
 			sed -i "s/nsy/$filename/g" ./docs/env.example/env.example
-			sed -i "s/nsy/$filename/g" ./public/js/config/system.js
+			sed -i "s/nsy/$filename/g" ./public/assets/js/config/system.js
 			sed -i "s/nsy/$filename/g" ./docs/nginx/sites-enabled/default
 
 			printf "Please wait...\n"
