@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '8dc37793d617efd93bfb1db74cb6940171d949ed',
+    'reference' => '1fedc4a921779a9c673286f41fbe43d404d49461',
     'name' => 'vikry/nsy',
   ),
   'versions' => 
@@ -76,12 +76,12 @@
     ),
     'symfony/translation' => 
     array (
-      'pretty_version' => 'v5.2.5',
-      'version' => '5.2.5.0',
+      'pretty_version' => 'v5.2.6',
+      'version' => '5.2.6.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0947ab1e3aabd22a6bef393874b2555d2bb976da',
+      'reference' => '2cc7f45d96db9adfcf89adf4401d9dfed509f4e1',
     ),
     'symfony/translation-contracts' => 
     array (
@@ -106,7 +106,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '8dc37793d617efd93bfb1db74cb6940171d949ed',
+      'reference' => '1fedc4a921779a9c673286f41fbe43d404d49461',
     ),
     'vlucas/phpdotenv' => 
     array (
