@@ -6,3 +6,5 @@
 /.travis.yml
 /phpunit.xml
 public/.htaccess
+System/Controllers/Test.php
+System/Models/Model_Test.php

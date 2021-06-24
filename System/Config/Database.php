@@ -47,8 +47,8 @@ return [
 			'DB_NAME' => getenv('DB_NAME'),
 			'DB_USER' => getenv('DB_USER'),
 			'DB_PASS' => getenv('DB_PASS'),
-			'DB_CHARSET' => 'utf8',
-			'PREFIX' => ''
+			'DB_CHARSET' => getenv('DB_CHARSET'),
+			'PREFIX' => getenv('DB_PREFIX')
 		],
 
 		'dblib' => [
@@ -58,8 +58,8 @@ return [
 			'DB_NAME' => getenv('DB_NAME'),
 			'DB_USER' => getenv('DB_USER'),
 			'DB_PASS' => getenv('DB_PASS'),
-			'DB_CHARSET' => 'utf8',
-			'PREFIX' => ''
+			'DB_CHARSET' => getenv('DB_CHARSET'),
+			'PREFIX' => getenv('DB_PREFIX')
 		],
 
 		'sqlsrv' => [
@@ -69,8 +69,8 @@ return [
 			'DB_NAME' => getenv('DB_NAME'),
 			'DB_USER' => getenv('DB_USER'),
 			'DB_PASS' => getenv('DB_PASS'),
-			'DB_CHARSET' => 'utf8',
-			'PREFIX' => ''
+			'DB_CHARSET' => getenv('DB_CHARSET'),
+			'PREFIX' => getenv('DB_PREFIX')
 		],
 
 		'pgsql' => [
@@ -80,8 +80,8 @@ return [
 			'DB_NAME' => getenv('DB_NAME'),
 			'DB_USER' => getenv('DB_USER'),
 			'DB_PASS' => getenv('DB_PASS'),
-			'DB_CHARSET' => 'utf8',
-			'PREFIX' => ''
+			'DB_CHARSET' => getenv('DB_CHARSET'),
+			'PREFIX' => getenv('DB_PREFIX')
 		]
 
 	],
@@ -96,8 +96,8 @@ return [
 			'DB_NAME' => getenv('DB_NAME_SEC'),
 			'DB_USER' => getenv('DB_USER_SEC'),
 			'DB_PASS' => getenv('DB_PASS_SEC'),
-			'DB_CHARSET' => 'utf8',
-			'PREFIX' => ''
+			'DB_CHARSET' => getenv('DB_CHARSET_SEC'),
+			'PREFIX' => getenv('DB_PREFIX_SEC')
 		],
 
 		'dblib' => [
@@ -107,8 +107,8 @@ return [
 			'DB_NAME' => getenv('DB_NAME_SEC'),
 			'DB_USER' => getenv('DB_USER_SEC'),
 			'DB_PASS' => getenv('DB_PASS_SEC'),
-			'DB_CHARSET' => 'utf8',
-			'PREFIX' => ''
+			'DB_CHARSET' => getenv('DB_CHARSET_SEC'),
+			'PREFIX' => getenv('DB_PREFIX_SEC')
 		],
 
 		'sqlsrv' => [
@@ -118,8 +118,8 @@ return [
 			'DB_NAME' => getenv('DB_NAME_SEC'),
 			'DB_USER' => getenv('DB_USER_SEC'),
 			'DB_PASS' => getenv('DB_PASS_SEC'),
-			'DB_CHARSET' => 'utf8',
-			'PREFIX' => ''
+			'DB_CHARSET' => getenv('DB_CHARSET_SEC'),
+			'PREFIX' => getenv('DB_PREFIX_SEC')
 		],
 
 		'pgsql' => [
@@ -129,8 +129,8 @@ return [
 			'DB_NAME' => getenv('DB_NAME_SEC'),
 			'DB_USER' => getenv('DB_USER_SEC'),
 			'DB_PASS' => getenv('DB_PASS_SEC'),
-			'DB_CHARSET' => 'utf8',
-			'PREFIX' => ''
+			'DB_CHARSET' => getenv('DB_CHARSET_SEC'),
+			'PREFIX' => getenv('DB_PREFIX_SEC')
 		]
 
 	]

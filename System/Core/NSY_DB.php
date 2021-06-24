@@ -28,7 +28,11 @@ class NSY_DB
 
 		static $db = null;
 		if ($db === null) {
-			$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			if (is_filled($DB_PORT)) {
+				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			} else {
+				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			}
 			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
 
 			// Throw an Exception when an error occurs
@@ -54,7 +58,11 @@ class NSY_DB
 
 		static $db = null;
 		if ($db === null) {
-			$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			if (is_filled($DB_PORT)) {
+				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			} else {
+				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			}
 			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
 
 			// Throw an Exception when an error occurs
@@ -80,7 +88,11 @@ class NSY_DB
 
 		static $db = null;
 		if ($db === null) {
-			$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			if (is_filled($DB_PORT)) {
+				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			} else {
+				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			}
 			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
 
 			// Throw an Exception when an error occurs
@@ -106,7 +118,11 @@ class NSY_DB
 
 		static $db = null;
 		if ($db === null) {
-			$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			if (is_filled($DB_PORT)) {
+				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			} else {
+				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			}
 			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
 
 			// Throw an Exception when an error occurs
@@ -132,7 +148,11 @@ class NSY_DB
 
 		static $db = null;
 		if ($db === null) {
-			$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			if (is_filled($DB_PORT)) {
+				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';';
+			} else {
+				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME . ';';
+			}
 			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
 
 			// Throw an Exception when an error occurs
@@ -158,7 +178,11 @@ class NSY_DB
 
 		static $db = null;
 		if ($db === null) {
-			$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
+			if (is_filled($DB_PORT)) {
+				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';';
+			} else {
+				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME . ';';
+			}
 			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
 
 			// Throw an Exception when an error occurs
@@ -183,7 +207,11 @@ class NSY_DB
 
 		static $db = null;
 		if ($db === null) {
-			$dsn = '' . $DB_DRIVER . ':Server=' . $DB_HOST . ',' . $DB_PORT . ';Database=' . $DB_NAME . '';
+			if (is_filled($DB_PORT)) {
+				$dsn = '' . $DB_DRIVER . ':Server=' . $DB_HOST . ',' . $DB_PORT . ';Database=' . $DB_NAME . '';
+			} else {
+				$dsn = '' . $DB_DRIVER . ':Server=' . $DB_HOST . ';Database=' . $DB_NAME . '';
+			}
 			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
 
 			// Throw an Exception when an error occurs
@@ -208,7 +236,11 @@ class NSY_DB
 
 		static $db = null;
 		if ($db === null) {
-			$dsn = '' . $DB_DRIVER . ':Server=' . $DB_HOST . ',' . $DB_PORT . ';Database=' . $DB_NAME . '';
+			if (is_filled($DB_PORT)) {
+				$dsn = '' . $DB_DRIVER . ':Server=' . $DB_HOST . ',' . $DB_PORT . ';Database=' . $DB_NAME . '';
+			} else {
+				$dsn = '' . $DB_DRIVER . ':Server=' . $DB_HOST . ';Database=' . $DB_NAME . '';
+			}
 			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
 
 			// Throw an Exception when an error occurs
