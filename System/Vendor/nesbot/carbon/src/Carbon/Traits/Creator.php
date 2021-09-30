@@ -77,7 +77,7 @@ trait Creator
         }
 
         // Work-around for PHP bug https://bugs.php.net/bug.php?id=67127
-        if (strpos((string) .1, '.') === false) {
+        if (!str_contains((string) .1, '.')) {
             $locale = setlocale(LC_NUMERIC, '0');
             setlocale(LC_NUMERIC, 'C');
         }
@@ -367,7 +367,7 @@ trait Creator
      */
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null)
     {
-        if (\is_string($year) && !is_numeric($year)) {
+        if (\is_string($year) && !is_numeric($year) || $year instanceof DateTimeInterface) {
             return static::parse($year, $tz ?: (\is_string($month) || $month instanceof DateTimeZone ? $month : null));
         }
 
@@ -389,12 +389,12 @@ trait Creator
             return $defaults[$unit];
         };
 
-        $year = $year === null ? $getDefault('year') : $year;
-        $month = $month === null ? $getDefault('month') : $month;
-        $day = $day === null ? $getDefault('day') : $day;
-        $hour = $hour === null ? $getDefault('hour') : $hour;
-        $minute = $minute === null ? $getDefault('minute') : $minute;
-        $second = (float) ($second === null ? $getDefault('second') : $second);
+        $year = $year ?? $getDefault('year');
+        $month = $month ?? $getDefault('month');
+        $day = $day ?? $getDefault('day');
+        $hour = $hour ?? $getDefault('hour');
+        $minute = $minute ?? $getDefault('minute');
+        $second = (float) ($second ?? $getDefault('second'));
 
         self::assertBetween('month', $month, 0, 99);
         self::assertBetween('day', $day, 0, 99);
@@ -592,7 +592,7 @@ trait Creator
         // @codeCoverageIgnoreEnd
 
         if ($originalTz === null) {
-            return parent::createFromFormat($format, "$time");
+            return parent::createFromFormat($format, (string) $time);
         }
 
         $tz = \is_int($originalTz)
@@ -605,7 +605,7 @@ trait Creator
             return false;
         }
 
-        return parent::createFromFormat($format, "$time", $tz);
+        return parent::createFromFormat($format, (string) $time, $tz);
     }
 
     /**
