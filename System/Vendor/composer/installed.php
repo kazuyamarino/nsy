@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '78148e5862556fbcc86d6835182933b5fe55c1da',
+    'reference' => '6bc904e79c5f73f143d11061e04f434f3f403605',
     'name' => 'vikry/nsy',
   ),
   'versions' => 
@@ -115,7 +115,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '78148e5862556fbcc86d6835182933b5fe55c1da',
+      'reference' => '6bc904e79c5f73f143d11061e04f434f3f403605',
     ),
     'vlucas/phpdotenv' => 
     array (
