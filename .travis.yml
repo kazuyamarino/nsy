@@ -5,6 +5,13 @@ php:
   - 7.3
   - 7.4
   - 8.0
+  - hhvm
+
+before_script:
+ - composer self-update
+ - composer install --prefer-source --no-interaction --dev
+
+script: phpunit
 
 env:
   - APP_ENV=development
