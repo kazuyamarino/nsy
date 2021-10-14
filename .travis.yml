@@ -6,7 +6,12 @@ php:
   - 8.0
 
 before_script:
-  - mkdir nsy
+  - mkdir project
 
 script:
   - phpunit
+
+env:
+  - APP_ENV=development
+  - APP_DIR=nsy
+  - DB_CONNECTION=mysql
