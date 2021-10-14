@@ -6,7 +6,7 @@ php:
   - 8.0
 
 before_script:
-  - mkdir project
+  - mkdir nsy
 
 script:
   - phpunit
