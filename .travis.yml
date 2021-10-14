@@ -7,9 +7,10 @@ php:
 
 before_script:
   - mkdir nsy
+  - composer self-update
+  - composer install --prefer-source --no-interaction --dev
 
-script:
-  - phpunit
+script: phpunit
 
 env:
   - APP_ENV=development
