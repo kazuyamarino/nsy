@@ -3,7 +3,7 @@
 
 /env
 /.htaccess
-/.travis.yml
+# /.travis.yml
 /phpunit.xml
 public/.htaccess
 System/Controllers/Test.php
