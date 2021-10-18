@@ -14,7 +14,7 @@ class Welcome extends Load
 			'welcome' => Load::model('Model_Welcome')->welcome(), // Call the welcome method from Model_Welcome
 			'mvc_page' => Load::model('Homepage\Model_Hello')->mvc_page(), // Call the mvc_page method from Model_Hello inside the Homepage module
 			'date' => Carbon::now() // Instantiate today's date with Carbon
-		]
+		];
 
 		// Load MVC view page
 		Load::template('header', $arr);
