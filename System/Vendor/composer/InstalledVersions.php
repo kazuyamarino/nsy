@@ -30,11 +30,20 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '6bc904e79c5f73f143d11061e04f434f3f403605',
+    'reference' => '68322d023af8ca521eec4abdd10c054f883de289',
     'name' => 'vikry/nsy',
   ),
   'versions' => 
   array (
+    'fakerphp/faker' => 
+    array (
+      'pretty_version' => 'v1.16.0',
+      'version' => '1.16.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '271d384d216e5e5c468a6b28feedf95d49f83b35',
+    ),
     'nesbot/carbon' => 
     array (
       'pretty_version' => '2.53.1',
@@ -70,6 +79,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '5455cb38aed4523f99977c4a12ef19da4bfe2a28',
+    ),
+    'psr/container' => 
+    array (
+      'pretty_version' => '2.0.1',
+      'version' => '2.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2ae37329ee82f91efadc282cc2d527fd6065a5ef',
     ),
     'symfony/deprecation-contracts' => 
     array (
@@ -109,12 +127,12 @@ private static $installed = array (
     ),
     'symfony/translation' => 
     array (
-      'pretty_version' => 'v5.3.9',
-      'version' => '5.3.9.0',
+      'pretty_version' => 'v5.3.10',
+      'version' => '5.3.10.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6e69f3551c1a3356cf6ea8d019bf039a0f8b6886',
+      'reference' => '6ef197aea2ac8b9cd63e0da7522b3771714035aa',
     ),
     'symfony/translation-contracts' => 
     array (
@@ -139,16 +157,16 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '6bc904e79c5f73f143d11061e04f434f3f403605',
+      'reference' => '68322d023af8ca521eec4abdd10c054f883de289',
     ),
     'vlucas/phpdotenv' => 
     array (
-      'pretty_version' => 'v3.6.8',
-      'version' => '3.6.8.0',
+      'pretty_version' => 'v3.6.9',
+      'version' => '3.6.9.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5e679f7616db829358341e2d5cccbd18773bdab8',
+      'reference' => 'a1bf4c9853d90ade427b4efe35355fc41b3d6988',
     ),
   ),
 );

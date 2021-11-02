@@ -13,7 +13,8 @@
         "nesbot/carbon": "^2.53.1",
         "vlucas/phpdotenv": "^3.6.8",
 		"nicolab/php-ftp-client": "^1.6.0",
-        "optimus/onion": "~1.0"
+        "optimus/onion": "~1.0",
+        "fakerphp/faker": "^1.16"
     },
     "autoload": {
         "psr-4": {
