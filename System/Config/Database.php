@@ -40,6 +40,12 @@ return [
 	// Default/Primary Connection
 	'connections' => [
 
+		'pdo' => [
+			'ATTR' => [
+				\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING
+			]
+		],
+
 		'mysql' => [
 			'DB_DRIVER' => 'mysql',
 			'DB_HOST' => getenv('DB_HOST'),
@@ -88,6 +94,12 @@ return [
 
 	// Second Connection
 	'connections_sec' => [
+
+		'pdo' => [
+			'ATTR' => [
+				\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING
+			]
+		],
 
 		'mysql' => [
 			'DB_DRIVER' => 'mysql',

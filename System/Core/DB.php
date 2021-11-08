@@ -24,16 +24,6 @@ class DB
 	static $executed;
 
 	/**
-	* Helper for NSY_Model PDO variables
-	*
-	* @var string
-	*/
-	public function __construct()
-	{
-
-	}
-
-	/**
 	* Default Connection
 	*
 	* @return void

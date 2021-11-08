@@ -18,6 +18,7 @@ class NSY_DB
 	*/
 	public static function connect_mysql()
 	{
+		$OPTIONS = config_db_attr('pdo', 'ATTR');
 		$DB_DRIVER = config_db('mysql', 'DB_DRIVER');
 		$DB_HOST = config_db('mysql', 'DB_HOST');
 		$DB_PORT = config_db('mysql', 'DB_PORT');
@@ -33,10 +34,7 @@ class NSY_DB
 			} else {
 				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
 			}
-			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
-
-			// Throw an Exception when an error occurs
-			$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);
+			$db = new \PDO($dsn, $DB_USER, $DB_PASS, $OPTIONS);
 		}
 		return $db;
 	}
@@ -48,6 +46,7 @@ class NSY_DB
 	*/
 	public static function connect_mysql_sec()
 	{
+		$OPTIONS = config_db_attr_sec('pdo', 'ATTR');
 		$DB_DRIVER = config_db_sec('mysql', 'DB_DRIVER');
 		$DB_HOST = config_db_sec('mysql', 'DB_HOST');
 		$DB_PORT = config_db_sec('mysql', 'DB_PORT');
@@ -63,10 +62,7 @@ class NSY_DB
 			} else {
 				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
 			}
-			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
-
-			// Throw an Exception when an error occurs
-			$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);
+			$db = new \PDO($dsn, $DB_USER, $DB_PASS, $OPTIONS);
 		}
 		return $db;
 	}
@@ -78,6 +74,7 @@ class NSY_DB
 	*/
 	public static function connect_dblib()
 	{
+		$OPTIONS = config_db_attr('pdo', 'ATTR');
 		$DB_DRIVER = config_db('dblib', 'DB_DRIVER');
 		$DB_HOST = config_db('dblib', 'DB_HOST');
 		$DB_PORT = config_db('dblib', 'DB_PORT');
@@ -93,10 +90,7 @@ class NSY_DB
 			} else {
 				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
 			}
-			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
-
-			// Throw an Exception when an error occurs
-			$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);
+			$db = new \PDO($dsn, $DB_USER, $DB_PASS, $OPTIONS);
 		}
 		return $db;
 	}
@@ -108,6 +102,7 @@ class NSY_DB
 	*/
 	public static function connect_dblib_sec()
 	{
+		$OPTIONS = config_db_attr_sec('pdo', 'ATTR');
 		$DB_DRIVER = config_db_sec('dblib', 'DB_DRIVER');
 		$DB_HOST = config_db_sec('dblib', 'DB_HOST');
 		$DB_PORT = config_db_sec('dblib', 'DB_PORT');
@@ -123,10 +118,7 @@ class NSY_DB
 			} else {
 				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET . '';
 			}
-			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
-
-			// Throw an Exception when an error occurs
-			$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);
+			$db = new \PDO($dsn, $DB_USER, $DB_PASS, $OPTIONS);
 		}
 		return $db;
 	}
@@ -138,6 +130,7 @@ class NSY_DB
 	*/
 	public static function connect_pgsql()
 	{
+		$OPTIONS = config_db_attr('pdo', 'ATTR');
 		$DB_DRIVER = config_db('pgsql', 'DB_DRIVER');
 		$DB_HOST = config_db('pgsql', 'DB_HOST');
 		$DB_PORT = config_db('pgsql', 'DB_PORT');
@@ -153,10 +146,7 @@ class NSY_DB
 			} else {
 				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME . ';';
 			}
-			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
-
-			// Throw an Exception when an error occurs
-			$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);
+			$db = new \PDO($dsn, $DB_USER, $DB_PASS, $OPTIONS);
 		}
 		return $db;
 	}
@@ -168,6 +158,7 @@ class NSY_DB
 	*/
 	public static function connect_pgsql_sec()
 	{
+		$OPTIONS = config_db_attr_sec('pdo', 'ATTR');
 		$DB_DRIVER = config_db_sec('pgsql', 'DB_DRIVER');
 		$DB_HOST = config_db_sec('pgsql', 'DB_HOST');
 		$DB_PORT = config_db_sec('pgsql', 'DB_PORT');
@@ -183,10 +174,7 @@ class NSY_DB
 			} else {
 				$dsn = '' . $DB_DRIVER . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME . ';';
 			}
-			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
-
-			// Throw an Exception when an error occurs
-			$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);
+			$db = new \PDO($dsn, $DB_USER, $DB_PASS, $OPTIONS);
 		}
 		return $db;
 	}
@@ -198,6 +186,7 @@ class NSY_DB
 	*/
 	public static function connect_sqlsrv()
 	{
+		$OPTIONS = config_db_attr('pdo', 'ATTR');
 		$DB_DRIVER = config_db('sqlsrv', 'DB_DRIVER');
 		$DB_HOST = config_db('sqlsrv', 'DB_HOST');
 		$DB_PORT = config_db('sqlsrv', 'DB_PORT');
@@ -212,10 +201,7 @@ class NSY_DB
 			} else {
 				$dsn = '' . $DB_DRIVER . ':Server=' . $DB_HOST . ';Database=' . $DB_NAME . '';
 			}
-			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
-
-			// Throw an Exception when an error occurs
-			$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);
+			$db = new \PDO($dsn, $DB_USER, $DB_PASS, $OPTIONS);
 		}
 		return $db;
 	}
@@ -227,6 +213,7 @@ class NSY_DB
 	*/
 	public static function connect_sqlsrv_sec()
 	{
+		$OPTIONS = config_db_attr_sec('pdo', 'ATTR');
 		$DB_DRIVER = config_db_sec('sqlsrv', 'DB_DRIVER');
 		$DB_HOST = config_db_sec('sqlsrv', 'DB_HOST');
 		$DB_PORT = config_db_sec('sqlsrv', 'DB_PORT');
@@ -241,10 +228,7 @@ class NSY_DB
 			} else {
 				$dsn = '' . $DB_DRIVER . ':Server=' . $DB_HOST . ';Database=' . $DB_NAME . '';
 			}
-			$db = new \PDO($dsn, $DB_USER, $DB_PASS);
-
-			// Throw an Exception when an error occurs
-			$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);
+			$db = new \PDO($dsn, $DB_USER, $DB_PASS, $OPTIONS);
 		}
 		return $db;
 	}
