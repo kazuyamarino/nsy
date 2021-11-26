@@ -38,7 +38,7 @@ class Load
 			}
 		} else
 		{
-			$var_msg = 'The variable in the <mark>load_view()</mark> is improper or not an array';
+			$var_msg = 'The variable in the <mark>Load::view()</mark> is improper or not an array';
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
@@ -60,7 +60,7 @@ class Load
 			echo self::$razr->render(get_system_dir() . $filename . '.php', $vars);
 		} else
 		{
-			$var_msg = 'The variable in the <mark>load_template()</mark> is improper or not an array';
+			$var_msg = 'The variable in the <mark>Load::template()</mark> is improper or not an array';
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
@@ -76,7 +76,7 @@ class Load
 	 protected static function model($models = '')
  	{
  		if ( not_filled($models) ) {
- 			$var_msg = 'The variable in the <mark>model(<strong>model_name</strong>, <strong>method_name</strong>)</mark> is improper or not filled';
+ 			$var_msg = 'The variable in the <mark>Load::model(<strong>model_name</strong>, <strong>method_name</strong>)</mark> is improper or not filled';
  			NSY_Desk::static_error_handler($var_msg);
  			exit();
  		}

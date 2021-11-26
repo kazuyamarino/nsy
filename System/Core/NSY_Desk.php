@@ -17,22 +17,35 @@ class NSY_Desk
 	*/
 	public static function static_error_handler($var_msg = null)
 	{
-		if (defined('ENVIRONMENT')) {
-			switch (ENVIRONMENT) {
-				// Set as under development
-				case 'development':
-				try {
-					throw new \Exception($var_msg);
-				}
-				catch (\Exception $e) {
-					$err = $e->getTrace();
-					echo "<pre>Message:\n" . $e->getMessage() ." in ".  $err[1]['file'] . "(". $err[1]['line'] .')' ."</pre>";
-					echo "<pre>Stack trace:\n#0 ". $err[1]['file'] . "(" . $err[1]['line'] . "): " . $err[2]['class'] . "->" . $err[2]['function'] . "()" ."</pre>";
-				}
-				break;
-				default:
+		$app_env = config_app('app_env');
+
+		if ( $app_env == 'development' ) {
+			try {
+				throw new \Exception($var_msg);
+			}
+			catch (\Exception $e) {
+				$err = $e->getTrace();
+				echo "<pre>Message:\n" . $e->getMessage() ." in ".  $err[1]['file'] . "(". $err[1]['line'] .')' ."</pre>";
+				echo "<pre>Stack trace:\n#0 ". $err[1]['file'] . "(" . $err[1]['line'] . "): " . $err[2]['class'] . "->" . $err[2]['function'] . "()" ."</pre>";
 			}
 		}
+
+		// if (defined('ENVIRONMENT')) {
+		// 	switch (ENVIRONMENT) {
+		// 		// Set as under development
+		// 		case 'development':
+		// 		try {
+		// 			throw new \Exception($var_msg);
+		// 		}
+		// 		catch (\Exception $e) {
+		// 			$err = $e->getTrace();
+		// 			echo "<pre>Message:\n" . $e->getMessage() ." in ".  $err[1]['file'] . "(". $err[1]['line'] .')' ."</pre>";
+		// 			echo "<pre>Stack trace:\n#0 ". $err[1]['file'] . "(" . $err[1]['line'] . "): " . $err[2]['class'] . "->" . $err[2]['function'] . "()" ."</pre>";
+		// 		}
+		// 		break;
+		// 		default:
+		// 	}
+		// }
 	}
 
 	/**
@@ -42,31 +55,24 @@ class NSY_Desk
 	*/
 	public static function static_error_switch()
 	{
-		if (defined('ENVIRONMENT')) {
-			switch (ENVIRONMENT) {
-				// Set as under development
-				case 'development':
-				ini_set('display_errors', 1);
-				ini_set('display_startup_errors', 1);
-				error_reporting(E_ALL);
-				break;
+		$app_env = config_app('app_env');
 
-				// Set as under production/go live
-				case 'production':
-				ini_set('display_errors', 0);
-				error_reporting(0);
+		if ( $app_env == 'development' ) {
+			ini_set('display_errors', 1);
+			ini_set('display_startup_errors', 1);
+			error_reporting(E_ALL);
+		} elseif ( $app_env == 'production' ) {
+			ini_set('display_errors', 0);
+			error_reporting(0);
 
-				if (version_compare(PHP_VERSION, '5.3', '>=')) {
-					error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
-				} else {
-					error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
-				}
-				break;
-				default:
-				header('HTTP/1.1 503 Service Unavailable.', true, 503);
-				exit('<pre>The application environment is not set correctly. Please check the <strong>APP_ENV</strong> inside env file in the root directory.</pre>');
-				exit(1); // EXIT_ERROR
+			if (version_compare(PHP_VERSION, '5.3', '>=')) {
+				error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
+			} else {
+				error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
 			}
+		} else {
+			exit('<pre>The application environment is not set correctly. Please check the <strong>APP_ENV</strong> inside env file in the root directory.</pre>');
+			exit(1); // EXIT_ERROR
 		}
 	}
 

@@ -26,7 +26,7 @@ Class NSY_AssetManager
 			// then show meta tags with content
 			echo '<meta '.$attr.' content="'.$content.'">';
 		} else {
-			$var_msg = 'Please check the format of <mark>add::meta</mark> tag';
+			$var_msg = 'Please check the format of <mark>Add::meta</mark> tag';
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
@@ -53,7 +53,7 @@ Class NSY_AssetManager
 		} elseif ($rel == 'shortcut icon') {
 			echo '<link rel="'.$rel.'" href="'.IMG_DIR.$filename.'">';
 		} else {
-			$var_msg = 'Please check the format of <mark>add::link</mark> tag';
+			$var_msg = 'Please check the format of <mark>Add::link</mark> tag';
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
@@ -98,7 +98,7 @@ Class NSY_AssetManager
 	public static function custom($values = null)
 	{
 		if (not_filled($values)) {
-			$var_msg = 'No value in <mark>add::custom()</mark> tag';
+			$var_msg = 'No value in <mark>Add::custom()</mark> tag';
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		} else {
