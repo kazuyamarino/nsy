@@ -215,7 +215,13 @@ return [
 	*/
 	'aliases' => [
         'Route' => System\Core\NSY_Router::class,
-        'Add' => System\Core\NSY_AssetManager::class
+        'Add' => System\Core\NSY_AssetManager::class,
+		'System\Vendor\Sanitizer' => HtmlSanitizer\Sanitizer::class,
+		'System\Vendor\Curl' => Curl\Curl::class,
+		'System\Vendor\Faker' => Faker\Factory::class,
+		'System\Vendor\Carbon' => Carbon\Carbon::class,
+		'System\Vendor\Ftp' => FtpClient\FtpClient::class,
+		'System\Vendor\AntiXSS' => voku\helper\AntiXSS::class
 	]
 
 ];

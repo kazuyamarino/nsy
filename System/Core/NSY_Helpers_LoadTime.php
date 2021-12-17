@@ -8,14 +8,13 @@ use System\Libraries\LoadTime; // LoadTime Class
 
 /**
  * Script Load Time Helpers
- * @var mixed
  */
 if (! function_exists('load_time')) {
 	/**
-	 * Calculate load time of pages or scripts
-	 * Set initial time.
-	 * @return boolean
-	 */
+	* Set initial time.
+	*
+	* @return float → microtime
+	*/
 	function load_time()
 	{
 		$timestart = LoadTime::start();
@@ -26,10 +25,10 @@ if (! function_exists('load_time')) {
 
 if (! function_exists('end_time')) {
 	/**
-	 * Calculate end load time of pages or scripts
-	 * Set end time.
-	 * @return boolean
-	 */
+	* Set end time.
+	*
+	* @return float → seconds
+	*/
 	function end_time()
 	{
 		$timestart = LoadTime::end();

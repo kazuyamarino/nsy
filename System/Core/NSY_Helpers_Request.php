@@ -10,38 +10,12 @@ use System\Core\NSY_Desk;
 use System\Libraries\Request;
 
 /**
-* Helper for create a sequence of the named placeholders
-*
-* @return array
-*/
-function sequence($bind, $variables)
-{
-	$in = '';
-	if (is_array($variables) || is_object($variables) || is_filled($bind) ) {
-		foreach ($variables as $i => $item)
-		{
-			$key = $bind.$i;
-			$in .= $key.',';
-			$in_params[$key] = $item; // collecting values into key-value array
-		}
-	} else
-	{
-		$var_msg = 'The variable in the <mark>sequence(<strong>bind</strong>, <strong>variables</strong>)</mark> is improper or not an array';
-		NSY_Desk::static_error_handler($var_msg);
-		exit();
-	}
-	$in = rtrim($in, ','); // example = :id0,:id1,:id2
-
-	return [$in, $in_params];
-}
-
-/**
  * Check if it's a PUT request
  * @return boolean
  */
 function is_request_put()
 {
-	if ( Request::is_put() == true ) {
+	if ( Request::isPut() == true ) {
 		return true;
 	} else {
 		return false;
@@ -54,7 +28,7 @@ function is_request_put()
  */
 function is_request_delete()
 {
-	if ( Request::is_delete() == true ) {
+	if ( Request::isDelete() == true ) {
 		return true;
 	} else {
 		return false;
@@ -67,7 +41,7 @@ function is_request_delete()
  */
 function is_request_get()
 {
-	if ( Request::is_get() == true ) {
+	if ( Request::isGet() == true ) {
 		return true;
 	} else {
 		return false;
@@ -80,7 +54,7 @@ function is_request_get()
  */
 function is_request_post()
 {
-	if ( Request::is_post() == true ) {
+	if ( Request::isPost() == true ) {
 		return true;
 	} else {
 		return false;
@@ -97,16 +71,16 @@ function get_parsed_array($filters = array(), $val = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
-		$arr = $req_post()->as_array($filters, $val);
+		$arr = $req_post()->asArray($filters, $val);
 	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
-		$arr = $req_get()->as_array($filters, $val);
+		$arr = $req_get()->asArray($filters, $val);
 	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
-		$arr = $req_del()->as_array($filters, $val);
+		$arr = $req_del()->asArray($filters, $val);
 	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
-		$arr = $req_put()->as_array($filters, $val);
+		$arr = $req_put()->asArray($filters, $val);
 	}
 
 	return $arr;
@@ -122,16 +96,16 @@ function get_parsed_object($filters = array(), $val = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
-		$arr = $req_post()->as_object($filters, $val);
+		$arr = $req_post()->asObject($filters, $val);
 	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
-		$arr = $req_get()->as_object($filters, $val);
+		$arr = $req_get()->asObject($filters, $val);
 	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
-		$arr = $req_del()->as_object($filters, $val);
+		$arr = $req_del()->asObject($filters, $val);
 	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
-		$arr = $req_put()->as_object($filters, $val);
+		$arr = $req_put()->asObject($filters, $val);
 	}
 
 	return $arr;
@@ -146,16 +120,16 @@ function get_parsed_json($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
-		$arr = $req_post($params)->as_json();
+		$arr = $req_post($params)->asJson();
 	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
-		$arr = $req_get($params)->as_json();
+		$arr = $req_get($params)->asJson();
 	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
-		$arr = $req_del($params)->as_json();
+		$arr = $req_del($params)->asJson();
 	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
-		$arr = $req_put($params)->as_json();
+		$arr = $req_put($params)->asJson();
 	}
 
 	return $arr;
@@ -170,16 +144,16 @@ function get_parsed_string($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
-		$arr = $req_post($params)->as_string();
+		$arr = $req_post($params)->asString();
 	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
-		$arr = $req_get($params)->as_string();
+		$arr = $req_get($params)->asString();
 	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
-		$arr = $req_del($params)->as_string();
+		$arr = $req_del($params)->asString();
 	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
-		$arr = $req_put($params)->as_string();
+		$arr = $req_put($params)->asString();
 	}
 
 	return $arr;
@@ -194,16 +168,16 @@ function get_parsed_integer($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
-		$arr = $req_post($params)->as_integer();
+		$arr = $req_post($params)->asInteger();
 	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
-		$arr = $req_get($params)->as_integer();
+		$arr = $req_get($params)->asInteger();
 	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
-		$arr = $req_del($params)->as_integer();
+		$arr = $req_del($params)->asInteger();
 	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
-		$arr = $req_put($params)->as_integer();
+		$arr = $req_put($params)->asInteger();
 	}
 
 	return $arr;
@@ -218,16 +192,16 @@ function get_parsed_float($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
-		$arr = $req_post($params)->as_float();
+		$arr = $req_post($params)->asFloat();
 	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
-		$arr = $req_get($params)->as_float();
+		$arr = $req_get($params)->asFloat();
 	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
-		$arr = $req_del($params)->as_float();
+		$arr = $req_del($params)->asFloat();
 	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
-		$arr = $req_put($params)->as_float();
+		$arr = $req_put($params)->asFloat();
 	}
 
 	return $arr;
@@ -242,16 +216,16 @@ function get_parsed_boolean($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
-		$arr = $req_post($params)->as_boolean();
+		$arr = $req_post($params)->asBoolean();
 	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
-		$arr = $req_get($params)->as_boolean();
+		$arr = $req_get($params)->asBoolean();
 	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
-		$arr = $req_del($params)->as_boolean();
+		$arr = $req_del($params)->asBoolean();
 	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
-		$arr = $req_put($params)->as_boolean();
+		$arr = $req_put($params)->asBoolean();
 	}
 
 	return $arr;
@@ -266,16 +240,16 @@ function get_parsed_ip($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
-		$arr = $req_post($params)->as_ip();
+		$arr = $req_post($params)->asIp();
 	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
-		$arr = $req_get($params)->as_ip();
+		$arr = $req_get($params)->asIp();
 	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
-		$arr = $req_del($params)->as_ip();
+		$arr = $req_del($params)->asIp();
 	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
-		$arr = $req_put($params)->as_ip();
+		$arr = $req_put($params)->asIp();
 	}
 
 	return $arr;
@@ -290,16 +264,16 @@ function get_parsed_url($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
-		$arr = $req_post($params)->as_url();
+		$arr = $req_post($params)->asUrl();
 	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
-		$arr = $req_get($params)->as_url();
+		$arr = $req_get($params)->asUrl();
 	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
-		$arr = $req_del($params)->as_url();
+		$arr = $req_del($params)->asUrl();
 	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
-		$arr = $req_put($params)->as_url();
+		$arr = $req_put($params)->asUrl();
 	}
 
 	return $arr;
@@ -314,16 +288,16 @@ function get_parsed_email($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
-		$arr = $req_post($params)->as_email();
+		$arr = $req_post($params)->asEmail();
 	} elseif ( is_request_get() ) {
 		$req_get = Request::input('GET');
-		$arr = $req_get($params)->as_email();
+		$arr = $req_get($params)->asEmail();
 	} elseif ( is_request_delete() ) {
 		$req_del = Request::input('DELETE');
-		$arr = $req_del($params)->as_email();
+		$arr = $req_del($params)->asEmail();
 	} elseif ( is_request_put() ) {
 		$req_put = Request::input('PUT');
-		$arr = $req_put($params)->as_email();
+		$arr = $req_put($params)->asEmail();
 	}
 
 	return $arr;
@@ -335,7 +309,7 @@ function get_parsed_email($params = null)
  */
 function get_content_type()
 	{
-		$data = Request::get_content_type();
+		$data = Request::getContentType();
 
 		return $data;
 	}
@@ -372,6 +346,24 @@ function get($param = null)
 {
 	if ( is_filled($param) ) {
 		$result = isset($_GET[$param]) ? $_GET[$param] : null;
+	} else {
+		$var_msg = 'The variable in the <mark>get(<strong>variable</strong>)</mark> is improper or not an array';
+		NSY_Desk::static_error_handler($var_msg);
+		exit();
+	}
+
+	return $result;
+}
+
+/**
+* File method
+* @param  mixed $param
+* @return mixed
+*/
+function deposer($param = null)
+{
+	if ( is_filled($param) ) {
+		$result = isset($_FILE[$param]) ? $_FILE[$param] : null;
 	} else {
 		$var_msg = 'The variable in the <mark>get(<strong>variable</strong>)</mark> is improper or not an array';
 		NSY_Desk::static_error_handler($var_msg);

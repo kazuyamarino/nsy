@@ -8,16 +8,19 @@ use System\Libraries\Validate; // Validate Class
 
 /**
  * Data Validation Helpers
- * @var mixed
  */
 if (! function_exists('validate_array')) {
 	/**
-	 * Parameter return as array
-	 * @return array
-	 */
+	* Parameter return as array.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
 	function validate_array($data, $default = null)
 	{
-		$result = Validate::as_array($data, $default = null);
+		$result = Validate::asArray($data, $default = null);
 
 		return $result;
 	}
@@ -25,12 +28,16 @@ if (! function_exists('validate_array')) {
 
 if (! function_exists('validate_object')) {
 	/**
-	 * Parameter return as object
-	 * @return object
-	 */
+	* Parameter return as object.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
 	function validate_object($data, $default = null)
 	{
-		$result = Validate::as_object($data, $default = null);
+		$result = Validate::asObject($data, $default = null);
 
 		return $result;
 	}
@@ -38,12 +45,16 @@ if (! function_exists('validate_object')) {
 
 if (! function_exists('validate_json')) {
 	/**
-	 * Parameter return as json
-	 * @return string
-	 */
+	* Parameter return as JSON.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
 	function validate_json($data, $default = null)
 	{
-		$result = Validate::as_json($data, $default = null);
+		$result = Validate::asJson($data, $default = null);
 
 		return $result;
 	}
@@ -51,12 +62,16 @@ if (! function_exists('validate_json')) {
 
 if (! function_exists('validate_string')) {
 	/**
-	 * Parameter return as string
-	 * @return string
-	 */
+	* Parameter return as string.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
 	function validate_string($data, $default = null)
 	{
-		$result = Validate::as_string($data, $default = null);
+		$result = Validate::asString($data, $default = null);
 
 		return $result;
 	}
@@ -64,12 +79,16 @@ if (! function_exists('validate_string')) {
 
 if (! function_exists('validate_integer')) {
 	/**
-	 * Parameter return as integer
-	 * @return integer
-	 */
+	* Parameter return as integer.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
 	function validate_integer($data, $default = null)
 	{
-		$result = Validate::as_integer($data, $default = null);
+		$result = Validate::asInteger($data, $default = null);
 
 		return $result;
 	}
@@ -77,12 +96,16 @@ if (! function_exists('validate_integer')) {
 
 if (! function_exists('validate_float')) {
 	/**
-	 * Parameter return as float
-	 * @return float
-	 */
+	* Parameter return as float.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
 	function validate_float($data, $default = null)
 	{
-		$result = Validate::as_float($data, $default = null);
+		$result = Validate::asFloat($data, $default = null);
 
 		return $result;
 	}
@@ -90,12 +113,16 @@ if (! function_exists('validate_float')) {
 
 if (! function_exists('validate_boolean')) {
 	/**
-	 * Parameter return as boolean
-	 * @return boolean
-	 */
+	* Parameter return as boolean.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
 	function validate_boolean($data, $default = null)
 	{
-		$result = Validate::as_boolean($data, $default = null);
+		$result = Validate::asBoolean($data, $default = null);
 
 		return $result;
 	}
@@ -103,12 +130,16 @@ if (! function_exists('validate_boolean')) {
 
 if (! function_exists('validate_ip')) {
 	/**
-	 * Parameter return as ip
-	 * @return string
-	 */
+	* Parameter return as IP.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
 	function validate_ip($data, $default = null)
 	{
-		$result = Validate::as_ip($data, $default = null);
+		$result = Validate::asIp($data, $default = null);
 
 		return $result;
 	}
@@ -116,12 +147,16 @@ if (! function_exists('validate_ip')) {
 
 if (! function_exists('validate_url')) {
 	/**
-	 * Parameter return as url
-	 * @return string
-	 */
+	* Parameter return as URL.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
 	function validate_url($data, $default = null)
 	{
-		$result = Validate::as_url($data, $default = null);
+		$result = Validate::asUrl($data, $default = null);
 
 		return $result;
 	}
@@ -129,12 +164,16 @@ if (! function_exists('validate_url')) {
 
 if (! function_exists('validate_email')) {
 	/**
-	 * Parameter return as email
-	 * @return string
-	 */
+	* Parameter return as email.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
 	function validate_email($data, $default = null)
 	{
-		$result = Validate::as_email($data, $default = null);
+		$result = Validate::asEmail($data, $default = null);
 
 		return $result;
 	}

@@ -15,51 +15,52 @@ namespace System\Libraries;
  */
 
 /**
- * Load time handler.
- */
+* Load time handler.
+*/
 class LoadTime
 {
-    /**
-     * Save initial status time.
-     *
-     * @var float
-     */
-    public static $startTime = false;
+	/**
+	* Save initial status time.
+	*
+	* @var float
+	*/
+	public static $startTime = false;
 
-    /**
-     * Set initial time.
-     *
-     * @return float → microtime
-     */
-    public static function start()
-    {
-        return self::$startTime = microtime(true);
-    }
+	/**
+	* Set initial time.
+	*
+	* @return float → microtime
+	*/
+	public static function start()
+	{
+		return self::$startTime = microtime(true);
+	}
 
-    /**
-     * Set end time.
-     *
-     * @return float → seconds
-     */
-    public static function end()
-    {
-        if (self::$startTime) {
-            $time = round((microtime(true) - self::$startTime), 4);
-            self::$startTime = false;
-        }
+	/**
+	* Set end time.
+	*
+	* @return float → seconds
+	*/
+	public static function end()
+	{
+		if (self::$startTime) {
+			$time = round((microtime(true) - self::$startTime), 4);
+			self::$startTime = false;
+		}
 
-        return (isset($time)) ? $time : false;
-    }
+		return (isset($time)) ? $time : false;
+	}
 
-    /**
-     * Check if the timer has been started.
-     *
-     * @since 1.1.2
-     *
-     * @return boolean
-     */
-    public static function is_active()
-    {
-        return (self::$startTime) ? true : false;
-    }
+	/**
+	* Check if the timer has been started.
+	*
+	* @since 1.1.2
+	*
+	* @return boolean
+	*/
+	public static function isActive()
+	{
+		return (self::$startTime) ? true : false;
+	}
+
 }

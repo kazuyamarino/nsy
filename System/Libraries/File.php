@@ -20,7 +20,7 @@ namespace System\Libraries;
 class File
 {
 
-    /**
+	/**
      * Check if a file exists in a path or url.
      *
      * @since 1.1.3
@@ -70,7 +70,7 @@ class File
      *
      * @return bool
      */
-    public static function create_dir($path)
+    public static function createDir($path)
     {
         return ! is_dir($path) && @mkdir($path, 0777, true);
     }
@@ -85,13 +85,13 @@ class File
      *
      * @return bool
      */
-    public static function copy_dir_recursively($from, $to)
+    public static function copyDirRecursively($from, $to)
     {
-        if (! $path = self::get_files_from_dir($from)) {
+        if (! $path = self::getFilesFromDir($from)) {
             return false;
         }
 
-        self::create_dir($to = rtrim($to, '/') . '/');
+        self::createDir($to = rtrim($to, '/') . '/');
 
         foreach ($path as $file) {
             if ($file->isFile()) {
@@ -99,7 +99,7 @@ class File
                     return false;
                 }
             } elseif (! $file->isDot() && $file->isDir()) {
-                self::copy_dir_recursively($file->getRealPath(), $to . $path);
+                self::copyDirRecursively($file->getRealPath(), $to . $path);
             }
         }
 
@@ -115,7 +115,7 @@ class File
      *
      * @return bool
      */
-    public static function delete_empty_dir($path)
+    public static function deleteEmptyDir($path)
     {
         return is_dir($path) && @rmdir($path);
     }
@@ -129,9 +129,9 @@ class File
      *
      * @return bool
      */
-    public static function delete_dir_recursively($path)
+    public static function deleteDirRecursively($path)
     {
-        if (! $paths = self::get_files_from_dir($path)) {
+        if (! $paths = self::getFilesFromDir($path)) {
             return false;
         }
 
@@ -141,12 +141,12 @@ class File
                     return false;
                 }
             } elseif (! $file->isDot() && $file->isDir()) {
-                self::delete_dir_recursively($file->getRealPath());
-                self::delete_empty_dir($file->getRealPath());
+                self::deleteDirRecursively($file->getRealPath());
+                self::deleteEmptyDir($file->getRealPath());
             }
         }
 
-        return self::delete_empty_dir($path);
+        return self::deleteEmptyDir($path);
     }
 
     /**
@@ -158,7 +158,7 @@ class File
      *
      * @return object|false →
      */
-    public static function get_files_from_dir($path)
+    public static function getFilesFromDir($path)
     {
         if (! is_dir($path)) {
             return false;
@@ -178,7 +178,7 @@ class File
      * @param  string $mode fopen() mode (default: 'wb')
      * @return bool
      */
-    public static function write_file($path, $data, $mode = 'wb')
+    public static function writeFile($path, $data, $mode = 'wb')
     {
         if (! $fp = @fopen($path, $mode)) {
             return false;
@@ -210,7 +210,7 @@ class File
      * @param  bool    internal variable to determine recursion status - do not use in calls
      * @return array
      */
-    public static function get_filenames($source_dir, $include_path = false, $_recursion = false)
+    public static function getFilenames($source_dir, $include_path = false, $_recursion = false)
     {
         static $_filedata = array();
 
@@ -224,7 +224,7 @@ class File
             while (false !== ($file = readdir($fp)))
             {
                 if (is_dir($source_dir.$file) && $file[0] !== '.') {
-                    self::get_filenames($source_dir.$file.DIRECTORY_SEPARATOR, $include_path, true);
+                    self::getFilenames($source_dir.$file.DIRECTORY_SEPARATOR, $include_path, true);
                 }
                 elseif ($file[0] !== '.') {
                     $_filedata[] = ($include_path === true) ? $source_dir.$file : $file;
@@ -251,7 +251,7 @@ class File
      * @param  bool    internal variable to determine recursion status - do not use in calls
      * @return array
      */
-    public static function get_dir_file_info($source_dir, $top_level_only = true, $_recursion = false)
+    public static function getDirFileInfo($source_dir, $top_level_only = true, $_recursion = false)
     {
         static $_filedata = array();
         $relative_path = $source_dir;
@@ -267,10 +267,10 @@ class File
             while (false !== ($file = readdir($fp)))
             {
                 if (is_dir($source_dir.$file) && $file[0] !== '.' && $top_level_only === false) {
-                    self::get_dir_file_info($source_dir.$file.DIRECTORY_SEPARATOR, $top_level_only, true);
+                    self::getDirFileInfo($source_dir.$file.DIRECTORY_SEPARATOR, $top_level_only, true);
                 }
                 elseif ($file[0] !== '.') {
-                    $_filedata[$file] = self::get_file_info($source_dir.$file);
+                    $_filedata[$file] = self::getFileInfo($source_dir.$file);
                     $_filedata[$file]['relative_path'] = $relative_path;
                 }
             }
@@ -294,7 +294,7 @@ class File
      * @param  mixed    array or comma separated string of information returned
      * @return array
      */
-    public static function get_file_info($file, $returned_values = array('name', 'server_path', 'size', 'date'))
+    public static function getFileInfo($file, $returned_values = array('name', 'server_path', 'size', 'date'))
     {
         if (! file_exists($file)) {
             return false;
@@ -350,12 +350,12 @@ class File
      * @param  string $filename File name
      * @return string
      */
-    public static function get_mime_by_extension($filename)
+    public static function getMimeByExtension($filename)
     {
         static $mimes;
 
         if (! is_array($mimes)) {
-            $mimes = self::get_mimes();
+            $mimes = self::getMimes();
 
             if (empty($mimes)) {
                 return false;
@@ -378,116 +378,21 @@ class File
 	 *
 	 * @return array
 	 */
-	public static function &get_mimes()
+	public static function &getMimes()
 	{
 	    static $_mimes;
 
 	    if (empty($_mimes)) {
-	        $_mimes = file_exists(__DIR__ . '/../config/Mimes.php')
-	        ? include __DIR__ . '/../config/Mimes.php'
+	        $_mimes = file_exists(__DIR__ . '/../Config/Mimes.php')
+	        ? include __DIR__ . '/../Config/Mimes.php'
 	        : array();
 
-	        if (file_exists(__DIR__ . '/../config/Mimes.php')) {
-	            $_mimes = array_merge($_mimes, include __DIR__ . '/../config/Mimes.php');
+	        if (file_exists(__DIR__ . '/../Config/Mimes.php')) {
+	            $_mimes = array_merge($_mimes, include __DIR__ . '/../Config/Mimes.php');
 	        }
 	    }
 
 	    return $_mimes;
 	}
-
-	/**
-     * Force Download
-     *
-     * Generates headers that force a download to happen
-     *
-     * @param  string    filename
-     * @param  mixed    the data to be downloaded
-     * @param  bool    whether to try and send the actual file MIME type
-     * @return void
-     */
-    public static function force_download($filename = '', $data = '', $set_mime = false)
-    {
-        if ($filename === '' OR $data === '') {
-            return;
-        }
-        elseif ($data === null) {
-            if (! @is_file($filename) OR ($filesize = @filesize($filename)) === false) {
-                return;
-            }
-
-            $filepath = $filename;
-            $filename = explode('/', str_replace(DIRECTORY_SEPARATOR, '/', $filename));
-            $filename = end($filename);
-        }
-        else
-        {
-            $filesize = strlen($data);
-        }
-
-        // Set the default MIME type to send
-        $mime = 'application/octet-stream';
-
-        $x = explode('.', $filename);
-        $extension = end($x);
-
-        if ($set_mime === true) {
-            if (count($x) === 1 OR $extension === '') {
-                /* If we're going to detect the MIME type,
-                * we'll need a file extension.
-                */
-                return;
-            }
-
-            // Load the mime types
-            $mimes =& self::get_mimes();
-
-            // Only change the default MIME if we can find one
-            if (isset($mimes[$extension])) {
-                $mime = is_array($mimes[$extension]) ? $mimes[$extension][0] : $mimes[$extension];
-            }
-        }
-
-        /* It was reported that browsers on Android 2.1 (and possibly older as well)
-        * need to have the filename extension upper-cased in order to be able to
-        * download it.
-        *
-        * Reference: http://digiblog.de/2011/04/19/android-and-the-download-file-headers/
-        */
-        if (count($x) !== 1 && isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/Android\s(1|2\.[01])/', $_SERVER['HTTP_USER_AGENT'])) {
-            $x[count($x) - 1] = strtoupper($extension);
-            $filename = implode('.', $x);
-        }
-
-        if ($data === null && ($fp = @fopen($filepath, 'rb')) === false) {
-            return;
-        }
-
-        // Clean output buffer
-        if (ob_get_level() !== 0 && @ob_end_clean() === false) {
-            @ob_clean();
-        }
-
-        // Generate the server headers
-        header('Content-Type: '.$mime);
-        header('Content-Disposition: attachment; filename="'.$filename.'"');
-        header('Expires: 0');
-        header('Content-Transfer-Encoding: binary');
-        header('Content-Length: '.$filesize);
-        header('Cache-Control: private, no-transform, no-store, must-revalidate');
-
-        // If we have raw data - just dump it
-        if ($data !== null) {
-            exit($data);
-        }
-
-        // Flush 1MB chunks of data
-        while ( ! feof($fp) && ($data = fread($fp, 1048576)) !== false)
-        {
-            echo $data;
-        }
-
-        fclose($fp);
-        exit;
-    }
 
 }

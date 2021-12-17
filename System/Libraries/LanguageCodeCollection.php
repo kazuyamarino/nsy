@@ -15,17 +15,17 @@ namespace System\Libraries;
  */
 
 /**
- * Language code handler.
- *
- * Compiled from https://wikipedia.org/wiki/List_of_ISO_639-1_codes
- */
+* Language code handler.
+*
+* Compiled from https://wikipedia.org/wiki/List_of_ISO_639-1_codes
+*/
 class LanguageCodeCollection
 {
     /**
-     * List of language codes.
-     *
-     * @var array
-     */
+    * List of language codes.
+    *
+    * @var array
+    */
     protected static $data = [
         'aa' => 'Afar',
         'ab' => 'Abkhazian',
@@ -247,22 +247,22 @@ class LanguageCodeCollection
     ];
 
     /**
-     * Returns all language codes.
-     *
-     * @return array
-     */
+    * Returns all language codes.
+    *
+    * @return array
+    */
     public static function all()
     {
         return static::$data;
     }
 
     /**
-     * Return language name from language code.
-     *
-     * @param string $key
-     *
-     * @return string|null → language code or null
-     */
+    * Return language name from language code.
+    *
+    * @param string $key
+    *
+    * @return string|null → language code or null
+    */
     public static function get($key)
     {
         if (isset(static::$data[$key])) {
@@ -271,4 +271,5 @@ class LanguageCodeCollection
 
         return null;
     }
+
 }

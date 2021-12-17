@@ -11,167 +11,168 @@ namespace System\Libraries;
  */
 
 /**
- * Validation or conversion of data types.
- */
+* Validation or conversion of data types.
+*/
 class Validate
 {
-    /**
-     * Parameter return as array.
-     *
-     * @param mixed $data    → data to convert
-     * @param mixed $default → default value in error case
-     *
-     * @return mixed → value, null or customized return value
-     */
-    public static function as_array($data, $default = null)
-    {
-        $json = is_string($data) ? $data : json_encode($data);
+	/**
+	* Parameter return as array.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
+	public static function asArray($data, $default = null)
+	{
+		$json = is_string($data) ? $data : json_encode($data);
 
-        $array = json_decode($json, true) ?? null;
+		$array = json_decode($json, true) ?? null;
 
-        $array = $array ? filter_var_array($array) : false;
+		$array = $array ? filter_var_array($array) : false;
 
-        return $array !== false ? $array : $default;
-    }
+		return $array !== false ? $array : $default;
+	}
 
-    /**
-     * Parameter return as object.
-     *
-     * @param mixed $data    → data to convert
-     * @param mixed $default → default value in error case
-     *
-     * @return mixed → value, null or customized return value
-     */
-    public static function as_object($data, $default = null)
-    {
-        $json = is_string($data) ? $data : json_encode($data);
+	/**
+	* Parameter return as object.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
+	public static function asObject($data, $default = null)
+	{
+		$json = is_string($data) ? $data : json_encode($data);
 
-        $object = json_decode($json);
+		$object = json_decode($json);
 
-        return is_object($object) ? $object : $default;
-    }
+		return is_object($object) ? $object : $default;
+	}
 
-    /**
-     * Parameter return as JSON.
-     *
-     * @param mixed $data    → data to convert
-     * @param mixed $default → default value in error case
-     *
-     * @return mixed → value, null or customized return value
-     */
-    public static function as_json($data, $default = null)
-    {
-        $json = is_string($data) ? $data : json_encode($data);
+	/**
+	* Parameter return as JSON.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
+	public static function asJson($data, $default = null)
+	{
+		$json = is_string($data) ? $data : json_encode($data);
 
-        return $json !== false ? $json : $default;
-    }
+		return $json !== false ? $json : $default;
+	}
 
-    /**
-     * Parameter return as string.
-     *
-     * @param mixed $data    → data to convert
-     * @param mixed $default → default value in error case
-     *
-     * @return mixed → value, null or customized return value
-     */
-    public static function as_string($data, $default = null)
-    {
-        $string = filter_var(
-            $data ?? [],
-            FILTER_SANITIZE_STRING,
-            FILTER_FLAG_NO_ENCODE_QUOTES
-        );
+	/**
+	* Parameter return as string.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
+	public static function asString($data, $default = null)
+	{
+		$string = filter_var(
+			$data ?? [],
+			FILTER_SANITIZE_STRING,
+			FILTER_FLAG_NO_ENCODE_QUOTES
+		);
 
-        return $string !== false ? $string : $default;
-    }
+		return $string !== false ? $string : $default;
+	}
 
-    /**
-     * Parameter return as integer.
-     *
-     * @param mixed $data    → data to convert
-     * @param mixed $default → default value in error case
-     *
-     * @return mixed → value, null or customized return value
-     */
-    public static function as_integer($data, $default = null)
-    {
-        $int = filter_var($data ?? '', FILTER_VALIDATE_INT);
+	/**
+	* Parameter return as integer.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
+	public static function asInteger($data, $default = null)
+	{
+		$int = filter_var($data ?? '', FILTER_VALIDATE_INT);
 
-        return $int !== false ? $int : $default;
-    }
+		return $int !== false ? $int : $default;
+	}
 
-    /**
-     * Parameter return as float.
-     *
-     * @param mixed $data    → data to convert
-     * @param mixed $default → default value in error case
-     *
-     * @return mixed → value, null or customized return value
-     */
-    public static function as_float($data, $default = null)
-    {
-        $float = filter_var($data ?? '', FILTER_VALIDATE_FLOAT);
+	/**
+	* Parameter return as float.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
+	public static function asFloat($data, $default = null)
+	{
+		$float = filter_var($data ?? '', FILTER_VALIDATE_FLOAT);
 
-        return $float !== false ? $float : $default;
-    }
+		return $float !== false ? $float : $default;
+	}
 
-    /**
-     * Parameter return as boolean.
-     *
-     * @param mixed $data    → data to convert
-     * @param mixed $default → default value in error case
-     *
-     * @return mixed → value, null or customized return value
-     */
-    public static function as_boolean($data, $default = null)
-    {
-        $boolean = filter_var($data ?? [], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+	/**
+	* Parameter return as boolean.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
+	public static function asBoolean($data, $default = null)
+	{
+		$boolean = filter_var($data ?? [], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
-        return ! is_null($boolean) ? $boolean : $default;
-    }
+		return ! is_null($boolean) ? $boolean : $default;
+	}
 
-    /**
-     * Parameter return as IP.
-     *
-     * @param mixed $data    → data to convert
-     * @param mixed $default → default value in error case
-     *
-     * @return mixed → value, null or customized return value
-     */
-    public static function as_ip($data, $default = null)
-    {
-        $isValid = filter_var($data ?? '', FILTER_VALIDATE_IP);
+	/**
+	* Parameter return as IP.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
+	public static function asIp($data, $default = null)
+	{
+		$isValid = filter_var($data ?? '', FILTER_VALIDATE_IP);
 
-        return $isValid ? $data : $default;
-    }
+		return $isValid ? $data : $default;
+	}
 
-    /**
-     * Parameter return as URL.
-     *
-     * @param mixed $data    → data to convert
-     * @param mixed $default → default value in error case
-     *
-     * @return mixed → value, null or customized return value
-     */
-    public static function as_url($data, $default = null)
-    {
-        $url = filter_var($data ?? '', FILTER_SANITIZE_URL);
+	/**
+	* Parameter return as URL.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
+	public static function asUrl($data, $default = null)
+	{
+		$url = filter_var($data ?? '', FILTER_SANITIZE_URL);
 
-        return $url ? $url : $default;
-    }
+		return $url ? $url : $default;
+	}
 
-    /**
-     * Parameter return as email.
-     *
-     * @param mixed $data    → data to convert
-     * @param mixed $default → default value in error case
-     *
-     * @return mixed → value, null or customized return value
-     */
-    public static function as_email($data, $default = null)
-    {
-        $isValid = filter_var($data ?? '', FILTER_VALIDATE_EMAIL);
+	/**
+	* Parameter return as email.
+	*
+	* @param mixed $data    → data to convert
+	* @param mixed $default → default value in error case
+	*
+	* @return mixed → value, null or customized return value
+	*/
+	public static function asEmail($data, $default = null)
+	{
+		$isValid = filter_var($data ?? '', FILTER_VALIDATE_EMAIL);
 
-        return $isValid ? $data : $default;
-    }
+		return $isValid ? $data : $default;
+	}
+
 }

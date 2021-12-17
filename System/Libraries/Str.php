@@ -15,33 +15,34 @@ namespace System\Libraries;
  */
 
 /**
- * String handler.
- */
+* String handler.
+*/
 class Str
 {
-    /**
-     * Check if the string starts with a certain value.
-     *
-     * @param string $search → the string to search
-     * @param string $string → the string where search
-     *
-     * @return bool
-     */
-    public static function starts_with($search, $string)
-    {
-        return substr($string, 0, strlen($search)) === $search;
-    }
+	/**
+	* Check if the string starts with a certain value.
+	*
+	* @param string $search → the string to search
+	* @param string $string → the string where search
+	*
+	* @return bool
+	*/
+	public static function startsWith($search, $string)
+	{
+		return substr($string, 0, strlen($search)) === $search;
+	}
 
-    /**
-     * Check if the string ends with a certain value.
-     *
-     * @param string $search → the string to search
-     * @param string $string → the string where search
-     *
-     * @return bool
-     */
-    public static function ends_with($search, $string)
-    {
-        return substr($string, -strlen($search)) == $search;
-    }
+	/**
+	* Check if the string ends with a certain value.
+	*
+	* @param string $search → the string to search
+	* @param string $string → the string where search
+	*
+	* @return bool
+	*/
+	public static function endsWith($search, $string)
+	{
+		return substr($string, -strlen($search)) == $search;
+	}
+
 }

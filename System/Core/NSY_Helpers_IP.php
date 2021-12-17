@@ -8,13 +8,13 @@ use System\Libraries\Ip; // Ip Class
 
 /**
  * IP getter & checker Helpers
- * @var mixed
  */
 if (! function_exists('get_ip')) {
 	/**
-	 * Get user's IP
-	 * @return string|false
-	 */
+	* Get user's IP.
+	*
+	* @return string|false → user IP
+	*/
 	function get_ip()
 	{
 		$get_ip = Ip::get();
@@ -23,12 +23,17 @@ if (! function_exists('get_ip')) {
 	}
 }
 
-if (! function_exists('check_ip')) {
+if (! function_exists('validate_ip')) {
 	/**
-	 * Validate IP
-	 * @return string|false
-	 */
-	function check_ip($ip)
+	* Validate IP.
+	*
+	* @since 1.1.2
+	*
+	* @param string $ip → IP address to be validated
+	*
+	* @return bool
+	*/
+	function validate_ip($ip)
 	{
 		$check_ip = Ip::validate($ip);
 

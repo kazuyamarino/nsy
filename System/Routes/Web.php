@@ -29,6 +29,4 @@ Route::get('/hmvc', function() {
 });
 
 // This is just routing for testing, ignore or delete it.
-Route::get('/test/faker', function() {
-	Route::goto('Test@faker');
-});
+Route::get('/test/universal', 'Test@test_xss');

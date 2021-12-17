@@ -11,6 +11,53 @@
 use System\Core\NSY_Desk;
 
 /**
+ * Variable Checking Helpers
+ */
+if (! function_exists('not_filled')) {
+	/**
+	* Function for basic field validation (present and neither empty nor only white space
+	* @param  string|int|array $str
+	* @return string|int|array
+	*/
+	function not_filled($str = null)
+	{
+		if (!empty($str)) {
+			return false;
+			exit();
+		} else {
+			if (is_array($str)) {
+				return (!isset($str) || empty($str));
+			} else {
+				return (!isset($str) || $str == '' || empty($str));
+			}
+		}
+	}
+}
+
+if (! function_exists('is_filled')) {
+	/**
+	* Function for basic field validation (present and neither filled nor not empty)
+	* @param  string|int|array $str
+	* @return string|int|array
+	*/
+	function is_filled($str = null)
+	{
+		if (!isset($str)) {
+			return false;
+			exit();
+		} else {
+			if (is_array($str)) {
+				return (isset($key) || !empty($str));
+			} else {
+				return (isset($key) || !empty($str));
+			}
+		}
+	}
+}
+
+// ------------------------------------------------------------------------
+
+/**
  * URI Helpers
  * @var mixed
  */
@@ -238,7 +285,7 @@ function config_site($d1 = null)
 
 // ------------------------------------------------------------------------
 
-if (! function_exists('ternary')) {
+if (! function_exists('terner')) {
 	/**
 	* PHP Shorthand If/Else Using Ternary Operators
 	* @param  string|int $condition
@@ -246,58 +293,11 @@ if (! function_exists('ternary')) {
 	* @param  string|int $result_two
 	* @return string|int
 	*/
-	function ternary($condition = null, $result_one = null, $result_two = null)
+	function terner($condition = null, $result_one = null, $result_two = null)
 	{
 		$result = ($condition ? $result_one : $result_two);
 
 		return $result;
-	}
-}
-
-// ------------------------------------------------------------------------
-
-/**
- * Variable Checking Helpers
- */
-if (! function_exists('not_filled')) {
-	/**
-	* Function for basic field validation (present and neither empty nor only white space
-	* @param  string|int|array $str
-	* @return string|int|array
-	*/
-	function not_filled($str = null)
-	{
-		if (!empty($str)) {
-			return false;
-			exit();
-		} else {
-			if (is_array($str)) {
-				return (!isset($str) || empty($str));
-			} else {
-				return (!isset($str) || $str == '' || empty($str));
-			}
-		}
-	}
-}
-
-if (! function_exists('is_filled')) {
-	/**
-	* Function for basic field validation (present and neither filled nor not empty)
-	* @param  string|int|array $str
-	* @return string|int|array
-	*/
-	function is_filled($str = null)
-	{
-		if (!isset($str)) {
-			return false;
-			exit();
-		} else {
-			if (is_array($str)) {
-				return (isset($key) || !empty($str));
-			} else {
-				return (isset($key) || !empty($str));
-			}
-		}
 	}
 }
 
@@ -718,135 +718,192 @@ if (! function_exists('get_system_dir')) {
 
 // ------------------------------------------------------------------------
 
-/**
- * Simple string encryption/decryption function.
- * CHANGE $secret_key and $secret_iv !!!
- * @param  string $action 'encrypt/decrypt'
- * @param  string $string
- * @return string
- */
-function string_encrypt($action = 'encrypt', $string = '')
-{
-	if ( is_filled($action) || is_filled($string) ) {
-		$output = false;
+if (! function_exists('string_encrypt')) {
+	/**
+	* Simple string encryption/decryption function.
+	* CHANGE $secret_key and $secret_iv !!!
+	* @param  string $action 'encrypt/decrypt'
+	* @param  string $string
+	* @return string
+	*/
+	function string_encrypt($action = 'encrypt', $string = '')
+	{
+		if ( is_filled($action) || is_filled($string) ) {
+			$output = false;
 
-		$encrypt_method = 'AES-256-CBC'; // Default
-		$secret_key = 'Kazu#Key!'; // Change the key!
-		$secret_iv = '!VI@_$3'; // Change the init vector!
+			$encrypt_method = 'AES-256-CBC'; // Default
+			$secret_key = 'Kazu#Key!'; // Change the key!
+			$secret_iv = '!VI@_$3'; // Change the init vector!
 
-		// hash
-		$key = hash('sha256', $secret_key);
+			// hash
+			$key = hash('sha256', $secret_key);
 
-		// iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
-		$iv = substr(hash('sha256', $secret_iv), 0, 16);
+			// iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+			$iv = substr(hash('sha256', $secret_iv), 0, 16);
 
-		if( $action == 'encrypt' ) {
-			$output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
-			$output = base64_encode($output);
+			if( $action == 'encrypt' ) {
+				$output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+				$output = base64_encode($output);
+			}
+			else if( $action == 'decrypt' ){
+				$output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+			}
+
+			return $output;
+		} else {
+			$var_msg = 'The variable <mark>string_encrypt(<strong>actions</strong>, <strong>string</strong>)</mark> is improper or not an array';
+			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
-		else if( $action == 'decrypt' ){
-			$output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
-		}
-
-		return $output;
-	} else {
-		$var_msg = 'The variable <mark>string_encrypt(<strong>actions</strong>, <strong>string</strong>)</mark> is improper or not an array';
-		NSY_Desk::static_error_handler($var_msg);
-		exit();
 	}
 }
 
-/**
- * Convert image file to base64
- * @param  string $files
- * @return array
- */
-function image_to_base64($files = '')
-{
-	if ( is_filled($files) ) {
-		$fileName = $files['name'];
-		$fileType = $files['type'];
-		$fileContent = file_get_contents($files['tmp_name']);
-		$base64 = base64_encode($fileContent);
-		$dataUrl = 'data:' . $fileType . ';base64,' . base64_encode($fileContent);
+if (! function_exists('image_to_base64')) {
+	/**
+	* Convert image file to base64
+	* @param  string $files
+	* @return array
+	*/
+	function image_to_base64($files = '')
+	{
+		if ( is_filled($files) ) {
+			$fileName = $files['name'];
+			$fileType = $files['type'];
+			$fileContent = file_get_contents($files['tmp_name']);
+			$base64 = base64_encode($fileContent);
+			$dataUrl = 'data:' . $fileType . ';base64,' . base64_encode($fileContent);
 
-		$arr = array(
-			'name' => $fileName,
-			'type' => $fileType,
-			'dataUrl' => $dataUrl,
-			'base64' => $base64
-		);
+			$arr = array(
+				'name' => $fileName,
+				'type' => $fileType,
+				'dataUrl' => $dataUrl,
+				'base64' => $base64
+			);
 
-		return $arr;
-	} else {
-		$var_msg = 'The variable <mark>image_to_base64(<strong>variables</strong>)</mark> is improper or not an array';
-		NSY_Desk::static_error_handler($var_msg);
-		exit();
+			return $arr;
+		} else {
+			$var_msg = 'The variable <mark>image_to_base64(<strong>variables</strong>)</mark> is improper or not an array';
+			NSY_Desk::static_error_handler($var_msg);
+			exit();
+		}
 	}
 }
 
-/**
- * Convert image string to base64
- * @param  string $files
- * @param  string $ext [File extension]
- * @return array
- */
-function string_to_base64($files = '', $ext = 'jpg')
-{
-	if ( is_filled($files) || is_filled($ext) ) {
-		$base64 = base64_encode($files);
-		$dataUrl = 'data:images/' . $ext . ';base64,' . $base64;
+if (! function_exists('string_to_base64')) {
+	/**
+	* Convert image string to base64
+	* @param  string $files
+	* @param  string $ext [File extension]
+	* @return array
+	*/
+	function string_to_base64($files = '', $ext = 'jpg')
+	{
+		if ( is_filled($files) || is_filled($ext) ) {
+			$base64 = base64_encode($files);
+			$dataUrl = 'data:images/' . $ext . ';base64,' . $base64;
 
-		$arr = array(
-			'dataUrl' => $dataUrl,
-			'base64' => $base64
-		);
+			$arr = array(
+				'dataUrl' => $dataUrl,
+				'base64' => $base64
+			);
 
-		return $arr;
-	} else {
-		$var_msg = 'The variable <mark>string_to_base64(<strong>variables</strong>)</mark> is improper or not an array';
-		NSY_Desk::static_error_handler($var_msg);
-		exit();
+			return $arr;
+		} else {
+			$var_msg = 'The variable <mark>string_to_base64(<strong>variables</strong>)</mark> is improper or not an array';
+			NSY_Desk::static_error_handler($var_msg);
+			exit();
+		}
 	}
 }
 
 // ------------------------------------------------------------------------
 
-/**
- * @param $n
- * @return string
- * Use to convert large positive numbers in to short form like 1K+, 100K+, 199K+, 1M+, 10M+, 1B+ etc
- */
-function number_format_short( $n, $precision = 1 )
-{
-	if ($n < 900) {
-		// 0 - 900
-		$n_format = number_format($n, $precision);
-		$suffix = '';
-	} else if ($n < 900000) {
-		// 0.9k-850k
-		$n_format = number_format($n / 1000, $precision);
-		$suffix = 'K';
-	} else if ($n < 900000000) {
-		// 0.9m-850m
-		$n_format = number_format($n / 1000000, $precision);
-		$suffix = 'M';
-	} else if ($n < 900000000000) {
-		// 0.9b-850b
-		$n_format = number_format($n / 1000000000, $precision);
-		$suffix = 'B';
-	} else {
-		// 0.9t+
-		$n_format = number_format($n / 1000000000000, $precision);
-		$suffix = 'T';
-	}
+if (! function_exists('number_format_short')) {
+	/**
+	* @param $n
+	* @return string
+	* Use to convert large positive numbers in to short form like 1K+, 100K+, 199K+, 1M+, 10M+, 1B+ etc
+	*/
+	function number_format_short( $n, $precision = 1 )
+	{
+		if ($n < 900) {
+			// 0 - 900
+			$n_format = number_format($n, $precision);
+			$suffix = '';
+		} else if ($n < 900000) {
+			// 0.9k-850k
+			$n_format = number_format($n / 1000, $precision);
+			$suffix = 'K';
+		} else if ($n < 900000000) {
+			// 0.9m-850m
+			$n_format = number_format($n / 1000000, $precision);
+			$suffix = 'M';
+		} else if ($n < 900000000000) {
+			// 0.9b-850b
+			$n_format = number_format($n / 1000000000, $precision);
+			$suffix = 'B';
+		} else {
+			// 0.9t+
+			$n_format = number_format($n / 1000000000000, $precision);
+			$suffix = 'T';
+		}
 
-	// Remove unecessary zeroes after decimal. "1.0" -> "1"; "1.00" -> "1"
-	// Intentionally does not affect partials, eg "1.50" -> "1.50"
-	if ( $precision > 0 ) {
-		$dotzero = '.' . str_repeat( '0', $precision );
-		$n_format = str_replace( $dotzero, '', $n_format );
-	}
+		// Remove unecessary zeroes after decimal. "1.0" -> "1"; "1.00" -> "1"
+		// Intentionally does not affect partials, eg "1.50" -> "1.50"
+		if ( $precision > 0 ) {
+			$dotzero = '.' . str_repeat( '0', $precision );
+			$n_format = str_replace( $dotzero, '', $n_format );
+		}
 
-	return $n_format . $suffix;
+		return $n_format . $suffix;
+	}
+}
+
+if (! function_exists('array_flatten')) {
+	/**
+	* PHP array_flatten() function. Convert a multi-dimensional array into a single-dimensional array
+	* https://gist.github.com/SeanCannon/6585889#gistcomment-2922278
+	* @param  array $items
+	* @return array
+	*/
+	function array_flatten($items)
+	{
+		if (! is_array($items)) {
+			return [$items];
+		}
+
+		return array_reduce(
+			$items, function ($carry, $item) {
+				return array_merge($carry, array_flatten($item));
+			}, []
+		);
+	}
+}
+
+if (! function_exists('sequence')) {
+	/**
+	* Helper for create a sequence of the named placeholders
+	*
+	* @return array
+	*/
+	function sequence($bind, $variables)
+	{
+		$in = '';
+		if (is_array($variables) || is_object($variables) || is_filled($bind) ) {
+			foreach ($variables as $i => $item)
+			{
+				$key = $bind.$i;
+				$in .= $key.',';
+				$in_params[$key] = $item; // collecting values into key-value array
+			}
+		} else
+		{
+			$var_msg = 'The variable in the <mark>sequence(<strong>bind</strong>, <strong>variables</strong>)</mark> is improper or not an array';
+			NSY_Desk::static_error_handler($var_msg);
+			exit();
+		}
+		$in = rtrim($in, ','); // example = :id0,:id1,:id2
+
+		return [$in, $in_params];
+	}
 }

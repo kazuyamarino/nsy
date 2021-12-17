@@ -15,41 +15,42 @@ namespace System\Libraries;
  */
 
 /**
- * Language code handler.
- */
+* Language code handler.
+*/
 class LanguageCode
 {
-    /**
-     * Get all language codes as array.
-     *
-     * @return array → language codes and language names
-     */
-    public static function get()
-    {
-        return LanguageCodeCollection::all();
-    }
+	/**
+	* Get all language codes as array.
+	*
+	* @return array → language codes and language names
+	*/
+	public static function get()
+	{
+		return LanguageCodeCollection::all();
+	}
 
-    /**
-     * Get language name from language code.
-     *
-     * @param string $languageCode → language code, e.g. 'es'
-     *
-     * @return tring|false → country name
-     */
-    public static function get_language_from_code($languageCode)
-    {
-        return LanguageCodeCollection::get($languageCode) ?: false;
-    }
+	/**
+	* Get language name from language code.
+	*
+	* @param string $languageCode → language code, e.g. 'es'
+	*
+	* @return string|false → country name
+	*/
+	public static function getLanguageFromCode($languageCode)
+	{
+		return LanguageCodeCollection::get($languageCode) ?: false;
+	}
 
-    /**
-     * Get language code from language name.
-     *
-     * @param string $languageName → language name, e.g. 'Spanish'
-     *
-     * @return tring|false → language code
-     */
-    public static function get_code_from_language($languageName)
-    {
-        return array_search($languageName, LanguageCodeCollection::all(), true);
-    }
+	/**
+	* Get language code from language name.
+	*
+	* @param string $languageName → language name, e.g. 'Spanish'
+	*
+	* @return string|false → language code
+	*/
+	public static function getCodeFromLanguage($languageName)
+	{
+		return array_search($languageName, LanguageCodeCollection::all(), true);
+	}
+
 }
