@@ -29,23 +29,6 @@ class NSY_Desk
 				echo "<pre>Stack trace:\n#0 ". $err[1]['file'] . "(" . $err[1]['line'] . "): " . $err[2]['class'] . "->" . $err[2]['function'] . "()" ."</pre>";
 			}
 		}
-
-		// if (defined('ENVIRONMENT')) {
-		// 	switch (ENVIRONMENT) {
-		// 		// Set as under development
-		// 		case 'development':
-		// 		try {
-		// 			throw new \Exception($var_msg);
-		// 		}
-		// 		catch (\Exception $e) {
-		// 			$err = $e->getTrace();
-		// 			echo "<pre>Message:\n" . $e->getMessage() ." in ".  $err[1]['file'] . "(". $err[1]['line'] .')' ."</pre>";
-		// 			echo "<pre>Stack trace:\n#0 ". $err[1]['file'] . "(" . $err[1]['line'] . "): " . $err[2]['class'] . "->" . $err[2]['function'] . "()" ."</pre>";
-		// 		}
-		// 		break;
-		// 		default:
-		// 	}
-		// }
 	}
 
 	/**

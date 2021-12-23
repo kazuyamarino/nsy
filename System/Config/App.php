@@ -41,7 +41,7 @@ return [
 	| set the default 'true' or 'false'
 	|
 	*/
-	'csrf_token' => 'false',
+	'csrf_token' => 'true',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -216,12 +216,10 @@ return [
 	'aliases' => [
         'Route' => System\Core\NSY_Router::class,
         'Add' => System\Core\NSY_AssetManager::class,
-		'System\Vendor\Sanitizer' => HtmlSanitizer\Sanitizer::class,
 		'System\Vendor\Curl' => Curl\Curl::class,
 		'System\Vendor\Faker' => Faker\Factory::class,
 		'System\Vendor\Carbon' => Carbon\Carbon::class,
-		'System\Vendor\Ftp' => FtpClient\FtpClient::class,
-		'System\Vendor\AntiXSS' => voku\helper\AntiXSS::class
+		'System\Vendor\Ftp' => FtpClient\FtpClient::class
 	]
 
 ];

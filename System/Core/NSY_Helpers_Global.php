@@ -907,3 +907,60 @@ if (! function_exists('sequence')) {
 		return [$in, $in_params];
 	}
 }
+
+/**
+* The PHP superglobals $_GET and $_POST are used to collect form-data.
+*/
+/**
+* Post method
+* @param  mixed|int $param
+* @return mixed|int
+*/
+function post($param = null)
+{
+	if ( is_filled($param) ) {
+		$result = isset($_POST[$param]) ? $_POST[$param] : null;
+	} else {
+		$var_msg = 'The variable in the <mark>post(<strong>variable</strong>)</mark> is improper or not an array';
+		NSY_Desk::static_error_handler($var_msg);
+		exit();
+	}
+
+	return $result;
+}
+
+/**
+* Get method
+* @param  mixed $param
+* @return mixed
+*/
+function get($param = null)
+{
+	if ( is_filled($param) ) {
+		$result = isset($_GET[$param]) ? $_GET[$param] : null;
+	} else {
+		$var_msg = 'The variable in the <mark>get(<strong>variable</strong>)</mark> is improper or not an array';
+		NSY_Desk::static_error_handler($var_msg);
+		exit();
+	}
+
+	return $result;
+}
+
+/**
+* File method
+* @param  mixed $param
+* @return mixed
+*/
+function deposer($param = null)
+{
+	if ( is_filled($param) ) {
+		$result = isset($_FILE[$param]) ? $_FILE[$param] : null;
+	} else {
+		$var_msg = 'The variable in the <mark>get(<strong>variable</strong>)</mark> is improper or not an array';
+		NSY_Desk::static_error_handler($var_msg);
+		exit();
+	}
+
+	return $result;
+}

@@ -10,14 +10,14 @@ use System\Libraries\JsonLastError; // JsonLastError Class
 /**
  * Data Conversion Helpers
  */
-if (! function_exists('fetch_json')) {
+if (! function_exists('json_fetch')) {
 	/**
 	* Fetch data to json format
 	* @param  array $data
 	* @param  int $status
 	* @return string
 	*/
-	function fetch_json($data = array(), $status = null)
+	function json_fetch($data = array(), $status = null)
 	{
 		$json_data = $data;
 		$json_result = json_encode($json_data);
@@ -60,12 +60,12 @@ if (! function_exists('json_file_to_array')) {
 	}
 }
 
-if (! function_exists('check_json_error')) {
+if (! function_exists('json_check_error')) {
 	/**
 	 * Check for errors
 	 * @return array|null
 	 */
-	function check_json_error()
+	function json_check_error()
 	{
 		$lastError = JsonLastError::check();
 
@@ -75,12 +75,12 @@ if (! function_exists('check_json_error')) {
 	}
 }
 
-if (! function_exists('collect_json_error')) {
+if (! function_exists('json_collect_error')) {
 	/**
 	 * Get collection of JSON errors
 	 * @return array
 	 */
-	function collect_json_error()
+	function json_collect_error()
 	{
 		$jsonLastErrorCollection = JsonLastError::getCollection();
 

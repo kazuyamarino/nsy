@@ -13,7 +13,7 @@ use System\Libraries\Request;
  * Check if it's a PUT request
  * @return boolean
  */
-function is_request_put()
+function request_is_put()
 {
 	if ( Request::isPut() == true ) {
 		return true;
@@ -26,7 +26,7 @@ function is_request_put()
  * Check if it's a DELETE request
  * @return boolean
  */
-function is_request_delete()
+function request_is_delete()
 {
 	if ( Request::isDelete() == true ) {
 		return true;
@@ -39,7 +39,7 @@ function is_request_delete()
  * Check if it's a GET request
  * @return boolean
  */
-function is_request_get()
+function request_is_get()
 {
 	if ( Request::isGet() == true ) {
 		return true;
@@ -52,7 +52,7 @@ function is_request_get()
  * Check if it's a POST request
  * @return boolean
  */
-function is_request_post()
+function request_is_post()
 {
 	if ( Request::isPost() == true ) {
 		return true;
@@ -67,7 +67,7 @@ function is_request_post()
  * @param  string  $val
  * @return array
  */
-function get_parsed_array($filters = array(), $val = null)
+function request_as_array($filters = array(), $val = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -92,7 +92,7 @@ function get_parsed_array($filters = array(), $val = null)
  * @param  string  $val
  * @return array
  */
-function get_parsed_object($filters = array(), $val = null)
+function request_as_object($filters = array(), $val = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -116,7 +116,7 @@ function get_parsed_object($filters = array(), $val = null)
  * @param  mixed $params
  * @return string
  */
-function get_parsed_json($params = null)
+function request_as_json($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -140,7 +140,7 @@ function get_parsed_json($params = null)
  * @param  string $params
  * @return string
  */
-function get_parsed_string($params = null)
+function request_as_string($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -164,7 +164,7 @@ function get_parsed_string($params = null)
  * @param  int $params
  * @return int
  */
-function get_parsed_integer($params = null)
+function request_as_integer($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -188,7 +188,7 @@ function get_parsed_integer($params = null)
  * @param  integer $params
  * @return float
  */
-function get_parsed_float($params = null)
+function request_as_float($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -212,7 +212,7 @@ function get_parsed_float($params = null)
  * @param  boolean $params
  * @return boolean
  */
-function get_parsed_boolean($params = null)
+function request_as_boolean($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -236,7 +236,7 @@ function get_parsed_boolean($params = null)
  * @param  string $params
  * @return string
  */
-function get_parsed_ip($params = null)
+function request_as_ip($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -260,7 +260,7 @@ function get_parsed_ip($params = null)
  * @param  string $params
  * @return string
  */
-function get_parsed_url($params = null)
+function request_as_url($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -284,7 +284,7 @@ function get_parsed_url($params = null)
  * @param  string $params
  * @return string
  */
-function get_parsed_email($params = null)
+function request_as_email($params = null)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -307,68 +307,9 @@ function get_parsed_email($params = null)
  * Get parsed content type
  * @return mixed
  */
-function get_content_type()
-	{
-		$data = Request::getContentType();
-
-		return $data;
-	}
-
-// ------------------------------------------------------------------------
-
-/**
-* The PHP superglobals $_GET and $_POST are used to collect form-data.
-*/
-/**
-* Post method
-* @param  mixed|int $param
-* @return mixed|int
-*/
-function post($param = null)
+function request_content_type()
 {
-	if ( is_filled($param) ) {
-		$result = isset($_POST[$param]) ? $_POST[$param] : null;
-	} else {
-		$var_msg = 'The variable in the <mark>post(<strong>variable</strong>)</mark> is improper or not an array';
-		NSY_Desk::static_error_handler($var_msg);
-		exit();
-	}
+	$data = Request::getContentType();
 
-	return $result;
-}
-
-/**
-* Get method
-* @param  mixed $param
-* @return mixed
-*/
-function get($param = null)
-{
-	if ( is_filled($param) ) {
-		$result = isset($_GET[$param]) ? $_GET[$param] : null;
-	} else {
-		$var_msg = 'The variable in the <mark>get(<strong>variable</strong>)</mark> is improper or not an array';
-		NSY_Desk::static_error_handler($var_msg);
-		exit();
-	}
-
-	return $result;
-}
-
-/**
-* File method
-* @param  mixed $param
-* @return mixed
-*/
-function deposer($param = null)
-{
-	if ( is_filled($param) ) {
-		$result = isset($_FILE[$param]) ? $_FILE[$param] : null;
-	} else {
-		$var_msg = 'The variable in the <mark>get(<strong>variable</strong>)</mark> is improper or not an array';
-		NSY_Desk::static_error_handler($var_msg);
-		exit();
-	}
-
-	return $result;
+	return $data;
 }

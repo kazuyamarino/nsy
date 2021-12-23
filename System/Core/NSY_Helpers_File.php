@@ -9,7 +9,7 @@ use System\Libraries\File; // File Class
 /**
  * File Helpers
  */
-if (! function_exists('check_file_exists')) {
+if (! function_exists('check_file')) {
 	/**
      * Check if a file exists in a path or url.
      *
@@ -19,9 +19,29 @@ if (! function_exists('check_file_exists')) {
      *
      * @return bool
      */
-	function check_file_exists($file)
+	function check_file($file)
 	{
 		$result = File::exists($file);
+
+		return $result;
+	}
+}
+
+if (! function_exists('create_file')) {
+	/**
+     * Write File
+     *
+     * Writes data to the file specified in the path.
+     * Creates a new file if non-existent.
+     *
+     * @param  string $path File path
+     * @param  string $data Data to write
+     * @param  string $mode fopen() mode (default: 'wb')
+     * @return bool
+     */
+	function create_file($path, $data, $mode = 'wb')
+	{
+		$result = File::writeFile($path, $data, $mode = 'wb');
 
 		return $result;
 	}
@@ -63,7 +83,7 @@ if (! function_exists('create_dir')) {
 	}
 }
 
-if (! function_exists('rcopy_dir')) {
+if (! function_exists('copy_dir_recur')) {
 	/**
      * Copy directory recursively.
      *
@@ -74,7 +94,7 @@ if (! function_exists('rcopy_dir')) {
      *
      * @return bool
      */
-	function rcopy_dir($from, $to)
+	function copy_dir_recur($from, $to)
 	{
 		$result = File::copyDirRecursively($from, $to);
 
@@ -100,7 +120,7 @@ if (! function_exists('delete_dir')) {
 	}
 }
 
-if (! function_exists('rdelete_dir')) {
+if (! function_exists('delete_dir_recur')) {
 	/**
      * Delete directory recursively.
      *
@@ -110,7 +130,7 @@ if (! function_exists('rdelete_dir')) {
      *
      * @return bool
      */
-	function rdelete_dir($path)
+	function delete_dir_recur($path)
 	{
 		$result = File::deleteDirRecursively($path);
 
@@ -131,26 +151,6 @@ if (! function_exists('get_files_from_dir')) {
 	function get_files_from_dir($path)
 	{
 		$result = File::getFilesFromDir($path);
-
-		return $result;
-	}
-}
-
-if (! function_exists('write_file')) {
-	/**
-     * Write File
-     *
-     * Writes data to the file specified in the path.
-     * Creates a new file if non-existent.
-     *
-     * @param  string $path File path
-     * @param  string $data Data to write
-     * @param  string $mode fopen() mode (default: 'wb')
-     * @return bool
-     */
-	function write_file($path, $data, $mode = 'wb')
-	{
-		$result = File::writeFile($path, $data, $mode = 'wb');
 
 		return $result;
 	}

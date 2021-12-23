@@ -9,13 +9,13 @@ use System\Libraries\LoadTime; // LoadTime Class
 /**
  * Script Load Time Helpers
  */
-if (! function_exists('load_time')) {
+if (! function_exists('loadtime_start')) {
 	/**
 	* Set initial time.
 	*
 	* @return float → microtime
 	*/
-	function load_time()
+	function loadtime_start()
 	{
 		$timestart = LoadTime::start();
 
@@ -23,13 +23,13 @@ if (! function_exists('load_time')) {
 	}
 }
 
-if (! function_exists('end_time')) {
+if (! function_exists('loadtime_end')) {
 	/**
 	* Set end time.
 	*
 	* @return float → seconds
 	*/
-	function end_time()
+	function loadtime_end()
 	{
 		$timestart = LoadTime::end();
 
@@ -37,12 +37,12 @@ if (! function_exists('end_time')) {
 	}
 }
 
-if (! function_exists('is_active_time')) {
+if (! function_exists('loadtime_active')) {
 	/**
 	 * Check if the timer has been started
 	 * @return boolean
 	 */
-	function is_active_time()
+	function loadtime_active()
 	{
 		$timestart = LoadTime::is_active();
 
