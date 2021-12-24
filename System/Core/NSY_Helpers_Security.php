@@ -134,21 +134,14 @@ if (! function_exists('anti_xss')) {
 	/**
      * XSS Clean
      *
-     * <p>
-     * <br />
      * Sanitizes data so that "Cross Site Scripting" hacks can be
      * prevented. This method does a fair amount of work but
      * it is extremely thorough, designed to prevent even the
      * most obscure XSS attempts. But keep in mind that nothing
      * is ever 100% foolproof...
-     * </p>
      *
-     * <p>
-     * <br />
-     * <strong>Note:</strong> Should only be used to deal with data upon submission.
-     *   It's not something that should be used for general
-     *   runtime processing.
-     * </p>
+     * Note: Should only be used to deal with data upon submission.
+     * It's not something that should be used for general runtime processing.
      *
      * @see http://channel.bitflux.ch/wiki/XSS_Prevention
      *    Based in part on some code and ideas from Bitflux.
@@ -158,10 +151,9 @@ if (! function_exists('anti_xss')) {
      *    harvested from examining vulnerabilities in other programs.
      *
      * @param string|string[] $str
-     *                             <p>input data e.g. string or array of strings</p>
+	 * input data e.g. string or array of strings
      *
      * @return string|string[]
-     *
      * @template TXssCleanInput
      * @phpstan-param TXssCleanInput $str
      * @phpstan-return TXssCleanInput

@@ -6,7 +6,7 @@
     "authors": [
         {
             "name": "Vikry Yuansah",
-            "email": "admin@kazuyamarino.com"
+            "email": "admin@nsyframework.com"
         }
     ],
 	"require": {
@@ -38,5 +38,8 @@
 	    "nsy_cli_install": [
 			"bash INSTALL.sh"
 	    ]
-	}
+	},
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    }
 }

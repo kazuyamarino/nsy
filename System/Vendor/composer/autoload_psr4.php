@@ -8,6 +8,8 @@ $baseDir = dirname(dirname($vendorDir));
 return array(
     'voku\\helper\\' => array($vendorDir . '/voku/anti-xss/src/voku/helper'),
     'voku\\' => array($vendorDir . '/voku/portable-ascii/src/voku', $vendorDir . '/voku/portable-utf8/src/voku'),
+    'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
+    'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'System\\' => array($baseDir . '/System'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),
@@ -20,6 +22,8 @@ return array(
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
+    'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src/Prophecy'),
+    'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src/PhpOption'),
     'Optimus\\Onion\\' => array($vendorDir . '/optimus/onion/src'),
     'Masterminds\\' => array($vendorDir . '/masterminds/html5/src'),
@@ -27,6 +31,8 @@ return array(
     'HtmlSanitizer\\' => array($vendorDir . '/tgalopin/html-sanitizer/src'),
     'Faker\\' => array($vendorDir . '/fakerphp/faker/src/Faker'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
+    'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
+    'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
     'Curl\\' => array($vendorDir . '/php-curl-class/php-curl-class/src/Curl'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
 );

@@ -9,7 +9,7 @@
 *
 * @category  PHP
 * @package   NSY_PHP_Framework
-* @author    Vikry Yuansah <admin@kazuyamarino.com>
+* @author    Vikry Yuansah <admin@nsyframework.com>
 * @copyright 2018-2020 Polimerz
 * @license   https://github.com/kazuyamarino/nsy/blob/master/LICENSE.txt MIT License
 * @link      https://github.com/kazuyamarino/nsy

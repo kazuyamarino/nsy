@@ -8,7 +8,7 @@ php:
 before_script:
   - mkdir nsy
   - composer self-update
-  - composer install --prefer-source --no-interaction --dev
+  - composer install --prefer-source --no-interaction
 
 script:
   - phpunit
