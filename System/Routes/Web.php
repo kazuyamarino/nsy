@@ -29,4 +29,4 @@ Route::get('/hmvc', function() {
 });
 
 // This is just routing for testing, ignore or delete it.
-Route::get('/test/universal', 'Controller_Test@test_curl');
+Route::get('/test/universal', 'Controller_Test@test_url');
