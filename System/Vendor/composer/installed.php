@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
-        'reference' => '4280cd87e477b1e5d0b0623b95ffee0df00a1370',
+        'reference' => '7f69ff591aecc05d6140b197f02227a27d131eda',
         'name' => 'vikry/nsy',
         'dev' => true,
     ),
@@ -35,6 +35,15 @@
             'install_path' => __DIR__ . '/../graham-campbell/result-type',
             'aliases' => array(),
             'reference' => '0690bde05318336c7221785f2a932467f98b64ca',
+            'dev_requirement' => false,
+        ),
+        'lablnet/encryption' => array(
+            'pretty_version' => '1.0',
+            'version' => '1.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../lablnet/encryption',
+            'aliases' => array(),
+            'reference' => '858a8c45ea481fcff0bce8c35bed7a29a7788858',
             'dev_requirement' => false,
         ),
         'league/uri-parser' => array(
@@ -511,7 +520,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
-            'reference' => '4280cd87e477b1e5d0b0623b95ffee0df00a1370',
+            'reference' => '7f69ff591aecc05d6140b197f02227a27d131eda',
             'dev_requirement' => false,
         ),
         'vlucas/phpdotenv' => array(

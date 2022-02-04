@@ -219,7 +219,8 @@ return [
 		'System\Vendor\Curl' => Curl\Curl::class,
 		'System\Vendor\Faker' => Faker\Factory::class,
 		'System\Vendor\Carbon' => Carbon\Carbon::class,
-		'System\Vendor\Ftp' => FtpClient\FtpClient::class
+		'System\Vendor\Ftp' => FtpClient\FtpClient::class,
+		'System\Vendor\Almana' => Lablnet\Encryption::class
 	]
 
 ];

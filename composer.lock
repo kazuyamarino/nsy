@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e5874c0cb0eeb86966e455d3e39cb2f1",
+    "content-hash": "e1ec1b9731a095fcca8956d4e02a2aa9",
     "packages": [
         {
             "name": "fakerphp/faker",
@@ -134,6 +134,52 @@
                 }
             ],
             "time": "2021-11-21T21:41:47+00:00"
+        },
+        {
+            "name": "lablnet/encryption",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Lablnet/PHP-Encryption.git",
+                "reference": "858a8c45ea481fcff0bce8c35bed7a29a7788858"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Lablnet/PHP-Encryption/zipball/858a8c45ea481fcff0bce8c35bed7a29a7788858",
+                "reference": "858a8c45ea481fcff0bce8c35bed7a29a7788858",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Lablnet\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Malik Umer Farooq",
+                    "email": "lablnet01@gmail.com",
+                    "homepage": "https://softhub99.com"
+                }
+            ],
+            "description": "PHP Encryption package.",
+            "keywords": [
+                "Lablnet",
+                "encryption",
+                "free",
+                "package",
+                "php",
+                "psr-3"
+            ],
+            "support": {
+                "issues": "https://github.com/Lablnet/PHP-Encryption/issues",
+                "source": "https://github.com/Lablnet/PHP-Encryption/tree/master"
+            },
+            "time": "2019-02-06T07:16:23+00:00"
         },
         {
             "name": "league/uri-parser",

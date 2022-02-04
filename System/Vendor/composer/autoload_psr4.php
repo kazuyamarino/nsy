@@ -28,6 +28,7 @@ return array(
     'Optimus\\Onion\\' => array($vendorDir . '/optimus/onion/src'),
     'Masterminds\\' => array($vendorDir . '/masterminds/html5/src'),
     'League\\Uri\\' => array($vendorDir . '/league/uri-parser/src'),
+    'Lablnet\\' => array($vendorDir . '/lablnet/encryption/src'),
     'HtmlSanitizer\\' => array($vendorDir . '/tgalopin/html-sanitizer/src'),
     'GrahamCampbell\\ResultType\\' => array($vendorDir . '/graham-campbell/result-type/src'),
     'Faker\\' => array($vendorDir . '/fakerphp/faker/src/Faker'),

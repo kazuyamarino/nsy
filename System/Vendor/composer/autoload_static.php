@@ -69,6 +69,7 @@ class ComposerStaticInityour_suffixed
         'L' => 
         array (
             'League\\Uri\\' => 11,
+            'Lablnet\\' => 8,
         ),
         'H' => 
         array (
@@ -186,6 +187,10 @@ class ComposerStaticInityour_suffixed
         'League\\Uri\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/uri-parser/src',
+        ),
+        'Lablnet\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lablnet/encryption/src',
         ),
         'HtmlSanitizer\\' => 
         array (
