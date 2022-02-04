@@ -27,5 +27,3 @@ Route::get('/', function() {
 Route::get('/hmvc', function() {
 	Route::goto('Homepage\Hello@index_hmvc');
 });
-
-Route::get('/universal', 'Controller_Test@test_encrypt');
