@@ -61,6 +61,17 @@ NSY_Desk::register_system();
 */
 NSY_Desk::register_config();
 
+/*
+*---------------------------------------------------------------
+* Don't change anythings about this instantiate
+*---------------------------------------------------------------
+*/
+/**
+* Load Environment Variables from .env file
+*/
+$dotenv = Dotenv::createUnsafeImmutable( __DIR__ . '/..', config_app('env_file'));
+$dotenv->load();
+
 /**
 * Instantiate System
 */

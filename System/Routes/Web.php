@@ -27,6 +27,3 @@ Route::get('/', function() {
 Route::get('/hmvc', function() {
 	Route::goto('Homepage\Hello@index_hmvc');
 });
-
-// This is just routing for testing, ignore or delete it.
-Route::get('/test/universal', 'Controller_Test@test_url');

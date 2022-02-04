@@ -1,6 +1,30 @@
 # CHANGELOG
 
-## [Unreleased](https://github.com/FakerPHP/Faker/compare/v1.17.0..main)
+## [Unreleased](https://github.com/FakerPHP/Faker/compare/v1.19.0...main)
+
+## [2022-02-02, v1.19.0](https://github.com/FakerPHP/Faker/compare/v1.18.0..v1.19.0)
+
+- Added color extension to core (#442)
+- Added conflict with `doctrine/persistence` below version `1.4`
+- Fix for support on different Doctrine ORM versions (#414)
+- Fix usage of `Doctrine\Persistence` dependency
+- Fix CZ Person birthNumber docblock return type (#437)
+- Fix is_IS Person docbock types (#439)
+- Fix is_IS Address docbock type (#438)
+- Fix regexify escape backslash in character class (#434)
+- Removed UUID from Generator to be able to extend it (#441)
+-
+## [2022-01-23, v1.18.0](https://github.com/FakerPHP/Faker/compare/v1.17.0..v1.18.0)
+
+- Deprecated UUID, use uuid3 to specify version (#427)
+- Reset formatters when adding a new provider (#366)
+- Helper methods to use our custom generators (#155)
+- Set allow-plugins for Composer 2.2 (#405)
+- Fix kk_KZ\Person::individualIdentificationNumber generation (#411)
+- Allow for -> syntax to be used in parsing (#423)
+- Person->name was missing string return type (#424)
+- Generate a valid BE TAX number (#415)
+- Added the UUID extension to Core (#427)
 
 ## [2021-12-05, v1.17.0](https://github.com/FakerPHP/Faker/compare/v1.16.0..v1.17.0)
 

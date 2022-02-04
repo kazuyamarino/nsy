@@ -24,16 +24,6 @@ class NSY_System
 	*/
 	public function __construct()
 	{
-		/*
-		*---------------------------------------------------------------
-		* Don't change anythings about this instantiate
-		*---------------------------------------------------------------
-		*/
-		/**
-		* Load Environment Variables from .env file
-		*/
-		$dotenv = Dotenv::create( __DIR__ . '/../..', config_app('env_file'));
-		$dotenv->load();
 
 		if ( is_filled(config_app('public_dir')) ) {
 			// set the default public/css/js path
