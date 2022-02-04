@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
-        'reference' => 'c3e630b141a9432f29562a97f63d7692b411887b',
+        'reference' => '4280cd87e477b1e5d0b0623b95ffee0df00a1370',
         'name' => 'vikry/nsy',
         'dev' => true,
     ),
@@ -511,7 +511,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
-            'reference' => 'c3e630b141a9432f29562a97f63d7692b411887b',
+            'reference' => '4280cd87e477b1e5d0b0623b95ffee0df00a1370',
             'dev_requirement' => false,
         ),
         'vlucas/phpdotenv' => array(
