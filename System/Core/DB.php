@@ -456,7 +456,7 @@ class DB
 		if(config_app('csrf_token') === 'true') {
 			try {
 				// Run CSRF check, on POST data, in exception mode, for 10 minutes, in one-time mode.
-				\NSY_CSRF::check('csrf_token', $_POST, true, 60*10, false);
+				csrf_check('csrf_token', $_POST, true, 60*10, false);
 
 				// Check if there's connection defined on the models
 				if (not_filled(self::$connection) ) {
@@ -576,7 +576,7 @@ class DB
 		if(config_app('csrf_token') === 'true') {
 			try {
 				// Run CSRF check, on POST data, in exception mode, for 10 minutes, in one-time mode.
-				\NSY_CSRF::check('csrf_token', $_POST, true, 60*10, false);
+				csrf_check('csrf_token', $_POST, true, 60*10, false);
 
 				// Check if there's connection defined on the models
 				if (not_filled(self::$connection) ) {

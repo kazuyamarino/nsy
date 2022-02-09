@@ -27,3 +27,6 @@ Route::get('/', function() {
 Route::get('/hmvc', function() {
 	Route::goto('Homepage\Hello@index_hmvc');
 });
+
+Route::get('/csrf', 'Controller_Test@test_csrf');
+Route::post('/post-csrf', 'Controller_Test@post_test_csrf');
