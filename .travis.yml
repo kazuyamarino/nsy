@@ -11,7 +11,7 @@ before_script:
   - composer install --prefer-source --no-interaction
 
 script:
-  - phpunit
+  - phpunit System/Test/SimpleTest.php
 
 env:
   - APP_ENV=development
