@@ -5,8 +5,6 @@
 *
 * Parses and verifies the doc comments for files.
 *
-* PHP version 7
-*
 * @category  PHP
 * @package   NSY_PHP_Framework
 * @author    Vikry Yuansah <admin@nsyframework.com>
@@ -25,7 +23,13 @@ require __DIR__ . '/../System/Vendor/autoload.php';
 /**
 * NSY GLobal Helpers
 */
-require_once __DIR__ . '/../System/Core/NSY_Helpers_Global.php';
+require __DIR__ . '/../System/Core/NSY_Helpers_Global.php';
+
+/*
+*---------------------------------------------------------------
+* Don't change anythings about this instantiate
+*---------------------------------------------------------------
+*/
 
 /**
 * Use NSY_System class
@@ -41,36 +45,6 @@ use System\Core\NSY_Desk;
 * Use NSY_Router class
 */
 use System\Core\NSY_Router;
-
-/**
-* Phpdotenv class
-*/
-use Dotenv\Dotenv;
-
-/*
-*---------------------------------------------------------------
-* Check System File
-*---------------------------------------------------------------
-*/
-NSY_Desk::register_system();
-
-/*
-*---------------------------------------------------------------
-* Check Config File
-*---------------------------------------------------------------
-*/
-NSY_Desk::register_config();
-
-/*
-*---------------------------------------------------------------
-* Don't change anythings about this instantiate
-*---------------------------------------------------------------
-*/
-/**
-* Load Environment Variables from .env file
-*/
-$dotenv = Dotenv::createUnsafeImmutable( __DIR__ . '/..', config_app('env_file'));
-$dotenv->load();
 
 /**
 * Instantiate System
@@ -89,6 +63,16 @@ new NSY_System();
 * Get Application Environment
 */
 NSY_Desk::static_error_switch();
+
+/**
+* Check System File
+*/
+NSY_Desk::register_system();
+
+/**
+* Check Config File
+*/
+NSY_Desk::register_config();
 
 /**
 * Routing System

@@ -28,58 +28,27 @@ class DB
 	*
 	* @return void
 	*/
-	public static function connect()
+	public static function connect($conn_name = 'primary')
 	{
-		switch (config_db('default', null)) {
+		switch ( config_env($conn_name, 'DB_CONNECTION') ) {
 			case 'mysql':
-			self::$connection = NSY_DB::connect_mysql();
+			self::$connection = NSY_DB::connect_mysql($conn_name);
 			return new self;
 			break;
 			case 'dblib':
-			self::$connection = NSY_DB::connect_dblib();
+			self::$connection = NSY_DB::connect_dblib($conn_name);
 			return new self;
 			break;
 			case 'sqlsrv':
-			self::$connection = NSY_DB::connect_sqlsrv();
+			self::$connection = NSY_DB::connect_sqlsrv($conn_name);
 			return new self;
 			break;
 			case 'pgsql':
-			self::$connection = NSY_DB::connect_pgsql();
+			self::$connection = NSY_DB::connect_pgsql($conn_name);
 			return new self;
 			break;
 			default:
 			$var_msg = "Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong>";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
-		}
-	}
-
-	/**
-	* Secondary Connection
-	*
-	* @return void
-	*/
-	public static function connect_sec()
-	{
-		switch (config_db_sec('secondary', null)) {
-			case 'mysql':
-			self::$connection = NSY_DB::connect_mysql_sec();
-			return new self;
-			break;
-			case 'dblib':
-			self::$connection = NSY_DB::connect_dblib_sec();
-			return new self;
-			break;
-			case 'sqlsrv':
-			self::$connection = NSY_DB::connect_sqlsrv_sec();
-			return new self;
-			break;
-			case 'pgsql':
-			self::$connection = NSY_DB::connect_pgsql_sec();
-			return new self;
-			break;
-			default:
-			$var_msg = "Second database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION_SEC</i></strong>";
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}

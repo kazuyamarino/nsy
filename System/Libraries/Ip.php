@@ -82,8 +82,8 @@ class Ip
 			return $_ENV[$key];
 		}
 
-		if (@getenv($key) && static::validate(getenv($key))) {
-			return getenv($key);
+		if (@config_env($key) && static::validate(config_env($key))) {
+			return config_env($key);
 		}
 
 		return null;

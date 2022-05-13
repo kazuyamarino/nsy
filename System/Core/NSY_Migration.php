@@ -17,58 +17,27 @@ class NSY_Migration
 	*
 	* @return void
 	*/
-	protected function connect()
+	protected function connect($conn_name = 'primary')
 	{
-		switch (config_db('default', null)) {
+		switch ( config_env($conn_name, 'DB_CONNECTION') ) {
 			case 'mysql':
-			$this->connection = NSY_DB::connect_mysql();
+			$this->connection = NSY_DB::connect_mysql($conn_name);
 			return $this;
 			break;
 			case 'dblib':
-			$this->connection = NSY_DB::connect_dblib();
+			$this->connection = NSY_DB::connect_dblib($conn_name);
 			return $this;
 			break;
 			case 'sqlsrv':
-			$this->connection = NSY_DB::connect_sqlsrv();
+			$this->connection = NSY_DB::connect_sqlsrv($conn_name);
 			return $this;
 			break;
 			case 'pgsql':
-			$this->connection = NSY_DB::connect_pgsql();
+			$this->connection = NSY_DB::connect_pgsql($conn_name);
 			return $this;
 			break;
 			default:
 			$var_msg = "Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong>";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
-		}
-	}
-
-	/**
-	* Secondary Connection
-	*
-	* @return void
-	*/
-	protected function connect_sec()
-	{
-		switch (config_db_sec('secondary', null)) {
-			case 'mysql':
-			$this->connection = NSY_DB::connect_mysql_sec();
-			return $this;
-			break;
-			case 'dblib':
-			$this->connection = NSY_DB::connect_dblib_sec();
-			return $this;
-			break;
-			case 'sqlsrv':
-			$this->connection = NSY_DB::connect_sqlsrv_sec();
-			return $this;
-			break;
-			case 'pgsql':
-			$this->connection = NSY_DB::connect_pgsql_sec();
-			return $this;
-			break;
-			default:
-			$var_msg = "Second database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION_SEC</i></strong>";
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}

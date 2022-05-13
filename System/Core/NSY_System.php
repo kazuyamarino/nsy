@@ -7,24 +7,17 @@ namespace System\Core;
 use System\Libraries\Session;
 
 /**
-* Use Dotenv
-*/
-use Dotenv\Dotenv;
-
-/**
 * This is the core of NSY System Settings
 * Attention, don't try to change the structure of the code, delete, or change.
 * Because there is some code connected to the NSY system. So, be careful.
 */
 class NSY_System
 {
-
 	/**
 	* Defined variable for NSY Core System
 	*/
 	public function __construct()
 	{
-
 		if ( is_filled(config_app('public_dir')) ) {
 			// set the default public/css/js path
 			define('CSS_DIR', base_url() . config_app('public_dir') . '/' . 'assets' . '/' . config_app('css_dir') . '/'); // CSS directory path

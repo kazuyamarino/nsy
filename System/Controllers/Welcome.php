@@ -17,9 +17,9 @@ class Welcome extends Load
 		];
 
 		// Load MVC view page
-		Load::template('header', $arr);
-		Load::view(null, 'index', $arr);
-		Load::template('footer', $arr);
+		Load::template('Header', $arr);
+		Load::view(null, 'Index', $arr);
+		Load::template('Footer', $arr);
 	}
 
 }

@@ -17,9 +17,9 @@ class Hello extends Load
 		];
 
 		// Load HMVC view page
-		Load::template('header', $arr);
-		Load::view('Homepage', 'index', $arr);
-		Load::template('footer', $arr);
+		Load::template('Header', $arr);
+		Load::view('Homepage', 'Index', $arr);
+		Load::template('Footer', $arr);
 	}
 
 }

@@ -193,71 +193,7 @@ if (! function_exists('redirect_back')) {
 	}
 }
 
-// ------------------------------------------------------------------------
-
-/**
-* Get config pdo attribute value from system/Config/Database.php
-* @param  string|int $d1
-* @param  string|int $d2
-* @return array
-*/
-function config_db_attr($d1 = null,$d2 = null)
-{
-	$database = include __DIR__ . '/../Config/Database.php';
-	if (not_filled($d2) ) {
-		return $database[$d1];
-	} else {
-		return $database['connections'][$d1][$d2];
-	}
-}
-
-/**
-* Get config second pdo attribute value from system/Config/Database.php
-* @param  string|int $d1
-* @param  string|int $d2
-* @return array
-*/
-function config_db_attr_sec($d1 = null,$d2 = null)
-{
-	$database = include __DIR__ . '/../Config/Database.php';
-	if (not_filled($d2) ) {
-		return $database[$d1];
-	} else {
-		return $database['connections_sec'][$d1][$d2];
-	}
-}
-
-/**
-* Get config db connection value from system/Config/Database.php
-* @param  string|int $d1
-* @param  string|int $d2
-* @return array
-*/
-function config_db($d1 = null,$d2 = null)
-{
-	$database = include __DIR__ . '/../Config/Database.php';
-	if (not_filled($d2) ) {
-		return $database[$d1];
-	} else {
-		return $database['connections'][$d1][$d2];
-	}
-}
-
-/**
-* Get config second db connection value from system/Config/Database.php for secondary connection
-* @param  string|int $d1
-* @param  string|int $d2
-* @return array
-*/
-function config_db_sec($d1 = null,$d2 = null)
-{
-	$database = include __DIR__ . '/../Config/Database.php';
-	if (not_filled($d2) ) {
-		return $database[$d1];
-	} else {
-		return $database['connections_sec'][$d1][$d2];
-	}
-}
+// -----------------------------------------------------------------------
 
 /**
 * Get config value from system/Config/app.php
@@ -269,6 +205,21 @@ function config_app($d1 = null)
 	$app = include __DIR__ . '/../Config/App.php';
 
 	return $app[$d1];
+}
+
+/**
+* Get config value from system/Config/env.php
+* @param  string|int $d1
+* @return array
+*/
+function config_env($d1 = null,$d2 = null)
+{
+	$app = include __DIR__ . '/../../env.php';
+	if (not_filled($d2) ) {
+		return $app[$d1];
+	} else {
+		return $app[$d1][$d2];
+	}
 }
 
 /**

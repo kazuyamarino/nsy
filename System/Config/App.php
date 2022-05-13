@@ -21,7 +21,7 @@ return [
 	* Note: If you change these, also change the error_reporting() code below
 	*
 	*/
-	'app_env' => getenv('APP_ENV'),
+	'app_env' => config_env('APP_ENV'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -31,7 +31,7 @@ return [
 	| set the default application or project directory
 	|
 	*/
-	'app_dir' => getenv('APP_DIR'),
+	'app_dir' => config_env('APP_DIR'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -71,7 +71,7 @@ return [
 	| set the default prefix for session
 	|
 	*/
-	'session_prefix' => getenv('SESSION_PREFIX'),
+	'session_prefix' => config_env('SESSION_PREFIX'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -111,7 +111,7 @@ return [
 	| set the default public directory
 	|
 	*/
-	'public_dir' => getenv('PUBLIC_DIR'),
+	'public_dir' => config_env('PUBLIC_DIR'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -191,7 +191,7 @@ return [
 	| set the default env file name
 	|
 	*/
-	'env_file' => 'env',
+	'env_file' => 'env.php',
 
 	/*
 	|--------------------------------------------------------------------------
