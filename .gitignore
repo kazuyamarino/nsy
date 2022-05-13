@@ -3,7 +3,6 @@
 
 /env.php
 /.htaccess
-# /.travis.yml
 /phpunit.xml
 public/.htaccess
 System/Controllers/Controller_Test.php
