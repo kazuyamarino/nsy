@@ -6,16 +6,16 @@ run_setup() {
 	then
 	    filename=$response
 
-		if [ ! -e ./env ]
+		if [ ! -e ./env.php ]
 		then
 			cp docs/apache/for_public/.htaccess ./public/.htaccess
 			cp docs/apache/for_root/.htaccess ./.htaccess
-			cp .cli/tmp/env.example ./env
-			cp .cli/tmp/env.example docs/env.example/env.example
+			cp .cli/tmp/env.example.php ./env.php
+			cp .cli/tmp/env.example.php docs/env.example/env.example.php
 			cp .cli/tmp/system.js ./public/assets/js/config/system.js
 			cp .cli/tmp/default ./docs/nginx/sites-enabled/default
-			sed -i "s/nsy/$filename/g" ./env
-			sed -i "s/nsy/$filename/g" ./docs/env.example/env.example
+			sed -i "s/nsy/$filename/g" ./env.php
+			sed -i "s/nsy/$filename/g" ./docs/env.example/env.example.php
 			sed -i "s/nsy/$filename/g" ./public/assets/js/config/system.js
 			sed -i "s/nsy/$filename/g" ./docs/nginx/sites-enabled/default
 
