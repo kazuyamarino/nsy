@@ -62,7 +62,7 @@ return [
 	| Define version of the application
 	|
 	*/
-	'version' => 'v3.17.0',
+	'version' => 'v4.0.0',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -72,6 +72,6 @@ return [
 	| Define codename of the application
 	|
 	*/
-	'codename' => 'Serunai'
+	'codename' => 'Sasando'
 
 ];
