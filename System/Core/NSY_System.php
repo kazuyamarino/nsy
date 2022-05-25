@@ -100,16 +100,6 @@ class NSY_System
 		defined('FETCH_GROUP') or define('FETCH_GROUP', \PDO::FETCH_GROUP);
 		defined('FETCH_FUNC') or define('FETCH_FUNC', \PDO::FETCH_FUNC);
 
-		/*
-		|--------------------------------------------------------------------------
-		| Application Environment
-		|--------------------------------------------------------------------------
-		|
-		| you can set this value on 'System/Config/App.php'.
-		|
-		*/
-		define('ENVIRONMENT', config_app('app_env'));
-
 		// start session
 		Session::init(config_app('session_duration'));
 	}

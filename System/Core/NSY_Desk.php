@@ -140,21 +140,4 @@ class NSY_Desk
 		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Routes/Migration.php';
 	}
 
-	/**
-	 * Require/Register NSY Config
-	 * @return void
-	 */
-	public static function register_config()
-	{
-		// NSY System file check
-		if (!is_readable( __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_System.php' ) ) {
-			die('NSY_System.php not found,  please check in System/Core.');
-		}
-
-		// Env file check
-		if (!is_readable( __DIR__ . '/../../' . config_app('env_file')) ) {
-			die('env file not found, please check in root folder and Config/App.php => <strong>env_file</strong>.');
-		}
-	}
-
 }

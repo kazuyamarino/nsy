@@ -14,6 +14,19 @@
 */
 
 /**
+ * set env filename
+ * You can set the filename itself according to your settings.
+ */
+define('ENV_FILE', 'env.php');
+
+/**
+ * ENV File Check
+ */
+ if (!is_readable( __DIR__ . '/../' . ENV_FILE ) ) {
+ 	die('env file not found, please check in root folder.');
+ }
+
+/**
 * The PSR-4 Autoloader
 * The default autoload.php file path.
 * You can set the file path itself according to your settings.
@@ -68,11 +81,6 @@ NSY_Desk::static_error_switch();
 * Check System File
 */
 NSY_Desk::register_system();
-
-/**
-* Check Config File
-*/
-NSY_Desk::register_config();
 
 /**
 * Routing System
