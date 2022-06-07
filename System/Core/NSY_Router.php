@@ -48,7 +48,7 @@ class NSY_Router {
             $callback = $params[2];
         } else {
             $maps = null;
-            $uri = strpos($params[0], '/') === 0 ? $params[0] : '/' . $params[0];
+            $uri = strpos($params[0] ?? '', '/') === 0 ? $params[0] : '/' . $params[0];
             $callback = $params[1];
         }
 
