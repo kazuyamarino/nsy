@@ -25,7 +25,7 @@ class Load
 	* @param  array  $vars
 	* @return string
 	*/
-	protected static function view($module = null, $filename = null, $vars = array())
+	protected static function view($module = '', $filename = '', $vars = array())
 	{
 		// Instantiate Razr Template Engine
 		self::$razr = new Engine(new FilesystemLoader(get_vendor_dir()));
@@ -51,7 +51,7 @@ class Load
 	* @param  array  $vars
 	* @return string
 	*/
-	protected static function template($filename = null, $vars = array())
+	protected static function template($filename = '', $vars = array())
 	{
 		// Instantiate Razr Template Engine
 		self::$razr = new Engine(new FilesystemLoader(get_vendor_dir()));

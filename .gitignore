@@ -8,3 +8,4 @@ public/.htaccess
 System/Controllers/Controller_Test.php
 System/Models/Model_Test.php
 System/Views/View_Test.php
+System/Migrations/Migration_Test.php

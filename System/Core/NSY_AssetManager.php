@@ -16,7 +16,7 @@ Class NSY_AssetManager
 	* @param  string $content
 	* @return string
 	*/
-	public static function meta($attr = null, $content = null)
+	public static function meta($attr = '', $content = '')
 	{
 		// if content is empty
 		if (not_filled($content)) {
@@ -41,7 +41,7 @@ Class NSY_AssetManager
 	* @param  string $title
 	* @return string
 	*/
-	public static function link($filename = null, $rel = null, $type = null, $title = null)
+	public static function link($filename = '', $rel = '', $type = '', $title = '')
 	{
 		// if content is empty
 		if (strpos($filename, 'http') !== false || strpos($filename, 'https') !== false) {
@@ -68,7 +68,7 @@ Class NSY_AssetManager
 	* @param  string $attr
 	* @return string
 	*/
-	public static function script($filename = null, $type = null, $charset = null, $attr = null)
+	public static function script($filename = '', $type = '', $charset = '', $attr = '')
 	{
 		// if charset is empty
 		if (strpos($filename, 'http') !== false || strpos($filename, 'https') !== false) {
@@ -95,7 +95,7 @@ Class NSY_AssetManager
 	* @param  string $values
 	* @return string
 	*/
-	public static function custom($values = null)
+	public static function custom($values = '')
 	{
 		if (not_filled($values)) {
 			$var_msg = 'No value in <mark>Add::custom()</mark> tag';

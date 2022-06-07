@@ -67,7 +67,7 @@ function request_is_post()
  * @param  string  $val
  * @return array
  */
-function request_as_array($filters = array(), $val = null)
+function request_as_array($filters = array(), $val = '')
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -92,7 +92,7 @@ function request_as_array($filters = array(), $val = null)
  * @param  string  $val
  * @return array
  */
-function request_as_object($filters = array(), $val = null)
+function request_as_object($filters = array(), $val = '')
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -116,7 +116,7 @@ function request_as_object($filters = array(), $val = null)
  * @param  mixed $params
  * @return string
  */
-function request_as_json($params = null)
+function request_as_json($params = '')
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -140,7 +140,7 @@ function request_as_json($params = null)
  * @param  string $params
  * @return string
  */
-function request_as_string($params = null)
+function request_as_string($params = '')
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -164,7 +164,7 @@ function request_as_string($params = null)
  * @param  int $params
  * @return int
  */
-function request_as_integer($params = null)
+function request_as_integer($params = 0)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -188,7 +188,7 @@ function request_as_integer($params = null)
  * @param  integer $params
  * @return float
  */
-function request_as_float($params = null)
+function request_as_float($params = 0)
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -212,7 +212,7 @@ function request_as_float($params = null)
  * @param  boolean $params
  * @return boolean
  */
-function request_as_boolean($params = null)
+function request_as_boolean($params = '')
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -236,7 +236,7 @@ function request_as_boolean($params = null)
  * @param  string $params
  * @return string
  */
-function request_as_ip($params = null)
+function request_as_ip($params = '')
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -260,7 +260,7 @@ function request_as_ip($params = null)
  * @param  string $params
  * @return string
  */
-function request_as_url($params = null)
+function request_as_url($params = '')
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');
@@ -284,7 +284,7 @@ function request_as_url($params = null)
  * @param  string $params
  * @return string
  */
-function request_as_email($params = null)
+function request_as_email($params = '')
 {
 	if ( is_request_post() ) {
 		$req_post = Request::input('POST');

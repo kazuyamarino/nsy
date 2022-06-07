@@ -60,7 +60,7 @@ class DB
 	* @param  string $query
 	* @return string
 	*/
-	public function query($query = null)
+	public function query($query = '')
 	{
 		if (is_filled($query) ) {
 			self::$query = $query;
@@ -120,7 +120,7 @@ class DB
 	* @param  string $bind
 	* @return string
 	*/
-	public function bind($bind = null)
+	public function bind($bind = '')
 	{
 		if (is_filled($bind) ) {
 			self::$bind = $bind;

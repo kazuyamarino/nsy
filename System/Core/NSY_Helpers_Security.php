@@ -29,7 +29,7 @@ if (! function_exists('secure_input')) {
 	* @param  string $data
 	* @return string
 	*/
-	function secure_input($data = null)
+	function secure_input($data = '')
 	{
 		$data = trim($data);
 		$data = stripslashes($data);
@@ -45,7 +45,7 @@ if (! function_exists('secure_form')) {
 	* @param  string $form
 	* @return void
 	*/
-	function secure_form($form = null)
+	function secure_form($form = '')
 	{
 		if (is_array($form) || is_object($form)) {
 			foreach ($form as $key => $value) {

@@ -88,7 +88,7 @@ class NSY_Router {
 	 * @param  array  $vars
 	 * @return void
 	 */
-	public static function goto($controllerWithMethod = null, $vars = array())
+	public static function goto($controllerWithMethod = '', $vars = array())
     {
 		$params = explode('@', $controllerWithMethod);
 
@@ -115,7 +115,7 @@ class NSY_Router {
 	 * @param  array  $vars
 	 * @return void
 	 */
-	public function for($controllerWithMethod = null, $vars = array())
+	public function for($controllerWithMethod = '', $vars = array())
     {
 		$params = explode('@', $controllerWithMethod);
 

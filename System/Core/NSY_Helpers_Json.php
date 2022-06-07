@@ -17,7 +17,7 @@ if (! function_exists('json_fetch')) {
 	* @param  int $status
 	* @return string
 	*/
-	function json_fetch($data = array(), $status = null)
+	function json_fetch($data = array(), $status = 0)
 	{
 		$json_data = $data;
 		$json_result = json_encode($json_data);

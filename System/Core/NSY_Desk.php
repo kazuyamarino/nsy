@@ -15,7 +15,7 @@ class NSY_Desk
 	* @param  string $var_msg
 	* @return void
 	*/
-	public static function static_error_handler($var_msg = null)
+	public static function static_error_handler($var_msg = '')
 	{
 		$app_env = config_app('app_env');
 
@@ -65,7 +65,7 @@ class NSY_Desk
 	* @param  string $string
 	* @return void
 	*/
-	public static function mig_up($string = null)
+	public static function mig_up($string = '')
 	{
 		$classname = 'System\\Migrations\\'.$string;
 
@@ -88,7 +88,7 @@ class NSY_Desk
 	* @param  string $string
 	* @return void
 	*/
-	public static function mig_down($string = null)
+	public static function mig_down($string = '')
 	{
 		$classname = 'System\\Migrations\\'.$string;
 

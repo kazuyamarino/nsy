@@ -19,7 +19,7 @@ if (! function_exists('not_filled')) {
 	* @param  string|int|array $str
 	* @return string|int|array
 	*/
-	function not_filled($str = null)
+	function not_filled($str = '')
 	{
 		if (!empty($str)) {
 			return false;
@@ -40,7 +40,7 @@ if (! function_exists('is_filled')) {
 	* @param  string|int|array $str
 	* @return string|int|array
 	*/
-	function is_filled($str = null)
+	function is_filled($str = '')
 	{
 		if (!isset($str)) {
 			return false;
@@ -66,7 +66,7 @@ if (! function_exists('is_filled')) {
  * @param  string $url
  * @return string
  */
- function base_url($url = null)
+ function base_url($url = '')
  {
  	// set the default application or project directory
  	$APP_DIR = config_app('app_dir');
@@ -102,7 +102,7 @@ if (! function_exists('public_path')) {
 	* @param  string $url
 	* @return string
 	*/
-	function public_path($url = null)
+	function public_path($url = '')
 	{
 		if ( is_filled($url) ) {
 			if ( is_filled(config_app('public_dir')) ) {
@@ -126,7 +126,7 @@ if (! function_exists('img_url')) {
 	* @param  string $url
 	* @return string
 	*/
-	function img_url($url = null)
+	function img_url($url = '')
 	{
 		if ( is_filled($url) ) {
 			return IMG_DIR . $url;
@@ -142,7 +142,7 @@ if (! function_exists('js_url')) {
 	* @param  string $url
 	* @return string
 	*/
-	function js_url($url = null)
+	function js_url($url = '')
 	{
 		if ( is_filled($url) ) {
 			return JS_DIR . $url;
@@ -158,7 +158,7 @@ if (! function_exists('css_url')) {
 	* @param  string $url
 	* @return string
 	*/
-	function css_url($url = null)
+	function css_url($url = '')
 	{
 		if ( is_filled($url) ) {
 			return CSS_DIR . $url;
@@ -174,7 +174,7 @@ if (! function_exists('redirect')) {
 	* @param  string $url
 	* @return void
 	*/
-	function redirect($url = null)
+	function redirect($url = '')
 	{
 		header('location:'. base_url($url));
 		exit();
@@ -200,7 +200,7 @@ if (! function_exists('redirect_back')) {
 * @param  string|int $d1
 * @return array
 */
-function config_app($d1 = null)
+function config_app($d1 = '')
 {
 	$app = include __DIR__ . '/../Config/App.php';
 
@@ -212,7 +212,7 @@ function config_app($d1 = null)
 * @param  string|int $d1
 * @return array
 */
-function config_env($d1 = null,$d2 = null)
+function config_env($d1 = '',$d2 = '')
 {
 	$app = include __DIR__ . '/../../env.php';
 	if (not_filled($d2) ) {
@@ -227,7 +227,7 @@ function config_env($d1 = null,$d2 = null)
 * @param  string|int $d1
 * @return array
 */
-function config_site($d1 = null)
+function config_site($d1 = '')
 {
 	$site = include __DIR__ . '/../Config/Site.php';
 
@@ -244,7 +244,7 @@ if (! function_exists('terner')) {
 	* @param  string|int $result_two
 	* @return string|int
 	*/
-	function terner($condition = null, $result_one = null, $result_two = null)
+	function terner($condition = '', $result_one = '', $result_two = '')
 	{
 		$result = ($condition ? $result_one : $result_two);
 
@@ -268,7 +268,7 @@ if (! function_exists('aurora')) {
 	* @param  string $s
 	* @return string
 	*/
-	function aurora($ext = null, $name = null, $sep = null, $h = null, $d = null, $s = null)
+	function aurora($ext = '', $name = '', $sep = '', $h = '', $d = '', $s = '')
 	{
 		if (not_filled($ext) ) {
 			$var_msg = "File extension not yet filled \naurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);";
@@ -494,7 +494,7 @@ if (! function_exists('get_uri_segment')) {
 	* @param  integer $key
 	* @return string
 	*/
-	function get_uri_segment($key = null)
+	function get_uri_segment($key = '')
 	{
 		$uriSegments = explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
@@ -867,7 +867,7 @@ if (! function_exists('sequence')) {
 * @param  mixed|int $param
 * @return mixed|int
 */
-function post($param = null)
+function post($param = '')
 {
 	if ( is_filled($param) ) {
 		$result = isset($_POST[$param]) ? $_POST[$param] : null;
@@ -885,7 +885,7 @@ function post($param = null)
 * @param  mixed $param
 * @return mixed
 */
-function get($param = null)
+function get($param = '')
 {
 	if ( is_filled($param) ) {
 		$result = isset($_GET[$param]) ? $_GET[$param] : null;
@@ -903,7 +903,7 @@ function get($param = null)
 * @param  mixed $param
 * @return mixed
 */
-function deposer($param = null)
+function deposer($param = '')
 {
 	if ( is_filled($param) ) {
 		$result = isset($_FILE[$param]) ? $_FILE[$param] : null;

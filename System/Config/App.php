@@ -206,6 +206,7 @@ return [
 	'aliases' => [
         'Route' => System\Core\NSY_Router::class,
         'Add' => System\Core\NSY_AssetManager::class,
+        'System\Migrations\Mig' => System\Core\NSY_Migration::class,
 		'System\Vendor\Curl' => Curl\Curl::class,
 		'System\Vendor\Faker' => Faker\Factory::class,
 		'System\Vendor\Carbon' => Carbon\Carbon::class,

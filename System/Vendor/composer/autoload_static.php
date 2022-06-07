@@ -9,7 +9,6 @@ class ComposerStaticInityour_suffixed
     public static $files = array (
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
@@ -46,7 +45,6 @@ class ComposerStaticInityour_suffixed
             'Symfony\\Polyfill\\Intl\\Normalizer\\' => 33,
             'Symfony\\Polyfill\\Intl\\Grapheme\\' => 31,
             'Symfony\\Polyfill\\Iconv\\' => 23,
-            'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Component\\Translation\\' => 30,
         ),
@@ -137,10 +135,6 @@ class ComposerStaticInityour_suffixed
         'Symfony\\Polyfill\\Iconv\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-iconv',
-        ),
-        'Symfony\\Polyfill\\Ctype\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
         'Symfony\\Contracts\\Translation\\' => 
         array (
@@ -1981,6 +1975,7 @@ class ComposerStaticInityour_suffixed
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/type/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'Symfony\\Component\\Translation\\CatalogueMetadataAwareInterface' => __DIR__ . '/..' . '/symfony/translation/CatalogueMetadataAwareInterface.php',
         'Symfony\\Component\\Translation\\Catalogue\\AbstractOperation' => __DIR__ . '/..' . '/symfony/translation/Catalogue/AbstractOperation.php',
         'Symfony\\Component\\Translation\\Catalogue\\MergeOperation' => __DIR__ . '/..' . '/symfony/translation/Catalogue/MergeOperation.php',
         'Symfony\\Component\\Translation\\Catalogue\\OperationInterface' => __DIR__ . '/..' . '/symfony/translation/Catalogue/OperationInterface.php',
@@ -2042,6 +2037,7 @@ class ComposerStaticInityour_suffixed
         'Symfony\\Component\\Translation\\Loader\\QtFileLoader' => __DIR__ . '/..' . '/symfony/translation/Loader/QtFileLoader.php',
         'Symfony\\Component\\Translation\\Loader\\XliffFileLoader' => __DIR__ . '/..' . '/symfony/translation/Loader/XliffFileLoader.php',
         'Symfony\\Component\\Translation\\Loader\\YamlFileLoader' => __DIR__ . '/..' . '/symfony/translation/Loader/YamlFileLoader.php',
+        'Symfony\\Component\\Translation\\LocaleSwitcher' => __DIR__ . '/..' . '/symfony/translation/LocaleSwitcher.php',
         'Symfony\\Component\\Translation\\LoggingTranslator' => __DIR__ . '/..' . '/symfony/translation/LoggingTranslator.php',
         'Symfony\\Component\\Translation\\MessageCatalogue' => __DIR__ . '/..' . '/symfony/translation/MessageCatalogue.php',
         'Symfony\\Component\\Translation\\MessageCatalogueInterface' => __DIR__ . '/..' . '/symfony/translation/MessageCatalogueInterface.php',
@@ -2069,11 +2065,9 @@ class ComposerStaticInityour_suffixed
         'Symfony\\Component\\Translation\\Writer\\TranslationWriter' => __DIR__ . '/..' . '/symfony/translation/Writer/TranslationWriter.php',
         'Symfony\\Component\\Translation\\Writer\\TranslationWriterInterface' => __DIR__ . '/..' . '/symfony/translation/Writer/TranslationWriterInterface.php',
         'Symfony\\Contracts\\Translation\\LocaleAwareInterface' => __DIR__ . '/..' . '/symfony/translation-contracts/LocaleAwareInterface.php',
-        'Symfony\\Contracts\\Translation\\Test\\TranslatorTest' => __DIR__ . '/..' . '/symfony/translation-contracts/Test/TranslatorTest.php',
         'Symfony\\Contracts\\Translation\\TranslatableInterface' => __DIR__ . '/..' . '/symfony/translation-contracts/TranslatableInterface.php',
         'Symfony\\Contracts\\Translation\\TranslatorInterface' => __DIR__ . '/..' . '/symfony/translation-contracts/TranslatorInterface.php',
         'Symfony\\Contracts\\Translation\\TranslatorTrait' => __DIR__ . '/..' . '/symfony/translation-contracts/TranslatorTrait.php',
-        'Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
         'Symfony\\Polyfill\\Iconv\\Iconv' => __DIR__ . '/..' . '/symfony/polyfill-iconv/Iconv.php',
         'Symfony\\Polyfill\\Intl\\Grapheme\\Grapheme' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/Grapheme.php',
         'Symfony\\Polyfill\\Intl\\Normalizer\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Normalizer.php',
@@ -2089,7 +2083,6 @@ class ComposerStaticInityour_suffixed
         'System\\Core\\NSY_CSRF' => __DIR__ . '/../../..' . '/System/Core/NSY_CSRF.php',
         'System\\Core\\NSY_DB' => __DIR__ . '/../../..' . '/System/Core/NSY_DB.php',
         'System\\Core\\NSY_Desk' => __DIR__ . '/../../..' . '/System/Core/NSY_Desk.php',
-        'System\\Core\\NSY_Interface' => __DIR__ . '/../../..' . '/System/Core/NSY_Interface.php',
         'System\\Core\\NSY_Migration' => __DIR__ . '/../../..' . '/System/Core/NSY_Migration.php',
         'System\\Core\\NSY_Router' => __DIR__ . '/../../..' . '/System/Core/NSY_Router.php',
         'System\\Core\\NSY_System' => __DIR__ . '/../../..' . '/System/Core/NSY_System.php',
@@ -2135,6 +2128,7 @@ class ComposerStaticInityour_suffixed
         'System\\Libraries\\Validate' => __DIR__ . '/../../..' . '/System/Libraries/Validate.php',
         'System\\Middlewares\\AfterLayer' => __DIR__ . '/../../..' . '/System/Middlewares/AfterLayer.php',
         'System\\Middlewares\\BeforeLayer' => __DIR__ . '/../../..' . '/System/Middlewares/BeforeLayer.php',
+        'System\\Migrations\\Migration_Test' => __DIR__ . '/../../..' . '/System/Migrations/Migration_Test.php',
         'System\\Models\\Model_Test' => __DIR__ . '/../../..' . '/System/Models/Model_Test.php',
         'System\\Models\\Model_Welcome' => __DIR__ . '/../../..' . '/System/Models/Model_Welcome.php',
         'System\\Modules\\Homepage\\Controllers\\Hello' => __DIR__ . '/../../..' . '/System/Modules/Homepage/Controllers/Hello.php',

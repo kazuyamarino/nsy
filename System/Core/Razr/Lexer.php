@@ -123,7 +123,7 @@ class Lexer
         $this->moveCursor($text);
         $this->cursor++;
 
-        if (preg_match(self::REGEX_START, $this->code, $match, null, $this->cursor)) {
+        if (preg_match(self::REGEX_START, $this->code, $match, 0, $this->cursor)) {
             if (isset($match[1])) {
 
                 $this->addCode('<?php /* DIRECTIVE */');
@@ -177,7 +177,7 @@ class Lexer
      */
     protected function lexExpression()
     {
-        if (preg_match(self::REGEX_STRING, $this->code, $match, null, $this->cursor)) {
+        if (preg_match(self::REGEX_STRING, $this->code, $match, 0, $this->cursor)) {
             $this->addCode($match[0]);
             $this->moveCursor($match[0]);
         }

@@ -18,7 +18,7 @@ if (! function_exists('validate_array')) {
 	*
 	* @return mixed → value, null or customized return value
 	*/
-	function validate_array($data, $default = null)
+	function validate_array($data, $default = '')
 	{
 		$result = Validate::asArray($data, $default = null);
 
@@ -35,7 +35,7 @@ if (! function_exists('validate_object')) {
 	*
 	* @return mixed → value, null or customized return value
 	*/
-	function validate_object($data, $default = null)
+	function validate_object($data, $default = '')
 	{
 		$result = Validate::asObject($data, $default = null);
 
@@ -52,7 +52,7 @@ if (! function_exists('validate_json')) {
 	*
 	* @return mixed → value, null or customized return value
 	*/
-	function validate_json($data, $default = null)
+	function validate_json($data, $default = '')
 	{
 		$result = Validate::asJson($data, $default = null);
 
@@ -69,7 +69,7 @@ if (! function_exists('validate_string')) {
 	*
 	* @return mixed → value, null or customized return value
 	*/
-	function validate_string($data, $default = null)
+	function validate_string($data, $default = '')
 	{
 		$result = Validate::asString($data, $default = null);
 
@@ -86,7 +86,7 @@ if (! function_exists('validate_integer')) {
 	*
 	* @return mixed → value, null or customized return value
 	*/
-	function validate_integer($data, $default = null)
+	function validate_integer($data, $default = '')
 	{
 		$result = Validate::asInteger($data, $default = null);
 
@@ -103,7 +103,7 @@ if (! function_exists('validate_float')) {
 	*
 	* @return mixed → value, null or customized return value
 	*/
-	function validate_float($data, $default = null)
+	function validate_float($data, $default = '')
 	{
 		$result = Validate::asFloat($data, $default = null);
 
@@ -120,7 +120,7 @@ if (! function_exists('validate_boolean')) {
 	*
 	* @return mixed → value, null or customized return value
 	*/
-	function validate_boolean($data, $default = null)
+	function validate_boolean($data, $default = '')
 	{
 		$result = Validate::asBoolean($data, $default = null);
 
@@ -137,7 +137,7 @@ if (! function_exists('validate_ip')) {
 	*
 	* @return mixed → value, null or customized return value
 	*/
-	function validate_ip($data, $default = null)
+	function validate_ip($data, $default = '')
 	{
 		$result = Validate::asIp($data, $default = null);
 
@@ -154,7 +154,7 @@ if (! function_exists('validate_url')) {
 	*
 	* @return mixed → value, null or customized return value
 	*/
-	function validate_url($data, $default = null)
+	function validate_url($data, $default = '')
 	{
 		$result = Validate::asUrl($data, $default = null);
 
@@ -171,7 +171,7 @@ if (! function_exists('validate_email')) {
 	*
 	* @return mixed → value, null or customized return value
 	*/
-	function validate_email($data, $default = null)
+	function validate_email($data, $default = '')
 	{
 		$result = Validate::asEmail($data, $default = null);
 

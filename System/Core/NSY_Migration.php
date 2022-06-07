@@ -10,31 +10,32 @@ class NSY_Migration
 {
 
 	// Declare properties for Helper
-	private $connection;
+	static $connection;
+	static $primary;
 
 	/**
 	* Default Connection
 	*
 	* @return void
 	*/
-	protected function connect($conn_name = 'primary')
+	public static function connect($conn_name = 'primary')
 	{
 		switch ( config_env($conn_name, 'DB_CONNECTION') ) {
 			case 'mysql':
-			$this->connection = NSY_DB::connect_mysql($conn_name);
-			return $this;
+			self::$connection = NSY_DB::connect_mysql($conn_name);
+			return new self;
 			break;
 			case 'dblib':
-			$this->connection = NSY_DB::connect_dblib($conn_name);
-			return $this;
+			self::$connection = NSY_DB::connect_dblib($conn_name);
+			return new self;
 			break;
 			case 'sqlsrv':
-			$this->connection = NSY_DB::connect_sqlsrv($conn_name);
-			return $this;
+			self::$connection = NSY_DB::connect_sqlsrv($conn_name);
+			return new self;
 			break;
 			case 'pgsql':
-			$this->connection = NSY_DB::connect_pgsql($conn_name);
-			return $this;
+			self::$connection = NSY_DB::connect_pgsql($conn_name);
+			return new self;
 			break;
 			default:
 			$var_msg = "Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong>";
@@ -48,19 +49,19 @@ class NSY_Migration
 	*
 	* @param string $db
 	*/
-	protected function create_db($db = null)
+	public function create_db($db = '')
 	{
 		if (is_filled($db) ) {
 			$query = "CREATE DATABASE $db;";
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -68,7 +69,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -92,7 +93,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -100,19 +101,19 @@ class NSY_Migration
 	*
 	* @param string $db
 	*/
-	protected function drop_db($db = null)
+	public function drop_db($db = '')
 	{
 		if (is_filled($db) ) {
 			$query = "DROP DATABASE $db;";
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -120,7 +121,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -144,7 +145,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -153,19 +154,19 @@ class NSY_Migration
 	* @param string $old_table
 	* @param string $new_table
 	*/
-	protected function rename_table($old_table = null, $new_table = null)
+	public function rename_table($old_table = '', $new_table = '')
 	{
 		if (is_filled($old_table) || is_filled($new_table) ) {
 			$query = "RENAME TABLE $old_table TO $new_table;";
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -173,7 +174,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -197,7 +198,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -206,19 +207,19 @@ class NSY_Migration
 	* @param string $old_table
 	* @param string $new_table
 	*/
-	protected function alter_rename_table($old_table = null, $new_table = null)
+	public function alter_rename_table($old_table = '', $new_table = '')
 	{
 		if (is_filled($old_table) || is_filled($new_table) ) {
 			$query = "ALTER TABLE $old_table RENAME TO $new_table;";
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -226,7 +227,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -250,7 +251,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -259,19 +260,19 @@ class NSY_Migration
 	* @param string $old_table
 	* @param string $new_table
 	*/
-	protected function sp_rename_table($old_table = null, $new_table = null)
+	public function sp_rename_table($old_table = '', $new_table = '')
 	{
 		if (is_filled($old_table) || is_filled($new_table) ) {
 			$query = "sp_rename '$old_table', '$new_table';";
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -279,7 +280,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -303,7 +304,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -311,19 +312,19 @@ class NSY_Migration
 	*
 	* @param string $table
 	*/
-	protected function drop_table($table = null)
+	public function drop_table($table = '')
 	{
 		if (is_filled($table) ) {
 			$query = "DROP TABLE $table;";
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -331,7 +332,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -355,7 +356,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -363,19 +364,19 @@ class NSY_Migration
 	*
 	* @param string $table
 	*/
-	protected function drop_exist_table($table = null)
+	public function drop_exist_table($table = '')
 	{
 		if (is_filled($table) ) {
 			$query = "DROP TABLE IF EXISTS $table;";
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -383,7 +384,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -407,7 +408,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -416,7 +417,7 @@ class NSY_Migration
 	* @param  array $cols
 	* @return string
 	*/
-	protected function primary($cols = array())
+	public static function primary($cols = array())
 	{
 		if (is_array($cols) || is_object($cols) ) {
 			$res = array();
@@ -426,10 +427,10 @@ class NSY_Migration
 			$im_cols = implode(', ', $res);
 			$con_cols = implode('_', $res);
 
-			return $this->primary = 'CONSTRAINT '. $con_cols . '_' . generate_num(1, 5, 6) .'_PK PRIMARY KEY (' . $im_cols . ')';
+			return self::$primary = 'CONSTRAINT '. $con_cols . '_' . generate_num(1, 5, 6) .'_PK PRIMARY KEY (' . $im_cols . ')';
 		} else
 		{
-			return $this->primary = 'CONSTRAINT '. $cols . '_' . generate_num(1, 5, 6) .'_PK PRIMARY KEY (' . $cols . ')';
+			return self::$primary = 'CONSTRAINT '. $cols . '_' . generate_num(1, 5, 6) .'_PK PRIMARY KEY (' . $cols . ')';
 		}
 	}
 
@@ -439,7 +440,7 @@ class NSY_Migration
 	* @param  array $cols
 	* @return string
 	*/
-	protected function unique($cols = array())
+	public static function unique($cols = array())
 	{
 		if (is_array($cols) || is_object($cols) ) {
 			$res = array();
@@ -449,10 +450,10 @@ class NSY_Migration
 			$im_cols = implode(', ', $res);
 			$con_cols = implode('_', $res);
 
-			return $this->primary = 'CONSTRAINT '. $con_cols . '_' . generate_num(1, 5, 6) .'_UN UNIQUE (' . $im_cols . ')';
+			return self::$primary = 'CONSTRAINT '. $con_cols . '_' . generate_num(1, 5, 6) .'_UN UNIQUE (' . $im_cols . ')';
 		} else
 		{
-			return $this->primary = 'CONSTRAINT '. $cols . '_' . generate_num(1, 5, 6) .'_UN UNIQUE (' . $cols . ')';
+			return self::$primary = 'CONSTRAINT '. $cols . '_' . generate_num(1, 5, 6) .'_UN UNIQUE (' . $cols . ')';
 		}
 	}
 
@@ -461,7 +462,7 @@ class NSY_Migration
 	*
 	* @return array
 	*/
-	protected function timestamps()
+	public static function timestamps()
 	{
 		$arr_date_cols = [
 			'create_date' => 'datetime',
@@ -479,7 +480,7 @@ class NSY_Migration
 	* @param array $other_cols
 	* @param array $other_cols_2
 	*/
-	protected function cols($cols = array(), $other_cols = array(), $other_cols_2 = array())
+	public static function cols($cols = array(), $other_cols = array(), $other_cols_2 = array())
 	{
 		if (is_array($cols) || is_object($cols) ) {
 			if (is_filled($other_cols) || is_filled($other_cols_2) ) {
@@ -502,7 +503,7 @@ class NSY_Migration
 	* @param string  $table
 	* @param Closure $closure
 	*/
-	protected function create_table($table = null, \Closure $closure)
+	public function create_table(string $table = null, \Closure $closure)
 	{
 		if (is_filled($table) ) {
 			$closure_res = array();
@@ -519,12 +520,12 @@ class NSY_Migration
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -532,7 +533,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -556,7 +557,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -565,7 +566,7 @@ class NSY_Migration
 	* @param string  $table
 	* @param Closure $closure
 	*/
-	protected function add($table = null, \Closure $closure)
+	public function add(string $table = null, \Closure $closure)
 	{
 		if (is_filled($table) ) {
 			$closure_res = array();
@@ -578,12 +579,12 @@ class NSY_Migration
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -591,7 +592,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -615,7 +616,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -624,7 +625,7 @@ class NSY_Migration
 	* @param string  $table
 	* @param Closure $closure
 	*/
-	protected function add_cols($table = null, \Closure $closure)
+	public function add_cols(string $table = null, \Closure $closure)
 	{
 		if (is_filled($table) ) {
 			$closure_res = array();
@@ -637,12 +638,12 @@ class NSY_Migration
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -650,7 +651,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -674,7 +675,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -683,7 +684,7 @@ class NSY_Migration
 	* @param string  $table
 	* @param Closure $closure
 	*/
-	protected function drop_cols($table = null, \Closure $closure)
+	public function drop_cols(string $table = null, \Closure $closure)
 	{
 		if (is_filled($table) ) {
 			$closure_res = array();
@@ -696,12 +697,12 @@ class NSY_Migration
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -709,7 +710,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -733,7 +734,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -742,7 +743,7 @@ class NSY_Migration
 	* @param string  $table
 	* @param Closure $closure
 	*/
-	protected function alter_cols($table = null, \Closure $closure)
+	public function alter_cols(string $table = null, \Closure $closure)
 	{
 		if (is_filled($table) ) {
 			$closure_res = array();
@@ -759,12 +760,12 @@ class NSY_Migration
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -772,7 +773,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -796,7 +797,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -805,7 +806,7 @@ class NSY_Migration
 	* @param string  $table
 	* @param Closure $closure
 	*/
-	protected function modify_cols($table = null, \Closure $closure)
+	public function modify_cols(string $table = null, \Closure $closure)
 	{
 		if (is_filled($table) ) {
 			$closure_res = array();
@@ -822,12 +823,12 @@ class NSY_Migration
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -835,7 +836,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -859,7 +860,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -868,7 +869,7 @@ class NSY_Migration
 	* @param string  $table
 	* @param Closure $closure
 	*/
-	protected function rename_cols($table = null, \Closure $closure)
+	public function rename_cols(string $table = null, \Closure $closure)
 	{
 		if (is_filled($table) ) {
 			$closure_res = array();
@@ -881,12 +882,12 @@ class NSY_Migration
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -894,7 +895,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -918,7 +919,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -927,7 +928,7 @@ class NSY_Migration
 	* @param string  $table
 	* @param Closure $closure
 	*/
-	protected function change_cols($table = null, \Closure $closure)
+	public function change_cols(string $table = null, \Closure $closure)
 	{
 		if (is_filled($table) ) {
 			$closure_res = array();
@@ -940,12 +941,12 @@ class NSY_Migration
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -953,7 +954,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -977,7 +978,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 	/**
@@ -986,7 +987,7 @@ class NSY_Migration
 	* @param string  $table
 	* @param Closure $closure
 	*/
-	protected function sp_rename_cols($table = null, \Closure $closure)
+	public function sp_rename_cols(string $table = null, \Closure $closure)
 	{
 		if (is_filled($table) ) {
 			$closure_res = array();
@@ -999,12 +1000,12 @@ class NSY_Migration
 			echo '<pre>'. $query . '</pre>';
 
 			// Check if there's connection defined on the models
-			if (not_filled($this->connection) ) {
+			if (not_filled(self::$connection) ) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// execute it
-				$stmt = $this->connection->prepare($query);
+				$stmt = self::$connection->prepare($query);
 				$executed = $stmt->execute();
 
 				// Check the errors, if no errors then return the results
@@ -1012,7 +1013,7 @@ class NSY_Migration
 					return $executed;
 				} else {
 					if(config_app('transaction') === 'on') {
-						$this->connection->rollback();
+						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
@@ -1036,7 +1037,7 @@ class NSY_Migration
 
 		// Close the statement & connection
 		$stmt = null;
-		$this->connection = null;
+		self::$connection = null;
 	}
 
 }

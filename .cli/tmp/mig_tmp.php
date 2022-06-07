@@ -1,13 +1,10 @@
 <?php
 namespace System\Migrations;
 
-use System\Core\NSY_Migration;
-use System\Core\Migration_Impl;
-
 /**
 * The migration class
 */
-class mig_tmp extends NSY_Migration implements Migration_Impl
+class mig_tmp
 {
 
 	/**
