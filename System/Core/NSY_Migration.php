@@ -16,6 +16,7 @@ class NSY_Migration
 	/**
 	* Default Connection
 	*
+	* @param string $conn_name
 	* @return void
 	*/
 	public static function connect($conn_name = 'primary')

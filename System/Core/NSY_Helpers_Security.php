@@ -58,6 +58,7 @@ if (! function_exists('secure_form')) {
 if (! function_exists('csrf_token')) {
 	/**
 	* Return only CSRF Token
+	* @param string $var
 	* @return string
 	*/
 	function csrf_token($var)
@@ -78,6 +79,7 @@ if (! function_exists('csrf_token')) {
 if (! function_exists('csrf_token_form')) {
 	/**
 	* Return CSRF Input form with Token
+	* @param string $var
 	* @return string
 	*/
 	function csrf_token_form($var)
@@ -98,6 +100,11 @@ if (! function_exists('csrf_token_form')) {
 if (! function_exists('csrf_check')) {
 	/**
 	* Return CSRF Input form with Token
+	* @param string $name
+	* @param string $method
+	* @param string $exception
+	* @param string $validity
+	* @param string $onetime
 	* @return string
 	*/
 	function csrf_check($name, $method, $exception, $validity, $onetime)
@@ -120,6 +127,7 @@ if (! function_exists('html_sanitizer')) {
      * Quickly create an already configured sanitizer using the default builder.
      *
      * @param array $config
+     * @param string $untrustedHtml
      */
 	function html_sanitizer(array $config, $untrustedHtml)
 	{

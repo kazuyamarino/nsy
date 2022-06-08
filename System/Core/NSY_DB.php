@@ -14,6 +14,7 @@ class NSY_DB
 	/**
 	* Open connection function for mysql/mariadb PDO
 	*
+	* @param  string $conn_name
 	* @return void
 	*/
 	public static function connect_mysql($conn_name)
@@ -42,6 +43,7 @@ class NSY_DB
 	/**
 	* Open connection function for dblib sql server PDO
 	*
+	* @param  string $conn_name
 	* @return void
 	*/
 	public static function connect_dblib($conn_name)
@@ -70,6 +72,7 @@ class NSY_DB
 	/**
 	* Open connection function for postgresql PDO
 	*
+	* @param  string $conn_name
 	* @return void
 	*/
 	public static function connect_pgsql($conn_name)
@@ -97,6 +100,7 @@ class NSY_DB
 	/**
 	* Open connection function for sql server PDO
 	*
+	* @param  string $conn_name
 	* @return void
 	*/
 	public static function connect_sqlsrv($conn_name)

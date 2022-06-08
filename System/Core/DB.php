@@ -204,7 +204,7 @@ class DB
 
 			// Check the errors, if no errors then return the results
 			if ($executed || $stmt->errorCode() == 0) {
-				$show_result = $stmt->fetchAll(self::$fetch_style);
+				$show_result = $stmt->fetchAll(self::$fetch_style ?? '');
 
 				return $show_result;
 			} else {
@@ -269,7 +269,7 @@ class DB
 
 			// Check the errors, if no errors then return the results
 			if ($executed || $stmt->errorCode() == 0) {
-				$show_result = $stmt->fetch(self::$fetch_style);
+				$show_result = $stmt->fetch(self::$fetch_style ?? '');
 
 				return $show_result;
 			} else {
@@ -334,7 +334,7 @@ class DB
 
 			// Check the errors, if no errors then return the results
 			if ($executed || $stmt->errorCode() == 0) {
-				$show_result = $stmt->fetchColumn(self::$column);
+				$show_result = $stmt->fetchColumn(self::$column ?? 0);
 
 				return $show_result;
 			} else {

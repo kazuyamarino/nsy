@@ -16,8 +16,8 @@ use System\Core\NSY_Desk;
 if (! function_exists('not_filled')) {
 	/**
 	* Function for basic field validation (present and neither empty nor only white space
-	* @param  string|int|array $str
-	* @return string|int|array
+	* @param  mixed $str
+	* @return mixed
 	*/
 	function not_filled($str = '')
 	{
@@ -37,8 +37,8 @@ if (! function_exists('not_filled')) {
 if (! function_exists('is_filled')) {
 	/**
 	* Function for basic field validation (present and neither filled nor not empty)
-	* @param  string|int|array $str
-	* @return string|int|array
+	* @param  mixed $str
+	* @return mixed
 	*/
 	function is_filled($str = '')
 	{
@@ -468,9 +468,9 @@ if (! function_exists('generate_num')) {
 	/**
 	* Create Random Number
 	* @param  string  $prefix
-	* @param  integer $id_length
-	* @param  integer $num_length
-	* @return integer|string
+	* @param  int $id_length
+	* @param  int $num_length
+	* @return int|string
 	*/
 	function generate_num($prefix = 'NSY-', $id_length = 6, $num_length = 10)
 	{
@@ -491,7 +491,7 @@ if (! function_exists('generate_num')) {
 if (! function_exists('get_uri_segment')) {
 	/**
 	* Get URI Segment
-	* @param  integer $key
+	* @param  int $key
 	* @return string
 	*/
 	function get_uri_segment($key = '')
@@ -835,6 +835,8 @@ if (! function_exists('sequence')) {
 	/**
 	* Helper for create a sequence of the named placeholders
 	*
+	* @param string $bind
+	* @param string $variables
 	* @return array
 	*/
 	function sequence($bind, $variables)

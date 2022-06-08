@@ -15,7 +15,7 @@ if (! function_exists('cookie_set')) {
 	*
 	* @param string $key   → name the data to save
 	* @param string $value → the data to save
-	* @param string $time  → expiration time in days
+	* @param int $time  → expiration time in days
 	*
 	* @return boolean
 	*/
