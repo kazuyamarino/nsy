@@ -474,8 +474,8 @@ if (! function_exists('generate_num')) {
 	*/
 	function generate_num($prefix = 'NSY-', $id_length = 6, $num_length = 10)
 	{
-		$zeros = str_pad(null, $id_length, 0, STR_PAD_LEFT);
-		$nines = str_pad(null, $id_length, 9, STR_PAD_LEFT);
+		$zeros = str_pad('', $id_length, 0, STR_PAD_LEFT);
+		$nines = str_pad('', $id_length, 9, STR_PAD_LEFT);
 
 		$ids = str_pad(mt_rand($zeros, $nines), $num_length, $prefix, STR_PAD_LEFT);
 
