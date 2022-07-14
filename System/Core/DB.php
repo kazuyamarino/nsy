@@ -26,11 +26,11 @@ class DB
 	/**
 	* Default Connection
 	*
-	* @return void
+	* @return object
 	*/
 	public static function connect($conn_name = 'primary')
 	{
-		switch ( config_env($conn_name, 'DB_CONNECTION') ) {
+		switch ( config_db($conn_name, 'DB_CONNECTION') ) {
 			case 'mysql':
 			self::$connection = NSY_DB::connect_mysql($conn_name);
 			return new self;

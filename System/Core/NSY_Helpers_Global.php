@@ -168,9 +168,22 @@ if (! function_exists('css_url')) {
 	}
 }
 
-if (! function_exists('redirect')) {
+if (! function_exists('redirect_url')) {
 	/**
 	* Method for Redirect to specified URI
+	* @param  string $url
+	* @return void
+	*/
+	function redirect_url($url = '')
+	{
+		header('location:'. $url);
+		exit();
+	}
+}
+
+if (! function_exists('redirect')) {
+	/**
+	* Method for Redirect to specified system URI
 	* @param  string $url
 	* @return void
 	*/
@@ -219,6 +232,21 @@ function config_env($d1 = '',$d2 = '')
 		return $app[$d1];
 	} else {
 		return $app[$d1][$d2];
+	}
+}
+
+/**
+* Get config database from system/Config/env.php
+* @param  string|int $d1
+* @return array
+*/
+function config_db($d1 = '',$d2 = '')
+{
+	$app = include __DIR__ . '/../../env.php';
+	if ( not_filled($d1) || not_filled($d2) ) {
+		return $app['connections'];
+	} else {
+		return $app['connections'][$d1][$d2];
 	}
 }
 

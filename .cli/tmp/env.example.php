@@ -36,33 +36,40 @@ return [
 	| You can create your own database connection as you need.
 	 */
 	// Primary connection
-	'primary' => [
-		'DB_ATTR' => [
-			\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING
-		],
-		'DB_CONNECTION' => '',
-		'DB_HOST' => '',
-		'DB_PORT' => '',
-		'DB_NAME' => '',
-		'DB_USER' => '',
-		'DB_PASS' => '',
-		'DB_CHARSET' => '',
-		'DB_PREFIX' => ''
-	],
+	'connections' => [
 
-	// Secondary connection
-	'secondary' => [
-		'DB_ATTR' => [
-			\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING
+		// Primary connection
+		'primary' => [
+			'CONNECTION_NAME' => 'primary',
+			'DB_CONNECTION' => '',
+			'DB_HOST' => '',
+			'DB_PORT' => '',
+			'DB_NAME' => '',
+			'DB_USER' => '',
+			'DB_PASS' => '',
+			'DB_CHARSET' => '',
+			'DB_PREFIX' => '',
+			'DB_ATTR' => [
+				\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING
+			]
 		],
-		'DB_CONNECTION' => '',
-		'DB_HOST' => '',
-		'DB_PORT' => '',
-		'DB_NAME' => '',
-		'DB_USER' => '',
-		'DB_PASS' => '',
-		'DB_CHARSET' => '',
-		'DB_PREFIX' => ''
+
+		// Secondary connection
+		'secondary' => [
+			'CONNECTION_NAME' => 'secondary',
+			'DB_CONNECTION' => '',
+			'DB_HOST' => '',
+			'DB_PORT' => '',
+			'DB_NAME' => '',
+			'DB_USER' => '',
+			'DB_PASS' => '',
+			'DB_CHARSET' => '',
+			'DB_PREFIX' => '',
+			'DB_ATTR' => [
+				\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING
+			]
+		]
+
 	]
 
 ];
