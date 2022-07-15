@@ -33,7 +33,7 @@ class File
     {
         if (filter_var($file, FILTER_VALIDATE_URL)) {
             $stream = stream_context_create(['http' => ['method' => 'HEAD']]);
-            if ($content = @fopen($file, 'r', null, $stream)) {
+            if ($content = @fopen($file, 'r', true, $stream)) {
                 $headers = stream_get_meta_data($content);
                 fclose($content);
                 $status = substr($headers['wrapper_data'][0], 9, 3);
@@ -324,7 +324,7 @@ class File
                 $fileinfo['readable'] = is_readable($file);
                 break;
             case 'writable':
-                $fileinfo['writable'] = is_really_writable($file);
+                $fileinfo['writable'] = is_writable($file);
                 break;
             case 'executable':
                 $fileinfo['executable'] = is_executable($file);

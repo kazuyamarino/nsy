@@ -61,39 +61,39 @@ if (! function_exists('is_filled')) {
  * URI Helpers
  * @var mixed
  */
- /**
+/**
  * Define base_url() method, get base url with default project directory
  * @param  string $url
  * @return string
  */
- function base_url($url = '')
- {
- 	// set the default application or project directory
- 	$APP_DIR = config_app('app_dir');
+function base_url($url = '')
+{
+	// set the default application or project directory
+	$APP_DIR = config_app('app_dir');
 
- 	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443) {
- 		// if default application or project directory undefined
- 		if(empty($APP_DIR) || is_null($APP_DIR)) {
- 			// then get this result
- 			// site address (https) without application directory
- 			return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $url;
- 		} else {
- 			// else if default application or project directory defined then get this result
- 			// site address (https) with application directory
- 			return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $url;
- 		}
- 	} else {
- 		// if default application or project directory undefined
- 		if(empty($APP_DIR) || is_null($APP_DIR)) {
- 			// then get this result
- 			// site address (http) without application directory
- 			return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $url;
- 		} else {
- 			// else if default application or project directory defined then get this result
- 			// site address (http) with application directory
- 			return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $url;
- 		}
- 	}
+	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443) {
+		// if default application or project directory undefined
+		if(empty($APP_DIR) || is_null($APP_DIR)) {
+			// then get this result
+			// site address (https) without application directory
+			return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $url;
+		} else {
+			// else if default application or project directory defined then get this result
+			// site address (https) with application directory
+			return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $url;
+		}
+	} else {
+		// if default application or project directory undefined
+		if(empty($APP_DIR) || is_null($APP_DIR)) {
+			// then get this result
+			// site address (http) without application directory
+			return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $url;
+		} else {
+			// else if default application or project directory defined then get this result
+			// site address (http) with application directory
+			return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $url;
+		}
+	}
 }
 
 if (! function_exists('public_path')) {
@@ -209,9 +209,9 @@ if (! function_exists('redirect_back')) {
 // -----------------------------------------------------------------------
 
 /**
-* Get config value from system/Config/app.php
+* Get config value from System/Config/App.php
 * @param  string|int $d1
-* @return array
+* @return string
 */
 function config_app($d1 = '')
 {
@@ -221,7 +221,7 @@ function config_app($d1 = '')
 }
 
 /**
-* Get config value from system/Config/env.php
+* Get config value from Env.php
 * @param  string|int $d1
 * @return array
 */
@@ -236,7 +236,7 @@ function config_env($d1 = '',$d2 = '')
 }
 
 /**
-* Get config database from system/Config/env.php
+* Get config database from Env.php
 * @param  string|int $d1
 * @return array
 */
@@ -251,7 +251,7 @@ function config_db($d1 = '',$d2 = '')
 }
 
 /**
-* Get config value from system/Config/site.php
+* Get config value from System/Config/Site.php
 * @param  string|int $d1
 * @return array
 */
@@ -291,8 +291,8 @@ if (! function_exists('aurora')) {
 	* @param  string $ext
 	* @param  string $name
 	* @param  string $sep
-	* @param  string $h
-	* @param  string $d
+	* @param  Countable|array $h
+	* @param  Iterable|array $d
 	* @param  string $s
 	* @return string
 	*/
@@ -864,7 +864,7 @@ if (! function_exists('sequence')) {
 	* Helper for create a sequence of the named placeholders
 	*
 	* @param string $bind
-	* @param string $variables
+	* @param iterable|object $variables
 	* @return array
 	*/
 	function sequence($bind, $variables)

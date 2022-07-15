@@ -22,9 +22,9 @@ define('ENV_FILE', 'env.php');
 /**
  * ENV File Check
  */
- if (!is_readable( __DIR__ . '/../' . ENV_FILE ) ) {
- 	die('env file not found, please check in root folder.');
- }
+if (!is_readable( __DIR__ . '/../' . ENV_FILE ) ) {
+	die('env file not found, please check in root folder.');
+}
 
 /**
 * The PSR-4 Autoloader

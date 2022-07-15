@@ -44,7 +44,7 @@ if (! function_exists('loadtime_active')) {
 	 */
 	function loadtime_active()
 	{
-		$timestart = LoadTime::is_active();
+		$timestart = LoadTime::isActive();
 
 		return $timestart;
 	}

@@ -101,7 +101,7 @@ if (! function_exists('csrf_check')) {
 	/**
 	* Return CSRF Input form with Token
 	* @param string $name
-	* @param string $method
+	* @param array $method
 	* @param string $exception
 	* @param string $validity
 	* @param string $onetime
