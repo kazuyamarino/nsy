@@ -69,16 +69,16 @@ function request_is_post()
  */
 function request_as_array($filters = array(), $val = '')
 {
-	if ( is_request_post() ) {
+	if ( request_is_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post()->asArray($filters, $val);
-	} elseif ( is_request_get() ) {
+	} elseif ( request_is_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get()->asArray($filters, $val);
-	} elseif ( is_request_delete() ) {
+	} elseif ( request_is_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del()->asArray($filters, $val);
-	} elseif ( is_request_put() ) {
+	} elseif ( request_is_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put()->asArray($filters, $val);
 	}
@@ -94,16 +94,16 @@ function request_as_array($filters = array(), $val = '')
  */
 function request_as_object($filters = array(), $val = '')
 {
-	if ( is_request_post() ) {
+	if ( request_is_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post()->asObject($filters, $val);
-	} elseif ( is_request_get() ) {
+	} elseif ( request_is_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get()->asObject($filters, $val);
-	} elseif ( is_request_delete() ) {
+	} elseif ( request_is_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del()->asObject($filters, $val);
-	} elseif ( is_request_put() ) {
+	} elseif ( request_is_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put()->asObject($filters, $val);
 	}
@@ -118,16 +118,16 @@ function request_as_object($filters = array(), $val = '')
  */
 function request_as_json($params = '')
 {
-	if ( is_request_post() ) {
+	if ( request_is_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->asJson();
-	} elseif ( is_request_get() ) {
+	} elseif ( request_is_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->asJson();
-	} elseif ( is_request_delete() ) {
+	} elseif ( request_is_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->asJson();
-	} elseif ( is_request_put() ) {
+	} elseif ( request_is_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->asJson();
 	}
@@ -142,16 +142,16 @@ function request_as_json($params = '')
  */
 function request_as_string($params = '')
 {
-	if ( is_request_post() ) {
+	if ( request_is_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->asString();
-	} elseif ( is_request_get() ) {
+	} elseif ( request_is_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->asString();
-	} elseif ( is_request_delete() ) {
+	} elseif ( request_is_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->asString();
-	} elseif ( is_request_put() ) {
+	} elseif ( request_is_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->asString();
 	}
@@ -166,16 +166,16 @@ function request_as_string($params = '')
  */
 function request_as_integer($params = 0)
 {
-	if ( is_request_post() ) {
+	if ( request_is_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->asInteger();
-	} elseif ( is_request_get() ) {
+	} elseif ( request_is_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->asInteger();
-	} elseif ( is_request_delete() ) {
+	} elseif ( request_is_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->asInteger();
-	} elseif ( is_request_put() ) {
+	} elseif ( request_is_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->asInteger();
 	}
@@ -190,16 +190,16 @@ function request_as_integer($params = 0)
  */
 function request_as_float($params = 0)
 {
-	if ( is_request_post() ) {
+	if ( request_is_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->asFloat();
-	} elseif ( is_request_get() ) {
+	} elseif ( request_is_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->asFloat();
-	} elseif ( is_request_delete() ) {
+	} elseif ( request_is_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->asFloat();
-	} elseif ( is_request_put() ) {
+	} elseif ( request_is_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->asFloat();
 	}
@@ -214,16 +214,16 @@ function request_as_float($params = 0)
  */
 function request_as_boolean($params = '')
 {
-	if ( is_request_post() ) {
+	if ( request_is_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->asBoolean();
-	} elseif ( is_request_get() ) {
+	} elseif ( request_is_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->asBoolean();
-	} elseif ( is_request_delete() ) {
+	} elseif ( request_is_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->asBoolean();
-	} elseif ( is_request_put() ) {
+	} elseif ( request_is_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->asBoolean();
 	}
@@ -238,16 +238,16 @@ function request_as_boolean($params = '')
  */
 function request_as_ip($params = '')
 {
-	if ( is_request_post() ) {
+	if ( request_is_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->asIp();
-	} elseif ( is_request_get() ) {
+	} elseif ( request_is_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->asIp();
-	} elseif ( is_request_delete() ) {
+	} elseif ( request_is_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->asIp();
-	} elseif ( is_request_put() ) {
+	} elseif ( request_is_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->asIp();
 	}
@@ -262,16 +262,16 @@ function request_as_ip($params = '')
  */
 function request_as_url($params = '')
 {
-	if ( is_request_post() ) {
+	if ( request_is_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->asUrl();
-	} elseif ( is_request_get() ) {
+	} elseif ( request_is_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->asUrl();
-	} elseif ( is_request_delete() ) {
+	} elseif ( request_is_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->asUrl();
-	} elseif ( is_request_put() ) {
+	} elseif ( request_is_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->asUrl();
 	}
@@ -286,16 +286,16 @@ function request_as_url($params = '')
  */
 function request_as_email($params = '')
 {
-	if ( is_request_post() ) {
+	if ( request_is_post() ) {
 		$req_post = Request::input('POST');
 		$arr = $req_post($params)->asEmail();
-	} elseif ( is_request_get() ) {
+	} elseif ( request_is_get() ) {
 		$req_get = Request::input('GET');
 		$arr = $req_get($params)->asEmail();
-	} elseif ( is_request_delete() ) {
+	} elseif ( request_is_delete() ) {
 		$req_del = Request::input('DELETE');
 		$arr = $req_del($params)->asEmail();
-	} elseif ( is_request_put() ) {
+	} elseif ( request_is_put() ) {
 		$req_put = Request::input('PUT');
 		$arr = $req_put($params)->asEmail();
 	}

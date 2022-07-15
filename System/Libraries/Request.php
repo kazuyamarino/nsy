@@ -296,7 +296,7 @@ class Request
      *
      * @since 2.0.0
      */
-    private static function getContentType() : string
+    public static function getContentType() : string
     {
         $contentType = $_SERVER['HTTP_CONTENT_TYPE'] ?? '';
 
