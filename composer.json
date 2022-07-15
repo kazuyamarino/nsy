@@ -15,9 +15,10 @@
         "optimus/onion": "~1.0",
         "fakerphp/faker": "^1.16",
         "php-curl-class/php-curl-class": "^9.5",
-        "tgalopin/html-sanitizer": "^1.4",
         "voku/anti-xss": "^4.1",
-        "lablnet/encryption": "^1.0"
+        "lablnet/encryption": "^1.0",
+        "symfony/html-sanitizer": "^6.1",
+        "tgalopin/html-sanitizer": "^1.5"
     },
     "autoload": {
         "psr-4": {

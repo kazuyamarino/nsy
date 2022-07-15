@@ -8,7 +8,7 @@ use Curl\Url;
 
 class Curl
 {
-    const VERSION = '9.6.0';
+    const VERSION = '9.6.1';
     const DEFAULT_TIMEOUT = 30;
 
     public $curl = null;
@@ -186,7 +186,29 @@ class Curl
                 !isset($this->headers['Content-Type']) ||
                 !preg_match('/^multipart\/form-data/', $this->headers['Content-Type'])
             )) {
-            $data = http_build_query($data, '', '&');
+            // Avoid using http_build_query() as keys with null values are
+            // unexpectedly excluded from the resulting string.
+            //
+            // http_build_query(['a' => '1', 'b' => null, 'c' => '3']);
+            // >> "a=1&c=3"
+            // http_build_query(['a' => '1', 'b' => '',   'c' => '3']);
+            // >> "a=1&b=&c=3"
+            //
+            // $data = http_build_query($data, '', '&');
+            $data = implode('&', array_map(function ($k, $v) {
+                // Encode keys and values using urlencode() to match the default
+                // behavior http_build_query() where $encoding_type is
+                // PHP_QUERY_RFC1738.
+                //
+                // Use strval() as urlencode() expects a string parameter:
+                //   TypeError: urlencode() expects parameter 1 to be string, integer given
+                //   TypeError: urlencode() expects parameter 1 to be string, null given
+                //
+                // php_raw_url_encode()
+                // php_url_encode()
+                // https://github.com/php/php-src/blob/master/ext/standard/http.c
+                return urlencode($k) . '=' . urlencode(strval($v));
+            }, array_keys($data), array_values($data)));
         }
 
         return $data;
@@ -223,6 +245,7 @@ class Curl
         $this->jsonDecoderArgs = null;
         $this->xmlDecoder = null;
         $this->xmlDecoderArgs = null;
+        $this->headerCallbackData = null;
         $this->defaultDecoder = null;
     }
 
@@ -2067,6 +2090,7 @@ class Curl
         $header_callback_data->stopRequestDecider = null;
         $header_callback_data->stopRequest = false;
         $this->headerCallbackData = $header_callback_data;
+        $this->setStop();
         $this->setOpt(CURLOPT_HEADERFUNCTION, createHeaderCallback($header_callback_data));
 
         $this->setOpt(CURLOPT_RETURNTRANSFER, true);
@@ -2090,27 +2114,34 @@ class Curl
      * The callable must return a truthy value for the request to be stopped
      * early.
      *
+     * The callable may be set to null to avoid calling the stop request decider
+     * callback and instead just check the value of stopRequest for attempting
+     * to stop the request as used by Curl::stop().
+     *
      * @access public
-     * @param  $callback callable
+     * @param  $callback callable|null
      */
-    public function setStop($callback)
+    public function setStop($callback = null)
     {
         $this->headerCallbackData->stopRequestDecider = $callback;
         $this->headerCallbackData->stopRequest = false;
 
         $header_callback_data = $this->headerCallbackData;
-        $this->progress(function (
-            $resource,
-            $download_size,
-            $downloaded,
-            $upload_size,
-            $uploaded
-        ) use (
-            $header_callback_data
-        ) {
-            // Abort the transfer when the stop request flag has been set by returning a non-zero value.
-            return $header_callback_data->stopRequest ? 1 : 0;
-        });
+        $this->progress(createStopRequestFunction($header_callback_data));
+    }
+
+    /**
+     * Stop
+     *
+     * Attempt to stop request.
+     *
+     * Used by MultiCurl::stop() when making multiple parallel requests.
+     *
+     * @access public
+     */
+    public function stop()
+    {
+        $this->headerCallbackData->stopRequest = true;
     }
 }
 
@@ -2140,5 +2171,31 @@ function createHeaderCallback($header_callback_data) {
 
         $header_callback_data->rawResponseHeaders .= $header;
         return strlen($header);
+    };
+}
+
+/**
+ * Create Stop Request Function
+ *
+ * Create a function for Curl::progress() that stops a request early when the
+ * stopRequest flag is on. Keep this function separate from the class to prevent
+ * a memory leak.
+ *
+ * @param  $header_callback_data
+ *
+ * @return callable
+ */
+function createStopRequestFunction($header_callback_data) {
+    return function (
+        $resource,
+        $download_size,
+        $downloaded,
+        $upload_size,
+        $uploaded
+    ) use (
+        $header_callback_data
+    ) {
+        // Abort the transfer when the stop request flag has been set by returning a non-zero value.
+        return $header_callback_data->stopRequest ? 1 : 0;
     };
 }
