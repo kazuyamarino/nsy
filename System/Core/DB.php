@@ -26,6 +26,7 @@ class DB
 	/**
 	* Default Connection
 	*
+	* @param string $conn_name
 	* @return object
 	*/
 	public static function connect($conn_name = 'primary')

@@ -69,8 +69,7 @@ class Load
 	/**
 	 * Instantiate Model & Method caller
 	 * Modified by Vikry Yuansah for NSY System
-	 * @param  string $models
-	 * @param  string $methods
+	 * @param  object $models
 	 * @return object
 	 */
 	protected static function model($models = '')
