@@ -3,7 +3,7 @@ namespace System\Models;
 
 use System\Core\DB;
 
-class Model_Welcome
+class Model_Welcome extends DB
 {
 
 	public function welcome()

@@ -29,7 +29,7 @@ class DB
 	* @param string $conn_name
 	* @return object
 	*/
-	public static function connect($conn_name = 'primary')
+	protected static function connect($conn_name = 'primary')
 	{
 		switch ( config_db($conn_name, 'DB_CONNECTION') ) {
 			case 'mysql':
@@ -61,7 +61,7 @@ class DB
 	* @param  string $query
 	* @return string
 	*/
-	public function query($query = '')
+	protected function query($query = '')
 	{
 		if (is_filled($query) ) {
 			self::$query = $query;
@@ -81,7 +81,7 @@ class DB
 	* @param  array $variables
 	* @return array
 	*/
-	public function vars($variables = array())
+	protected function vars($variables = array())
 	{
 		if (is_array($variables) || is_object($variables) ) {
 			self::$variables = $variables;
@@ -101,7 +101,7 @@ class DB
 	* @param  string $fetch_style
 	* @return string
 	*/
-	public function style($fetch_style = FETCH_BOTH)
+	protected function style($fetch_style = FETCH_BOTH)
 	{
 		if (is_filled($fetch_style) ) {
 			self::$fetch_style = $fetch_style;
@@ -121,7 +121,7 @@ class DB
 	* @param  string $bind
 	* @return string
 	*/
-	public function bind($bind = '')
+	protected function bind($bind = '')
 	{
 		if (is_filled($bind) ) {
 			self::$bind = $bind;
@@ -141,7 +141,7 @@ class DB
 	* @param  int $column
 	* @return int
 	*/
-	public function column($column = 0)
+	protected function column($column = 0)
 	{
 		if (is_filled($column) ) {
 			self::$column = $column;
@@ -158,7 +158,7 @@ class DB
 	/**
 	* Helper for PDO FetchAll
 	*/
-	public function fetch_all()
+	protected function fetch_all()
 	{
 		// Check if there's connection defined on the models
 		if (not_filled(self::$connection) ) {
@@ -223,7 +223,7 @@ class DB
 	/**
 	* Helper for PDO Fetch
 	*/
-	public function fetch()
+	protected function fetch()
 	{
 		// Check if there's connection defined on the models
 		if (not_filled(self::$connection) ) {
@@ -288,7 +288,7 @@ class DB
 	/**
 	* Helper for PDO FetchColumn
 	*/
-	public function fetch_column()
+	protected function fetch_column()
 	{
 		// Check if there's connection defined on the models
 		if (not_filled(self::$connection) ) {
@@ -353,7 +353,7 @@ class DB
 	/**
 	* Helper for PDO RowCount
 	*/
-	public function row_count()
+	protected function row_count()
 	{
 		// Check if there's connection defined on the models
 		if (not_filled(self::$connection) ) {
@@ -421,7 +421,7 @@ class DB
 	/**
 	* Helper for PDO Execute
 	*/
-	public function exec()
+	protected function exec()
 	{
 		if(config_app('csrf_token') === 'true') {
 			try {
@@ -541,7 +541,7 @@ class DB
 	/**
 	* Helper for PDO Multi Insert
 	*/
-	public function multi_insert()
+	protected function multi_insert()
 	{
 		if(config_app('csrf_token') === 'true') {
 			try {
@@ -662,7 +662,7 @@ class DB
 	/**
 	* Helper for PDO Emulation False
 	*/
-	public function emulate_prepares_false()
+	protected function emulate_prepares_false()
 	{
 		self::$connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
 		return new self;
@@ -671,13 +671,13 @@ class DB
 	/**
 	* Helper for PDO MYSQL_ATTR_USE_BUFFERED_QUERY
 	*/
-	public function use_buffer_query_true()
+	protected function use_buffer_query_true()
 	{
 		self::$connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
 		return new self;
 	}
 
-	public function use_buffer_query_false()
+	protected function use_buffer_query_false()
 	{
 		self::$connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 		return new self;
@@ -686,7 +686,7 @@ class DB
 	/**
 	* Helper for PDO ATTR_STRINGIFY_FETCHES
 	*/
-	public function stringify_fetches_true()
+	protected function stringify_fetches_true()
 	{
 		self::$connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, true);
 		return new self;
@@ -695,7 +695,7 @@ class DB
 	/**
 	* Helper for PDO Begin Transaction
 	*/
-	public function begin_trans()
+	protected function begin_trans()
 	{
 		self::$connection->beginTransaction();
 		return new self;
@@ -703,7 +703,7 @@ class DB
 	/**
 	* Helper for PDO Commit Transaction
 	*/
-	public function end_trans()
+	protected function end_trans()
 	{
 		self::$connection->commit();
 		return new self;
@@ -711,7 +711,7 @@ class DB
 	/**
 	* Helper for PDO Rollback Transaction
 	*/
-	public function null_trans()
+	protected function null_trans()
 	{
 		self::$connection->rollback();
 		return new self;
