@@ -82,6 +82,7 @@ class NSY_Migration
 		{
 			$var_msg = "Database name in the <mark>create_db(<strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
 
 		// Close the statement & connection
@@ -131,6 +132,7 @@ class NSY_Migration
 		{
 			$var_msg = "Database name in the <mark>drop_db(<strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
 
 		// Close the statement & connection
@@ -181,6 +183,7 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>rename_table(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
 
 		// Close the statement & connection
@@ -231,6 +234,7 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>alter_rename_table(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
 
 		// Close the statement & connection
@@ -281,6 +285,7 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>sp_rename_table(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
 
 		// Close the statement & connection
@@ -330,6 +335,7 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>drop_table(<strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
 
 		// Close the statement & connection
@@ -478,7 +484,7 @@ class NSY_Migration
 	* Function for create table
 	*
 	* @param string  $table
-	* @param Closure $closure
+	* @param \Closure $closure
 	*/
 	public function create_table(string $table = null, \Closure $closure)
 	{
@@ -526,6 +532,7 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>create_table(<strong>table</strong>, value)</mark> and \nColumns in the <mark>create_table(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
 
 		// Close the statement & connection
@@ -538,7 +545,7 @@ class NSY_Migration
 	* Function for add column (mssql)
 	*
 	* @param string  $table
-	* @param Closure $closure
+	* @param \Closure $closure
 	*/
 	public function add(string $table = null, \Closure $closure)
 	{
@@ -582,6 +589,7 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>add(<strong>table</strong>, value)</mark> and \nColumns in the <mark>add(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
 
 		// Close the statement & connection
@@ -594,7 +602,7 @@ class NSY_Migration
 	* Function for add column (mysql/mariadb/postgre)
 	*
 	* @param string  $table
-	* @param Closure $closure
+	* @param \Closure $closure
 	*/
 	public function add_cols(string $table = null, \Closure $closure)
 	{
@@ -638,6 +646,7 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>add_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>add_cols(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
 
 		// Close the statement & connection
@@ -650,7 +659,7 @@ class NSY_Migration
 	* Function for drop column (mysql/mariadb/postgre/mssql)
 	*
 	* @param string  $table
-	* @param Closure $closure
+	* @param \Closure $closure
 	*/
 	public function drop_cols(string $table = null, \Closure $closure)
 	{
@@ -682,14 +691,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -703,13 +709,14 @@ class NSY_Migration
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
 	* Function for alter column (mssql/postgre)
 	*
 	* @param string  $table
-	* @param Closure $closure
+	* @param \Closure $closure
 	*/
 	public function alter_cols(string $table = null, \Closure $closure)
 	{
@@ -757,6 +764,7 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>alter_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>alter_cols(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
 
 		// Close the statement & connection
@@ -769,7 +777,7 @@ class NSY_Migration
 	* Function for modify column (mysql/mariadb)
 	*
 	* @param string  $table
-	* @param Closure $closure
+	* @param \Closure $closure
 	*/
 	public function modify_cols(string $table = null, \Closure $closure)
 	{
@@ -817,6 +825,7 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>modify_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>modify_cols(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
 
 		// Close the statement & connection
@@ -829,7 +838,7 @@ class NSY_Migration
 	* Function for rename column (postgre)
 	*
 	* @param string  $table
-	* @param Closure $closure
+	* @param \Closure $closure
 	*/
 	public function rename_cols(string $table = null, \Closure $closure)
 	{
@@ -873,6 +882,7 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>rename_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>rename_cols(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
 
 		// Close the statement & connection
@@ -885,7 +895,7 @@ class NSY_Migration
 	* Function for change column (mysql/mariadb)
 	*
 	* @param string  $table
-	* @param Closure $closure
+	* @param \Closure $closure
 	*/
 	public function change_cols(string $table = null, \Closure $closure)
 	{
@@ -929,6 +939,7 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>change_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>change_cols(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
 
 		// Close the statement & connection
@@ -941,7 +952,7 @@ class NSY_Migration
 	* Function for sp rename column (mssql)
 	*
 	* @param string  $table
-	* @param Closure $closure
+	* @param \Closure $closure
 	*/
 	public function sp_rename_cols(string $table = null, \Closure $closure)
 	{
@@ -985,6 +996,7 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>sp_rename_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>sp_rename_cols(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
 
 		// Close the statement & connection

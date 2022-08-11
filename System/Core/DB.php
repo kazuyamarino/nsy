@@ -55,7 +55,7 @@ class DB
 	* Function as a query declaration
 	*
 	* @param  string $query
-	* @return string
+	* @return mixed
 	*/
 	protected function query($query = '')
 	{
@@ -75,7 +75,7 @@ class DB
 	* Function as a variable container
 	*
 	* @param  array $variables
-	* @return array
+	* @return mixed
 	*/
 	protected function vars($variables = array())
 	{
@@ -95,7 +95,7 @@ class DB
 	* Function as a fetch style declaration
 	*
 	* @param  string $fetch_style
-	* @return string
+	* @return mixed
 	*/
 	protected function style($fetch_style = FETCH_BOTH)
 	{
@@ -115,7 +115,7 @@ class DB
 	* Start method for variables sequence (bind)
 	*
 	* @param  string $bind
-	* @return string
+	* @return mixed
 	*/
 	protected function bind($bind = '')
 	{
@@ -135,7 +135,7 @@ class DB
 	* Method for fetch column (column)
 	*
 	* @param  int $column
-	* @return int
+	* @return mixed
 	*/
 	protected function column($column = 0)
 	{
@@ -172,7 +172,6 @@ class DB
 							if (not_filled($res[1]) || not_filled($res[0]) ) {
 								$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
 								NSY_Desk::static_error_handler($var_msg);
-								exit();
 							} else {
 								$stmt->bindValue($key, $res[0], $res[1]);
 							}
@@ -186,7 +185,6 @@ class DB
 							if (not_filled($res[1]) || not_filled($res[0]) ) {
 								$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
 								NSY_Desk::static_error_handler($var_msg);
-								exit();
 							} else {
 								$stmt->bindParam($key, $res[0], $res[1]);
 							}
@@ -207,7 +205,6 @@ class DB
 			} else {
 				$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 				NSY_Desk::static_error_handler($var_msg);
-				exit();
 			}
 		}
 
@@ -237,7 +234,6 @@ class DB
 							if (not_filled($res[1]) || not_filled($res[0]) ) {
 								$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
 								NSY_Desk::static_error_handler($var_msg);
-								exit();
 							} else {
 								$stmt->bindValue($key, $res[0], $res[1]);
 							}
@@ -251,7 +247,6 @@ class DB
 							if (not_filled($res[1]) || not_filled($res[0]) ) {
 								$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
 								NSY_Desk::static_error_handler($var_msg);
-								exit();
 							} else {
 								$stmt->bindParam($key, $res[0], $res[1]);
 							}
@@ -272,7 +267,6 @@ class DB
 			} else {
 				$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 				NSY_Desk::static_error_handler($var_msg);
-				exit();
 			}
 		}
 
@@ -302,7 +296,6 @@ class DB
 							if (not_filled($res[1]) || not_filled($res[0]) ) {
 								$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
 								NSY_Desk::static_error_handler($var_msg);
-								exit();
 							} else {
 								$stmt->bindValue($key, $res[0], $res[1]);
 							}
@@ -316,7 +309,6 @@ class DB
 							if (not_filled($res[1]) || not_filled($res[0]) ) {
 								$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
 								NSY_Desk::static_error_handler($var_msg);
-								exit();
 							} else {
 								$stmt->bindParam($key, $res[0], $res[1]);
 							}
@@ -337,7 +329,6 @@ class DB
 			} else {
 				$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 				NSY_Desk::static_error_handler($var_msg);
-				exit();
 			}
 		}
 
@@ -367,7 +358,6 @@ class DB
 					if (is_numeric($dt) ) {
 						$var_msg = "Array keys doesn't exist on <mark>vars(<strong>variables</strong>)</mark>";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					}
 				}
 
@@ -386,21 +376,17 @@ class DB
 					if (not_filled(self::$variables) ) {
 						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					}
 				} elseif(config_app('transaction') === 'off') {
 					if (not_filled(self::$variables) ) {
 						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					}
 				} else {
 					echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
@@ -448,21 +434,17 @@ class DB
 							if (not_filled(self::$variables) ) {
 								$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 								NSY_Desk::static_error_handler($var_msg);
-								exit();
 							} else {
 								$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 								NSY_Desk::static_error_handler($var_msg);
-								exit();
 							}
 						} elseif(config_app('transaction') === 'off') {
 							if (not_filled(self::$variables) ) {
 								$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 								NSY_Desk::static_error_handler($var_msg);
-								exit();
 							} else {
 								$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 								NSY_Desk::static_error_handler($var_msg);
-								exit();
 							}
 						} else {
 							echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
@@ -502,21 +484,17 @@ class DB
 						if (not_filled(self::$variables) ) {
 							$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 							NSY_Desk::static_error_handler($var_msg);
-							exit();
 						} else {
 							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 							NSY_Desk::static_error_handler($var_msg);
-							exit();
 						}
 					} elseif(config_app('transaction') === 'off') {
 						if (not_filled(self::$variables) ) {
 							$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 							NSY_Desk::static_error_handler($var_msg);
-							exit();
 						} else {
 							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 							NSY_Desk::static_error_handler($var_msg);
-							exit();
 						}
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
@@ -558,7 +536,6 @@ class DB
 					if (not_filled(self::$variables) ) {
 						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						$stmt = self::$connection->prepare(self::$query . ' VALUES '. $valString);
 
@@ -579,11 +556,9 @@ class DB
 							self::$connection->rollback();
 							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 							NSY_Desk::static_error_handler($var_msg);
-							exit();
 						} elseif(config_app('transaction') === 'off') {
 							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 							NSY_Desk::static_error_handler($var_msg);
-							exit();
 						} else {
 							echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
 							exit();
@@ -612,7 +587,6 @@ class DB
 				if (not_filled(self::$variables) ) {
 					$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 					NSY_Desk::static_error_handler($var_msg);
-					exit();
 				} else {
 					$stmt = self::$connection->prepare(self::$query . ' VALUES '. $valString);
 
@@ -634,11 +608,9 @@ class DB
 						self::$connection->rollback();
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
 						exit();
