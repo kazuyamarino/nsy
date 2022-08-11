@@ -30,6 +30,8 @@ Class NSY_AssetManager
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
+
+		return true;
 	}
 
 	/**
@@ -57,6 +59,8 @@ Class NSY_AssetManager
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
+
+		return true;
 	}
 
 	/**
@@ -87,6 +91,8 @@ Class NSY_AssetManager
 			// then show script tags with charset
 			echo '<script src="'.JS_DIR.$filename.'" type="'.$type.'" charset="'.$charset.'" '.$attr.'></script>';
 		}
+
+		return true;
 	}
 
 	/**
@@ -104,6 +110,8 @@ Class NSY_AssetManager
 		} else {
 			echo $values;
 		}
+
+		return true;
 	}
 
 }

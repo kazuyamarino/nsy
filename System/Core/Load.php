@@ -23,7 +23,7 @@ class Load
 	* @param  string $module
 	* @param  string $filename
 	* @param  array  $vars
-	* @return string
+	* @return void
 	*/
 	protected static function view($module = '', $filename = '', $vars = array())
 	{
@@ -49,7 +49,7 @@ class Load
 	*
 	* @param  string $filename
 	* @param  array  $vars
-	* @return string
+	* @return void
 	*/
 	protected static function template($filename = '', $vars = array())
 	{
@@ -69,7 +69,7 @@ class Load
 	/**
 	 * Instantiate Model & Method caller
 	 * Modified by Vikry Yuansah for NSY System
-	 * @param  object $models
+	 * @param  mixed $models
 	 * @return object
 	 */
 	protected static function model($models = '')

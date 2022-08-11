@@ -17,7 +17,7 @@ class NSY_Migration
 	* Default Connection
 	*
 	* @param string $conn_name
-	* @return void
+	* @return mixed
 	*/
 	public static function connect($conn_name = 'primary')
 	{
@@ -25,19 +25,15 @@ class NSY_Migration
 			case 'mysql':
 			self::$connection = NSY_DB::connect_mysql($conn_name);
 			return new self;
-			break;
 			case 'dblib':
 			self::$connection = NSY_DB::connect_dblib($conn_name);
 			return new self;
-			break;
 			case 'sqlsrv':
 			self::$connection = NSY_DB::connect_sqlsrv($conn_name);
 			return new self;
-			break;
 			case 'pgsql':
 			self::$connection = NSY_DB::connect_pgsql($conn_name);
 			return new self;
-			break;
 			default:
 			$var_msg = "Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong>";
 			NSY_Desk::static_error_handler($var_msg);
@@ -74,14 +70,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -89,12 +82,12 @@ class NSY_Migration
 		{
 			$var_msg = "Database name in the <mark>create_db(<strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
@@ -126,14 +119,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -141,12 +131,12 @@ class NSY_Migration
 		{
 			$var_msg = "Database name in the <mark>drop_db(<strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
@@ -179,14 +169,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -194,12 +181,12 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>rename_table(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
@@ -232,14 +219,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -247,12 +231,12 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>alter_rename_table(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
@@ -285,14 +269,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -300,12 +281,12 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>sp_rename_table(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
@@ -337,14 +318,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -352,12 +330,12 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>drop_table(<strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
@@ -389,14 +367,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -410,6 +385,7 @@ class NSY_Migration
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
@@ -538,14 +514,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -553,12 +526,12 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>create_table(<strong>table</strong>, value)</mark> and \nColumns in the <mark>create_table(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
@@ -597,14 +570,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -612,12 +582,12 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>add(<strong>table</strong>, value)</mark> and \nColumns in the <mark>add(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
@@ -656,14 +626,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -671,12 +638,12 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>add_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>add_cols(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
@@ -778,14 +745,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -793,12 +757,12 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>alter_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>alter_cols(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
@@ -841,14 +805,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -856,12 +817,12 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>modify_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>modify_cols(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
@@ -900,14 +861,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -915,12 +873,12 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>rename_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>rename_cols(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
@@ -959,14 +917,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -974,12 +929,12 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>change_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>change_cols(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 	/**
@@ -1018,14 +973,11 @@ class NSY_Migration
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} elseif(config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
-						exit();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
 					}
 				}
 			}
@@ -1033,12 +985,12 @@ class NSY_Migration
 		{
 			$var_msg = "Table name in the <mark>sp_rename_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>sp_rename_cols(table, <strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
+		exit();
 	}
 
 }

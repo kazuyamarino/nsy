@@ -61,7 +61,7 @@ class Session
 	/**
 	* If session has not started, start sessions.
 	*
-	* @param int $lifeTime → lifetime of session in seconds
+	* @param mixed $lifeTime → lifetime of session in seconds
 	*
 	* @return bool
 	*/

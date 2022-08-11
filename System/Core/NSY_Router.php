@@ -61,7 +61,7 @@ class NSY_Router {
 	/**
 	 * NSY Middleware System
 	 * @param  array $middleware
-	 * @return void
+	 * @return mixed
 	 */
 	public static function middleware($middleware)
     {

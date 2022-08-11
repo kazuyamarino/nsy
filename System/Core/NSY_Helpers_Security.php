@@ -66,13 +66,13 @@ if (! function_exists('csrf_token')) {
 		if(config_app('csrf_token') === 'true') {
 			$csrf = new NSY_CSRF;
 			$csrf_token = $csrf->generate($var);
-
-			return $csrf_token;
 		} elseif(config_app('csrf_token') === 'false') {
 			$var_msg = "CSRF Token Protection must be set <strong><i>true</i></strong></p><p>See <strong>System/Config/App.php</strong>";
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
+
+		return $csrf_token;
 	}
 }
 
@@ -87,13 +87,13 @@ if (! function_exists('csrf_token_form')) {
 		if(config_app('csrf_token') === 'true') {
 			$csrf = new NSY_CSRF;
 			$csrf_token = $csrf->generate($var);
-
-			return '<input type="hidden" name="'.$var.'" value="' . $csrf_token . '">';
 		} elseif(config_app('csrf_token') === 'false') {
 			$var_msg = "CSRF Token Protection must be set <strong><i>true</i></strong></p><p>See <strong>System/Config/App.php</strong>";
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
+
+		return '<input type="hidden" name="'.$var.'" value="' . $csrf_token . '">';
 	}
 }
 
@@ -102,9 +102,9 @@ if (! function_exists('csrf_check')) {
 	* Return CSRF Input form with Token
 	* @param string $name
 	* @param array $method
-	* @param string $exception
+	* @param mixed $exception
 	* @param string $validity
-	* @param string $onetime
+	* @param mixed $onetime
 	* @return string
 	*/
 	function csrf_check($name, $method, $exception, $validity, $onetime)
@@ -112,13 +112,13 @@ if (! function_exists('csrf_check')) {
 		if(config_app('csrf_token') === 'true') {
 			$csrf = new NSY_CSRF;
 			$checked = $csrf->check($name, $method, $exception, $validity, $onetime);
-
-			return $checked;
 		} elseif(config_app('csrf_token') === 'false') {
 			$var_msg = "CSRF Token Protection must be set <strong><i>true</i></strong></p><p>See <strong>System/Config/App.php</strong>";
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
+
+		return $checked;
 	}
 }
 

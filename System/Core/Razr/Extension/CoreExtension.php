@@ -63,6 +63,8 @@ class CoreExtension implements ExtensionInterface
         }
 
         $this->blocks[$name] = $value;
+
+        return true;
     }
 
     /**

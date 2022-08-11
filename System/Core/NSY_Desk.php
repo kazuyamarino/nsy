@@ -55,7 +55,6 @@ class NSY_Desk
 			}
 		} else {
 			exit('<pre>The application environment is not set correctly. Please check the <strong>APP_ENV</strong> inside env file in the root directory.</pre>');
-			exit(1); // EXIT_ERROR
 		}
 	}
 

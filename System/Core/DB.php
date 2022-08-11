@@ -35,19 +35,15 @@ class DB
 			case 'mysql':
 			self::$connection = NSY_DB::connect_mysql($conn_name);
 			return new self;
-			break;
 			case 'dblib':
 			self::$connection = NSY_DB::connect_dblib($conn_name);
 			return new self;
-			break;
 			case 'sqlsrv':
 			self::$connection = NSY_DB::connect_sqlsrv($conn_name);
 			return new self;
-			break;
 			case 'pgsql':
 			self::$connection = NSY_DB::connect_pgsql($conn_name);
 			return new self;
-			break;
 			default:
 			$var_msg = "Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong>";
 			NSY_Desk::static_error_handler($var_msg);

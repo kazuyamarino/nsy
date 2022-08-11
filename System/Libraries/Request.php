@@ -42,16 +42,16 @@ class Request
      *
      * @since 2.0.0
      *
-     * @var array
+     * @var int
      */
-    protected $key = null;
+    protected $key = 0;
 
     /**
      * Get request params.
      *
      * @since 2.0.0
      *
-     * @return anonymous function
+     * @return mixed function
      */
     public static function input(string $type)
     {

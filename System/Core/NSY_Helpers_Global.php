@@ -23,7 +23,6 @@ if (! function_exists('not_filled')) {
 	{
 		if (!empty($str)) {
 			return false;
-			exit();
 		} else {
 			if (is_array($str)) {
 				return (!isset($str) || empty($str));
@@ -44,7 +43,6 @@ if (! function_exists('is_filled')) {
 	{
 		if (!isset($str)) {
 			return false;
-			exit();
 		} else {
 			if (is_array($str)) {
 				return (isset($key) || !empty($str));
@@ -395,6 +393,8 @@ if (! function_exists('aurora')) {
 				exit();
 			}
 		}
+
+		return true;
 	}
 }
 
@@ -654,7 +654,7 @@ if (! function_exists('get_site_email')) {
 if (! function_exists('get_vendor_dir')) {
 	/**
 	* Get vendor directory
-	* @return string
+	* @return mixed
 	*/
 	function get_vendor_dir()
 	{
@@ -936,7 +936,7 @@ function get($param = '')
 function deposer($param = '')
 {
 	if ( is_filled($param) ) {
-		$result = isset($_FILE[$param]) ? $_FILE[$param] : null;
+		$result = isset($_FILE[$param]);
 	} else {
 		$var_msg = 'The variable in the <mark>get(<strong>variable</strong>)</mark> is improper or not an array';
 		NSY_Desk::static_error_handler($var_msg);

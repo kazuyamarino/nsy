@@ -208,7 +208,7 @@ class File
      * @param  string    path to source
      * @param  bool    whether to include the path as part of the filename
      * @param  bool    internal variable to determine recursion status - do not use in calls
-     * @return array
+     * @return mixed
      */
     public static function getFilenames($source_dir, $include_path = false, $_recursion = false)
     {
@@ -249,7 +249,7 @@ class File
      * @param  string    path to source
      * @param  bool    Look only at the top level directory specified?
      * @param  bool    internal variable to determine recursion status - do not use in calls
-     * @return array
+     * @return mixed
      */
     public static function getDirFileInfo($source_dir, $top_level_only = true, $_recursion = false)
     {
@@ -292,7 +292,7 @@ class File
      *
      * @param  string    path to file
      * @param  mixed    array or comma separated string of information returned
-     * @return array
+     * @return mixed
      */
     public static function getFileInfo($file, $returned_values = array('name', 'server_path', 'size', 'date'))
     {
@@ -380,19 +380,19 @@ class File
 	 */
 	public static function &getMimes()
 	{
-	    static $_mimes;
+        static $_mimes;
 
-	    if (empty($_mimes)) {
-	        $_mimes = file_exists(__DIR__ . '/../Config/Mimes.php')
-	        ? include __DIR__ . '/../Config/Mimes.php'
-	        : array();
+        if (empty($_mimes)) {
+            $_mimes = file_exists(__DIR__ . '/../Config/Mimes.php')
+            ? include __DIR__ . '/../Config/Mimes.php'
+            : array();
 
-	        if (file_exists(__DIR__ . '/../Config/Mimes.php')) {
-	            $_mimes = array_merge($_mimes, include __DIR__ . '/../Config/Mimes.php');
-	        }
-	    }
+            if (file_exists(__DIR__ . '/../Config/Mimes.php')) {
+                $_mimes = array_merge($_mimes, include __DIR__ . '/../Config/Mimes.php');
+            }
+        }
 
-	    return $_mimes;
+        return $_mimes;
 	}
 
 }

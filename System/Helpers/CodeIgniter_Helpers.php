@@ -99,7 +99,7 @@ if (! function_exists('directory_map')) {
      * @param  string $source_dir      Path to source
      * @param  int    $directory_depth Depth of directories to traverse
      * @param  bool   $hidden          Whether to show hidden files
-     * @return array
+     * @return mixed
      */
     function directory_map($source_dir, $directory_depth = 0, $hidden = false)
     {
