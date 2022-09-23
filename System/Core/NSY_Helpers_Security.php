@@ -10,11 +10,6 @@ use System\Core\NSY_Desk;
 use System\Core\NSY_CSRF;
 
 /**
-* Use HtmlSanitizer class
-*/
-use HtmlSanitizer\Sanitizer;
-
-/**
 * Use AntiXSS class
 */
 use voku\helper\AntiXSS;
@@ -119,22 +114,6 @@ if (! function_exists('csrf_check')) {
 		}
 
 		return $checked;
-	}
-}
-
-if (! function_exists('html_sanitizer')) {
-	/**
-     * Quickly create an already configured sanitizer using the default builder.
-     *
-     * @param array $config
-     * @param string $untrustedHtml
-     */
-	function html_sanitizer(array $config, $untrustedHtml)
-	{
-		$sanitizer = Sanitizer::create($config);
-		$cleanCode = $sanitizer->sanitize($untrustedHtml);
-
-		return $cleanCode;
 	}
 }
 
