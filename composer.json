@@ -17,8 +17,7 @@
         "php-curl-class/php-curl-class": "^9.5",
         "voku/anti-xss": "^4.1",
         "lablnet/encryption": "^1.0",
-        "symfony/html-sanitizer": "^6.1",
-        "tgalopin/html-sanitizer": "^1.5"
+        "symfony/html-sanitizer": "^6.1"
     },
     "autoload": {
         "psr-4": {
