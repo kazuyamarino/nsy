@@ -395,6 +395,140 @@ class NSY_Migration
 	}
 
 	/**
+	* Function for create indexes
+	*
+	* Define Indexes Key
+	*
+	* @param  string $table
+	* @param  string $type
+	* @param  array $cols
+	* @return string
+	*/
+	public function index($table, $type, $cols = array())
+	{
+		if (is_filled($table) ) {
+			if (is_array($cols) || is_object($cols) ) {
+				$res = array();
+				foreach ( $cols as $key => $col ) {
+					$res[] = $col;
+				}
+				$im_cols = implode(', ', $res);
+				$con_cols = implode('_', $res);
+	
+				$query = 'CREATE INDEX ' . $con_cols . '_' . generate_num(1, 5, 6) . '_IDX USING ' . $type . ' ON ' . $table . ' ( ' . $im_cols . ' ) ';
+			} else
+			{
+				$query = 'CREATE INDEX ' . $cols . '_' . generate_num(1, 5, 6) . '_IDX USING ' . $type . ' ON ' . $table . ' ( ' . $cols . ' ) ';
+			}
+			echo '<pre>'. $query . '</pre>';
+
+			// Check if there's connection defined on the models
+			if (not_filled(self::$connection) ) {
+				echo '<pre>No Connection, Please check your connection again!</pre>';
+				exit();
+			} else {
+				// execute it
+				$stmt = self::$connection->prepare($query);
+				$executed = $stmt->execute();
+
+				// Check the errors, if no errors then return the results
+				if ($executed || $stmt->errorCode() == 0) {
+					return $executed;
+				} else {
+					if(config_app('transaction') === 'on') {
+						self::$connection->rollback();
+
+						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+						NSY_Desk::static_error_handler($var_msg);
+					} elseif(config_app('transaction') === 'off') {
+						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+						NSY_Desk::static_error_handler($var_msg);
+					} else {
+						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
+					}
+				}
+			}
+		} else
+		{
+			$var_msg = "Table name in the <mark>index(<strong>value</strong>)</mark> is empty or undefined";
+			NSY_Desk::static_error_handler($var_msg);
+			exit();
+		}
+
+		// Close the statement & connection
+		$stmt = null;
+		self::$connection = null;
+		exit();
+	}
+
+	/**
+	* Function for create indexes (pgsql)
+	*
+	* Define Indexes Key
+	*
+	* @param  string $table
+	* @param  string $type
+	* @param  array $cols
+	* @return string
+	*/
+	public function index_pg($table, $type, $cols = array())
+	{
+		if (is_filled($table) ) {
+			if (is_array($cols) || is_object($cols) ) {
+				$res = array();
+				foreach ( $cols as $key => $col ) {
+					$res[] = $col;
+				}
+				$im_cols = implode(', ', $res);
+				$con_cols = implode('_', $res);
+	
+				$query = 'CREATE INDEX ' . $con_cols . '_' . generate_num(1, 5, 6) . '_IDX ON ' . $table . ' USING ' . $type . ' ( ' . $im_cols . ' ) ';
+			} else
+			{
+				$query = 'CREATE INDEX ' . $cols . '_' . generate_num(1, 5, 6) . '_IDX ON ' . $table . ' USING ' . $type . ' ( ' . $cols . ' ) ';
+			}
+			echo '<pre>'. $query . '</pre>';
+
+			// Check if there's connection defined on the models
+			if (not_filled(self::$connection) ) {
+				echo '<pre>No Connection, Please check your connection again!</pre>';
+				exit();
+			} else {
+				// execute it
+				$stmt = self::$connection->prepare($query);
+				$executed = $stmt->execute();
+
+				// Check the errors, if no errors then return the results
+				if ($executed || $stmt->errorCode() == 0) {
+					return $executed;
+				} else {
+					if(config_app('transaction') === 'on') {
+						self::$connection->rollback();
+
+						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+						NSY_Desk::static_error_handler($var_msg);
+					} elseif(config_app('transaction') === 'off') {
+						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+						NSY_Desk::static_error_handler($var_msg);
+					} else {
+						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
+					}
+				}
+			}
+		} else
+		{
+			$var_msg = "Table name in the <mark>index(<strong>value</strong>)</mark> is empty or undefined";
+			NSY_Desk::static_error_handler($var_msg);
+			exit();
+		}
+
+		// Close the statement & connection
+		$stmt = null;
+		self::$connection = null;
+		exit();
+	}
+
+	/**
 	* Define Primary Key
 	*
 	* @param  array $cols
