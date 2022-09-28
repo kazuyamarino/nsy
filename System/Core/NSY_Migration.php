@@ -413,12 +413,11 @@ class NSY_Migration
 					$res[] = $col;
 				}
 				$im_cols = implode(', ', $res);
-				$con_cols = implode('_', $res);
 	
-				$query = 'CREATE INDEX ' . $con_cols . '_' . generate_num(1, 5, 6) . '_IDX USING ' . $type . ' ON ' . $table . ' ( ' . $im_cols . ' ) ';
+				$query = 'CREATE INDEX MULTI_' . generate_num(1, 5, 6) . '_IDX USING ' . $type . ' ON ' . $table . ' ( ' . $im_cols . ' ) ';
 			} else
 			{
-				$query = 'CREATE INDEX ' . $cols . '_' . generate_num(1, 5, 6) . '_IDX USING ' . $type . ' ON ' . $table . ' ( ' . $cols . ' ) ';
+				$query = 'CREATE INDEX ' . substr($cols, 0, 5) . '_' . generate_num(1, 2, 3) . '_IDX USING ' . $type . ' ON ' . $table . ' ( ' . $cols . ' ) ';
 			}
 			echo '<pre>'. $query . '</pre>';
 
@@ -480,12 +479,11 @@ class NSY_Migration
 					$res[] = $col;
 				}
 				$im_cols = implode(', ', $res);
-				$con_cols = implode('_', $res);
-	
-				$query = 'CREATE INDEX ' . $con_cols . '_' . generate_num(1, 5, 6) . '_IDX ON ' . $table . ' USING ' . $type . ' ( ' . $im_cols . ' ) ';
+				
+				$query = 'CREATE INDEX MULTI_' . generate_num(1, 5, 6) . '_IDX ON ' . $table . ' USING ' . $type . ' ( ' . $im_cols . ' ) ';
 			} else
 			{
-				$query = 'CREATE INDEX ' . $cols . '_' . generate_num(1, 5, 6) . '_IDX ON ' . $table . ' USING ' . $type . ' ( ' . $cols . ' ) ';
+				$query = 'CREATE INDEX ' . substr($cols, 0, 5) . '_' . generate_num(1, 5, 6) . '_IDX ON ' . $table . ' USING ' . $type . ' ( ' . $cols . ' ) ';
 			}
 			echo '<pre>'. $query . '</pre>';
 
@@ -517,7 +515,7 @@ class NSY_Migration
 			}
 		} else
 		{
-			$var_msg = "Table name in the <mark>index_pg(<strong>value</strong>)</mark> is empty or undefined";
+			$var_msg = "Table name in the <mark>index(<strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
