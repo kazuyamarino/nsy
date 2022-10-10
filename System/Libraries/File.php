@@ -20,7 +20,7 @@ namespace System\Libraries;
 class File
 {
 
-	/**
+    /**
      * Check if a file exists in a path or url.
      *
      * @since 1.1.3

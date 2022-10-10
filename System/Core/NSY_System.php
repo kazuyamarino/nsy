@@ -4,7 +4,7 @@ namespace System\Core;
 /**
 * Use Session class
 */
-use System\Libraries\Session;
+use Josantonius\Session\Facades\Session;
 
 /**
 * This is the core of NSY System Settings
@@ -101,7 +101,11 @@ class NSY_System
 		defined('FETCH_FUNC') or define('FETCH_FUNC', \PDO::FETCH_FUNC);
 
 		// start session
-		Session::init(config_app('session_duration'));
+		// $session = new Session();
+
+		// $session->start();
+
+		Session::start(config_app('session_config'));
 	}
 
 }

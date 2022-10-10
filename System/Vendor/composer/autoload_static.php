@@ -59,6 +59,12 @@ class ComposerStaticInityour_suffixed
             'League\\Uri\\' => 11,
             'Lablnet\\' => 8,
         ),
+        'J' => 
+        array (
+            'Josantonius\\Session\\' => 20,
+            'Josantonius\\Json\\' => 17,
+            'Josantonius\\Cookie\\' => 19,
+        ),
         'F' => 
         array (
             'Faker\\' => 6,
@@ -153,6 +159,18 @@ class ComposerStaticInityour_suffixed
         'Lablnet\\' => 
         array (
             0 => __DIR__ . '/..' . '/lablnet/encryption/src',
+        ),
+        'Josantonius\\Session\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/josantonius/session/src',
+        ),
+        'Josantonius\\Json\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/josantonius/json/src',
+        ),
+        'Josantonius\\Cookie\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/josantonius/cookie/src',
         ),
         'Faker\\' => 
         array (
@@ -813,6 +831,22 @@ class ComposerStaticInityour_suffixed
         'FtpClient\\FtpClient' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpClient.php',
         'FtpClient\\FtpException' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpException.php',
         'FtpClient\\FtpWrapper' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpWrapper.php',
+        'Josantonius\\Cookie\\Cookie' => __DIR__ . '/..' . '/josantonius/cookie/src/Cookie.php',
+        'Josantonius\\Cookie\\Exceptions\\CookieException' => __DIR__ . '/..' . '/josantonius/cookie/src/Exceptions/CookieException.php',
+        'Josantonius\\Cookie\\Facades\\Cookie' => __DIR__ . '/..' . '/josantonius/cookie/src/Facades/Cookie.php',
+        'Josantonius\\Json\\Exceptions\\CreateDirectoryException' => __DIR__ . '/..' . '/josantonius/json/src/Exceptions/CreateDirectoryException.php',
+        'Josantonius\\Json\\Exceptions\\CreateFileException' => __DIR__ . '/..' . '/josantonius/json/src/Exceptions/CreateFileException.php',
+        'Josantonius\\Json\\Exceptions\\GetFileException' => __DIR__ . '/..' . '/josantonius/json/src/Exceptions/GetFileException.php',
+        'Josantonius\\Json\\Exceptions\\JsonErrorException' => __DIR__ . '/..' . '/josantonius/json/src/Exceptions/JsonErrorException.php',
+        'Josantonius\\Json\\Exceptions\\UnavailableMethodException' => __DIR__ . '/..' . '/josantonius/json/src/Exceptions/UnavailableMethodException.php',
+        'Josantonius\\Json\\Json' => __DIR__ . '/..' . '/josantonius/json/src/Json.php',
+        'Josantonius\\Session\\Exceptions\\HeadersSentException' => __DIR__ . '/..' . '/josantonius/session/src/Exceptions/HeadersSentException.php',
+        'Josantonius\\Session\\Exceptions\\SessionException' => __DIR__ . '/..' . '/josantonius/session/src/Exceptions/SessionException.php',
+        'Josantonius\\Session\\Exceptions\\SessionNotStartedException' => __DIR__ . '/..' . '/josantonius/session/src/Exceptions/SessionNotStartedException.php',
+        'Josantonius\\Session\\Exceptions\\SessionStartedException' => __DIR__ . '/..' . '/josantonius/session/src/Exceptions/SessionStartedException.php',
+        'Josantonius\\Session\\Exceptions\\WrongSessionOptionException' => __DIR__ . '/..' . '/josantonius/session/src/Exceptions/WrongSessionOptionException.php',
+        'Josantonius\\Session\\Facades\\Session' => __DIR__ . '/..' . '/josantonius/session/src/Facades/Session.php',
+        'Josantonius\\Session\\Session' => __DIR__ . '/..' . '/josantonius/session/src/Session.php',
         'Lablnet\\Adapter\\AbstractAdapter' => __DIR__ . '/..' . '/lablnet/encryption/src/Adapter/AbstractAdapter.php',
         'Lablnet\\Adapter\\OpenSslEncryption' => __DIR__ . '/..' . '/lablnet/encryption/src/Adapter/OpenSslEncryption.php',
         'Lablnet\\Adapter\\SodiumEncryption' => __DIR__ . '/..' . '/lablnet/encryption/src/Adapter/SodiumEncryption.php',
@@ -1905,17 +1939,12 @@ class ComposerStaticInityour_suffixed
         'System\\Core\\Razr\\Storage\\StringStorage' => __DIR__ . '/../../..' . '/System/Core/Razr/Storage/StringStorage.php',
         'System\\Core\\Razr\\Token' => __DIR__ . '/../../..' . '/System/Core/Razr/Token.php',
         'System\\Core\\Razr\\TokenStream' => __DIR__ . '/../../..' . '/System/Core/Razr/TokenStream.php',
-        'System\\Libraries\\Cookie' => __DIR__ . '/../../..' . '/System/Libraries/Cookie.php',
-        'System\\Libraries\\Exception\\JsonException' => __DIR__ . '/../../..' . '/System/Libraries/Exception/JsonException.php',
         'System\\Libraries\\File' => __DIR__ . '/../../..' . '/System/Libraries/File.php',
         'System\\Libraries\\Ip' => __DIR__ . '/../../..' . '/System/Libraries/Ip.php',
-        'System\\Libraries\\Json' => __DIR__ . '/../../..' . '/System/Libraries/Json.php',
-        'System\\Libraries\\JsonLastError' => __DIR__ . '/../../..' . '/System/Libraries/JsonLastError.php',
         'System\\Libraries\\LanguageCode' => __DIR__ . '/../../..' . '/System/Libraries/LanguageCode.php',
         'System\\Libraries\\LanguageCodeCollection' => __DIR__ . '/../../..' . '/System/Libraries/LanguageCodeCollection.php',
         'System\\Libraries\\LoadTime' => __DIR__ . '/../../..' . '/System/Libraries/LoadTime.php',
         'System\\Libraries\\Request' => __DIR__ . '/../../..' . '/System/Libraries/Request.php',
-        'System\\Libraries\\Session' => __DIR__ . '/../../..' . '/System/Libraries/Session.php',
         'System\\Libraries\\Str' => __DIR__ . '/../../..' . '/System/Libraries/Str.php',
         'System\\Libraries\\Validate' => __DIR__ . '/../../..' . '/System/Libraries/Validate.php',
         'System\\Middlewares\\AfterLayer' => __DIR__ . '/../../..' . '/System/Middlewares/AfterLayer.php',

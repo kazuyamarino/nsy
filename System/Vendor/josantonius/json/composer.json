@@ -1,0 +1,68 @@
+{
+    "name": "josantonius/json",
+    "description": "PHP simple library for managing Json files.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "json",
+        "file-to-array",
+        "array-to-file",
+        "php"
+    ],
+    "authors": [
+        {
+            "name": "Josantonius",
+            "email": "hello@josantonius.dev",
+            "homepage": "https://josantonius.dev",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/josantonius/php-json/issues",
+        "source": "https://github.com/josantonius/php-json",
+        "discussions": "https://github.com/josantonius/php-json/discussions"
+    },
+    "require": {
+        "php": "^8.0"
+    },
+    "require-dev": {
+        "phpmd/phpmd": "^2.6",
+        "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "^3.7"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Josantonius\\Json\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Josantonius\\Json\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "scripts": {
+        "coverage": "vendor/bin/phpunit --coverage-clover=coverage.xml",
+        "fix": [
+            "vendor/bin/phpcbf src tests"
+        ],
+        "htmlCoverage": "vendor/bin/phpunit --coverage-html coverage",
+        "phpcs": "vendor/bin/phpcs --standard=phpcs.xml $(find . -name '*.php');",
+        "phpmd": "vendor/bin/phpmd src,tests text ./phpmd.xml",
+        "phpunit": "vendor/bin/phpunit",
+        "tests": [
+            "clear",
+            "@phpmd",
+            "@phpcs",
+            "@phpunit"
+        ]
+    }
+}

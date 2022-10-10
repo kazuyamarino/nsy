@@ -144,6 +144,207 @@
             "install-path": "../fakerphp/faker"
         },
         {
+            "name": "josantonius/cookie",
+            "version": "v2.0.6",
+            "version_normalized": "2.0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/josantonius/php-cookie.git",
+                "reference": "278c002e4b55c21c988e8c4e7e63eb6b7a3c3c56"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/josantonius/php-cookie/zipball/278c002e4b55c21c988e8c4e7e63eb6b7a3c3c56",
+                "reference": "278c002e4b55c21c988e8c4e7e63eb6b7a3c3c56",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^7.4",
+                "phpmd/phpmd": "^2.6",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "^3.7"
+            },
+            "time": "2022-08-10T22:19:41+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Josantonius\\Cookie\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Josantonius",
+                    "email": "hello@josantonius.dev",
+                    "homepage": "https://josantonius.dev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP library for handling cookies.",
+            "keywords": [
+                "cookies",
+                "php"
+            ],
+            "support": {
+                "discussions": "https://github.com/josantonius/php-cookie/discussions",
+                "issues": "https://github.com/josantonius/php-cookie/issues",
+                "source": "https://github.com/josantonius/php-cookie"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Josantonius",
+                    "type": "github"
+                }
+            ],
+            "install-path": "../josantonius/cookie"
+        },
+        {
+            "name": "josantonius/json",
+            "version": "v2.0.7",
+            "version_normalized": "2.0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/josantonius/php-json.git",
+                "reference": "f67bec93e3f9e394cbca0054459c6d33f2cb8f60"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/josantonius/php-json/zipball/f67bec93e3f9e394cbca0054459c6d33f2cb8f60",
+                "reference": "f67bec93e3f9e394cbca0054459c6d33f2cb8f60",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "phpmd/phpmd": "^2.6",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "^3.7"
+            },
+            "time": "2022-09-29T17:28:49+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Josantonius\\Json\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Josantonius",
+                    "email": "hello@josantonius.dev",
+                    "homepage": "https://josantonius.dev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP simple library for managing Json files.",
+            "keywords": [
+                "array-to-file",
+                "file-to-array",
+                "json",
+                "php"
+            ],
+            "support": {
+                "discussions": "https://github.com/josantonius/php-json/discussions",
+                "issues": "https://github.com/josantonius/php-json/issues",
+                "source": "https://github.com/josantonius/php-json"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Josantonius",
+                    "type": "github"
+                }
+            ],
+            "install-path": "../josantonius/json"
+        },
+        {
+            "name": "josantonius/session",
+            "version": "v2.0.8",
+            "version_normalized": "2.0.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/josantonius/php-session.git",
+                "reference": "1621ac504fe2f92e74a62a50eeeebf6088a0d16f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/josantonius/php-session/zipball/1621ac504fe2f92e74a62a50eeeebf6088a0d16f",
+                "reference": "1621ac504fe2f92e74a62a50eeeebf6088a0d16f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "phpmd/phpmd": "^2.12",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "^3.7"
+            },
+            "time": "2022-09-29T20:37:55+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Josantonius\\Session\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Josantonius",
+                    "email": "hello@josantonius.dev",
+                    "homepage": "https://josantonius.dev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP library for handling sessions.",
+            "keywords": [
+                "php",
+                "session"
+            ],
+            "support": {
+                "discussions": "https://github.com/josantonius/php-session/discussions",
+                "issues": "https://github.com/josantonius/php-session/issues",
+                "source": "https://github.com/josantonius/php-session"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Josantonius",
+                    "type": "github"
+                }
+            ],
+            "install-path": "../josantonius/session"
+        },
+        {
             "name": "lablnet/encryption",
             "version": "1.0",
             "version_normalized": "1.0.0.0",

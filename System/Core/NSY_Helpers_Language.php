@@ -1,21 +1,16 @@
 <?php
-/**
-* Use NSY_Desk class
-*/
-use System\Core\NSY_Desk;
-
 use System\Libraries\LanguageCode; // LanguageCode Class
 
 /**
  * Language Helpers
  */
-if (! function_exists('show_all_lang')) {
+if (! function_exists('get_all_lang')) {
 	/**
 	* Get all language codes as array.
 	*
 	* @return array → language codes and language names
 	*/
-	function show_all_lang()
+	function get_all_lang()
 	{
 		$arr = LanguageCode::get();
 
@@ -23,7 +18,7 @@ if (! function_exists('show_all_lang')) {
 	}
 }
 
-if (! function_exists('show_lang_name')) {
+if (! function_exists('get_lang_name')) {
 	/**
 	* Get language name from language code.
 	*
@@ -31,7 +26,7 @@ if (! function_exists('show_lang_name')) {
 	*
 	* @return string|false → country name
 	*/
-	function show_lang_name($languageCode)
+	function get_lang_name($languageCode)
 	{
 		$langname = LanguageCode::getLanguageFromCode($languageCode);
 
@@ -39,7 +34,7 @@ if (! function_exists('show_lang_name')) {
 	}
 }
 
-if (! function_exists('show_lang_code')) {
+if (! function_exists('get_lang_code')) {
 	/**
 	* Get language code from language name.
 	*
@@ -47,7 +42,7 @@ if (! function_exists('show_lang_code')) {
 	*
 	* @return string|false → language code
 	*/
-	function show_lang_code($languageName)
+	function get_lang_code($languageName)
 	{
 		$langcode = LanguageCode::getCodeFromLanguage($languageName);
 

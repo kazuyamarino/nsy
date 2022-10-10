@@ -208,8 +208,8 @@ if (! function_exists('redirect_back')) {
 
 /**
 * Get config value from System/Config/App.php
-* @param  string|int $d1
-* @return string
+* @param  mixed $d1
+* @return mixed
 */
 function config_app($d1 = '')
 {

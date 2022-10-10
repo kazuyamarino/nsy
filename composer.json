@@ -17,7 +17,10 @@
         "php-curl-class/php-curl-class": "^9.5",
         "voku/anti-xss": "^4.1",
         "lablnet/encryption": "^1.0",
-        "symfony/html-sanitizer": "^6.1"
+        "symfony/html-sanitizer": "^6.1",
+        "josantonius/cookie": "^2.0",
+        "josantonius/json": "^2.0",
+        "josantonius/session": "^2.0"
     },
     "autoload": {
         "psr-4": {

@@ -111,16 +111,11 @@ class NSY_Desk
 	public static function register_system()
 	{
 		// Register Core
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_Cookie.php';
 		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_File.php';
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_IP.php';
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_Json.php';
 		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_Language.php';
 		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_LoadTime.php';
 		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_Request.php';
 		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_Security.php';
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_Session.php';
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_String.php';
 		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_Validate.php';
 
 		// Register Libraries
