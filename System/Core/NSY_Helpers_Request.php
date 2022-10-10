@@ -1,10 +1,5 @@
 <?php
 /**
-* Use NSY_Desk class
-*/
-use System\Core\NSY_Desk;
-
-/**
 * Use Request library
 */
 use System\Libraries\Request;

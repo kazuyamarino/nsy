@@ -29,5 +29,5 @@ Route::get('/hmvc', function() {
 });
 
 Route::get('/test', function() {
-	Route::goto('Controller_Test@test_string_search');
+	Route::goto('Controller_Test@test_json');
 });
