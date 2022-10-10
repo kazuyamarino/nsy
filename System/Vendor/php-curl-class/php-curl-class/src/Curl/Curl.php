@@ -8,7 +8,7 @@ use Curl\Url;
 
 class Curl
 {
-    const VERSION = '9.6.1';
+    const VERSION = '9.8.0';
     const DEFAULT_TIMEOUT = 30;
 
     public $curl = null;
@@ -97,6 +97,7 @@ class Curl
     ];
 
     private static $deferredProperties = [
+        'curlErrorCodeConstant',
         'effectiveUrl',
         'rfc2616',
         'rfc6265',
@@ -189,10 +190,11 @@ class Curl
             // Avoid using http_build_query() as keys with null values are
             // unexpectedly excluded from the resulting string.
             //
-            // http_build_query(['a' => '1', 'b' => null, 'c' => '3']);
-            // >> "a=1&c=3"
-            // http_build_query(['a' => '1', 'b' => '',   'c' => '3']);
-            // >> "a=1&b=&c=3"
+            // $ php -a
+            // php > echo http_build_query(['a' => '1', 'b' => null, 'c' => '3']);
+            // a=1&c=3
+            // php > echo http_build_query(['a' => '1', 'b' => '',   'c' => '3']);
+            // a=1&b=&c=3
             //
             // $data = http_build_query($data, '', '&');
             $data = implode('&', array_map(function ($k, $v) {
@@ -207,8 +209,8 @@ class Curl
                 // php_raw_url_encode()
                 // php_url_encode()
                 // https://github.com/php/php-src/blob/master/ext/standard/http.c
-                return urlencode($k) . '=' . urlencode(strval($v));
-            }, array_keys($data), array_values($data)));
+                return urlencode(strval($k)) . '=' . urlencode(strval($v));
+            }, array_keys((array)$data), array_values((array)$data)));
         }
 
         return $data;
@@ -518,10 +520,17 @@ class Curl
 
         // Include additional error code information in error message when possible.
         if ($this->curlError) {
-            $this->curlErrorMessage =
-                curl_strerror($this->curlErrorCode) . (
-                    empty($this->curlErrorMessage) ? '' : ': ' . $this->curlErrorMessage
-                );
+            $curl_error_message = curl_strerror($this->curlErrorCode);
+
+            if ($this->curlErrorCodeConstant !== '') {
+                $curl_error_message .= ' (' . $this->curlErrorCodeConstant . ')';
+            }
+
+            if (!empty($this->curlErrorMessage)) {
+                $curl_error_message .= ': ' . $this->curlErrorMessage;
+            }
+
+            $this->curlErrorMessage = $curl_error_message;
         }
 
         $this->httpStatusCode = $this->getInfo(CURLINFO_HTTP_CODE);
@@ -546,6 +555,7 @@ class Curl
         $this->errorMessage = $this->curlError ? $this->curlErrorMessage : $this->httpErrorMessage;
 
         // Reset select deferred properties so that they may be recalculated.
+        unset($this->curlErrorCodeConstant);
         unset($this->effectiveUrl);
         unset($this->totalTime);
 
@@ -1519,7 +1529,10 @@ class Curl
 
             echo 'Request contained ' . ($request_body_empty ? 'no body' : 'a body') . '.' . "\n";
 
-            if ($this->getOpt(CURLOPT_VERBOSE) || $this->getOpt(CURLINFO_HEADER_OUT) !== true) {
+            if ($request_headers_count === 0 && (
+                $this->getOpt(CURLOPT_VERBOSE) ||
+                $this->getOpt(CURLINFO_HEADER_OUT) !== true
+            )) {
                 echo
                     'Warning: Request headers (Curl::requestHeaders) are expected be empty ' .
                     '(CURLOPT_VERBOSE was enabled or CURLINFO_HEADER_OUT was disabled).' . "\n";
@@ -1826,6 +1839,28 @@ class Curl
             $return = $this->$name = $this->$getter();
         }
         return $return;
+    }
+
+    /**
+     * Get Curl Error Code Constant
+     *
+     * @access private
+     */
+    private function _get_curlErrorCodeConstant()
+    {
+        $constants = get_defined_constants(true);
+        $filtered_array = array_filter(
+            $constants['curl'],
+            function ($key) {
+                return strpos($key, 'CURLE_') !== false;
+            },
+            ARRAY_FILTER_USE_KEY
+        );
+        $curl_const_by_code = array_flip($filtered_array);
+        if (isset($curl_const_by_code[$this->curlErrorCode])) {
+            return $curl_const_by_code[$this->curlErrorCode];
+        }
+        return '';
     }
 
     /**

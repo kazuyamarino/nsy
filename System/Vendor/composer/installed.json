@@ -1077,17 +1077,17 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.6.1",
-            "version_normalized": "9.6.1.0",
+            "version": "9.8.0",
+            "version_normalized": "9.8.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "d453257b12c9999dc6dfcdb8e7a7d36958f67d86"
+                "reference": "bf54ee6d9a6551dcdaff722ba83551ad8ef68698"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/d453257b12c9999dc6dfcdb8e7a7d36958f67d86",
-                "reference": "d453257b12c9999dc6dfcdb8e7a7d36958f67d86",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/bf54ee6d9a6551dcdaff722ba83551ad8ef68698",
+                "reference": "bf54ee6d9a6551dcdaff722ba83551ad8ef68698",
                 "shasum": ""
             },
             "require": {
@@ -1095,8 +1095,10 @@
                 "php": ">=7.0"
             },
             "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "*",
                 "ext-gd": "*",
-                "phpcompatibility/php-compatibility": "*",
+                "phpcompatibility/php-compatibility": "dev-develop",
+                "phpcsstandards/phpcsutils": "@alpha",
                 "phpunit/phpunit": "*",
                 "squizlabs/php_codesniffer": "*",
                 "vimeo/psalm": "*"
@@ -1104,7 +1106,7 @@
             "suggest": {
                 "ext-mbstring": "*"
             },
-            "time": "2022-07-01T00:33:15+00:00",
+            "time": "2022-10-01T01:32:07+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1147,7 +1149,7 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.6.1"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.8.0"
             },
             "install-path": "../php-curl-class/php-curl-class"
         },
@@ -1486,17 +1488,17 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.24",
-            "version_normalized": "9.5.24.0",
+            "version": "9.5.25",
+            "version_normalized": "9.5.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "d0aa6097bef9fd42458a9b3c49da32c6ce6129c5"
+                "reference": "3e6f90ca7e3d02025b1d147bd8d4a89fd4ca8a1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d0aa6097bef9fd42458a9b3c49da32c6ce6129c5",
-                "reference": "d0aa6097bef9fd42458a9b3c49da32c6ce6129c5",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3e6f90ca7e3d02025b1d147bd8d4a89fd4ca8a1d",
+                "reference": "3e6f90ca7e3d02025b1d147bd8d4a89fd4ca8a1d",
                 "shasum": ""
             },
             "require": {
@@ -1518,21 +1520,21 @@
                 "phpunit/php-timer": "^5.0.2",
                 "sebastian/cli-parser": "^1.0.1",
                 "sebastian/code-unit": "^1.0.6",
-                "sebastian/comparator": "^4.0.5",
+                "sebastian/comparator": "^4.0.8",
                 "sebastian/diff": "^4.0.3",
                 "sebastian/environment": "^5.1.3",
-                "sebastian/exporter": "^4.0.3",
+                "sebastian/exporter": "^4.0.5",
                 "sebastian/global-state": "^5.0.1",
                 "sebastian/object-enumerator": "^4.0.3",
                 "sebastian/resource-operations": "^3.0.3",
-                "sebastian/type": "^3.1",
+                "sebastian/type": "^3.2",
                 "sebastian/version": "^3.0.2"
             },
             "suggest": {
                 "ext-soap": "*",
                 "ext-xdebug": "*"
             },
-            "time": "2022-08-30T07:42:16+00:00",
+            "time": "2022-09-25T03:44:45+00:00",
             "bin": [
                 "phpunit"
             ],
@@ -1571,7 +1573,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.24"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.25"
             },
             "funding": [
                 {
@@ -1581,6 +1583,10 @@
                 {
                     "url": "https://github.com/sebastianbergmann",
                     "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/phpunit/phpunit",
+                    "type": "tidelift"
                 }
             ],
             "install-path": "../phpunit/phpunit"
@@ -3760,17 +3766,17 @@
         },
         {
             "name": "voku/portable-utf8",
-            "version": "6.0.9",
-            "version_normalized": "6.0.9.0",
+            "version": "6.0.10",
+            "version_normalized": "6.0.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/portable-utf8.git",
-                "reference": "eb2861c34203a9c2a7c275cba7014d6816604e89"
+                "reference": "35b21539c309cbc4697266591f3a4ae9ce4e029c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/portable-utf8/zipball/eb2861c34203a9c2a7c275cba7014d6816604e89",
-                "reference": "eb2861c34203a9c2a7c275cba7014d6816604e89",
+                "url": "https://api.github.com/repos/voku/portable-utf8/zipball/35b21539c309cbc4697266591f3a4ae9ce4e029c",
+                "reference": "35b21539c309cbc4697266591f3a4ae9ce4e029c",
                 "shasum": ""
             },
             "require": {
@@ -3797,7 +3803,7 @@
                 "ext-json": "Use JSON for string detection",
                 "ext-mbstring": "Use Mbstring for best performance"
             },
-            "time": "2022-09-01T09:54:03+00:00",
+            "time": "2022-10-05T23:42:43+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -3838,7 +3844,7 @@
             ],
             "support": {
                 "issues": "https://github.com/voku/portable-utf8/issues",
-                "source": "https://github.com/voku/portable-utf8/tree/6.0.9"
+                "source": "https://github.com/voku/portable-utf8/tree/6.0.10"
             },
             "funding": [
                 {

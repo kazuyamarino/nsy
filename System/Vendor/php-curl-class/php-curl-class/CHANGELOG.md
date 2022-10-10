@@ -4,6 +4,26 @@ PHP Curl Class uses semantic versioning with version numbers written as `MAJOR.M
 `MINOR` and `PATCH` version changes. It is recommended to review `MAJOR` changes prior to upgrade as there may be
 backwards-incompatible changes that will affect existing usage.
 
+<!-- CHANGELOG_PLACEHOLDER -->
+
+## 9.8.0 - 2022-10-01
+
+- Include curl error code constant in curl error message ([#733](https://github.com/php-curl-class/php-curl-class/pull/733))
+
+## 9.7.0 - 2022-09-29
+
+- Implement ArrayUtil::arrayRandomIndex() ([#732](https://github.com/php-curl-class/php-curl-class/pull/732))
+
+## 9.6.3 - 2022-09-24
+
+- Remove filter flag constants deprecated as of PHP 7.3 ([#730](https://github.com/php-curl-class/php-curl-class/pull/730))
+
+## 9.6.2 - 2022-09-24
+
+- Call MultiCurl::beforeSend() before each request is made ([#723](https://github.com/php-curl-class/php-curl-class/pull/723))
+- Encode keys for post data with numeric keys ([#726](https://github.com/php-curl-class/php-curl-class/pull/726))
+- Fix building post data with object ([#728](https://github.com/php-curl-class/php-curl-class/pull/728))
+
 ## 9.6.1 - 2022-06-30
 
 ### Fixed
