@@ -251,7 +251,7 @@ function config_db($d1 = '',$d2 = '')
 /**
 * Get config value from System/Config/Site.php
 * @param  string|int $d1
-* @return array
+* @return mixed
 */
 function config_site($d1 = '')
 {
