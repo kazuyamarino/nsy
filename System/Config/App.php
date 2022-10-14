@@ -45,10 +45,10 @@ return [
 
 	/*
 	|--------------------------------------------------------------------------
-	| Default Session Duration
+	| Default Session Config
 	|--------------------------------------------------------------------------
 	|
-	| Start session by setting the session duration
+	| Start session by setting the session Config
 	|
 	*/
 	'session_config' => [
