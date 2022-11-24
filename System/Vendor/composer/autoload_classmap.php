@@ -81,6 +81,7 @@ return array(
     'Carbon\\Traits\\Serialization' => $vendorDir . '/nesbot/carbon/src/Carbon/Traits/Serialization.php',
     'Carbon\\Traits\\Test' => $vendorDir . '/nesbot/carbon/src/Carbon/Traits/Test.php',
     'Carbon\\Traits\\Timestamp' => $vendorDir . '/nesbot/carbon/src/Carbon/Traits/Timestamp.php',
+    'Carbon\\Traits\\ToStringFormat' => $vendorDir . '/nesbot/carbon/src/Carbon/Traits/ToStringFormat.php',
     'Carbon\\Traits\\Units' => $vendorDir . '/nesbot/carbon/src/Carbon/Traits/Units.php',
     'Carbon\\Traits\\Week' => $vendorDir . '/nesbot/carbon/src/Carbon/Traits/Week.php',
     'Carbon\\Translator' => $vendorDir . '/nesbot/carbon/src/Carbon/Translator.php',
