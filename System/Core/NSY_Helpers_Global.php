@@ -949,19 +949,17 @@ function deposer($param = '')
 /**
  * Data Conversion Helpers
  */
-if (! function_exists('json_fetch')) {
-	/**
-	* Fetch data to json format
-	* @param  array $data
-	* @param  int $status
-	* @return string
-	*/
-	function json_fetch($data = array(), $status = 0)
-	{
-		$json_data = $data;
-		$json_result = json_encode($json_data);
+/**
+* Fetch data to json format
+* @param  array $data
+* @param  int $status
+* @return string
+*/
+function json_fetch($data = array(), $status = 0)
+{
+	$json_data = $data;
+	$json_result = json_encode($json_data);
 
-		http_response_code($status);
-		return $json_result;
-	}
+	http_response_code($status);
+	return $json_result;
 }

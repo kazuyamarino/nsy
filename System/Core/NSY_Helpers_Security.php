@@ -26,9 +26,9 @@ if (! function_exists('secure_input')) {
 	*/
 	function secure_input($data = '')
 	{
-		$data = trim($data);
-		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
+		$data = trim($data ?? '');
+		$data = stripslashes($data ?? '');
+		$data = htmlspecialchars($data ?? '');
 
 		return $data;
 	}
