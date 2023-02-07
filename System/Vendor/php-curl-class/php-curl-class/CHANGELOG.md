@@ -6,6 +6,54 @@ backwards-incompatible changes that will affect existing usage.
 
 <!-- CHANGELOG_PLACEHOLDER -->
 
+## 9.13.1 - 2023-01-16
+
+- Allow uploads with CURLStringFile type  ([#762](https://github.com/php-curl-class/php-curl-class/pull/762))
+
+## 9.13.0 - 2023-01-13
+
+- Implement abstract class BaseCurl for Curl and MultiCurl ([#759](https://github.com/php-curl-class/php-curl-class/pull/759))
+- Display error messages found in Curl::diagnose() ([#758](https://github.com/php-curl-class/php-curl-class/pull/758))
+- Fix Curl::diagnose() request type output for POST requests ([#757](https://github.com/php-curl-class/php-curl-class/pull/757))
+
+## 9.12.6 - 2023-01-11
+
+- Replace use of #[\AllowDynamicProperties] ([#756](https://github.com/php-curl-class/php-curl-class/pull/756))
+- silence PHP 8.2 deprecation notices ([#754](https://github.com/php-curl-class/php-curl-class/pull/754))
+
+## 9.12.5 - 2022-12-20
+
+- Fix static analysis error ([#752](https://github.com/php-curl-class/php-curl-class/pull/752))
+
+## 9.12.4 - 2022-12-17
+
+- Exclude additional files from git archive ([#751](https://github.com/php-curl-class/php-curl-class/pull/751))
+
+## 9.12.3 - 2022-12-13
+
+- Ensure string response before gzip decode ([#749](https://github.com/php-curl-class/php-curl-class/pull/749))
+
+## 9.12.2 - 2022-12-11
+
+- Disable warning when gzip-decoding response errors ([#748](https://github.com/php-curl-class/php-curl-class/pull/748))
+
+## 9.12.1 - 2022-12-08
+
+- Include option constant that uses the CURLINFO_ prefix ([#745](https://github.com/php-curl-class/php-curl-class/pull/745))
+
+## 9.12.0 - 2022-12-07
+
+- Add automatic gzip decoding of response ([#744](https://github.com/php-curl-class/php-curl-class/pull/744))
+
+## 9.11.1 - 2022-12-06
+
+- change: remove unused namespace import ([#743](https://github.com/php-curl-class/php-curl-class/pull/743))
+
+## 9.11.0 - 2022-12-05
+
+- Add Curl::diagnose() HTTP method check matches methods allowed ([#741](https://github.com/php-curl-class/php-curl-class/pull/741))
+- Add temporary fix missing template params ([#742](https://github.com/php-curl-class/php-curl-class/pull/742))
+
 ## 9.10.0 - 2022-11-07
 
 - Display request options in Curl::diagnose() output ([#739](https://github.com/php-curl-class/php-curl-class/pull/739))

@@ -2,8 +2,8 @@
 
 [![](https://img.shields.io/github/release/php-curl-class/php-curl-class.svg?style=flat-square&sort=semver)](https://github.com/php-curl-class/php-curl-class/releases/)
 [![](https://img.shields.io/github/license/php-curl-class/php-curl-class.svg?style=flat-square)](https://github.com/php-curl-class/php-curl-class/blob/master/LICENSE)
-[![](https://img.shields.io/github/workflow/status/php-curl-class/php-curl-class/ci?style=flat-square)](https://github.com/php-curl-class/php-curl-class/actions/workflows/ci.yml)
-[![](https://img.shields.io/github/workflow/status/php-curl-class/php-curl-class/release?style=flat-square&label=release)](https://github.com/php-curl-class/php-curl-class/releases/)
+[![](https://img.shields.io/github/actions/workflow/status/php-curl-class/php-curl-class/ci.yml?style=flat-square&label=build&branch=master)](https://github.com/php-curl-class/php-curl-class/actions/workflows/ci.yml)
+[![](https://img.shields.io/github/actions/workflow/status/php-curl-class/php-curl-class/release.yml?style=flat-square&label=release&branch=master)](https://github.com/php-curl-class/php-curl-class/releases/)
 [![](https://img.shields.io/packagist/dt/php-curl-class/php-curl-class.svg?style=flat-square)](https://github.com/php-curl-class/php-curl-class/releases/)
 
 PHP Curl Class makes it easy to send HTTP requests and integrate with web APIs.
@@ -37,7 +37,7 @@ Installation instructions to use the `composer` command can be found on https://
 
 ### Requirements
 
-PHP Curl Class works with PHP 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, and 8.1.
+PHP Curl Class works with PHP 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1, and 8.2.
 
 ### Quick Start and Examples
 
@@ -53,6 +53,7 @@ $curl->get('https://www.example.com/');
 
 if ($curl->error) {
     echo 'Error: ' . $curl->errorMessage . "\n";
+    $curl->diagnose();
 } else {
     echo 'Response:' . "\n";
     var_dump($curl->response);
@@ -365,7 +366,7 @@ MultiCurl::stop()
 MultiCurl::success($callback)
 MultiCurl::unsetHeader($key)
 MultiCurl::unsetProxy()
-MultiCurl::verbose($on = true, $output = STDERR)
+MultiCurl::verbose($on = true, $output = 'STDERR')
 ```
 
 ### Security

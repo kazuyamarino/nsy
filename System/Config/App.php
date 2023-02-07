@@ -59,7 +59,7 @@ return [
 		'cookie_lifetime' => 8000,
 		// 'cookie_path' => '/',
 		'cookie_samesite' => 'Strict',
-		'cookie_secure'   => true,
+		// 'cookie_secure'   => true,
 		// 'gc_divisor' => 100,
 		// 'gc_maxlifetime' => 1440,
 		// 'gc_probability' => true,
