@@ -580,9 +580,9 @@ class NSY_Migration
 	public static function timestamps()
 	{
 		$arr_date_cols = [
-			'create_date' => 'datetime',
-			'update_date' => 'datetime',
-			'additional_date' => 'datetime'
+			'create_date' => 'DATETIME DEFAULT CURRENT_TIMESTAMP',
+			'update_date' => 'DATETIME DEFAULT CURRENT_TIMESTAMP',
+			'additional_date' => 'DATETIME DEFAULT CURRENT_TIMESTAMP'
 		];
 
 		return $arr_date_cols;

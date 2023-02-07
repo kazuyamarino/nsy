@@ -94,6 +94,36 @@ function base_url($url = '')
 	}
 }
 
+function base_url_platforma($url = '')
+{
+	// set the default application or project directory
+	$APP_DIR = config_app('app_dir_platforma');
+
+	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443) {
+		// if default application or project directory undefined
+		if(empty($APP_DIR) || is_null($APP_DIR)) {
+			// then get this result
+			// site address (https) without application directory
+			return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $url;
+		} else {
+			// else if default application or project directory defined then get this result
+			// site address (https) with application directory
+			return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $url;
+		}
+	} else {
+		// if default application or project directory undefined
+		if(empty($APP_DIR) || is_null($APP_DIR)) {
+			// then get this result
+			// site address (http) without application directory
+			return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $url;
+		} else {
+			// else if default application or project directory defined then get this result
+			// site address (http) with application directory
+			return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $url;
+		}
+	}
+}
+
 if (! function_exists('public_path')) {
 	/**
 	* Define public_path() method, get the fullpath 'public' directory
@@ -265,10 +295,10 @@ function config_site($d1 = '')
 if (! function_exists('terner')) {
 	/**
 	* PHP Shorthand If/Else Using Ternary Operators
-	* @param  string|int $condition
-	* @param  string|int $result_one
-	* @param  string|int $result_two
-	* @return string|int
+	* @param  mixed $condition
+	* @param  mixed $result_one
+	* @param  mixed $result_two
+	* @return mixed
 	*/
 	function terner($condition = '', $result_one = '', $result_two = '')
 	{
@@ -812,19 +842,19 @@ if (! function_exists('number_format_short')) {
 		} else if ($n < 900000) {
 			// 0.9k-850k
 			$n_format = number_format($n / 1000, $precision);
-			$suffix = 'K';
+			$suffix = ' Rb';
 		} else if ($n < 900000000) {
 			// 0.9m-850m
 			$n_format = number_format($n / 1000000, $precision);
-			$suffix = 'M';
+			$suffix = ' Jt';
 		} else if ($n < 900000000000) {
 			// 0.9b-850b
 			$n_format = number_format($n / 1000000000, $precision);
-			$suffix = 'B';
+			$suffix = ' M';
 		} else {
 			// 0.9t+
 			$n_format = number_format($n / 1000000000000, $precision);
-			$suffix = 'T';
+			$suffix = ' T';
 		}
 
 		// Remove unecessary zeroes after decimal. "1.0" -> "1"; "1.00" -> "1"
@@ -949,17 +979,19 @@ function deposer($param = '')
 /**
  * Data Conversion Helpers
  */
-/**
-* Fetch data to json format
-* @param  array $data
-* @param  int $status
-* @return string
-*/
-function json_fetch($data = array(), $status = 0)
-{
-	$json_data = $data;
-	$json_result = json_encode($json_data);
+if (! function_exists('json_fetch')) {
+	/**
+	* Fetch data to json format
+	* @param  array $data
+	* @param  int $status
+	* @return string
+	*/
+	function json_fetch($data = array(), $status = 0)
+	{
+		$json_data = $data;
+		$json_result = json_encode($json_data);
 
-	http_response_code($status);
-	return $json_result;
+		http_response_code($status);
+		return $json_result;
+	}
 }
