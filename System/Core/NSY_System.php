@@ -101,10 +101,6 @@ class NSY_System
 		defined('FETCH_FUNC') or define('FETCH_FUNC', \PDO::FETCH_FUNC);
 
 		// start session
-		// $session = new Session();
-
-		// $session->start();
-
 		Session::start(config_app('session_config'));
 	}
 

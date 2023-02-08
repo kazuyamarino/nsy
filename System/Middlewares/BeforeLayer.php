@@ -14,7 +14,7 @@ class BeforeLayer implements LayerInterface
 		 */
 	}
 
-    public function peel($object, \Closure $next)
+    public function peel(mixed $object, \Closure $next)
     {
 		$condition = 1;
 

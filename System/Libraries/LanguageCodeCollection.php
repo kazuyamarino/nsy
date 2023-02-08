@@ -263,7 +263,7 @@ class LanguageCodeCollection
     *
     * @return string|null → language code or null
     */
-    public static function get($key)
+    public static function get(string $key)
     {
         if (isset(static::$data[$key])) {
             return static::$data[$key];

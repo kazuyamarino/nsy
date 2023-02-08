@@ -12,11 +12,11 @@ Class NSY_AssetManager
 	/**
 	* Generate meta tags
 	*
-	* @param  string $attr
-	* @param  string $content
-	* @return string
+	* @param  mixed $attr
+	* @param  mixed $content
+	* @return bool
 	*/
-	public static function meta($attr = '', $content = '')
+	public static function meta(mixed $attr = '', mixed $content = '')
 	{
 		// if content is empty
 		if (not_filled($content)) {
@@ -37,13 +37,13 @@ Class NSY_AssetManager
 	/**
 	* Generate link tags
 	*
-	* @param  string $filename
-	* @param  string $rel
-	* @param  string $type
-	* @param  string $title
-	* @return string
+	* @param  mixed $filename
+	* @param  mixed $rel
+	* @param  mixed $type
+	* @param  mixed $title
+	* @return bool
 	*/
-	public static function link($filename = '', $rel = '', $type = '', $title = '')
+	public static function link(mixed $filename = '', mixed $rel = '', mixed $type = '', mixed $title = '')
 	{
 		// if content is empty
 		if (strpos($filename, 'http') !== false || strpos($filename, 'https') !== false) {
@@ -66,13 +66,13 @@ Class NSY_AssetManager
 	/**
 	* Generate script tags filename
 	*
-	* @param  string $filename
-	* @param  string $type
-	* @param  string $charset
-	* @param  string $attr
-	* @return string
+	* @param  mixed $filename
+	* @param  mixed $type
+	* @param  mixed $charset
+	* @param  mixed $attr
+	* @return bool
 	*/
-	public static function script($filename = '', $type = '', $charset = '', $attr = '')
+	public static function script(mixed $filename = '', mixed $type = '', mixed $charset = '', mixed $attr = '')
 	{
 		// if charset is empty
 		if (strpos($filename, 'http') !== false || strpos($filename, 'https') !== false) {
@@ -98,10 +98,10 @@ Class NSY_AssetManager
 	/**
 	* Generate custom assets
 	*
-	* @param  string $values
-	* @return string
+	* @param  mixed $values
+	* @return bool
 	*/
-	public static function custom($values = '')
+	public static function custom(mixed $values = '')
 	{
 		if (not_filled($values)) {
 			$var_msg = 'No value in <mark>Add::custom()</mark> tag';

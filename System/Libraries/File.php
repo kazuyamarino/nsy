@@ -29,7 +29,7 @@ class File
      *
      * @return bool
      */
-    public static function exists($file)
+    public static function exists(bool $file)
     {
         if (filter_var($file, FILTER_VALIDATE_URL)) {
             $stream = stream_context_create(['http' => ['method' => 'HEAD']]);
@@ -56,7 +56,7 @@ class File
      *
      * @return bool
      */
-    public static function delete($file)
+    public static function delete(bool $file)
     {
         return self::exists($file) && @unlink($file);
     }
@@ -70,7 +70,7 @@ class File
      *
      * @return bool
      */
-    public static function createDir($path)
+    public static function createDir(bool $path)
     {
         return ! is_dir($path) && @mkdir($path, 0777, true);
     }
@@ -85,7 +85,7 @@ class File
      *
      * @return bool
      */
-    public static function copyDirRecursively($from, $to)
+    public static function copyDirRecursively(string $from, string $to)
     {
         if (! $path = self::getFilesFromDir($from)) {
             return false;
@@ -115,7 +115,7 @@ class File
      *
      * @return bool
      */
-    public static function deleteEmptyDir($path)
+    public static function deleteEmptyDir(string $path)
     {
         return is_dir($path) && @rmdir($path);
     }
@@ -129,7 +129,7 @@ class File
      *
      * @return bool
      */
-    public static function deleteDirRecursively($path)
+    public static function deleteDirRecursively(bool $path)
     {
         if (! $paths = self::getFilesFromDir($path)) {
             return false;
@@ -158,7 +158,7 @@ class File
      *
      * @return object|false →
      */
-    public static function getFilesFromDir($path)
+    public static function getFilesFromDir(string $path)
     {
         if (! is_dir($path)) {
             return false;
@@ -178,7 +178,7 @@ class File
      * @param  string $mode fopen() mode (default: 'wb')
      * @return bool
      */
-    public static function writeFile($path, $data, $mode = 'wb')
+    public static function writeFile(string $path, string $data, string $mode = 'wb')
     {
         if (! $fp = @fopen($path, $mode)) {
             return false;
@@ -210,7 +210,7 @@ class File
      * @param  bool    internal variable to determine recursion status - do not use in calls
      * @return mixed
      */
-    public static function getFilenames($source_dir, $include_path = false, $_recursion = false)
+    public static function getFilenames(string $source_dir, bool $include_path = false, bool $_recursion = false)
     {
         static $_filedata = array();
 
@@ -251,7 +251,7 @@ class File
      * @param  bool    internal variable to determine recursion status - do not use in calls
      * @return mixed
      */
-    public static function getDirFileInfo($source_dir, $top_level_only = true, $_recursion = false)
+    public static function getDirFileInfo(string $source_dir, bool $top_level_only = true, bool $_recursion = false)
     {
         static $_filedata = array();
         $relative_path = $source_dir;
@@ -294,7 +294,7 @@ class File
      * @param  mixed    array or comma separated string of information returned
      * @return mixed
      */
-    public static function getFileInfo($file, $returned_values = array('name', 'server_path', 'size', 'date'))
+    public static function getFileInfo(string $file, mixed $returned_values = array('name', 'server_path', 'size', 'date'))
     {
         if (! file_exists($file)) {
             return false;
@@ -350,7 +350,7 @@ class File
      * @param  string $filename File name
      * @return string
      */
-    public static function getMimeByExtension($filename)
+    public static function getMimeByExtension(string $filename)
     {
         static $mimes;
 

@@ -126,7 +126,7 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asJson($default = null)
+    public function asJson(mixed $default = null)
     {
         return Validate::asJson($this->params[$this->key] ?? $this->params, $default);
     }
@@ -140,7 +140,7 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asString($default = null)
+    public function asString(mixed $default = null)
     {
         return Validate::asString($this->params[$this->key] ?? null, $default);
     }
@@ -154,7 +154,7 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asInteger($default = null)
+    public function asInteger(mixed $default = null)
     {
         return Validate::asInteger($this->params[$this->key] ?? null, $default);
     }
@@ -168,7 +168,7 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asFloat($default = null)
+    public function asFloat(mixed $default = null)
     {
         return Validate::asFloat($this->params[$this->key] ?? null, $default);
     }
@@ -182,7 +182,7 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asBoolean($default = null)
+    public function asBoolean(mixed $default = null)
     {
         return Validate::asBoolean($this->params[$this->key] ?? [], $default);
     }
@@ -196,7 +196,7 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asIp($default = null)
+    public function asIp(mixed $default = null)
     {
         return Validate::asIp($this->params[$this->key] ?? null, $default);
     }
@@ -210,7 +210,7 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asUrl($default = null)
+    public function asUrl(mixed $default = null)
     {
         return Validate::asUrl($this->params[$this->key] ?? null, $default);
     }
@@ -224,7 +224,7 @@ class Request
      *
      * @return mixed → value, null or customized return value
      */
-    public function asEmail($default = null)
+    public function asEmail(mixed $default = null)
     {
         return Validate::asEmail($this->params[$this->key] ?? null, $default);
     }

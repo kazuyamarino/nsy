@@ -29,7 +29,7 @@ class DB
 	* @param string $conn_name
 	* @return object
 	*/
-	protected static function connect($conn_name = 'primary')
+	protected static function connect(string $conn_name = 'primary')
 	{
 		switch ( config_db($conn_name, 'DB_CONNECTION') ) {
 			case 'mysql':
@@ -57,7 +57,7 @@ class DB
 	* @param  string $query
 	* @return mixed
 	*/
-	protected function query($query = '')
+	protected function query(string $query = '')
 	{
 		if (is_filled($query) ) {
 			self::$query = $query;
@@ -77,7 +77,7 @@ class DB
 	* @param  array $variables
 	* @return mixed
 	*/
-	protected function vars($variables = array())
+	protected function vars(array $variables = array())
 	{
 		if (is_array($variables) || is_object($variables) ) {
 			self::$variables = $variables;
@@ -97,7 +97,7 @@ class DB
 	* @param  string $fetch_style
 	* @return mixed
 	*/
-	protected function style($fetch_style = FETCH_BOTH)
+	protected function style(string $fetch_style = FETCH_BOTH)
 	{
 		if (is_filled($fetch_style) ) {
 			self::$fetch_style = $fetch_style;
@@ -117,7 +117,7 @@ class DB
 	* @param  string $bind
 	* @return mixed
 	*/
-	protected function bind($bind = '')
+	protected function bind(string $bind = '')
 	{
 		if (is_filled($bind) ) {
 			self::$bind = $bind;
@@ -137,7 +137,7 @@ class DB
 	* @param  int $column
 	* @return mixed
 	*/
-	protected function column($column = 0)
+	protected function column(int $column = 0)
 	{
 		if (is_filled($column) ) {
 			self::$column = $column;

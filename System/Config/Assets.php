@@ -17,7 +17,7 @@ function header_assets()
 	Add::custom('<title>' . get_title() . ' ' . get_version() . ' | ' . get_codename() . '</title>');
 
 	// Meta Tag
-	Add::meta('charset="utf-8"', null);
+	Add::meta('charset="utf-8"');
 	Add::meta('http-equiv="x-ua-compatible"', 'ie=edge');
 	Add::meta('name="description"', get_desc());
 	Add::meta('name="keywords"', get_keywords());
@@ -25,7 +25,7 @@ function header_assets()
 	Add::meta('name="viewport"', 'width=device-width, initial-scale=1, shrink-to-fit=no');
 
 	// Favicon
-	Add::link('favicon.png', 'shortcut icon', null);
+	Add::link('favicon.png', 'shortcut icon');
 
 	// Main Style
 	Add::link('main.css', 'stylesheet', 'text/css');
@@ -34,8 +34,8 @@ function header_assets()
 function footer_assets()
 {
 	// System JS
-	Add::script('config/system.js', 'text/javascript', 'UTF-8', null);
+	Add::script('config/system.js', 'text/javascript', 'UTF-8');
 
 	// Main JS
-	Add::script('main.js', 'text/javascript', 'UTF-8', null);
+	Add::script('main.js', 'text/javascript', 'UTF-8');
 }

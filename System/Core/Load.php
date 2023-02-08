@@ -20,12 +20,12 @@ class Load
 	/**
 	* HMVC & MVC View Folder
 	*
-	* @param  string $module
-	* @param  string $filename
+	* @param  mixed $module
+	* @param  mixed $filename
 	* @param  array  $vars
 	* @return void
 	*/
-	protected static function view($module = '', $filename = '', $vars = array())
+	protected static function view(mixed $module = '', mixed $filename = '', array $vars = array())
 	{
 		// Instantiate Razr Template Engine
 		self::$razr = new Engine(new FilesystemLoader(get_vendor_dir()));
@@ -47,11 +47,11 @@ class Load
 	/**
 	* Template Directory
 	*
-	* @param  string $filename
+	* @param  mixed $filename
 	* @param  array  $vars
 	* @return void
 	*/
-	protected static function template($filename = '', $vars = array())
+	protected static function template(mixed $filename = '', array $vars = array())
 	{
 		// Instantiate Razr Template Engine
 		self::$razr = new Engine(new FilesystemLoader(get_vendor_dir()));
@@ -72,7 +72,7 @@ class Load
 	 * @param  mixed $models
 	 * @return object
 	 */
-	protected static function model($models = '')
+	protected static function model(mixed $models = '')
 	{
 		if ( not_filled($models) ) {
 			$var_msg = 'The variable in the <mark>Load::model(<strong>model_name</strong>, <strong>method_name</strong>)</mark> is improper or not filled';
@@ -88,7 +88,7 @@ class Load
 			$fullclass = 'System\Models\\'.$models;
 		}
 
-		return $defClass = new $fullclass;
+		return new $fullclass;
 	}
 
 }
