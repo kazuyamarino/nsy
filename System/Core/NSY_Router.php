@@ -256,11 +256,11 @@ class NSY_Router {
 							}
 
 	                        // Instanitate controller
-	                        $controller = new $fullclass;
+                            $controller = new $fullclass;
 
                             // Fix multi parameters
                             if (!method_exists($controller, $segments[1])) {
-                                echo "controller and action not found";
+                                echo "Controller and Action Not Found";
                             } else {
                                 call_user_func_array(array($controller, $segments[1]), $matched);
                             }
