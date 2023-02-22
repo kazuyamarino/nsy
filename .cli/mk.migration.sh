@@ -14,12 +14,11 @@ make_migration() {
 		# Create migration
 		if [ ! -e ./System/Migrations/"$mig.php" ]
 		then
-			# Create controller
 			cp .cli/tmp/mig_tmp.php ./System/Migrations/"$mig.php"
 			sed -i "s/mig_tmp/$mig/g" ./System/Migrations/"$mig.php"
 
 			printf "Migration created\n"
-		    printf "see the results in the 'System/Migrations' directory\n"
+			printf "see the results in the 'System/Migrations' directory\n"
 		else
 			printf "Migration already exists\n"
 		fi

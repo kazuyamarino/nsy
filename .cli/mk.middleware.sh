@@ -16,7 +16,7 @@ make_after_middleware() {
 			sed -i "s/after_lyr/$mid/g" ./System/Middlewares/"$mid.php"
 
 			printf "After Middleware created\n"
-		    printf "see the results in the 'System/Middlewares' directory\n"
+			printf "see the results in the 'System/Middlewares' directory\n"
 		else
 			printf "After Middleware already exists\n"
 		fi
@@ -40,7 +40,7 @@ make_before_middleware() {
 			sed -i "s/before_lyr/$mid/g" ./System/Middlewares/"$mid.php"
 
 			printf "Before Middleware created\n"
-		    printf "see the results in the 'System/Middlewares' directory\n"
+			printf "see the results in the 'System/Middlewares' directory\n"
 		else
 			printf "Before Middleware already exists\n"
 		fi
