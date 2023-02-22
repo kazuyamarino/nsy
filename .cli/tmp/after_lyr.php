@@ -1,4 +1,5 @@
 <?php
+
 namespace System\Middlewares;
 
 use Optimus\Onion\Onion;
@@ -14,14 +15,13 @@ class after_lyr implements LayerInterface
 		 */
 	}
 
-    public function peel($object, \Closure $next)
-    {
-        $response = $next($object);
+	public function peel($object, \Closure $next)
+	{
+		$response = $next($object);
 
 		/*
 		Result from after middleware here.
 		 */
 		$object = 'After Core';
-    }
-
+	}
 }

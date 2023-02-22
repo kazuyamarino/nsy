@@ -544,7 +544,7 @@ if (! function_exists('generate_num')) {
 // ------------------------------------------------------------------------
 
 /**
- * Get URI Segment
+ * Get URI Segment by defined user
  */
 if (! function_exists('get_uri_segment')) {
 	/**
@@ -563,6 +563,38 @@ if (! function_exists('get_uri_segment')) {
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
+	}
+}
+
+/**
+ * Get last URI segment
+ */
+if (! function_exists('get_last_uri_segment')) {
+	/**
+	* Get last URI Segment on any route condition
+	* @return string
+	*/
+	function get_last_uri_segment()
+	{
+		$uri = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+
+		return $uri;
+	}
+}
+
+/**
+ * Get complete URI
+ */
+if (! function_exists('get_uri')) {
+	/**
+	* Get URI based on current route
+	* @return string
+	*/
+	function get_uri()
+	{
+		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+		return $uri;
 	}
 }
 

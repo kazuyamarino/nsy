@@ -1,34 +1,34 @@
 <?php
+
 namespace System\Migrations;
 
 /**
-* The migration class
-*/
+ * The migration class
+ */
 class mig_tmp
 {
 
 	/**
-	* NSY Migration
-	*/
+	 * NSY Migration
+	 */
 
 	/**
-	* Run the migrations.
-	*
-	* @return void
-	*/
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
 	public function up()
 	{
-
+		# code...
 	}
 
 	/**
-	* Reverse the migrations.
-	*
-	* @return void
-	*/
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
 	public function down()
 	{
-
+		# code...
 	}
-
 }

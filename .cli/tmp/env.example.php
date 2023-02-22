@@ -1,7 +1,8 @@
 <?php
+
 /**
-* Environment Variables
-*/
+ * Environment Variables
+ */
 return [
 
 	/*
