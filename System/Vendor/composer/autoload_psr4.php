@@ -22,6 +22,8 @@ return array(
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'Optimus\\Onion\\' => array($vendorDir . '/optimus/onion/src'),
+    'NilPortugues\\Sql\\QueryFormatter\\' => array($vendorDir . '/nilportugues/sql-query-formatter/src'),
+    'NilPortugues\\Sql\\QueryBuilder\\' => array($vendorDir . '/nilportugues/sql-query-builder/src'),
     'Masterminds\\' => array($vendorDir . '/masterminds/html5/src'),
     'League\\Uri\\' => array($vendorDir . '/league/uri/src', $vendorDir . '/league/uri-interfaces/src'),
     'Lablnet\\' => array($vendorDir . '/lablnet/encryption/src'),
