@@ -837,16 +837,46 @@ class DB
 					$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 					NSY_Desk::static_error_handler($var_msg);
 				} else {
-					$stmt = static::$connection->prepare(static::$query . ' VALUES ' . $valString);
+					if (config_app('transaction') === 'on') {
+						try {
+							// begin the transaction
+							static::$connection->beginTransaction();
 
-					$bindArray = array();
-					array_walk_recursive(
-						static::$variables,
-						function ($item) use (&$bindArray) {
-							$bindArray[] = $item;
+							$stmt = static::$connection->prepare(static::$query . ' VALUES ' . $valString);
+
+							$bindArray = array();
+							array_walk_recursive(
+								static::$variables,
+								function ($item) use (&$bindArray) {
+									$bindArray[] = $item;
+								}
+							);
+							$executed = $stmt->execute($bindArray);
+
+							// commit the transaction
+							static::$connection->commit();
+						} catch (\PDOException $e) {
+							// rollback the transaction
+							static::$connection->rollBack();
+
+							// show the error message
+							die($e->getMessage());
 						}
-					);
-					$executed = $stmt->execute($bindArray);
+					} elseif (config_app('transaction') === 'off') {
+						$stmt = static::$connection->prepare(static::$query . ' VALUES ' . $valString);
+
+						$bindArray = array();
+						array_walk_recursive(
+							static::$variables,
+							function ($item) use (&$bindArray) {
+								$bindArray[] = $item;
+							}
+						);
+						$executed = $stmt->execute($bindArray);
+					} else {
+						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
+						exit();
+					}
 				}
 
 				// Check the errors, if no errors then return the results
