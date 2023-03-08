@@ -8,7 +8,7 @@ use Curl\Url;
 
 class Curl extends BaseCurl
 {
-    const VERSION = '9.14.0';
+    const VERSION = '9.14.1';
     const DEFAULT_TIMEOUT = 30;
 
     public $curl = null;
@@ -364,7 +364,8 @@ class Curl extends BaseCurl
      *
      * @return boolean
      */
-    public function _fastDownload($url, $filename, $connections = 4) {
+    public function _fastDownload($url, $filename, $connections = 4)
+    {
         // First we need to retrive the 'Content-Length' header.
         // Use GET because not all hosts support HEAD requests.
         $this->setOpts([
@@ -1620,7 +1621,8 @@ class Curl extends BaseCurl
     public function __get($name)
     {
         $return = null;
-        if (in_array($name, self::$deferredProperties, true) && is_callable([$this, $getter = '_get_' . $name])) {
+        if (in_array($name, self::$deferredProperties, true) &&
+            is_callable([$this, $getter = '_get' . ucfirst($name)])) {
             $return = $this->$name = $this->$getter();
         }
         return $return;
@@ -1631,7 +1633,7 @@ class Curl extends BaseCurl
      *
      * @access private
      */
-    private function _get_curlErrorCodeConstants()
+    private function _getCurlErrorCodeConstants()
     {
         $constants = get_defined_constants(true);
         $filtered_array = array_filter(
@@ -1650,7 +1652,7 @@ class Curl extends BaseCurl
      *
      * @access private
      */
-    private function _get_curlErrorCodeConstant()
+    private function _getCurlErrorCodeConstant()
     {
         $curl_const_by_code = $this->curlErrorCodeConstants;
         if (isset($curl_const_by_code[$this->curlErrorCode])) {
@@ -1664,7 +1666,7 @@ class Curl extends BaseCurl
      *
      * @access private
      */
-    private function _get_curlOptionCodeConstants()
+    private function _getCurlOptionCodeConstants()
     {
         $constants = get_defined_constants(true);
         $filtered_array = array_filter(
@@ -1688,7 +1690,7 @@ class Curl extends BaseCurl
      *
      * @access private
      */
-    private function _get_effectiveUrl()
+    private function _getEffectiveUrl()
     {
         return $this->getInfo(CURLINFO_EFFECTIVE_URL);
     }
@@ -1698,7 +1700,7 @@ class Curl extends BaseCurl
      *
      * @access private
      */
-    private function _get_rfc2616()
+    private function _getRfc2616()
     {
         return array_fill_keys(self::$RFC2616, true);
     }
@@ -1708,7 +1710,7 @@ class Curl extends BaseCurl
      *
      * @access private
      */
-    private function _get_rfc6265()
+    private function _getRfc6265()
     {
         return array_fill_keys(self::$RFC6265, true);
     }
@@ -1718,7 +1720,7 @@ class Curl extends BaseCurl
      *
      * @access private
      */
-    private function _get_totalTime()
+    private function _getTotalTime()
     {
         return $this->getInfo(CURLINFO_TOTAL_TIME);
     }
@@ -2043,7 +2045,8 @@ class Curl extends BaseCurl
  *
  * @return callable
  */
-function createHeaderCallback($header_callback_data) {
+function createHeaderCallback($header_callback_data)
+{
     return function ($ch, $header) use ($header_callback_data) {
         if (preg_match('/^Set-Cookie:\s*([^=]+)=([^;]+)/mi', $header, $cookie) === 1) {
             $header_callback_data->responseCookies[$cookie[1]] = trim($cookie[2], " \n\r\t\0\x0B");
@@ -2072,7 +2075,8 @@ function createHeaderCallback($header_callback_data) {
  *
  * @return callable
  */
-function createStopRequestFunction($header_callback_data) {
+function createStopRequestFunction($header_callback_data)
+{
     return function (
         $resource,
         $download_size,
