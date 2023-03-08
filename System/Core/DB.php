@@ -1,205 +1,184 @@
 <?php
+
 namespace System\Core;
 
 /**
-* This is the core of NSY Model
-* Attention, don't try to change the structure of the code, delete, or change.
-* Because there is some code connected to the NSY system. So, be careful.
-*/
+ * This is the core of NSY Model
+ * Attention, don't try to change the structure of the code, delete, or change.
+ * Because there is some code connected to the NSY system. So, be careful.
+ */
 class DB
 {
 
 	// Declare properties for Helper
-	static $connection;
-	static $query;
-	static $variables;
-	static $fetch_style;
-	static $bind;
-	static $column;
-	static $bind_name;
-	static $attr;
-	static $param;
-	static $num;
-	static $result;
-	static $executed;
+	protected static $connection;
+	protected static $query;
+	protected static $variables;
+	protected static $fetch_style;
+	protected static $bind;
+	protected static $column;
+	protected static $bind_name;
+	protected static $attr;
+	protected static $param;
+	protected static $num;
+	protected static $result;
+	protected static $executed;
 
 	/**
-	* Default Connection
-	*
-	* @param string $conn_name
-	* @return object
-	*/
+	 * Default Connection
+	 *
+	 * @param string $conn_name
+	 * @return object
+	 */
 	protected static function connect(string $conn_name = 'primary')
 	{
-		switch ( config_db($conn_name, 'DB_CONNECTION') ) {
+		switch (config_db($conn_name, 'DB_CONNECTION')) {
 			case 'mysql':
-			self::$connection = NSY_DB::connect_mysql($conn_name);
-			return new self;
+				static::$connection = NSY_DB::connect_mysql($conn_name);
+				return new static;
 			case 'dblib':
-			self::$connection = NSY_DB::connect_dblib($conn_name);
-			return new self;
+				static::$connection = NSY_DB::connect_dblib($conn_name);
+				return new static;
 			case 'sqlsrv':
-			self::$connection = NSY_DB::connect_sqlsrv($conn_name);
-			return new self;
+				static::$connection = NSY_DB::connect_sqlsrv($conn_name);
+				return new static;
 			case 'pgsql':
-			self::$connection = NSY_DB::connect_pgsql($conn_name);
-			return new self;
+				static::$connection = NSY_DB::connect_pgsql($conn_name);
+				return new static;
 			default:
-			$var_msg = "Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong>";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+				$var_msg = "Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong>";
+				NSY_Desk::static_error_handler($var_msg);
+				exit();
 		}
 	}
 
 	/**
-	* Function as a query declaration
-	*
-	* @param  string $query
-	* @return mixed
-	*/
-	protected function query(string $query = '')
+	 * Function as a query declaration
+	 *
+	 * @param  string $query
+	 * @return void
+	 */
+	protected static function query(string $query = '')
 	{
-		if (is_filled($query) ) {
-			self::$query = $query;
-		} else
-		{
+		if (is_filled($query)) {
+			static::$query = $query;
+		} else {
 			$var_msg = "The value of query in the <mark>query(<strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
 
-		return new self;
+		return new static;
 	}
 
 	/**
-	* Function as a variable container
-	*
-	* @param  array $variables
-	* @return mixed
-	*/
+	 * Function as a variable container
+	 *
+	 * @param  array $variables
+	 * @return void
+	 */
 	protected function vars(array $variables = array())
 	{
-		if (is_array($variables) || is_object($variables) ) {
-			self::$variables = $variables;
-		} else
-		{
+		if (is_array($variables) || is_object($variables)) {
+			static::$variables = $variables;
+		} else {
 			$var_msg = "The variable in the <mark>vars(<strong>variables</strong>)</mark> is improper or not an array";
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
 
-		return new self;
+		return new static;
 	}
 
 	/**
-	* Function as a fetch style declaration
-	*
-	* @param  string $fetch_style
-	* @return mixed
-	*/
+	 * Function as a fetch style declaration
+	 *
+	 * @param  string $fetch_style
+	 * @return void
+	 */
 	protected function style(string $fetch_style = FETCH_BOTH)
 	{
-		if (is_filled($fetch_style) ) {
-			self::$fetch_style = $fetch_style;
-		} else
-		{
+		if (is_filled($fetch_style)) {
+			static::$fetch_style = $fetch_style;
+		} else {
 			$var_msg = "The value of style in the <mark>style(<strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
 
-		return new self;
+		return new static;
 	}
 
 	/**
-	* Start method for variables sequence (bind)
-	*
-	* @param  string $bind
-	* @return mixed
-	*/
+	 * Start method for variables sequence (bind)
+	 *
+	 * @param  string $bind
+	 * @return void
+	 */
 	protected function bind(string $bind = '')
 	{
-		if (is_filled($bind) ) {
-			self::$bind = $bind;
-		} else
-		{
-			$var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)->vars()->sequence()</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (is_filled($bind)) {
+			static::$bind = $bind;
+		} else {
+			static::$bind = '';
 		}
 
-		return new self;
+		return new static;
 	}
 
 	/**
-	* Method for fetch column (column)
-	*
-	* @param  int $column
-	* @return mixed
-	*/
-	protected function column(int $column = 0)
-	{
-		if (is_filled($column) ) {
-			self::$column = $column;
-		} else
-		{
-			$var_msg = "The value of column in the <mark>column(<strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
-		}
-
-		return new self;
-	}
-
-	/**
-	* Helper for PDO FetchAll
-	*/
+	 * Helper for PDO FetchAll
+	 *
+	 * @return void
+	 */
 	protected function fetch_all()
 	{
 		// Check if there's connection defined on the models
-		if (not_filled(self::$connection) ) {
+		if (not_filled(static::$connection)) {
 			echo '<pre>No Connection, Please check your connection again!</pre>';
 			exit();
 		} else {
-			$stmt = self::$connection->prepare(self::$query);
+			$stmt = static::$connection->prepare(static::$query);
 			// if vars null, execute queries without vars, else execute it with defined on the models
-			if (not_filled(self::$variables) ) {
+			if (not_filled(static::$variables)) {
 				$executed = $stmt->execute();
 			} else {
-				if (self::$bind == 'BINDVALUE') {
-					if (is_array(self::$variables) || is_object(self::$variables)) {
-						foreach (self::$variables as $key => &$res) {
-							if (not_filled($res[1]) || not_filled($res[0]) ) {
-								$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
-								NSY_Desk::static_error_handler($var_msg);
-							} else {
-								$stmt->bindValue($key, $res[0], $res[1]);
-							}
-						}
-
-						$executed = $stmt->execute();
-					}
-				} elseif (self::$bind == 'BINDPARAM') {
-					if (is_array(self::$variables) || is_object(self::$variables)) {
-						foreach (self::$variables as $key => &$res) {
-							if (not_filled($res[1]) || not_filled($res[0]) ) {
-								$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
-								NSY_Desk::static_error_handler($var_msg);
-							} else {
-								$stmt->bindParam($key, $res[0], $res[1]);
-							}
-						}
-
-						$executed = $stmt->execute();
-					}
+				if (not_filled(static::$bind)) {
+					$executed = $stmt->execute(static::$variables);
 				} else {
-					$executed = $stmt->execute(self::$variables);
+					if (static::$bind == 'BINDVALUE') {
+						if (is_array(static::$variables) || is_object(static::$variables)) {
+							foreach (static::$variables as $key => &$res) {
+								if (not_filled($res[1]) || not_filled($res[0])) {
+									$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+									NSY_Desk::static_error_handler($var_msg);
+								} else {
+									$stmt->bindValue($key, $res[0], $res[1]);
+								}
+							}
+
+							$executed = $stmt->execute();
+						}
+					} else {
+						if (is_array(static::$variables) || is_object(static::$variables)) {
+							foreach (static::$variables as $key => &$res) {
+								if (not_filled($res[1]) || not_filled($res[0])) {
+									$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+									NSY_Desk::static_error_handler($var_msg);
+								} else {
+									$stmt->bindParam($key, $res[0], $res[1]);
+								}
+							}
+
+							$executed = $stmt->execute();
+						}
+					}
 				}
 			}
 
 			// Check the errors, if no errors then return the results
 			if ($executed || $stmt->errorCode() == 0) {
-				$show_result = $stmt->fetchAll(self::$fetch_style ?? '');
+				$show_result = $stmt->fetchAll(static::$fetch_style ?? '');
 
 				return $show_result;
 			} else {
@@ -210,58 +189,62 @@ class DB
 
 		// Close the statement & connection
 		$stmt = null;
-		self::$connection = null;
+		static::$connection = null;
 	}
 
 	/**
-	* Helper for PDO Fetch
-	*/
+	 * Helper for PDO Fetch
+	 *
+	 * @return void
+	 */
 	protected function fetch()
 	{
 		// Check if there's connection defined on the models
-		if (not_filled(self::$connection) ) {
+		if (not_filled(static::$connection)) {
 			echo '<pre>No Connection, Please check your connection again!</pre>';
 			exit();
 		} else {
-			$stmt = self::$connection->prepare(self::$query);
+			$stmt = static::$connection->prepare(static::$query);
 			// if vars null, execute queries without vars, else execute it with defined on the models
-			if (not_filled(self::$variables) ) {
+			if (not_filled(static::$variables)) {
 				$executed = $stmt->execute();
 			} else {
-				if (self::$bind == 'BINDVALUE') {
-					if (is_array(self::$variables) || is_object(self::$variables)) {
-						foreach (self::$variables as $key => &$res) {
-							if (not_filled($res[1]) || not_filled($res[0]) ) {
-								$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
-								NSY_Desk::static_error_handler($var_msg);
-							} else {
-								$stmt->bindValue($key, $res[0], $res[1]);
-							}
-						}
-
-						$executed = $stmt->execute();
-					}
-				} elseif (self::$bind == 'BINDPARAM') {
-					if (is_array(self::$variables) || is_object(self::$variables)) {
-						foreach (self::$variables as $key => &$res) {
-							if (not_filled($res[1]) || not_filled($res[0]) ) {
-								$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
-								NSY_Desk::static_error_handler($var_msg);
-							} else {
-								$stmt->bindParam($key, $res[0], $res[1]);
-							}
-						}
-
-						$executed = $stmt->execute();
-					}
+				if (not_filled(static::$bind)) {
+					$executed = $stmt->execute(static::$variables);
 				} else {
-					$executed = $stmt->execute(self::$variables);
+					if (static::$bind == 'BINDVALUE') {
+						if (is_array(static::$variables) || is_object(static::$variables)) {
+							foreach (static::$variables as $key => &$res) {
+								if (not_filled($res[1]) || not_filled($res[0])) {
+									$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+									NSY_Desk::static_error_handler($var_msg);
+								} else {
+									$stmt->bindValue($key, $res[0], $res[1]);
+								}
+							}
+
+							$executed = $stmt->execute();
+						}
+					} else {
+						if (is_array(static::$variables) || is_object(static::$variables)) {
+							foreach (static::$variables as $key => &$res) {
+								if (not_filled($res[1]) || not_filled($res[0])) {
+									$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+									NSY_Desk::static_error_handler($var_msg);
+								} else {
+									$stmt->bindParam($key, $res[0], $res[1]);
+								}
+							}
+
+							$executed = $stmt->execute();
+						}
+					}
 				}
 			}
 
 			// Check the errors, if no errors then return the results
 			if ($executed || $stmt->errorCode() == 0) {
-				$show_result = $stmt->fetch(self::$fetch_style ?? '');
+				$show_result = $stmt->fetch(static::$fetch_style ?? '');
 
 				return $show_result;
 			} else {
@@ -272,58 +255,63 @@ class DB
 
 		// Close the statement & connection
 		$stmt = null;
-		self::$connection = null;
+		static::$connection = null;
 	}
 
 	/**
-	* Helper for PDO FetchColumn
-	*/
-	protected function fetch_column()
+	 * Helper for PDO FetchColumn
+	 *
+	 * @param  int $column
+	 * @return void
+	 */
+	protected function fetch_column(int $column = 0)
 	{
 		// Check if there's connection defined on the models
-		if (not_filled(self::$connection) ) {
+		if (not_filled(static::$connection)) {
 			echo '<pre>No Connection, Please check your connection again!</pre>';
 			exit();
 		} else {
-			$stmt = self::$connection->prepare(self::$query);
+			$stmt = static::$connection->prepare(static::$query);
 			// if vars null, execute queries without vars, else execute it with defined on the models
-			if (not_filled(self::$variables) ) {
+			if (not_filled(static::$variables)) {
 				$executed = $stmt->execute();
 			} else {
-				if (self::$bind == 'BINDVALUE') {
-					if (is_array(self::$variables) || is_object(self::$variables)) {
-						foreach (self::$variables as $key => &$res) {
-							if (not_filled($res[1]) || not_filled($res[0]) ) {
-								$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
-								NSY_Desk::static_error_handler($var_msg);
-							} else {
-								$stmt->bindValue($key, $res[0], $res[1]);
-							}
-						}
-
-						$executed = $stmt->execute();
-					}
-				} elseif (self::$bind == 'BINDPARAM') {
-					if (is_array(self::$variables) || is_object(self::$variables)) {
-						foreach (self::$variables as $key => &$res) {
-							if (not_filled($res[1]) || not_filled($res[0]) ) {
-								$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>['.$key.' => ['.$res[0].', <strong>null</strong>] ]';
-								NSY_Desk::static_error_handler($var_msg);
-							} else {
-								$stmt->bindParam($key, $res[0], $res[1]);
-							}
-						}
-
-						$executed = $stmt->execute();
-					}
+				if (not_filled(static::$bind)) {
+					$executed = $stmt->execute(static::$variables);
 				} else {
-					$executed = $stmt->execute(self::$variables);
+					if (static::$bind == 'BINDVALUE') {
+						if (is_array(static::$variables) || is_object(static::$variables)) {
+							foreach (static::$variables as $key => &$res) {
+								if (not_filled($res[1]) || not_filled($res[0])) {
+									$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+									NSY_Desk::static_error_handler($var_msg);
+								} else {
+									$stmt->bindValue($key, $res[0], $res[1]);
+								}
+							}
+
+							$executed = $stmt->execute();
+						}
+					} else {
+						if (is_array(static::$variables) || is_object(static::$variables)) {
+							foreach (static::$variables as $key => &$res) {
+								if (not_filled($res[1]) || not_filled($res[0])) {
+									$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+									NSY_Desk::static_error_handler($var_msg);
+								} else {
+									$stmt->bindParam($key, $res[0], $res[1]);
+								}
+							}
+
+							$executed = $stmt->execute();
+						}
+					}
 				}
 			}
 
 			// Check the errors, if no errors then return the results
 			if ($executed || $stmt->errorCode() == 0) {
-				$show_result = $stmt->fetchColumn(self::$column ?? 0);
+				$show_result = $stmt->fetchColumn($column ?? 0);
 
 				return $show_result;
 			} else {
@@ -334,171 +322,430 @@ class DB
 
 		// Close the statement & connection
 		$stmt = null;
-		self::$connection = null;
+		static::$connection = null;
 	}
 
 	/**
-	* Helper for PDO RowCount
-	*/
+	 * Helper for PDO RowCount
+	 *
+	 * @return void
+	 */
 	protected function row_count()
 	{
 		// Check if there's connection defined on the models
-		if (not_filled(self::$connection) ) {
+		if (not_filled(static::$connection)) {
 			echo '<pre>No Connection, Please check your connection again!</pre>';
 			exit();
 		} else {
+			$stmt = static::$connection->prepare(static::$query);
 			// if vars null, execute queries without vars, else execute it with defined on the models
-			if (not_filled(self::$variables) ) {
-				$stmt = self::$connection->prepare(self::$query);
-				$stmt->execute();
-				self::$result = $stmt->rowCount();
+			if (not_filled(static::$variables)) {
+				$executed = $stmt->execute();
 			} else {
-				$arr_keys = array_keys(self::$variables);
-				foreach ( $arr_keys as $dt ) {
-					if (is_numeric($dt) ) {
-						$var_msg = "Array keys doesn't exist on <mark>vars(<strong>variables</strong>)</mark>";
-						NSY_Desk::static_error_handler($var_msg);
+				if (not_filled(static::$bind)) {
+					$executed = $stmt->execute(static::$variables);
+				} else {
+					if (static::$bind == 'BINDVALUE') {
+						if (is_array(static::$variables) || is_object(static::$variables)) {
+							foreach (static::$variables as $key => &$res) {
+								if (not_filled($res[1]) || not_filled($res[0])) {
+									$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+									NSY_Desk::static_error_handler($var_msg);
+								} else {
+									$stmt->bindValue($key, $res[0], $res[1]);
+								}
+							}
+
+							$executed = $stmt->execute();
+						}
+					} else {
+						if (is_array(static::$variables) || is_object(static::$variables)) {
+							foreach (static::$variables as $key => &$res) {
+								if (not_filled($res[1]) || not_filled($res[0])) {
+									$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+									NSY_Desk::static_error_handler($var_msg);
+								} else {
+									$stmt->bindParam($key, $res[0], $res[1]);
+								}
+							}
+
+							$executed = $stmt->execute();
+						}
 					}
 				}
-
-				$stmt = self::$connection->prepare(self::$query);
-				$stmt->execute(self::$variables);
-				self::$result = $stmt->rowCount();
 			}
 
 			// Check the errors, if no errors then return the results
-			if (self::$result || $stmt->errorCode() == 0) {
-				return self::$result;
-			} else {
-				if(config_app('transaction') === 'on') {
-					self::$connection->rollback();
+			if ($executed || $stmt->errorCode() == 0) {
+				$show_result = $stmt->rowCount();
 
-					if (not_filled(self::$variables) ) {
-						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					}
-				} elseif(config_app('transaction') === 'off') {
-					if (not_filled(self::$variables) ) {
-						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					}
-				} else {
-					echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					exit();
-				}
+				return $show_result;
+			} else {
+				$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+				NSY_Desk::static_error_handler($var_msg);
 			}
 		}
 
 		// Close the statement & connection
 		$stmt = null;
-		self::$connection = null;
+		static::$connection = null;
 	}
 
 	/**
-	* Helper for PDO Execute
-	*/
+	 * Helper for PDO Execute
+	 *
+	 * @return void
+	 */
 	protected function exec()
 	{
-		if(config_app('csrf_token') === 'true') {
+		if (config_app('csrf_token') === 'true') {
 			try {
 				// Run CSRF check, on POST data, in exception mode, for 10 minutes, in one-time mode.
-				csrf_check('csrf_token', $_POST, true, 60*10, false);
+				csrf_check('csrf_token', $_POST, true, 60 * 10, false);
 
 				// Check if there's connection defined on the models
-				if (not_filled(self::$connection) ) {
+				if (not_filled(static::$connection)) {
 					echo '<pre>No Connection, Please check your connection again!</pre>';
 					exit();
 				} else {
 					// if vars null, execute queries without vars, else execute it with defined on the models
-					if (not_filled(self::$variables) ) {
-						$stmt = self::$connection->prepare(self::$query);
-						self::$executed = $stmt->execute();
-					} else {
-						$stmt = self::$connection->prepare(self::$query);
-						self::$executed = $stmt->execute(self::$variables);
-					}
+					if (not_filled(static::$variables)) {
+						if (config_app('transaction') === 'on') {
+							try {
+								// begin the transaction
+								static::$connection->beginTransaction();
 
-					// Check the errors, if no errors then return the results
-					if (self::$executed || $stmt->errorCode() == 0) {
-						return new self;
-					} else {
-						if(config_app('transaction') === 'on') {
-							self::$connection->rollback();
+								$stmt = static::$connection->prepare(static::$query);
+								$executed = $stmt->execute();
 
-							if (not_filled(self::$variables) ) {
-								$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-								NSY_Desk::static_error_handler($var_msg);
-							} else {
-								$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-								NSY_Desk::static_error_handler($var_msg);
+								// commit the transaction
+								static::$connection->commit();
+							} catch (\PDOException $e) {
+								// rollback the transaction
+								static::$connection->rollBack();
+
+								// show the error message
+								die($e->getMessage());
 							}
-						} elseif(config_app('transaction') === 'off') {
-							if (not_filled(self::$variables) ) {
-								$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-								NSY_Desk::static_error_handler($var_msg);
-							} else {
-								$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-								NSY_Desk::static_error_handler($var_msg);
-							}
+						} elseif (config_app('transaction') === 'off') {
+							$stmt = static::$connection->prepare(static::$query);
+							$executed = $stmt->execute();
 						} else {
 							echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
 							exit();
 						}
+					} else {
+						if (not_filled(static::$bind)) {
+							if (config_app('transaction') === 'on') {
+								try {
+									// begin the transaction
+									static::$connection->beginTransaction();
+
+									$stmt = static::$connection->prepare(static::$query);
+									$executed = $stmt->execute(static::$variables);
+
+									// commit the transaction
+									static::$connection->commit();
+								} catch (\PDOException $e) {
+									// rollback the transaction
+									static::$connection->rollBack();
+
+									// show the error message
+									die($e->getMessage());
+								}
+							} elseif (config_app('transaction') === 'off') {
+								$stmt = static::$connection->prepare(static::$query);
+								$executed = $stmt->execute(static::$variables);
+							} else {
+								echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
+								exit();
+							}
+						} else {
+							if (static::$bind == 'BINDVALUE') {
+								if (config_app('transaction') === 'on') {
+									try {
+										// begin the transaction
+										static::$connection->beginTransaction();
+
+										$stmt = static::$connection->prepare(static::$query);
+										if (is_array(static::$variables) || is_object(static::$variables)) {
+											foreach (static::$variables as $key => &$res) {
+												if (not_filled($res[1]) || not_filled($res[0])) {
+													$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+													NSY_Desk::static_error_handler($var_msg);
+												} else {
+													$stmt->bindValue($key, $res[0], $res[1]);
+												}
+											}
+
+											$executed = $stmt->execute();
+										}
+
+										// commit the transaction
+										static::$connection->commit();
+									} catch (\PDOException $e) {
+										// rollback the transaction
+										static::$connection->rollBack();
+
+										// show the error message
+										die($e->getMessage());
+									}
+								} elseif (config_app('transaction') === 'off') {
+									$stmt = static::$connection->prepare(static::$query);
+									if (is_array(static::$variables) || is_object(static::$variables)) {
+										foreach (static::$variables as $key => &$res) {
+											if (not_filled($res[1]) || not_filled($res[0])) {
+												$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+												NSY_Desk::static_error_handler($var_msg);
+											} else {
+												$stmt->bindValue($key, $res[0], $res[1]);
+											}
+										}
+
+										$executed = $stmt->execute();
+									}
+								} else {
+									echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
+									exit();
+								}
+							} else {
+								if (config_app('transaction') === 'on') {
+									try {
+										// begin the transaction
+										static::$connection->beginTransaction();
+
+										$stmt = static::$connection->prepare(static::$query);
+										if (is_array(static::$variables) || is_object(static::$variables)) {
+											foreach (static::$variables as $key => &$res) {
+												if (not_filled($res[1]) || not_filled($res[0])) {
+													$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+													NSY_Desk::static_error_handler($var_msg);
+												} else {
+													$stmt->bindParam($key, $res[0], $res[1]);
+												}
+											}
+
+											$executed = $stmt->execute();
+										}
+
+										// commit the transaction
+										static::$connection->commit();
+									} catch (\PDOException $e) {
+										// rollback the transaction
+										static::$connection->rollBack();
+
+										// show the error message
+										die($e->getMessage());
+									}
+								} elseif (config_app('transaction') === 'off') {
+									$stmt = static::$connection->prepare(static::$query);
+									if (is_array(static::$variables) || is_object(static::$variables)) {
+										foreach (static::$variables as $key => &$res) {
+											if (not_filled($res[1]) || not_filled($res[0])) {
+												$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+												NSY_Desk::static_error_handler($var_msg);
+											} else {
+												$stmt->bindParam($key, $res[0], $res[1]);
+											}
+										}
+
+										$executed = $stmt->execute();
+									}
+								} else {
+									echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
+									exit();
+								}
+							}
+						}
+					}
+
+					// Check the errors, if no errors then return the results
+					if ($executed || $stmt->errorCode() == 0) {
+						return true;
+					} else {
+						if (not_filled(static::$variables)) {
+							$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
+							NSY_Desk::static_error_handler($var_msg);
+						} else {
+							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+							NSY_Desk::static_error_handler($var_msg);
+						}
 					}
 				}
+
 				$result = '<pre>CSRF check passed. Form parsed.</pre>'; // Just info
-			}
-			catch ( \Exception $e ) {
+			} catch (\Exception $e) {
 				// CSRF attack detected
-				echo $result = '<pre>' . $e->getMessage() . ' Form ignored.</pre>'; // Just info
+				echo '<pre>' . $e->getMessage() . ' Form ignored.</pre>'; // Just info
 				exit();
 			}
-		} elseif(config_app('csrf_token') === 'false') {
+		} elseif (config_app('csrf_token') === 'false') {
 			// Check if there's connection defined on the models
-			if (not_filled(self::$connection) ) {
+			if (not_filled(static::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
 				// if vars null, execute queries without vars, else execute it with defined on the models
-				if (not_filled(self::$variables) ) {
-					$stmt = self::$connection->prepare(self::$query);
-					self::$executed = $stmt->execute();
-				} else {
-					$stmt = self::$connection->prepare(self::$query);
-					self::$executed = $stmt->execute(self::$variables);
-				}
+				if (not_filled(static::$variables)) {
+					if (config_app('transaction') === 'on') {
+						try {
+							// begin the transaction
+							static::$connection->beginTransaction();
 
-				// Check the errors, if no errors then return the results
-				if (self::$executed || $stmt->errorCode() == 0) {
-					return new self;
-				} else {
-					if(config_app('transaction') === 'on') {
-						self::$connection->rollback();
+							$stmt = static::$connection->prepare(static::$query);
+							$executed = $stmt->execute();
 
-						if (not_filled(self::$variables) ) {
-							$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-							NSY_Desk::static_error_handler($var_msg);
-						} else {
-							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-							NSY_Desk::static_error_handler($var_msg);
+							// commit the transaction
+							static::$connection->commit();
+						} catch (\PDOException $e) {
+							// rollback the transaction
+							static::$connection->rollBack();
+
+							// show the error message
+							die($e->getMessage());
 						}
-					} elseif(config_app('transaction') === 'off') {
-						if (not_filled(self::$variables) ) {
-							$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-							NSY_Desk::static_error_handler($var_msg);
-						} else {
-							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-							NSY_Desk::static_error_handler($var_msg);
-						}
+					} elseif (config_app('transaction') === 'off') {
+						$stmt = static::$connection->prepare(static::$query);
+						$executed = $stmt->execute();
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
 						exit();
+					}
+				} else {
+					if (not_filled(static::$bind)) {
+						if (config_app('transaction') === 'on') {
+							try {
+								// begin the transaction
+								static::$connection->beginTransaction();
+
+								$stmt = static::$connection->prepare(static::$query);
+								$executed = $stmt->execute(static::$variables);
+
+								// commit the transaction
+								static::$connection->commit();
+							} catch (\PDOException $e) {
+								// rollback the transaction
+								static::$connection->rollBack();
+
+								// show the error message
+								die($e->getMessage());
+							}
+						} elseif (config_app('transaction') === 'off') {
+							$stmt = static::$connection->prepare(static::$query);
+							$executed = $stmt->execute(static::$variables);
+						} else {
+							echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
+							exit();
+						}
+					} else {
+						if (static::$bind == 'BINDVALUE') {
+							if (config_app('transaction') === 'on') {
+								try {
+									// begin the transaction
+									static::$connection->beginTransaction();
+
+									$stmt = static::$connection->prepare(static::$query);
+									if (is_array(static::$variables) || is_object(static::$variables)) {
+										foreach (static::$variables as $key => &$res) {
+											if (not_filled($res[1]) || not_filled($res[0])) {
+												$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+												NSY_Desk::static_error_handler($var_msg);
+											} else {
+												$stmt->bindValue($key, $res[0], $res[1]);
+											}
+										}
+
+										$executed = $stmt->execute();
+									}
+
+									// commit the transaction
+									static::$connection->commit();
+								} catch (\PDOException $e) {
+									// rollback the transaction
+									static::$connection->rollBack();
+
+									// show the error message
+									die($e->getMessage());
+								}
+							} elseif (config_app('transaction') === 'off') {
+								$stmt = static::$connection->prepare(static::$query);
+								if (is_array(static::$variables) || is_object(static::$variables)) {
+									foreach (static::$variables as $key => &$res) {
+										if (not_filled($res[1]) || not_filled($res[0])) {
+											$var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+											NSY_Desk::static_error_handler($var_msg);
+										} else {
+											$stmt->bindValue($key, $res[0], $res[1]);
+										}
+									}
+
+									$executed = $stmt->execute();
+								}
+							} else {
+								echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
+								exit();
+							}
+						} else {
+							if (config_app('transaction') === 'on') {
+								try {
+									// begin the transaction
+									static::$connection->beginTransaction();
+
+									$stmt = static::$connection->prepare(static::$query);
+									if (is_array(static::$variables) || is_object(static::$variables)) {
+										foreach (static::$variables as $key => &$res) {
+											if (not_filled($res[1]) || not_filled($res[0])) {
+												$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+												NSY_Desk::static_error_handler($var_msg);
+											} else {
+												$stmt->bindParam($key, $res[0], $res[1]);
+											}
+										}
+
+										$executed = $stmt->execute();
+									}
+
+									// commit the transaction
+									static::$connection->commit();
+								} catch (\PDOException $e) {
+									// rollback the transaction
+									static::$connection->rollBack();
+
+									// show the error message
+									die($e->getMessage());
+								}
+							} elseif (config_app('transaction') === 'off') {
+								$stmt = static::$connection->prepare(static::$query);
+								if (is_array(static::$variables) || is_object(static::$variables)) {
+									foreach (static::$variables as $key => &$res) {
+										if (not_filled($res[1]) || not_filled($res[0])) {
+											$var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
+											NSY_Desk::static_error_handler($var_msg);
+										} else {
+											$stmt->bindParam($key, $res[0], $res[1]);
+										}
+									}
+
+									$executed = $stmt->execute();
+								}
+							} else {
+								echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
+								exit();
+							}
+						}
+					}
+				}
+
+				// Check the errors, if no errors then return the results
+				if ($executed || $stmt->errorCode() == 0) {
+					return true;
+				} else {
+					if (not_filled(static::$variables)) {
+						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
+						NSY_Desk::static_error_handler($var_msg);
+					} else {
+						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+						NSY_Desk::static_error_handler($var_msg);
 					}
 				}
 			}
@@ -509,54 +756,57 @@ class DB
 
 		// Close the statement & connection
 		$stmt = null;
-		self::$connection = null;
+		static::$connection = null;
 	}
 
 	/**
-	* Helper for PDO Multi Insert
-	*/
+	 * Helper for PDO Multi Insert
+	 *
+	 * @return void
+	 */
 	protected function multi_insert()
 	{
-		if(config_app('csrf_token') === 'true') {
+		if (config_app('csrf_token') === 'true') {
 			try {
 				// Run CSRF check, on POST data, in exception mode, for 10 minutes, in one-time mode.
-				csrf_check('csrf_token', $_POST, true, 60*10, false);
+				csrf_check('csrf_token', $_POST, true, 60 * 10, false);
 
 				// Check if there's connection defined on the models
-				if (not_filled(self::$connection) ) {
+				if (not_filled(static::$connection)) {
 					echo '<pre>No Connection, Please check your connection again!</pre>';
 					exit();
 				} else {
-					$rows = count(self::$variables);
-					$cols = count(self::$variables[0]);
+					$rows = count(static::$variables);
+					$cols = count(static::$variables[0]);
 					$rowString = '(' . rtrim(str_repeat('?,', $cols), ',') . '),';
 					$valString = rtrim(str_repeat($rowString, $rows), ',');
 
 					// if vars null, execute queries without vars, else execute it with defined on the models
-					if (not_filled(self::$variables) ) {
+					if (not_filled(static::$variables)) {
 						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
 					} else {
-						$stmt = self::$connection->prepare(self::$query . ' VALUES '. $valString);
+						$stmt = static::$connection->prepare(static::$query . ' VALUES ' . $valString);
 
 						$bindArray = array();
 						array_walk_recursive(
-							self::$variables, function ($item) use (&$bindArray) {
+							static::$variables,
+							function ($item) use (&$bindArray) {
 								$bindArray[] = $item;
 							}
 						);
-						self::$executed = $stmt->execute($bindArray);
+						$executed = $stmt->execute($bindArray);
 					}
 
 					// Check the errors, if no errors then return the results
-					if (self::$executed || $stmt->errorCode() == 0) {
-						return new self;
+					if ($executed || $stmt->errorCode() == 0) {
+						return new static;
 					} else {
-						if(config_app('transaction') === 'on') {
-							self::$connection->rollback();
+						if (config_app('transaction') === 'on') {
+							static::$connection->rollback();
 							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 							NSY_Desk::static_error_handler($var_msg);
-						} elseif(config_app('transaction') === 'off') {
+						} elseif (config_app('transaction') === 'off') {
 							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 							NSY_Desk::static_error_handler($var_msg);
 						} else {
@@ -566,54 +816,49 @@ class DB
 					}
 				}
 				$result = '<pre>CSRF check passed. Form parsed.</pre>'; // Just info
-			}
-			catch ( \Exception $e ) {
+			} catch (\Exception $e) {
 				// CSRF attack detected
-				echo $result = '<pre>' . $e->getMessage() . ' Form ignored.</pre>'; // Just info
+				echo '<pre>' . $e->getMessage() . ' Form ignored.</pre>'; // Just info
 				exit();
 			}
-		} elseif(config_app('csrf_token') === 'false') {
+		} elseif (config_app('csrf_token') === 'false') {
 			// Check if there's connection defined on the models
-			if (not_filled(self::$connection) ) {
+			if (not_filled(static::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				$rows = count(self::$variables);
-				$cols = count(self::$variables[0]);
+				$rows = count(static::$variables);
+				$cols = count(static::$variables[0]);
 				$rowString = '(' . rtrim(str_repeat('?,', $cols), ',') . '),';
 				$valString = rtrim(str_repeat($rowString, $rows), ',');
 
 				// if vars null, execute queries without vars, else execute it with defined on the models
-				if (not_filled(self::$variables) ) {
+				if (not_filled(static::$variables)) {
 					$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 					NSY_Desk::static_error_handler($var_msg);
 				} else {
-					$stmt = self::$connection->prepare(self::$query . ' VALUES '. $valString);
+					$stmt = static::$connection->prepare(static::$query . ' VALUES ' . $valString);
 
 					$bindArray = array();
 					array_walk_recursive(
-						self::$variables, function ($item) use (&$bindArray) {
+						static::$variables,
+						function ($item) use (&$bindArray) {
 							$bindArray[] = $item;
 						}
 					);
-					self::$executed = $stmt->execute($bindArray);
+					$executed = $stmt->execute($bindArray);
 				}
 
 				// Check the errors, if no errors then return the results
-				if ($stmt->errorCode() == 0) {
-					return new self;
+				if ($executed || $stmt->errorCode() == 0) {
+					return true;
 				} else {
-					if(config_app('transaction') === 'on') {
-						// if there's errors, then display the message
-						self::$connection->rollback();
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif(config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+					if (not_filled(static::$variables)) {
+						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
 					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-						exit();
+						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+						NSY_Desk::static_error_handler($var_msg);
 					}
 				}
 			}
@@ -624,65 +869,81 @@ class DB
 
 		// Close the statement & connection
 		$stmt = null;
-		self::$connection = null;
+		static::$connection = null;
 	}
 
 	/**
-	* Helper for PDO Emulation False
-	*/
+	 * Helper for PDO Emulation False
+	 *
+	 * @return void
+	 */
 	protected function emulate_prepares_false()
 	{
-		self::$connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
-		return new self;
+		static::$connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+		return new static;
 	}
 
 	/**
-	* Helper for PDO MYSQL_ATTR_USE_BUFFERED_QUERY
-	*/
+	 * Helper for PDO MYSQL_ATTR_USE_BUFFERED_QUERY (TRUE)
+	 *
+	 * @return void
+	 */
 	protected function use_buffer_query_true()
 	{
-		self::$connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-		return new self;
+		static::$connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+		return new static;
 	}
 
+	/**
+	 * Helper for PDO MYSQL_ATTR_USE_BUFFERED_QUERY (FALSE)
+	 *
+	 * @return void
+	 */
 	protected function use_buffer_query_false()
 	{
-		self::$connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
-		return new self;
+		static::$connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
+		return new static;
 	}
 
 	/**
-	* Helper for PDO ATTR_STRINGIFY_FETCHES
-	*/
+	 * Helper for PDO ATTR_STRINGIFY_FETCHES
+	 *
+	 * @return void
+	 */
 	protected function stringify_fetches_true()
 	{
-		self::$connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, true);
-		return new self;
+		static::$connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, true);
+		return new static;
 	}
 
 	/**
-	* Helper for PDO Begin Transaction
-	*/
+	 * Helper for PDO Begin Transaction
+	 *
+	 * @return void
+	 */
 	protected function begin_trans()
 	{
-		self::$connection->beginTransaction();
-		return new self;
+		static::$connection->beginTransaction();
+		return new static;
 	}
 	/**
-	* Helper for PDO Commit Transaction
-	*/
+	 * Helper for PDO Commit Transaction
+	 *
+	 * @return void
+	 */
 	protected function end_trans()
 	{
-		self::$connection->commit();
-		return new self;
+		static::$connection->commit();
+		return new static;
 	}
 	/**
-	* Helper for PDO Rollback Transaction
-	*/
+	 * Helper for PDO Rollback Transaction
+	 *
+	 * @return void
+	 */
 	protected function null_trans()
 	{
-		self::$connection->rollback();
-		return new self;
+		static::$connection->rollback();
+		return new static;
 	}
-
 }
