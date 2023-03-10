@@ -159,7 +159,7 @@ class DB
 
 							$executed = $stmt->execute();
 						}
-					} else {
+					} elseif (self::$bind == 'BINDPARAM') {
 						if (is_array(static::$variables) || is_object(static::$variables)) {
 							foreach (static::$variables as $key => &$res) {
 								if (not_filled($res[1]) || not_filled($res[0])) {
@@ -172,6 +172,10 @@ class DB
 
 							$executed = $stmt->execute();
 						}
+					} else {
+						$var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)</mark> is empty, undefined, or unknown parameter";
+						NSY_Desk::static_error_handler($var_msg);
+						exit();
 					}
 				}
 			}
@@ -225,7 +229,7 @@ class DB
 
 							$executed = $stmt->execute();
 						}
-					} else {
+					} elseif (self::$bind == 'BINDPARAM') {
 						if (is_array(static::$variables) || is_object(static::$variables)) {
 							foreach (static::$variables as $key => &$res) {
 								if (not_filled($res[1]) || not_filled($res[0])) {
@@ -238,6 +242,10 @@ class DB
 
 							$executed = $stmt->execute();
 						}
+					} else {
+						$var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)</mark> is empty, undefined, or unknown parameter";
+						NSY_Desk::static_error_handler($var_msg);
+						exit();
 					}
 				}
 			}
@@ -292,7 +300,7 @@ class DB
 
 							$executed = $stmt->execute();
 						}
-					} else {
+					} elseif (self::$bind == 'BINDPARAM') {
 						if (is_array(static::$variables) || is_object(static::$variables)) {
 							foreach (static::$variables as $key => &$res) {
 								if (not_filled($res[1]) || not_filled($res[0])) {
@@ -305,6 +313,10 @@ class DB
 
 							$executed = $stmt->execute();
 						}
+					} else {
+						$var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)</mark> is empty, undefined, or unknown parameter";
+						NSY_Desk::static_error_handler($var_msg);
+						exit();
 					}
 				}
 			}
@@ -358,7 +370,7 @@ class DB
 
 							$executed = $stmt->execute();
 						}
-					} else {
+					} elseif (self::$bind == 'BINDPARAM') {
 						if (is_array(static::$variables) || is_object(static::$variables)) {
 							foreach (static::$variables as $key => &$res) {
 								if (not_filled($res[1]) || not_filled($res[0])) {
@@ -371,6 +383,10 @@ class DB
 
 							$executed = $stmt->execute();
 						}
+					} else {
+						$var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)</mark> is empty, undefined, or unknown parameter";
+						NSY_Desk::static_error_handler($var_msg);
+						exit();
 					}
 				}
 			}
@@ -508,7 +524,7 @@ class DB
 									echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
 									exit();
 								}
-							} else {
+							} elseif (self::$bind == 'BINDPARAM') {
 								if (config_app('transaction') === 'on') {
 									try {
 										// begin the transaction
@@ -555,6 +571,10 @@ class DB
 									echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
 									exit();
 								}
+							} else {
+								$var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)</mark> is empty, undefined, or unknown parameter";
+								NSY_Desk::static_error_handler($var_msg);
+								exit();
 							}
 						}
 					}
@@ -685,7 +705,7 @@ class DB
 								echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
 								exit();
 							}
-						} else {
+						} elseif (self::$bind == 'BINDPARAM') {
 							if (config_app('transaction') === 'on') {
 								try {
 									// begin the transaction
@@ -732,6 +752,10 @@ class DB
 								echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
 								exit();
 							}
+						} else {
+							$var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)</mark> is empty, undefined, or unknown parameter";
+							NSY_Desk::static_error_handler($var_msg);
+							exit();
 						}
 					}
 				}
@@ -767,6 +791,7 @@ class DB
 	protected function multi_insert()
 	{
 		if (config_app('csrf_token') === 'true') {
+
 			try {
 				// Run CSRF check, on POST data, in exception mode, for 10 minutes, in one-time mode.
 				csrf_check('csrf_token', $_POST, true, 60 * 10, false);
@@ -786,32 +811,58 @@ class DB
 						$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 						NSY_Desk::static_error_handler($var_msg);
 					} else {
-						$stmt = static::$connection->prepare(static::$query . ' VALUES ' . $valString);
+						if (config_app('transaction') === 'on') {
+							try {
+								// begin the transaction
+								static::$connection->beginTransaction();
 
-						$bindArray = array();
-						array_walk_recursive(
-							static::$variables,
-							function ($item) use (&$bindArray) {
-								$bindArray[] = $item;
+								$stmt = static::$connection->prepare(static::$query . ' VALUES ' . $valString);
+
+								$bindArray = array();
+								array_walk_recursive(
+									static::$variables,
+									function ($item) use (&$bindArray) {
+										$bindArray[] = $item;
+									}
+								);
+								$executed = $stmt->execute($bindArray);
+
+								// commit the transaction
+								static::$connection->commit();
+							} catch (\PDOException $e) {
+								// rollback the transaction
+								static::$connection->rollBack();
+
+								// show the error message
+								die($e->getMessage());
 							}
-						);
-						$executed = $stmt->execute($bindArray);
+						} elseif (config_app('transaction') === 'off') {
+							$stmt = static::$connection->prepare(static::$query . ' VALUES ' . $valString);
+
+							$bindArray = array();
+							array_walk_recursive(
+								static::$variables,
+								function ($item) use (&$bindArray) {
+									$bindArray[] = $item;
+								}
+							);
+							$executed = $stmt->execute($bindArray);
+						} else {
+							echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
+							exit();
+						}
 					}
 
 					// Check the errors, if no errors then return the results
 					if ($executed || $stmt->errorCode() == 0) {
-						return new static;
+						return true;
 					} else {
-						if (config_app('transaction') === 'on') {
-							static::$connection->rollback();
-							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-							NSY_Desk::static_error_handler($var_msg);
-						} elseif (config_app('transaction') === 'off') {
-							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+						if (not_filled(static::$variables)) {
+							$var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
 							NSY_Desk::static_error_handler($var_msg);
 						} else {
-							echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-							exit();
+							$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+							NSY_Desk::static_error_handler($var_msg);
 						}
 					}
 				}
@@ -822,6 +873,7 @@ class DB
 				exit();
 			}
 		} elseif (config_app('csrf_token') === 'false') {
+
 			// Check if there's connection defined on the models
 			if (not_filled(static::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
@@ -903,46 +955,28 @@ class DB
 	}
 
 	/**
-	 * Helper for PDO Emulation False
+	 * Helper for PDO setAttribute
 	 *
+	 * @param string $param
+	 * @param string $value
 	 * @return void
 	 */
-	protected function emulate_prepares_false()
+	protected function pdo_set_attr(string $param = '', string $value = '')
 	{
-		static::$connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+		static::$connection->setAttribute($param, $value);
 		return new static;
 	}
 
 	/**
-	 * Helper for PDO MYSQL_ATTR_USE_BUFFERED_QUERY (TRUE)
+	 * Helper for PDO setAttribute
 	 *
+	 * @param string $param
+	 * @param string $value
 	 * @return void
 	 */
-	protected function use_buffer_query_true()
+	protected function pdo_get_attr(string $param = '', string $value = '')
 	{
-		static::$connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-		return new static;
-	}
-
-	/**
-	 * Helper for PDO MYSQL_ATTR_USE_BUFFERED_QUERY (FALSE)
-	 *
-	 * @return void
-	 */
-	protected function use_buffer_query_false()
-	{
-		static::$connection->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
-		return new static;
-	}
-
-	/**
-	 * Helper for PDO ATTR_STRINGIFY_FETCHES
-	 *
-	 * @return void
-	 */
-	protected function stringify_fetches_true()
-	{
-		static::$connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, true);
+		static::$connection->getAttribute($param, $value);
 		return new static;
 	}
 
