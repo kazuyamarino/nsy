@@ -971,12 +971,11 @@ class DB
 	 * Helper for PDO setAttribute
 	 *
 	 * @param string $param
-	 * @param string $value
 	 * @return void
 	 */
-	protected function pdo_get_attr(string $param = '', string $value = '')
+	protected function pdo_get_attr(string $param = '')
 	{
-		static::$connection->getAttribute($param, $value);
+		static::$connection->getAttribute($param);
 		return new static;
 	}
 
