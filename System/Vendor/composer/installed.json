@@ -645,17 +645,17 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.11.0",
-            "version_normalized": "1.11.0.0",
+            "version": "1.11.1",
+            "version_normalized": "1.11.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "14daed4296fae74d9e3201d2c4925d1acb7aa614"
+                "reference": "7284c22080590fb39f2ffa3e9057f10a4ddd0e0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/14daed4296fae74d9e3201d2c4925d1acb7aa614",
-                "reference": "14daed4296fae74d9e3201d2c4925d1acb7aa614",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/7284c22080590fb39f2ffa3e9057f10a4ddd0e0c",
+                "reference": "7284c22080590fb39f2ffa3e9057f10a4ddd0e0c",
                 "shasum": ""
             },
             "require": {
@@ -670,7 +670,7 @@
                 "doctrine/common": "^2.13.3 || ^3.2.2",
                 "phpunit/phpunit": "^7.5.20 || ^8.5.23 || ^9.5.13"
             },
-            "time": "2022-03-03T13:19:32+00:00",
+            "time": "2023-03-08T13:26:56+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -695,7 +695,7 @@
             ],
             "support": {
                 "issues": "https://github.com/myclabs/DeepCopy/issues",
-                "source": "https://github.com/myclabs/DeepCopy/tree/1.11.0"
+                "source": "https://github.com/myclabs/DeepCopy/tree/1.11.1"
             },
             "funding": [
                 {
@@ -1211,17 +1211,17 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.14.1",
-            "version_normalized": "9.14.1.0",
+            "version": "9.14.2",
+            "version_normalized": "9.14.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "71eadd9ea84ba5c8dcf15a7b2b2bd39085753ca2"
+                "reference": "543cd0aff1b1c9cf5034ac54dbd24207fe22efc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/71eadd9ea84ba5c8dcf15a7b2b2bd39085753ca2",
-                "reference": "71eadd9ea84ba5c8dcf15a7b2b2bd39085753ca2",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/543cd0aff1b1c9cf5034ac54dbd24207fe22efc5",
+                "reference": "543cd0aff1b1c9cf5034ac54dbd24207fe22efc5",
                 "shasum": ""
             },
             "require": {
@@ -1240,7 +1240,7 @@
             "suggest": {
                 "ext-mbstring": "*"
             },
-            "time": "2023-02-27T18:02:59+00:00",
+            "time": "2023-03-09T18:03:01+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1283,7 +1283,7 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.14.1"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.14.2"
             },
             "install-path": "../php-curl-class/php-curl-class"
         },
@@ -1622,17 +1622,17 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.4",
-            "version_normalized": "9.6.4.0",
+            "version": "9.6.5",
+            "version_normalized": "9.6.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9125ee085b6d95e78277dc07aa1f46f9e0607b8d"
+                "reference": "86e761949019ae83f49240b2f2123fb5ab3b2fc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9125ee085b6d95e78277dc07aa1f46f9e0607b8d",
-                "reference": "9125ee085b6d95e78277dc07aa1f46f9e0607b8d",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/86e761949019ae83f49240b2f2123fb5ab3b2fc5",
+                "reference": "86e761949019ae83f49240b2f2123fb5ab3b2fc5",
                 "shasum": ""
             },
             "require": {
@@ -1665,10 +1665,10 @@
                 "sebastian/version": "^3.0.2"
             },
             "suggest": {
-                "ext-soap": "*",
-                "ext-xdebug": "*"
+                "ext-soap": "To be able to generate mocks based on WSDL files",
+                "ext-xdebug": "PHP extension that provides line coverage as well as branch and path coverage"
             },
-            "time": "2023-02-27T13:06:37+00:00",
+            "time": "2023-03-09T06:34:10+00:00",
             "bin": [
                 "phpunit"
             ],
@@ -1707,7 +1707,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.4"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.5"
             },
             "funding": [
                 {
