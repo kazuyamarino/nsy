@@ -994,7 +994,7 @@ class DB
 	 *
 	 * @return void
 	 */
-	protected function end_trans()
+	protected function commit_trans()
 	{
 		static::$connection->commit();
 		return new static;
@@ -1004,7 +1004,7 @@ class DB
 	 *
 	 * @return void
 	 */
-	protected function null_trans()
+	protected function rollback_trans()
 	{
 		static::$connection->rollback();
 		return new static;
