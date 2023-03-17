@@ -94,36 +94,6 @@ function base_url($url = '')
 	}
 }
 
-function base_url_platforma($url = '')
-{
-	// set the default application or project directory
-	$APP_DIR = config_app('app_dir_platforma');
-
-	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443) {
-		// if default application or project directory undefined
-		if(empty($APP_DIR) || is_null($APP_DIR)) {
-			// then get this result
-			// site address (https) without application directory
-			return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $url;
-		} else {
-			// else if default application or project directory defined then get this result
-			// site address (https) with application directory
-			return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $url;
-		}
-	} else {
-		// if default application or project directory undefined
-		if(empty($APP_DIR) || is_null($APP_DIR)) {
-			// then get this result
-			// site address (http) without application directory
-			return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $url;
-		} else {
-			// else if default application or project directory defined then get this result
-			// site address (http) with application directory
-			return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $url;
-		}
-	}
-}
-
 if (! function_exists('public_path')) {
 	/**
 	* Define public_path() method, get the fullpath 'public' directory
