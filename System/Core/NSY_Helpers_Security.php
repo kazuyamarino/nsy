@@ -37,7 +37,7 @@ if (! function_exists('secure_input')) {
 if (! function_exists('secure_form')) {
 	/**
 	* Secure Form
-	* @param  string $form
+	* @param  mixed $form
 	* @return void
 	*/
 	function secure_form($form = '')

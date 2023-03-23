@@ -803,14 +803,14 @@ if (! function_exists('image_to_base64')) {
 if (! function_exists('string_to_base64')) {
 	/**
 	* Convert image string to base64
-	* @param  string $files
+	* @param  string $string
 	* @param  string $ext [File extension]
 	* @return array
 	*/
-	function string_to_base64($files = '', $ext = 'jpg')
+	function string_to_base64($string = '', $ext = 'jpg')
 	{
-		if ( is_filled($files) || is_filled($ext) ) {
-			$base64 = base64_encode($files);
+		if ( is_filled($string) || is_filled($ext) ) {
+			$base64 = base64_encode($string);
 			$dataUrl = 'data:images/' . $ext . ';base64,' . $base64;
 
 			$arr = array(
