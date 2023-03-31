@@ -515,7 +515,7 @@ class NSY_Migration
 			}
 		} else
 		{
-			$var_msg = "Table name in the <mark>index(<strong>value</strong>)</mark> is empty or undefined";
+			$var_msg = "Table name in the <mark>index_pg(<strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}

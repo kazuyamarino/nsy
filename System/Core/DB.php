@@ -968,7 +968,7 @@ class DB
 	}
 
 	/**
-	 * Helper for PDO setAttribute
+	 * Helper for PDO getAttribute
 	 *
 	 * @param string $param
 	 * @return void
