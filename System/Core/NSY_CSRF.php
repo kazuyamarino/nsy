@@ -1,4 +1,5 @@
 <?php
+
 namespace System\Core;
 
 use Exception;
@@ -207,7 +208,6 @@ class NSY_CSRF
         if ($throwException) {
             throw new Exception($exceptionString);
         }
-		return false;
+        return false;
     }
-
 }

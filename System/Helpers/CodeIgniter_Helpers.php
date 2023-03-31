@@ -1,4 +1,5 @@
 <?php
+
 /**
  * NSY PHP Framework
  *
@@ -20,20 +21,16 @@ function stringify_attributes($attributes, $js = false)
         if (count($attributes) === 0) {
             return $atts;
         }
-        foreach ($attributes as $key => $val)
-        {
+        foreach ($attributes as $key => $val) {
             if ($js) {
-                $atts .= $key.'='.$val.',';
-            }
-            else
-            {
-                $atts .= ' '.$key.'="'.$val.'"';
+                $atts .= $key . '=' . $val . ',';
+            } else {
+                $atts .= ' ' . $key . '="' . $val . '"';
             }
         }
         return rtrim($atts, ',');
-    }
-    elseif (is_string($attributes) && strlen($attributes) > 0) {
-        return ' '.$attributes;
+    } elseif (is_string($attributes) && strlen($attributes) > 0) {
+        return ' ' . $attributes;
     }
 
     return $attributes;
@@ -41,7 +38,7 @@ function stringify_attributes($attributes, $js = false)
 
 // ------------------------------------------------------------------------
 
-if (! function_exists('set_realpath')) {
+if (!function_exists('set_realpath')) {
     /**
      * Set Realpath
      *
@@ -52,7 +49,7 @@ if (! function_exists('set_realpath')) {
     function set_realpath($path, $check_existance = false)
     {
         // Security check to make sure the path is NOT a URL. No remote file inclusion!
-        if (preg_match('#^(http:\/\/|https:\/\/|www\.|ftp|php:\/\/)#i', $path) OR filter_var($path, FILTER_VALIDATE_IP) === $path) {
+        if (preg_match('#^(http:\/\/|https:\/\/|www\.|ftp|php:\/\/)#i', $path) or filter_var($path, FILTER_VALIDATE_IP) === $path) {
             echo 'The path you submitted must be a local server path, not a URL';
             exit();
         }
@@ -60,20 +57,19 @@ if (! function_exists('set_realpath')) {
         // Resolve the path
         if (realpath($path) !== false) {
             $path = realpath($path);
-        }
-        elseif ($check_existance && ! is_dir($path) && ! is_file($path)) {
-            echo 'Not a valid path: '.$path;
+        } elseif ($check_existance && !is_dir($path) && !is_file($path)) {
+            echo 'Not a valid path: ' . $path;
             exit();
         }
 
         // Add a trailing slash, if this is a directory
-        return is_dir($path) ? rtrim($path, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR : $path;
+        return is_dir($path) ? rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR : $path;
     }
 }
 
 // ------------------------------------------------------------------------
 
-if (! function_exists('random_element')) {
+if (!function_exists('random_element')) {
     /**
      * Random Element - Takes an array as input and returns a random element
      *
@@ -88,7 +84,7 @@ if (! function_exists('random_element')) {
 
 // --------------------------------------------------------------------
 
-if (! function_exists('directory_map')) {
+if (!function_exists('directory_map')) {
     /**
      * Create a Directory Map
      *
@@ -106,22 +102,19 @@ if (! function_exists('directory_map')) {
         if ($fp = @opendir($source_dir)) {
             $filedata    = array();
             $new_depth    = $directory_depth - 1;
-            $source_dir    = rtrim($source_dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+            $source_dir    = rtrim($source_dir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 
-            while (false !== ($file = readdir($fp)))
-            {
+            while (false !== ($file = readdir($fp))) {
                 // Remove '.', '..', and hidden files [optional]
-                if ($file === '.' OR $file === '..' OR ($hidden === false && $file[0] === '.')) {
+                if ($file === '.' or $file === '..' or ($hidden === false && $file[0] === '.')) {
                     continue;
                 }
 
-                is_dir($source_dir.$file) && $file .= DIRECTORY_SEPARATOR;
+                is_dir($source_dir . $file) && $file .= DIRECTORY_SEPARATOR;
 
-                if (($directory_depth < 1 OR $new_depth > 0) && is_dir($source_dir.$file)) {
-                    $filedata[$file] = directory_map($source_dir.$file, $new_depth, $hidden);
-                }
-                else
-                {
+                if (($directory_depth < 1 or $new_depth > 0) && is_dir($source_dir . $file)) {
+                    $filedata[$file] = directory_map($source_dir . $file, $new_depth, $hidden);
+                } else {
                     $filedata[] = $file;
                 }
             }
@@ -136,7 +129,7 @@ if (! function_exists('directory_map')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('encode_php_tags')) {
+if (!function_exists('encode_php_tags')) {
     /**
      * Convert PHP tags to entities
      *
@@ -151,7 +144,7 @@ if (! function_exists('encode_php_tags')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('word_limiter')) {
+if (!function_exists('word_limiter')) {
     /**
      * Word Limiter
      *
@@ -181,7 +174,7 @@ if (! function_exists('word_limiter')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('character_limiter')) {
+if (!function_exists('character_limiter')) {
     /**
      * Character Limiter
      *
@@ -209,8 +202,7 @@ if (! function_exists('character_limiter')) {
 
         $out = '';
 
-        foreach (explode(' ', trim($str)) as $val)
-        {
+        foreach (explode(' ', trim($str)) as $val) {
             $out .= $val . ' ';
             if (mb_strlen($out) >= $n) {
                 $out = trim($out);
@@ -223,7 +215,7 @@ if (! function_exists('character_limiter')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('ascii_to_entities')) {
+if (!function_exists('ascii_to_entities')) {
     /**
      * High ASCII to Entities
      *
@@ -237,8 +229,7 @@ if (! function_exists('ascii_to_entities')) {
     {
         $out = '';
 
-        for ($i = 0, $s = strlen($str) - 1, $count = 1, $temp = []; $i <= $s; $i ++)
-        {
+        for ($i = 0, $s = strlen($str) - 1, $count = 1, $temp = []; $i <= $s; $i++) {
             $ordinal = ord($str[$i]);
 
             if ($ordinal < 128) {
@@ -252,9 +243,7 @@ if (! function_exists('ascii_to_entities')) {
                 }
 
                 $out .= $str[$i];
-            }
-            else
-            {
+            } else {
                 if (empty($temp)) {
                     $count = ($ordinal < 224) ? 2 : 3;
                 }
@@ -280,7 +269,7 @@ if (! function_exists('ascii_to_entities')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('entities_to_ascii')) {
+if (!function_exists('entities_to_ascii')) {
     /**
      * Entities to ASCII
      *
@@ -294,21 +283,17 @@ if (! function_exists('entities_to_ascii')) {
     function entities_to_ascii(string $str, bool $all = true): string
     {
         if (preg_match_all('/\&#(\d+)\;/', $str, $matches)) {
-            for ($i = 0, $s = count($matches[0]); $i < $s; $i ++)
-            {
+            for ($i = 0, $s = count($matches[0]); $i < $s; $i++) {
                 $digits = $matches[1][$i];
                 $out    = '';
                 if ($digits < 128) {
                     $out .= chr($digits);
-                }
-                elseif ($digits < 2048) {
+                } elseif ($digits < 2048) {
                     $out .= chr(192 + (($digits - ($digits % 64)) / 64)) . chr(128 + ($digits % 64));
-                }
-                else
-                {
+                } else {
                     $out .= chr(224 + (($digits - ($digits % 4096)) / 4096))
-                    . chr(128 + ((($digits % 4096) - ($digits % 64)) / 64))
-                    . chr(128 + ($digits % 64));
+                        . chr(128 + ((($digits % 4096) - ($digits % 64)) / 64))
+                        . chr(128 + ($digits % 64));
                 }
                 $str = str_replace($matches[0][$i], $out, $str);
             }
@@ -317,20 +302,22 @@ if (! function_exists('entities_to_ascii')) {
         if ($all) {
             return str_replace(
                 [
-                '&amp;',
-                '&lt;',
-                '&gt;',
-                '&quot;',
-                '&apos;',
-                '&#45;',
-                ], [
-                '&',
-                '<',
-                '>',
-                '"',
-                "'",
-                '-',
-                ], $str
+                    '&amp;',
+                    '&lt;',
+                    '&gt;',
+                    '&quot;',
+                    '&apos;',
+                    '&#45;',
+                ],
+                [
+                    '&',
+                    '<',
+                    '>',
+                    '"',
+                    "'",
+                    '-',
+                ],
+                $str
             );
         }
 
@@ -340,7 +327,7 @@ if (! function_exists('entities_to_ascii')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('word_censor')) {
+if (!function_exists('word_censor')) {
     /**
      * Word Censoring Function
      *
@@ -368,23 +355,25 @@ if (! function_exists('word_censor')) {
         // a bad word will be bookended by any of these characters.
         $delim = '[-_\'\"`(){}<>\[\]|!?@#%&,.:;^~*+=\/ 0-9\n\r\t]';
 
-        foreach ($censored as $badword)
-        {
+        foreach ($censored as $badword) {
             $badword = str_replace('\*', '\w*?', preg_quote($badword, '/'));
 
             if ($replacement !== '') {
                 $str = preg_replace(
-                    "/({$delim})(" . $badword . ")({$delim})/i", "\\1{$replacement}\\3", $str
+                    "/({$delim})(" . $badword . ")({$delim})/i",
+                    "\\1{$replacement}\\3",
+                    $str
                 );
-            }
-            elseif (preg_match_all("/{$delim}(" . $badword . "){$delim}/i", $str, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE)) {
+            } elseif (preg_match_all("/{$delim}(" . $badword . "){$delim}/i", $str, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE)) {
                 $matches = $matches[1];
 
-                for ($i = count($matches) - 1; $i >= 0; $i --)
-                {
+                for ($i = count($matches) - 1; $i >= 0; $i--) {
                     $length = strlen($matches[$i][0]);
                     $str    = substr_replace(
-                        $str, str_repeat('#', $length), $matches[$i][1], $length
+                        $str,
+                        str_repeat('#', $length),
+                        $matches[$i][1],
+                        $length
                     );
                 }
             }
@@ -396,7 +385,7 @@ if (! function_exists('word_censor')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('highlight_code')) {
+if (!function_exists('highlight_code')) {
     /**
      * Code Highlighter
      *
@@ -417,24 +406,26 @@ if (! function_exists('highlight_code')) {
         */
         $str = str_replace(
             [
-            '&lt;',
-            '&gt;',
-            '<?',
-            '?>',
-            '<%',
-            '%>',
-            '\\',
-            '</script>',
-            ], [
-            '<',
-            '>',
-            'phptagopen',
-            'phptagclose',
-            'asptagopen',
-            'asptagclose',
-            'backslashtmp',
-            'scriptclose',
-            ], $str
+                '&lt;',
+                '&gt;',
+                '<?',
+                '?>',
+                '<%',
+                '%>',
+                '\\',
+                '</script>',
+            ],
+            [
+                '<',
+                '>',
+                'phptagopen',
+                'phptagclose',
+                'asptagopen',
+                'asptagclose',
+                'backslashtmp',
+                'scriptclose',
+            ],
+            $str
         );
 
         // The highlight_string function requires that the text be surrounded
@@ -444,40 +435,44 @@ if (! function_exists('highlight_code')) {
         // Remove our artificially added PHP, and the syntax highlighting that came with it
         $str = preg_replace(
             [
-            '/<span style="color: #([A-Z0-9]+)">&lt;\?php(&nbsp;| )/i',
-            '/(<span style="color: #[A-Z0-9]+">.*?)\?&gt;<\/span>\n<\/span>\n<\/code>/is',
-            '/<span style="color: #[A-Z0-9]+"\><\/span>/i',
-            ], [
-            '<span style="color: #$1">',
-            "$1</span>\n</span>\n</code>",
-            '',
-            ], $str
+                '/<span style="color: #([A-Z0-9]+)">&lt;\?php(&nbsp;| )/i',
+                '/(<span style="color: #[A-Z0-9]+">.*?)\?&gt;<\/span>\n<\/span>\n<\/code>/is',
+                '/<span style="color: #[A-Z0-9]+"\><\/span>/i',
+            ],
+            [
+                '<span style="color: #$1">',
+                "$1</span>\n</span>\n</code>",
+                '',
+            ],
+            $str
         );
 
         // Replace our markers back to PHP tags.
         return str_replace(
             [
-            'phptagopen',
-            'phptagclose',
-            'asptagopen',
-            'asptagclose',
-            'backslashtmp',
-            'scriptclose',
-            ], [
-            '&lt;?',
-            '?&gt;',
-            '&lt;%',
-            '%&gt;',
-            '\\',
-            '&lt;/script&gt;',
-            ], $str
+                'phptagopen',
+                'phptagclose',
+                'asptagopen',
+                'asptagclose',
+                'backslashtmp',
+                'scriptclose',
+            ],
+            [
+                '&lt;?',
+                '?&gt;',
+                '&lt;%',
+                '%&gt;',
+                '\\',
+                '&lt;/script&gt;',
+            ],
+            $str
         );
     }
 }
 
 //--------------------------------------------------------------------
 
-if (! function_exists('highlight_phrase')) {
+if (!function_exists('highlight_phrase')) {
     /**
      * Phrase Highlighter
      *
@@ -498,7 +493,7 @@ if (! function_exists('highlight_phrase')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('word_wrap')) {
+if (!function_exists('word_wrap')) {
     /**
      * Word Wrap
      *
@@ -529,8 +524,7 @@ if (! function_exists('word_wrap')) {
         $unwrap = [];
 
         if (preg_match_all('|\{unwrap\}(.+?)\{/unwrap\}|s', $str, $matches)) {
-            for ($i = 0, $c = count($matches[0]); $i < $c; $i ++)
-            {
+            for ($i = 0, $c = count($matches[0]); $i < $c; $i++) {
                 $unwrap[] = $matches[1][$i];
                 $str      = str_replace($matches[0][$i], '{{unwrapped' . $i . '}}', $str);
             }
@@ -544,8 +538,7 @@ if (! function_exists('word_wrap')) {
         // Split the string into individual lines of text and cycle through them
         $output = '';
 
-        foreach (explode("\n", $str) as $line)
-        {
+        foreach (explode("\n", $str) as $line) {
             // Is the line within the allowed character count?
             // If so we'll join it to the output and continue
             if (mb_strlen($line) <= $charlim) {
@@ -555,8 +548,7 @@ if (! function_exists('word_wrap')) {
 
             $temp = '';
 
-            while (mb_strlen($line) > $charlim)
-            {
+            while (mb_strlen($line) > $charlim) {
                 // If the over-length word is a URL we won't wrap it
                 if (preg_match('!\[url.+\]|://|www\.!', $line)) {
                     break;
@@ -570,17 +562,14 @@ if (! function_exists('word_wrap')) {
             // word into smaller chunks so we'll add it back to our current line
             if ($temp !== '') {
                 $output .= $temp . "\n" . $line . "\n";
-            }
-            else
-            {
+            } else {
                 $output .= $line . "\n";
             }
         }
 
         // Put our markers back
-        if (! empty($unwrap)) {
-            foreach ($unwrap as $key => $val)
-            {
+        if (!empty($unwrap)) {
+            foreach ($unwrap as $key => $val) {
                 $output = str_replace('{{unwrapped' . $key . '}}', $val, $output);
             }
         }
@@ -594,7 +583,7 @@ if (! function_exists('word_wrap')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('ellipsize')) {
+if (!function_exists('ellipsize')) {
     /**
      * Ellipsize String
      *
@@ -621,11 +610,9 @@ if (! function_exists('ellipsize')) {
         $position = ($position > 1) ? 1 : $position;
 
         if ($position === 1) {
-            $end = mb_substr($str, 0, -($max_length - mb_strlen($beg)));
-        }
-        else
-        {
-            $end = mb_substr($str, -($max_length - mb_strlen($beg)));
+            $end = mb_substr($str, 0, - ($max_length - mb_strlen($beg)));
+        } else {
+            $end = mb_substr($str, - ($max_length - mb_strlen($beg)));
         }
 
         return $beg . $ellipsis . $end;
@@ -634,7 +621,7 @@ if (! function_exists('ellipsize')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('strip_slashes')) {
+if (!function_exists('strip_slashes')) {
     /**
      * Strip Slashes
      *
@@ -646,11 +633,10 @@ if (! function_exists('strip_slashes')) {
      */
     function strip_slashes($str)
     {
-        if (! is_array($str)) {
+        if (!is_array($str)) {
             return stripslashes($str);
         }
-        foreach ($str as $key => $val)
-        {
+        foreach ($str as $key => $val) {
             $str[$key] = strip_slashes($val);
         }
 
@@ -660,7 +646,7 @@ if (! function_exists('strip_slashes')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('strip_quotes')) {
+if (!function_exists('strip_quotes')) {
     /**
      * Strip Quotes
      *
@@ -678,7 +664,7 @@ if (! function_exists('strip_quotes')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('quotes_to_entities')) {
+if (!function_exists('quotes_to_entities')) {
     /**
      * Quotes to Entities
      *
@@ -696,7 +682,7 @@ if (! function_exists('quotes_to_entities')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('reduce_double_slashes')) {
+if (!function_exists('reduce_double_slashes')) {
     /**
      * Reduce Double Slashes
      *
@@ -721,7 +707,7 @@ if (! function_exists('reduce_double_slashes')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('reduce_multiples')) {
+if (!function_exists('reduce_multiples')) {
     /**
      * Reduce Multiples
      *
@@ -749,7 +735,7 @@ if (! function_exists('reduce_multiples')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('random_string')) {
+if (!function_exists('random_string')) {
     /**
      * Create a Random String
      *
@@ -762,35 +748,33 @@ if (! function_exists('random_string')) {
      */
     function random_string(string $type = 'alnum', int $len = 8): string
     {
-        switch ($type)
-        {
-        case 'alnum':
-        case 'numeric':
-        case 'nozero':
-        case 'alpha':
-            switch ($type)
-            {
-            case 'alpha':
-                $pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                break;
+        switch ($type) {
             case 'alnum':
-                $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                break;
             case 'numeric':
-                $pool = '0123456789';
-                break;
             case 'nozero':
-                $pool = '123456789';
-                break;
-            }
+            case 'alpha':
+                switch ($type) {
+                    case 'alpha':
+                        $pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                        break;
+                    case 'alnum':
+                        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                        break;
+                    case 'numeric':
+                        $pool = '0123456789';
+                        break;
+                    case 'nozero':
+                        $pool = '123456789';
+                        break;
+                }
 
-            return substr(str_shuffle(str_repeat($pool, ceil($len / strlen($pool)))), 0, $len);
-        case 'md5':
-            return md5(uniqid(mt_rand(), true));
-        case 'sha1':
-            return sha1(uniqid(mt_rand(), true));
-        case 'crypto':
-            return bin2hex(random_bytes($len / 2));
+                return substr(str_shuffle(str_repeat($pool, ceil($len / strlen($pool)))), 0, $len);
+            case 'md5':
+                return md5(uniqid(mt_rand(), true));
+            case 'sha1':
+                return sha1(uniqid(mt_rand(), true));
+            case 'crypto':
+                return bin2hex(random_bytes($len / 2));
         }
         // 'basic' type treated as default
         return (string) mt_rand();
@@ -799,7 +783,7 @@ if (! function_exists('random_string')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('increment_string')) {
+if (!function_exists('increment_string')) {
     /**
      * Add's _1 to a string or increment the ending number to allow _2, _3, etc
      *
@@ -819,7 +803,7 @@ if (! function_exists('increment_string')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('alternator')) {
+if (!function_exists('alternator')) {
     /**
      * Alternator
      *
@@ -847,7 +831,7 @@ if (! function_exists('alternator')) {
 
 //--------------------------------------------------------------------
 
-if (! function_exists('excerpt')) {
+if (!function_exists('excerpt')) {
     /**
      * Excerpt.
      *
@@ -868,8 +852,7 @@ if (! function_exists('excerpt')) {
         if (isset($phrase)) {
             $phrasePos = strpos(strtolower($text), strtolower($phrase));
             $phraseLen = strlen($phrase);
-        }
-        elseif (! isset($phrase)) {
+        } elseif (!isset($phrase)) {
             $phrasePos = $radius / 2;
             $phraseLen = 1;
         }
@@ -881,22 +864,20 @@ if (! function_exists('excerpt')) {
         $post  = ' ';
         $count = 0;
 
-        foreach (array_reverse($pre) as $pr => $e)
-        {
+        foreach (array_reverse($pre) as $pr => $e) {
             if ((strlen($e) + $count + 1) < $radius) {
                 $prev = ' ' . $e . $prev;
             }
-            $count = ++ $count + strlen($e);
+            $count = ++$count + strlen($e);
         }
 
         $count = 0;
 
-        foreach ($pos as $po => $s)
-        {
+        foreach ($pos as $po => $s) {
             if ((strlen($s) + $count + 1) < $radius) {
                 $post .= $s . ' ';
             }
-            $count = ++ $count + strlen($s);
+            $count = ++$count + strlen($s);
         }
 
         $ellPre = $phrase ? $ellipsis : '';
@@ -907,7 +888,7 @@ if (! function_exists('excerpt')) {
 
 // ------------------------------------------------------------------------
 
-if (! function_exists('prep_url')) {
+if (!function_exists('prep_url')) {
     /**
      * Prep URL - Simply adds the http:// part if no scheme is included.
      *
@@ -925,7 +906,7 @@ if (! function_exists('prep_url')) {
 
         $url = parse_url($str);
 
-        if (! $url || ! isset($url['scheme'])) {
+        if (!$url || !isset($url['scheme'])) {
             return 'http://' . $str;
         }
 
@@ -935,7 +916,7 @@ if (! function_exists('prep_url')) {
 
 // ------------------------------------------------------------------------
 
-if (! function_exists('url_title')) {
+if (!function_exists('url_title')) {
     /**
      * Create URL Title
      *
@@ -953,15 +934,14 @@ if (! function_exists('url_title')) {
         $q_separator = preg_quote($separator, '#');
 
         $trans = [
-        '&.+?;'                   => '',
-        '[^\w\d _-]'              => '',
-        '\s+'                     => $separator,
-        '(' . $q_separator . ')+' => $separator,
+            '&.+?;'                   => '',
+            '[^\w\d _-]'              => '',
+            '\s+'                     => $separator,
+            '(' . $q_separator . ')+' => $separator,
         ];
 
         $str = strip_tags($str);
-        foreach ($trans as $key => $val)
-        {
+        foreach ($trans as $key => $val) {
             //            $str = preg_replace('#'.$key.'#i'.( UTF8_ENABLED ? 'u' : ''), $val, $str);
             $str = preg_replace('#' . $key . '#iu', $val, $str);
         }
@@ -976,7 +956,7 @@ if (! function_exists('url_title')) {
 
 // ------------------------------------------------------------------------
 
-if (! function_exists('xml_convert')) {
+if (!function_exists('xml_convert')) {
     /**
      * Convert Reserved XML characters to Entities
      *
@@ -990,10 +970,10 @@ if (! function_exists('xml_convert')) {
 
         // Replace entities to temporary markers so that
         // ampersands won't get messed up
-        $str = preg_replace('/&#(\d+);/', $temp.'\\1;', $str);
+        $str = preg_replace('/&#(\d+);/', $temp . '\\1;', $str);
 
         if ($protect_all === true) {
-            $str = preg_replace('/&(\w+);/', $temp.'\\1;', $str);
+            $str = preg_replace('/&(\w+);/', $temp . '\\1;', $str);
         }
 
         $str = str_replace(
@@ -1003,10 +983,10 @@ if (! function_exists('xml_convert')) {
         );
 
         // Decode the temp markers back to entities
-        $str = preg_replace('/'.$temp.'(\d+);/', '&#\\1;', $str);
+        $str = preg_replace('/' . $temp . '(\d+);/', '&#\\1;', $str);
 
         if ($protect_all === true) {
-            return preg_replace('/'.$temp.'(\w+);/', '&\\1;', $str);
+            return preg_replace('/' . $temp . '(\w+);/', '&\\1;', $str);
         }
 
         return $str;
@@ -1015,7 +995,7 @@ if (! function_exists('xml_convert')) {
 
 // --------------------------------------------------------------------
 
-if (! function_exists('symbolic_permissions')) {
+if (!function_exists('symbolic_permissions')) {
     /**
      * Symbolic Permissions
      *
@@ -1029,44 +1009,36 @@ if (! function_exists('symbolic_permissions')) {
     {
         if (($perms & 0xC000) === 0xC000) {
             $symbolic = 's'; // Socket
-        }
-        elseif (($perms & 0xA000) === 0xA000) {
+        } elseif (($perms & 0xA000) === 0xA000) {
             $symbolic = 'l'; // Symbolic Link
-        }
-        elseif (($perms & 0x8000) === 0x8000) {
+        } elseif (($perms & 0x8000) === 0x8000) {
             $symbolic = '-'; // Regular
-        }
-        elseif (($perms & 0x6000) === 0x6000) {
+        } elseif (($perms & 0x6000) === 0x6000) {
             $symbolic = 'b'; // Block special
-        }
-        elseif (($perms & 0x4000) === 0x4000) {
+        } elseif (($perms & 0x4000) === 0x4000) {
             $symbolic = 'd'; // Directory
-        }
-        elseif (($perms & 0x2000) === 0x2000) {
+        } elseif (($perms & 0x2000) === 0x2000) {
             $symbolic = 'c'; // Character special
-        }
-        elseif (($perms & 0x1000) === 0x1000) {
+        } elseif (($perms & 0x1000) === 0x1000) {
             $symbolic = 'p'; // FIFO pipe
-        }
-        else
-        {
+        } else {
             $symbolic = 'u'; // Unknown
         }
 
         // Owner
         $symbolic .= (($perms & 0x0100) ? 'r' : '-')
-        .(($perms & 0x0080) ? 'w' : '-')
-        .(($perms & 0x0040) ? (($perms & 0x0800) ? 's' : 'x' ) : (($perms & 0x0800) ? 'S' : '-'));
+            . (($perms & 0x0080) ? 'w' : '-')
+            . (($perms & 0x0040) ? (($perms & 0x0800) ? 's' : 'x') : (($perms & 0x0800) ? 'S' : '-'));
 
         // Group
         $symbolic .= (($perms & 0x0020) ? 'r' : '-')
-        .(($perms & 0x0010) ? 'w' : '-')
-        .(($perms & 0x0008) ? (($perms & 0x0400) ? 's' : 'x' ) : (($perms & 0x0400) ? 'S' : '-'));
+            . (($perms & 0x0010) ? 'w' : '-')
+            . (($perms & 0x0008) ? (($perms & 0x0400) ? 's' : 'x') : (($perms & 0x0400) ? 'S' : '-'));
 
         // World
         $symbolic .= (($perms & 0x0004) ? 'r' : '-')
-        .(($perms & 0x0002) ? 'w' : '-')
-        .(($perms & 0x0001) ? (($perms & 0x0200) ? 't' : 'x' ) : (($perms & 0x0200) ? 'T' : '-'));
+            . (($perms & 0x0002) ? 'w' : '-')
+            . (($perms & 0x0001) ? (($perms & 0x0200) ? 't' : 'x') : (($perms & 0x0200) ? 'T' : '-'));
 
         return $symbolic;
     }
@@ -1074,7 +1046,7 @@ if (! function_exists('symbolic_permissions')) {
 
 // --------------------------------------------------------------------
 
-if (! function_exists('octal_permissions')) {
+if (!function_exists('octal_permissions')) {
     /**
      * Octal Permissions
      *

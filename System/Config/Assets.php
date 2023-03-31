@@ -1,15 +1,16 @@
 <?php
+
 /**
-* Attention, don't try to change the structure of the code, delete, or change.
-* Because there is some code connected to the NSY system. So, be careful.
-*
-* Hi Welcome to NSY Assets Manager.
-* The easiest & best assets manager in history.
-* Made with love by Vikry Yuansah.
-*
-* How to use it? Simply follow this :
-* https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#introducting-to-nsy-assets-manager
-*/
+ * Attention, don't try to change the structure of the code, delete, or change.
+ * Because there is some code connected to the NSY system. So, be careful.
+ *
+ * Hi Welcome to NSY Assets Manager.
+ * The easiest & best assets manager in history.
+ * Made with love by Vikry Yuansah.
+ *
+ * How to use it? Simply follow this :
+ * https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#introducting-to-nsy-assets-manager
+ */
 
 function header_assets()
 {

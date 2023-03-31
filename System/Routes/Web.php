@@ -1,4 +1,5 @@
 <?php
+
 use System\Middlewares\BeforeLayer;
 use System\Middlewares\AfterLayer;
 
@@ -14,7 +15,7 @@ use System\Middlewares\AfterLayer;
 // Route method : any|get|post|put|patch|delete|head|options
 
 // MVC Route
-Route::get('/', function() {
+Route::get('/', function () {
 	$middleware = [
 		new BeforeLayer(),
 		new AfterLayer()
@@ -24,6 +25,6 @@ Route::get('/', function() {
 });
 
 // HMVC Route
-Route::get('/hmvc', function() {
+Route::get('/hmvc', function () {
 	Route::goto('Homepage\Hello@index_hmvc');
 });

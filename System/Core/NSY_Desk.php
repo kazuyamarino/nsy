@@ -1,50 +1,50 @@
 <?php
+
 namespace System\Core;
 
 /**
-* This is the core of NSY Desk Settings
-* Attention, don't try to change the structure of the code, delete, or change.
-* Because there is some code connected to the NSY system. So, be careful.
-*/
+ * This is the core of NSY Desk Settings
+ * Attention, don't try to change the structure of the code, delete, or change.
+ * Because there is some code connected to the NSY system. So, be careful.
+ */
 class NSY_Desk
 {
 
 	/**
-	* Function error handler
-	*
-	* @param  string $var_msg
-	* @return void
-	*/
+	 * Function error handler
+	 *
+	 * @param  string $var_msg
+	 * @return void
+	 */
 	public static function static_error_handler($var_msg = '')
 	{
 		$app_env = config_app('app_env');
 
-		if ( $app_env == 'development' ) {
+		if ($app_env == 'development') {
 			try {
 				throw new \Exception($var_msg);
-			}
-			catch (\Exception $e) {
+			} catch (\Exception $e) {
 				$err = $e->getTrace();
-				echo "<pre>Message:\n" . $e->getMessage() ." in ".  $err[1]['file'] . "(". $err[1]['line'] .')' ."</pre>";
-				echo "<pre>Stack trace:\n#0 ". $err[1]['file'] . "(" . $err[1]['line'] . "): " . $err[2]['class'] . "->" . $err[2]['function'] . "()" ."</pre>";
+				echo "<pre>Message:\n" . $e->getMessage() . " in " .  $err[1]['file'] . "(" . $err[1]['line'] . ')' . "</pre>";
+				echo "<pre>Stack trace:\n#0 " . $err[1]['file'] . "(" . $err[1]['line'] . "): " . $err[2]['class'] . "->" . $err[2]['function'] . "()" . "</pre>";
 			}
 		}
 	}
 
 	/**
-	* Function error switch
-	*
-	* @return void
-	*/
+	 * Function error switch
+	 *
+	 * @return void
+	 */
 	public static function static_error_switch()
 	{
 		$app_env = config_app('app_env');
 
-		if ( $app_env == 'development' ) {
+		if ($app_env == 'development') {
 			ini_set('display_errors', 1);
 			ini_set('display_startup_errors', 1);
 			error_reporting(E_ALL);
-		} elseif ( $app_env == 'production' ) {
+		} elseif ($app_env == 'production') {
 			ini_set('display_errors', 0);
 			error_reporting(0);
 
@@ -59,16 +59,16 @@ class NSY_Desk
 	}
 
 	/**
-	* Start migration
-	*
-	* @param  string $string
-	* @return void
-	*/
+	 * Start migration
+	 *
+	 * @param  string $string
+	 * @return void
+	 */
 	public static function mig_up($string = '')
 	{
-		$classname = 'System\\Migrations\\'.$string;
+		$classname = 'System\\Migrations\\' . $string;
 
-		if (class_exists($classname) ) {
+		if (class_exists($classname)) {
 			$mig = new $classname;
 			$mig->up();
 
@@ -82,16 +82,16 @@ class NSY_Desk
 	}
 
 	/**
-	* Rollback migration
-	*
-	* @param  string $string
-	* @return void
-	*/
+	 * Rollback migration
+	 *
+	 * @param  string $string
+	 * @return void
+	 */
 	public static function mig_down($string = '')
 	{
-		$classname = 'System\\Migrations\\'.$string;
+		$classname = 'System\\Migrations\\' . $string;
 
-		if (class_exists($classname) ) {
+		if (class_exists($classname)) {
 			$mig = new $classname;
 			$mig->down();
 
@@ -111,16 +111,16 @@ class NSY_Desk
 	public static function register_system()
 	{
 		// Register Core
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_File.php';
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_Language.php';
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_LoadTime.php';
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_Request.php';
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_Security.php';
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Core/NSY_Helpers_Validate.php';
+		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Core/NSY_Helpers_File.php';
+		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Core/NSY_Helpers_Language.php';
+		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Core/NSY_Helpers_LoadTime.php';
+		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Core/NSY_Helpers_Request.php';
+		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Core/NSY_Helpers_Security.php';
+		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Core/NSY_Helpers_Validate.php';
 
 		// Register Libraries
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Libraries/Aliases.php';
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Config/Assets.php';
+		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Libraries/Aliases.php';
+		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Config/Assets.php';
 	}
 
 	/**
@@ -129,9 +129,8 @@ class NSY_Desk
 	 */
 	public static function register_route()
 	{
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Routes/Web.php';
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Routes/Api.php';
-		require_once __DIR__ . '/../../'. config_app('sys_dir') .'/Routes/Migration.php';
+		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Routes/Web.php';
+		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Routes/Api.php';
+		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Routes/Migration.php';
 	}
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace System\Libraries;
 
 /**
@@ -15,32 +16,32 @@ namespace System\Libraries;
  */
 
 /**
-* Load time handler.
-*/
+ * Load time handler.
+ */
 class LoadTime
 {
 	/**
-	* Save initial status time.
-	*
-	* @var float
-	*/
+	 * Save initial status time.
+	 *
+	 * @var float
+	 */
 	public static $startTime = false;
 
 	/**
-	* Set initial time.
-	*
-	* @return float → microtime
-	*/
+	 * Set initial time.
+	 *
+	 * @return float → microtime
+	 */
 	public static function start()
 	{
 		return self::$startTime = microtime(true);
 	}
 
 	/**
-	* Set end time.
-	*
-	* @return float → seconds
-	*/
+	 * Set end time.
+	 *
+	 * @return float → seconds
+	 */
 	public static function end()
 	{
 		if (self::$startTime) {
@@ -52,15 +53,14 @@ class LoadTime
 	}
 
 	/**
-	* Check if the timer has been started.
-	*
-	* @since 1.1.2
-	*
-	* @return boolean
-	*/
+	 * Check if the timer has been started.
+	 *
+	 * @since 1.1.2
+	 *
+	 * @return boolean
+	 */
 	public static function isActive()
 	{
 		return (self::$startTime) ? true : false;
 	}
-
 }

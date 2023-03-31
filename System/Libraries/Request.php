@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -10,6 +11,7 @@ declare(strict_types=1);
  * @link      https://github.com/Josantonius/PHP-Request
  * @since     1.0.0
  */
+
 namespace System\Libraries;
 
 use System\Libraries\Validate;
@@ -85,7 +87,7 @@ class Request
      * @param array $filters → associative array with data type for each key
      * @param mixed $default → default value for non-existent or incorrect keys
      */
-    public function asArray(array $filters = [], $default = null) : array
+    public function asArray(array $filters = [], $default = null): array
     {
         $array = Validate::asArray($this->params[$this->key] ?? $this->params, []);
 
@@ -105,7 +107,7 @@ class Request
      * @param array $filters → object with data type for each key
      * @param mixed $default → default value for non-existent or incorrect keys
      */
-    public function asObject(array $filters = [], $default = null) : \stdClass
+    public function asObject(array $filters = [], $default = null): \stdClass
     {
         $object = Validate::asObject($this->params[$this->key] ?? $this->params, (object) []);
 
@@ -232,7 +234,7 @@ class Request
     /**
      * Check if it is a GET request.
      */
-    public static function isGet() : bool
+    public static function isGet(): bool
     {
         return $_SERVER['REQUEST_METHOD'] === 'GET';
     }
@@ -240,7 +242,7 @@ class Request
     /**
      * Check if it is a POST request.
      */
-    public static function isPost() : bool
+    public static function isPost(): bool
     {
         return $_SERVER['REQUEST_METHOD'] === 'POST';
     }
@@ -248,7 +250,7 @@ class Request
     /**
      * Check if it is a PUT request.
      */
-    public static function isPut() : bool
+    public static function isPut(): bool
     {
         return $_SERVER['REQUEST_METHOD'] === 'PUT';
     }
@@ -256,7 +258,7 @@ class Request
     /**
      * Check if it is a DELETE request.
      */
-    public static function isDelete() : bool
+    public static function isDelete(): bool
     {
         return $_SERVER['REQUEST_METHOD'] === 'DELETE';
     }
@@ -296,7 +298,7 @@ class Request
      *
      * @since 2.0.0
      */
-    public static function getContentType() : string
+    public static function getContentType(): string
     {
         $contentType = $_SERVER['HTTP_CONTENT_TYPE'] ?? '';
 

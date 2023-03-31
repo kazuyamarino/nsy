@@ -1,5 +1,7 @@
 <?php
+
 namespace System\Libraries;
+
 /**
  * PHP simple library for managing of data types.
  *
@@ -11,18 +13,18 @@ namespace System\Libraries;
  */
 
 /**
-* Validation or conversion of data types.
-*/
+ * Validation or conversion of data types.
+ */
 class Validate
 {
 	/**
-	* Parameter return as array.
-	*
-	* @param mixed $data    → data to convert
-	* @param mixed $default → default value in error case
-	*
-	* @return mixed → value, null or customized return value
-	*/
+	 * Parameter return as array.
+	 *
+	 * @param mixed $data    → data to convert
+	 * @param mixed $default → default value in error case
+	 *
+	 * @return mixed → value, null or customized return value
+	 */
 	public static function asArray(mixed $data, mixed $default = null)
 	{
 		$json = is_string($data) ? $data : json_encode($data);
@@ -35,13 +37,13 @@ class Validate
 	}
 
 	/**
-	* Parameter return as object.
-	*
-	* @param mixed $data    → data to convert
-	* @param mixed $default → default value in error case
-	*
-	* @return mixed → value, null or customized return value
-	*/
+	 * Parameter return as object.
+	 *
+	 * @param mixed $data    → data to convert
+	 * @param mixed $default → default value in error case
+	 *
+	 * @return mixed → value, null or customized return value
+	 */
 	public static function asObject(mixed $data, mixed $default = null)
 	{
 		$json = is_string($data) ? $data : json_encode($data);
@@ -52,13 +54,13 @@ class Validate
 	}
 
 	/**
-	* Parameter return as JSON.
-	*
-	* @param mixed $data    → data to convert
-	* @param mixed $default → default value in error case
-	*
-	* @return mixed → value, null or customized return value
-	*/
+	 * Parameter return as JSON.
+	 *
+	 * @param mixed $data    → data to convert
+	 * @param mixed $default → default value in error case
+	 *
+	 * @return mixed → value, null or customized return value
+	 */
 	public static function asJson(mixed $data, mixed $default = null)
 	{
 		$json = is_string($data) ? $data : json_encode($data);
@@ -67,13 +69,13 @@ class Validate
 	}
 
 	/**
-	* Parameter return as string.
-	*
-	* @param mixed $data    → data to convert
-	* @param mixed $default → default value in error case
-	*
-	* @return mixed → value, null or customized return value
-	*/
+	 * Parameter return as string.
+	 *
+	 * @param mixed $data    → data to convert
+	 * @param mixed $default → default value in error case
+	 *
+	 * @return mixed → value, null or customized return value
+	 */
 	public static function asString(mixed $data, mixed $default = null)
 	{
 		$string = filter_var(
@@ -86,13 +88,13 @@ class Validate
 	}
 
 	/**
-	* Parameter return as integer.
-	*
-	* @param mixed $data    → data to convert
-	* @param mixed $default → default value in error case
-	*
-	* @return mixed → value, null or customized return value
-	*/
+	 * Parameter return as integer.
+	 *
+	 * @param mixed $data    → data to convert
+	 * @param mixed $default → default value in error case
+	 *
+	 * @return mixed → value, null or customized return value
+	 */
 	public static function asInteger(mixed $data, mixed $default = null)
 	{
 		$int = filter_var($data ?? '', FILTER_VALIDATE_INT);
@@ -101,13 +103,13 @@ class Validate
 	}
 
 	/**
-	* Parameter return as float.
-	*
-	* @param mixed $data    → data to convert
-	* @param mixed $default → default value in error case
-	*
-	* @return mixed → value, null or customized return value
-	*/
+	 * Parameter return as float.
+	 *
+	 * @param mixed $data    → data to convert
+	 * @param mixed $default → default value in error case
+	 *
+	 * @return mixed → value, null or customized return value
+	 */
 	public static function asFloat(mixed $data, mixed $default = null)
 	{
 		$float = filter_var($data ?? '', FILTER_VALIDATE_FLOAT);
@@ -116,28 +118,28 @@ class Validate
 	}
 
 	/**
-	* Parameter return as boolean.
-	*
-	* @param mixed $data    → data to convert
-	* @param mixed $default → default value in error case
-	*
-	* @return mixed → value, null or customized return value
-	*/
+	 * Parameter return as boolean.
+	 *
+	 * @param mixed $data    → data to convert
+	 * @param mixed $default → default value in error case
+	 *
+	 * @return mixed → value, null or customized return value
+	 */
 	public static function asBoolean(mixed $data, mixed $default = null)
 	{
 		$boolean = filter_var($data ?? [], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
-		return ! is_null($boolean) ? $boolean : $default;
+		return !is_null($boolean) ? $boolean : $default;
 	}
 
 	/**
-	* Parameter return as IP.
-	*
-	* @param mixed $data    → data to convert
-	* @param mixed $default → default value in error case
-	*
-	* @return mixed → value, null or customized return value
-	*/
+	 * Parameter return as IP.
+	 *
+	 * @param mixed $data    → data to convert
+	 * @param mixed $default → default value in error case
+	 *
+	 * @return mixed → value, null or customized return value
+	 */
 	public static function asIp(mixed $data, mixed $default = null)
 	{
 		$isValid = filter_var($data ?? '', FILTER_VALIDATE_IP);
@@ -146,13 +148,13 @@ class Validate
 	}
 
 	/**
-	* Parameter return as URL.
-	*
-	* @param mixed $data    → data to convert
-	* @param mixed $default → default value in error case
-	*
-	* @return mixed → value, null or customized return value
-	*/
+	 * Parameter return as URL.
+	 *
+	 * @param mixed $data    → data to convert
+	 * @param mixed $default → default value in error case
+	 *
+	 * @return mixed → value, null or customized return value
+	 */
 	public static function asUrl(mixed $data, mixed $default = null)
 	{
 		$url = filter_var($data ?? '', FILTER_SANITIZE_URL);
@@ -161,18 +163,17 @@ class Validate
 	}
 
 	/**
-	* Parameter return as email.
-	*
-	* @param mixed $data    → data to convert
-	* @param mixed $default → default value in error case
-	*
-	* @return mixed → value, null or customized return value
-	*/
+	 * Parameter return as email.
+	 *
+	 * @param mixed $data    → data to convert
+	 * @param mixed $default → default value in error case
+	 *
+	 * @return mixed → value, null or customized return value
+	 */
 	public static function asEmail(mixed $data, mixed $default = null)
 	{
 		$isValid = filter_var($data ?? '', FILTER_VALIDATE_EMAIL);
 
 		return $isValid ? $data : $default;
 	}
-
 }

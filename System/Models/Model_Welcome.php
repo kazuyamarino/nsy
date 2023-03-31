@@ -1,4 +1,5 @@
 <?php
+
 namespace System\Models;
 
 use System\Core\DB;
@@ -10,5 +11,4 @@ class Model_Welcome extends DB
 	{
 		return 'Welcome to NSY PHP Framework';
 	}
-
 }

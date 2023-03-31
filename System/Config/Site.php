@@ -1,7 +1,8 @@
 <?php
+
 /**
-* Site config
-*/
+ * Site config
+ */
 return [
 
 	/*

@@ -1,4 +1,5 @@
 <?php
+
 namespace System\Libraries;
 
 /**
@@ -15,42 +16,41 @@ namespace System\Libraries;
  */
 
 /**
-* Language code handler.
-*/
+ * Language code handler.
+ */
 class LanguageCode
 {
 	/**
-	* Get all language codes as array.
-	*
-	* @return array → language codes and language names
-	*/
+	 * Get all language codes as array.
+	 *
+	 * @return array → language codes and language names
+	 */
 	public static function get()
 	{
 		return LanguageCodeCollection::all();
 	}
 
 	/**
-	* Get language name from language code.
-	*
-	* @param string $languageCode → language code, e.g. 'es'
-	*
-	* @return string|false → country name
-	*/
+	 * Get language name from language code.
+	 *
+	 * @param string $languageCode → language code, e.g. 'es'
+	 *
+	 * @return string|false → country name
+	 */
 	public static function getLanguageFromCode(string $languageCode)
 	{
 		return LanguageCodeCollection::get($languageCode) ?: false;
 	}
 
 	/**
-	* Get language code from language name.
-	*
-	* @param string $languageName → language name, e.g. 'Spanish'
-	*
-	* @return string|false → language code
-	*/
+	 * Get language code from language name.
+	 *
+	 * @param string $languageName → language name, e.g. 'Spanish'
+	 *
+	 * @return string|false → language code
+	 */
 	public static function getCodeFromLanguage(string $languageName)
 	{
 		return array_search($languageName, LanguageCodeCollection::all(), true);
 	}
-
 }

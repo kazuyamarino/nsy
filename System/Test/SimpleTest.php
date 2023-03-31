@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
 
 require_once "ClassWordCount.php";

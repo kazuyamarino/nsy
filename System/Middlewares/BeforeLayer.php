@@ -1,4 +1,5 @@
 <?php
+
 namespace System\Middlewares;
 
 use Optimus\Onion\Onion;
@@ -14,11 +15,11 @@ class BeforeLayer implements LayerInterface
 		 */
 	}
 
-    public function peel(mixed $object, \Closure $next)
-    {
+	public function peel(mixed $object, \Closure $next)
+	{
 		$condition = 1;
 
-		if ( $condition == 1 ) {
+		if ($condition == 1) {
 			/*
 			Response if condition true,
 			Result from before middleware here.
@@ -34,6 +35,5 @@ class BeforeLayer implements LayerInterface
 
 			exit();
 		}
-    }
-
+	}
 }

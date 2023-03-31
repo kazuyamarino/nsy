@@ -1,4 +1,5 @@
 <?php
+
 namespace System\Libraries;
 
 /**
@@ -72,7 +73,7 @@ class File
      */
     public static function createDir(bool $path)
     {
-        return ! is_dir($path) && @mkdir($path, 0777, true);
+        return !is_dir($path) && @mkdir($path, 0777, true);
     }
 
     /**
@@ -87,7 +88,7 @@ class File
      */
     public static function copyDirRecursively(string $from, string $to)
     {
-        if (! $path = self::getFilesFromDir($from)) {
+        if (!$path = self::getFilesFromDir($from)) {
             return false;
         }
 
@@ -95,10 +96,10 @@ class File
 
         foreach ($path as $file) {
             if ($file->isFile()) {
-                if (! copy($file->getRealPath(), $to . $file->getFilename())) {
+                if (!copy($file->getRealPath(), $to . $file->getFilename())) {
                     return false;
                 }
-            } elseif (! $file->isDot() && $file->isDir()) {
+            } elseif (!$file->isDot() && $file->isDir()) {
                 self::copyDirRecursively($file->getRealPath(), $to . $path);
             }
         }
@@ -131,16 +132,16 @@ class File
      */
     public static function deleteDirRecursively(bool $path)
     {
-        if (! $paths = self::getFilesFromDir($path)) {
+        if (!$paths = self::getFilesFromDir($path)) {
             return false;
         }
 
         foreach ($paths as $file) {
             if ($file->isFile()) {
-                if (! self::delete($file->getRealPath())) {
+                if (!self::delete($file->getRealPath())) {
                     return false;
                 }
-            } elseif (! $file->isDot() && $file->isDir()) {
+            } elseif (!$file->isDot() && $file->isDir()) {
                 self::deleteDirRecursively($file->getRealPath());
                 self::deleteEmptyDir($file->getRealPath());
             }
@@ -160,14 +161,14 @@ class File
      */
     public static function getFilesFromDir(string $path)
     {
-        if (! is_dir($path)) {
+        if (!is_dir($path)) {
             return false;
         }
 
         return new \DirectoryIterator(rtrim($path, '/') . '/');
     }
 
-	/**
+    /**
      * Write File
      *
      * Writes data to the file specified in the path.
@@ -180,14 +181,13 @@ class File
      */
     public static function writeFile(string $path, string $data, string $mode = 'wb')
     {
-        if (! $fp = @fopen($path, $mode)) {
+        if (!$fp = @fopen($path, $mode)) {
             return false;
         }
 
         flock($fp, LOCK_EX);
 
-        for ($result = $written = 0, $length = strlen($data); $written < $length; $written += $result)
-        {
+        for ($result = $written = 0, $length = strlen($data); $written < $length; $written += $result) {
             if (($result = fwrite($fp, substr($data, $written))) === false) {
                 break;
             }
@@ -199,7 +199,7 @@ class File
         return is_int($result);
     }
 
-	/**
+    /**
      * Get Filenames
      *
      * Reads the specified directory and builds an array containing the filenames.
@@ -218,16 +218,14 @@ class File
             // reset the array and make sure $source_dir has a trailing slash on the initial call
             if ($_recursion === false) {
                 $_filedata = array();
-                $source_dir = rtrim(realpath($source_dir), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+                $source_dir = rtrim(realpath($source_dir), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
             }
 
-            while (false !== ($file = readdir($fp)))
-            {
-                if (is_dir($source_dir.$file) && $file[0] !== '.') {
-                    self::getFilenames($source_dir.$file.DIRECTORY_SEPARATOR, $include_path, true);
-                }
-                elseif ($file[0] !== '.') {
-                    $_filedata[] = ($include_path === true) ? $source_dir.$file : $file;
+            while (false !== ($file = readdir($fp))) {
+                if (is_dir($source_dir . $file) && $file[0] !== '.') {
+                    self::getFilenames($source_dir . $file . DIRECTORY_SEPARATOR, $include_path, true);
+                } elseif ($file[0] !== '.') {
+                    $_filedata[] = ($include_path === true) ? $source_dir . $file : $file;
                 }
             }
 
@@ -238,7 +236,7 @@ class File
         return false;
     }
 
-	/**
+    /**
      * Get Directory File Information
      *
      * Reads the specified directory and builds an array containing the filenames,
@@ -260,17 +258,15 @@ class File
             // reset the array and make sure $source_dir has a trailing slash on the initial call
             if ($_recursion === false) {
                 $_filedata = array();
-                $source_dir = rtrim(realpath($source_dir), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+                $source_dir = rtrim(realpath($source_dir), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
             }
 
             // Used to be foreach (scandir($source_dir, 1) as $file), but scandir() is simply not as fast
-            while (false !== ($file = readdir($fp)))
-            {
-                if (is_dir($source_dir.$file) && $file[0] !== '.' && $top_level_only === false) {
-                    self::getDirFileInfo($source_dir.$file.DIRECTORY_SEPARATOR, $top_level_only, true);
-                }
-                elseif ($file[0] !== '.') {
-                    $_filedata[$file] = self::getFileInfo($source_dir.$file);
+            while (false !== ($file = readdir($fp))) {
+                if (is_dir($source_dir . $file) && $file[0] !== '.' && $top_level_only === false) {
+                    self::getDirFileInfo($source_dir . $file . DIRECTORY_SEPARATOR, $top_level_only, true);
+                } elseif ($file[0] !== '.') {
+                    $_filedata[$file] = self::getFileInfo($source_dir . $file);
                     $_filedata[$file]['relative_path'] = $relative_path;
                 }
             }
@@ -282,7 +278,7 @@ class File
         return false;
     }
 
-	/**
+    /**
      * Get File Info
      *
      * Given a file and path, returns the name, path, size, date modified
@@ -296,7 +292,7 @@ class File
      */
     public static function getFileInfo(string $file, mixed $returned_values = array('name', 'server_path', 'size', 'date'))
     {
-        if (! file_exists($file)) {
+        if (!file_exists($file)) {
             return false;
         }
 
@@ -304,41 +300,39 @@ class File
             $returned_values = explode(',', $returned_values);
         }
 
-        foreach ($returned_values as $key)
-        {
-            switch ($key)
-            {
-            case 'name':
-                $fileinfo['name'] = basename($file);
-                break;
-            case 'server_path':
-                $fileinfo['server_path'] = $file;
-                break;
-            case 'size':
-                $fileinfo['size'] = filesize($file);
-                break;
-            case 'date':
-                $fileinfo['date'] = filemtime($file);
-                break;
-            case 'readable':
-                $fileinfo['readable'] = is_readable($file);
-                break;
-            case 'writable':
-                $fileinfo['writable'] = is_writable($file);
-                break;
-            case 'executable':
-                $fileinfo['executable'] = is_executable($file);
-                break;
-            case 'fileperms':
-                $fileinfo['fileperms'] = fileperms($file);
-                break;
+        foreach ($returned_values as $key) {
+            switch ($key) {
+                case 'name':
+                    $fileinfo['name'] = basename($file);
+                    break;
+                case 'server_path':
+                    $fileinfo['server_path'] = $file;
+                    break;
+                case 'size':
+                    $fileinfo['size'] = filesize($file);
+                    break;
+                case 'date':
+                    $fileinfo['date'] = filemtime($file);
+                    break;
+                case 'readable':
+                    $fileinfo['readable'] = is_readable($file);
+                    break;
+                case 'writable':
+                    $fileinfo['writable'] = is_writable($file);
+                    break;
+                case 'executable':
+                    $fileinfo['executable'] = is_executable($file);
+                    break;
+                case 'fileperms':
+                    $fileinfo['fileperms'] = fileperms($file);
+                    break;
             }
         }
 
         return $fileinfo;
     }
 
-	/**
+    /**
      * Get Mime by Extension
      *
      * Translates a file extension into a mime type based on config/Mimes.php.
@@ -354,7 +348,7 @@ class File
     {
         static $mimes;
 
-        if (! is_array($mimes)) {
+        if (!is_array($mimes)) {
             $mimes = self::getMimes();
 
             if (empty($mimes)) {
@@ -366,26 +360,26 @@ class File
 
         if (isset($mimes[$extension])) {
             return is_array($mimes[$extension])
-            ? current($mimes[$extension]) // Multiple mime types, just give the first one
-            : $mimes[$extension];
+                ? current($mimes[$extension]) // Multiple mime types, just give the first one
+                : $mimes[$extension];
         }
 
         return false;
     }
 
-	/**
-	 * Returns the MIME types array from config/Mimes.php
-	 *
-	 * @return array
-	 */
-	public static function &getMimes()
-	{
+    /**
+     * Returns the MIME types array from config/Mimes.php
+     *
+     * @return array
+     */
+    public static function &getMimes()
+    {
         static $_mimes;
 
         if (empty($_mimes)) {
             $_mimes = file_exists(__DIR__ . '/../Config/Mimes.php')
-            ? include __DIR__ . '/../Config/Mimes.php'
-            : array();
+                ? include __DIR__ . '/../Config/Mimes.php'
+                : array();
 
             if (file_exists(__DIR__ . '/../Config/Mimes.php')) {
                 $_mimes = array_merge($_mimes, include __DIR__ . '/../Config/Mimes.php');
@@ -393,6 +387,5 @@ class File
         }
 
         return $_mimes;
-	}
-
+    }
 }

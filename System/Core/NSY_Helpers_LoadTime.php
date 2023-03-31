@@ -1,15 +1,16 @@
 <?php
+
 use System\Libraries\LoadTime; // LoadTime Class
 
 /**
  * Script Load Time Helpers
  */
-if (! function_exists('loadtime_start')) {
+if (!function_exists('loadtime_start')) {
 	/**
-	* Set initial time.
-	*
-	* @return float → microtime
-	*/
+	 * Set initial time.
+	 *
+	 * @return float → microtime
+	 */
 	function loadtime_start()
 	{
 		$timestart = LoadTime::start();
@@ -18,12 +19,12 @@ if (! function_exists('loadtime_start')) {
 	}
 }
 
-if (! function_exists('loadtime_end')) {
+if (!function_exists('loadtime_end')) {
 	/**
-	* Set end time.
-	*
-	* @return float → seconds
-	*/
+	 * Set end time.
+	 *
+	 * @return float → seconds
+	 */
 	function loadtime_end()
 	{
 		$timestart = LoadTime::end();
@@ -32,7 +33,7 @@ if (! function_exists('loadtime_end')) {
 	}
 }
 
-if (! function_exists('loadtime_active')) {
+if (!function_exists('loadtime_active')) {
 	/**
 	 * Check if the timer has been started
 	 * @return boolean
