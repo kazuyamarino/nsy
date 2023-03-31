@@ -1,7 +1,7 @@
 <div class="wrap">
 	<div style="text-align:center">
-		<h2>Hello, @( $mvc_page )!</h2>
-		<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy"><strong>View On Github&nbsp;</strong></a>|<a href="@( base_url('hmvc') )"><i class="fas fa-link"></i>&nbsp;Go To HMVC Page</a></h4>
+		<h2>Hello, @( $mvc_page )! <a href="@( base_url('hmvc') )"><i class="fas fa-link"></i>Go To HMVC Page</a></h2>
+		<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy/releases"><strong>Release Version&nbsp;</strong></a>|<a target="_blank" href="https://github.com/kazuyamarino/nsy"><strong>&nbsp;View On Github&nbsp;</strong></a></h4>
 		<div>
 			<div>
 				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#codename"><strong>NSY Release Codename</strong></a>&nbsp;<&nbsp;<code>About NSY codename.</code></h4>
