@@ -957,11 +957,11 @@ class DB
 	/**
 	 * Helper for PDO setAttribute
 	 *
-	 * @param string $param
-	 * @param string $value
+	 * @param mixed $param
+	 * @param mixed $value
 	 * @return void
 	 */
-	protected function pdo_set_attr(string $param = '', string $value = '')
+	protected function pdo_set_attr(mixed $param = '', mixed $value = '')
 	{
 		static::$connection->setAttribute($param, $value);
 		return new static;
@@ -970,10 +970,10 @@ class DB
 	/**
 	 * Helper for PDO getAttribute
 	 *
-	 * @param string $param
+	 * @param mixed $param
 	 * @return void
 	 */
-	protected function pdo_get_attr(string $param = '')
+	protected function pdo_get_attr(mixed $param = '')
 	{
 		static::$connection->getAttribute($param);
 		return new static;
