@@ -5,7 +5,7 @@ namespace System\Migrations;
 /**
  * The migration class
  */
-class mig_tmp
+class mig_tmp_class
 {
 
 	/**
@@ -19,7 +19,14 @@ class mig_tmp
 	 */
 	public function up()
 	{
-		# code...
+		Mig::connect()->create_table('mig_tmp', function() {
+			return Mig::cols([
+				'id' => 'bigint not null',
+				# add columns here...
+				Mig::primary('id')
+			]);
+		});
+		Mig::connect()->index('mig_tmp', 'BTREE', 'id');
 	}
 
 	/**
@@ -29,6 +36,6 @@ class mig_tmp
 	 */
 	public function down()
 	{
-		# code...
+		Mig::connect()->drop_exist_table('mig_tmp');
 	}
 }

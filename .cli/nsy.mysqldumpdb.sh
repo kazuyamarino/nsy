@@ -16,9 +16,9 @@ run_dump_mysql() {
 	then
 		printf "Database name, username, & password undefined\n"
 		printf "It should be like this\n"
-		printf "'dump:mysql <database name> <username> <password>'\n"
+		printf "'dump:mysql [database name] [username] [password]'\n"
 		printf "or\n"
-		printf "'dump:mysql <database name> <username> <password> <table name>'\n"
+		printf "'dump:mysql [database name] [username] [password] [table name]'\n"
 	elif [ -n $1 ]
 	then
 		if [ -z $4 ]

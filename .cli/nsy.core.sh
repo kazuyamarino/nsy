@@ -14,10 +14,11 @@
 . .cli/mk.model.sh
 . .cli/mk.module.sh
 . .cli/mk.middleware.sh
+. .cli/run.migration.sh
 
 if [ -z $1 ]; then
 	printf "Command does not exist or undefined\n"
-	printf "It should be like this 'nsy <command>'\n"
+	printf "It should be like this 'nsy [command]'\n"
 else
 	if [ $1 = "show:module" ]; then
 		show_module
@@ -25,7 +26,7 @@ else
 		show_controller $2 $3
 	elif [ $1 = "show:model" ]; then
 		show_model $2 $3
-	elif [ $1 = "show:migration" ]; then
+	elif [ $1 = "show:migrate" ]; then
 		show_migration
 	elif [ $1 = "--install" ]; then
 		run_install
@@ -43,7 +44,7 @@ else
 		make_controller $2 $3 $4
 	elif [ $1 = "make:model" ]; then
 		make_model $2 $3 $4
-	elif [ $1 = "make:migration" ]; then
+	elif [ $1 = "make:migrate" ]; then
 		make_migration $2
 	elif [ $1 = "make:module" ]; then
 		make_module $2
@@ -51,7 +52,9 @@ else
 		make_after_middleware $2
 	elif [ $1 = "make:before-middleware" ]; then
 		make_before_middleware $2
+	elif [ $1 = "run:migrate" ]; then
+		run_migration $2
 	else
-	    printf "NSY Command $1 : not found\n"
+		printf "NSY Command $1 : not found\n"
 	fi
 fi

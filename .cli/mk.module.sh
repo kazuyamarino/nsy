@@ -3,7 +3,7 @@ make_module() {
 	if [ -z $1 ]
 	then
 		printf "Module name undefined\n"
-		printf "It should be like this 'make:module <module-name>'\n"
+		printf "It should be like this 'make:module [module-name]'\n"
 	elif [ -n $1 ]
 	then
 		dirname=$1

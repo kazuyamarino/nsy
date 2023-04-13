@@ -3,7 +3,7 @@ make_controller() {
 	if [ -z $1 ]
 	then
 		printf "Mode undefined, must be hmvc or mvc\n"
-		printf "It should be like this 'make:controller <mode>'\n"
+		printf "It should be like this 'make:controller [mode]'\n"
 	elif [ -n $1 ]
 	then
 		mode=$1
@@ -13,7 +13,7 @@ make_controller() {
 				if [ -z $2 ]
 				then
 					printf "Controller name undefined\n"
-					printf "It should be like this 'make:controller $mode <controller-name>'\n"
+					printf "It should be like this 'make:controller $mode [controller-name]'\n"
 				elif [ -n $2 ]
 				then
 					conname=$2
@@ -36,7 +36,7 @@ make_controller() {
 				if [ -z $2 ]
 				then
 					printf "Module name undefined\n"
-					printf "It should be like this 'make:controller $mode <module>'\n"
+					printf "It should be like this 'make:controller $mode [module-name]'\n"
 				elif [ -n $2 ]
 				then
 					dirname=$2
@@ -49,7 +49,7 @@ make_controller() {
 						if [ -z $3 ]
 						then
 							printf "Controller name undefined\n"
-							printf "It should be like this 'make:controller $mode $dirname <controller-name>'\n"
+							printf "It should be like this 'make:controller $mode $dirname [controller-name]'\n"
 						elif [ -n $3 ]
 						then
 							conname=$3

@@ -581,13 +581,15 @@ class NSY_Migration
 	 *
 	 * @param array $cols
 	 * @param array $other_cols
-	 * @param array $other_cols_2
+	 * @param array $timestamps_cols
 	 */
-	public static function cols($cols = array(), $other_cols = array(), $other_cols_2 = array())
+	public static function cols($cols = array(), $other_cols = array())
 	{
+		$timestamps_cols = self::timestamps();
+
 		if (is_array($cols) || is_object($cols)) {
-			if (is_filled($other_cols) || is_filled($other_cols_2)) {
-				$res_merge_arr = array_merge($cols, $other_cols, $other_cols_2);
+			if (is_filled($other_cols) || is_filled($timestamps_cols)) {
+				$res_merge_arr = array_merge($cols, $other_cols, $timestamps_cols);
 				return $res_merge_arr;
 			} else {
 				return $cols;

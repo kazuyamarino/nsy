@@ -3,7 +3,7 @@ show_controller() {
 	if [ -z $1 ]
 	then
 		printf "Mode undefined, must be hmvc or mvc\n"
-		printf "It should be like this 'show:controller <mode>'\n"
+		printf "It should be like this 'show:controller [mode]'\n"
 	elif [ -n $1 ]
 	then
 		mode=$1
@@ -20,7 +20,7 @@ show_controller() {
 				if [ -z $2 ]
 				then
 					printf "Module name undefined\n"
-					printf "It should be like this 'show:controller $mode <module>'\n"
+					printf "It should be like this 'show:controller $mode [module-name]'\n"
 				elif [ -n $2 ]
 				then
 					dirname=$2

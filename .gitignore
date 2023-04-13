@@ -4,6 +4,7 @@
 /env.php
 /.htaccess
 /phpunit.xml
+/MIGRATIONLOG
 public/.htaccess
 System/Controllers/Controller_Test.php
 System/Models/Model_Test.php

@@ -3,7 +3,7 @@ make_after_middleware() {
 	if [ -z $1 ]
 	then
 		printf "After Middleware name or table name undefined\n"
-		printf "It should be like this 'make:after-middleware <middleware-name>'\n"
+		printf "It should be like this 'make:after-middleware [middleware-name]'\n"
 	elif [ -n $1 ]
 	then
 		mid=$1
@@ -27,7 +27,7 @@ make_before_middleware() {
 	if [ -z $1 ]
 	then
 		printf "Before Middleware name or table name undefined\n"
-		printf "It should be like this 'make:before-middleware <middleware-name>'\n"
+		printf "It should be like this 'make:before-middleware [middleware-name]'\n"
 	elif [ -n $1 ]
 	then
 		mid=$1
