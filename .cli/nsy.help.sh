@@ -27,7 +27,9 @@ run_help() {
 	printf " make:model\t\t Create a MVC or HMVC model directory\n"
 	printf " make:migrate\t\t Create a migration class file\n"
 	printf " run:migrate\t\t Create a migration class file\n"
-	printf " make:module\t\t Run the migration class file\n\n"
+	printf " make:module\t\t Run the migration class file\n"
+	printf " make:after-middleware\t Create a after layer middleware\n"
+	printf " make:before-middleware\t Create a before layer middleware\n\n"
 
 	printf "COMMAND OPTIONS :\n"
 	printf " mvc\t set the command value for mvc mode\n"
@@ -36,9 +38,10 @@ run_help() {
 	printf " list\t set the command value for show a list of migration classes\n\n"
 
 	printf "ARGUMENTS... :\n"
-	printf " mode\t\t set the mode (hmvc or mvc))\n"
-	printf " controller-name create a controller name\n"
-	printf " model-name\t create a model name\n"
-	printf " module-name\t create a module\n"
-	printf " migration-name\t create a migration class name\n"
+	printf " mode\t\t\t set the mode (hmvc or mvc))\n"
+	printf " controller-name\t create a controller name\n"
+	printf " model-name\t\t create a model name\n"
+	printf " module-name\t\t create a module\n"
+	printf " migration-name\t\t create a migration class name\n"
+	printf " middleware-name\t create a middleware name\n"
 }
