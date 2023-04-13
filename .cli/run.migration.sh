@@ -41,11 +41,12 @@ run_migration() {
 				done
 				printf 'Select a migration class from the above list: '
 				IFS= read -r opt
-				if (( (opt > 0) && (opt <= 3) )); then
+				if (( (opt > 0) && (opt <= "${#arr_mig_name[@]}") )); then
 					
 					wget -q -O MIGRATIONLOG http://localhost/$project_name/migdown=${arr_mig_name[$((opt - 1))]%.*}
 					wget -q -O MIGRATIONLOG http://localhost/$project_name/migup=${arr_mig_name[$((opt - 1))]%.*}
 
+					printf "\n"
 					echo "Successfully migrating down "${arr_mig_name[$((opt - 1))]%.*}
 					echo "Successfully migrating up "${arr_mig_name[$((opt - 1))]%.*}
 
