@@ -6,7 +6,7 @@ run_help() {
 	printf " * nsy [command] [command options] [arguments...]\n"
 	printf " * nsy [command] [arguments...]\n\n"
 	printf "VERSION :\n"
-	printf " 1.0.5\n\n"
+	printf " 1.1.0\n\n"
 	printf "AUTHOR :\n"
 	printf " Vikry Yuansah\n\n"
 	printf "LINK :\n"
