@@ -1120,11 +1120,10 @@ class NSY_Migration
 	/**
 	 * Define bit datatype
 	 *
-	 * @param int $length
 	 */
 	public static function bit()
 	{
-		return "bit not null";
+		return "bit NOT NULL";
 	}
 
 	/**
@@ -1134,7 +1133,7 @@ class NSY_Migration
 	 */
 	public static function tinyint(int $length = 4)
 	{
-		return "tinyint($length) not null";
+		return "tinyint($length) NOT NULL";
 	}
 
 	/**
@@ -1144,7 +1143,7 @@ class NSY_Migration
 	 */
 	public static function smallint(int $length = 5)
 	{
-		return "smallint($length) not null";
+		return "smallint($length) NOT NULL";
 	}
 
 	/**
@@ -1154,7 +1153,7 @@ class NSY_Migration
 	 */
 	public static function mediumint(int $length = 9)
 	{
-		return "mediumint($length) not null";
+		return "mediumint($length) NOT NULL";
 	}
 
 	/**
@@ -1164,7 +1163,7 @@ class NSY_Migration
 	 */
 	public static function int(int $length = 11)
 	{
-		return "int($length) not null";
+		return "int($length) NOT NULL";
 	}
 
 	/**
@@ -1174,9 +1173,8 @@ class NSY_Migration
 	 */
 	public static function integer(int $length = 11)
 	{
-		return "integer($length) not null";
+		return "integer($length) NOT NULL";
 	}
-
 
 	/**
 	 * Define bigint datatype
@@ -1185,116 +1183,123 @@ class NSY_Migration
 	 */
 	public static function bigint(int $length = 20)
 	{
-		return "bigint($length) not null";
+		return "bigint($length) NOT NULL";
 	}
 
 	/**
 	 * Define decimal datatype
 	 *
 	 * @param int $length
+	 * @param int $decimal
 	 */
 	public static function decimal(int $length = 10, int $decimal = 0)
 	{
-		return "decimal($length, $decimal) not null";
+		return "decimal($length, $decimal) NOT NULL";
 	}
 
 	/**
 	 * Define dec datatype
 	 *
 	 * @param int $length
+	 * @param int $decimal
 	 */
 	public static function dec(int $length = 10, int $decimal = 0)
 	{
-		return "dec($length, $decimal) not null";
+		return "dec($length, $decimal) NOT NULL";
 	}
 
 	/**
 	 * Define numeric datatype
 	 *
 	 * @param int $length
+	 * @param int $decimal
 	 */
 	public static function numeric(int $length = 10, int $decimal = 0)
 	{
-		return "numeric($length, $decimal) not null";
+		return "numeric($length, $decimal) NOT NULL";
 	}
 
 	/**
 	 * Define fixed datatype
 	 *
 	 * @param int $length
+	 * @param int $decimal
 	 */
 	public static function fixed(int $length = 10, int $decimal = 0)
 	{
-		return "fixed($length, $decimal) not null";
+		return "fixed($length, $decimal) NOT NULL";
 	}
 
 	/**
 	 * Define float datatype
 	 *
 	 * @param int $length
+	 * @param int $decimal
 	 */
 	public static function float(int $length = 10, int $decimal = 0)
 	{
-		return "float($length, $decimal) not null";
+		return "float($length, $decimal) NOT NULL";
 	}
 
 	/**
 	 * Define float precision datatype
 	 *
-	 * @param int $length
+	 * @param int $precision
 	 */
 	public static function float_precision(int $precision = 0)
 	{
-		return "float($precision) not null";
+		return "float($precision) NOT NULL";
 	}
 
 	/**
 	 * Define double datatype
 	 *
 	 * @param int $length
+	 * @param int $decimal
+	 * 
 	 */
 	public static function double(int $length = 10, int $decimal = 0)
 	{
-		return "double($length, $decimal) not null";
+		return "double($length, $decimal) NOT NULL";
 	}
 
 	/**
 	 * Define double precision datatype
 	 *
 	 * @param int $length
+	 * @param int $decimal
 	 */
 	public static function double_precision(int $length = 10, int $decimal = 0)
 	{
-		return "double precision($length, $decimal) not null";
+		return "double precision($length, $decimal) NOT NULL";
 	}
 
 	/**
 	 * Define real datatype
 	 *
 	 * @param int $length
+	 * @param int $decimal
 	 */
 	public static function real(int $length = 10, int $decimal = 0)
 	{
-		return "real($length, $decimal) not null";
+		return "real($length, $decimal) NOT NULL";
 	}
 
 	/**
-	 * Define bool precision datatype
+	 * Define bool datatype
 	 *
-	 * @param int $length
 	 */
 	public static function bool()
 	{
-		return "bool not null";
+		return "bool NOT NULL";
 	}
 
 	/**
-	 * Define boolean precision datatype
+	 * Define boolean datatype
 	 *
-	 * @param int $length
 	 */
 	public static function boolean()
 	{
-		return "boolean not null";
+		return "boolean NOT NULL";
 	}
 }

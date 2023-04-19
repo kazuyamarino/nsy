@@ -19,7 +19,7 @@ class mig_tmp_class
 	 */
 	public function up()
 	{
-		Mig::connect()->create_table('mig_tmp', function() {
+		Mig::connect()->create_table('mig_tmp', function () {
 			return Mig::cols([
 				'id' => Mig::bigint(),
 				# add columns here...
