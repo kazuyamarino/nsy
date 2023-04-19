@@ -1116,4 +1116,185 @@ class NSY_Migration
 		self::$connection = null;
 		exit();
 	}
+
+	/**
+	 * Define bit datatype
+	 *
+	 * @param int $length
+	 */
+	public static function bit()
+	{
+		return "bit not null";
+	}
+
+	/**
+	 * Define tinyint datatype
+	 *
+	 * @param int $length
+	 */
+	public static function tinyint(int $length = 4)
+	{
+		return "tinyint($length) not null";
+	}
+
+	/**
+	 * Define smallint datatype
+	 *
+	 * @param int $length
+	 */
+	public static function smallint(int $length = 5)
+	{
+		return "smallint($length) not null";
+	}
+
+	/**
+	 * Define mediumint datatype
+	 *
+	 * @param int $length
+	 */
+	public static function mediumint(int $length = 9)
+	{
+		return "mediumint($length) not null";
+	}
+
+	/**
+	 * Define int datatype
+	 *
+	 * @param int $length
+	 */
+	public static function int(int $length = 11)
+	{
+		return "int($length) not null";
+	}
+
+	/**
+	 * Define integer datatype
+	 *
+	 * @param int $length
+	 */
+	public static function integer(int $length = 11)
+	{
+		return "integer($length) not null";
+	}
+
+
+	/**
+	 * Define bigint datatype
+	 *
+	 * @param int $length
+	 */
+	public static function bigint(int $length = 20)
+	{
+		return "bigint($length) not null";
+	}
+
+	/**
+	 * Define decimal datatype
+	 *
+	 * @param int $length
+	 */
+	public static function decimal(int $length = 10, int $decimal = 0)
+	{
+		return "decimal($length, $decimal) not null";
+	}
+
+	/**
+	 * Define dec datatype
+	 *
+	 * @param int $length
+	 */
+	public static function dec(int $length = 10, int $decimal = 0)
+	{
+		return "dec($length, $decimal) not null";
+	}
+
+	/**
+	 * Define numeric datatype
+	 *
+	 * @param int $length
+	 */
+	public static function numeric(int $length = 10, int $decimal = 0)
+	{
+		return "numeric($length, $decimal) not null";
+	}
+
+	/**
+	 * Define fixed datatype
+	 *
+	 * @param int $length
+	 */
+	public static function fixed(int $length = 10, int $decimal = 0)
+	{
+		return "fixed($length, $decimal) not null";
+	}
+
+	/**
+	 * Define float datatype
+	 *
+	 * @param int $length
+	 */
+	public static function float(int $length = 10, int $decimal = 0)
+	{
+		return "float($length, $decimal) not null";
+	}
+
+	/**
+	 * Define float precision datatype
+	 *
+	 * @param int $length
+	 */
+	public static function float_precision(int $precision = 0)
+	{
+		return "float($precision) not null";
+	}
+
+	/**
+	 * Define double datatype
+	 *
+	 * @param int $length
+	 */
+	public static function double(int $length = 10, int $decimal = 0)
+	{
+		return "double($length, $decimal) not null";
+	}
+
+	/**
+	 * Define double precision datatype
+	 *
+	 * @param int $length
+	 */
+	public static function double_precision(int $length = 10, int $decimal = 0)
+	{
+		return "double precision($length, $decimal) not null";
+	}
+
+	/**
+	 * Define real datatype
+	 *
+	 * @param int $length
+	 */
+	public static function real(int $length = 10, int $decimal = 0)
+	{
+		return "real($length, $decimal) not null";
+	}
+
+	/**
+	 * Define bool precision datatype
+	 *
+	 * @param int $length
+	 */
+	public static function bool()
+	{
+		return "bool not null";
+	}
+
+	/**
+	 * Define boolean precision datatype
+	 *
+	 * @param int $length
+	 */
+	public static function boolean()
+	{
+		return "boolean not null";
+	}
 }
