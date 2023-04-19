@@ -13,6 +13,9 @@ class NSY_Migration
 	// Declare properties for Helper
 	static $connection;
 	static $primary;
+	static $auto_increment;
+	static $datatype;
+	static $default;
 
 	/**
 	 * Default Connection
@@ -1119,7 +1122,6 @@ class NSY_Migration
 
 	/**
 	 * Define bit datatype
-	 *
 	 */
 	public static function bit()
 	{
@@ -1130,60 +1132,72 @@ class NSY_Migration
 	 * Define tinyint datatype
 	 *
 	 * @param int $length
+	 * @param mixed $args
+	 * 
 	 */
-	public static function tinyint(int $length = 4)
+	public static function tinyint(int $length = 4, mixed $args = "")
 	{
-		return "tinyint($length) NOT NULL";
+		return "tinyint($length) NOT NULL $args";
 	}
 
 	/**
 	 * Define smallint datatype
 	 *
 	 * @param int $length
+	 * @param mixed $args
+	 * 
 	 */
-	public static function smallint(int $length = 5)
+	public static function smallint(int $length = 5, mixed $args = "")
 	{
-		return "smallint($length) NOT NULL";
+		return "smallint($length) NOT NULL $args";
 	}
 
 	/**
 	 * Define mediumint datatype
 	 *
 	 * @param int $length
+	 * @param mixed $args
+	 * 
 	 */
-	public static function mediumint(int $length = 9)
+	public static function mediumint(int $length = 9, mixed $args = "")
 	{
-		return "mediumint($length) NOT NULL";
+		return "mediumint($length) NOT NULL $args";
 	}
 
 	/**
 	 * Define int datatype
 	 *
 	 * @param int $length
+	 * @param mixed $args
+	 * 
 	 */
-	public static function int(int $length = 11)
+	public static function int(int $length = 11, mixed $args = "")
 	{
-		return "int($length) NOT NULL";
+		return "int($length) NOT NULL $args";
 	}
 
 	/**
 	 * Define integer datatype
 	 *
 	 * @param int $length
+	 * @param mixed $args
+	 * 
 	 */
-	public static function integer(int $length = 11)
+	public static function integer(int $length = 11, mixed $args = "")
 	{
-		return "integer($length) NOT NULL";
+		return "integer($length) NOT NULL $args";
 	}
 
 	/**
 	 * Define bigint datatype
 	 *
 	 * @param int $length
+	 * @param mixed $args
+	 * 
 	 */
-	public static function bigint(int $length = 20)
+	public static function bigint(int $length = 20, mixed $args = "")
 	{
-		return "bigint($length) NOT NULL";
+		return "bigint($length) NOT NULL $args";
 	}
 
 	/**
@@ -1191,10 +1205,12 @@ class NSY_Migration
 	 *
 	 * @param int $length
 	 * @param int $decimal
+	 * @param mixed $args
+	 * 
 	 */
-	public static function decimal(int $length = 10, int $decimal = 0)
+	public static function decimal(int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "decimal($length, $decimal) NOT NULL";
+		return "decimal($length, $decimal) NOT NULL $args";
 	}
 
 	/**
@@ -1202,10 +1218,12 @@ class NSY_Migration
 	 *
 	 * @param int $length
 	 * @param int $decimal
+	 * @param mixed $args
+	 * 
 	 */
-	public static function dec(int $length = 10, int $decimal = 0)
+	public static function dec(int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "dec($length, $decimal) NOT NULL";
+		return "dec($length, $decimal) NOT NULL $args";
 	}
 
 	/**
@@ -1213,10 +1231,12 @@ class NSY_Migration
 	 *
 	 * @param int $length
 	 * @param int $decimal
+	 * @param mixed $args
+	 * 
 	 */
-	public static function numeric(int $length = 10, int $decimal = 0)
+	public static function numeric(int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "numeric($length, $decimal) NOT NULL";
+		return "numeric($length, $decimal) NOT NULL $args";
 	}
 
 	/**
@@ -1224,10 +1244,12 @@ class NSY_Migration
 	 *
 	 * @param int $length
 	 * @param int $decimal
+	 * @param mixed $args
+	 * 
 	 */
-	public static function fixed(int $length = 10, int $decimal = 0)
+	public static function fixed(int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "fixed($length, $decimal) NOT NULL";
+		return "fixed($length, $decimal) NOT NULL $args";
 	}
 
 	/**
@@ -1235,20 +1257,24 @@ class NSY_Migration
 	 *
 	 * @param int $length
 	 * @param int $decimal
+	 * @param mixed $args
+	 * 
 	 */
-	public static function float(int $length = 10, int $decimal = 0)
+	public static function float(int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "float($length, $decimal) NOT NULL";
+		return "float($length, $decimal) NOT NULL $args";
 	}
 
 	/**
 	 * Define float precision datatype
 	 *
 	 * @param int $precision
+	 * @param mixed $args
+	 * 
 	 */
-	public static function float_precision(int $precision = 0)
+	public static function float_precision(int $precision = 0, mixed $args = "")
 	{
-		return "float($precision) NOT NULL";
+		return "float($precision) NOT NULL $args";
 	}
 
 	/**
@@ -1256,11 +1282,12 @@ class NSY_Migration
 	 *
 	 * @param int $length
 	 * @param int $decimal
+	 * @param mixed $args
 	 * 
 	 */
-	public static function double(int $length = 10, int $decimal = 0)
+	public static function double(int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "double($length, $decimal) NOT NULL";
+		return "double($length, $decimal) NOT NULL $args";
 	}
 
 	/**
@@ -1268,10 +1295,12 @@ class NSY_Migration
 	 *
 	 * @param int $length
 	 * @param int $decimal
+	 * @param mixed $args
+	 * 
 	 */
-	public static function double_precision(int $length = 10, int $decimal = 0)
+	public static function double_precision(int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "double precision($length, $decimal) NOT NULL";
+		return "double precision($length, $decimal) NOT NULL $args";
 	}
 
 	/**
@@ -1279,15 +1308,16 @@ class NSY_Migration
 	 *
 	 * @param int $length
 	 * @param int $decimal
+	 * @param mixed $args
+	 * 
 	 */
-	public static function real(int $length = 10, int $decimal = 0)
+	public static function real(int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "real($length, $decimal) NOT NULL";
+		return "real($length, $decimal) NOT NULL $args";
 	}
 
 	/**
 	 * Define bool datatype
-	 *
 	 */
 	public static function bool()
 	{
@@ -1296,7 +1326,6 @@ class NSY_Migration
 
 	/**
 	 * Define boolean datatype
-	 *
 	 */
 	public static function boolean()
 	{
