@@ -535,7 +535,7 @@ class NSY_Migration
 			$im_cols = implode(', ', $res);
 			$con_cols = implode('_', $res);
 
-			return self::$primary = 'CONSTRAINT ' . $con_cols . '_' . generate_num(1, 5, 6) . '_PK PRIMARY KEY (' . $im_cols . ')';
+			return self::$primary = 'CONSTRAINT ' . generate_num(1, 5, 6) . '_PK PRIMARY KEY (' . $im_cols . ')';
 		} else {
 			return self::$primary = 'CONSTRAINT ' . $cols . '_' . generate_num(1, 5, 6) . '_PK PRIMARY KEY (' . $cols . ')';
 		}
@@ -557,7 +557,7 @@ class NSY_Migration
 			$im_cols = implode(', ', $res);
 			$con_cols = implode('_', $res);
 
-			return self::$primary = 'CONSTRAINT ' . $con_cols . '_' . generate_num(1, 5, 6) . '_UN UNIQUE (' . $im_cols . ')';
+			return self::$primary = 'CONSTRAINT ' . generate_num(1, 5, 6) . '_UN UNIQUE (' . $im_cols . ')';
 		} else {
 			return self::$primary = 'CONSTRAINT ' . $cols . '_' . generate_num(1, 5, 6) . '_UN UNIQUE (' . $cols . ')';
 		}
@@ -571,9 +571,9 @@ class NSY_Migration
 	public static function timestamps()
 	{
 		$arr_date_cols = [
-			'create_date' => 'DATETIME DEFAULT CURRENT_TIMESTAMP',
-			'update_date' => 'DATETIME DEFAULT CURRENT_TIMESTAMP',
-			'additional_date' => 'DATETIME DEFAULT CURRENT_TIMESTAMP'
+			'create_date DATETIME DEFAULT CURRENT_TIMESTAMP',
+			'update_date DATETIME DEFAULT CURRENT_TIMESTAMP',
+			'additional_date DATETIME DEFAULT CURRENT_TIMESTAMP'
 		];
 
 		return $arr_date_cols;
@@ -592,8 +592,8 @@ class NSY_Migration
 
 		if (is_array($cols) || is_object($cols)) {
 			if (is_filled($other_cols) || is_filled($timestamps_cols)) {
-				$res_merge_arr = array_merge($cols, $other_cols, $timestamps_cols);
-				return $res_merge_arr;
+				$merge_cols = array_merge($cols, $other_cols, $timestamps_cols);
+				return $merge_cols;
 			} else {
 				return $cols;
 			}
@@ -618,7 +618,7 @@ class NSY_Migration
 				if (strpos($closure_dt, 'PRIMARY') || strpos($closure_dt, 'UNIQUE')) {
 					$closure_res[] = $closure_dt;
 				} else {
-					$closure_res[] = $key . ' ' . $closure_dt;
+					$closure_res[] = $closure_dt;
 				}
 			}
 			$closure_imp = implode(",\n", $closure_res) . "\n";
@@ -1122,213 +1122,234 @@ class NSY_Migration
 
 	/**
 	 * Define bit datatype
+	 * 
+	 * @param mixed $cols
 	 */
-	public static function bit()
+	public static function bit(mixed $cols = "")
 	{
-		return "bit NOT NULL";
+		return "$cols bit NOT NULL";
 	}
 
 	/**
 	 * Define tinyint datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $length
 	 * @param mixed $args
 	 * 
 	 */
-	public static function tinyint(int $length = 4, mixed $args = "")
+	public static function tinyint(mixed $cols = "", int $length = 4, mixed $args = "")
 	{
-		return "tinyint($length) NOT NULL $args";
+		return "$cols tinyint($length) NOT NULL $args";
 	}
 
 	/**
 	 * Define smallint datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $length
 	 * @param mixed $args
 	 * 
 	 */
-	public static function smallint(int $length = 5, mixed $args = "")
+	public static function smallint(mixed $cols = "", int $length = 5, mixed $args = "")
 	{
-		return "smallint($length) NOT NULL $args";
+		return "$cols smallint($length) NOT NULL $args";
 	}
 
 	/**
 	 * Define mediumint datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $length
 	 * @param mixed $args
 	 * 
 	 */
-	public static function mediumint(int $length = 9, mixed $args = "")
+	public static function mediumint(mixed $cols = "", int $length = 9, mixed $args = "")
 	{
-		return "mediumint($length) NOT NULL $args";
+		return "$cols mediumint($length) NOT NULL $args";
 	}
 
 	/**
 	 * Define int datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $length
 	 * @param mixed $args
 	 * 
 	 */
-	public static function int(int $length = 11, mixed $args = "")
+	public static function int(mixed $cols = "", int $length = 11, mixed $args = "")
 	{
-		return "int($length) NOT NULL $args";
+		return "$cols int($length) NOT NULL $args";
 	}
 
 	/**
 	 * Define integer datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $length
 	 * @param mixed $args
 	 * 
 	 */
-	public static function integer(int $length = 11, mixed $args = "")
+	public static function integer(mixed $cols = "", int $length = 11, mixed $args = "")
 	{
-		return "integer($length) NOT NULL $args";
+		return "$cols integer($length) NOT NULL $args";
 	}
 
 	/**
 	 * Define bigint datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $length
 	 * @param mixed $args
 	 * 
 	 */
-	public static function bigint(int $length = 20, mixed $args = "")
+	public static function bigint(mixed $cols = "", int $length = 20, mixed $args = "")
 	{
-		return "bigint($length) NOT NULL $args";
+		return "$cols bigint($length) NOT NULL $args";
 	}
 
 	/**
 	 * Define decimal datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
 	 * @param mixed $args
 	 * 
 	 */
-	public static function decimal(int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function decimal(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "decimal($length, $decimal) NOT NULL $args";
+		return "$cols decimal($length, $decimal) NOT NULL $args";
 	}
 
 	/**
 	 * Define dec datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
 	 * @param mixed $args
 	 * 
 	 */
-	public static function dec(int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function dec(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "dec($length, $decimal) NOT NULL $args";
+		return "$cols dec($length, $decimal) NOT NULL $args";
 	}
 
 	/**
 	 * Define numeric datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
 	 * @param mixed $args
 	 * 
 	 */
-	public static function numeric(int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function numeric(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "numeric($length, $decimal) NOT NULL $args";
+		return "$cols numeric($length, $decimal) NOT NULL $args";
 	}
 
 	/**
 	 * Define fixed datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
 	 * @param mixed $args
 	 * 
 	 */
-	public static function fixed(int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function fixed(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "fixed($length, $decimal) NOT NULL $args";
+		return "$cols fixed($length, $decimal) NOT NULL $args";
 	}
 
 	/**
 	 * Define float datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
 	 * @param mixed $args
 	 * 
 	 */
-	public static function float(int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function float(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "float($length, $decimal) NOT NULL $args";
+		return "$cols float($length, $decimal) NOT NULL $args";
 	}
 
 	/**
 	 * Define float precision datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $precision
 	 * @param mixed $args
 	 * 
 	 */
-	public static function float_precision(int $precision = 0, mixed $args = "")
+	public static function float_precision(mixed $cols = "", int $precision = 0, mixed $args = "")
 	{
-		return "float($precision) NOT NULL $args";
+		return "$cols float($precision) NOT NULL $args";
 	}
 
 	/**
 	 * Define double datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
 	 * @param mixed $args
 	 * 
 	 */
-	public static function double(int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function double(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "double($length, $decimal) NOT NULL $args";
+		return "$cols double($length, $decimal) NOT NULL $args";
 	}
 
 	/**
 	 * Define double precision datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
 	 * @param mixed $args
 	 * 
 	 */
-	public static function double_precision(int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function double_precision(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "double precision($length, $decimal) NOT NULL $args";
+		return "$cols double precision($length, $decimal) NOT NULL $args";
 	}
 
 	/**
 	 * Define real datatype
 	 *
+	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
 	 * @param mixed $args
 	 * 
 	 */
-	public static function real(int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function real(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
 	{
-		return "real($length, $decimal) NOT NULL $args";
+		return "$cols real($length, $decimal) NOT NULL $args";
 	}
 
 	/**
 	 * Define bool datatype
+	 * 
+	 * @param mixed $cols
 	 */
-	public static function bool()
+	public static function bool(mixed $cols = "")
 	{
-		return "bool NOT NULL";
+		return "$cols bool NOT NULL";
 	}
 
 	/**
 	 * Define boolean datatype
+	 * 
+	 * @param mixed $cols
 	 */
-	public static function boolean()
+	public static function boolean(mixed $cols = "")
 	{
-		return "boolean NOT NULL";
+		return "$cols boolean NOT NULL";
 	}
 }
