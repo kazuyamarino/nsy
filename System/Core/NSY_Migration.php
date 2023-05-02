@@ -13,9 +13,7 @@ class NSY_Migration
 	// Declare properties for Helper
 	static $connection;
 	static $primary;
-	static $auto_increment;
 	static $datatype;
-	static $default;
 
 	/**
 	 * Default Connection
@@ -1127,7 +1125,8 @@ class NSY_Migration
 	 */
 	public static function bit(mixed $cols = "")
 	{
-		return "$cols bit NOT NULL";
+		self::$datatype = "$cols bit";
+		return new self;
 	}
 
 	/**
@@ -1135,12 +1134,12 @@ class NSY_Migration
 	 *
 	 * @param mixed $cols
 	 * @param int $length
-	 * @param mixed $args
 	 * 
 	 */
-	public static function tinyint(mixed $cols = "", int $length = 4, mixed $args = "")
+	public static function tinyint(mixed $cols = "", int $length = 4)
 	{
-		return "$cols tinyint($length) NOT NULL $args";
+		self::$datatype = "$cols tinyint($length)";
+		return new self;
 	}
 
 	/**
@@ -1148,12 +1147,12 @@ class NSY_Migration
 	 *
 	 * @param mixed $cols
 	 * @param int $length
-	 * @param mixed $args
 	 * 
 	 */
-	public static function smallint(mixed $cols = "", int $length = 5, mixed $args = "")
+	public static function smallint(mixed $cols = "", int $length = 5)
 	{
-		return "$cols smallint($length) NOT NULL $args";
+		self::$datatype = "$cols smallint($length)";
+		return new self;
 	}
 
 	/**
@@ -1161,12 +1160,12 @@ class NSY_Migration
 	 *
 	 * @param mixed $cols
 	 * @param int $length
-	 * @param mixed $args
 	 * 
 	 */
-	public static function mediumint(mixed $cols = "", int $length = 9, mixed $args = "")
+	public static function mediumint(mixed $cols = "", int $length = 9)
 	{
-		return "$cols mediumint($length) NOT NULL $args";
+		self::$datatype = "$cols mediumint($length)";
+		return new self;
 	}
 
 	/**
@@ -1174,12 +1173,12 @@ class NSY_Migration
 	 *
 	 * @param mixed $cols
 	 * @param int $length
-	 * @param mixed $args
 	 * 
 	 */
-	public static function int(mixed $cols = "", int $length = 11, mixed $args = "")
+	public static function int(mixed $cols = "", int $length = 11)
 	{
-		return "$cols int($length) NOT NULL $args";
+		self::$datatype = "$cols int($length)";
+		return new self;
 	}
 
 	/**
@@ -1187,12 +1186,12 @@ class NSY_Migration
 	 *
 	 * @param mixed $cols
 	 * @param int $length
-	 * @param mixed $args
 	 * 
 	 */
-	public static function integer(mixed $cols = "", int $length = 11, mixed $args = "")
+	public static function integer(mixed $cols = "", int $length = 11)
 	{
-		return "$cols integer($length) NOT NULL $args";
+		self::$datatype = "$cols integer($length)";
+		return new self;
 	}
 
 	/**
@@ -1200,12 +1199,12 @@ class NSY_Migration
 	 *
 	 * @param mixed $cols
 	 * @param int $length
-	 * @param mixed $args
 	 * 
 	 */
-	public static function bigint(mixed $cols = "", int $length = 20, mixed $args = "")
+	public static function bigint(mixed $cols = "", int $length = 20)
 	{
-		return "$cols bigint($length) NOT NULL $args";
+		self::$datatype = "$cols bigint($length)";
+		return new self;
 	}
 
 	/**
@@ -1214,12 +1213,12 @@ class NSY_Migration
 	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
-	 * @param mixed $args
 	 * 
 	 */
-	public static function decimal(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function decimal(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		return "$cols decimal($length, $decimal) NOT NULL $args";
+		self::$datatype = "$cols decimal($length, $decimal)";
+		return new self;
 	}
 
 	/**
@@ -1228,12 +1227,12 @@ class NSY_Migration
 	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
-	 * @param mixed $args
 	 * 
 	 */
-	public static function dec(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function dec(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		return "$cols dec($length, $decimal) NOT NULL $args";
+		self::$datatype = "$cols dec($length, $decimal)";
+		return new self;
 	}
 
 	/**
@@ -1242,12 +1241,12 @@ class NSY_Migration
 	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
-	 * @param mixed $args
 	 * 
 	 */
-	public static function numeric(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function numeric(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		return "$cols numeric($length, $decimal) NOT NULL $args";
+		self::$datatype = "$cols numeric($length, $decimal)";
+		return new self;
 	}
 
 	/**
@@ -1256,12 +1255,12 @@ class NSY_Migration
 	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
-	 * @param mixed $args
 	 * 
 	 */
-	public static function fixed(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function fixed(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		return "$cols fixed($length, $decimal) NOT NULL $args";
+		self::$datatype = "$cols fixed($length, $decimal)";
+		return new self;
 	}
 
 	/**
@@ -1270,12 +1269,12 @@ class NSY_Migration
 	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
-	 * @param mixed $args
 	 * 
 	 */
-	public static function float(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function float(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		return "$cols float($length, $decimal) NOT NULL $args";
+		self::$datatype = "$cols float($length, $decimal)";
+		return new self;
 	}
 
 	/**
@@ -1283,12 +1282,12 @@ class NSY_Migration
 	 *
 	 * @param mixed $cols
 	 * @param int $precision
-	 * @param mixed $args
 	 * 
 	 */
-	public static function float_precision(mixed $cols = "", int $precision = 0, mixed $args = "")
+	public static function float_precision(mixed $cols = "", int $precision = 0)
 	{
-		return "$cols float($precision) NOT NULL $args";
+		self::$datatype = "$cols float($precision)";
+		return new self;
 	}
 
 	/**
@@ -1297,12 +1296,12 @@ class NSY_Migration
 	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
-	 * @param mixed $args
 	 * 
 	 */
-	public static function double(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function double(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		return "$cols double($length, $decimal) NOT NULL $args";
+		self::$datatype = "$cols double($length, $decimal)";
+		return new self;
 	}
 
 	/**
@@ -1311,12 +1310,12 @@ class NSY_Migration
 	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
-	 * @param mixed $args
 	 * 
 	 */
-	public static function double_precision(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function double_precision(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		return "$cols double precision($length, $decimal) NOT NULL $args";
+		self::$datatype = "$cols double precision($length, $decimal)";
+		return new self;
 	}
 
 	/**
@@ -1325,12 +1324,12 @@ class NSY_Migration
 	 * @param mixed $cols
 	 * @param int $length
 	 * @param int $decimal
-	 * @param mixed $args
 	 * 
 	 */
-	public static function real(mixed $cols = "", int $length = 10, int $decimal = 0, mixed $args = "")
+	public static function real(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		return "$cols real($length, $decimal) NOT NULL $args";
+		self::$datatype = "$cols real($length, $decimal)";
+		return new self;
 	}
 
 	/**
@@ -1340,7 +1339,8 @@ class NSY_Migration
 	 */
 	public static function bool(mixed $cols = "")
 	{
-		return "$cols bool NOT NULL";
+		self::$datatype = "$cols bool";
+		return new self;
 	}
 
 	/**
@@ -1350,6 +1350,41 @@ class NSY_Migration
 	 */
 	public static function boolean(mixed $cols = "")
 	{
-		return "$cols boolean NOT NULL";
+		self::$datatype = "$cols boolean";
+		return new self;
+	}
+
+	/**
+	 * Define not null function
+	 */
+	public function not_null()
+	{
+		return self::$datatype . " NOT NULL";
+	}
+
+	/**
+	 * Define null function
+	 */
+	public function null()
+	{
+		return self::$datatype . " NULL";
+	}
+
+	/**
+	 * Define auto increment function
+	 */
+	public function auto_increment()
+	{
+		return self::$datatype . " AUTO_INCREMENT";
+	}
+
+	/**
+	 * Define default function
+	 * 
+	 * @param mixed $params
+	 */
+	public function default(mixed $params = '')
+	{
+		return self::$datatype . " NOT NULL DEFAULT $params";
 	}
 }
