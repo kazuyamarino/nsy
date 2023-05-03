@@ -1125,7 +1125,7 @@ class NSY_Migration
 	 */
 	public static function bit(mixed $cols = "")
 	{
-		self::$datatype = "$cols bit";
+		self::$datatype = "$cols BIT";
 		return new self;
 	}
 
@@ -1138,7 +1138,7 @@ class NSY_Migration
 	 */
 	public static function tinyint(mixed $cols = "", int $length = 4)
 	{
-		self::$datatype = "$cols tinyint($length)";
+		self::$datatype = "$cols TINYINT($length)";
 		return new self;
 	}
 
@@ -1151,7 +1151,7 @@ class NSY_Migration
 	 */
 	public static function smallint(mixed $cols = "", int $length = 5)
 	{
-		self::$datatype = "$cols smallint($length)";
+		self::$datatype = "$cols SMALLINT($length)";
 		return new self;
 	}
 
@@ -1164,7 +1164,7 @@ class NSY_Migration
 	 */
 	public static function mediumint(mixed $cols = "", int $length = 9)
 	{
-		self::$datatype = "$cols mediumint($length)";
+		self::$datatype = "$cols MEDIUMINT($length)";
 		return new self;
 	}
 
@@ -1177,7 +1177,7 @@ class NSY_Migration
 	 */
 	public static function int(mixed $cols = "", int $length = 11)
 	{
-		self::$datatype = "$cols int($length)";
+		self::$datatype = "$cols INT($length)";
 		return new self;
 	}
 
@@ -1190,7 +1190,7 @@ class NSY_Migration
 	 */
 	public static function integer(mixed $cols = "", int $length = 11)
 	{
-		self::$datatype = "$cols integer($length)";
+		self::$datatype = "$cols INTEGER($length)";
 		return new self;
 	}
 
@@ -1203,7 +1203,7 @@ class NSY_Migration
 	 */
 	public static function bigint(mixed $cols = "", int $length = 20)
 	{
-		self::$datatype = "$cols bigint($length)";
+		self::$datatype = "$cols BIGINT($length)";
 		return new self;
 	}
 
@@ -1217,7 +1217,7 @@ class NSY_Migration
 	 */
 	public static function decimal(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		self::$datatype = "$cols decimal($length, $decimal)";
+		self::$datatype = "$cols DECIMAL($length, $decimal)";
 		return new self;
 	}
 
@@ -1231,7 +1231,7 @@ class NSY_Migration
 	 */
 	public static function dec(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		self::$datatype = "$cols dec($length, $decimal)";
+		self::$datatype = "$cols DEC($length, $decimal)";
 		return new self;
 	}
 
@@ -1245,7 +1245,7 @@ class NSY_Migration
 	 */
 	public static function numeric(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		self::$datatype = "$cols numeric($length, $decimal)";
+		self::$datatype = "$cols NUMERIC($length, $decimal)";
 		return new self;
 	}
 
@@ -1259,7 +1259,7 @@ class NSY_Migration
 	 */
 	public static function fixed(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		self::$datatype = "$cols fixed($length, $decimal)";
+		self::$datatype = "$cols FIXED($length, $decimal)";
 		return new self;
 	}
 
@@ -1273,7 +1273,7 @@ class NSY_Migration
 	 */
 	public static function float(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		self::$datatype = "$cols float($length, $decimal)";
+		self::$datatype = "$cols FLOAT($length, $decimal)";
 		return new self;
 	}
 
@@ -1286,7 +1286,7 @@ class NSY_Migration
 	 */
 	public static function float_precision(mixed $cols = "", int $precision = 0)
 	{
-		self::$datatype = "$cols float($precision)";
+		self::$datatype = "$cols FLOAT($precision)";
 		return new self;
 	}
 
@@ -1300,7 +1300,7 @@ class NSY_Migration
 	 */
 	public static function double(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		self::$datatype = "$cols double($length, $decimal)";
+		self::$datatype = "$cols DOUBLE($length, $decimal)";
 		return new self;
 	}
 
@@ -1314,7 +1314,7 @@ class NSY_Migration
 	 */
 	public static function double_precision(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		self::$datatype = "$cols double precision($length, $decimal)";
+		self::$datatype = "$cols DOUBLE PRECISION($length, $decimal)";
 		return new self;
 	}
 
@@ -1328,7 +1328,7 @@ class NSY_Migration
 	 */
 	public static function real(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
-		self::$datatype = "$cols real($length, $decimal)";
+		self::$datatype = "$cols REAL($length, $decimal)";
 		return new self;
 	}
 
@@ -1339,7 +1339,7 @@ class NSY_Migration
 	 */
 	public static function bool(mixed $cols = "")
 	{
-		self::$datatype = "$cols bool";
+		self::$datatype = "$cols BOOL";
 		return new self;
 	}
 
@@ -1350,7 +1350,7 @@ class NSY_Migration
 	 */
 	public static function boolean(mixed $cols = "")
 	{
-		self::$datatype = "$cols boolean";
+		self::$datatype = "$cols BOOLEAN";
 		return new self;
 	}
 
