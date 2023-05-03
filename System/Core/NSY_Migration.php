@@ -1355,6 +1355,190 @@ class NSY_Migration
 	}
 
 	/**
+	 * Define char datatype
+	 *
+	 * @param mixed $cols
+	 * @param int $length
+	 * 
+	 */
+	public static function char(mixed $cols = "", int $length = 255)
+	{
+		self::$datatype = "$cols CHAR($length)";
+		return new self;
+	}
+
+	/**
+	 * Define varchar datatype
+	 *
+	 * @param mixed $cols
+	 * @param int $length
+	 * 
+	 */
+	public static function varchar(mixed $cols = "", int $length = 255)
+	{
+		self::$datatype = "$cols VARCHAR($length)";
+		return new self;
+	}
+
+	/**
+	 * Define tinytext datatype
+	 *
+	 * @param mixed $cols
+	 */
+	public static function tinytext(mixed $cols = "")
+	{
+		self::$datatype = "$cols TINYTEXT";
+		return new self;
+	}
+
+	/**
+	 * Define text datatype
+	 *
+	 * @param mixed $cols
+	 */
+	public static function text(mixed $cols = "")
+	{
+		self::$datatype = "$cols TEXT";
+		return new self;
+	}
+
+	/**
+	 * Define mediumtext datatype
+	 *
+	 * @param mixed $cols
+	 */
+	public static function mediumtext(mixed $cols = "")
+	{
+		self::$datatype = "$cols MEDIUMTEXT";
+		return new self;
+	}
+
+	/**
+	 * Define longtext datatype
+	 *
+	 * @param mixed $cols
+	 */
+	public static function longtext(mixed $cols = "")
+	{
+		self::$datatype = "$cols LONGTEXT";
+		return new self;
+	}
+
+	/**
+	 * Define binary datatype
+	 *
+	 * @param mixed $cols
+	 * @param int $length
+	 */
+	public static function binary(mixed $cols = "", int $length = 255)
+	{
+		self::$datatype = "$cols BINARY($length)";
+		return new self;
+	}
+
+	/**
+	 * Define varbinary datatype
+	 *
+	 * @param mixed $cols
+	 * @param int $length
+	 */
+	public static function varbinary(mixed $cols = "", int $length = 255)
+	{
+		self::$datatype = "$cols VARBINARY($length)";
+		return new self;
+	}
+
+	/**
+	 * Define date datatype
+	 *
+	 * @param mixed $cols
+	 */
+	public static function date(mixed $cols = "")
+	{
+		self::$datatype = "$cols DATE";
+		return new self;
+	}
+
+	/**
+	 * Define datetime datatype
+	 *
+	 * @param mixed $cols
+	 */
+	public static function datetime(mixed $cols = "")
+	{
+		self::$datatype = "$cols DATETIME";
+		return new self;
+	}
+
+	/**
+	 * Define timestamp datatype
+	 *
+	 * @param mixed $cols
+	 * @param int $length
+	 */
+	public static function timestamp(mixed $cols = "", int $length = 6)
+	{
+		self::$datatype = "$cols TIMESTAMP($length)";
+		return new self;
+	}
+
+	/**
+	 * Define time datatype
+	 *
+	 * @param mixed $cols
+	 */
+	public static function time(mixed $cols = "")
+	{
+		self::$datatype = "$cols TIME";
+		return new self;
+	}
+
+	/**
+	 * Define year datatype
+	 *
+	 * @param mixed $cols
+	 * @param int $length
+	 */
+	public static function year(mixed $cols = "", int $length = 2)
+	{
+		self::$datatype = "$cols YEAR($length)";
+		return new self;
+	}
+
+	/**
+	 * Define tinyblob datatype
+	 *
+	 * @param mixed $cols
+	 */
+	public static function tinyblob(mixed $cols = "")
+	{
+		self::$datatype = "$cols TINYBLOB";
+		return new self;
+	}
+
+	/**
+	 * Define blob datatype
+	 *
+	 * @param mixed $cols
+	 */
+	public static function blob(mixed $cols = "")
+	{
+		self::$datatype = "$cols BLOB";
+		return new self;
+	}
+
+	/**
+	 * Define mediumblob datatype
+	 *
+	 * @param mixed $cols
+	 */
+	public static function mediumblob(mixed $cols = "")
+	{
+		self::$datatype = "$cols MEDIUMBLOB";
+		return new self;
+	}
+
+	/**
 	 * Define not null function
 	 */
 	public function not_null()
