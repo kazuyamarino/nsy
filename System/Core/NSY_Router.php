@@ -88,19 +88,14 @@ class NSY_Router
      * goto() method for Instantiate controller
      * Modified by Vikry Yuansah for NSY Routing System
      * @param  mixed $controllerWithMethod
-     * @param  array  $vars
+     * @param  array $vars
      * @return void
      */
     public static function goto($controllerWithMethod = '', $vars = array())
     {
-        $params = explode('@', $controllerWithMethod);
+        $params = $controllerWithMethod;
 
-        $module = explode('\\', $params[0]);
-        if (count($module) > 1) {
-            $fullclass = 'System\Modules\\' . $module[0] . '\Controllers\\' . $module[1];
-        } else {
-            $fullclass = 'System\Controllers\\' . $module[0];
-        }
+        $fullclass = $params[0];
 
         if (is_filled($vars)) {
             $defClass = new $fullclass;
@@ -115,19 +110,14 @@ class NSY_Router
      * for() method for Instantiate controller from middleware
      * Modified by Vikry Yuansah for NSY Routing System
      * @param  mixed $controllerWithMethod
-     * @param  array  $vars
+     * @param  array $vars
      * @return void
      */
     public function for($controllerWithMethod = '', $vars = array())
     {
-        $params = explode('@', $controllerWithMethod);
+        $params = $controllerWithMethod;
 
-        $module = explode('\\', $params[0]);
-        if (count($module) > 1) {
-            $fullclass = 'System\Modules\\' . $module[0] . '\Controllers\\' . $module[1];
-        } else {
-            $fullclass = 'System\Controllers\\' . $module[0];
-        }
+        $fullclass = $params[0];
 
         if (is_filled($vars)) {
             $defClass = new $fullclass;
@@ -149,7 +139,7 @@ class NSY_Router
     {
         $meths = 'group';
 
-        self::$base    = $base;
+        self::$base = $base;
 
         self::__callstatic($meths, [$base, $callback()]);
 
@@ -195,29 +185,18 @@ class NSY_Router
 
                     // If route is not an object
                     if (!is_object(self::$callbacks[$route])) {
-
-                        // Grab all parts based on a / separator
-                        $parts = explode('/', self::$callbacks[$route]);
-
-                        // Collect the last index of the array
-                        $last = end($parts);
-
+                        
                         // Grab the controller name and method call
-                        $segments = explode('@', $last);
-
-                        $module = explode('\\', $segments[0]);
-
-                        if (count($module) > 1) {
-                            $fullclass = 'System\Modules\\' . $module[0] . '\Controllers\\' . $module[1];
-                        } else {
-                            $fullclass = 'System\Controllers\\' . $module[0];
-                        }
+                        $params = self::$callbacks[$route];
+                        
+                        // Get the fullclass name
+                        $fullclass = $params[0];
 
                         // Instanitate controller
                         $controller = new $fullclass;
 
                         // Call method
-                        $controller->{$segments[1]}();
+                        $controller->{$params[1]}();
 
                         if (self::$halts) return;
                     } else {
@@ -245,31 +224,20 @@ class NSY_Router
 
                         if (!is_object(self::$callbacks[$pos])) {
 
-                            // Grab all parts based on a / separator
-                            $parts = explode('/', self::$callbacks[$pos]);
-
-                            // Collect the last index of the array
-                            $last = end($parts);
-
                             // Grab the controller name and method call
-                            $segments = explode('@', $last);
-
-                            $module = explode('\\', $segments[0]);
-
-                            if (count($module) > 1) {
-                                $fullclass = 'System\Modules\\' . $module[0] . '\Controllers\\' . $module[1];
-                            } else {
-                                $fullclass = 'System\Controllers\\' . $module[0];
-                            }
+                            $params = self::$callbacks[$route];
+                            
+                            // Get the fullclass name
+                            $fullclass = $params[0];
 
                             // Instanitate controller
                             $controller = new $fullclass;
 
                             // Fix multi parameters
-                            if (!method_exists($controller, $segments[1])) {
+                            if (!method_exists($controller, $params[1])) {
                                 echo "Controller and Action Not Found";
                             } else {
-                                call_user_func_array(array($controller, $segments[1]), $matched);
+                                call_user_func_array(array($controller, $params[1]), $matched);
                             }
 
                             if (self::$halts) return;

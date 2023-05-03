@@ -21,10 +21,10 @@ Route::get('/', function () {
 		new AfterLayer()
 	];
 
-	Route::middleware($middleware)->for('Welcome@index');
+	Route::middleware($middleware)->for([System\Controllers\Welcome::class, 'index']);
 });
 
 // HMVC Route
 Route::get('/hmvc', function () {
-	Route::goto('Homepage\Hello@index_hmvc');
+	Route::goto([System\Modules\Homepage\Controllers\Hello::class, 'index_hmvc']);
 });
