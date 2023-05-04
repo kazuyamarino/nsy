@@ -225,7 +225,7 @@ class NSY_Router
                         if (!is_object(self::$callbacks[$pos])) {
 
                             // Grab the controller name and method call
-                            $params = self::$callbacks[$route];
+                            $params = self::$callbacks[$pos];
                             
                             // Get the fullclass name
                             $fullclass = $params[0];
