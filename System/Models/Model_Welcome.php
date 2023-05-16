@@ -11,4 +11,9 @@ class Model_Welcome extends DB
 	{
 		return 'Welcome to NSY PHP Framework';
 	}
+
+	public function mvc_page()
+	{
+		return 'This is MVC page';
+	}
 }

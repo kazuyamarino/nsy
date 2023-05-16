@@ -3,7 +3,6 @@
 namespace System\Controllers;
 
 use System\Core\Load;
-
 use Carbon\Carbon;
 
 class Welcome extends Load
@@ -13,7 +12,7 @@ class Welcome extends Load
 	{
 		$arr = [
 			'welcome' => Load::model('Model_Welcome')->welcome(), // Call the welcome method from Model_Welcome
-			'mvc_page' => Load::model('Homepage\Model_Hello')->mvc_page(), // Call the mvc_page method from Model_Hello inside the Homepage module
+			'mvc_page' => Load::model('Model_Welcome')->mvc_page(), // Call the mvc_page method from Model_Hello inside the Homepage module
 			'date' => Carbon::now() // Instantiate today's date with Carbon
 		];
 

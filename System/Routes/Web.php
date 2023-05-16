@@ -26,5 +26,5 @@ Route::get('/', function () {
 
 // HMVC Route
 Route::get('/hmvc', function () {
-	Route::goto([System\Modules\Homepage\Controllers\Hello::class, 'index_hmvc']);
+	Route::goto([System\Modules\HMVC\Controllers\Hello::class, 'index_hmvc']);
 });
