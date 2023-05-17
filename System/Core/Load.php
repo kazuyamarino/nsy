@@ -72,21 +72,21 @@ class Load
 	 * @param  mixed $models
 	 * @return object
 	 */
-	protected static function model(mixed $models = '')
+	protected static function model(mixed $fullclass = '')
 	{
-		if (not_filled($models)) {
+		if (not_filled($fullclass)) {
 			$var_msg = 'The variable in the <mark>Load::model(<strong>model_name</strong>, <strong>method_name</strong>)</mark> is improper or not filled';
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
 
-		$params = explode('\\', $models);
+		// $params = explode('\\', $models);
 
-		if (count($params) > 1) {
-			$fullclass = 'System\Modules\\' . $params[0] . '\Models\\' . $params[1];
-		} else {
-			$fullclass = 'System\Models\\' . $models;
-		}
+		// if (count($params) > 1) {
+		// 	$fullclass = 'System\Modules\\' . $params[0] . '\Models\\' . $params[1];
+		// } else {
+		// 	$fullclass = 'System\Models\\' . $models;
+		// }
 
 		return new $fullclass;
 	}
