@@ -80,14 +80,6 @@ class Load
 			exit();
 		}
 
-		// $params = explode('\\', $models);
-
-		// if (count($params) > 1) {
-		// 	$fullclass = 'System\Modules\\' . $params[0] . '\Models\\' . $params[1];
-		// } else {
-		// 	$fullclass = 'System\Models\\' . $models;
-		// }
-
 		return new $fullclass;
 	}
 }
