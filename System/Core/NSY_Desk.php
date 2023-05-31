@@ -130,7 +130,12 @@ class NSY_Desk
 	public static function register_route()
 	{
 		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Routes/Web.php';
-		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Routes/Api.php';
 		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Routes/Migration.php';
+
+		// Required user defined routes from Config
+		$route = config_app('routes');
+		foreach ($route as $filename) {
+			require_once __DIR__ . "/../../" . config_app('sys_dir') . "/Routes/$filename.php";
+		}
 	}
 }

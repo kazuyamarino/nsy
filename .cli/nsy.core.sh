@@ -13,6 +13,7 @@
 . .cli/mk.migration.sh
 . .cli/mk.model.sh
 . .cli/mk.module.sh
+. .cli/mk.route.sh
 . .cli/mk.middleware.sh
 . .cli/run.migration.sh
 
@@ -48,6 +49,8 @@ else
 		make_migration $2
 	elif [ $1 = "make:module" ]; then
 		make_module $2
+	elif [ $1 = "make:route" ]; then
+		make_route $2
 	elif [ $1 = "make:after-middleware" ]; then
 		make_after_middleware $2
 	elif [ $1 = "make:before-middleware" ]; then

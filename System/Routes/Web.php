@@ -23,8 +23,3 @@ Route::get('/', function () {
 
 	Route::middleware($middleware)->for([System\Controllers\Welcome::class, 'index']);
 });
-
-// HMVC Route
-Route::get('/hmvc', function () {
-	Route::goto([System\Modules\HMVC\Controllers\Hello::class, 'index_hmvc']);
-});
