@@ -73,6 +73,6 @@ return [
 	| Define codename of the application
 	|
 	*/
-	'codename' => 'Sasando'
+	'codename' => 'Lalove'
 
 ];
