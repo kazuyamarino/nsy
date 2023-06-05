@@ -8,7 +8,7 @@ use Curl\Url;
 
 class Curl extends BaseCurl
 {
-    const VERSION = '9.14.3';
+    const VERSION = '9.16.0';
     const DEFAULT_TIMEOUT = 30;
 
     public $curl = null;
@@ -357,17 +357,17 @@ class Curl extends BaseCurl
     /**
      * Fast download
      *
-     * @access private
+     * @access public
      * @param  $url
      * @param  $filename
      * @param  $connections
      *
      * @return boolean
      */
-    public function _fastDownload($url, $filename, $connections = 4)
+    public function fastDownload($url, $filename, $connections = 4)
     {
-        // First we need to retrive the 'Content-Length' header.
-        // Use GET because not all hosts support HEAD requests.
+        // Retrieve content length from the "Content-Length" header and use an
+        // HTTP GET request because not all hosts support HEAD requests.
         $this->setOpts([
             CURLOPT_CUSTOMREQUEST => 'GET',
             CURLOPT_NOBODY        => true,
@@ -380,24 +380,23 @@ class Curl extends BaseCurl
         $content_length = isset($this->responseHeaders['Content-Length']) ?
             $this->responseHeaders['Content-Length'] : null;
 
-        // If content length header is missing, use the normal download.
+        // Use a regular download when content length could not be determined.
         if (!$content_length) {
             return $this->download($url, $filename);
         }
 
-        // Try to divide chunk_size equally.
-        $chunkSize = ceil($content_length / $connections);
+        // Divide chunk_size across the number of connections.
+        $chunk_size = ceil($content_length / $connections);
 
         // First bytes.
         $offset = 0;
-        $nextChunk = $chunkSize;
+        $next_chunk = $chunk_size;
 
-        // We need this later.
-        $file_parts = [];
+        // Keep track of file name parts.
+        $part_file_names = [];
 
         $multi_curl = new MultiCurl();
         $multi_curl->setConcurrency($connections);
-
         $multi_curl->error(function ($instance) {
             return false;
         });
@@ -405,52 +404,59 @@ class Curl extends BaseCurl
         for ($i = 1; $i <= $connections; $i++) {
             // If last chunk then no need to supply it.
             // Range starts with 0, so subtract 1.
-            $nextChunk = $i === $connections ? '' : $nextChunk - 1;
+            $next_chunk = $i === $connections ? '' : $next_chunk - 1;
 
-            // Create part file.
-            $fpath = "$filename.part$i";
-            if (is_file($fpath)) {
-                unlink($fpath);
+            $part_file_name = $filename . '.part' . $i;
+
+            // Save the file name of this part.
+            $part_file_names[] = $part_file_name;
+
+            // Remove any existing file part.
+            if (is_file($part_file_name)) {
+                unlink($part_file_name);
             }
-            $fp = fopen($fpath, 'w');
 
-            // Track all fileparts names; we need this later.
-            $file_parts[] = $fpath;
+            // Create file part.
+            $file_handle = fopen($part_file_name, 'w');
 
             $curl = new Curl();
             $curl->setOpt(CURLOPT_ENCODING, '');
-            $curl->setRange("$offset-$nextChunk");
-            $curl->setFile($fp);
+            $curl->setRange($offset . '-' . $next_chunk);
+            $curl->setFile($file_handle);
             $curl->disableTimeout(); // otherwise download may fail.
             $curl->setUrl($url);
 
-            $curl->complete(function () use ($fp) {
-                fclose($fp);
+            $curl->complete(function () use ($file_handle) {
+                fclose($file_handle);
             });
 
             $multi_curl->addCurl($curl);
 
             if ($i !== $connections) {
-                $offset = $nextChunk + 1; // Add 1 to match offset.
-                $nextChunk = $nextChunk + $chunkSize;
+                $offset = $next_chunk + 1; // Add 1 to match offset.
+                $next_chunk = $next_chunk + $chunk_size;
             }
         }
 
-        // let the magic begin.
+        // Start the simultaneous downloads for each of the ranges in parallel.
         $multi_curl->start();
 
-        // Concatenate chunks to single.
+        // Remove existing download file name at destination.
         if (is_file($filename)) {
             unlink($filename);
         }
-        $mainfp = fopen($filename, 'w');
-        foreach ($file_parts as $part) {
-            $fp = fopen($part, 'r');
-            stream_copy_to_stream($fp, $mainfp);
-            fclose($fp);
-            unlink($part);
+
+        // Combine downloaded chunks into a single file.
+        $main_file_handle = fopen($filename, 'w');
+
+        foreach ($part_file_names as $part_file_name) {
+            $file_handle = fopen($part_file_name, 'r');
+            stream_copy_to_stream($file_handle, $main_file_handle);
+            fclose($file_handle);
+            unlink($part_file_name);
         }
-        fclose($mainfp);
+
+        fclose($main_file_handle);
 
         return true;
     }
@@ -1293,7 +1299,51 @@ class Curl extends BaseCurl
                     if (is_string($value)) {
                         echo ' ' . $value . "\n";
                     } elseif (is_int($value)) {
-                        echo ' ' . $value . "\n";
+                        echo ' ' . $value;
+
+                        $bit_flag_lookups = [
+                            'CURLOPT_HTTPAUTH' => 'CURLAUTH_',
+                            'CURLOPT_PROTOCOLS' => 'CURLPROTO_',
+                            'CURLOPT_PROXYAUTH' => 'CURLAUTH_',
+                            'CURLOPT_PROXY_SSL_OPTIONS' => 'CURLSSLOPT_',
+                            'CURLOPT_REDIR_PROTOCOLS' => 'CURLPROTO_',
+                            'CURLOPT_SSH_AUTH_TYPES' => 'CURLSSH_AUTH_',
+                            'CURLOPT_SSL_OPTIONS' => 'CURLSSLOPT_',
+                        ];
+                        if (isset($this->curlOptionCodeConstants[$option])) {
+                            $option_name = $this->curlOptionCodeConstants[$option];
+                            if (in_array($option_name, array_keys($bit_flag_lookups))) {
+                                $curl_const_prefix = $bit_flag_lookups[$option_name];
+                                $constants = get_defined_constants(true);
+                                $curl_constants = array_filter(
+                                    $constants['curl'],
+                                    function ($key) use ($curl_const_prefix) {
+                                        return strpos($key, $curl_const_prefix) !== false;
+                                    },
+                                    ARRAY_FILTER_USE_KEY
+                                );
+
+                                $bit_flags = [];
+                                foreach ($curl_constants as $const_name => $const_value) {
+                                    // Attempt to detect bit flags in use that use constants with negative values (e.g.
+                                    // CURLAUTH_ANY, CURLAUTH_ANYSAFE, CURLPROTO_ALL, CURLSSH_AUTH_ANY,
+                                    // CURLSSH_AUTH_DEFAULT, etc.)
+                                    if ($value < 0 && $value === $const_value) {
+                                        $bit_flags[] = $const_name;
+                                        break;
+                                    } elseif ($value >= 0 && $const_value >= 0 && ($value & $const_value)) {
+                                        $bit_flags[] = $const_name;
+                                    }
+                                }
+
+                                if (count($bit_flags)) {
+                                    asort($bit_flags);
+                                    echo ' (' . implode(' | ', $bit_flags) . ')';
+                                }
+                            }
+                        }
+
+                        echo "\n";
                     } elseif (is_bool($value)) {
                         echo ' ' . ($value ? 'true' : 'false') . "\n";
                     } elseif (is_callable($value)) {
@@ -1302,6 +1352,7 @@ class Curl extends BaseCurl
                         echo ' ' . gettype($value) . ':' . "\n";
                         var_dump($value);
                     }
+
                     $i += 1;
                 }
             }
@@ -1337,8 +1388,8 @@ class Curl extends BaseCurl
                 foreach ($request_types as $http_method_name => $http_method_used) {
                     if ($http_method_used && !in_array($http_method_name, $allowed_request_types, true)) {
                         echo
-                            'Warning: A ' . $http_method_name . ' request was made, but only the following request ' .
-                            'types are allowed: ' . implode(', ', $allowed_request_types) . "\n";
+                            'Warning: An HTTP ' . $http_method_name . ' request was made, but only the following ' .
+                            'request types are allowed: ' . implode(', ', $allowed_request_types) . "\n";
                     }
                 }
             }
@@ -1389,7 +1440,8 @@ class Curl extends BaseCurl
                     echo 'Response content length (calculated): ' . $response_calculated_length . "\n";
                 }
 
-                if (preg_match($this->jsonPattern, $this->responseHeaders['Content-Type'])) {
+                if (isset($this->responseHeaders['Content-Type']) &&
+                    preg_match($this->jsonPattern, $this->responseHeaders['Content-Type'])) {
                     $parsed_response = json_decode($this->rawResponse, true);
                     if ($parsed_response !== null) {
                         $messages = [];
@@ -1622,7 +1674,7 @@ class Curl extends BaseCurl
     {
         $return = null;
         if (in_array($name, self::$deferredProperties, true) &&
-            is_callable([$this, $getter = '_get' . ucfirst($name)])) {
+            is_callable([$this, $getter = 'get' . ucfirst($name)])) {
             $return = $this->$name = $this->$getter();
         }
         return $return;
@@ -1633,7 +1685,7 @@ class Curl extends BaseCurl
      *
      * @access private
      */
-    private function _getCurlErrorCodeConstants()
+    private function getCurlErrorCodeConstants()
     {
         $constants = get_defined_constants(true);
         $filtered_array = array_filter(
@@ -1652,7 +1704,7 @@ class Curl extends BaseCurl
      *
      * @access private
      */
-    private function _getCurlErrorCodeConstant()
+    private function getCurlErrorCodeConstant()
     {
         $curl_const_by_code = $this->curlErrorCodeConstants;
         if (isset($curl_const_by_code[$this->curlErrorCode])) {
@@ -1666,7 +1718,7 @@ class Curl extends BaseCurl
      *
      * @access private
      */
-    private function _getCurlOptionCodeConstants()
+    private function getCurlOptionCodeConstants()
     {
         $constants = get_defined_constants(true);
         $filtered_array = array_filter(
@@ -1690,7 +1742,7 @@ class Curl extends BaseCurl
      *
      * @access private
      */
-    private function _getEffectiveUrl()
+    private function getEffectiveUrl()
     {
         return $this->getInfo(CURLINFO_EFFECTIVE_URL);
     }
@@ -1700,7 +1752,7 @@ class Curl extends BaseCurl
      *
      * @access private
      */
-    private function _getRfc2616()
+    private function getRfc2616()
     {
         return array_fill_keys(self::$RFC2616, true);
     }
@@ -1710,7 +1762,7 @@ class Curl extends BaseCurl
      *
      * @access private
      */
-    private function _getRfc6265()
+    private function getRfc6265()
     {
         return array_fill_keys(self::$RFC6265, true);
     }
@@ -1720,7 +1772,7 @@ class Curl extends BaseCurl
      *
      * @access private
      */
-    private function _getTotalTime()
+    private function getTotalTime()
     {
         return $this->getInfo(CURLINFO_TOTAL_TIME);
     }

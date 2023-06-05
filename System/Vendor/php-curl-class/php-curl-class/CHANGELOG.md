@@ -6,6 +6,27 @@ backwards-incompatible changes that will affect existing usage.
 
 <!-- CHANGELOG_PLACEHOLDER -->
 
+## 9.16.0 - 2023-05-25
+
+- Graduate Curl::fastDownload() ([#783](https://github.com/php-curl-class/php-curl-class/pull/783))
+
+## 9.15.1 - 2023-05-24
+
+- Fix PHP CodeSniffer errors ([#782](https://github.com/php-curl-class/php-curl-class/pull/782))
+
+## 9.15.0 - 2023-05-22
+
+- Update Curl::diagnose() to detect bit flags with negative values ([#781](https://github.com/php-curl-class/php-curl-class/pull/781))
+- Display bit flags in use when calling Curl::diagnose() ([#779](https://github.com/php-curl-class/php-curl-class/pull/779))
+
+## 9.14.5 - 2023-05-16
+
+- Handle missing content-type response header in Curl::diagnose() ([#778](https://github.com/php-curl-class/php-curl-class/pull/778))
+
+## 9.14.4 - 2023-05-08
+
+- Update article in Curl::diagnose() Allow header warning ([#776](https://github.com/php-curl-class/php-curl-class/pull/776))
+
 ## 9.14.3 - 2023-03-13
 
 - Remove use of array_merge() inside loop ([#774](https://github.com/php-curl-class/php-curl-class/pull/774))
