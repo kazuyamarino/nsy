@@ -234,8 +234,8 @@ if (!function_exists('ascii_to_entities')) {
 
             if ($ordinal < 128) {
                 /*
-                  If the $temp array has a value but we have moved on, then it seems only
-                  fair that we output that entity and restart $temp before continuing.
+                If the $temp array has a value but we have moved on, then it seems only
+                fair that we output that entity and restart $temp before continuing.
                  */
                 if (count($temp) === 1) {
                     $out  .= '&#' . array_shift($temp) . ';';
@@ -826,63 +826,6 @@ if (!function_exists('alternator')) {
         $args = func_get_args();
 
         return $args[($i++ % count($args))];
-    }
-}
-
-//--------------------------------------------------------------------
-
-if (!function_exists('excerpt')) {
-    /**
-     * Excerpt.
-     *
-     * Allows to extract a piece of text surrounding a word or phrase.
-     *
-     * @param string  $text     String to search the phrase
-     * @param string  $phrase   Phrase that will be searched for.
-     * @param integer $radius   The amount of characters returned around the phrase.
-     * @param string  $ellipsis Ending that will be appended
-     *
-     * @return string
-     *
-     * If no $phrase is passed, will generate an excerpt of $radius characters
-     * from the beginning of $text.
-     */
-    function excerpt(string $text, string $phrase = null, int $radius = 100, string $ellipsis = '...'): string
-    {
-        if (isset($phrase)) {
-            $phrasePos = strpos(strtolower($text), strtolower($phrase));
-            $phraseLen = strlen($phrase);
-        } elseif (!isset($phrase)) {
-            $phrasePos = $radius / 2;
-            $phraseLen = 1;
-        }
-
-        $pre = explode(' ', substr($text, 0, $phrasePos));
-        $pos = explode(' ', substr($text, $phrasePos + $phraseLen));
-
-        $prev  = ' ';
-        $post  = ' ';
-        $count = 0;
-
-        foreach (array_reverse($pre) as $pr => $e) {
-            if ((strlen($e) + $count + 1) < $radius) {
-                $prev = ' ' . $e . $prev;
-            }
-            $count = ++$count + strlen($e);
-        }
-
-        $count = 0;
-
-        foreach ($pos as $po => $s) {
-            if ((strlen($s) + $count + 1) < $radius) {
-                $post .= $s . ' ';
-            }
-            $count = ++$count + strlen($s);
-        }
-
-        $ellPre = $phrase ? $ellipsis : '';
-
-        return str_replace('  ', ' ', $ellPre . $prev . $phrase . $post . $ellipsis);
     }
 }
 
