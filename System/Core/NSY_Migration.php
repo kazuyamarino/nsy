@@ -584,16 +584,25 @@ class NSY_Migration
 	 * @param array $other_cols
 	 * @param array $timestamps_cols
 	 */
-	public static function cols($cols = array(), $other_cols = array())
+	public static function cols($cols = array(), $other_cols = array(), $timestamps_mark = 'enabled')
 	{
 		$timestamps_cols = self::timestamps();
 
 		if (is_array($cols) || is_object($cols)) {
-			if (is_filled($other_cols) || is_filled($timestamps_cols)) {
-				$merge_cols = array_merge($cols, $other_cols, $timestamps_cols);
-				return $merge_cols;
-			} else {
-				return $cols;
+			if ( $timestamps_mark = 'enabled' ) {
+				if (is_filled($other_cols) || is_filled($timestamps_cols)) {
+					$merge_cols = array_merge($cols, $other_cols, $timestamps_cols);
+					return $merge_cols;
+				} else {
+					return $cols;
+				}
+			} elseif ( $timestamps_mark = 'disabled' ) {
+				if (is_filled($other_cols)) {
+					$merge_cols = array_merge($cols, $other_cols);
+					return $merge_cols;
+				} else {
+					return $cols;
+				}
 			}
 		} else {
 			$var_msg = "The variable in the <mark>cols(<strong>value</strong>)</mark> is improper or not an array";
@@ -672,8 +681,8 @@ class NSY_Migration
 	{
 		if (is_filled($table)) {
 			$closure_res = array();
-			foreach ($closure() as $key => $closure_dt) {
-				$closure_res[] = 'ALTER TABLE ' . $table . ' ADD ' . $key . ' ' . $closure_dt;
+			foreach ($closure() as $closure_dt) {
+				$closure_res[] = 'ALTER TABLE ' . $table . ' ADD ' . ' ' . $closure_dt;
 			}
 			$closure_imp = implode(";\n", $closure_res) . ";\n";
 
@@ -728,8 +737,8 @@ class NSY_Migration
 	{
 		if (is_filled($table)) {
 			$closure_res = array();
-			foreach ($closure() as $key => $closure_dt) {
-				$closure_res[] = 'ALTER TABLE ' . $table . ' ADD COLUMN ' . $key . ' ' . $closure_dt;
+			foreach ($closure() as $closure_dt) {
+				$closure_res[] = 'ALTER TABLE ' . $table . ' ADD COLUMN ' . ' ' . $closure_dt;
 			}
 			$closure_imp = implode(";\n", $closure_res) . ";\n";
 
@@ -784,7 +793,7 @@ class NSY_Migration
 	{
 		if (is_filled($table)) {
 			$closure_res = array();
-			foreach ($closure() as $key => $closure_dt) {
+			foreach ($closure() as $closure_dt) {
 				$closure_res[] = 'ALTER TABLE ' . $table . ' DROP COLUMN ' . $closure_dt;
 			}
 			$closure_imp = implode(";\n", $closure_res) . ";\n";
@@ -900,11 +909,11 @@ class NSY_Migration
 	{
 		if (is_filled($table)) {
 			$closure_res = array();
-			foreach ($closure() as $key => $closure_dt) {
+			foreach ($closure() as $closure_dt) {
 				if (strpos($closure_dt, 'PRIMARY') || strpos($closure_dt, 'UNIQUE')) {
 					$closure_res[] = 'ALTER TABLE ' . $table . ' ADD ' . $closure_dt;
 				} else {
-					$closure_res[] = 'ALTER TABLE ' . $table . ' MODIFY COLUMN ' . $key . ' ' . $closure_dt;
+					$closure_res[] = 'ALTER TABLE ' . $table . ' MODIFY COLUMN ' . ' ' . $closure_dt;
 				}
 			}
 			$closure_imp = implode(";\n", $closure_res) . ";\n";
@@ -1072,8 +1081,8 @@ class NSY_Migration
 	{
 		if (is_filled($table)) {
 			$closure_res = array();
-			foreach ($closure() as $key => $closure_dt) {
-				$closure_res[] = "exec sp_rename '" . $table . "." . $key . "', '" . $closure_dt . "', 'COLUMN'";
+			foreach ($closure() as $closure_dt) {
+				$closure_res[] = "exec sp_rename '" . $table . "." . "', '" . $closure_dt . "', 'COLUMN'";
 			}
 			$closure_imp = implode(";\n", $closure_res) . ";\n";
 
