@@ -581,28 +581,22 @@ class NSY_Migration
 	 * Columns with user defined variables
 	 *
 	 * @param array $cols
-	 * @param array $other_cols
 	 * @param array $timestamps_cols
 	 */
-	public static function cols($cols = array(), $other_cols = array(), $timestamps_mark = 'enabled')
+	public static function cols($cols = array(), $timestamps_mark = 'enabled')
 	{
 		$timestamps_cols = self::timestamps();
 
 		if (is_array($cols) || is_object($cols)) {
-			if ( $timestamps_mark = 'enabled' ) {
-				if (is_filled($other_cols) || is_filled($timestamps_cols)) {
-					$merge_cols = array_merge($cols, $other_cols, $timestamps_cols);
+			if ( $timestamps_mark == 'enabled' ) {
+				if (is_filled($timestamps_cols)) {
+					$merge_cols = array_merge($cols, $timestamps_cols);
 					return $merge_cols;
 				} else {
 					return $cols;
 				}
-			} elseif ( $timestamps_mark = 'disabled' ) {
-				if (is_filled($other_cols)) {
-					$merge_cols = array_merge($cols, $other_cols);
-					return $merge_cols;
-				} else {
-					return $cols;
-				}
+			} elseif ( $timestamps_mark == 'disabled' ) {
+				return $cols;
 			}
 		} else {
 			$var_msg = "The variable in the <mark>cols(<strong>value</strong>)</mark> is improper or not an array";
