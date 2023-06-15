@@ -8,7 +8,7 @@ use Curl\Url;
 
 class Curl extends BaseCurl
 {
-    const VERSION = '9.16.0';
+    const VERSION = '9.17.1';
     const DEFAULT_TIMEOUT = 30;
 
     public $curl = null;
@@ -247,6 +247,7 @@ class Curl extends BaseCurl
         }
         $this->curl = null;
         $this->options = null;
+        $this->userSetOptions = null;
         $this->jsonDecoder = null;
         $this->jsonDecoderArgs = null;
         $this->xmlDecoder = null;
@@ -265,6 +266,12 @@ class Curl extends BaseCurl
     {
         $this->setOpt(CURLOPT_PROGRESSFUNCTION, $callback);
         $this->setOpt(CURLOPT_NOPROGRESS, false);
+    }
+
+    private function progressInternal($callback)
+    {
+        $this->setOptInternal(CURLOPT_PROGRESSFUNCTION, $callback);
+        $this->setOptInternal(CURLOPT_NOPROGRESS, false);
     }
 
     /**
@@ -366,19 +373,23 @@ class Curl extends BaseCurl
      */
     public function fastDownload($url, $filename, $connections = 4)
     {
-        // Retrieve content length from the "Content-Length" header and use an
-        // HTTP GET request because not all hosts support HEAD requests.
-        $this->setOpts([
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_NOBODY        => true,
-            CURLOPT_HEADER        => true,
-            CURLOPT_ENCODING      => '',
-        ]);
-        $this->setUrl($url);
-        $this->exec();
+        // Retrieve content length from the "Content-Length" header from the url
+        // to download. Use an HTTP GET request without a body instead of a HEAD
+        // request because not all hosts support HEAD requests.
+        $curl = new Curl();
+        $curl->setOptInternal(CURLOPT_NOBODY, true);
 
-        $content_length = isset($this->responseHeaders['Content-Length']) ?
-            $this->responseHeaders['Content-Length'] : null;
+        // Pass user-specified options to the instance checking for content-length.
+        $curl->setOpts($this->userSetOptions);
+        $curl->get($url);
+
+        // Exit early when an error occurred.
+        if ($curl->error) {
+            return false;
+        }
+
+        $content_length = isset($curl->responseHeaders['Content-Length']) ?
+            $curl->responseHeaders['Content-Length'] : null;
 
         // Use a regular download when content length could not be determined.
         if (!$content_length) {
@@ -388,25 +399,21 @@ class Curl extends BaseCurl
         // Divide chunk_size across the number of connections.
         $chunk_size = ceil($content_length / $connections);
 
-        // First bytes.
-        $offset = 0;
-        $next_chunk = $chunk_size;
-
         // Keep track of file name parts.
         $part_file_names = [];
 
         $multi_curl = new MultiCurl();
         $multi_curl->setConcurrency($connections);
-        $multi_curl->error(function ($instance) {
-            return false;
-        });
 
-        for ($i = 1; $i <= $connections; $i++) {
-            // If last chunk then no need to supply it.
-            // Range starts with 0, so subtract 1.
-            $next_chunk = $i === $connections ? '' : $next_chunk - 1;
+        for ($part_number = 1; $part_number <= $connections; $part_number++) {
+            $range_start = ($part_number - 1) * $chunk_size;
+            $range_end = $range_start + $chunk_size - 1;
+            if ($part_number === $connections) {
+                $range_end = '';
+            }
+            $range = $range_start . '-' . $range_end;
 
-            $part_file_name = $filename . '.part' . $i;
+            $part_file_name = $filename . '.part' . $part_number;
 
             // Save the file name of this part.
             $part_file_names[] = $part_file_name;
@@ -417,25 +424,28 @@ class Curl extends BaseCurl
             }
 
             // Create file part.
-            $file_handle = fopen($part_file_name, 'w');
+            $file_handle = tmpfile();
 
+            // Setup the instance downloading a part.
             $curl = new Curl();
-            $curl->setOpt(CURLOPT_ENCODING, '');
-            $curl->setRange($offset . '-' . $next_chunk);
-            $curl->setFile($file_handle);
-            $curl->disableTimeout(); // otherwise download may fail.
             $curl->setUrl($url);
 
-            $curl->complete(function () use ($file_handle) {
-                fclose($file_handle);
-            });
+            // Pass user-specified options to the instance downloading a part.
+            $curl->setOpts($this->userSetOptions);
+
+            $curl->setOptInternal(CURLOPT_CUSTOMREQUEST, 'GET');
+            $curl->setOptInternal(CURLOPT_HTTPGET, true);
+            $curl->setRangeInternal($range);
+            $curl->setFileInternal($file_handle);
+            $curl->fileHandle = $file_handle;
+
+            $curl->downloadCompleteCallback = function ($instance, $tmpfile) use ($part_file_name) {
+                $fh = fopen($part_file_name, 'wb');
+                stream_copy_to_stream($tmpfile, $fh);
+                fclose($fh);
+            };
 
             $multi_curl->addCurl($curl);
-
-            if ($i !== $connections) {
-                $offset = $next_chunk + 1; // Add 1 to match offset.
-                $next_chunk = $next_chunk + $chunk_size;
-            }
         }
 
         // Start the simultaneous downloads for each of the ranges in parallel.
@@ -450,7 +460,15 @@ class Curl extends BaseCurl
         $main_file_handle = fopen($filename, 'w');
 
         foreach ($part_file_names as $part_file_name) {
+            if (!is_file($part_file_name)) {
+                return false;
+            }
+
             $file_handle = fopen($part_file_name, 'r');
+            if ($file_handle === false) {
+                return false;
+            }
+
             stream_copy_to_stream($file_handle, $main_file_handle);
             fclose($file_handle);
             unlink($part_file_name);
@@ -552,7 +570,7 @@ class Curl extends BaseCurl
         $this->unsetHeader('Content-Length');
 
         // Reset nobody setting possibly set from a HEAD request.
-        $this->setOpt(CURLOPT_NOBODY, false);
+        $this->setOptInternal(CURLOPT_NOBODY, false);
 
         // Allow multicurl to attempt retry as needed.
         if ($this->isChildOfMultiCurl()) {
@@ -600,8 +618,8 @@ class Curl extends BaseCurl
             $url = (string)$this->url;
         }
         $this->setUrl($url, $data);
-        $this->setOpt(CURLOPT_CUSTOMREQUEST, 'GET');
-        $this->setOpt(CURLOPT_HTTPGET, true);
+        $this->setOptInternal(CURLOPT_CUSTOMREQUEST, 'GET');
+        $this->setOptInternal(CURLOPT_HTTPGET, true);
         return $this->exec();
     }
 
@@ -968,6 +986,11 @@ class Curl extends BaseCurl
         $this->setOpt(CURLINFO_HEADER_OUT, true);
     }
 
+    private function setDefaultHeaderOutInternal()
+    {
+        $this->setOptInternal(CURLINFO_HEADER_OUT, true);
+    }
+
     /**
      * Set Default Timeout
      *
@@ -978,6 +1001,11 @@ class Curl extends BaseCurl
         $this->setTimeout(self::DEFAULT_TIMEOUT);
     }
 
+    private function setDefaultTimeoutInternal()
+    {
+        $this->setTimeoutInternal(self::DEFAULT_TIMEOUT);
+    }
+
     /**
      * Set Default User Agent
      *
@@ -985,11 +1013,21 @@ class Curl extends BaseCurl
      */
     public function setDefaultUserAgent()
     {
+        $this->setUserAgent($this->getDefaultUserAgent());
+    }
+
+    private function setDefaultUserAgentInternal()
+    {
+        $this->setUserAgentInternal($this->getDefaultUserAgent());
+    }
+
+    private function getDefaultUserAgent()
+    {
         $user_agent = 'PHP-Curl-Class/' . self::VERSION . ' (+https://github.com/php-curl-class/php-curl-class)';
         $user_agent .= ' PHP/' . PHP_VERSION;
         $curl_version = curl_version();
         $user_agent .= ' curl/' . $curl_version['version'];
-        $this->setUserAgent($user_agent);
+        return $user_agent;
     }
 
     /**
@@ -1094,6 +1132,25 @@ class Curl extends BaseCurl
         $success = curl_setopt($this->curl, $option, $value);
         if ($success) {
             $this->options[$option] = $value;
+            $this->userSetOptions[$option] = $value;
+        }
+        return $success;
+    }
+
+    /**
+     * Set Opt Internal
+     *
+     * @access protected
+     * @param  $option
+     * @param  $value
+     *
+     * @return boolean
+     */
+    protected function setOptInternal($option, $value)
+    {
+        $success = curl_setopt($this->curl, $option, $value);
+        if ($success) {
+            $this->options[$option] = $value;
         }
         return $success;
     }
@@ -1110,6 +1167,9 @@ class Curl extends BaseCurl
      */
     public function setOpts($options)
     {
+        if (!count($options)) {
+            return true;
+        }
         foreach ($options as $option => $value) {
             if (!$this->setOpt($option, $value)) {
                 return false;
@@ -1130,6 +1190,11 @@ class Curl extends BaseCurl
     public function setProtocols($protocols)
     {
         $this->setOpt(CURLOPT_PROTOCOLS, $protocols);
+    }
+
+    private function setProtocolsInternal($protocols)
+    {
+        $this->setOptInternal(CURLOPT_PROTOCOLS, $protocols);
     }
 
     /**
@@ -1168,6 +1233,11 @@ class Curl extends BaseCurl
     public function setRedirectProtocols($redirect_protocols)
     {
         $this->setOpt(CURLOPT_REDIR_PROTOCOLS, $redirect_protocols);
+    }
+
+    private function setRedirectProtocolsInternal($redirect_protocols)
+    {
+        $this->setOptInternal(CURLOPT_REDIR_PROTOCOLS, $redirect_protocols);
     }
 
     /**
@@ -1290,69 +1360,7 @@ class Curl extends BaseCurl
                 $i = 1;
                 foreach ($this->options as $option => $value) {
                     echo '    ' . $i . ' ';
-                    if (isset($this->curlOptionCodeConstants[$option])) {
-                        echo $this->curlOptionCodeConstants[$option] . ':';
-                    } else {
-                        echo $option . ':';
-                    }
-
-                    if (is_string($value)) {
-                        echo ' ' . $value . "\n";
-                    } elseif (is_int($value)) {
-                        echo ' ' . $value;
-
-                        $bit_flag_lookups = [
-                            'CURLOPT_HTTPAUTH' => 'CURLAUTH_',
-                            'CURLOPT_PROTOCOLS' => 'CURLPROTO_',
-                            'CURLOPT_PROXYAUTH' => 'CURLAUTH_',
-                            'CURLOPT_PROXY_SSL_OPTIONS' => 'CURLSSLOPT_',
-                            'CURLOPT_REDIR_PROTOCOLS' => 'CURLPROTO_',
-                            'CURLOPT_SSH_AUTH_TYPES' => 'CURLSSH_AUTH_',
-                            'CURLOPT_SSL_OPTIONS' => 'CURLSSLOPT_',
-                        ];
-                        if (isset($this->curlOptionCodeConstants[$option])) {
-                            $option_name = $this->curlOptionCodeConstants[$option];
-                            if (in_array($option_name, array_keys($bit_flag_lookups))) {
-                                $curl_const_prefix = $bit_flag_lookups[$option_name];
-                                $constants = get_defined_constants(true);
-                                $curl_constants = array_filter(
-                                    $constants['curl'],
-                                    function ($key) use ($curl_const_prefix) {
-                                        return strpos($key, $curl_const_prefix) !== false;
-                                    },
-                                    ARRAY_FILTER_USE_KEY
-                                );
-
-                                $bit_flags = [];
-                                foreach ($curl_constants as $const_name => $const_value) {
-                                    // Attempt to detect bit flags in use that use constants with negative values (e.g.
-                                    // CURLAUTH_ANY, CURLAUTH_ANYSAFE, CURLPROTO_ALL, CURLSSH_AUTH_ANY,
-                                    // CURLSSH_AUTH_DEFAULT, etc.)
-                                    if ($value < 0 && $value === $const_value) {
-                                        $bit_flags[] = $const_name;
-                                        break;
-                                    } elseif ($value >= 0 && $const_value >= 0 && ($value & $const_value)) {
-                                        $bit_flags[] = $const_name;
-                                    }
-                                }
-
-                                if (count($bit_flags)) {
-                                    asort($bit_flags);
-                                    echo ' (' . implode(' | ', $bit_flags) . ')';
-                                }
-                            }
-                        }
-
-                        echo "\n";
-                    } elseif (is_bool($value)) {
-                        echo ' ' . ($value ? 'true' : 'false') . "\n";
-                    } elseif (is_callable($value)) {
-                        echo ' (callable)' . "\n";
-                    } else {
-                        echo ' ' . gettype($value) . ':' . "\n";
-                        var_dump($value);
-                    }
-
+                    $this->displayCurlOptionValue($option, $value);
                     $i += 1;
                 }
             }
@@ -1493,9 +1501,9 @@ class Curl extends BaseCurl
             $this->curl = curl_init();
         }
 
-        $this->setDefaultUserAgent();
-        $this->setDefaultTimeout();
-        $this->setDefaultHeaderOut();
+        $this->setDefaultUserAgentInternal();
+        $this->setDefaultTimeoutInternal();
+        $this->setDefaultHeaderOutInternal();
 
         $this->initialize();
     }
@@ -1558,6 +1566,16 @@ class Curl extends BaseCurl
     public function getUrl()
     {
         return $this->url;
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    public function getUserSetOptions()
+    {
+        return $this->userSetOptions;
     }
 
     public function getRequestHeaders()
@@ -1735,6 +1753,75 @@ class Curl extends BaseCurl
         }
 
         return $curl_const_by_code;
+    }
+
+    public function displayCurlOptionValue($option, $value)
+    {
+        if (isset($this->curlOptionCodeConstants[$option])) {
+            echo $this->curlOptionCodeConstants[$option] . ':';
+        } else {
+            echo $option . ':';
+        }
+
+        if (is_string($value)) {
+            echo ' ' . $value . "\n";
+        } elseif (is_int($value)) {
+            echo ' ' . $value;
+
+            $bit_flag_lookups = [
+                'CURLOPT_HTTPAUTH' => 'CURLAUTH_',
+                'CURLOPT_PROTOCOLS' => 'CURLPROTO_',
+                'CURLOPT_PROXYAUTH' => 'CURLAUTH_',
+                'CURLOPT_PROXY_SSL_OPTIONS' => 'CURLSSLOPT_',
+                'CURLOPT_REDIR_PROTOCOLS' => 'CURLPROTO_',
+                'CURLOPT_SSH_AUTH_TYPES' => 'CURLSSH_AUTH_',
+                'CURLOPT_SSL_OPTIONS' => 'CURLSSLOPT_',
+            ];
+            if (isset($this->curlOptionCodeConstants[$option])) {
+                $option_name = $this->curlOptionCodeConstants[$option];
+                if (in_array($option_name, array_keys($bit_flag_lookups))) {
+                    $curl_const_prefix = $bit_flag_lookups[$option_name];
+                    $constants = get_defined_constants(true);
+                    $curl_constants = array_filter(
+                        $constants['curl'],
+                        function ($key) use ($curl_const_prefix) {
+                            return strpos($key, $curl_const_prefix) !== false;
+                        },
+                        ARRAY_FILTER_USE_KEY
+                    );
+
+                    $bit_flags = [];
+                    foreach ($curl_constants as $const_name => $const_value) {
+                        // Attempt to detect bit flags in use that use constants with negative values (e.g.
+                        // CURLAUTH_ANY, CURLAUTH_ANYSAFE, CURLPROTO_ALL, CURLSSH_AUTH_ANY,
+                        // CURLSSH_AUTH_DEFAULT, etc.)
+                        if ($value < 0 && $value === $const_value) {
+                            $bit_flags[] = $const_name;
+                            break;
+                        } elseif ($value >= 0 && $const_value >= 0 && ($value & $const_value)) {
+                            $bit_flags[] = $const_name;
+                        }
+                    }
+
+                    if (count($bit_flags)) {
+                        asort($bit_flags);
+                        echo ' (' . implode(' | ', $bit_flags) . ')';
+                    }
+                }
+            }
+
+            echo "\n";
+        } elseif (is_bool($value)) {
+            echo ' ' . ($value ? 'true' : 'false') . "\n";
+        } elseif (is_array($value)) {
+            echo ' ';
+            var_dump($value);
+        } elseif (is_callable($value)) {
+            echo ' (callable)' . "\n";
+        } else {
+            echo ' ' . gettype($value) . ':' . "\n";
+            var_dump($value);
+        }
     }
 
     /**
@@ -2001,8 +2088,8 @@ class Curl extends BaseCurl
      */
     private function initialize($base_url = null, $options = [])
     {
-        $this->setProtocols(CURLPROTO_HTTPS | CURLPROTO_HTTP);
-        $this->setRedirectProtocols(CURLPROTO_HTTPS | CURLPROTO_HTTP);
+        $this->setProtocolsInternal(CURLPROTO_HTTPS | CURLPROTO_HTTP);
+        $this->setRedirectProtocolsInternal(CURLPROTO_HTTPS | CURLPROTO_HTTP);
 
         if (isset($options)) {
             $this->setOpts($options);
@@ -2012,16 +2099,16 @@ class Curl extends BaseCurl
 
         // Only set default user agent if not already set.
         if (!array_key_exists(CURLOPT_USERAGENT, $this->options)) {
-            $this->setDefaultUserAgent();
+            $this->setDefaultUserAgentInternal();
         }
 
         // Only set default timeout if not already set.
         if (!array_key_exists(CURLOPT_TIMEOUT, $this->options)) {
-            $this->setDefaultTimeout();
+            $this->setDefaultTimeoutInternal();
         }
 
         if (!array_key_exists(CURLINFO_HEADER_OUT, $this->options)) {
-            $this->setDefaultHeaderOut();
+            $this->setDefaultHeaderOutInternal();
         }
 
         // Create a placeholder to temporarily store the header callback data.
@@ -2031,10 +2118,10 @@ class Curl extends BaseCurl
         $header_callback_data->stopRequestDecider = null;
         $header_callback_data->stopRequest = false;
         $this->headerCallbackData = $header_callback_data;
-        $this->setStop();
-        $this->setOpt(CURLOPT_HEADERFUNCTION, createHeaderCallback($header_callback_data));
+        $this->setStopInternal();
+        $this->setOptInternal(CURLOPT_HEADERFUNCTION, createHeaderCallback($header_callback_data));
 
-        $this->setOpt(CURLOPT_RETURNTRANSFER, true);
+        $this->setOptInternal(CURLOPT_RETURNTRANSFER, true);
         $this->headers = new CaseInsensitiveArray();
 
         if ($base_url !== null) {
@@ -2069,6 +2156,15 @@ class Curl extends BaseCurl
 
         $header_callback_data = $this->headerCallbackData;
         $this->progress(createStopRequestFunction($header_callback_data));
+    }
+
+    private function setStopInternal($callback = null)
+    {
+        $this->headerCallbackData->stopRequestDecider = $callback;
+        $this->headerCallbackData->stopRequest = false;
+
+        $header_callback_data = $this->headerCallbackData;
+        $this->progressInternal(createStopRequestFunction($header_callback_data));
     }
 
     /**

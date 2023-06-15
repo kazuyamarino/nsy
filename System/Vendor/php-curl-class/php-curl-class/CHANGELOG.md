@@ -6,6 +6,20 @@ backwards-incompatible changes that will affect existing usage.
 
 <!-- CHANGELOG_PLACEHOLDER -->
 
+## 9.17.1 - 2023-06-14
+
+- Improve and add tests for Curl::fastDownload() ([#791](https://github.com/php-curl-class/php-curl-class/pull/791))
+
+## 9.17.0 - 2023-06-13
+
+- Make method to display curl option value public ([#790](https://github.com/php-curl-class/php-curl-class/pull/790))
+
+## 9.16.1 - 2023-06-12
+
+- Differentiate between internal options and user-set options ([#788](https://github.com/php-curl-class/php-curl-class/pull/788))
+- Create method to display a curl option value ([#785](https://github.com/php-curl-class/php-curl-class/pull/785))
+- Fix existing header overwritten after using MultiCurl::addCurl() ([#787](https://github.com/php-curl-class/php-curl-class/pull/787))
+
 ## 9.16.0 - 2023-05-25
 
 - Graduate Curl::fastDownload() ([#783](https://github.com/php-curl-class/php-curl-class/pull/783))
