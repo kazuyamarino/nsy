@@ -21,5 +21,5 @@ Route::get('/', function () {
 		new AfterLayer()
 	];
 
-	Route::middleware($middleware)->for([System\Controllers\Welcome::class, 'index']);
+	Route::middleware($middleware)->for([System\Controllers\Controller_Test::class, 'get_data']);
 });

@@ -1,7 +1,8 @@
 <?php
+
 /**
-* Environment Variables
-*/
+ * Environment Variables
+ */
 return [
 
 	/*
@@ -39,7 +40,6 @@ return [
 
 		// Primary connection
 		'primary' => [
-			'CONNECTION_NAME' => 'primary',
 			'DB_CONNECTION' => '',
 			'DB_HOST' => '',
 			'DB_PORT' => '',
@@ -55,7 +55,6 @@ return [
 
 		// Secondary connection
 		'secondary' => [
-			'CONNECTION_NAME' => 'secondary',
 			'DB_CONNECTION' => '',
 			'DB_HOST' => '',
 			'DB_PORT' => '',
