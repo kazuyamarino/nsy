@@ -11,3 +11,4 @@ System/Models/Model_Test.php
 System/Views/View_Test.php
 System/Migrations/Migration_Test.php
 System/Test/ClassWordCount.php
+System/Routes/Test.php
