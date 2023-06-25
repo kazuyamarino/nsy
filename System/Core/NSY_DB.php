@@ -83,11 +83,10 @@ class NSY_DB
 		try {
 			// Create a new PDO instance
 			if (is_filled($DB_PORT)) {
-				echo $DB_CHARSET;
 				if (is_filled($DB_CHARSET)) {
 					$dsn = "{$DB_DRIVER}:host={$DB_HOST};port={$DB_PORT};dbname={$DB_NAME};charset={$DB_CHARSET}";
 				} else {
-					echo $dsn = "{$DB_DRIVER}:host={$DB_HOST};port={$DB_PORT};dbname={$DB_NAME}";
+					$dsn = "{$DB_DRIVER}:host={$DB_HOST};port={$DB_PORT};dbname={$DB_NAME}";
 				}
 			} else {
 				if (is_filled($DB_CHARSET)) {

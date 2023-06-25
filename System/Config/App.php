@@ -99,7 +99,7 @@ return [
 	| set the default prefix for session
 	|
 	*/
-	'session_prefix' => config_env('SESSION_PREFIX'),
+	'session_prefix' => '',
 
 	/*
 	|--------------------------------------------------------------------------

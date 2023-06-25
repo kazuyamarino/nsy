@@ -16,11 +16,6 @@ return [
 	'APP_DIR' => 'nsy',
 
 	/*
-	| Define Session Prefix
-	*/
-	'SESSION_PREFIX' => '',
-
-	/*
 	| Define Public directory name
 	*/
 	'PUBLIC_DIR' => 'public',
@@ -49,7 +44,8 @@ return [
 			'DB_CHARSET' => '',
 			'DB_PREFIX' => '',
 			'DB_ATTR' => [
-				\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING
+				\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+				\PDO::ATTR_EMULATE_PREPARES => false
 			]
 		],
 
@@ -64,7 +60,8 @@ return [
 			'DB_CHARSET' => '',
 			'DB_PREFIX' => '',
 			'DB_ATTR' => [
-				\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING
+				\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+				\PDO::ATTR_EMULATE_PREPARES => false
 			]
 		]
 
