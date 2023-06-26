@@ -6,9 +6,13 @@
 /phpunit.xml
 /MIGRATIONLOG
 public/.htaccess
+
+System/Test
 System/Controllers/Controller_Test.php
 System/Models/Model_Test.php
 System/Views/View_Test.php
 System/Migrations/Migration_Test.php
-System/Test
-System/Routes/Test.php
+
+System/Routes/Test_Route.php
+System/Controllers/C_Test_Route.php
+System/Modules/*/Controllers/C_Test_Route_HMVC.php

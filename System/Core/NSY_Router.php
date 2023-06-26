@@ -23,14 +23,14 @@ class NSY_Router
     public static $callbacks = array();
     public static $maps = array();
     public static $patterns = array(
-        ':all'         => '.*',
-        ':any'         => '[^/]+',
-        ':slug'         => '[a-z0-9-]+',
-        ':uslug'     => '[\w-]+',            // slug + underscores
-        ':num'         => '[0-9]+',
-        ':alpha'     => '[A-Za-z]+',
-        ':alnum'     => '[0-9A-Za-z]+',
-        ':date'      => '[0-9]{4}-[0-9]{2}-[0-9]{2}'
+        ':all'   => '.*',
+        ':any'   => '[^/]+',
+        ':slug'  => '[a-z0-9-]+',
+        ':uslug' => '[\w-]+',                     // slug + underscores
+        ':num'   => '[0-9]+',
+        ':alpha' => '[A-Za-z]+',
+        ':alnum' => '[0-9A-Za-z]+',
+        ':date'  => '[0-9]{4}-[0-9]{2}-[0-9]{2}'
     );
     public static $error_callback;
 
