@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Curl;
 
@@ -43,10 +45,8 @@ class StringUtil
     /**
      * Return true when $haystack starts with $needle.
      *
-     * @access public
-     * @param  $haystack
-     * @param  $needle
-     *
+     * @param       $haystack
+     * @param       $needle
      * @return bool
      */
     public static function startsWith($haystack, $needle)

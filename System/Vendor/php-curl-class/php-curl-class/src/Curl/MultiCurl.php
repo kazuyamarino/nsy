@@ -1,10 +1,8 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Curl;
-
-use Curl\ArrayUtil;
-use Curl\BaseCurl;
-use Curl\Url;
 
 class MultiCurl extends BaseCurl
 {
@@ -44,8 +42,7 @@ class MultiCurl extends BaseCurl
     /**
      * Construct
      *
-     * @access public
-     * @param  $base_url
+     * @param $base_url
      */
     public function __construct($base_url = null)
     {
@@ -60,11 +57,9 @@ class MultiCurl extends BaseCurl
     /**
      * Add Delete
      *
-     * @access public
-     * @param  $url
-     * @param  $query_parameters
-     * @param  $data
-     *
+     * @param         $url
+     * @param         $query_parameters
+     * @param         $data
      * @return object
      */
     public function addDelete($url, $query_parameters = [], $data = [])
@@ -87,10 +82,8 @@ class MultiCurl extends BaseCurl
     /**
      * Add Download
      *
-     * @access public
-     * @param  $url
-     * @param  $mixed_filename
-     *
+     * @param         $url
+     * @param         $mixed_filename
      * @return object
      */
     public function addDownload($url, $mixed_filename)
@@ -148,10 +141,8 @@ class MultiCurl extends BaseCurl
     /**
      * Add Get
      *
-     * @access public
-     * @param  $url
-     * @param  $data
-     *
+     * @param         $url
+     * @param         $data
      * @return object
      */
     public function addGet($url, $data = [])
@@ -173,10 +164,8 @@ class MultiCurl extends BaseCurl
     /**
      * Add Head
      *
-     * @access public
-     * @param  $url
-     * @param  $data
-     *
+     * @param         $url
+     * @param         $data
      * @return object
      */
     public function addHead($url, $data = [])
@@ -198,10 +187,8 @@ class MultiCurl extends BaseCurl
     /**
      * Add Options
      *
-     * @access public
-     * @param  $url
-     * @param  $data
-     *
+     * @param         $url
+     * @param         $data
      * @return object
      */
     public function addOptions($url, $data = [])
@@ -223,10 +210,8 @@ class MultiCurl extends BaseCurl
     /**
      * Add Patch
      *
-     * @access public
-     * @param  $url
-     * @param  $data
-     *
+     * @param         $url
+     * @param         $data
      * @return object
      */
     public function addPatch($url, $data = [])
@@ -253,13 +238,12 @@ class MultiCurl extends BaseCurl
     /**
      * Add Post
      *
-     * @access public
-     * @param  $url
-     * @param  $data
-     * @param  $follow_303_with_post
-     *     If true, will cause 303 redirections to be followed using a POST request (default: false).
-     *     Note: Redirections are only followed if the CURLOPT_FOLLOWLOCATION option is set to true.
-     *
+     * @param         $url
+     * @param         $data
+     * @param         $follow_303_with_post
+     *                                      If true, will cause 303 redirections to be followed using a POST request
+     *                                      (default: false). Note: Redirections are only followed if the
+     *                                      CURLOPT_FOLLOWLOCATION option is set to true.
      * @return object
      */
     public function addPost($url, $data = '', $follow_303_with_post = false)
@@ -296,10 +280,8 @@ class MultiCurl extends BaseCurl
     /**
      * Add Put
      *
-     * @access public
-     * @param  $url
-     * @param  $data
-     *
+     * @param         $url
+     * @param         $data
      * @return object
      */
     public function addPut($url, $data = [])
@@ -325,10 +307,8 @@ class MultiCurl extends BaseCurl
     /**
      * Add Search
      *
-     * @access public
-     * @param  $url
-     * @param  $data
-     *
+     * @param         $url
+     * @param         $data
      * @return object
      */
     public function addSearch($url, $data = [])
@@ -356,9 +336,7 @@ class MultiCurl extends BaseCurl
      *
      * Add a Curl instance to the handle queue.
      *
-     * @access public
-     * @param  $curl
-     *
+     * @param         $curl
      * @return object
      */
     public function addCurl(Curl $curl)
@@ -369,8 +347,6 @@ class MultiCurl extends BaseCurl
 
     /**
      * Close
-     *
-     * @access public
      */
     public function close()
     {
@@ -387,8 +363,7 @@ class MultiCurl extends BaseCurl
     /**
      * Set Concurrency
      *
-     * @access public
-     * @param  $concurrency
+     * @param $concurrency
      */
     public function setConcurrency($concurrency)
     {
@@ -398,9 +373,8 @@ class MultiCurl extends BaseCurl
     /**
      * Set Cookie
      *
-     * @access public
-     * @param  $key
-     * @param  $value
+     * @param $key
+     * @param $value
      */
     public function setCookie($key, $value)
     {
@@ -410,8 +384,7 @@ class MultiCurl extends BaseCurl
     /**
      * Set Cookies
      *
-     * @access public
-     * @param  $cookies
+     * @param $cookies
      */
     public function setCookies($cookies)
     {
@@ -423,8 +396,7 @@ class MultiCurl extends BaseCurl
     /**
      * Set Cookie String
      *
-     * @access public
-     * @param  $string
+     * @param $string
      */
     public function setCookieString($string)
     {
@@ -434,8 +406,7 @@ class MultiCurl extends BaseCurl
     /**
      * Set Cookie File
      *
-     * @access public
-     * @param  $cookie_file
+     * @param $cookie_file
      */
     public function setCookieFile($cookie_file)
     {
@@ -445,8 +416,7 @@ class MultiCurl extends BaseCurl
     /**
      * Set Cookie Jar
      *
-     * @access public
-     * @param  $cookie_jar
+     * @param $cookie_jar
      */
     public function setCookieJar($cookie_jar)
     {
@@ -458,9 +428,8 @@ class MultiCurl extends BaseCurl
      *
      * Add extra header to include in the request.
      *
-     * @access public
-     * @param  $key
-     * @param  $value
+     * @param $key
+     * @param $value
      */
     public function setHeader($key, $value)
     {
@@ -473,8 +442,7 @@ class MultiCurl extends BaseCurl
      *
      * Add extra headers to include in the request.
      *
-     * @access public
-     * @param  $headers
+     * @param $headers
      */
     public function setHeaders($headers)
     {
@@ -499,8 +467,7 @@ class MultiCurl extends BaseCurl
     /**
      * Set JSON Decoder
      *
-     * @access public
-     * @param  $mixed boolean|callable
+     * @param $mixed boolean|callable
      */
     public function setJsonDecoder($mixed)
     {
@@ -514,8 +481,7 @@ class MultiCurl extends BaseCurl
     /**
      * Set XML Decoder
      *
-     * @access public
-     * @param  $mixed boolean|callable
+     * @param $mixed boolean|callable
      */
     public function setXmlDecoder($mixed)
     {
@@ -532,9 +498,8 @@ class MultiCurl extends BaseCurl
      * Set proxies to tunnel requests through. When set, a random proxy will be
      * used for the request.
      *
-     * @access public
-     * @param  $proxies array - A list of HTTP proxies to tunnel requests
-     *     through. May include port number.
+     * @param $proxies array - A list of HTTP proxies to tunnel requests
+     *                  through. May include port number.
      */
     public function setProxies($proxies)
     {
@@ -544,9 +509,8 @@ class MultiCurl extends BaseCurl
     /**
      * Set Opt
      *
-     * @access public
-     * @param  $option
-     * @param  $value
+     * @param $option
+     * @param $value
      */
     public function setOpt($option, $value)
     {
@@ -557,8 +521,10 @@ class MultiCurl extends BaseCurl
         // unexpectedly changing the request url after is has been specified.
         if ($option === CURLOPT_URL) {
             foreach ($this->queuedCurls as $curl_id => $curl) {
-                if (!isset($this->instanceSpecificOptions[$curl_id][$option]) ||
-                    $this->instanceSpecificOptions[$curl_id][$option] === null) {
+                if (
+                    !isset($this->instanceSpecificOptions[$curl_id][$option]) ||
+                    $this->instanceSpecificOptions[$curl_id][$option] === null
+                ) {
                     $this->instanceSpecificOptions[$curl_id][$option] = $value;
                 }
             }
@@ -568,8 +534,7 @@ class MultiCurl extends BaseCurl
     /**
      * Set Opts
      *
-     * @access public
-     * @param  $options
+     * @param $options
      */
     public function setOpts($options)
     {
@@ -581,8 +546,7 @@ class MultiCurl extends BaseCurl
     /**
      * Set Rate Limit
      *
-     * @access public
-     * @param  $rate_limit string (e.g. "60/1m").
+     * @param                            $rate_limit string (e.g. "60/1m").
      * @throws \UnexpectedValueException
      */
     public function setRateLimit($rate_limit)
@@ -641,8 +605,7 @@ class MultiCurl extends BaseCurl
      * When using a callable decider, the request will be retried until the
      * function returns a value which evaluates to false.
      *
-     * @access public
-     * @param  $mixed
+     * @param $mixed
      */
     public function setRetry($mixed)
     {
@@ -652,9 +615,8 @@ class MultiCurl extends BaseCurl
     /**
      * Set Url
      *
-     * @access public
-     * @param  $url
-     * @param  $mixed_data
+     * @param $url
+     * @param $mixed_data
      */
     public function setUrl($url, $mixed_data = '')
     {
@@ -672,7 +634,6 @@ class MultiCurl extends BaseCurl
     /**
      * Start
      *
-     * @access public
      * @throws \ErrorException
      */
     public function start()
@@ -687,7 +648,8 @@ class MultiCurl extends BaseCurl
         $this->currentRequestCount = 0;
 
         do {
-            while (count($this->queuedCurls) &&
+            while (
+                count($this->queuedCurls) &&
                 count($this->activeCurls) < $this->concurrency &&
                 (!$this->rateLimitEnabled || $this->hasRequestQuota())
             ) {
@@ -733,8 +695,10 @@ class MultiCurl extends BaseCurl
                 }
             }
 
-            while ((is_resource($this->multiCurl) || $this->multiCurl instanceof \CurlMultiHandle) &&
-                (($info_array = curl_multi_info_read($this->multiCurl)) !== false)) {
+            while (
+                (is_resource($this->multiCurl) || $this->multiCurl instanceof \CurlMultiHandle) &&
+                (($info_array = curl_multi_info_read($this->multiCurl)) !== false)
+            ) {
                 if ($info_array['msg'] === CURLMSG_DONE) {
                     foreach ($this->activeCurls as $key => $curl) {
                         if ($curl->curl === $info_array['handle']) {
@@ -782,8 +746,6 @@ class MultiCurl extends BaseCurl
 
     /**
      * Stop
-     *
-     * @access public
      */
     public function stop()
     {
@@ -810,8 +772,7 @@ class MultiCurl extends BaseCurl
      *
      * Remove extra header previously set using Curl::setHeader().
      *
-     * @access public
-     * @param  $key
+     * @param $key
      */
     public function unsetHeader($key)
     {
@@ -820,8 +781,6 @@ class MultiCurl extends BaseCurl
 
     /**
      * Set request time accuracy
-     *
-     * @access public
      */
     public function setRequestTimeAccuracy()
     {
@@ -830,8 +789,6 @@ class MultiCurl extends BaseCurl
 
     /**
      * Destruct
-     *
-     * @access public
      */
     public function __destruct()
     {
@@ -840,8 +797,6 @@ class MultiCurl extends BaseCurl
 
     /**
      * Update Headers
-     *
-     * @access private
      */
     private function updateHeaders()
     {
@@ -853,8 +808,7 @@ class MultiCurl extends BaseCurl
     /**
      * Queue Handle
      *
-     * @access private
-     * @param  $curl
+     * @param $curl
      */
     private function queueHandle($curl)
     {
@@ -872,8 +826,7 @@ class MultiCurl extends BaseCurl
     /**
      * Init Handle
      *
-     * @access private
-     * @param  $curl
+     * @param                  $curl
      * @throws \ErrorException
      */
     private function initHandle()
@@ -937,8 +890,6 @@ class MultiCurl extends BaseCurl
      *
      * Checks if there is any available quota to make additional requests while
      * rate limiting is enabled.
-     *
-     * @access private
      */
     private function hasRequestQuota()
     {
@@ -968,8 +919,6 @@ class MultiCurl extends BaseCurl
      * Wait Until Request Quota Available
      *
      * Waits until there is available request quota available based on the rate limit.
-     *
-     * @access private
      */
     private function waitUntilRequestQuotaAvailable()
     {

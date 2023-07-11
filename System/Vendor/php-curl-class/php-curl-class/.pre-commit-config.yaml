@@ -1,0 +1,24 @@
+# Pre-commit git hooks.
+#
+# Usage:
+#   1. Run one of:
+#     $ pip install pre-commit
+#     $ brew install pre-commit
+#
+#   2. Install hooks
+#     $ pre-commit install
+repos:
+- repo: https://github.com/psf/black
+  rev: 23.3.0
+  hooks:
+  - id: black
+    name: black
+    entry: black
+- repo: local
+  hooks:
+  - id: composer-validate
+    name: composer-validate
+    language: script
+    entry: scripts/pre-commit.sh
+    files: 'composer\.json'
+    pass_filenames: true

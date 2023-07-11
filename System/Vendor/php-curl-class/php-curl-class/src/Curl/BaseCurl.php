@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Curl;
 
@@ -15,8 +17,7 @@ abstract class BaseCurl
     /**
      * Before Send
      *
-     * @access public
-     * @param  $callback callable|null
+     * @param $callback callable|null
      */
     public function beforeSend($callback)
     {
@@ -28,8 +29,7 @@ abstract class BaseCurl
     /**
      * Complete
      *
-     * @access public
-     * @param  $callback callable|null
+     * @param $callback callable|null
      */
     public function complete($callback)
     {
@@ -38,8 +38,6 @@ abstract class BaseCurl
 
     /**
      * Disable Timeout
-     *
-     * @access public
      */
     public function disableTimeout()
     {
@@ -49,8 +47,7 @@ abstract class BaseCurl
     /**
      * Error
      *
-     * @access public
-     * @param  $callback callable|null
+     * @param $callback callable|null
      */
     public function error($callback)
     {
@@ -60,14 +57,12 @@ abstract class BaseCurl
     /**
      * Get Opt
      *
-     * @access public
-     * @param  $option
-     *
+     * @param        $option
      * @return mixed
      */
     public function getOpt($option)
     {
-        return isset($this->options[$option]) ? $this->options[$option] : null;
+        return $this->options[$option] ?? null;
     }
 
     /**
@@ -76,8 +71,7 @@ abstract class BaseCurl
      * Remove an internal header from the request.
      * Using `curl -H "Host:" ...' is equivalent to $curl->removeHeader('Host');.
      *
-     * @access public
-     * @param  $key
+     * @param $key
      */
     public function removeHeader($key)
     {
@@ -87,7 +81,7 @@ abstract class BaseCurl
     /**
      * Set auto referer
      *
-     * @access public
+     * @param mixed $auto_referer
      */
     public function setAutoReferer($auto_referer = true)
     {
@@ -97,7 +91,7 @@ abstract class BaseCurl
     /**
      * Set auto referrer
      *
-     * @access public
+     * @param mixed $auto_referrer
      */
     public function setAutoReferrer($auto_referrer = true)
     {
@@ -107,9 +101,8 @@ abstract class BaseCurl
     /**
      * Set Basic Authentication
      *
-     * @access public
-     * @param  $username
-     * @param  $password
+     * @param $username
+     * @param $password
      */
     public function setBasicAuthentication($username, $password = '')
     {
@@ -120,8 +113,7 @@ abstract class BaseCurl
     /**
      * Set Connect Timeout
      *
-     * @access public
-     * @param  $seconds
+     * @param $seconds
      */
     public function setConnectTimeout($seconds)
     {
@@ -137,9 +129,8 @@ abstract class BaseCurl
     /**
      * Set Digest Authentication
      *
-     * @access public
-     * @param  $username
-     * @param  $password
+     * @param $username
+     * @param $password
      */
     public function setDigestAuthentication($username, $password = '')
     {
@@ -150,8 +141,7 @@ abstract class BaseCurl
     /**
      * Set File
      *
-     * @access public
-     * @param  $file
+     * @param $file
      */
     public function setFile($file)
     {
@@ -166,7 +156,7 @@ abstract class BaseCurl
     /**
      * Set follow location
      *
-     * @access public
+     * @param mixed $follow_location
      * @see    Curl::setMaximumRedirects()
      */
     public function setFollowLocation($follow_location = true)
@@ -177,7 +167,7 @@ abstract class BaseCurl
     /**
      * Set forbid reuse
      *
-     * @access public
+     * @param mixed $forbid_reuse
      */
     public function setForbidReuse($forbid_reuse = true)
     {
@@ -193,8 +183,7 @@ abstract class BaseCurl
      * The name of the outgoing network interface to use.
      * This can be an interface name, an IP address or a host name.
      *
-     * @access public
-     * @param  $interface
+     * @param $interface
      */
     public function setInterface($interface)
     {
@@ -206,7 +195,7 @@ abstract class BaseCurl
     /**
      * Set maximum redirects
      *
-     * @access public
+     * @param mixed $maximum_redirects
      * @see    Curl::setFollowLocation()
      */
     public function setMaximumRedirects($maximum_redirects)
@@ -225,8 +214,7 @@ abstract class BaseCurl
     /**
      * Set Port
      *
-     * @access public
-     * @param  $port
+     * @param $port
      */
     public function setPort($port)
     {
@@ -238,11 +226,10 @@ abstract class BaseCurl
      *
      * Set an HTTP proxy to tunnel requests through.
      *
-     * @access public
-     * @param  $proxy - The HTTP proxy to tunnel requests through. May include port number.
-     * @param  $port - The port number of the proxy to connect to. This port number can also be set in $proxy.
-     * @param  $username - The username to use for the connection to the proxy.
-     * @param  $password - The password to use for the connection to the proxy.
+     * @param $proxy    - The HTTP proxy to tunnel requests through. May include port number.
+     * @param $port     - The port number of the proxy to connect to. This port number can also be set in $proxy.
+     * @param $username - The username to use for the connection to the proxy.
+     * @param $password - The password to use for the connection to the proxy.
      */
     public function setProxy($proxy, $port = null, $username = null, $password = null)
     {
@@ -260,8 +247,7 @@ abstract class BaseCurl
      *
      * Set the HTTP authentication method(s) to use for the proxy connection.
      *
-     * @access public
-     * @param  $auth
+     * @param $auth
      */
     public function setProxyAuth($auth)
     {
@@ -273,8 +259,7 @@ abstract class BaseCurl
      *
      * Set the proxy to tunnel through HTTP proxy.
      *
-     * @access public
-     * @param  $tunnel boolean
+     * @param $tunnel boolean
      */
     public function setProxyTunnel($tunnel = true)
     {
@@ -286,8 +271,7 @@ abstract class BaseCurl
      *
      * Set the proxy protocol type.
      *
-     * @access public
-     * @param  $type
+     * @param $type
      */
     public function setProxyType($type)
     {
@@ -297,8 +281,7 @@ abstract class BaseCurl
     /**
      * Set Range
      *
-     * @access public
-     * @param  $range
+     * @param $range
      */
     public function setRange($range)
     {
@@ -313,8 +296,7 @@ abstract class BaseCurl
     /**
      * Set Referer
      *
-     * @access public
-     * @param  $referer
+     * @param $referer
      */
     public function setReferer($referer)
     {
@@ -324,8 +306,7 @@ abstract class BaseCurl
     /**
      * Set Referrer
      *
-     * @access public
-     * @param  $referrer
+     * @param $referrer
      */
     public function setReferrer($referrer)
     {
@@ -337,8 +318,7 @@ abstract class BaseCurl
     /**
      * Set Timeout
      *
-     * @access public
-     * @param  $seconds
+     * @param $seconds
      */
     public function setTimeout($seconds)
     {
@@ -355,8 +335,7 @@ abstract class BaseCurl
     /**
      * Set User Agent
      *
-     * @access public
-     * @param  $user_agent
+     * @param $user_agent
      */
     public function setUserAgent($user_agent)
     {
@@ -374,8 +353,7 @@ abstract class BaseCurl
     /**
      * Success
      *
-     * @access public
-     * @param  $callback callable|null
+     * @param $callback callable|null
      */
     public function success($callback)
     {
@@ -388,8 +366,6 @@ abstract class BaseCurl
      * Unset Proxy
      *
      * Disable use of the proxy.
-     *
-     * @access public
      */
     public function unsetProxy()
     {
@@ -399,9 +375,8 @@ abstract class BaseCurl
     /**
      * Verbose
      *
-     * @access public
-     * @param  bool $on
-     * @param  resource|string $output
+     * @param bool            $on
+     * @param resource|string $output
      */
     public function verbose($on = true, $output = 'STDERR')
     {

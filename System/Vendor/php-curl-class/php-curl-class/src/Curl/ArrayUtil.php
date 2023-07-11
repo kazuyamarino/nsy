@@ -1,18 +1,16 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Curl;
-
-use Curl\CaseInsensitiveArray;
 
 class ArrayUtil
 {
     /**
      * Is Array Assoc
      *
-     * @access public
-     * @param  $array
-     *
-     * @return boolean
+     * @param       $array
+     * @return bool
      */
     public static function isArrayAssoc($array)
     {
@@ -26,10 +24,8 @@ class ArrayUtil
      * Is Array Assoc
      *
      * @deprecated Use ArrayUtil::isArrayAssoc().
-     * @access public
-     * @param  $array
-     *
-     * @return boolean
+     * @param       $array
+     * @return bool
      */
     public static function is_array_assoc($array)
     {
@@ -39,10 +35,8 @@ class ArrayUtil
     /**
      * Is Array Multidim
      *
-     * @access public
-     * @param  $array
-     *
-     * @return boolean
+     * @param       $array
+     * @return bool
      */
     public static function isArrayMultidim($array)
     {
@@ -57,10 +51,8 @@ class ArrayUtil
      * Is Array Multidim
      *
      * @deprecated Use ArrayUtil::isArrayMultidim().
-     * @access public
-     * @param  $array
-     *
-     * @return boolean
+     * @param       $array
+     * @return bool
      */
     public static function is_array_multidim($array)
     {
@@ -70,10 +62,8 @@ class ArrayUtil
     /**
      * Array Flatten Multidim
      *
-     * @access public
-     * @param  $array
-     * @param  $prefix
-     *
+     * @param        $array
+     * @param        $prefix
      * @return array
      */
     public static function arrayFlattenMultidim($array, $prefix = false)
@@ -124,10 +114,8 @@ class ArrayUtil
      * Array Flatten Multidim
      *
      * @deprecated Use ArrayUtil::arrayFlattenMultidim().
-     * @access public
-     * @param  $array
-     * @param  $prefix
-     *
+     * @param        $array
+     * @param        $prefix
      * @return array
      */
     public static function array_flatten_multidim($array, $prefix = false)
@@ -138,9 +126,7 @@ class ArrayUtil
     /**
      * Array Random
      *
-     * @access public
-     * @param  $array
-     *
+     * @param        $array
      * @return mixed
      */
     public static function arrayRandom($array)
@@ -151,10 +137,8 @@ class ArrayUtil
     /**
      * Array Random Index
      *
-     * @access public
-     * @param  $array
-     *
-     * @return integer
+     * @param      $array
+     * @return int
      */
     public static function arrayRandomIndex($array)
     {
@@ -165,9 +149,7 @@ class ArrayUtil
      * Array Random
      *
      * @deprecated Use ArrayUtil::arrayRandom().
-     * @access public
-     * @param  $array
-     *
+     * @param        $array
      * @return mixed
      */
     public static function array_random($array)

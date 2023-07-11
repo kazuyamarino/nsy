@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Curl;
 
@@ -7,11 +9,10 @@ class Decoder
     /**
      * Decode JSON
      *
-     * @access public
-     * @param  $json
-     * @param  $assoc
-     * @param  $depth
-     * @param  $options
+     * @param $json
+     * @param $assoc
+     * @param $depth
+     * @param $options
      */
     public static function decodeJson()
     {
@@ -26,12 +27,11 @@ class Decoder
     /**
      * Decode XML
      *
-     * @access public
-     * @param  $data
-     * @param  $class_name
-     * @param  $options
-     * @param  $ns
-     * @param  $is_prefix
+     * @param $data
+     * @param $class_name
+     * @param $options
+     * @param $ns
+     * @param $is_prefix
      */
     public static function decodeXml()
     {
