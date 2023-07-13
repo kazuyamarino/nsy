@@ -9,7 +9,7 @@ run_migration() {
 		entry=$1
 
 		project_name=$(basename $PWD)
-		hs_name=$(hostname -i)
+		hs_name='127.0.0.1'
 		
 		case $entry in
 			"all")
