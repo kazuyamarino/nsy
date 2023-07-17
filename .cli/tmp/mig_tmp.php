@@ -21,7 +21,7 @@ class mig_tmp_class
 	{
 		Mig::connect()->create_table('mig_tmp', function () {
 			return Mig::cols([
-				'id' => Mig::bigint(),
+				Mig::bigint('id', 20)->auto_increment(),
 				# add columns here...
 				Mig::primary('id')
 			]);
