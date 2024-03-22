@@ -2,6 +2,66 @@
 
 All notable changes of the PHPUnit 9.6 release series are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
+## [9.6.18] - 2024-03-21
+
+### Changed
+
+* [#5763](https://github.com/sebastianbergmann/phpunit/issues/5763): Release nullable type changes for PHPUnit 9.6
+
+## [9.6.17] - 2024-02-23
+
+### Changed
+
+* Improve output of `--check-version` CLI option
+* Improve description of `--check-version` CLI option
+* Show help for `--manifest`, `--sbom`, and `--composer-lock` when the PHAR is used
+
+### Fixed
+
+* [#5712](https://github.com/sebastianbergmann/phpunit/issues/5712): Update dependencies for PHAR distribution of PHPUnit 9.6
+
+## [9.6.16] - 2024-01-19
+
+### Changed
+
+* Make PHAR build reproducible (the only remaining differences were in the timestamps for the files in the PHAR)
+
+### Fixed
+
+* [#5516](https://github.com/sebastianbergmann/phpunit/issues/5516): Assertions that use the `LogicalNot` constraint (`assertNotEquals()`, `assertStringNotContainsString()`, ...) can generate confusing failure messages
+* [#5666](https://github.com/sebastianbergmann/phpunit/issues/5666): `--no-extensions` CLI option does not work
+* [#5673](https://github.com/sebastianbergmann/phpunit/issues/5673): Confusing error message when migration of a configuration is requested that does not need to be migrated
+
+## [9.6.15] - 2023-12-01
+
+### Fixed
+
+* [#5596](https://github.com/sebastianbergmann/phpunit/issues/5596): `PHPUnit\Framework\TestCase` has `@internal` annotation in PHAR
+
+## [9.6.14] - 2023-12-01
+
+### Added
+
+* [#5577](https://github.com/sebastianbergmann/phpunit/issues/5577): `--composer-lock` CLI option for PHAR binary that displays the `composer.lock` used to build the PHAR
+
+## [9.6.13] - 2023-09-19
+
+### Changed
+
+* The child processes used for process isolation now use temporary files to communicate their result to the parent process
+
+## [9.6.12] - 2023-09-12
+
+### Changed
+
+* [#5508](https://github.com/sebastianbergmann/phpunit/pull/5508): Generate code coverage report in PHP format as first in list to avoid serializing cache data
+
+## [9.6.11] - 2023-08-19
+
+### Added
+
+* [#5478](https://github.com/sebastianbergmann/phpunit/pull/5478):  `assertObjectHasProperty()` and `assertObjectNotHasProperty()`
+
 ## [9.6.10] - 2023-07-10
 
 ### Changed
@@ -77,6 +137,14 @@ All notable changes of the PHPUnit 9.6 release series are documented in this fil
 * [#5064](https://github.com/sebastianbergmann/phpunit/issues/5064): Deprecate `PHPUnit\Framework\TestCase::getMockClass()`
 * [#5132](https://github.com/sebastianbergmann/phpunit/issues/5132): Deprecate `Test` suffix for abstract test case classes
 
+[9.6.18]: https://github.com/sebastianbergmann/phpunit/compare/9.6.17...9.6.18
+[9.6.17]: https://github.com/sebastianbergmann/phpunit/compare/9.6.16...9.6.17
+[9.6.16]: https://github.com/sebastianbergmann/phpunit/compare/9.6.15...9.6.16
+[9.6.15]: https://github.com/sebastianbergmann/phpunit/compare/9.6.14...9.6.15
+[9.6.14]: https://github.com/sebastianbergmann/phpunit/compare/9.6.13...9.6.14
+[9.6.13]: https://github.com/sebastianbergmann/phpunit/compare/9.6.12...9.6.13
+[9.6.12]: https://github.com/sebastianbergmann/phpunit/compare/9.6.11...9.6.12
+[9.6.11]: https://github.com/sebastianbergmann/phpunit/compare/9.6.10...9.6.11
 [9.6.10]: https://github.com/sebastianbergmann/phpunit/compare/9.6.9...9.6.10
 [9.6.9]: https://github.com/sebastianbergmann/phpunit/compare/9.6.8...9.6.9
 [9.6.8]: https://github.com/sebastianbergmann/phpunit/compare/9.6.7...9.6.8

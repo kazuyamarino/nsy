@@ -37,7 +37,7 @@ Installation instructions to use the `composer` command can be found on https://
 
 ### Requirements
 
-PHP Curl Class works with PHP 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1, and 8.2.
+PHP Curl Class works with PHP 8.3, 8.2, 8.1, 8.0, 7.4, 7.3, 7.2, 7.1, and 7.0.
 
 ### Quick Start and Examples
 
@@ -199,6 +199,7 @@ More examples are available under [/examples](https://github.com/php-curl-class/
 Curl::__construct($base_url = null, $options = [])
 Curl::__destruct()
 Curl::__get($name)
+Curl::afterSend($callback)
 Curl::attemptRetry()
 Curl::beforeSend($callback)
 Curl::buildPostData($data)
@@ -208,7 +209,7 @@ Curl::complete($callback)
 Curl::delete($url, $query_parameters = [], $data = [])
 Curl::diagnose($return = false)
 Curl::disableTimeout()
-Curl::displayCurlOptionValue($option, $value)
+Curl::displayCurlOptionValue($option, $value = null)
 Curl::download($url, $mixed_filename)
 Curl::error($callback)
 Curl::exec($ch = null)
@@ -322,6 +323,7 @@ MultiCurl::addPatch($url, $data = [])
 MultiCurl::addPost($url, $data = '', $follow_303_with_post = false)
 MultiCurl::addPut($url, $data = [])
 MultiCurl::addSearch($url, $data = [])
+MultiCurl::afterSend($callback)
 MultiCurl::beforeSend($callback)
 MultiCurl::close()
 MultiCurl::complete($callback)
