@@ -3,7 +3,7 @@
         'name' => 'vikry/nsy',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'a1ea2c865a893e447937cda0ee175bc7f2798b44',
+        'reference' => '1c94a90d1cbc6b2eb880a1def6e0c0e89be7ef11',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -286,6 +286,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'rakit/validation' => array(
+            'pretty_version' => 'v1.4.0',
+            'version' => '1.4.0.0',
+            'reference' => 'ff003a35cdf5030a5f2482299f4c93f344a35b29',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../rakit/validation',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'sebastian/cli-parser' => array(
             'pretty_version' => '1.0.2',
             'version' => '1.0.2.0',
@@ -538,7 +547,7 @@
         'vikry/nsy' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'a1ea2c865a893e447937cda0ee175bc7f2798b44',
+            'reference' => '1c94a90d1cbc6b2eb880a1def6e0c0e89be7ef11',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),

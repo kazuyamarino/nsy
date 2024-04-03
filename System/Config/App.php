@@ -179,7 +179,7 @@ return [
 	| define the template directory path
 	|
 	*/
-	'tmp_dir' => __DIR__ . '/../Templates',
+	'tmp_dir' => __DIR__ . '/../Apps/Templates',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -189,7 +189,7 @@ return [
 	| define the MVC View directory path
 	|
 	*/
-	'mvc_dir' => __DIR__ . '/../Views',
+	'mvc_dir' => __DIR__ . '/../Apps/General/Views',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -199,7 +199,7 @@ return [
 	| define the HMVC View directory path
 	|
 	*/
-	'hmvc_dir' => __DIR__ . '/../Modules',
+	'hmvc_dir' => __DIR__ . '/../Apps/Modules',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -256,6 +256,6 @@ return [
 	| Make sure the route class is already in the 'System/Routes' directory.
 	|
 	*/
-	'routes' => ['Hmvc']
+	'routes' => []
 
 ];

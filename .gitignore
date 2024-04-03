@@ -8,11 +8,11 @@
 public/.htaccess
 
 System/Test
-System/Controllers/Controller_Test.php
-System/Models/Model_Test.php
-System/Views/View_Test.php
+System/Apps/General/Controllers/Controller_Test.php
+System/Apps/General/Controllers/C_Test_Route.php
+System/Apps/General/Models/Model_Test.php
+System/Apps/General/Views/View_Test.php
 System/Migrations/Migration_Test.php
 
 System/Routes/Test_Route.php
-System/Controllers/C_Test_Route.php
-System/Modules/*/Controllers/C_Test_Route_HMVC.php
+System/Apps/Modules/*/Controllers/C_Test_Route_HMVC.php

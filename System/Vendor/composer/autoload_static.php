@@ -40,6 +40,10 @@ class ComposerStaticInityour_suffixed
             'Symfony\\Component\\Translation\\' => 30,
             'Symfony\\Component\\HtmlSanitizer\\' => 32,
         ),
+        'R' => 
+        array (
+            'Rakit\\Validation\\' => 17,
+        ),
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
@@ -137,6 +141,10 @@ class ComposerStaticInityour_suffixed
         'Symfony\\Component\\HtmlSanitizer\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/html-sanitizer',
+        ),
+        'Rakit\\Validation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rakit/validation/src',
         ),
         'Psr\\Http\\Message\\' => 
         array (
