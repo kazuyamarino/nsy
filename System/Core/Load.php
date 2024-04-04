@@ -58,7 +58,7 @@ class Load
 		self::$razr = new Engine(new FilesystemLoader(get_vendor_dir()));
 
 		if (is_array($vars) || is_object($vars)) {
-			echo self::$razr->render(get_system_dir() . $filename . '.php', $vars);
+			echo self::$razr->render(get_system_tmp_dir() . $filename . '.php', $vars);
 		} else {
 			$var_msg = 'The variable in the <mark>Load::template()</mark> is improper or not an array';
 			NSY_Desk::static_error_handler($var_msg);

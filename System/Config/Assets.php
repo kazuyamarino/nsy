@@ -35,7 +35,7 @@ function header_assets()
 function footer_assets()
 {
 	// System JS
-	Add::script('config/system.js', 'text/javascript', 'UTF-8');
+	Add::script('Config/system.js', 'text/javascript', 'UTF-8');
 
 	// Main JS
 	Add::script('main.js', 'text/javascript', 'UTF-8');

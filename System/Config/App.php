@@ -169,7 +169,7 @@ return [
 	| set the default image directory
 	|
 	*/
-	'img_dir' => 'img',
+	'img_dir' => 'images',
 
 	/*
 	|--------------------------------------------------------------------------

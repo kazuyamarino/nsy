@@ -718,12 +718,12 @@ if (!function_exists('get_hmvc_view_dir')) {
 	}
 }
 
-if (!function_exists('get_system_dir')) {
+if (!function_exists('get_system_tmp_dir')) {
 	/**
-	 * Get HMVC View directory
+	 * Get System directory
 	 * @return string
 	 */
-	function get_system_dir()
+	function get_system_tmp_dir()
 	{
 		return SYS_TMP_DIR;
 	}
