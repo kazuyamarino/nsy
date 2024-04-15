@@ -10,7 +10,7 @@ run_help() {
 	printf "AUTHOR :\n"
 	printf " Vikry Yuansah\n\n"
 	printf "LINK :\n"
-	printf " https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#nsy-cli-command-line\n\n"
+	printf " https://github.com/kazuyamarino/nsy-docs/blob/master/OVERVIEW.md#nsy-cli-command-line-interface\n\n"
 
 	printf "COMMANDS :\n"
 	printf " --install\t\t Install or update NSY CLI\n"
