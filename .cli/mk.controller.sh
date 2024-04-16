@@ -19,14 +19,14 @@ make_controller() {
 					conname=$2
 
 					# Create 'mvc' controller
-					if [ ! -e ./System/Controllers/"$conname.php" ]
+					if [ ! -e ./System/Apps/General/Controllers/"$conname.php" ]
 					then
 						# Create 'mvc' controller
-						cp .cli/tmp/cm_ctrl.php ./System/Controllers/"$conname.php"
-						sed -i "s/cm_ctrl/$conname/g" ./System/Controllers/"$conname.php"
+						cp .cli/tmp/cm_ctrl.php ./System/Apps/General/Controllers/"$conname.php"
+						sed -i "s/cm_ctrl/$conname/g" ./System/Apps/General/Controllers/"$conname.php"
 
 						printf "Controller created\n"
-						printf "see the results in the 'System/Controllers' directory\n"
+						printf "see the results in the 'System/Apps/General/Controllers' directory\n"
 					else
 						printf "Controller already exists\n"
 					fi
@@ -42,7 +42,7 @@ make_controller() {
 					dirname=$2
 
 					# if directory doesnt exist
-					if [ ! -d ./System/Modules/$dirname ]
+					if [ ! -d ./System/Apps/Modules/$dirname ]
 					then
 						printf "Module doesn't exists\n"
 					else # if exist
@@ -55,14 +55,14 @@ make_controller() {
 							conname=$3
 
 							# Create 'hmvc' controller
-							if [ ! -e ./System/Modules/$dirname/Controllers/"$conname.php" ]
+							if [ ! -e ./System/Apps/Modules/$dirname/Controllers/"$conname.php" ]
 							then
-								cp .cli/tmp/md_ctrl.php ./System/Modules/$dirname/Controllers/"$conname.php"
-								sed -i "s/md_ctrl/$conname/g" ./System/Modules/$dirname/Controllers/"$conname.php"
-								sed -i "s/ModuleName/"$(echo "$dirname" |sed -e "s/\b\(.\)/\u\1/g")"/g" ./System/Modules/$dirname/Controllers/"$conname.php"
+								cp .cli/tmp/md_ctrl.php ./System/Apps/Modules/$dirname/Controllers/"$conname.php"
+								sed -i "s/md_ctrl/$conname/g" ./System/Apps/Modules/$dirname/Controllers/"$conname.php"
+								sed -i "s/ModuleName/"$(echo "$dirname" |sed -e "s/\b\(.\)/\u\1/g")"/g" ./System/Apps/Modules/$dirname/Controllers/"$conname.php"
 
 							    printf "Controller created\n"
-								printf "see the results in the 'System/Modules/$dirname/Controllers' directory\n"
+								printf "see the results in the 'System/Apps/Modules/$dirname/Controllers' directory\n"
 							else
 								printf "Controller already exists\n"
 							fi

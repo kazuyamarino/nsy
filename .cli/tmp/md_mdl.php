@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Modules\ModuleName\Models;
+namespace System\Apps\Modules\ModuleName\Models;
 
 use System\Core\DB;
 

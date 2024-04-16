@@ -1,11 +1,11 @@
 #!/bin/bash
 show_module() {
-	count=`ls -1 System/Modules/* 2>/dev/null | wc -l`
+	count=`ls -1 System/Apps/Modules/* 2>/dev/null | wc -l`
 	if [ $count != 0 ]; then
 		# List of modules
 		printf "List of 'hmvc' modules :\n"
 		printf "==========================\n"
-		ls -d System/Modules/* | awk -F"/" '{print NR".", $NF}'
+		ls -d System/Apps/Modules/* | awk -F"/" '{print NR".", $NF}'
 		printf "==========================\n"
 	else
 		# List of empty modules

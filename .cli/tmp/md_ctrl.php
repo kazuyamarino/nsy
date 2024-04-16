@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Modules\ModuleName\Controllers;
+namespace System\Apps\Modules\ModuleName\Controllers;
 
 use System\Core\Load;
 

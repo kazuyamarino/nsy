@@ -19,14 +19,14 @@ make_model() {
 					conname=$2
 
 					# Create 'mvc' model
-					if [ ! -e ./System/Models/"$conname.php" ]
+					if [ ! -e ./System/Apps/General/Models/"$conname.php" ]
 					then
 						# Create 'mvc' model
-						cp .cli/tmp/cm_mdl.php ./System/Models/"$conname.php"
-						sed -i "s/cm_mdl/$conname/g" ./System/Models/"$conname.php"
+						cp .cli/tmp/cm_mdl.php ./System/Apps/General/Models/"$conname.php"
+						sed -i "s/cm_mdl/$conname/g" ./System/Apps/General/Models/"$conname.php"
 
 						printf "Model created\n"
-						printf "see the results in the 'System/Models' directory\n"
+						printf "see the results in the 'System/Apps/General/Models' directory\n"
 					else
 						printf "Model already exists\n"
 					fi
@@ -42,7 +42,7 @@ make_model() {
 					dirname=$2
 
 					# if directory doesnt exist
-					if [ ! -d ./System/Modules/$dirname ]
+					if [ ! -d ./System/Apps/Modules/$dirname ]
 					then
 						printf "Module doesn't exists\n"
 					else # if exist
@@ -55,14 +55,14 @@ make_model() {
 							conname=$3
 
 							# Create 'hmvc' model
-							if [ ! -e ./System/Modules/$dirname/Models/"$conname.php" ]
+							if [ ! -e ./System/Apps/Modules/$dirname/Models/"$conname.php" ]
 							then
-								cp .cli/tmp/md_mdl.php ./System/Modules/$dirname/Models/"$conname.php"
-								sed -i "s/md_mdl/$conname/g" ./System/Modules/$dirname/Models/"$conname.php"
-								sed -i "s/ModuleName/"$(echo "$dirname" |sed -e "s/\b\(.\)/\u\1/g")"/g" ./System/Modules/$dirname/Models/"$conname.php"
+								cp .cli/tmp/md_mdl.php ./System/Apps/Modules/$dirname/Models/"$conname.php"
+								sed -i "s/md_mdl/$conname/g" ./System/Apps/Modules/$dirname/Models/"$conname.php"
+								sed -i "s/ModuleName/"$(echo "$dirname" |sed -e "s/\b\(.\)/\u\1/g")"/g" ./System/Apps/Modules/$dirname/Models/"$conname.php"
 
 							    printf "Model created\n"
-								printf "see the results in the 'System/Modules/$dirname/Models' directory\n"
+								printf "see the results in the 'System/Apps/Modules/$dirname/Models' directory\n"
 							else
 								printf "Model already exists\n"
 							fi
