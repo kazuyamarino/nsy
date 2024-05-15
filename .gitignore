@@ -35,5 +35,5 @@ System/Apps/General/Models/M_Test_Getdata.php
 System/Apps/General/Models/M_Test_DB.php
 System/Apps/General/Models/M_Test_DBCon.php
 
-System/Apps/General/Views/View_Test.php
+System/Apps/General/Views/View_Test_CSRF.php
 System/Apps/General/Views/View_Test_Validator.php
