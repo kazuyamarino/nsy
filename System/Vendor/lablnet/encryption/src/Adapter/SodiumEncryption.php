@@ -18,6 +18,8 @@ namespace Lablnet\Adapter;
 
 class SodiumEncryption extends AbstractAdapter
 {
+    private $key;
+    
     /**
      * __Construct.
      *

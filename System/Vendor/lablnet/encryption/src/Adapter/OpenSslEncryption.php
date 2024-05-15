@@ -36,6 +36,8 @@ class OpenSslEncryption
      */
     private $cipher = 'AES-256-CBC';
 
+    private $key;
+    
     /**
      * __Construct.
      *
