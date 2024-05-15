@@ -258,6 +258,6 @@ return [
 	| Make sure the route class is already in the 'System/Routes' directory.
 	|
 	*/
-	'routes' => ["Test_Route"]
+	'routes' => []
 
 ];
