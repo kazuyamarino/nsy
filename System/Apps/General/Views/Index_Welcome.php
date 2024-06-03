@@ -1,6 +1,6 @@
 <div class="wrap">
 	<div style="text-align:center">
-		<h2>Hello, @( $mvc_page )! <a href="@( base_url('hmvc') )"><i class="fas fa-link"></i>Go To HMVC Page</a></h2>
+		<h2>Hello, @( $mvc_text )! <a href="@( base_url('hmvc') )"><i class="fas fa-link"></i>Go To HMVC Page</a></h2>
 		<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy/releases"><strong>Release Version&nbsp;</strong></a>|<a target="_blank" href="https://github.com/kazuyamarino/nsy"><strong>&nbsp;View On Github&nbsp;</strong></a></h4>
 		<div>
 			<div>
