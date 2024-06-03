@@ -348,17 +348,17 @@
         },
         {
             "name": "josantonius/session",
-            "version": "v2.0.8",
-            "version_normalized": "2.0.8.0",
+            "version": "v2.0.9",
+            "version_normalized": "2.0.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/josantonius/php-session.git",
-                "reference": "1621ac504fe2f92e74a62a50eeeebf6088a0d16f"
+                "reference": "1547efc7874e83cf720a3df57575d61b3dee107a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/josantonius/php-session/zipball/1621ac504fe2f92e74a62a50eeeebf6088a0d16f",
-                "reference": "1621ac504fe2f92e74a62a50eeeebf6088a0d16f",
+                "url": "https://api.github.com/repos/josantonius/php-session/zipball/1547efc7874e83cf720a3df57575d61b3dee107a",
+                "reference": "1547efc7874e83cf720a3df57575d61b3dee107a",
                 "shasum": ""
             },
             "require": {
@@ -369,7 +369,7 @@
                 "phpunit/phpunit": "^9.5",
                 "squizlabs/php_codesniffer": "^3.7"
             },
-            "time": "2022-09-29T20:37:55+00:00",
+            "time": "2024-05-20T09:12:44+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -3167,17 +3167,17 @@
         },
         {
             "name": "symfony/html-sanitizer",
-            "version": "v6.4.7",
-            "version_normalized": "6.4.7.0",
+            "version": "v6.4.8",
+            "version_normalized": "6.4.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/html-sanitizer.git",
-                "reference": "0ff5d77e3160c15db3dbc3515a4f0143e3e4a218"
+                "reference": "9de29a710320ee802374e479169c5a82f9ee7854"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/html-sanitizer/zipball/0ff5d77e3160c15db3dbc3515a4f0143e3e4a218",
-                "reference": "0ff5d77e3160c15db3dbc3515a4f0143e3e4a218",
+                "url": "https://api.github.com/repos/symfony/html-sanitizer/zipball/9de29a710320ee802374e479169c5a82f9ee7854",
+                "reference": "9de29a710320ee802374e479169c5a82f9ee7854",
                 "shasum": ""
             },
             "require": {
@@ -3186,7 +3186,7 @@
                 "masterminds/html5": "^2.7.2",
                 "php": ">=8.1"
             },
-            "time": "2024-04-18T09:22:46+00:00",
+            "time": "2024-05-31T14:51:39+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -3219,7 +3219,7 @@
                 "sanitizer"
             ],
             "support": {
-                "source": "https://github.com/symfony/html-sanitizer/tree/v6.4.7"
+                "source": "https://github.com/symfony/html-sanitizer/tree/v6.4.8"
             },
             "funding": [
                 {
@@ -3729,17 +3729,17 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v6.4.7",
-            "version_normalized": "6.4.7.0",
+            "version": "v6.4.8",
+            "version_normalized": "6.4.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "7495687c58bfd88b7883823747b0656d90679123"
+                "reference": "a002933b13989fc4bd0b58e04bf7eec5210e438a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/7495687c58bfd88b7883823747b0656d90679123",
-                "reference": "7495687c58bfd88b7883823747b0656d90679123",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/a002933b13989fc4bd0b58e04bf7eec5210e438a",
+                "reference": "a002933b13989fc4bd0b58e04bf7eec5210e438a",
                 "shasum": ""
             },
             "require": {
@@ -3776,7 +3776,7 @@
                 "symfony/service-contracts": "^2.5|^3",
                 "symfony/yaml": "^5.4|^6.0|^7.0"
             },
-            "time": "2024-04-18T09:22:46+00:00",
+            "time": "2024-05-31T14:49:08+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -3807,7 +3807,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v6.4.7"
+                "source": "https://github.com/symfony/translation/tree/v6.4.8"
             },
             "funding": [
                 {
