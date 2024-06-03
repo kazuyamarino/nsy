@@ -20,8 +20,8 @@ class Controller_Welcome extends Load
 	public function welcome()
 	{
 		$arr = [
-			'welcome_text' => $this->Model_Welcome->welcome_text(), // Call the welcome method from Model_Welcome
-			'mvc_text' => $this->Model_Welcome->mvc_text(), // Call the mvc_page method from Model_Hello inside the Homepage module
+			'welcome_text' => $this->Model_Welcome->welcome_text(), // Call the welcome_text method from Model_Welcome
+			'mvc_text' => $this->Model_Welcome->mvc_text(), // Call the mvc_text method from Model_Hello inside the Homepage module
 			'date' => Carbon::now() // Instantiate today's date with Carbon
 		];
 
