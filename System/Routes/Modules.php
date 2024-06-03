@@ -12,5 +12,5 @@
 
 // HMVC Route
 Route::get('/hmvc', function () {
-	Route::goto([System\Apps\Modules\HMVC\Controllers\Hello::class, 'index_hmvc']);
+	Route::goto([System\Apps\Modules\HMVC\Controllers\Controller_Hello::class, 'hello']);
 });
