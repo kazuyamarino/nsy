@@ -21,8 +21,8 @@
         "josantonius/cookie": "^2.0",
         "josantonius/json": "^2.0",
         "josantonius/session": "^2.0",
-        "nilportugues/sql-query-builder": "^1.8",
-        "rakit/validation": "^1.4"
+        "rakit/validation": "^1.4",
+        "latitude/latitude": "^4.2"
     },
     "autoload": {
         "psr-4": {
