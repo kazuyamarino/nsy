@@ -16,6 +16,11 @@ return [
 	'APP_DIR' => 'nsy',
 
 	/*
+	| Define Session Prefix
+	*/
+	'SESSION_PREFIX' => '',
+
+	/*
 	| Define Public directory name
 	*/
 	'PUBLIC_DIR' => 'public',

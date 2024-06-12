@@ -6,11 +6,9 @@
 /phpunit.xml
 /MIGRATIONLOG
 public/.htaccess
-
 System/Routes/Test_Route.php
 System/Test
 System/Migrations/Migration_Test.php
-
 System/Apps/General/Controllers/C_Test_General.php
 System/Apps/General/Controllers/C_Test_CSRF.php
 System/Apps/General/Controllers/C_Test_Validator.php
@@ -31,11 +29,9 @@ System/Apps/General/Controllers/C_Test_Getdata.php
 System/Apps/General/Controllers/C_Test_DB.php
 System/Apps/General/Controllers/C_Test_DBCon.php
 System/Apps/Modules/*/Controllers/C_Test_Route_HMVC.php
-
 System/Apps/General/Models/M_Test_DB.php
 System/Apps/General/Models/M_Test_DBCon.php
 System/Apps/General/Models/M_Test_Getdata.php
 System/Apps/General/Models/M_Test_QueryBuilder.php
-
 System/Apps/General/Views/View_Test_CSRF.php
 System/Apps/General/Views/View_Test_Validator.php

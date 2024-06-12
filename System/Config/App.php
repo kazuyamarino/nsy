@@ -99,7 +99,7 @@ return [
 	| set the default prefix for session
 	|
 	*/
-	'session_prefix' => '',
+	'session_prefix' => config_env('SESSION_PREFIX'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -253,7 +253,7 @@ return [
 	| User Defined Routes
 	|--------------------------------------------------------------------------
 	|
-	| This array is for registering route classes according to the user's wishes. 
+	| This array is for registering route classes according to the user's wishes.
 	| Make sure the route class is already in the 'System/Routes' directory.
 	|
 	*/
