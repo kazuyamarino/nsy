@@ -1,8 +1,6 @@
 # NSY Framework
 NSY is a simple PHP Framework that works well on MVC or HMVC mode.
 
-[![Build Status](https://travis-ci.com/kazuyamarino/nsy.svg?branch=master)](https://nsyframework.com/)
-
 Site example :
 [https://nsyframework.com/](https://nsyframework.com/)
 
