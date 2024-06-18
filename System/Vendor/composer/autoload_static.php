@@ -219,16 +219,6 @@ class ComposerStaticInityour_suffixed
         ),
     );
 
-    public static $prefixesPsr0 = array (
-        'F' => 
-        array (
-            'FtpClient' => 
-            array (
-                0 => __DIR__ . '/..' . '/nicolab/php-ftp-client/src',
-            ),
-        ),
-    );
-
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Carbon\\AbstractTranslator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/AbstractTranslator.php',
@@ -860,9 +850,6 @@ class ComposerStaticInityour_suffixed
         'Faker\\Provider\\zh_TW\\Text' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/zh_TW/Text.php',
         'Faker\\UniqueGenerator' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/UniqueGenerator.php',
         'Faker\\ValidGenerator' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/ValidGenerator.php',
-        'FtpClient\\FtpClient' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpClient.php',
-        'FtpClient\\FtpException' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpException.php',
-        'FtpClient\\FtpWrapper' => __DIR__ . '/..' . '/nicolab/php-ftp-client/src/FtpClient/FtpWrapper.php',
         'Josantonius\\Cookie\\Cookie' => __DIR__ . '/..' . '/josantonius/cookie/src/Cookie.php',
         'Josantonius\\Cookie\\Exceptions\\CookieException' => __DIR__ . '/..' . '/josantonius/cookie/src/Exceptions/CookieException.php',
         'Josantonius\\Cookie\\Facades\\Cookie' => __DIR__ . '/..' . '/josantonius/cookie/src/Facades/Cookie.php',
@@ -2166,7 +2153,6 @@ class ComposerStaticInityour_suffixed
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInityour_suffixed::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInityour_suffixed::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInityour_suffixed::$prefixesPsr0;
             $loader->classMap = ComposerStaticInityour_suffixed::$classMap;
 
         }, null, ClassLoader::class);
