@@ -11,10 +11,10 @@ class NSY_Migration
 {
 
 	// Declare properties for Helper
-	static $connection;
-	public $current_table;
-	static $primary;
-	static $datatype;
+	private static $connection;
+	protected static $primary;
+	protected static $datatype;
+	protected $current_table;
 
 	/**
 	 * Default Connection
@@ -251,7 +251,7 @@ class NSY_Migration
 	}
 
 	/**
-	 * Function for alter rename table (postgre)
+	 * Function for alter rename table (postgresql)
 	 *
 	 * @param string $old_table
 	 * @param string $new_table
@@ -519,8 +519,10 @@ class NSY_Migration
 	 * @param  array $cols
 	 * @return string
 	 */
-	public function index_pg($table, $type, $cols = array())
+	public function index_pg(string $type, $cols = [])
 	{
+		$table = $this->current_table;
+
 		if (is_filled($table)) {
 			if (is_array($cols) || is_object($cols)) {
 				$res = array();
@@ -546,7 +548,7 @@ class NSY_Migration
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					return true;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -570,7 +572,8 @@ class NSY_Migration
 		// Close the statement & connection
 		$stmt = null;
 		self::$connection = null;
-		exit();
+
+		return false;
 	}
 
 	/**
@@ -718,7 +721,7 @@ class NSY_Migration
 	}
 
 	/**
-	 * Function for add column (mysql/mariadb/postgre)
+	 * Function for add column (mysql/mariadb/postgresql)
 	 *
 	 * @param string  $table
 	 * @param \Closure $closure
@@ -774,7 +777,7 @@ class NSY_Migration
 	}
 
 	/**
-	 * Function for drop column (mysql/mariadb/postgre/mssql)
+	 * Function for drop column (mysql/mariadb/postgresql/mssql)
 	 *
 	 * @param string  $table
 	 * @param \Closure $closure
@@ -830,7 +833,7 @@ class NSY_Migration
 	}
 
 	/**
-	 * Function for alter column (mssql/postgre)
+	 * Function for alter column (mssql/postgresql)
 	 *
 	 * @param string  $table
 	 * @param \Closure $closure
@@ -950,7 +953,7 @@ class NSY_Migration
 	}
 
 	/**
-	 * Function for rename column (postgre)
+	 * Function for rename column (postgresql)
 	 *
 	 * @param string  $table
 	 * @param \Closure $closure
