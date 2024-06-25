@@ -256,7 +256,7 @@ class NSY_Migration
 	 * @param string $old_table
 	 * @param string $new_table
 	 */
-	public function alter_rename_table($old_table = '', $new_table = '')
+	public function pg_rename_table($old_table = '', $new_table = '')
 	{
 		if (is_filled($old_table) || is_filled($new_table)) {
 			$query = "ALTER TABLE $old_table RENAME TO $new_table;";
@@ -289,7 +289,7 @@ class NSY_Migration
 				}
 			}
 		} else {
-			$var_msg = "Table name in the <mark>alter_rename_table(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined";
+			$var_msg = "Table name in the <mark>pg_rename_table(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
@@ -510,7 +510,7 @@ class NSY_Migration
 	}
 
 	/**
-	 * Function for create indexes (pgsql)
+	 * Function for create indexes (postgresql)
 	 *
 	 * Define Indexes Key
 	 *
@@ -519,7 +519,7 @@ class NSY_Migration
 	 * @param  array $cols
 	 * @return string
 	 */
-	public function index_pg(string $type, $cols = [])
+	public function pg_index(string $type, $cols = [])
 	{
 		$table = $this->current_table;
 
@@ -564,7 +564,7 @@ class NSY_Migration
 				}
 			}
 		} else {
-			$var_msg = "Table name in the <mark>index_pg(<strong>value</strong>)</mark> is empty or undefined";
+			$var_msg = "Table name in the <mark>pg_index(<strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
@@ -941,7 +941,7 @@ class NSY_Migration
 	}
 
 	/**
-	 * Function for rename column (postgresql)
+	 * Function for rename column (mysql/mariadb/postgresql)
 	 *
 	 * @param string  $table
 	 * @param array $columns
