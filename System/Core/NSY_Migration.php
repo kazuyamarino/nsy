@@ -668,32 +668,30 @@ class NSY_Migration
 	 * Function for add column (mssql)
 	 *
 	 * @param string  $table
-	 * @param \Closure $closure
+	 * @param array $columns
 	 */
-	public function add(string $table = null, \Closure $closure)
+	public function add(string $table = null, array $columns = [])
 	{
 		if (is_filled($table)) {
-			$closure_res = array();
-			foreach ($closure() as $closure_dt) {
-				$closure_res[] = 'ALTER TABLE ' . $table . ' ADD ' . ' ' . $closure_dt;
-			}
-			$closure_imp = implode(";\n", $closure_res) . ";\n";
-
-			$query = $closure_imp;
-			echo '<pre>' . $query . '</pre>';
-
 			// Check if there's connection defined on the models
 			if (not_filled(self::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
+				foreach ($columns as $closure_dt) {
+					$query = 'ALTER TABLE ' . $table . ' ADD ' . ' ' . $closure_dt . ';';
+
+					echo '<pre>' . $query . '</pre>';
+
+					// execute it
+					$stmt = self::$connection->prepare($query);
+					$executed = $stmt->execute();
+				}
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -724,32 +722,29 @@ class NSY_Migration
 	 * Function for add column (mysql/mariadb/postgresql)
 	 *
 	 * @param string  $table
-	 * @param \Closure $closure
+	 * @param array $columns
 	 */
-	public function add_cols(string $table = null, \Closure $closure)
+	public function add_cols(string $table = null, array $columns = [])
 	{
 		if (is_filled($table)) {
-			$closure_res = array();
-			foreach ($closure() as $closure_dt) {
-				$closure_res[] = 'ALTER TABLE ' . $table . ' ADD COLUMN ' . ' ' . $closure_dt;
-			}
-			$closure_imp = implode(";\n", $closure_res) . ";\n";
-
-			$query = $closure_imp;
-			echo '<pre>' . $query . '</pre>';
-
 			// Check if there's connection defined on the models
 			if (not_filled(self::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
+				foreach ($columns as $closure_dt) {
+					$query = 'ALTER TABLE ' . $table . ' ADD COLUMN ' . ' ' . $closure_dt . ';';
+					echo '<pre>' . $query . '</pre>';
+
+					// execute it
+					$stmt = self::$connection->prepare($query);
+					$executed = $stmt->execute();
+				}
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -780,32 +775,29 @@ class NSY_Migration
 	 * Function for drop column (mysql/mariadb/postgresql/mssql)
 	 *
 	 * @param string  $table
-	 * @param \Closure $closure
+	 * @param array $columns
 	 */
-	public function drop_cols(string $table = null, \Closure $closure)
+	public function drop_cols(string $table = null, array $columns = [])
 	{
 		if (is_filled($table)) {
-			$closure_res = array();
-			foreach ($closure() as $closure_dt) {
-				$closure_res[] = 'ALTER TABLE ' . $table . ' DROP COLUMN ' . $closure_dt;
-			}
-			$closure_imp = implode(";\n", $closure_res) . ";\n";
-
-			$query = $closure_imp;
-			echo '<pre>' . $query . '</pre>';
-
 			// Check if there's connection defined on the models
 			if (not_filled(self::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
+				foreach ($columns as $closure_dt) {
+					$query = 'ALTER TABLE ' . $table . ' DROP COLUMN ' . $closure_dt . ';';
+					echo '<pre>' . $query . '</pre>';
+
+					// execute it
+					$stmt = self::$connection->prepare($query);
+					$executed = $stmt->execute();
+				}
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -836,36 +828,34 @@ class NSY_Migration
 	 * Function for alter column (mssql/postgresql)
 	 *
 	 * @param string  $table
-	 * @param \Closure $closure
+	* @param array $columns
 	 */
-	public function alter_cols(string $table = null, \Closure $closure)
+	public function alter_cols(string $table = null, array $columns = [])
 	{
 		if (is_filled($table)) {
-			$closure_res = array();
-			foreach ($closure() as $key => $closure_dt) {
-				if (strpos($closure_dt, 'PRIMARY') || strpos($closure_dt, 'UNIQUE')) {
-					$closure_res[] = 'ALTER TABLE ' . $table . ' ADD ' . $closure_dt;
-				} else {
-					$closure_res[] = 'ALTER TABLE ' . $table . ' ALTER COLUMN ' . $key . ' ' . $closure_dt;
-				}
-			}
-			$closure_imp = implode(";\n", $closure_res) . ";\n";
-
-			$query = $closure_imp;
-			echo '<pre>' . $query . '</pre>';
-
 			// Check if there's connection defined on the models
 			if (not_filled(self::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
+				foreach ($columns as $key => $closure_dt) {
+					if (strpos($closure_dt, 'PRIMARY') || strpos($closure_dt, 'UNIQUE')) {
+						$query = 'ALTER TABLE ' . $table . ' ADD ' . $closure_dt . ';';
+					} else {
+						$query = 'ALTER TABLE ' . $table . ' ALTER COLUMN ' . $key . ' ' . $closure_dt . ';';
+					}
+
+					echo '<pre>' . $query . '</pre>';
+
+					// execute it
+					$stmt = self::$connection->prepare($query);
+					$executed = $stmt->execute();
+				}
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -896,36 +886,34 @@ class NSY_Migration
 	 * Function for modify column (mysql/mariadb)
 	 *
 	 * @param string  $table
-	 * @param \Closure $closure
+	 * @param array $columns
 	 */
-	public function modify_cols(string $table = null, \Closure $closure)
+	public function modify_cols(string $table = null, array $columns = [])
 	{
 		if (is_filled($table)) {
-			$closure_res = array();
-			foreach ($closure() as $closure_dt) {
-				if (strpos($closure_dt, 'PRIMARY') || strpos($closure_dt, 'UNIQUE')) {
-					$closure_res[] = 'ALTER TABLE ' . $table . ' ADD ' . $closure_dt;
-				} else {
-					$closure_res[] = 'ALTER TABLE ' . $table . ' MODIFY COLUMN ' . ' ' . $closure_dt;
-				}
-			}
-			$closure_imp = implode(";\n", $closure_res) . ";\n";
-
-			$query = $closure_imp;
-			echo '<pre>' . $query . '</pre>';
-
 			// Check if there's connection defined on the models
 			if (not_filled(self::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
+				foreach ($columns as $closure_dt) {
+					if (strpos($closure_dt, 'PRIMARY') || strpos($closure_dt, 'UNIQUE')) {
+						$query = 'ALTER TABLE ' . $table . ' ADD ' . $closure_dt . ';';
+					} else {
+						$query = 'ALTER TABLE ' . $table . ' MODIFY COLUMN ' . ' ' . $closure_dt . ';';
+					}
+
+					echo '<pre>' . $query . '</pre>';
+
+					// execute it
+					$stmt = self::$connection->prepare($query);
+					$executed = $stmt->execute();
+				}
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -956,32 +944,29 @@ class NSY_Migration
 	 * Function for rename column (postgresql)
 	 *
 	 * @param string  $table
-	 * @param \Closure $closure
+	 * @param array $columns
 	 */
-	public function rename_cols(string $table = null, \Closure $closure)
+	public function rename_cols(string $table = null, array $columns = [])
 	{
 		if (is_filled($table)) {
-			$closure_res = array();
-			foreach ($closure() as $key => $closure_dt) {
-				$closure_res[] = 'ALTER TABLE ' . $table . ' RENAME COLUMN ' . $key . ' TO ' . $closure_dt;
-			}
-			$closure_imp = implode(";\n", $closure_res) . ";\n";
-
-			$query = $closure_imp;
-			echo '<pre>' . $query . '</pre>';
-
 			// Check if there's connection defined on the models
 			if (not_filled(self::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
+				foreach ($columns as $key => $closure_dt) {
+					$query = 'ALTER TABLE ' . $table . ' RENAME COLUMN ' . $key . ' TO ' . $closure_dt . ';';
+					echo '<pre>' . $query . '</pre>';
+
+					// execute it
+					$stmt = self::$connection->prepare($query);
+					$executed = $stmt->execute();
+				}
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -1012,32 +997,29 @@ class NSY_Migration
 	 * Function for change column (mysql/mariadb)
 	 *
 	 * @param string  $table
-	 * @param \Closure $closure
+	 * @param array $columns
 	 */
-	public function change_cols(string $table = null, \Closure $closure)
+	public function change_cols(string $table = null, array $columns = [])
 	{
 		if (is_filled($table)) {
-			$closure_res = array();
-			foreach ($closure() as $key => $closure_dt) {
-				$closure_res[] = 'ALTER TABLE ' . $table . ' CHANGE ' . $key . ' ' . $closure_dt;
-			}
-			$closure_imp = implode(";\n", $closure_res) . ";\n";
-
-			$query = $closure_imp;
-			echo '<pre>' . $query . '</pre>';
-
 			// Check if there's connection defined on the models
 			if (not_filled(self::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
+				foreach ($columns as $key => $closure_dt) {
+					$query = 'ALTER TABLE ' . $table . ' CHANGE ' . $key . ' ' . $closure_dt . ';';
+					echo '<pre>' . $query . '</pre>';
+
+					// execute it
+					$stmt = self::$connection->prepare($query);
+					$executed = $stmt->execute();
+				}
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -1068,32 +1050,29 @@ class NSY_Migration
 	 * Function for sp rename column (mssql)
 	 *
 	 * @param string  $table
-	 * @param \Closure $closure
+	 * @param array $columns
 	 */
-	public function sp_rename_cols(string $table = null, \Closure $closure)
+	public function sp_rename_cols(string $table = null, array $columns = [])
 	{
 		if (is_filled($table)) {
-			$closure_res = array();
-			foreach ($closure() as $closure_dt) {
-				$closure_res[] = "exec sp_rename '" . $table . "." . "', '" . $closure_dt . "', 'COLUMN'";
-			}
-			$closure_imp = implode(";\n", $closure_res) . ";\n";
-
-			$query = $closure_imp;
-			echo '<pre>' . $query . '</pre>';
-
 			// Check if there's connection defined on the models
 			if (not_filled(self::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
+				foreach ($columns as $closure_dt) {
+					$query = "exec sp_rename '" . $table . "." . "', '" . $closure_dt . "', 'COLUMN'";
+					echo '<pre>' . $query . '</pre>';
+
+					// execute it
+					$stmt = self::$connection->prepare($query);
+					$executed = $stmt->execute();
+				}
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();

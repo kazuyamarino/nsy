@@ -19,14 +19,12 @@ class mig_tmp_class
 	 */
 	public function up()
 	{
-		Mig::connect()->create_table('mig_tmp', function () {
-			return Mig::cols([
-				Mig::bigint('id', 20)->auto_increment(),
-				# add columns here...
-				Mig::primary('id')
-			]);
-		});
-		Mig::connect()->index('mig_tmp', 'BTREE', 'id');
+		Mig::connect()->create_table('mig_tmp', [
+			Mig::bigint('id', 20)->auto_increment(),
+			Mig::varchar('name')->not_null(),
+			Mig::text('address')->null(),
+			Mig::primary('id')
+		])->index('mig_tmp', 'BTREE', 'id');
 	}
 
 	/**
