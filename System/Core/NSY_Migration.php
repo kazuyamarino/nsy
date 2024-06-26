@@ -45,28 +45,31 @@ class NSY_Migration
 	}
 
 	/**
-	 * Function for create database
+	 * Function for create database (mysql/mariadb)
 	 *
-	 * @param string $db
+	 * @param array $db
 	 */
-	public function create_db($db = '')
+	public function create_db(array $arr_db = [])
 	{
-		if (is_filled($db)) {
-			$query = "CREATE DATABASE $db;";
-			echo '<pre>' . $query . '</pre>';
-
+		if (is_filled($arr_db)) {
 			// Check if there's connection defined on the models
 			if (not_filled(self::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
+				foreach ($arr_db as $db) {
+					$query = "CREATE DATABASE $db;";
+					echo '<pre>' . $query . '</pre>';
+
+					// execute it
+					$stmt = self::$connection->prepare($query);
+					$executed = $stmt->execute();
+				}
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -94,28 +97,31 @@ class NSY_Migration
 	}
 
 	/**
-	 * Function for delete database
+	 * Function for delete database (mysql/mariadb)
 	 *
-	 * @param string $db
+	 * @param array $db
 	 */
-	public function drop_db($db = '')
+	public function drop_db(array $arr_db = [])
 	{
-		if (is_filled($db)) {
-			$query = "DROP DATABASE $db;";
-			echo '<pre>' . $query . '</pre>';
-
+		if (is_filled($arr_db)) {
 			// Check if there's connection defined on the models
 			if (not_filled(self::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
+				foreach ( $arr_db as $db ) {
+					$query = "DROP DATABASE $db;";
+					echo '<pre>' . $query . '</pre>';
+
+					// execute it
+					$stmt = self::$connection->prepare($query);
+					$executed = $stmt->execute();
+				}
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -143,7 +149,7 @@ class NSY_Migration
 	}
 
 	/**
-	 * Function for creating a table with user-defined columns
+	 * Function for creating a table with user-defined columns (mysql/mariadb)
 	 *
 	 * @param string $table
 	 * @param array $columns
@@ -223,7 +229,8 @@ class NSY_Migration
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -273,7 +280,8 @@ class NSY_Migration
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -323,7 +331,8 @@ class NSY_Migration
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -372,7 +381,8 @@ class NSY_Migration
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -421,7 +431,8 @@ class NSY_Migration
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
-					return $executed;
+					// Return $this to allow chaining
+					return $this;
 				} else {
 					if (config_app('transaction') === 'on') {
 						self::$connection->rollback();
@@ -828,7 +839,7 @@ class NSY_Migration
 	 * Function for alter column (mssql/postgresql)
 	 *
 	 * @param string  $table
-	* @param array $columns
+	 * @param array $columns
 	 */
 	public function alter_cols(string $table = null, array $columns = [])
 	{

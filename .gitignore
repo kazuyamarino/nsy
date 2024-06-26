@@ -10,6 +10,7 @@ System/Routes/Test_Route.php
 System/Test
 System/Migrations/Migration_Test_1.php
 System/Migrations/Migration_Test_2.php
+System/Migrations/Migration_Test_3.php
 System/Apps/General/Controllers/C_Test_General.php
 System/Apps/General/Controllers/C_Test_CSRF.php
 System/Apps/General/Controllers/C_Test_Validator.php
