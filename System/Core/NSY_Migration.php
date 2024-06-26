@@ -109,7 +109,7 @@ class NSY_Migration
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				foreach ( $arr_db as $db ) {
+				foreach ($arr_db as $db) {
 					$query = "DROP DATABASE $db;";
 					echo '<pre>' . $query . '</pre>';
 
@@ -360,24 +360,26 @@ class NSY_Migration
 	}
 
 	/**
-	 * Function for delete table
+	 * Function for delete table (mysql/mariadb)
 	 *
-	 * @param string $table
+	 * @param array $table
 	 */
-	public function drop_table($table = '')
+	public function drop_table(array $arr_table = [])
 	{
-		if (is_filled($table)) {
-			$query = "DROP TABLE $table;";
-			echo '<pre>' . $query . '</pre>';
-
+		if (is_filled($arr_table)) {
 			// Check if there's connection defined on the models
 			if (not_filled(self::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
+				foreach ($arr_table as $table) {
+					$query = "DROP TABLE $table;";
+					echo '<pre>' . $query . '</pre>';
+
+					// execute it
+					$stmt = self::$connection->prepare($query);
+					$executed = $stmt->execute();
+				}
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
@@ -410,24 +412,26 @@ class NSY_Migration
 	}
 
 	/**
-	 * Function for delete table if exist
+	 * Function for delete table if exist (mysql/mariadb)
 	 *
-	 * @param string $table
+	 * @param array $table
 	 */
-	public function drop_exist_table($table = '')
+	public function drop_exist_table(array $arr_table = [])
 	{
-		if (is_filled($table)) {
-			$query = "DROP TABLE IF EXISTS $table;";
-			echo '<pre>' . $query . '</pre>';
-
+		if (is_filled($arr_table)) {
 			// Check if there's connection defined on the models
 			if (not_filled(self::$connection)) {
 				echo '<pre>No Connection, Please check your connection again!</pre>';
 				exit();
 			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
+				foreach ($arr_table as $table) {
+					$query = "DROP TABLE IF EXISTS $table;";
+					echo '<pre>' . $query . '</pre>';
+
+					// execute it
+					$stmt = self::$connection->prepare($query);
+					$executed = $stmt->execute();
+				}
 
 				// Check the errors, if no errors then return the results
 				if ($executed || $stmt->errorCode() == 0) {
@@ -460,7 +464,7 @@ class NSY_Migration
 	}
 
 	/**
-	 * Function for creating an index on a table
+	 * Function for creating an index on a table (mysql/mariadb)
 	 *
 	 * @param string $table
 	 * @param string $type
@@ -647,33 +651,33 @@ class NSY_Migration
 		return $arr_date_cols;
 	}
 
-	/**
-	 * Columns with user defined variables
-	 *
-	 * @param array $cols
-	 * @param array $timestamps_cols
-	 */
-	public static function cols($cols = array(), $timestamps_mark = 'enabled')
-	{
-		$timestamps_cols = self::timestamps();
+	// /**
+	//  * Columns with user defined variables
+	//  *
+	//  * @param array $cols
+	//  * @param array $timestamps_cols
+	//  */
+	// public static function cols($cols = array(), $timestamps_mark = 'enabled')
+	// {
+	// 	$timestamps_cols = self::timestamps();
 
-		if (is_array($cols) || is_object($cols)) {
-			if ($timestamps_mark == 'enabled') {
-				if (is_filled($timestamps_cols)) {
-					$merge_cols = array_merge($cols, $timestamps_cols);
-					return $merge_cols;
-				} else {
-					return $cols;
-				}
-			} elseif ($timestamps_mark == 'disabled') {
-				return $cols;
-			}
-		} else {
-			$var_msg = "The variable in the <mark>cols(<strong>value</strong>)</mark> is improper or not an array";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
-		}
-	}
+	// 	if (is_array($cols) || is_object($cols)) {
+	// 		if ($timestamps_mark == 'enabled') {
+	// 			if (is_filled($timestamps_cols)) {
+	// 				$merge_cols = array_merge($cols, $timestamps_cols);
+	// 				return $merge_cols;
+	// 			} else {
+	// 				return $cols;
+	// 			}
+	// 		} elseif ($timestamps_mark == 'disabled') {
+	// 			return $cols;
+	// 		}
+	// 	} else {
+	// 		$var_msg = "The variable in the <mark>cols(<strong>value</strong>)</mark> is improper or not an array";
+	// 		NSY_Desk::static_error_handler($var_msg);
+	// 		exit();
+	// 	}
+	// }
 
 	/**
 	 * Function for add column (mssql)
