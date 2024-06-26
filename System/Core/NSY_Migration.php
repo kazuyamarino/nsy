@@ -45,7 +45,7 @@ class NSY_Migration
 	}
 
 	/**
-	 * Function for create database (mysql/mariadb)
+	 * Function for create database (mysql/mariadb/postgresql)
 	 *
 	 * @param array $db
 	 */
