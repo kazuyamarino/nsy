@@ -24,7 +24,7 @@ class mig_tmp_class
 			Mig::varchar('name')->not_null(),
 			Mig::text('address')->null(),
 			Mig::primary('id')
-		])->index('mig_tmp', 'BTREE', 'id');
+		])->index('BTREE', 'id');
 	}
 
 	/**
