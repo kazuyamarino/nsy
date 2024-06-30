@@ -34,6 +34,6 @@ class mig_tmp_class
 	 */
 	public function down()
 	{
-		Mig::connect()->drop_exist_table('mig_tmp');
+		Mig::connect()->drop_exist_table(['mig_tmp']);
 	}
 }
