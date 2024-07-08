@@ -291,7 +291,7 @@ if (!function_exists('aurora')) {
 	 * @param  string $name
 	 * @param  string $sep
 	 * @param  Countable|array $h
-	 * @param  Iterable|array $d
+	 * @param  array $d
 	 * @param  string $s
 	 * @return string
 	 */
@@ -982,19 +982,37 @@ function deposer($param = '')
 /**
  * Data Conversion Helpers
  */
-if (!function_exists('json_fetch')) {
+if (!function_exists('fetch_json')) {
 	/**
 	 * Fetch data to json format
 	 * @param  array $data
 	 * @param  int $status
 	 * @return string
 	 */
-	function json_fetch($data = array(), $status = 0)
+	function fetch_json($data = array(), $status = 0)
 	{
 		$json_data = $data;
 		$json_result = json_encode($json_data);
 
 		http_response_code($status);
 		return $json_result;
+	}
+}
+
+/**
+ * Fetch json to array (for API purposes)
+ */
+if (!function_exists('fetch_raw_json')) {
+	/**
+	 * Fetch json to array (for API purposes)
+	 * @param  string $variable
+	 * @return mixed
+	 */
+	function fetch_raw_json(string $variable = '')
+	{
+		$raw_data = file_get_contents('php://input');
+		$array = json_decode($raw_data, true);
+
+		return $array[$variable];
 	}
 }
