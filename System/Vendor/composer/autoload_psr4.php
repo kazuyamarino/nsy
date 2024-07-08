@@ -26,7 +26,6 @@ return array(
     'Optimus\\Onion\\' => array($vendorDir . '/optimus/onion/src'),
     'Masterminds\\' => array($vendorDir . '/masterminds/html5/src'),
     'League\\Uri\\' => array($vendorDir . '/league/uri', $vendorDir . '/league/uri-interfaces'),
-    'Latitude\\QueryBuilder\\' => array($vendorDir . '/latitude/latitude/src'),
     'Lablnet\\' => array($vendorDir . '/lablnet/encryption/src'),
     'Josantonius\\Session\\' => array($vendorDir . '/josantonius/session/src'),
     'Josantonius\\Json\\' => array($vendorDir . '/josantonius/json/src'),

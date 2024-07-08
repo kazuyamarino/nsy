@@ -20,8 +20,7 @@
         "josantonius/cookie": "^2.0",
         "josantonius/json": "^2.0",
         "josantonius/session": "^2.0",
-        "rakit/validation": "^1.4",
-        "latitude/latitude": "^4.2"
+        "rakit/validation": "^1.4"
     },
     "autoload": {
         "psr-4": {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1450ab35fc81d0a8084858287f10a99",
+    "content-hash": "ec99c105cdc1bf30be10d28ab835eb73",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -375,58 +375,6 @@
                 "source": "https://github.com/Lablnet/PHP-Encryption/tree/master"
             },
             "time": "2019-02-06T07:16:23+00:00"
-        },
-        {
-            "name": "latitude/latitude",
-            "version": "4.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/shadowhand/latitude.git",
-                "reference": "dc1182ec88cfb532b049af83d44863d373897587"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/shadowhand/latitude/zipball/dc1182ec88cfb532b049af83d44863d373897587",
-                "reference": "dc1182ec88cfb532b049af83d44863d373897587",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2"
-            },
-            "require-dev": {
-                "eloquent/liberator": "^2.0",
-                "eloquent/phpstan-phony": "^0.5.0",
-                "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan": "^0.11.12",
-                "phpstan/phpstan-phpunit": "^0.11.2",
-                "phpunit/phpunit": "^8.3"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/functions.php"
-                ],
-                "psr-4": {
-                    "Latitude\\QueryBuilder\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Woody Gilk",
-                    "email": "woody.gilk@gmail.com",
-                    "homepage": "https://github.com/shadowhand"
-                }
-            ],
-            "description": "A SQL query builder with zero dependencies",
-            "support": {
-                "issues": "https://github.com/shadowhand/latitude/issues",
-                "source": "https://github.com/shadowhand/latitude/tree/4.2.0"
-            },
-            "time": "2020-06-24T15:01:19+00:00"
         },
         {
             "name": "league/uri",
