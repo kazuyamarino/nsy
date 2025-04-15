@@ -205,7 +205,6 @@ class NSY_Migration
 		exit();
 	}
 
-
 	/**
 	 * Function for rename table (mysql/mariadb)
 	 *
@@ -643,41 +642,13 @@ class NSY_Migration
 	public static function timestamps()
 	{
 		$arr_date_cols = [
-			'create_date DATETIME DEFAULT CURRENT_TIMESTAMP',
-			'update_date DATETIME DEFAULT CURRENT_TIMESTAMP',
-			'delete_date DATETIME DEFAULT CURRENT_TIMESTAMP'
+			'create_date DATETIME DEFAULT CURRENT_TIMESTAMP()',
+			'update_date DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()',
+			'delete_date DATETIME DEFAULT CURRENT_TIMESTAMP()'
 		];
 
 		return $arr_date_cols;
 	}
-
-	// /**
-	//  * Columns with user defined variables
-	//  *
-	//  * @param array $cols
-	//  * @param array $timestamps_cols
-	//  */
-	// public static function cols($cols = array(), $timestamps_mark = 'enabled')
-	// {
-	// 	$timestamps_cols = self::timestamps();
-
-	// 	if (is_array($cols) || is_object($cols)) {
-	// 		if ($timestamps_mark == 'enabled') {
-	// 			if (is_filled($timestamps_cols)) {
-	// 				$merge_cols = array_merge($cols, $timestamps_cols);
-	// 				return $merge_cols;
-	// 			} else {
-	// 				return $cols;
-	// 			}
-	// 		} elseif ($timestamps_mark == 'disabled') {
-	// 			return $cols;
-	// 		}
-	// 	} else {
-	// 		$var_msg = "The variable in the <mark>cols(<strong>value</strong>)</mark> is improper or not an array";
-	// 		NSY_Desk::static_error_handler($var_msg);
-	// 		exit();
-	// 	}
-	// }
 
 	/**
 	 * Function for add column (mssql)
@@ -1566,5 +1537,67 @@ class NSY_Migration
 	public function default(mixed $params = '')
 	{
 		return self::$datatype . " NOT NULL DEFAULT $params";
+	}
+
+	/**
+	 * Define on update function
+	 *
+	 * @param mixed $params
+	 */
+	public function on_update(mixed $params = '')
+	{
+		return self::$datatype . " ON UPDATE $params";
+	}
+
+	/**
+	 * Function for inserting a record into a table (mysql/mariadb)
+	 *
+	 * @param string $table
+	 * @param array $data
+	 * @return $this
+	 */
+	public function insert_record(string $table, array $data)
+	{
+		if (is_filled($table) && !empty($data)) {
+			// Generate the columns and values part of the query
+			$columns = implode(", ", array_keys($data));
+			$placeholders = implode(", ", array_fill(0, count($data), '?'));
+
+			$query = "INSERT INTO {$table} ({$columns}) VALUES ({$placeholders});";
+			echo '<pre>' . $query . '</pre>';
+
+			// Check if there's a valid database connection
+			if (not_filled(self::$connection)) {
+				echo '<pre>No Connection, Please check your connection again!</pre>';
+				exit();
+			} else {
+				// Prepare and execute the query
+				$stmt = self::$connection->prepare($query);
+				$executed = $stmt->execute(array_values($data));
+
+				// Handle errors if any
+				if ($executed || $stmt->errorCode() == 0) {
+					// Return $this to allow chaining
+					return $this;
+				} else {
+					// Rollback transaction if enabled and handle error
+					if (config_app('transaction') === 'on') {
+						self::$connection->rollback();
+					}
+					$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+					NSY_Desk::static_error_handler($var_msg);
+				}
+			}
+		} else {
+			// Handle case where table name or data is empty or undefined
+			$var_msg = "Table name or data is empty or undefined";
+			NSY_Desk::static_error_handler($var_msg);
+			exit();
+		}
+
+		// Close the statement and connection
+		$stmt = null;
+		self::$connection = null;
+		exit();
 	}
 }

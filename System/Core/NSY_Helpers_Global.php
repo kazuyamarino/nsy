@@ -95,6 +95,62 @@ function base_url($url = '')
 	}
 }
 
+/**
+ * URI Helpers
+ * @var mixed
+ */
+/**
+ * Define assets_url() method, get assets url with default project directory
+ * @param  string $url
+ * @return string
+ */
+function assets_url($url = '')
+{
+	// set the default application or project directory
+	$APP_DIR = config_app('app_dir');
+
+	// Set the default public directory
+	$PUBLIC_DIR = config_app('public_dir');
+
+	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443) {
+		// if default application or project directory undefined
+		if (empty($APP_DIR) || is_null($APP_DIR)) {
+			// then get this result
+			// site address (https) without application directory
+			return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $PUBLIC_DIR . '/assets/' . $url;
+		} else {
+			// else if default application or project directory defined then get this result
+
+			// if public directory undefined
+			if (empty($PUBLIC_DIR) || is_null($PUBLIC_DIR)) {
+				// site address (https) with application directory
+				return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/assets/' . $url;
+			} else {
+				// site address (https) with application directory
+				return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $PUBLIC_DIR . '/assets/' . $url;
+			}
+		}
+	} else {
+		// if default application or project directory undefined
+		if (empty($APP_DIR) || is_null($APP_DIR)) {
+			// then get this result
+			// site address (http) without application directory
+			return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $PUBLIC_DIR . '/assets/' . $url;
+		} else {
+			// else if default application or project directory defined then get this result
+
+			// if public directory undefined
+			if (empty($PUBLIC_DIR) || is_null($PUBLIC_DIR)) {
+				// site address (http) with application directory
+				return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/assets/' . $url;
+			} else {
+				// site address (http) with application directory
+				return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $PUBLIC_DIR . '/assets/' . $url;
+			}
+		}
+	}
+}
+
 if (!function_exists('public_path')) {
 	/**
 	 * Define public_path() method, get the fullpath 'public' directory
@@ -964,19 +1020,44 @@ function get($param = '')
 /**
  * File method
  * @param  mixed $param
+ * @param  mixed $param2
+ * @param  mixed $param3
  * @return mixed
  */
-function deposer($param = '')
+function array_items($param = '', $param2 = '', $param3 = 0)
 {
-	if (is_filled($param)) {
-		$result = isset($_FILE[$param]);
-	} else {
-		$var_msg = 'The variable in the <mark>get(<strong>variable</strong>)</mark> is improper or not an array';
+	// Check if $_FILES is an array and has the necessary data
+	if (!isset($_FILES) || !is_array($_FILES)) {
+		$var_msg = 'The <mark>$_FILES</mark> superglobal is not set or not an array';
 		NSY_Desk::static_error_handler($var_msg);
 		exit();
 	}
 
-	return $result;
+	// Check if the first parameter is filled and is a valid key in $_FILES
+	if (is_filled($param) && array_key_exists($param, $_FILES)) {
+		// If $param2 is filled and $param3 is greater than 0, retrieve the specific nested array value
+		if (is_filled($param2) && $param3 > 0) {
+			if (isset($_FILES[$param][$param2][$param3])) {
+				$result = $_FILES[$param][$param2][$param3];
+			} else {
+				$var_msg = 'The specified indexes <mark>$param2</mark> and <mark>$param3</mark> do not exist in <mark>$_FILES</mark>[$param]';
+				NSY_Desk::static_error_handler($var_msg);
+				exit();
+			}
+		} elseif (is_filled($param2)) {
+			// If only $param2 is filled, retrieve $_FILES[$param][$param2]
+			$result = $_FILES[$param][$param2];
+		} else {
+			// Otherwise, just retrieve $_FILES[$param]
+			$result = $_FILES[$param];
+		}
+
+		return $result;
+	} else {
+		$var_msg = 'The variable <mark>$param</mark> is either not filled or not a valid key in <mark>$_FILES</mark>';
+		NSY_Desk::static_error_handler($var_msg);
+		exit();
+	}
 }
 
 /**

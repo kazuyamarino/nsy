@@ -1,14 +1,15 @@
 <?php
-// User defined routes.
-// Format :
-// Route::method('url', function() {
-// 		Route::goto('namespace\class_controller@method');
+// define Web Routes.
+//
+// Format 1 :
+// Route::get('/url', ['namespace\class_controller::class', 'method/function']);
+//
+// Format 2 :
+// Route::method('url/(:num)', function($id) {
+//      Route::goto(['namespace\class_controller::class', 'method/function']);
 // });
 //
-// Route::method('url/@id:num', function($id) {
-// 		Route::goto('namespace\class_controller@method', $id);
-// });
-// Route method : get|post|put|patch|delete|head|options
+// Route method : any|get|post|put|patch|delete|head|options
 
 // HMVC Route
 Route::get('/hmvc', function () {

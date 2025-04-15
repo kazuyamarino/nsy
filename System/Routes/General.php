@@ -4,14 +4,15 @@ use System\Middlewares\BeforeLayer;
 use System\Middlewares\AfterLayer;
 
 // define Web Routes.
-// Format :
-// Route::method('url', function() {
-// 		Route::goto('namespace\class_controller@method');
+//
+// Format 1 :
+// Route::get('/url', ['namespace\class_controller::class', 'method/function']);
+//
+// Format 2 :
+// Route::method('url/(:num)', function($id) {
+//      Route::goto(['namespace\class_controller::class', 'method/function']);
 // });
 //
-// Route::method('url/@id:num', function($id) {
-// 		Route::goto('namespace\class_controller@method', $id);
-// });
 // Route method : any|get|post|put|patch|delete|head|options
 
 // MVC Route
