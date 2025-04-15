@@ -94,7 +94,13 @@ final class UrlSanitizer
         }
 
         try {
-            return UriString::parse($url);
+            $parsedUrl = UriString::parse($url);
+
+            if (preg_match('/\s/', $url)) {
+                return null;
+            }
+
+            return $parsedUrl;
         } catch (SyntaxError) {
             return null;
         }
@@ -126,7 +132,7 @@ final class UrlSanitizer
     {
         // Check each chunk of the domain is valid
         foreach ($trustedParts as $key => $trustedPart) {
-            if ($uriParts[$key] !== $trustedPart) {
+            if (!array_key_exists($key, $uriParts) || $uriParts[$key] !== $trustedPart) {
                 return false;
             }
         }
