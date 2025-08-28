@@ -16,5 +16,5 @@ return array(
     'a1105708a18b76903365ca1c4aa61b02' => $vendorDir . '/symfony/translation/Resources/functions.php',
     'b46ad4fe52f4d1899a2951c7e6ea56b0' => $vendorDir . '/voku/portable-utf8/bootstrap.php',
     'ec07570ca5a812141189b1fa81503674' => $vendorDir . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
-    'e1df08c522e459215e49702ec8129902' => $baseDir . '/System/Helpers/CodeIgniter_Helpers.php',
+    '4b17c7e65851c774f5957b672248fca4' => $baseDir . '/System/Helpers/CodeIgniterHelpers.php',
 );

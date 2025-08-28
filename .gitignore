@@ -6,7 +6,7 @@
 /phpunit.xml
 /MIGRATIONLOG
 public/.htaccess
-System/Routes/Test_Route.php
+System/Routes/TestRoute.php
 System/Test
 System/Migrations/Migration_Test_1.php
 System/Migrations/Migration_Test_2.php

@@ -17,7 +17,7 @@ class ComposerStaticInityour_suffixed
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         'b46ad4fe52f4d1899a2951c7e6ea56b0' => __DIR__ . '/..' . '/voku/portable-utf8/bootstrap.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
-        'e1df08c522e459215e49702ec8129902' => __DIR__ . '/../../..' . '/System/Helpers/CodeIgniter_Helpers.php',
+        '4b17c7e65851c774f5957b672248fca4' => __DIR__ . '/../../..' . '/System/Helpers/CodeIgniterHelpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -2054,7 +2054,8 @@ class ComposerStaticInityour_suffixed
         'System\\Core\\NSY_Desk' => __DIR__ . '/../../..' . '/System/Core/NSY_Desk.php',
         'System\\Core\\NSY_Migration' => __DIR__ . '/../../..' . '/System/Core/NSY_Migration.php',
         'System\\Core\\NSY_QueryBuilder' => __DIR__ . '/../../..' . '/System/Core/NSY_QueryBuilder.php',
-        'System\\Core\\NSY_Router' => __DIR__ . '/../../..' . '/System/Core/NSY_Router.php',
+        'System\\Core\\NSY_RouteCacheManager' => __DIR__ . '/../../..' . '/System/Core/NSY_RouteCacheManager.php',
+        'System\\Core\\NSY_RouterOptimized' => __DIR__ . '/../../..' . '/System/Core/NSY_RouterOptimized.php',
         'System\\Core\\NSY_System' => __DIR__ . '/../../..' . '/System/Core/NSY_System.php',
         'System\\Core\\Razr\\Directive\\BlockDirective' => __DIR__ . '/../../..' . '/System/Core/Razr/Directive/BlockDirective.php',
         'System\\Core\\Razr\\Directive\\ControlDirective' => __DIR__ . '/../../..' . '/System/Core/Razr/Directive/ControlDirective.php',
@@ -2083,6 +2084,7 @@ class ComposerStaticInityour_suffixed
         'System\\Core\\Razr\\Storage\\StringStorage' => __DIR__ . '/../../..' . '/System/Core/Razr/Storage/StringStorage.php',
         'System\\Core\\Razr\\Token' => __DIR__ . '/../../..' . '/System/Core/Razr/Token.php',
         'System\\Core\\Razr\\TokenStream' => __DIR__ . '/../../..' . '/System/Core/Razr/TokenStream.php',
+        'System\\Helpers\\RouterHelper' => __DIR__ . '/../../..' . '/System/Helpers/RouterHelper.php',
         'System\\Libraries\\File' => __DIR__ . '/../../..' . '/System/Libraries/File.php',
         'System\\Libraries\\LanguageCode' => __DIR__ . '/../../..' . '/System/Libraries/LanguageCode.php',
         'System\\Libraries\\LanguageCodeCollection' => __DIR__ . '/../../..' . '/System/Libraries/LanguageCodeCollection.php',
@@ -2091,6 +2093,7 @@ class ComposerStaticInityour_suffixed
         'System\\Libraries\\Validate' => __DIR__ . '/../../..' . '/System/Libraries/Validate.php',
         'System\\Middlewares\\AfterLayer' => __DIR__ . '/../../..' . '/System/Middlewares/AfterLayer.php',
         'System\\Middlewares\\BeforeLayer' => __DIR__ . '/../../..' . '/System/Middlewares/BeforeLayer.php',
+        'System\\Middlewares\\SecurityMiddleware' => __DIR__ . '/../../..' . '/System/Middlewares/SecurityMiddleware.php',
         'System\\Migrations\\Migration_Test_1' => __DIR__ . '/../../..' . '/System/Migrations/Migration_Test_1.php',
         'System\\Migrations\\Migration_Test_2' => __DIR__ . '/../../..' . '/System/Migrations/Migration_Test_2.php',
         'System\\Migrations\\Migration_Test_3' => __DIR__ . '/../../..' . '/System/Migrations/Migration_Test_3.php',

@@ -232,7 +232,7 @@ return [
 	|
 	*/
 	'aliases' => [
-		'Route' => System\Core\NSY_Router::class,
+		'Route' => System\Helpers\RouterHelper::class,
 		'Add' => System\Core\NSY_AssetManager::class,
 		'System\Migrations\Mig' => System\Core\NSY_Migration::class,
 		'System\Vendor\Curl' => Curl\Curl::class,

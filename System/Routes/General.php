@@ -3,26 +3,28 @@
 use System\Middlewares\BeforeLayer;
 use System\Middlewares\AfterLayer;
 
-// define Web Routes.
-//
-// Format 1 :
-// Route::get('/url', ['namespace\class_controller::class', 'method/function']);
-//
-// Format 2 :
-// Route::method('url/(:num)', function($id) {
-//      Route::goto(['namespace\class_controller::class', 'method/function']);
-// });
-//
-// Route method : any|get|post|put|patch|delete|head|options
+// Initialize optimized router with RouterHelper
+Route::initOptimizedRouter([
+    'cache_enabled' => true,
+    'security' => [
+        'validate_params' => true,
+        'sanitize_input' => true,
+        'csrf_protection' => true,
+        'rate_limiting' => true
+    ],
+    'performance' => [
+        'controller_pooling' => true,
+        'route_compilation' => true,
+        'cache_warm_up' => true
+    ]
+]);
 
-// MVC Route
-Route::get('/', function () {
-	$middleware = [
-		new BeforeLayer(),
-		new AfterLayer()
-	];
-
-	// Sets up a route with middleware that directs requests to the welcome method within the Controller_Welcome class.
-	// A middleware indicates that you're defining a route with middleware. Middleware is a piece of code that filters HTTP requests entering your application. It often performs tasks like authentication, authorization, and session handling.
-	Route::middleware($middleware)->for([System\Apps\General\Controllers\Controller_Welcome::class, 'welcome']);
-});
+// Home route
+Route::route('get', '/', [
+    System\Apps\General\Controllers\Controller_Welcome::class,
+    'welcome'
+], [
+    'security_level' => 'standar',
+    'middleware' => [new BeforeLayer(), new AfterLayer()],
+    'name' => 'home'
+]);

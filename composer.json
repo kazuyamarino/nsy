@@ -27,7 +27,7 @@
             "System\\": "System/"
         },
         "files": [
-            "System/Helpers/CodeIgniter_Helpers.php"
+            "System/Helpers/CodeIgniterHelpers.php"
         ]
     },
     "config": {

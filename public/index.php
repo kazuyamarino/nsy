@@ -58,10 +58,10 @@ use System\Core\NSY_System;
 use System\Core\NSY_Desk;
 
 /**
- * Use NSY_Router class
+ * Use NSY_RouterOptimized class
  */
 
-use System\Core\NSY_Router;
+use System\Core\NSY_RouterOptimized;
 
 /**
  * Instantiate System
@@ -94,4 +94,4 @@ NSY_Desk::register_route();
 /**
  * Execute matched routes
  */
-NSY_Router::dispatch();
+NSY_RouterOptimized::dispatch();
