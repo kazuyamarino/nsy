@@ -14,7 +14,6 @@
 . .cli/mk.model.sh
 . .cli/mk.module.sh
 . .cli/mk.route.sh
-. .cli/mk.middleware.sh
 . .cli/run.migration.sh
 
 if [ -z $1 ]; then
