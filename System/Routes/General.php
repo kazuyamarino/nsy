@@ -1,7 +1,5 @@
 <?php
 
-use System\Middlewares\BeforeLayer;
-use System\Middlewares\AfterLayer;
 
 // Initialize optimized router with RouterHelper
 Route::initOptimizedRouter([
@@ -24,7 +22,6 @@ Route::route('get', '/', [
     System\Apps\General\Controllers\Controller_Welcome::class,
     'welcome'
 ], [
-    'security_level' => 'standar',
-    'middleware' => [new BeforeLayer(), new AfterLayer()],
+    'security_level' => 'standard',
     'name' => 'home'
 ]);

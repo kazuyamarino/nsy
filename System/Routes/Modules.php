@@ -1,7 +1,5 @@
 <?php
 
-use System\Middlewares\BeforeLayer;
-use System\Middlewares\AfterLayer;
 
 // Initialize optimized router for modules with RouterHelper
 Route::initOptimizedRouter([
@@ -20,11 +18,10 @@ Route::initOptimizedRouter([
 ]);
 
 // HMVC Route - refactored with new routing functions
-Route::route('get', '/hmvc', [
-    System\Apps\Modules\HMVC\Controllers\Controller_Hello::class,
+Route::route('get', '/hello', [
+    System\Apps\Modules\HelloWorld\Controllers\Controller_Hello::class,
     'hello'
 ], [
-    'security_level' => 'standar',
-    'middleware' => [new BeforeLayer(), new AfterLayer()],
+    'security_level' => 'standard',
     'name' => 'hmvc_hello'
 ]);

@@ -888,36 +888,54 @@ if (!function_exists('string_to_base64')) {
 
 if (!function_exists('number_format_short')) {
 	/**
-	 * @param $n
-	 * @return string
-	 * Use to convert large positive numbers in to short form like 1K+, 100K+, 199K+, 1M+, 10M+, 1B+ etc
+	 * Format Large Numbers - Converts large positive numbers to short form
+	 *
+	 * Transforms large numbers into human-readable short formats using Indonesian
+	 * abbreviations (Rb = Ribu, Jt = Juta, M = Milyar, T = Triliun).
+	 * Useful for displaying statistics, view counts, and large numerical data.
+	 *
+	 * @param int|float $n The number to format
+	 * @param int $precision Number of decimal places to show (default: 1)
+	 * @return string Formatted number with appropriate suffix
+	 *
+	 * @example
+	 * number_format_short(1500)      // Returns: '1.5 Rb'
+	 * number_format_short(2500000)   // Returns: '2.5 Jt'
+	 * number_format_short(1000000000) // Returns: '1 M'
+	 * number_format_short(999, 0)    // Returns: '999'
 	 */
-	function number_format_short($n, $precision = 1)
+	function number_format_short(int|float $n, int $precision = 1): string
 	{
+		// Input validation
+		if ($n < 0) {
+			return '0';
+		}
+
+		// Determine format and suffix based on number magnitude
 		if ($n < 900) {
-			// 0 - 900
+			// 0 - 899: No suffix needed
 			$n_format = number_format($n, $precision);
 			$suffix = '';
-		} else if ($n < 900000) {
-			// 0.9k-850k
+		} elseif ($n < 900000) {
+			// 900 - 899,999: Thousands (Ribu)
 			$n_format = number_format($n / 1000, $precision);
 			$suffix = ' Rb';
-		} else if ($n < 900000000) {
-			// 0.9m-850m
+		} elseif ($n < 900000000) {
+			// 900,000 - 899,999,999: Millions (Juta)
 			$n_format = number_format($n / 1000000, $precision);
 			$suffix = ' Jt';
-		} else if ($n < 900000000000) {
-			// 0.9b-850b
+		} elseif ($n < 900000000000) {
+			// 900,000,000 - 899,999,999,999: Billions (Milyar)
 			$n_format = number_format($n / 1000000000, $precision);
 			$suffix = ' M';
 		} else {
-			// 0.9t+
+			// 900,000,000,000+: Trillions (Triliun)
 			$n_format = number_format($n / 1000000000000, $precision);
 			$suffix = ' T';
 		}
 
-		// Remove unecessary zeroes after decimal. "1.0" -> "1"; "1.00" -> "1"
-		// Intentionally does not affect partials, eg "1.50" -> "1.50"
+		// Remove unnecessary trailing zeroes after decimal point
+		// "1.0" -> "1", "1.00" -> "1", but "1.50" remains "1.50"
 		if ($precision > 0) {
 			$dotzero = '.' . str_repeat('0', $precision);
 			$n_format = str_replace($dotzero, '', $n_format);

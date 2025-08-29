@@ -1,7 +1,5 @@
 <?php
 
-use System\Middlewares\BeforeLayer;
-use System\Middlewares\AfterLayer;
 
 // Initialize NSY Router with full optimization
 Route::initOptimizedRouter([
@@ -51,13 +49,11 @@ Route::route('get', '/contact', [PublicController::class, 'contact'], [
 // Standard security routes (100 req/min + CSRF)
 Route::route('post', '/contact', [PublicController::class, 'submitContact'], [
     'security_level' => 'standard',
-    'middleware' => [new BeforeLayer()],
     'name' => 'contact.submit'
 ]);
 
 Route::route('get', '/profile', [UserController::class, 'profile'], [
     'security_level' => 'standard',
-    'middleware' => [new BeforeLayer(), new AfterLayer()],
     'name' => 'user.profile'
 ]);
 
@@ -96,8 +92,7 @@ Route::group('/api/v1', function() {
     Route::post('/upload', function() {
         $customMiddleware = [
             Route::createSecurityMiddleware('strict'),
-            new FileUploadMiddleware(),
-            new BeforeLayer()
+            new FileUploadMiddleware()
         ];
 
         return Route::middleware($customMiddleware)->for([ApiController::class, 'upload']);
@@ -113,9 +108,7 @@ Route::group('/admin', function() {
     Route::route('get', '/dashboard', [AdminController::class, 'dashboard'], [
         'security_level' => 'strict',
         'middleware' => [
-            new AuthMiddleware(['role' => 'admin']),
-            new BeforeLayer(),
-            new AfterLayer()
+            new AuthMiddleware(['role' => 'admin'])
         ],
         'name' => 'admin.dashboard'
     ]);
@@ -123,13 +116,13 @@ Route::group('/admin', function() {
     // Settings management
     Route::route('get', '/settings', [AdminController::class, 'settings'], [
         'security_level' => 'strict',
-        'middleware' => [new AuthMiddleware(), new BeforeLayer()],
+        'middleware' => [new AuthMiddleware()],
         'name' => 'admin.settings'
     ]);
 
     Route::route('post', '/settings', [AdminController::class, 'updateSettings'], [
         'security_level' => 'strict',
-        'middleware' => [new AuthMiddleware(), new BeforeLayer(), new AfterLayer()],
+        'middleware' => [new AuthMiddleware()],
         'name' => 'admin.settings.update'
     ]);
 

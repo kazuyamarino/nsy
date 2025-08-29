@@ -209,7 +209,7 @@ class NSY_RouterOptimized
 	{
 		if (self::$securityConfig['sanitize_input']) {
 			// Don't expose sensitive information in production
-			if (config_app('environment') === 'production') {
+			if (config_app('app_env') === 'production') {
 				$message = $code === 404 ? 'Page Not Found' : 'Server Error';
 			}
 		}

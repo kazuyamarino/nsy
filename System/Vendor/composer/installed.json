@@ -946,41 +946,6 @@
             "install-path": "../nikic/php-parser"
         },
         {
-            "name": "optimus/onion",
-            "version": "1.0.0",
-            "version_normalized": "1.0.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/esbenp/onion.git",
-                "reference": "b1e869bd58246459fec006559abbafa3d4762bf1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/esbenp/onion/zipball/b1e869bd58246459fec006559abbafa3d4762bf1",
-                "reference": "b1e869bd58246459fec006559abbafa3d4762bf1",
-                "shasum": ""
-            },
-            "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "orchestra/testbench": "~3.1",
-                "phpunit/phpunit": "~4.7",
-                "satooshi/php-coveralls": "dev-master@dev"
-            },
-            "time": "2017-01-10T03:45:31+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Optimus\\Onion\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "install-path": "../optimus/onion"
-        },
-        {
             "name": "phar-io/manifest",
             "version": "2.0.4",
             "version_normalized": "2.0.4.0",

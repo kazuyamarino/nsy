@@ -22,7 +22,6 @@ return array(
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Psr\\Clock\\' => array($vendorDir . '/psr/clock/src'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
-    'Optimus\\Onion\\' => array($vendorDir . '/optimus/onion/src'),
     'Masterminds\\' => array($vendorDir . '/masterminds/html5/src'),
     'League\\Uri\\' => array($vendorDir . '/league/uri', $vendorDir . '/league/uri-interfaces'),
     'Lablnet\\' => array($vendorDir . '/lablnet/encryption/src'),

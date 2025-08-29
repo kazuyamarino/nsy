@@ -3,7 +3,7 @@
         'name' => 'vikry/nsy',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '0d075b3288e318807b5c6ff8d928c9cd8679e5f1',
+        'reference' => 'b61753a49d66f21ae9d02f4dfafe8e128e9bcc57',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -126,15 +126,6 @@
             'install_path' => __DIR__ . '/../nikic/php-parser',
             'aliases' => array(),
             'dev_requirement' => true,
-        ),
-        'optimus/onion' => array(
-            'pretty_version' => '1.0.0',
-            'version' => '1.0.0.0',
-            'reference' => 'b1e869bd58246459fec006559abbafa3d4762bf1',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../optimus/onion',
-            'aliases' => array(),
-            'dev_requirement' => false,
         ),
         'phar-io/manifest' => array(
             'pretty_version' => '2.0.4',
@@ -520,7 +511,7 @@
         'vikry/nsy' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '0d075b3288e318807b5c6ff8d928c9cd8679e5f1',
+            'reference' => 'b61753a49d66f21ae9d02f4dfafe8e128e9bcc57',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),

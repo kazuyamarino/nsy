@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec99c105cdc1bf30be10d28ab835eb73",
+    "content-hash": "c986aee9fa10ab211ad007bbded3cb16",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -723,42 +723,6 @@
                 }
             ],
             "time": "2025-01-08T20:10:23+00:00"
-        },
-        {
-            "name": "optimus/onion",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/esbenp/onion.git",
-                "reference": "b1e869bd58246459fec006559abbafa3d4762bf1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/esbenp/onion/zipball/b1e869bd58246459fec006559abbafa3d4762bf1",
-                "reference": "b1e869bd58246459fec006559abbafa3d4762bf1",
-                "shasum": ""
-            },
-            "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "orchestra/testbench": "~3.1",
-                "phpunit/phpunit": "~4.7",
-                "satooshi/php-coveralls": "dev-master@dev"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Optimus\\Onion\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "support": {
-                "issues": "https://github.com/esbenp/onion/issues",
-                "source": "https://github.com/esbenp/onion/tree/master"
-            },
-            "time": "2017-01-10T03:45:31+00:00"
         },
         {
             "name": "php-curl-class/php-curl-class",
