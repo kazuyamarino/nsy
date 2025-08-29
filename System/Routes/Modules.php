@@ -2,7 +2,7 @@
 
 
 // Initialize optimized router for modules with RouterHelper
-Route::initOptimizedRouter([
+Route::initRouter([
     'cache_enabled' => true,
     'security' => [
         'validate_params' => true,
@@ -18,8 +18,8 @@ Route::initOptimizedRouter([
 ]);
 
 // HMVC Route - refactored with new routing functions
-Route::route('get', '/hello', [
-    System\Apps\Modules\HelloWorld\Controllers\Controller_Hello::class,
+Route::route('get', '/hmvc', [
+    System\Apps\Modules\HMVC\Controllers\Controller_Hello::class,
     'hello'
 ], [
     'security_level' => 'standard',

@@ -2,13 +2,12 @@
 
 namespace System\Middlewares;
 
-use Optimus\Onion\LayerInterface;
 
 /**
  * Security Middleware for NSY Router
  * Provides CSRF protection, rate limiting, and input validation
  */
-class SecurityMiddleware implements LayerInterface
+class SecurityMiddleware
 {
     private $config;
     private static $requestCounts = [];

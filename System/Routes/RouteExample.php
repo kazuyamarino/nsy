@@ -2,7 +2,7 @@
 
 
 // Initialize NSY Router with full optimization
-Route::initOptimizedRouter([
+Route::initRouter([
     'cache_enabled' => true,
     'security' => [
         'validate_params' => true,

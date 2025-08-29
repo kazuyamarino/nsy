@@ -2,7 +2,6 @@
 
 namespace System\Core;
 
-use Optimus\Onion\Onion;
 
 /**
  * Optimized NSY Router with caching and security improvements
@@ -189,11 +188,17 @@ class NSY_RouterOptimized
 	{
 		if (is_filled($middleware)) {
 			$object = true;
-			$onion = new Onion;
-
-			self::$response = $onion->layer($middleware)->peel($object, function ($object) {
-				return $object;
-			});
+			
+			// Simple middleware execution without Onion dependency
+			foreach ($middleware as $layer) {
+				if (method_exists($layer, 'handle')) {
+					$object = $layer->handle($object, function($obj) { return $obj; });
+				} elseif (method_exists($layer, 'peel')) {
+					$object = $layer->peel($object, function($obj) { return $obj; });
+				}
+			}
+			
+			self::$response = $object;
 		} else {
 			self::handleError('Invalid middleware configuration', 500);
 			return null;

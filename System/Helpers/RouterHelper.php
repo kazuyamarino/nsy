@@ -18,7 +18,7 @@ class RouterHelper
      * @param array $config Configuration array with cache, security, and performance settings
      * @return array Merged configuration array
      */
-    public static function initOptimizedRouter($config = [])
+    public static function initRouter($config = [])
     {
         $defaultConfig = [
             'cache_enabled' => true,

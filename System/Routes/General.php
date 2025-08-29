@@ -2,7 +2,7 @@
 
 
 // Initialize optimized router with RouterHelper
-Route::initOptimizedRouter([
+Route::initRouter([
     'cache_enabled' => true,
     'security' => [
         'validate_params' => true,
