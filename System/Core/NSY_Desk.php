@@ -11,24 +11,45 @@ class NSY_Desk
 {
 
 	/**
-	 * Function error handler
+	 * Optimized error handler with better formatting and logging
 	 *
 	 * @param  string $var_msg
+	 * @param  int $error_code
 	 * @return void
 	 */
-	public static function static_error_handler($var_msg = '')
+	public static function static_error_handler($var_msg = '', $error_code = 500)
 	{
 		$app_env = config_app('app_env');
 
-		if ($app_env == 'development') {
+		// Log error in all environments
+		error_log("NSY Error: $var_msg");
+
+		if ($app_env === 'development') {
 			try {
 				throw new \Exception($var_msg);
 			} catch (\Exception $e) {
-				$err = $e->getTrace();
-				echo "<pre>Message:\n" . $e->getMessage() . " in " .  $err[1]['file'] . "(" . $err[1]['line'] . ')' . "</pre>";
-				echo "<pre>Stack trace:\n#0 " . $err[1]['file'] . "(" . $err[1]['line'] . "): " . $err[2]['class'] . "->" . $err[2]['function'] . "()" . "</pre>";
+				$trace = $e->getTrace();
+				$caller = $trace[1] ?? ['file' => 'unknown', 'line' => 0];
+				$function = isset($trace[2]) ? $trace[2]['class'] . '->' . $trace[2]['function'] . '()' : 'unknown';
+				
+				echo "<div style='background: #f8d7da; color: #721c24; padding: 15px; border: 1px solid #f5c6cb; border-radius: 4px; margin: 10px; font-family: monospace;'>";
+				echo "<h4>🚨 NSY Framework Error</h4>";
+				echo "<strong>Message:</strong> " . htmlspecialchars($e->getMessage()) . "<br>";
+				echo "<strong>File:</strong> " . htmlspecialchars($caller['file']) . " (Line: {$caller['line']})<br>";
+				echo "<strong>Function:</strong> " . htmlspecialchars($function) . "<br>";
+				echo "<strong>Error Code:</strong> $error_code";
+				echo "</div>";
 			}
+		} elseif ($app_env === 'production') {
+			// Production: show generic error
+			http_response_code($error_code);
+			echo "<div style='text-align: center; padding: 50px;'>";
+			echo "<h2>Application Error</h2>";
+			echo "<p>An error occurred while processing your request.</p>";
+			echo "</div>";
 		}
+		
+		exit();
 	}
 
 	/**
@@ -59,84 +80,93 @@ class NSY_Desk
 	}
 
 	/**
-	 * Start migration
+	 * Execute migration with direction (up/down)
+	 *
+	 * @param  string $migration_name
+	 * @param  string $direction
+	 * @return void
+	 */
+	private static function executeMigration($migration_name = '', $direction = 'up')
+	{
+		if (empty($migration_name)) {
+			self::static_error_handler('Migration name cannot be empty', 400);
+			return;
+		}
+
+		$classname = 'System\\Migrations\\' . $migration_name;
+
+		if (!class_exists($classname)) {
+			$var_msg = "Migration class '$migration_name' not found!\nCheck class name in System/Migrations directory";
+			self::static_error_handler($var_msg, 404);
+			return;
+		}
+
+		try {
+			$migration = new $classname;
+			
+			if (!method_exists($migration, $direction)) {
+				self::static_error_handler("Method '$direction' not found in migration class", 500);
+				return;
+			}
+
+			$migration->{$direction}();
+			
+			echo "<div style='background: #d4edda; color: #155724; padding: 15px; border: 1px solid #c3e6cb; border-radius: 4px; margin: 10px;'>";
+			echo "<h4>✅ Migration Success</h4>";
+			echo "Database has been successfully <strong>migrated $direction</strong><br>";
+			echo "<strong>Class:</strong> $classname<br>";
+			echo "<strong>Timestamp:</strong> " . date('Y-m-d H:i:s');
+			echo "</div>";
+
+		} catch (Exception $e) {
+			self::static_error_handler("Migration failed: " . $e->getMessage(), 500);
+		}
+		
+		exit();
+	}
+
+	/**
+	 * Start migration (optimized)
 	 *
 	 * @param  string $string
 	 * @return void
 	 */
 	public static function mig_up($string = '')
 	{
-		$classname = 'System\\Migrations\\' . $string;
-
-		if (class_exists($classname)) {
-			$mig = new $classname;
-			$mig->up();
-
-			echo "<pre>The database has been successfully <strong>migrated up</strong></pre>";
-			exit();
-		} else {
-			$var_msg = "Class name not found! \nSee the class name list in the <strong>System/Migrations</strong> directory";
-			self::static_error_handler($var_msg);
-			exit();
-		}
+		self::executeMigration($string, 'up');
 	}
 
 	/**
-	 * Rollback migration
+	 * Rollback migration (optimized)
 	 *
 	 * @param  string $string
 	 * @return void
 	 */
 	public static function mig_down($string = '')
 	{
-		$classname = 'System\\Migrations\\' . $string;
-
-		if (class_exists($classname)) {
-			$mig = new $classname;
-			$mig->down();
-
-			echo "<pre>The database has been successfully <strong>migrated down</strong></pre>";
-			exit();
-		} else {
-			$var_msg = "Class name not found! \nSee the class name list in the <strong>System/Migrations</strong> directory";
-			self::static_error_handler($var_msg);
-			exit();
-		}
+		self::executeMigration($string, 'down');
 	}
 
 	/**
-	 * Require/Register NSY System
+	 * Register NSY System (optimized with SystemLoader)
 	 * @return void
 	 */
 	public static function register_system()
 	{
-		// Register Core
-		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Core/NSY_Helpers_File.php';
-		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Core/NSY_Helpers_Language.php';
-		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Core/NSY_Helpers_LoadTime.php';
-		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Core/NSY_Helpers_Request.php';
-		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Core/NSY_Helpers_Security.php';
-		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Core/NSY_Helpers_Validate.php';
-
-		// Register Libraries
-		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Libraries/Aliases.php';
-		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Config/Assets.php';
+		// Use optimized system loader with caching and error handling
+		NSY_SystemLoader::loadSystemFiles();
 	}
 
 	/**
-	 * Require/Register NSY Route
+	 * NSY Register route function (optimized with auto-discovery)
 	 * @return void
 	 */
 	public static function register_route()
 	{
-		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Routes/General.php';
-		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Core/NSY_Migration_Route.php';
-		require_once __DIR__ . '/../../' . config_app('sys_dir') . '/Routes/Modules.php';
-
-		// Required user defined routes from Config
-		$route = config_app('routes');
-		foreach ($route as $filename) {
-			require_once __DIR__ . "/../../" . config_app('sys_dir') . "/Routes/$filename.php";
-		}
+		// Clear cache to ensure new configuration takes effect
+		NSY_RouteLoader::clearCache();
+		
+		// Use optimized route loader with auto-discovery and caching
+		NSY_RouteLoader::loadRoutes();
 	}
 }

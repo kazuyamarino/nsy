@@ -245,17 +245,6 @@ return [
 		'System\Libraries\Session' => Josantonius\Session\Session::class,
 		'System\Libraries\Facades\Session' => Josantonius\Session\Facades\Session::class,
 		'System\Libraries\Validator' => Rakit\Validation\Validator::class
-	],
-
-	/*
-	|--------------------------------------------------------------------------
-	| User Defined Routes
-	|--------------------------------------------------------------------------
-	|
-	| This array is for registering route classes according to the user's wishes.
-	| Make sure the route class is already in the 'System/Routes' directory.
-	|
-	*/
-	'routes' => []
+	]
 
 ];

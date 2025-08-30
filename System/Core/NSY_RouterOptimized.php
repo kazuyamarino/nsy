@@ -181,31 +181,6 @@ class NSY_RouterOptimized
 		self::$controllerPool = [];
 	}
 
-	/**
-	 * NSY Middleware System (optimized)
-	 */
-	public static function middleware($middleware)
-	{
-		if (is_filled($middleware)) {
-			$object = true;
-			
-			// Simple middleware execution without Onion dependency
-			foreach ($middleware as $layer) {
-				if (method_exists($layer, 'handle')) {
-					$object = $layer->handle($object, function($obj) { return $obj; });
-				} elseif (method_exists($layer, 'peel')) {
-					$object = $layer->peel($object, function($obj) { return $obj; });
-				}
-			}
-			
-			self::$response = $object;
-		} else {
-			self::handleError('Invalid middleware configuration', 500);
-			return null;
-		}
-
-		return new self;
-	}
 
 	/**
 	 * Improved error handling

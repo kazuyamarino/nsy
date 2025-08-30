@@ -87,31 +87,91 @@ class RouterHelper
     /**
      * Get CSRF token for forms and AJAX requests
      *
+     * @param string $key Token name/key (default: 'csrf_token')
+     * @param int|null $expiration Token expiration in seconds (null = no expiration)
+     * @param bool $originCheck Whether to include origin validation (IP + User Agent)
      * @return string CSRF token string
      */
-    public static function csrf()
+    public static function csrf(string $key = 'csrf_token', ?int $expiration = null, bool $originCheck = false)
     {
-        return SecurityMiddleware::generateCSRFToken();
+        return SecurityMiddleware::generateCSRFToken($key, $expiration, $originCheck);
     }
 
     /**
      * Get CSRF field HTML for forms
      *
+     * @param string $key Token name/key (default: 'csrf_token')
+     * @param int|null $expiration Token expiration in seconds (null = no expiration)
+     * @param bool $originCheck Whether to include origin validation (IP + User Agent)
      * @return string HTML input field with CSRF token
      */
-    public static function csrfField()
+    public static function csrfField(string $key = 'csrf_token', ?int $expiration = null, bool $originCheck = false)
     {
-        return SecurityMiddleware::csrfField();
+        return SecurityMiddleware::csrfField($key, $expiration, $originCheck);
     }
 
     /**
      * Get CSRF meta tag for AJAX requests
      *
+     * @param string $key Token name/key (default: 'csrf_token')
+     * @param int|null $expiration Token expiration in seconds (null = no expiration)
+     * @param bool $originCheck Whether to include origin validation (IP + User Agent)
      * @return string HTML meta tag with CSRF token
      */
-    public static function csrfMeta()
+    public static function csrfMeta(string $key = 'csrf_token', ?int $expiration = null, bool $originCheck = false)
     {
-        return SecurityMiddleware::csrfMeta();
+        return SecurityMiddleware::csrfMeta($key, $expiration, $originCheck);
+    }
+
+    /**
+     * Validate CSRF token from request
+     *
+     * @param string|null $token Token to validate (if null, reads from $_POST)
+     * @param string $key Token name/key (default: 'csrf_token')
+     * @param int|null $expiration Token expiration in seconds (null = no expiration)
+     * @param bool $originCheck Whether to validate origin (IP + User Agent)
+     * @return bool True if valid, false otherwise
+     */
+    public static function validateCsrf(?string $token = null, string $key = 'csrf_token', ?int $expiration = null, bool $originCheck = false)
+    {
+        if ($token === null) {
+            $token = $_POST[$key] ?? $_GET[$key] ?? null;
+        }
+        return SecurityMiddleware::validateCSRFToken($token, $key, $expiration, $originCheck);
+    }
+
+    /**
+     * Generate multiple CSRF tokens for complex forms
+     *
+     * @param array $keys Array of token names/keys
+     * @param int|null $expiration Token expiration in seconds (null = no expiration)
+     * @param bool $originCheck Whether to include origin validation (IP + User Agent)
+     * @return array Associative array of key => token pairs
+     */
+    public static function csrfTokens(array $keys, ?int $expiration = null, bool $originCheck = false)
+    {
+        $tokens = [];
+        foreach ($keys as $key) {
+            $tokens[$key] = SecurityMiddleware::generateCSRFToken($key, $expiration, $originCheck);
+        }
+        return $tokens;
+    }
+
+    /**
+     * Generate CSRF fields for multiple tokens
+     *
+     * @param array $keys Array of token names/keys
+     * @param int|null $expiration Token expiration in seconds (null = no expiration)
+     * @param bool $originCheck Whether to include origin validation (IP + User Agent)
+     * @return string HTML input fields for all tokens
+     */
+    public static function csrfFields(array $keys, ?int $expiration = null, bool $originCheck = false)
+    {
+        $fields = '';
+        foreach ($keys as $key) {
+            $fields .= SecurityMiddleware::csrfField($key, $expiration, $originCheck) . "\n";
+        }
+        return rtrim($fields);
     }
 
     /**
@@ -210,11 +270,9 @@ class RouterHelper
         $method = strtolower($method);
 
         return NSY_RouterOptimized::$method($path, function() use ($controller, $options) {
-            if (!empty($options['middleware'])) {
-                return NSY_RouterOptimized::middleware($options['middleware'])->for($controller);
-            } else {
-                return NSY_RouterOptimized::goto($controller);
-            }
+            // Security middleware is now applied through SecurityMiddleware static methods
+            // No longer using deprecated middleware chain system
+            return NSY_RouterOptimized::goto($controller);
         });
     }
 
@@ -362,16 +420,6 @@ class RouterHelper
         return NSY_RouterOptimized::group($prefix, $callback);
     }
 
-    /**
-     * Apply middleware to route
-     *
-     * @param array|object $middleware Middleware instance or array of middleware
-     * @return object Middleware chain for further chaining
-     */
-    public static function middleware($middleware)
-    {
-        return NSY_RouterOptimized::middleware($middleware);
-    }
 
     /**
      * Go to controller method directly

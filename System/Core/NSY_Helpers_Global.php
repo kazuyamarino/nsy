@@ -272,7 +272,7 @@ function config_app($d1 = '')
 {
 	$app = include __DIR__ . '/../Config/App.php';
 
-	return $app[$d1];
+	return isset($app[$d1]) ? $app[$d1] : null;
 }
 
 /**
