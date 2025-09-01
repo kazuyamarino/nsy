@@ -15,7 +15,7 @@ class NSY_DB
 	 * Open connection function for mysql/mariadb PDO
 	 *
 	 * @param  string $conn_name
-	 * @return \PDO
+	 * @return \PDO|null
 	 */
 	public static function connect_mysql($conn_name)
 	{
@@ -26,7 +26,7 @@ class NSY_DB
 	 * Open connection function for dblib sql server PDO
 	 *
 	 * @param  string $conn_name
-	 * @return \PDO
+	 * @return \PDO|null
 	 */
 	public static function connect_dblib($conn_name)
 	{
@@ -37,7 +37,7 @@ class NSY_DB
 	 * Open connection function for postgresql PDO
 	 *
 	 * @param  string $conn_name
-	 * @return \PDO
+	 * @return \PDO|null
 	 */
 	public static function connect_pgsql($conn_name)
 	{
@@ -48,7 +48,7 @@ class NSY_DB
 	 * Open connection function for sql server PDO
 	 *
 	 * @param  string $conn_name
-	 * @return \PDO
+	 * @return \PDO|null
 	 */
 	public static function connect_sqlsrv($conn_name)
 	{
@@ -67,7 +67,7 @@ class NSY_DB
 	 * @param string $user_key
 	 * @param string $pass_key
 	 * @param string $charset_key
-	 * @return \PDO
+	 * @return \PDO|null
 	 */
 	private static function createConnection($conn_name, $attr_key, $driver_key, $host_key, $port_key, $dbname_key, $user_key, $pass_key, $charset_key = '')
 	{
@@ -79,6 +79,12 @@ class NSY_DB
 		$DB_USER = config_db($conn_name, $user_key) ?? '';
 		$DB_PASS = config_db($conn_name, $pass_key) ?? '';
 		$DB_CHARSET = config_db($conn_name, $charset_key);
+
+		// Validate required configuration
+		if (!is_filled($DB_DRIVER) || !is_filled($DB_HOST) || !is_filled($DB_NAME)) {
+			NSY_Desk::static_error_handler('Database configuration missing required values: DB_DRIVER, DB_HOST, or DB_NAME', 500);
+			return null;
+		}
 
 		try {
 			// Create a new PDO instance
@@ -98,9 +104,10 @@ class NSY_DB
 
 			// Perform database operations using the $pdo object
 			return new \PDO($dsn, $DB_USER, $DB_PASS, $OPTIONS);
-		} catch (PDOException $e) {
+		} catch (\PDOException $e) {
 			// Handle any errors that occur during the connection
-			echo "Connection failed: " . $e->getMessage();
+			NSY_Desk::static_error_handler("Connection failed: " . $e->getMessage(), 500);
+			return null;
 		}
 	}
 
@@ -115,8 +122,7 @@ class NSY_DB
 	 * @param string $dbname_key
 	 * @param string $user_key
 	 * @param string $pass_key
-	 * @param string $charset_key
-	 * @return \PDO
+	 * @return \PDO|null
 	 */
 	private static function createSqlrvConnection($conn_name, $attr_key, $driver_key, $host_key, $port_key, $dbname_key, $user_key, $pass_key)
 	{
@@ -128,6 +134,12 @@ class NSY_DB
 		$DB_USER = config_db($conn_name, $user_key) ?? '';
 		$DB_PASS = config_db($conn_name, $pass_key) ?? '';
 
+		// Validate required configuration
+		if (!is_filled($DB_DRIVER) || !is_filled($DB_HOST) || !is_filled($DB_NAME)) {
+			NSY_Desk::static_error_handler('Database configuration missing required values: DB_DRIVER, DB_HOST, or DB_NAME', 500);
+			return null;
+		}
+
 		try {
 			// Create a new PDO instance
 			if (is_filled($DB_PORT)) {
@@ -138,9 +150,10 @@ class NSY_DB
 
 			// Perform database operations using the $pdo object
 			return new \PDO($dsn, $DB_USER, $DB_PASS, $OPTIONS);
-		} catch (PDOException $e) {
+		} catch (\PDOException $e) {
 			// Handle any errors that occur during the connection
-			echo "Connection failed: " . $e->getMessage();
+			NSY_Desk::static_error_handler("Connection failed: " . $e->getMessage(), 500);
+			return null;
 		}
 	}
 }

@@ -175,6 +175,34 @@ if (!function_exists('public_path')) {
 	}
 }
 
+if (!function_exists('nsy_resolve_asset_dir')) {
+	/**
+	 * Resolve asset base directory URL as defined by NSY_System.
+	 * Falls back to building from base_url(), public_dir and app config dir keys.
+	 * @param string $key One of: img_dir|js_dir|css_dir
+	 * @return string
+	 */
+	function nsy_resolve_asset_dir(string $key): string
+	{
+		// Prefer constants from NSY_System if available
+		$map = [
+			'img_dir' => 'IMG_DIR',
+			'js_dir'  => 'JS_DIR',
+			'css_dir' => 'CSS_DIR',
+		];
+		if (isset($map[$key]) && defined($map[$key])) {
+			return constant($map[$key]);
+		}
+
+		// Fallback: build from config
+		$base = base_url();
+		$public = config_app('public_dir');
+		$dir = config_app($key);
+		$assetBase = (is_filled($public) ? ($base . $public . '/assets/') : ($base . 'assets/'));
+		return $assetBase . rtrim((string) $dir, '/') . '/';
+	}
+}
+
 if (!function_exists('img_url')) {
 	/**
 	 * Define img_url method, get img directory location on the 'public' directory
@@ -183,10 +211,11 @@ if (!function_exists('img_url')) {
 	 */
 	function img_url($url = '')
 	{
+		$base = nsy_resolve_asset_dir('img_dir');
 		if (is_filled($url)) {
-			return IMG_DIR . $url;
+			return $base . $url;
 		} else {
-			return IMG_DIR;
+			return $base;
 		}
 	}
 }
@@ -199,10 +228,11 @@ if (!function_exists('js_url')) {
 	 */
 	function js_url($url = '')
 	{
+		$base = nsy_resolve_asset_dir('js_dir');
 		if (is_filled($url)) {
-			return JS_DIR . $url;
+			return $base . $url;
 		} else {
-			return JS_DIR;
+			return $base;
 		}
 	}
 }
@@ -215,10 +245,11 @@ if (!function_exists('css_url')) {
 	 */
 	function css_url($url = '')
 	{
+		$base = nsy_resolve_asset_dir('css_dir');
 		if (is_filled($url)) {
-			return CSS_DIR . $url;
+			return $base . $url;
 		} else {
-			return CSS_DIR;
+			return $base;
 		}
 	}
 }
@@ -638,7 +669,7 @@ if (!function_exists('get_version')) {
 	 */
 	function get_version()
 	{
-		return VERSION;
+		return defined('VERSION') ? constant('VERSION') : config_site('version');
 	}
 }
 
@@ -649,7 +680,7 @@ if (!function_exists('get_codename')) {
 	 */
 	function get_codename()
 	{
-		return CODENAME;
+		return defined('CODENAME') ? constant('CODENAME') : config_site('codename');
 	}
 }
 
@@ -660,7 +691,7 @@ if (!function_exists('get_lang_code')) {
 	 */
 	function get_lang_code()
 	{
-		return LANGUAGE_CODE;
+		return defined('LANGUAGE_CODE') ? constant('LANGUAGE_CODE') : config_app('locale');
 	}
 }
 
@@ -671,7 +702,7 @@ if (!function_exists('get_og_prefix')) {
 	 */
 	function get_og_prefix()
 	{
-		return OG_PREFIX;
+		return defined('OG_PREFIX') ? constant('OG_PREFIX') : config_app('prefix_attr');
 	}
 }
 
@@ -682,7 +713,7 @@ if (!function_exists('get_title')) {
 	 */
 	function get_title()
 	{
-		return SITETITLE;
+		return defined('SITETITLE') ? constant('SITETITLE') : config_site('sitetitle');
 	}
 }
 
@@ -693,7 +724,7 @@ if (!function_exists('get_desc')) {
 	 */
 	function get_desc()
 	{
-		return SITEDESCRIPTION;
+		return defined('SITEDESCRIPTION') ? constant('SITEDESCRIPTION') : config_site('sitedesc');
 	}
 }
 
@@ -704,7 +735,7 @@ if (!function_exists('get_keywords')) {
 	 */
 	function get_keywords()
 	{
-		return SITEKEYWORDS;
+		return defined('SITEKEYWORDS') ? constant('SITEKEYWORDS') : config_site('sitekeywords');
 	}
 }
 
@@ -715,7 +746,7 @@ if (!function_exists('get_author')) {
 	 */
 	function get_author()
 	{
-		return SITEAUTHOR;
+		return defined('SITEAUTHOR') ? constant('SITEAUTHOR') : config_site('siteauthor');
 	}
 }
 
@@ -726,7 +757,7 @@ if (!function_exists('get_session_prefix')) {
 	 */
 	function get_session_prefix()
 	{
-		return SESSION_PREFIX;
+		return defined('SESSION_PREFIX') ? constant('SESSION_PREFIX') : config_app('session_prefix');
 	}
 }
 
@@ -737,7 +768,7 @@ if (!function_exists('get_site_email')) {
 	 */
 	function get_site_email()
 	{
-		return SITEEMAIL;
+		return defined('SITEEMAIL') ? constant('SITEEMAIL') : config_site('siteemail');
 	}
 }
 
@@ -748,7 +779,7 @@ if (!function_exists('get_vendor_dir')) {
 	 */
 	function get_vendor_dir()
 	{
-		return VENDOR_DIR;
+		return defined('VENDOR_DIR') ? constant('VENDOR_DIR') : (rtrim((string) config_app('vendor_dir'), '/') . '/');
 	}
 }
 
@@ -759,7 +790,7 @@ if (!function_exists('get_mvc_view_dir')) {
 	 */
 	function get_mvc_view_dir()
 	{
-		return MVC_VIEW_DIR;
+		return defined('MVC_VIEW_DIR') ? constant('MVC_VIEW_DIR') : (rtrim((string) config_app('mvc_dir'), '/') . '/');
 	}
 }
 
@@ -770,7 +801,7 @@ if (!function_exists('get_hmvc_view_dir')) {
 	 */
 	function get_hmvc_view_dir()
 	{
-		return HMVC_VIEW_DIR;
+		return defined('HMVC_VIEW_DIR') ? constant('HMVC_VIEW_DIR') : (rtrim((string) config_app('hmvc_dir'), '/') . '/');
 	}
 }
 
@@ -781,7 +812,7 @@ if (!function_exists('get_system_tmp_dir')) {
 	 */
 	function get_system_tmp_dir()
 	{
-		return SYS_TMP_DIR;
+		return defined('SYS_TMP_DIR') ? constant('SYS_TMP_DIR') : (rtrim((string) config_app('tmp_dir'), '/') . '/');
 	}
 }
 

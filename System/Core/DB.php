@@ -107,17 +107,16 @@ class DB
     /**
      * Function as a fetch style declaration
      *
-     * @param  string $fetch_style
-     * @return void
+     * @param  int|string|null $fetch_style Fetch mode (e.g., \PDO::FETCH_ASSOC) or null for default
+     * @return static
      */
-    protected function style(string $fetch_style = FETCH_BOTH)
+    protected function style($fetch_style = null)
     {
-        if (is_filled($fetch_style)) {
-            static::$fetch_style = $fetch_style;
+        if (not_filled($fetch_style)) {
+            // Default to PDO::FETCH_BOTH when not provided
+            static::$fetch_style = \PDO::FETCH_BOTH;
         } else {
-            $var_msg = "The value of style in the <mark>style(<strong>value</strong>)</mark> is empty or undefined";
-            NSY_Desk::static_error_handler($var_msg);
-            exit();
+            static::$fetch_style = $fetch_style;
         }
 
         return new static;
@@ -143,7 +142,7 @@ class DB
     /**
      * Helper for PDO FetchAll
      *
-     * @return void
+     * @return array
      */
     protected function fetch_all()
     {
@@ -173,7 +172,7 @@ class DB
 
                             $executed = $stmt->execute();
                         }
-                    } elseif (self::$bind == 'BINDPARAM') {
+                    } elseif (static::$bind == 'BINDPARAM') {
                         if (is_array(static::$variables) || is_object(static::$variables)) {
                             foreach (static::$variables as $key => &$res) {
                                 if (not_filled($res[1]) || not_filled($res[0])) {
@@ -196,7 +195,8 @@ class DB
 
             // Check the errors, if no errors then return the results
             if ($executed || $stmt->errorCode() == 0) {
-                $show_result = $stmt->fetchAll(static::$fetch_style ?? '');
+                $fetchStyle = static::$fetch_style ?? \PDO::FETCH_BOTH;
+                $show_result = $stmt->fetchAll($fetchStyle);
 
                 return $show_result;
             } else {
@@ -213,7 +213,7 @@ class DB
     /**
      * Helper for PDO Fetch
      *
-     * @return void
+     * @return mixed
      */
     protected function fetch()
     {
@@ -266,7 +266,8 @@ class DB
 
             // Check the errors, if no errors then return the results
             if ($executed || $stmt->errorCode() == 0) {
-                $show_result = $stmt->fetch(static::$fetch_style ?? '');
+                $fetchStyle = static::$fetch_style ?? \PDO::FETCH_BOTH;
+                $show_result = $stmt->fetch($fetchStyle);
 
                 return $show_result;
             } else {
@@ -284,7 +285,7 @@ class DB
      * Helper for PDO FetchColumn
      *
      * @param  int $column
-     * @return void
+     * @return mixed
      */
     protected function fetch_column(int $column = 0)
     {
@@ -354,7 +355,7 @@ class DB
     /**
      * Helper for PDO RowCount
      *
-     * @return void
+     * @return int
      */
     protected function row_count()
     {
@@ -424,14 +425,14 @@ class DB
     /**
      * Helper for PDO Execute
      *
-     * @return void
+     * @return bool
      */
     protected function exec()
     {
         if (config_app('csrf_token') === 'true') {
             try {
-                // Run CSRF check, on POST data, in exception mode, for 10 minutes, in one-time mode.
-                csrf_check('csrf_token', $_POST, true, 60 * 10, false);
+                // CSRF validation using consolidated SecurityMiddleware implementation
+                \System\Middlewares\SecurityMiddleware::validateAdvancedCSRF('csrf_token', $_POST, true, 60 * 10, false, false);
 
                 // Check if there's connection defined on the models
                 if (not_filled(static::$connection)) {
@@ -538,7 +539,7 @@ class DB
                                     echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
                                     exit();
                                 }
-                            } elseif (self::$bind == 'BINDPARAM') {
+                            } elseif (static::$bind == 'BINDPARAM') {
                                 if (config_app('transaction') === 'on') {
                                     try {
                                         // begin the transaction
@@ -719,7 +720,7 @@ class DB
                                 echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
                                 exit();
                             }
-                        } elseif (self::$bind == 'BINDPARAM') {
+                        } elseif (static::$bind == 'BINDPARAM') {
                             if (config_app('transaction') === 'on') {
                                 try {
                                     // begin the transaction
@@ -800,15 +801,15 @@ class DB
     /**
      * Helper for PDO Multi Insert
      *
-     * @return void
+     * @return bool
      */
     protected function multi_insert()
     {
         if (config_app('csrf_token') === 'true') {
 
             try {
-                // Run CSRF check, on POST data, in exception mode, for 10 minutes, in one-time mode.
-                csrf_check('csrf_token', $_POST, true, 60 * 10, false);
+                // CSRF validation using consolidated SecurityMiddleware implementation
+                \System\Middlewares\SecurityMiddleware::validateAdvancedCSRF('csrf_token', $_POST, true, 60 * 10, false, false);
 
                 // Check if there's connection defined on the models
                 if (not_filled(static::$connection)) {
@@ -973,7 +974,7 @@ class DB
      *
      * @param mixed $param
      * @param mixed $value
-     * @return void
+     * @return static
      */
     protected function pdo_set_attr(mixed $param = '', mixed $value = '')
     {
@@ -985,7 +986,7 @@ class DB
      * Helper for PDO getAttribute
      *
      * @param mixed $param
-     * @return void
+     * @return static
      */
     protected function pdo_get_attr(mixed $param = '')
     {
@@ -996,7 +997,7 @@ class DB
     /**
      * Helper for PDO Begin Transaction
      *
-     * @return void
+     * @return static
      */
     protected function begin_trans()
     {
@@ -1006,7 +1007,7 @@ class DB
     /**
      * Helper for PDO Commit Transaction
      *
-     * @return void
+     * @return static
      */
     protected function commit_trans()
     {
@@ -1016,7 +1017,7 @@ class DB
     /**
      * Helper for PDO Rollback Transaction
      *
-     * @return void
+     * @return static
      */
     protected function rollback_trans()
     {

@@ -2,107 +2,189 @@
 
 namespace System\Core;
 
-/**
- * Use Session class
- */
-
 use Josantonius\Session\Facades\Session;
 
 /**
- * This is the core of NSY System Settings
- * Attention, don't try to change the structure of the code, delete, or change.
- * Because there is some code connected to the NSY system. So, be careful.
+ * NSY System Core - Optimized Configuration and Initialization
+ * 
+ * This is the core of NSY System Settings that handles:
+ * - Asset directory path definitions
+ * - System directory path definitions  
+ * - Site configuration constants
+ * - PDO constants and bindings
+ * - Session initialization
+ * 
+ * @package System\Core
+ * @version 2.0.0
+ * @author NSY Framework Team
  */
 class NSY_System
 {
 	/**
-	 * Defined variable for NSY Core System
+	 * Cached configuration values for performance optimization
+	 */
+	private array $configCache = [];
+
+	/**
+	 * Initialize NSY Core System with optimized configuration loading
 	 */
 	public function __construct()
 	{
-		if (is_filled(config_app('public_dir'))) {
-			// set the default public/css/js path
-			define('CSS_DIR', base_url() . config_app('public_dir') . '/' . 'assets' . '/' . config_app('css_dir') . '/'); // CSS directory path
+		$this->initializeAssetDirectories();
+		$this->initializeSystemDirectories();
+		$this->initializeApplicationSettings();
+		$this->initializeSiteConstants();
+		$this->initializePDOConstants();
+		$this->initializeSession();
+	}
 
-			define('JS_DIR', base_url() . config_app('public_dir') . '/' . 'assets' . '/' . config_app('js_dir') . '/'); // JS directory path
+	/**
+	 * Initialize asset directory constants with optimized path building
+	 */
+	private function initializeAssetDirectories(): void
+	{
+		$baseUrl = base_url();
+		$publicDir = $this->getCachedConfig('app', 'public_dir');
+		
+		// Determine asset base path
+		$assetBasePath = is_filled($publicDir) 
+			? "{$baseUrl}{$publicDir}/assets/"
+			: "{$baseUrl}assets/";
 
-			define('IMG_DIR', base_url() . config_app('public_dir') . '/' . 'assets' . '/' . config_app('img_dir') . '/'); // IMG directory
-		} else {
-			// set the default public/css/js path
-			define('CSS_DIR', base_url() . 'assets' . '/' . config_app('css_dir') . '/'); // CSS directory path
+		// Define asset directories with cached config values
+		$assetDirs = [
+			'CSS_DIR' => $this->getCachedConfig('app', 'css_dir'),
+			'JS_DIR' => $this->getCachedConfig('app', 'js_dir'),
+			'IMG_DIR' => $this->getCachedConfig('app', 'img_dir')
+		];
 
-			define('JS_DIR', base_url() . 'assets' . '/' . config_app('js_dir') . '/'); // JS directory path
+		foreach ($assetDirs as $constant => $dir) {
+			define($constant, $assetBasePath . $dir . '/');
+		}
+	}
 
-			define('IMG_DIR', base_url() . 'assets' . '/' . config_app('img_dir') . '/'); // IMG directory
+	/**
+	 * Initialize system directory constants
+	 */
+	private function initializeSystemDirectories(): void
+	{
+		$systemDirs = [
+			'SYS_TMP_DIR' => $this->getCachedConfig('app', 'tmp_dir'),
+			'MVC_VIEW_DIR' => $this->getCachedConfig('app', 'mvc_dir'),
+			'HMVC_VIEW_DIR' => $this->getCachedConfig('app', 'hmvc_dir'),
+			'VENDOR_DIR' => $this->getCachedConfig('app', 'vendor_dir')
+		];
+
+		foreach ($systemDirs as $constant => $dir) {
+			define($constant, $dir . '/');
+		}
+	}
+
+	/**
+	 * Initialize application-level settings and constants
+	 */
+	private function initializeApplicationSettings(): void
+	{
+		// Application configuration constants
+		$appSettings = [
+			'LANGUAGE_CODE' => $this->getCachedConfig('app', 'locale'),
+			'OG_PREFIX' => $this->getCachedConfig('app', 'prefix_attr'),
+			'SESSION_PREFIX' => $this->getCachedConfig('app', 'session_prefix')
+		];
+
+		foreach ($appSettings as $constant => $value) {
+			define($constant, $value);
 		}
 
-		// Template directory path
-		define('SYS_TMP_DIR', config_app('tmp_dir') . '/');
+		// Set application timezone
+		date_default_timezone_set($this->getCachedConfig('app', 'timezone'));
+	}
 
-		// MVC directory path
-		define('MVC_VIEW_DIR', config_app('mvc_dir') . '/');
+	/**
+	 * Initialize site-related constants
+	 */
+	private function initializeSiteConstants(): void
+	{
+		$siteSettings = [
+			'SITETITLE' => $this->getCachedConfig('site', 'sitetitle'),
+			'SITEAUTHOR' => $this->getCachedConfig('site', 'siteauthor'),
+			'SITEKEYWORDS' => $this->getCachedConfig('site', 'sitekeywords'),
+			'SITEDESCRIPTION' => $this->getCachedConfig('site', 'sitedesc'),
+			'SITEEMAIL' => $this->getCachedConfig('site', 'siteemail'),
+			'VERSION' => $this->getCachedConfig('site', 'version'),
+			'CODENAME' => $this->getCachedConfig('site', 'codename')
+		];
 
-		// HMVC directory path
-		define('HMVC_VIEW_DIR', config_app('hmvc_dir') . '/');
+		foreach ($siteSettings as $constant => $value) {
+			define($constant, $value);
+		}
+	}
 
-		// Vendor directory path
-		define('VENDOR_DIR', config_app('vendor_dir') . '/');
+	/**
+	 * Initialize PDO-related constants with optimized definition checking
+	 */
+	private function initializePDOConstants(): void
+	{
+		// PDO parameter type constants
+		$pdoParams = [
+			'PAR_INT' => \PDO::PARAM_INT,
+			'PAR_STR' => \PDO::PARAM_STR
+		];
 
-		// set a default language
-		define('LANGUAGE_CODE', config_app('locale'));
+		// PDO binding type constants
+		$pdoBindings = [
+			'BINDVAL' => 'BINDVALUE',
+			'BINDPAR' => 'BINDPARAM'
+		];
 
-		// set a default prefix OG
-		define('OG_PREFIX', config_app('prefix_attr'));
+		// PDO fetch mode constants
+		$pdoFetchModes = [
+			'FETCH_NUM' => \PDO::FETCH_NUM,
+			'FETCH_COLUMN' => \PDO::FETCH_COLUMN,
+			'FETCH_ASSOC' => \PDO::FETCH_ASSOC,
+			'FETCH_BOTH' => \PDO::FETCH_BOTH,
+			'FETCH_OBJ' => \PDO::FETCH_OBJ,
+			'FETCH_LAZY' => \PDO::FETCH_LAZY,
+			'FETCH_CLASS' => \PDO::FETCH_CLASS,
+			'FETCH_KEY_PAIR' => \PDO::FETCH_KEY_PAIR,
+			'FETCH_UNIQUE' => \PDO::FETCH_UNIQUE,
+			'FETCH_GROUP' => \PDO::FETCH_GROUP,
+			'FETCH_FUNC' => \PDO::FETCH_FUNC
+		];
 
-		// set prefix for sessions
-		define('SESSION_PREFIX', config_app('session_prefix'));
+		// Define all PDO constants efficiently
+		$allConstants = array_merge($pdoParams, $pdoBindings, $pdoFetchModes);
+		
+		foreach ($allConstants as $constant => $value) {
+			defined($constant) or define($constant, $value);
+		}
+	}
 
-		// optional create a constant for the name of the site
-		define('SITETITLE', config_site('sitetitle'));
+	/**
+	 * Initialize session with cached configuration
+	 */
+	private function initializeSession(): void
+	{
+		Session::start($this->getCachedConfig('app', 'session_config'));
+	}
 
-		// optional set a site author
-		define('SITEAUTHOR', config_site('siteauthor'));
-
-		// optional set a site keywords
-		define('SITEKEYWORDS', config_site('sitekeywords'));
-
-		// optional set a site description
-		define('SITEDESCRIPTION', config_site('sitedesc'));
-
-		// optional set a site email address
-		define('SITEEMAIL', config_site('siteemail'));
-
-		// optional set a version of the application
-		define('VERSION', config_site('version'));
-
-		// optional set a codename of the application
-		define('CODENAME', config_site('codename'));
-
-		// set timezone
-		date_default_timezone_set(config_app('timezone'));
-
-		// Define binding variable type
-		defined('PAR_INT') or define('PAR_INT', \PDO::PARAM_INT);
-		defined('PAR_STR') or define('PAR_STR', \PDO::PARAM_STR);
-
-		// Define binding type
-		defined('BINDVAL') or define('BINDVAL', "BINDVALUE");
-		defined('BINDPAR') or define('BINDPAR', "BINDPARAM");
-
-		// Define PDO fetch data
-		defined('FETCH_NUM') or define('FETCH_NUM', \PDO::FETCH_NUM);
-		defined('FETCH_COLUMN') or define('FETCH_COLUMN', \PDO::FETCH_COLUMN);
-		defined('FETCH_ASSOC') or define('FETCH_ASSOC', \PDO::FETCH_ASSOC);
-		defined('FETCH_BOTH') or define('FETCH_BOTH', \PDO::FETCH_BOTH);
-		defined('FETCH_OBJ') or define('FETCH_OBJ', \PDO::FETCH_OBJ);
-		defined('FETCH_LAZY') or define('FETCH_LAZY', \PDO::FETCH_LAZY);
-		defined('FETCH_CLASS') or define('FETCH_CLASS', \PDO::FETCH_CLASS);
-		defined('FETCH_KEY_PAIR') or define('FETCH_KEY_PAIR', \PDO::FETCH_KEY_PAIR);
-		defined('FETCH_UNIQUE') or define('FETCH_UNIQUE', \PDO::FETCH_UNIQUE);
-		defined('FETCH_GROUP') or define('FETCH_GROUP', \PDO::FETCH_GROUP);
-		defined('FETCH_FUNC') or define('FETCH_FUNC', \PDO::FETCH_FUNC);
-
-		// start session
-		Session::start(config_app('session_config'));
+	/**
+	 * Get cached configuration value to avoid repeated function calls
+	 * 
+	 * @param string $type Configuration type ('app' or 'site')
+	 * @param string $key Configuration key
+	 * @return mixed Configuration value
+	 */
+	private function getCachedConfig(string $type, string $key): mixed
+	{
+		$cacheKey = "{$type}.{$key}";
+		
+		if (!isset($this->configCache[$cacheKey])) {
+			$this->configCache[$cacheKey] = $type === 'app' 
+				? config_app($key) 
+				: config_site($key);
+		}
+		
+		return $this->configCache[$cacheKey];
 	}
 }
