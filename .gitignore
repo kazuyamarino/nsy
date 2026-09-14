@@ -37,3 +37,17 @@ System/Apps/General/Models/M_Test_Getdata.php
 System/Apps/General/Models/M_Test_QueryBuilder.php
 System/Apps/General/Views/View_Test_CSRF.php
 System/Apps/General/Views/View_Test_Validator.php
+
+# AI Agents Cache Lokal (Wajib di-ignore)
+/.gitnexus/
+/.claude/
+
+# Konfigurasi AI lokal (opsional, tapi disarankan di-ignore agar tidak conflict dengan tim)
+/opencode.json
+/.opencodeignore
+
+# OS & Editor Config
+.DS_Store
+.idea/
+.vscode/
+*.swp

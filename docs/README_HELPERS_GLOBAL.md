@@ -1,8 +1,8 @@
 # NSY Global Helpers (System/Core/NSY_Helpers_Global.php)
 
-Documentation for NSY Framework global helper functions. This document intentionally does NOT cover configuration functions (`config_app()`, `config_env()`, `config_db()`, `config_site()`).
+Documentation for NSY Framework global helper functions.
 
-All functions here are available as global functions (no namespace) after the NSY bootstrap runs.
+All functions here are available as global functions (no namespace) after the NSY Framework runs.
 
 ## Table of Contents
 
