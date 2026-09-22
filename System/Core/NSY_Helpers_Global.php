@@ -10,6 +10,7 @@
  */
 
 use System\Core\NSY_Desk;
+use System\Libraries\LanguageCode;
 
 /**
  * Variable Checking Helpers
@@ -18,19 +19,20 @@ if (!function_exists('not_filled')) {
 	/**
 	 * Function for basic field validation (present and neither empty nor only white space
 	 * @param  mixed $str
-	 * @return mixed
+	 * @return bool
 	 */
-	function not_filled($str = '')
+	function not_filled($str = ''): bool
 	{
-		if (!empty($str)) {
-			return false;
-		} else {
-			if (is_array($str)) {
-				return (!isset($str) || empty($str));
-			} else {
-				return (!isset($str) || $str == '' || empty($str));
-			}
+		if (is_array($str)) {
+			return empty($str);
 		}
+		if ($str === null) {
+			return true;
+		}
+		if (is_string($str)) {
+			return trim($str) === '';
+		}
+		return empty($str);
 	}
 }
 
@@ -38,19 +40,11 @@ if (!function_exists('is_filled')) {
 	/**
 	 * Function for basic field validation (present and neither filled nor not empty)
 	 * @param  mixed $str
-	 * @return mixed
+	 * @return bool
 	 */
-	function is_filled($str = '')
+	function is_filled($str = ''): bool
 	{
-		if (!isset($str)) {
-			return false;
-		} else {
-			if (is_array($str)) {
-				return (isset($key) || !empty($str));
-			} else {
-				return (isset($key) || !empty($str));
-			}
-		}
+		return !not_filled($str);
 	}
 }
 
@@ -65,34 +59,18 @@ if (!function_exists('is_filled')) {
  * @param  string $url
  * @return string
  */
-function base_url($url = '')
+function base_url($url = ''): string
 {
-	// set the default application or project directory
 	$APP_DIR = config_app('app_dir');
+	$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+	$isHttps = (($_SERVER['HTTPS'] ?? '') === 'on' || (int) ($_SERVER['SERVER_PORT'] ?? 80) === 443);
+	$scheme = $isHttps ? 'https://' : 'http://';
+	$url = ltrim((string) $url, '/');
 
-	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443) {
-		// if default application or project directory undefined
-		if (empty($APP_DIR) || is_null($APP_DIR)) {
-			// then get this result
-			// site address (https) without application directory
-			return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $url;
-		} else {
-			// else if default application or project directory defined then get this result
-			// site address (https) with application directory
-			return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $url;
-		}
-	} else {
-		// if default application or project directory undefined
-		if (empty($APP_DIR) || is_null($APP_DIR)) {
-			// then get this result
-			// site address (http) without application directory
-			return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $url;
-		} else {
-			// else if default application or project directory defined then get this result
-			// site address (http) with application directory
-			return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $url;
-		}
+	if (empty($APP_DIR)) {
+		return $scheme . $host . '/' . $url;
 	}
+	return $scheme . $host . '/' . trim((string) $APP_DIR, '/') . '/' . $url;
 }
 
 /**
@@ -104,51 +82,26 @@ function base_url($url = '')
  * @param  string $url
  * @return string
  */
-function assets_url($url = '')
+function assets_url($url = ''): string
 {
-	// set the default application or project directory
 	$APP_DIR = config_app('app_dir');
-
-	// Set the default public directory
 	$PUBLIC_DIR = config_app('public_dir');
+	$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+	$isHttps = (($_SERVER['HTTPS'] ?? '') === 'on' || (int) ($_SERVER['SERVER_PORT'] ?? 80) === 443);
+	$scheme = $isHttps ? 'https://' : 'http://';
+	$url = ltrim((string) $url, '/');
 
-	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' || $_SERVER['SERVER_PORT'] == 443) {
-		// if default application or project directory undefined
-		if (empty($APP_DIR) || is_null($APP_DIR)) {
-			// then get this result
-			// site address (https) without application directory
-			return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $PUBLIC_DIR . '/assets/' . $url;
-		} else {
-			// else if default application or project directory defined then get this result
-
-			// if public directory undefined
-			if (empty($PUBLIC_DIR) || is_null($PUBLIC_DIR)) {
-				// site address (https) with application directory
-				return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/assets/' . $url;
-			} else {
-				// site address (https) with application directory
-				return 'https://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $PUBLIC_DIR . '/assets/' . $url;
-			}
-		}
-	} else {
-		// if default application or project directory undefined
-		if (empty($APP_DIR) || is_null($APP_DIR)) {
-			// then get this result
-			// site address (http) without application directory
-			return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $PUBLIC_DIR . '/assets/' . $url;
-		} else {
-			// else if default application or project directory defined then get this result
-
-			// if public directory undefined
-			if (empty($PUBLIC_DIR) || is_null($PUBLIC_DIR)) {
-				// site address (http) with application directory
-				return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/assets/' . $url;
-			} else {
-				// site address (http) with application directory
-				return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $APP_DIR . '/' . $PUBLIC_DIR . '/assets/' . $url;
-			}
-		}
+	$parts = [];
+	if (!empty($APP_DIR)) {
+		$parts[] = trim((string) $APP_DIR, '/');
 	}
+	if (!empty($PUBLIC_DIR)) {
+		$parts[] = trim((string) $PUBLIC_DIR, '/');
+	}
+	$parts[] = 'assets';
+	$prefix = $scheme . $host . '/' . implode('/', $parts) . '/';
+
+	return $prefix . $url;
 }
 
 if (!function_exists('public_path')) {
@@ -157,21 +110,14 @@ if (!function_exists('public_path')) {
 	 * @param  string $url
 	 * @return string
 	 */
-	function public_path($url = '')
+	function public_path($url = ''): string
 	{
+		$publicDir = config_app('public_dir');
+		$base = rtrim(__DIR__ . '/../../' . (is_filled($publicDir) ? trim((string) $publicDir, '/') : ''), '/');
 		if (is_filled($url)) {
-			if (is_filled(config_app('public_dir'))) {
-				return __DIR__ . '/../../' . config_app('public_dir') . '/' . $url;
-			} else {
-				return __DIR__ . '/../../' . $url;
-			}
-		} else {
-			if (is_filled(config_app('public_dir'))) {
-				return __DIR__ . '/../../' . config_app('public_dir');
-			} else {
-				return __DIR__ . '/../../';
-			}
+			return $base . '/' . ltrim((string) $url, '/');
 		}
+		return $base . '/';
 	}
 }
 
@@ -209,14 +155,20 @@ if (!function_exists('img_url')) {
 	 * @param  string $url
 	 * @return string
 	 */
-	function img_url($url = '')
+	function img_url($url = ''): string
 	{
 		$base = nsy_resolve_asset_dir('img_dir');
-		if (is_filled($url)) {
-			return $base . $url;
-		} else {
+		if (!is_filled($url)) {
 			return $base;
 		}
+		$url = ltrim((string) $url, '/');
+		if (!str_contains($url, '?') && !str_starts_with($url, 'http://') && !str_starts_with($url, 'https://') && !str_starts_with($url, '//')) {
+			$path = public_path('assets/' . trim((string) config_app('img_dir') ?: 'images', '/') . '/' . $url);
+			if (is_file($path)) {
+				$url .= '?v=' . filemtime($path);
+			}
+		}
+		return $base . $url;
 	}
 }
 
@@ -226,14 +178,20 @@ if (!function_exists('js_url')) {
 	 * @param  string $url
 	 * @return string
 	 */
-	function js_url($url = '')
+	function js_url($url = ''): string
 	{
 		$base = nsy_resolve_asset_dir('js_dir');
-		if (is_filled($url)) {
-			return $base . $url;
-		} else {
+		if (!is_filled($url)) {
 			return $base;
 		}
+		$url = ltrim((string) $url, '/');
+		if (!str_contains($url, '?') && !str_starts_with($url, 'http://') && !str_starts_with($url, 'https://') && !str_starts_with($url, '//')) {
+			$path = public_path('assets/' . trim((string) config_app('js_dir') ?: 'js', '/') . '/' . $url);
+			if (is_file($path)) {
+				$url .= '?v=' . filemtime($path);
+			}
+		}
+		return $base . $url;
 	}
 }
 
@@ -243,14 +201,20 @@ if (!function_exists('css_url')) {
 	 * @param  string $url
 	 * @return string
 	 */
-	function css_url($url = '')
+	function css_url($url = ''): string
 	{
 		$base = nsy_resolve_asset_dir('css_dir');
-		if (is_filled($url)) {
-			return $base . $url;
-		} else {
+		if (!is_filled($url)) {
 			return $base;
 		}
+		$url = ltrim((string) $url, '/');
+		if (!str_contains($url, '?') && !str_starts_with($url, 'http://') && !str_starts_with($url, 'https://') && !str_starts_with($url, '//')) {
+			$path = public_path('assets/' . trim((string) config_app('css_dir') ?: 'css', '/') . '/' . $url);
+			if (is_file($path)) {
+				$url .= '?v=' . filemtime($path);
+			}
+		}
+		return $base . $url;
 	}
 }
 
@@ -285,9 +249,10 @@ if (!function_exists('redirect_back')) {
 	 * Redirect Back URI
 	 * @return void
 	 */
-	function redirect_back()
+	function redirect_back(): void
 	{
-		header('location: ' . $_SERVER['HTTP_REFERER']);
+		$referer = $_SERVER['HTTP_REFERER'] ?? base_url();
+		header('location: ' . $referer);
 		exit();
 	}
 }
@@ -315,9 +280,9 @@ function config_env($d1 = '', $d2 = '')
 {
 	$app = include __DIR__ . '/../../env.php';
 	if (not_filled($d2)) {
-		return $app[$d1];
+		return $app[$d1] ?? null;
 	} else {
-		return $app[$d1][$d2];
+		return $app[$d1][$d2] ?? null;
 	}
 }
 
@@ -330,9 +295,9 @@ function config_db($d1 = '', $d2 = '')
 {
 	$app = include __DIR__ . '/../../env.php';
 	if (not_filled($d1) || not_filled($d2)) {
-		return $app['connections'];
+		return $app['connections'] ?? [];
 	} else {
-		return $app['connections'][$d1][$d2];
+		return $app['connections'][$d1][$d2] ?? null;
 	}
 }
 
@@ -345,7 +310,7 @@ function config_site($d1 = '')
 {
 	$site = include __DIR__ . '/../Config/Site.php';
 
-	return $site[$d1];
+	return $site[$d1] ?? null;
 }
 
 // ------------------------------------------------------------------------
@@ -506,13 +471,13 @@ if (!function_exists('get_ua')) {
 	 * echo $ua['userAgent'];
 	 */
 	// http://www.php.net/manual/en/function.get-browser.php#101125
-	function get_ua()
+	function get_ua(): array
 	{
-		$u_agent = $_SERVER['HTTP_USER_AGENT'];
+		$u_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
 		$bname = 'Unknown';
+		$ub = '';
 		$platform = 'Unknown';
-		$version = "";
-		// First get the platform?
+		$version = "?";
 		if (preg_match('/Android/i', $u_agent)) {
 			$platform = 'Android';
 		} elseif (preg_match('/linux/i', $u_agent)) {
@@ -522,7 +487,6 @@ if (!function_exists('get_ua')) {
 		} elseif (preg_match('/windows|win32/i', $u_agent)) {
 			$platform = 'Windows';
 		}
-		// Next get the name of the useragent yes seperately and for good reason
 		if (preg_match('/MSIE/i', $u_agent) && !preg_match('/Opera/i', $u_agent)) {
 			$bname = 'Internet Explorer';
 			$ub = "MSIE";
@@ -542,27 +506,23 @@ if (!function_exists('get_ua')) {
 			$bname = 'Netscape';
 			$ub = "Netscape";
 		}
-		// finally get the correct version number
-		$known = array('Version', $ub, 'other');
-		$pattern = '#(?<browser>' . join('|', $known) . ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
-		if (!preg_match_all($pattern, $u_agent, $matches)) {
-			// we have no matching number just continue
-		}
-		// see how many we have
-		$i = count($matches['browser']);
-		if ($i != 1) {
-			//we will have two since we are not using 'other' argument yet
-			//see if version is before or after the name
-			if (strripos($u_agent, "Version") < strripos($u_agent, $ub)) {
-				$version = $matches['version'][0];
+		$known = array_filter(['Version', $ub, 'other']);
+		$pattern = '#(?<browser>' . implode('|', $known) . ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+		if (preg_match_all($pattern, $u_agent, $matches) && !empty($matches['browser'])) {
+			$i = count($matches['browser']);
+			if ($i !== 1 && $ub !== '' && isset($matches['version'][1])) {
+				if (strripos($u_agent, "Version") !== false && strripos($u_agent, $ub) !== false) {
+					$version = strripos($u_agent, "Version") < strripos($u_agent, $ub)
+						? ($matches['version'][0] ?? "?")
+						: ($matches['version'][1] ?? "?");
+				} else {
+					$version = $matches['version'][0] ?? "?";
+				}
 			} else {
-				$version = $matches['version'][1];
+				$version = $matches['version'][0] ?? "?";
 			}
-		} else {
-			$version = $matches['version'][0];
 		}
-		// check if we have a number
-		if ($version == null || $version == "") {
+		if ($version === null || $version === "") {
 			$version = "?";
 		}
 
@@ -589,13 +549,13 @@ if (!function_exists('generate_num')) {
 	 * @param  int $num_length
 	 * @return int|string
 	 */
-	function generate_num($prefix = 'NSY-', $id_length = 6, $num_length = 10)
+	function generate_num($prefix = 'NSY-', $id_length = 6, $num_length = 10): string
 	{
-		$zeros = str_pad('', $id_length, 0, STR_PAD_LEFT);
-		$nines = str_pad('', $id_length, 9, STR_PAD_LEFT);
-
-		$ids = str_pad(mt_rand($zeros, $nines), $num_length, $prefix, STR_PAD_LEFT);
-
+		$id_length = max(1, (int) $id_length);
+		$num_length = max(1, (int) $num_length);
+		$max = (int) str_repeat('9', $id_length);
+		$rand = str_pad((string) mt_rand(0, $max), $id_length, '0', STR_PAD_LEFT);
+		$ids = str_pad($rand, $num_length, (string) $prefix, STR_PAD_LEFT);
 		return $ids;
 	}
 }
@@ -611,17 +571,16 @@ if (!function_exists('get_uri_segment')) {
 	 * @param  int $key
 	 * @return string
 	 */
-	function get_uri_segment($key = '')
+	function get_uri_segment($key = ''): string
 	{
-		$uriSegments = explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-
-		if (array_key_exists($key, $uriSegments)) {
-			return $uriSegments[$key];
-		} else {
-			$var_msg = "Segment does not exist";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		$uri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
+		$uriSegments = explode('/', $uri);
+		if (array_key_exists((int) $key, $uriSegments)) {
+			return (string) $uriSegments[(int) $key];
 		}
+		$var_msg = "Segment does not exist";
+		NSY_Desk::static_error_handler($var_msg);
+		exit();
 	}
 }
 
@@ -633,11 +592,10 @@ if (!function_exists('get_last_uri_segment')) {
 	 * Get last URI Segment on any route condition
 	 * @return string
 	 */
-	function get_last_uri_segment()
+	function get_last_uri_segment(): string
 	{
-		$uri = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-
-		return $uri;
+		$uri = basename(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/');
+		return (string) $uri;
 	}
 }
 
@@ -649,11 +607,10 @@ if (!function_exists('get_uri')) {
 	 * Get URI based on current route
 	 * @return string
 	 */
-	function get_uri()
+	function get_uri(): string
 	{
-		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-		return $uri;
+		$uri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
+		return (string) $uri;
 	}
 }
 
@@ -686,12 +643,19 @@ if (!function_exists('get_codename')) {
 
 if (!function_exists('get_lang_code')) {
 	/**
-	 * Get application language code
-	 * @return string
+	 * Get application language code, or look up a code from a language name.
+	 *
+	 * @param string|null $languageName → language name, e.g. 'Spanish' (optional)
+	 *
+	 * @return string|false → locale/code, or false when the name is unknown
 	 */
-	function get_lang_code()
+	function get_lang_code($languageName = null)
 	{
-		return defined('LANGUAGE_CODE') ? constant('LANGUAGE_CODE') : config_app('locale');
+		if ($languageName === null) {
+			return defined('LANGUAGE_CODE') ? constant('LANGUAGE_CODE') : config_app('locale');
+		}
+
+		return LanguageCode::getCodeFromLanguage($languageName);
 	}
 }
 
@@ -870,7 +834,7 @@ if (!function_exists('image_to_base64')) {
 			$fileType = $files['type'];
 			$fileContent = file_get_contents($files['tmp_name']);
 			$base64 = base64_encode($fileContent);
-			$dataUrl = 'data:' . $fileType . ';base64,' . base64_encode($fileContent);
+			$dataUrl = 'data:' . $fileType . ';base64,' . $base64;
 
 			$arr = array(
 				'name' => $fileName,
@@ -899,7 +863,7 @@ if (!function_exists('string_to_base64')) {
 	{
 		if (is_filled($string) || is_filled($ext)) {
 			$base64 = base64_encode($string);
-			$dataUrl = 'data:images/' . $ext . ';base64,' . $base64;
+			$dataUrl = 'data:image/' . $ext . ';base64,' . $base64;
 
 			$arr = array(
 				'dataUrl' => $dataUrl,
@@ -1007,22 +971,21 @@ if (!function_exists('sequence')) {
 	 * @param iterable|object $variables
 	 * @return array
 	 */
-	function sequence($bind, $variables)
+	function sequence($bind, $variables): array
 	{
 		$in = '';
-		if (is_array($variables) || is_object($variables) || is_filled($bind)) {
-			foreach ($variables as $i => $item) {
-				$key = $bind . $i;
-				$in .= $key . ',';
-				$in_params[$key] = $item; // collecting values into key-value array
-			}
-		} else {
+		$in_params = [];
+		if (!is_filled($bind) || (!is_array($variables) && !is_object($variables) && !($variables instanceof \Traversable))) {
 			$var_msg = 'The variable in the <mark>sequence(<strong>bind</strong>, <strong>variables</strong>)</mark> is improper or not an array';
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
 		}
-		$in = rtrim($in, ','); // example = :id0,:id1,:id2
-
+		foreach ($variables as $i => $item) {
+			$key = $bind . $i;
+			$in .= $key . ',';
+			$in_params[$key] = $item;
+		}
+		$in = rtrim($in, ',');
 		return [$in, $in_params];
 	}
 }
@@ -1119,10 +1082,10 @@ if (!function_exists('fetch_json')) {
 	 * @param  int $status
 	 * @return string
 	 */
-	function fetch_json($data = array(), $status = 0)
+	function fetch_json($data = array(), $status = 0): string
 	{
 		$json_data = $data;
-		$json_result = json_encode($json_data);
+		$json_result = json_encode($json_data, JSON_UNESCAPED_UNICODE);
 
 		http_response_code($status);
 		return $json_result;
@@ -1138,11 +1101,19 @@ if (!function_exists('fetch_raw_json')) {
 	 * @param  string $variable
 	 * @return mixed
 	 */
-	function fetch_raw_json(string $variable = '')
+	function fetch_raw_json(string $variable = ''): mixed
 	{
 		$raw_data = file_get_contents('php://input');
+		if ($raw_data === false || $raw_data === '') {
+			return $variable === '' ? [] : null;
+		}
 		$array = json_decode($raw_data, true);
-
-		return $array[$variable];
+		if (!is_array($array)) {
+			return $variable === '' ? [] : null;
+		}
+		if ($variable === '') {
+			return $array;
+		}
+		return $array[$variable] ?? null;
 	}
 }

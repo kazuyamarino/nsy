@@ -64,7 +64,7 @@ class Request
         switch (strtoupper($type)) {
             case 'GET':
             case 'POST':
-                $self->params = filter_input_array(constant('INPUT_' . $type)) ?? [];
+                $self->params = filter_input_array(constant('INPUT_' . strtoupper($type))) ?? [];
                 break;
             case 'PUT':
             case 'DELETE':
@@ -73,9 +73,10 @@ class Request
         }
 
         return function ($key = null) use ($self) {
-            $self->key = $key;
+            $clone = clone $self;
+            $clone->key = $key;
 
-            return $self;
+            return $clone;
         };
     }
 
@@ -236,7 +237,7 @@ class Request
      */
     public static function isGet(): bool
     {
-        return $_SERVER['REQUEST_METHOD'] === 'GET';
+        return ($_SERVER['REQUEST_METHOD'] ?? '') === 'GET';
     }
 
     /**
@@ -244,7 +245,7 @@ class Request
      */
     public static function isPost(): bool
     {
-        return $_SERVER['REQUEST_METHOD'] === 'POST';
+        return ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST';
     }
 
     /**
@@ -252,7 +253,7 @@ class Request
      */
     public static function isPut(): bool
     {
-        return $_SERVER['REQUEST_METHOD'] === 'PUT';
+        return ($_SERVER['REQUEST_METHOD'] ?? '') === 'PUT';
     }
 
     /**
@@ -260,7 +261,7 @@ class Request
      */
     public static function isDelete(): bool
     {
-        return $_SERVER['REQUEST_METHOD'] === 'DELETE';
+        return ($_SERVER['REQUEST_METHOD'] ?? '') === 'DELETE';
     }
 
     /**
@@ -271,6 +272,10 @@ class Request
     private static function getParsedInput()
     {
         $input = file_get_contents('php://input') ?: null;
+
+        if ($input === null || $input === '') {
+            return [];
+        }
 
         switch (self::getContentType()) {
             case 'application/atom+xml':
@@ -300,7 +305,7 @@ class Request
      */
     public static function getContentType(): string
     {
-        $contentType = $_SERVER['HTTP_CONTENT_TYPE'] ?? '';
+        $contentType = $_SERVER['CONTENT_TYPE'] ?? $_SERVER['HTTP_CONTENT_TYPE'] ?? '';
 
         return explode(';', $contentType)[0];
     }
@@ -316,7 +321,7 @@ class Request
      */
     private static function parseRaw(string $input, array &$data = [])
     {
-        preg_match('/boundary=(.*)$/', $_SERVER['CONTENT_TYPE'], $matches);
+        preg_match('/boundary=(.*)$/', $_SERVER['CONTENT_TYPE'] ?? '', $matches);
 
         $blocks = preg_split('/-+' . ($matches[1] ?? '') . '/', $input);
 

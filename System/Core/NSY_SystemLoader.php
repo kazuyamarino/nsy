@@ -22,14 +22,9 @@ class NSY_SystemLoader
     private static $initialized = false;
 
     // System file configuration
+    // Library helpers (NSY_Helpers_File/Request/Validate/Language/LoadTime) removed — use System\Libraries\* directly (Option 2)
     private static $systemConfig = [
-        'core_helpers' => [
-            'NSY_Helpers_File.php',
-            'NSY_Helpers_Language.php',
-            'NSY_Helpers_LoadTime.php',
-            'NSY_Helpers_Request.php',
-            'NSY_Helpers_Validate.php'
-        ],
+        'core_helpers' => [],
         'libraries' => [
             'Aliases.php'
         ],

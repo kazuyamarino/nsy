@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * NSY PHP Framework - CodeIgniter Helpers (Optimized Edition)
  *
@@ -25,51 +27,55 @@
  * stringify_attributes(['class' => 'btn', 'id' => 'submit']) // Returns: ' class="btn" id="submit"'
  * stringify_attributes(['width' => 100, 'height' => 200], true) // Returns: 'width=100,height=200'
  */
-function stringify_attributes($attributes, bool $js = false): string
-{
-    // Handle null or empty input
-    if (empty($attributes)) {
-        return '';
-    }
-
-    // Convert objects to arrays for uniform processing
-    if (is_object($attributes)) {
-        $attributes = (array) $attributes;
-    }
-
-    // Process array attributes
-    if (is_array($attributes)) {
+if (!function_exists('stringify_attributes')) {
+    function stringify_attributes($attributes, bool $js = false): string
+    {
+        // Handle null or empty input
         if (empty($attributes)) {
             return '';
         }
 
-        $result = [];
-        foreach ($attributes as $key => $value) {
-            // Skip null or false values
-            if ($value === null || $value === false) {
-                continue;
-            }
-
-            // Escape values for security
-            $escaped_value = htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
-            
-            if ($js) {
-                $result[] = $key . '=' . $escaped_value;
-            } else {
-                $result[] = $key . '="' . $escaped_value . '"';
-            }
+        // Convert objects to arrays for uniform processing
+        if (is_object($attributes)) {
+            $attributes = (array) $attributes;
         }
 
-        return $js ? implode(',', $result) : ' ' . implode(' ', $result);
-    }
+        // Process array attributes
+        if (is_array($attributes)) {
+            if (empty($attributes)) {
+                return '';
+            }
 
-    // Handle string input
-    if (is_string($attributes)) {
-        return ' ' . trim($attributes);
-    }
+            $result = [];
+            foreach ($attributes as $key => $value) {
+                // Skip null or false values
+                if ($value === null || $value === false) {
+                    continue;
+                }
 
-    // Fallback for other types
-    return (string) $attributes;
+                // Escape values for security — JS mode: no HTML entity for comma-separated use
+                $escaped_value = $js
+                    ? str_replace(['"', "'", ','], ['\"', "\'", '\,'], (string) $value)
+                    : htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+
+                if ($js) {
+                    $result[] = $key . '=' . $escaped_value;
+                } else {
+                    $result[] = $key . '="' . $escaped_value . '"';
+                }
+            }
+
+            return $js ? implode(',', $result) : ' ' . implode(' ', $result);
+        }
+
+        // Handle string input
+        if (is_string($attributes)) {
+            return ' ' . trim($attributes);
+        }
+
+        // Fallback for other types
+        return (string) $attributes;
+    }
 }
 
 // ------------------------------------------------------------------------
@@ -93,15 +99,16 @@ if (!function_exists('set_realpath')) {
     function set_realpath(string $path, bool $check_existence = false): string
     {
         // Enhanced security check to prevent remote file inclusion
+        // Note: directory traversal (../) is NOT blocked here — it is resolved via realpath()
+        // so that legitimate uses like set_realpath('./config/../app.php') remain valid
         $dangerous_patterns = [
             '#^(https?:\/\/|ftp:\/\/|php:\/\/|file:\/\/|data:|javascript:)#i',
             '#^www\.#i',
-            '#\.\.[\/\\]#', // Directory traversal
         ];
-        
+
         foreach ($dangerous_patterns as $pattern) {
             if (preg_match($pattern, $path)) {
-                throw new InvalidArgumentException('Invalid path: Remote URLs and directory traversal are not allowed');
+                throw new InvalidArgumentException('Invalid path: Remote URLs are not allowed');
             }
         }
         
@@ -438,6 +445,11 @@ if (!function_exists('ascii_to_entities')) {
             return $str;
         }
 
+        // Fast path: pure ASCII (0-127) needs no conversion
+        if (!preg_match('/[^\x00-\x7F]/', $str)) {
+            return $str;
+        }
+
         // Use PHP's built-in multibyte support for more reliable conversion
         if (function_exists('mb_convert_encoding')) {
             // Convert to UTF-8 first if not already
@@ -515,43 +527,26 @@ if (!function_exists('entities_to_ascii')) {
      */
     function entities_to_ascii(string $str, bool $all = true): string
     {
-        if (preg_match_all('/\&#(\d+)\;/', $str, $matches)) {
-            for ($i = 0, $s = count($matches[0]); $i < $s; $i++) {
-                $digits = $matches[1][$i];
-                $out    = '';
+        if (strpos($str, '&#') !== false) {
+            $str = preg_replace_callback('/&#(\d+);/', static function (array $m): string {
+                $digits = (int) $m[1];
                 if ($digits < 128) {
-                    $out .= chr($digits);
-                } elseif ($digits < 2048) {
-                    $out .= chr(192 + (($digits - ($digits % 64)) / 64)) . chr(128 + ($digits % 64));
-                } else {
-                    $out .= chr(224 + (($digits - ($digits % 4096)) / 4096))
-                        . chr(128 + ((($digits % 4096) - ($digits % 64)) / 64))
-                        . chr(128 + ($digits % 64));
+                    return chr($digits);
                 }
-                $str = str_replace($matches[0][$i], $out, $str);
-            }
+                if ($digits < 2048) {
+                    return chr(192 + (int) (($digits - ($digits % 64)) / 64)) . chr(128 + ($digits % 64));
+                }
+                return chr(224 + (int) (($digits - ($digits % 4096)) / 4096))
+                    . chr(128 + (int) ((($digits % 4096) - ($digits % 64)) / 64))
+                    . chr(128 + ($digits % 64));
+            }, $str);
         }
 
         if ($all) {
-            return str_replace(
-                [
-                    '&amp;',
-                    '&lt;',
-                    '&gt;',
-                    '&quot;',
-                    '&apos;',
-                    '&#45;',
-                ],
-                [
-                    '&',
-                    '<',
-                    '>',
-                    '"',
-                    "'",
-                    '-',
-                ],
-                $str
-            );
+            // Use built-in decoder for named entities (faster, covers &amp; &lt; &gt; &quot; &apos; &#45;)
+            $str = html_entity_decode($str, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            // html_entity_decode leaves &#45; as '-' only with numeric; ensure fallback
+            $str = str_replace('&#45;', '-', $str);
         }
 
         return $str;
@@ -741,8 +736,11 @@ if (!function_exists('word_wrap')) {
      */
     function word_wrap(string $str, int $charlim = 76): string
     {
-        // Set the character limit
-        is_numeric($charlim) || $charlim = 76;
+        // Set the character limit — explicit, readable, and cast-safe
+        if (!is_numeric($charlim)) {
+            $charlim = 76;
+        }
+        $charlim = (int) $charlim;
 
         // Reduce multiple spaces
         $str = preg_replace('| +|', ' ', $str);
@@ -839,7 +837,7 @@ if (!function_exists('ellipsize')) {
             return $str;
         }
 
-        $beg      = mb_substr($str, 0, floor($max_length * $position));
+        $beg      = mb_substr($str, 0, (int) floor($max_length * $position));
         $position = ($position > 1) ? 1 : $position;
 
         if ($position === 1) {
@@ -909,7 +907,7 @@ if (!function_exists('quotes_to_entities')) {
      */
     function quotes_to_entities(string $str): string
     {
-        return str_replace(["\'", '"', "'", '"'], ['&#39;', '&quot;', '&#39;', '&quot;'], $str);
+        return str_replace(["'", '"'], ['&#39;', '&quot;'], $str);
     }
 }
 
@@ -1014,7 +1012,16 @@ if (!function_exists('random_string')) {
                 return bin2hex(random_bytes($len / 2));
             case 'basic':
             default:
-                return (string) random_int(100000, 999999999);
+                // 'basic' now respects $len (6-9 digit legacy was fixed length; now length-aware)
+                $basic = '';
+                for ($i = 0; $i < $len; $i++) {
+                    $basic .= (string) random_int(0, 9);
+                }
+                // Avoid leading zero for numeric feel when len > 1
+                if ($len > 1 && $basic[0] === '0') {
+                    $basic[0] = (string) random_int(1, 9);
+                }
+                return $basic;
         }
 
         // Generate string from character pool using secure randomization

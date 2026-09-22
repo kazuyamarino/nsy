@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Attention, don't try to change the structure of the code, delete, or change.
  * Because there is some code connected to the NSY system. So, be careful.
@@ -10,9 +12,11 @@
  *
  * How to use it? Simply follow this :
  * https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#introducting-to-nsy-assets-manager
+ *
+ * @see System\Core\NSY_AssetManager
  */
 
-function header_assets()
+function header_assets(): void
 {
 	// Site Title
 	Add::custom('<title>' . get_title() . ' ' . get_version() . ' | ' . get_codename() . '</title>');
@@ -32,7 +36,7 @@ function header_assets()
 	Add::link('main.css', 'stylesheet', 'text/css');
 }
 
-function footer_assets()
+function footer_assets(): void
 {
 	// System JS
 	Add::script('config/system.js', 'text/javascript', 'UTF-8');

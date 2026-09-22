@@ -78,13 +78,13 @@ class Validate
 	 */
 	public static function asString(mixed $data, mixed $default = null)
 	{
-		$string = filter_var(
-			$data ?? [],
-			FILTER_SANITIZE_STRING,
-			FILTER_FLAG_NO_ENCODE_QUOTES
-		);
+		if (!is_scalar($data)) {
+			return $default;
+		}
 
-		return $string !== false ? $string : $default;
+		// strip_tags() replaces the deprecated FILTER_SANITIZE_STRING filter
+		// (deprecated since PHP 8.1): tags are removed, quotes are preserved.
+		return strip_tags((string) $data);
 	}
 
 	/**

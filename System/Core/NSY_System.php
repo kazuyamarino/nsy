@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace System\Core;
 
 use Josantonius\Session\Facades\Session;
@@ -21,9 +23,9 @@ use Josantonius\Session\Facades\Session;
 class NSY_System
 {
 	/**
-	 * Cached configuration values for performance optimization
+	 * Cached configuration values for performance optimization (static for cross-instance reuse)
 	 */
-	private array $configCache = [];
+	private static array $configCache = [];
 
 	/**
 	 * Initialize NSY Core System with optimized configuration loading
@@ -59,7 +61,9 @@ class NSY_System
 		];
 
 		foreach ($assetDirs as $constant => $dir) {
-			define($constant, $assetBasePath . $dir . '/');
+			if (!defined($constant)) {
+				define($constant, $assetBasePath . rtrim((string) $dir, '/') . '/');
+			}
 		}
 	}
 
@@ -76,7 +80,9 @@ class NSY_System
 		];
 
 		foreach ($systemDirs as $constant => $dir) {
-			define($constant, $dir . '/');
+			if (!defined($constant)) {
+				define($constant, rtrim((string) $dir, '/') . '/');
+			}
 		}
 	}
 
@@ -93,11 +99,16 @@ class NSY_System
 		];
 
 		foreach ($appSettings as $constant => $value) {
-			define($constant, $value);
+			if (!defined($constant)) {
+				define($constant, $value);
+			}
 		}
 
-		// Set application timezone
-		date_default_timezone_set($this->getCachedConfig('app', 'timezone'));
+		// Set application timezone (guard empty/invalid)
+		$timezone = $this->getCachedConfig('app', 'timezone');
+		if (is_string($timezone) && $timezone !== '' && in_array($timezone, timezone_identifiers_list(), true)) {
+			date_default_timezone_set($timezone);
+		}
 	}
 
 	/**
@@ -116,7 +127,9 @@ class NSY_System
 		];
 
 		foreach ($siteSettings as $constant => $value) {
-			define($constant, $value);
+			if (!defined($constant)) {
+				define($constant, $value);
+			}
 		}
 	}
 
@@ -161,11 +174,19 @@ class NSY_System
 	}
 
 	/**
-	 * Initialize session with cached configuration
+	 * Initialize session with cached configuration (guard headers/session state)
 	 */
 	private function initializeSession(): void
 	{
-		Session::start($this->getCachedConfig('app', 'session_config'));
+		if (headers_sent() || session_status() !== PHP_SESSION_NONE) {
+			return;
+		}
+
+		try {
+			Session::start($this->getCachedConfig('app', 'session_config'));
+		} catch (\Throwable $e) {
+			error_log('NSY_System: Session start failed — ' . $e->getMessage());
+		}
 	}
 
 	/**
@@ -179,12 +200,12 @@ class NSY_System
 	{
 		$cacheKey = "{$type}.{$key}";
 		
-		if (!isset($this->configCache[$cacheKey])) {
-			$this->configCache[$cacheKey] = $type === 'app' 
+		if (!array_key_exists($cacheKey, self::$configCache)) {
+			self::$configCache[$cacheKey] = $type === 'app' 
 				? config_app($key) 
 				: config_site($key);
 		}
 		
-		return $this->configCache[$cacheKey];
+		return self::$configCache[$cacheKey];
 	}
 }

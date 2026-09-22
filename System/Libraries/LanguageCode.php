@@ -25,7 +25,7 @@ class LanguageCode
 	 *
 	 * @return array → language codes and language names
 	 */
-	public static function get()
+	public static function get(): array
 	{
 		return LanguageCodeCollection::all();
 	}
@@ -35,11 +35,11 @@ class LanguageCode
 	 *
 	 * @param string $languageCode → language code, e.g. 'es'
 	 *
-	 * @return string|false → country name
+	 * @return string|false → language name
 	 */
-	public static function getLanguageFromCode(string $languageCode)
+	public static function getLanguageFromCode(string $languageCode): string|false
 	{
-		return LanguageCodeCollection::get($languageCode) ?: false;
+		return LanguageCodeCollection::get(strtolower(trim($languageCode))) ?: false;
 	}
 
 	/**
@@ -49,8 +49,24 @@ class LanguageCode
 	 *
 	 * @return string|false → language code
 	 */
-	public static function getCodeFromLanguage(string $languageName)
+	public static function getCodeFromLanguage(string $languageName): string|false
 	{
-		return array_search($languageName, LanguageCodeCollection::all(), true);
+		$all = LanguageCodeCollection::all();
+
+		// Fast path: exact (case-sensitive) match
+		$code = array_search($languageName, $all, true);
+
+		if ($code !== false) {
+			return $code;
+		}
+
+		// Slow path: case-insensitive match
+		foreach ($all as $key => $name) {
+			if (strcasecmp($name, $languageName) === 0) {
+				return $key;
+			}
+		}
+
+		return false;
 	}
 }

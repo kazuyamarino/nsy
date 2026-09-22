@@ -252,7 +252,7 @@ class LanguageCodeCollection
      *
      * @return array
      */
-    public static function all()
+    public static function all(): array
     {
         return static::$data;
     }
@@ -262,9 +262,9 @@ class LanguageCodeCollection
      *
      * @param string $key
      *
-     * @return string|null → language code or null
+     * @return string|null → language name or null
      */
-    public static function get(string $key)
+    public static function get(string $key): ?string
     {
         if (isset(static::$data[$key])) {
             return static::$data[$key];

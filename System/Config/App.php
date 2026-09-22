@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * Application config
+ * Application config — env-aware with fallback (no duplication with System/Config/Site.php)
+ *
+ * @return array<string, mixed>
  */
 return [
 
@@ -42,7 +46,7 @@ return [
 	| set the default 'true' or 'false'
 	|
 	*/
-	'csrf_token' => 'false',
+	'csrf_token' => config_env('CSRF_TOKEN') ?? 'false',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -89,7 +93,7 @@ return [
 	| set the default 'on' or 'off'
 	|
 	*/
-	'transaction' => 'off',
+	'transaction' => config_env('DB_TRANSACTION') ?? 'off',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -109,7 +113,7 @@ return [
 	| set the default timezone location
 	|
 	*/
-	'timezone' => 'Asia/Jakarta',
+	'timezone' => config_env('APP_TIMEZONE') ?? 'Asia/Jakarta',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -119,7 +123,7 @@ return [
 	| set the default locale
 	|
 	*/
-	'locale' => 'id-ID',
+	'locale' => config_env('APP_LOCALE') ?? 'id-ID',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -129,7 +133,7 @@ return [
 	| set the default namespace prefix for Open Graph protocol
 	|
 	*/
-	'prefix_attr' => 'og: http://ogp.me/ns#',
+	'prefix_attr' => config_env('OG_PREFIX') ?? 'og: http://ogp.me/ns#',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -149,7 +153,7 @@ return [
 	| set the default css directory
 	|
 	*/
-	'css_dir' => 'css',
+	'css_dir' => config_env('CSS_DIR') ?? 'css',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -159,7 +163,7 @@ return [
 	| set the default javascript directory
 	|
 	*/
-	'js_dir' => 'js',
+	'js_dir' => config_env('JS_DIR') ?? 'js',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -169,7 +173,7 @@ return [
 	| set the default image directory
 	|
 	*/
-	'img_dir' => 'images',
+	'img_dir' => config_env('IMG_DIR') ?? 'images',
 
 	/*
 	|--------------------------------------------------------------------------

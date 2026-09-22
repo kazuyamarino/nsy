@@ -2,627 +2,549 @@
 
 ## Overview
 
-This document provides comprehensive English documentation for all utility functions available in the NSY Framework's CodeIgniter Helpers collection. These functions have been optimized for performance, security, and modern PHP compatibility while maintaining backward compatibility with existing code.
+This document provides complete tutorial documentation for all utility functions in the NSY Framework's CodeIgniter Helpers collection (`System/Helpers/CodeIgniterHelpers.php`). All helpers are global functions, auto-loaded via `composer.json` (`files`), and safe to include multiple times.
+
+> **Usage:** no `use` statement is needed — call the functions directly.
 
 ## Table of Contents
 
-1. [HTML & Attribute Functions](#html--attribute-functions)
+1. [HTML & Attribute Functions](#html-attribute-functions)
 2. [File System Functions](#file-system-functions)
-3. [Array & Data Functions](#array--data-functions)
+3. [Array & Data Functions](#array-data-functions)
 4. [Text Processing Functions](#text-processing-functions)
 5. [String Manipulation Functions](#string-manipulation-functions)
-6. [URL & Web Functions](#url--web-functions)
+6. [URL & Web Functions](#url-web-functions)
 7. [Security Functions](#security-functions)
 8. [Random Generation Functions](#random-generation-functions)
 9. [File Permission Functions](#file-permission-functions)
+10. [Additional Utility Functions](#additional-utility-functions)
 
 ---
 
 ## HTML & Attribute Functions
 
-### `stringify_attributes($attributes, $js = false)`
+### `stringify_attributes($attributes, $js = false): string` — `CodeIgniterHelpers.php:30`
 
-Converts HTML attributes array/object to string format for use in HTML elements.
+Converts an array, object, or string of HTML attributes into a formatted string.
 
 **Parameters:**
-- `$attributes` (array|object|string|null) - The attributes to convert
-- `$js` (bool) - Whether to format for JavaScript (comma-separated) or HTML (space-separated)
+- `$attributes` (array|object|string|null) - attributes to convert
+- `$js` (bool) - `false` for HTML (` class="btn"`), `true` for JavaScript (`width=100,height=200`)
 
-**Returns:** `string` - The formatted attribute string
+**Returns:** `string`
 
 **Examples:**
 ```php
-// HTML format (default)
+// HTML
 stringify_attributes(['class' => 'btn', 'id' => 'submit']);
 // Returns: ' class="btn" id="submit"'
 
-// JavaScript format
+// JavaScript
 stringify_attributes(['width' => 100, 'height' => 200], true);
 // Returns: 'width=100,height=200'
 
-// With special characters (automatically escaped)
+// Special characters are escaped
 stringify_attributes(['title' => 'Click "here" & go']);
 // Returns: ' title="Click &quot;here&quot; &amp; go"'
+
+// Null and false values are skipped
+stringify_attributes(['a' => null, 'b' => false, 'c' => 'ok']);
+// Returns: ' c="ok"'
+
+// Objects and strings
+stringify_attributes((object)['k' => 'v']); // ' k="v"'
+stringify_attributes('class="x"');         // ' class="x"'
 ```
 
-**Security Features:**
-- Automatic HTML entity escaping to prevent XSS attacks
-- Null and false value filtering
-- UTF-8 safe encoding
+**Notes:**
+- HTML mode escapes with `htmlspecialchars(ENT_QUOTES, UTF-8)`.
+- JavaScript mode escapes quotes and commas.
+- Empty input returns `''`.
 
 ---
 
 ## File System Functions
 
-### `set_realpath($path, $check_existence = false)`
+### `set_realpath(string $path, bool $check_existence = false): string` — `CodeIgniterHelpers.php:99`
 
-Resolves and validates file system paths with security checks.
+Resolves a file system path to its absolute form and validates it.
 
 **Parameters:**
-- `$path` (string) - The path to resolve
-- `$check_existence` (bool) - Whether to verify the path exists
+- `$path` (string) - path to resolve
+- `$check_existence` (bool) - throw if the path does not exist
 
-**Returns:** `string` - The resolved absolute path
+**Returns:** `string` — absolute path (directories end with `DIRECTORY_SEPARATOR`)
 
-**Throws:** `InvalidArgumentException` - If path is invalid or doesn't exist when checking is enabled
+**Throws:** `InvalidArgumentException`
 
 **Examples:**
 ```php
-// Basic path resolution
 set_realpath('./config/../app.php');
 // Returns: '/var/www/html/app.php'
 
-// With existence check
 set_realpath('/path/to/file.txt', true);
-// Throws exception if file doesn't exist
+// Throws InvalidArgumentException if the file does not exist
 
-// Directory paths get trailing slash
 set_realpath('/var/www/html');
 // Returns: '/var/www/html/'
 ```
 
-**Security Features:**
-- Prevents remote file inclusion (RFI) attacks
-- Blocks directory traversal attempts
-- Validates against IP addresses and dangerous protocols
-- Comprehensive URL pattern detection
+**Security:**
+- Blocks remote URLs (`https://`, `http://`, `ftp://`, `php://`, `file://`, `data:`, `javascript:`, `www.`).
+- Rejects IP addresses.
+- Traversal like `../` is resolved via `realpath()`.
 
-### `directory_map($source_dir, $directory_depth = 0, $hidden = false)`
+### `directory_map(string $source_dir, int $directory_depth = 0, bool $hidden = false)` — `CodeIgniterHelpers.php:199`
 
-Creates a recursive directory structure map as a nested array.
+Creates a nested array map of a directory.
 
 **Parameters:**
-- `$source_dir` (string) - Path to the directory to map
-- `$directory_depth` (int) - Maximum depth to traverse (0 = unlimited)
-- `$hidden` (bool) - Whether to include hidden files/directories
+- `$source_dir` (string) - directory to scan
+- `$directory_depth` (int) - max depth (`0` = unlimited)
+- `$hidden` (bool) - include hidden files
 
-**Returns:** `array|false` - Directory structure array, or false on failure
+**Returns:** `array|false`
 
 **Examples:**
 ```php
-// Basic directory mapping
 directory_map('/var/www/html');
-// Returns: ['index.php', 'assets/' => ['css/' => ['style.css'], 'js/' => ['app.js']]]
+// ['index.php', 'assets/' => ['css/' => ['style.css']]]
 
-// Limited depth
 directory_map('/var/www/html', 2);
-// Only maps 2 levels deep
+// Only 2 levels deep
 
-// Include hidden files
 directory_map('/var/www/html', 0, true);
-// Includes .htaccess, .git/, etc.
+// Includes .htaccess, .git/
 ```
-
-**Performance Features:**
-- Uses modern `DirectoryIterator` for better performance
-- Efficient error handling and logging
-- Memory-optimized recursive processing
 
 ---
 
 ## Array & Data Functions
 
-### `random_element($array)`
+### `random_element($array)` — `CodeIgniterHelpers.php:157`
 
-Returns a random element from an array using cryptographically secure randomization.
+Returns a random element from an array.
 
 **Parameters:**
-- `$array` (array|mixed) - The array to select from, or any other value
+- `$array` (array|mixed) - array to pick from, or any other value
 
-**Returns:** `mixed` - Random element from array, or the input value if not an array
+**Returns:** `mixed` — random element, or the input unchanged if not an array
 
-**Throws:** `InvalidArgumentException` - If array is empty
+**Throws:** `InvalidArgumentException` if the array is empty
 
 **Examples:**
 ```php
-// Random selection from array
-random_element(['apple', 'banana', 'cherry']);
-// Returns: 'banana' (random selection)
-
-// Non-array input returns unchanged
-random_element('not_array');
-// Returns: 'not_array'
-
-// Empty array throws exception
-random_element([]);
-// Throws InvalidArgumentException
+random_element(['apple', 'banana', 'cherry']); // random pick
+random_element('not_array'); // Returns: 'not_array'
+random_element([]); // Throws InvalidArgumentException
 ```
-
-**Security Features:**
-- Uses `random_int()` for cryptographically secure selection
-- Fallback to `array_rand()` if secure functions unavailable
-- Proper error handling for edge cases
 
 ---
 
 ## Text Processing Functions
 
-### `word_limiter($str, $limit = 100, $end_char = '&#8230;')`
+### `word_limiter(string $str, int $limit = 100, string $end_char = '&#8230;'): string` — `CodeIgniterHelpers.php:306`
 
-Truncates text to a specified number of words while preserving word boundaries.
+Truncates text to a number of words, preserving word boundaries.
 
 **Parameters:**
-- `$str` (string) - The input string to limit
-- `$limit` (int) - Maximum number of words to keep (default: 100)
-- `$end_char` (string) - Character(s) to append when truncated (default: '&#8230;' - ellipsis)
+- `$str` (string) - input text
+- `$limit` (int) - max words
+- `$end_char` (string) - appended when truncated
 
-**Returns:** `string` - The word-limited string
+**Returns:** `string`
 
 **Examples:**
 ```php
-// Basic word limiting
 word_limiter('The quick brown fox jumps over the lazy dog', 5);
-// Returns: 'The quick brown fox jumps&#8230;'
+// 'The quick brown fox jumps&#8230;'
 
-// Custom ending character
 word_limiter('Hello world from PHP', 2, '...');
-// Returns: 'Hello world...'
+// 'Hello world...'
 
-// No truncation needed
 word_limiter('Short text', 10);
-// Returns: 'Short text' (no ellipsis added)
+// 'Short text' (no truncation)
 ```
 
-**Performance Features:**
-- Optimized regex pattern for faster word matching
-- UTF-8 safe string operations
-- Single regex operation instead of multiple string functions
+### `character_limiter(string $str, int $n = 500, string $end_char = '&#8230;'): string` — `CodeIgniterHelpers.php:368`
 
-### `character_limiter($str, $n = 500, $end_char = '&#8230;')`
-
-Truncates text to specified character count while attempting to preserve complete words.
+Truncates text to a character count while keeping whole words when possible.
 
 **Parameters:**
-- `$str` (string) - The input string to limit
-- `$n` (int) - Maximum character count (default: 500)
-- `$end_char` (string) - Character(s) to append when truncated
+- `$str` (string) - input text
+- `$n` (int) - max characters
+- `$end_char` (string) - appended when truncated
 
-**Returns:** `string` - The character-limited string
+**Returns:** `string`
 
 **Examples:**
 ```php
-// Character limiting with word preservation
 character_limiter('Hello world! This is a test.', 15);
-// Returns: 'Hello world!&#8230;' (preserves word boundaries)
+// 'Hello world!&#8230;'
 
-// Whitespace normalization
 character_limiter("Multiple\n\tspaces  here", 15);
-// Returns: 'Multiple spaces&#8230;'
+// 'Multiple spaces&#8230;'
 
-// Custom ending
 character_limiter('Long sentence here', 12, '..');
-// Returns: 'Long sentence..'
+// 'Long sentence..'
 ```
 
-**Features:**
-- Single-pass whitespace normalization
-- UTF-8 safe multibyte operations
-- Intelligent word boundary detection
-
-### `ascii_to_entities($str)`
+### `ascii_to_entities(string $str): string` — `CodeIgniterHelpers.php:441`
 
 Converts high ASCII and multibyte characters to HTML entities.
 
 **Parameters:**
-- `$str` (string) - The input string to convert
+- `$str` (string) - input text
 
-**Returns:** `string` - String with high ASCII characters converted to HTML entities
+**Returns:** `string`
 
 **Examples:**
 ```php
-// Convert accented characters
-ascii_to_entities('café');
-// Returns: 'caf&#233;'
-
-// Multiple special characters
-ascii_to_entities('naïve résumé');
-// Returns: 'na&#239;ve r&#233;sum&#233;'
-
-// Currency symbols
-ascii_to_entities('Price: £50');
-// Returns: 'Price: &#163;50'
+ascii_to_entities('café');         // 'caf&#233;'
+ascii_to_entities('naïve résumé'); // 'na&#239;ve r&#233;sum&#233;'
+ascii_to_entities('Price: £50');   // 'Price: &#163;50'
+ascii_to_entities('Hello World');  // 'Hello World' (pure ASCII, no conversion)
 ```
-
-**Features:**
-- Proper UTF-8 multibyte sequence handling
-- Support for 2, 3, and 4-byte UTF-8 characters
-- MS Word special character compatibility
 
 ---
 
 ## String Manipulation Functions
 
-### `encode_php_tags($str)`
+### `encode_php_tags(string $str): string` — `CodeIgniterHelpers.php:266`
 
-Encodes PHP tags to HTML entities for safe display in HTML context.
+Encodes PHP tags to HTML entities for safe display.
 
 **Parameters:**
-- `$str` (string) - The string containing PHP tags to encode
+- `$str` (string) - text containing PHP tags
 
-**Returns:** `string` - String with PHP tags converted to HTML entities
+**Returns:** `string`
 
 **Examples:**
 ```php
-// Basic PHP tag encoding
 encode_php_tags('<?php echo "Hello"; ?>');
-// Returns: '&lt;?php echo "Hello"; ?&gt;'
+// '&lt;?php echo "Hello"; ?&gt;'
 
-// Short tags and ASP-style tags
 encode_php_tags('<?= $variable ?> <% asp_code %>');
-// Returns: '&lt;?= $variable ?&gt; &lt;% asp_code %&gt;'
+// '&lt;?= $variable ?&gt; &lt;% asp_code %&gt;'
 ```
 
-### `increment_string($str, $separator = '_', $first = 1)`
+### `increment_string(string $str, string $separator = '_', int $first = 1): string` — `CodeIgniterHelpers.php:1067`
 
-Adds or increments a numeric suffix to a string for creating unique identifiers.
+Adds or increments a numeric suffix.
 
 **Parameters:**
-- `$str` (string) - The base string to increment
-- `$separator` (string) - The separator character (default: '_')
-- `$first` (int) - The starting number for first increment (default: 1)
+- `$str` (string) - base string
+- `$separator` (string) - separator
+- `$first` (int) - starting number
 
-**Returns:** `string` - The incremented string
+**Returns:** `string`
 
 **Examples:**
 ```php
-// First increment
-increment_string('file');
-// Returns: 'file_1'
-
-// Increment existing number
-increment_string('file_3');
-// Returns: 'file_4'
-
-// Custom separator and starting number
-increment_string('item', '-', 5);
-// Returns: 'item-5'
-
-// Increment with custom separator
-increment_string('data-10', '-');
-// Returns: 'data-11'
+increment_string('file');        // 'file_1'
+increment_string('file_3');      // 'file_4'
+increment_string('item', '-', 5); // 'item-5'
+increment_string('data-10', '-'); // 'data-11'
 ```
 
-### `alternator(...$values)`
+### `alternator(...$values): string` — `CodeIgniterHelpers.php:1126`
 
-Cycles through provided values on each call, useful for alternating patterns.
+Cycles through values on each call.
 
 **Parameters:**
-- `...$values` (string) - Variable number of values to alternate between
+- `...$values` (string) - values to alternate
 
-**Returns:** `string` - The next value in the alternation sequence
+**Returns:** `string` — next value, or `''` when called with no arguments (resets)
 
 **Examples:**
 ```php
-// Basic alternation
-echo alternator('red', 'blue');     // Returns: 'red' (first call)
-echo alternator('red', 'blue');     // Returns: 'blue' (second call)
-echo alternator('red', 'blue');     // Returns: 'red' (third call)
+echo alternator('red', 'blue'); // 'red'
+echo alternator('red', 'blue'); // 'blue'
+echo alternator('red', 'blue'); // 'red'
+alternator(); // reset
 
-// Reset counter
-alternator();                       // Reset (returns empty string)
-
-// Practical usage for table rows
 foreach ($data as $row) {
     $class = alternator('even', 'odd');
     echo "<tr class='$class'>...</tr>";
 }
 ```
 
-### `reduce_multiples($str, $character = ',', $trim = false)`
+### `reduce_multiples(string $str, string $character = ',', bool $trim = false): string` — `CodeIgniterHelpers.php:959`
 
-Reduces multiple instances of a particular character to single instances.
+Reduces multiple instances of a character to one.
 
 **Parameters:**
-- `$str` (string) - The input string
-- `$character` (string) - The character to reduce (default: ',')
-- `$trim` (bool) - Whether to trim the character from beginning/end
+- `$str` (string) - input
+- `$character` (string) - character to reduce
+- `$trim` (bool) - trim from start/end
 
 **Examples:**
 ```php
-// Reduce multiple commas
 reduce_multiples('Fred, Bill,, Joe, Jimmy');
-// Returns: 'Fred, Bill, Joe, Jimmy'
+// 'Fred, Bill, Joe, Jimmy'
 
-// Reduce with trimming
 reduce_multiples(',,Fred, Bill,, Joe,,', ',', true);
-// Returns: 'Fred, Bill, Joe'
+// 'Fred, Bill, Joe'
 ```
 
 ---
 
 ## URL & Web Functions
 
-### `prep_url($str = '')`
+### `prep_url(string $str = ''): string` — `CodeIgniterHelpers.php:1171`
 
-Adds HTTP scheme to URLs missing protocol with security validation.
+Adds `http://` to URLs missing a scheme.
 
 **Parameters:**
-- `$str` (string) - The URL to prepare
+- `$str` (string) - URL
 
-**Returns:** `string` - The URL with scheme, or empty string if invalid
+**Returns:** `string` — URL with scheme, or `''` if invalid
 
 **Examples:**
 ```php
-// Add HTTP to domain
-prep_url('example.com');
-// Returns: 'http://example.com'
-
-// Preserve existing schemes
-prep_url('https://secure.com');
-// Returns: 'https://secure.com'
-
-prep_url('ftp://files.com');
-// Returns: 'ftp://files.com'
-
-// Handle invalid URLs
-prep_url('');
-// Returns: ''
-
-prep_url('http://');
-// Returns: ''
+prep_url('example.com');      // 'http://example.com'
+prep_url('https://secure.com'); // 'https://secure.com'
+prep_url('ftp://files.com');    // 'ftp://files.com'
+prep_url('');                 // ''
+prep_url('http://');          // ''
+prep_url('/path/to');         // '/path/to' (relative path preserved)
 ```
 
-**Security Features:**
-- URL format validation
-- Malicious URL injection prevention
-- Graceful handling of malformed URLs
+### `url_title(string $str, string $separator = '-', bool $lowercase = false): string` — `CodeIgniterHelpers.php:1231`
 
-### `url_title($str, $separator = '-', $lowercase = false)`
-
-Converts text to SEO-friendly URL slugs.
+Converts text to an SEO-friendly URL slug.
 
 **Parameters:**
-- `$str` (string) - The input string to convert
-- `$separator` (string) - Word separator character (default: '-')
-- `$lowercase` (bool) - Whether to convert to lowercase (default: false)
+- `$str` (string) - input text
+- `$separator` (string) - word separator
+- `$lowercase` (bool) - convert to lowercase
 
-**Returns:** `string` - The URL-friendly slug
+**Returns:** `string`
 
 **Examples:**
 ```php
-// Basic URL slug creation
-url_title('Hello World!');
-// Returns: 'Hello-World'
-
-// With custom separator and lowercase
-url_title('My Amazing Article', '_', true);
-// Returns: 'my_amazing_article'
-
-// Remove special characters
-url_title('Special chars: @#$%', '-', true);
-// Returns: 'special-chars'
-
-// Handle HTML tags
-url_title('<h1>HTML Title</h1>');
-// Returns: 'HTML-Title'
+url_title('Hello World!');                 // 'Hello-World'
+url_title('My Amazing Article', '_', true); // 'my_amazing_article'
+url_title('Special chars: @#$%', '-', true); // 'special-chars'
+url_title('<h1>HTML Title</h1>');           // 'HTML-Title'
 ```
-
-**Features:**
-- UTF-8 safe multibyte operations
-- HTML tag removal for security
-- Comprehensive special character handling
-- SEO-optimized output
 
 ---
 
 ## Security Functions
 
-### `word_censor($str, $censored, $replacement = '')`
+### `word_censor(string $str, array $censored, string $replacement = ''): string` — `CodeIgniterHelpers.php:577`
 
-Censors disallowed words in text with replacement characters or custom text.
+Censors disallowed words.
 
 **Parameters:**
-- `$str` (string) - The text string to censor
-- `$censored` (array) - Array of words to censor
-- `$replacement` (string) - Optional replacement text (default: converts to ####)
+- `$str` (string) - text
+- `$censored` (array) - words to censor
+- `$replacement` (string) - custom replacement (default: `####`)
 
 **Examples:**
 ```php
-// Basic censoring with ### replacement
 word_censor('This is bad text', ['bad']);
-// Returns: 'This is ### text'
+// 'This is ### text'
 
-// Custom replacement text
 word_censor('This is bad text', ['bad'], '[CENSORED]');
-// Returns: 'This is [CENSORED] text'
+// 'This is [CENSORED] text'
 ```
 
-### `xml_convert($str, $protect_all = false)`
+### `xml_convert(string $str, bool $protect_all = false): string` — `CodeIgniterHelpers.php:1291`
 
-Converts reserved XML characters to entities while preserving existing valid entities.
+Converts XML reserved characters to entities.
 
 **Parameters:**
-- `$str` (string) - The string to convert
-- `$protect_all` (bool) - Whether to protect all existing HTML entities
+- `$str` (string) - input
+- `$protect_all` (bool) - preserve existing entities
+
+**Returns:** `string`
 
 **Examples:**
 ```php
-// Basic XML conversion
 xml_convert('<tag>Data & "value"</tag>');
-// Returns: '&lt;tag&gt;Data &amp; &quot;value&quot;&lt;/tag&gt;'
+// '&lt;tag&gt;Data &amp; &quot;value&quot;&lt;/tag&gt;'
 
-// Protect existing entities
 xml_convert('Already &amp; encoded', true);
-// Returns: 'Already &amp; encoded' (preserves existing &amp;)
+// 'Already &amp; encoded'
 ```
+
+### `entities_to_ascii(string $str, bool $all = true): string` — `CodeIgniterHelpers.php:528`
+
+Converts HTML entities back to characters.
+
+**Parameters:**
+- `$str` (string) - entity-encoded string
+- `$all` (bool) - also decode named entities
+
+**Returns:** `string`
+
+**Examples:**
+```php
+entities_to_ascii('caf&#233;');              // 'café'
+entities_to_ascii('Tom &amp; Jerry', true);  // 'Tom & Jerry'
+entities_to_ascii('Tom &amp; Jerry', false); // 'Tom &amp; Jerry'
+```
+
+### `strip_slashes($str)` — `CodeIgniterHelpers.php:857`
+
+Removes slashes from a string or array (recursive).
+
+```php
+strip_slashes('O\'Reilly');        // "O'Reilly"
+strip_slashes(['a\'b', 'c\\d']);   // ['ab','cd']
+```
+
+### `strip_quotes(string $str): string` — `CodeIgniterHelpers.php:892`
+
+Removes single and double quotes.
+
+```php
+strip_quotes('"hello" \'world\''); // 'hello world'
+```
+
+### `quotes_to_entities(string $str): string` — `CodeIgniterHelpers.php:908`
+
+Converts quotes to HTML entities.
+
+```php
+quotes_to_entities('"hello" and \'world\'');
+// '&quot;hello&quot; and &#39;world&#39;'
+```
+
+### `encode_php_tags(string $str): string`
+
+See String Manipulation — encodes `<?php, <?=, <?, ?>, <%, %>` for safe display.
 
 ---
 
 ## Random Generation Functions
 
-### `random_string($type = 'alnum', $len = 8)`
+### `random_string(string $type = 'alnum', int $len = 8): string` — `CodeIgniterHelpers.php:985`
 
-Generates cryptographically secure random strings for various purposes.
+Generates random strings.
 
 **Parameters:**
-- `$type` (string) - Type of random string: 'alpha', 'alnum', 'numeric', 'nozero', 'md5', 'sha1', 'crypto', 'basic'
-- `$len` (int) - Desired length of the generated string
+- `$type` (string) - `alpha`, `alnum`, `numeric`, `nozero`, `md5`, `sha1`, `crypto`, `basic`
+- `$len` (int) - desired length
 
-**Returns:** `string` - Generated random string
+**Returns:** `string`
+
+**Throws:** `InvalidArgumentException` if `$len <= 0` or `crypto` with odd length
 
 **Examples:**
 ```php
-// Alphanumeric string
-random_string('alnum', 16);
-// Returns: 'A7b9Kx2m4N8qW3zY'
-
-// Alphabetic only
-random_string('alpha', 10);
-// Returns: 'AbCdEfGhIj'
-
-// Numeric only
-random_string('numeric', 6);
-// Returns: '123456'
-
-// Cryptographic hex string
-random_string('crypto', 32);
-// Returns: 64-character hex string
-
-// Hash-based strings
-random_string('md5');
-// Returns: 32-character MD5 hash
-
-random_string('sha1');
-// Returns: 40-character SHA1 hash
+random_string('alnum', 16);  // 'A7b9Kx2m4N8qW3zY' (16 chars)
+random_string('alpha', 10);  // 'AbCdEfGhIj'
+random_string('numeric', 6); // '123456'
+random_string('nozero', 6);  // '123456' (no zeros)
+random_string('crypto', 32); // 32-char hex
+random_string('md5');        // 32-char MD5
+random_string('sha1');       // 40-char SHA1
+random_string('basic', 8);   // '48392017' (8 digits)
+random_string('basic', 16);  // 16 digits
 ```
-
-**Security Features:**
-- Uses `random_bytes()` and `random_int()` for cryptographic security
-- Suitable for passwords, tokens, and security purposes
-- Multiple output formats for different use cases
 
 ---
 
 ## File Permission Functions
 
-### `symbolic_permissions($perms)`
+### `symbolic_permissions(int $perms): string` — `CodeIgniterHelpers.php:1332`
 
-Converts numeric file permissions to human-readable symbolic notation.
+Converts numeric permissions to symbolic notation (e.g. `drwxr-xr-x`).
 
 **Parameters:**
-- `$perms` (int) - Numeric permissions value (from `fileperms()`)
+- `$perms` (int) - from `fileperms()`
 
-**Returns:** `string` - Symbolic permission string (10 characters)
+**Returns:** `string` — 10 characters
 
 **Examples:**
 ```php
-// Convert octal permissions
-symbolic_permissions(0755);
-// Returns: '-rwxr-xr-x'
-
-// Directory permissions
-symbolic_permissions(fileperms('/path/to/dir'));
-// Returns: 'drwxr-xr-x'
-
-// File with special permissions
-symbolic_permissions(04755);
-// Returns: '-rwsr-xr-x' (setuid bit)
+symbolic_permissions(0755);                  // '-rwxr-xr-x' (with file type bits)
+symbolic_permissions(fileperms('/path/dir')); // 'drwxr-xr-x'
+symbolic_permissions(04755);                 // '-rwsr-xr-x'
 ```
 
-### `octal_permissions($perms)`
+### `octal_permissions(int $perms): string` — `CodeIgniterHelpers.php:1398`
 
-Extracts permission bits and returns them as a three-digit octal string.
+Extracts permission bits as a three-digit octal string.
 
 **Parameters:**
-- `$perms` (int) - Numeric permissions value (from `fileperms()`)
+- `$perms` (int) - from `fileperms()`
 
-**Returns:** `string` - Three-digit octal permissions string
+**Returns:** `string`
 
 **Examples:**
 ```php
-// Extract octal permissions
-octal_permissions(fileperms('/path/to/file'));
-// Returns: '644'
-
-octal_permissions(0755);
-// Returns: '755'
+octal_permissions(fileperms('/path/file')); // '644'
+octal_permissions(0755); // '755'
 ```
 
 ---
 
 ## Additional Utility Functions
 
-### `entities_to_ascii($str, $all = true)`
-Converts HTML entities back to ASCII characters.
+### `highlight_code(string $str): string` — `CodeIgniterHelpers.php:631`
 
-### `highlight_code($str)`
-Applies PHP syntax highlighting to code strings.
+Applies PHP syntax highlighting.
 
-### `highlight_phrase($str, $phrase, $tag_open = '<mark>', $tag_close = '</mark>')`
-Highlights specific phrases within text.
+```php
+highlight_code('echo "hi"; $x = 1;');
+// '<code><span style="color: #...">echo...</span></code>'
+```
 
-### `word_wrap($str, $charlim = 76)`
-Wraps text at specified character limit while preserving word integrity.
+### `highlight_phrase(string $str, string $phrase, string $tag_open = '<mark>', string $tag_close = '</mark>'): string` — `CodeIgniterHelpers.php:721`
 
-### `ellipsize($str, $max_length, $position = 1, $ellipsis = '&hellip;')`
-Truncates strings with ellipsis at specified position.
+Highlights a phrase (case-insensitive).
 
-### `strip_slashes($str)`
-Removes slashes from strings or arrays recursively.
+```php
+highlight_phrase('Hello world, hello PHP', 'hello');
+// '<mark>Hello</mark> world, <mark>hello</mark> PHP'
+```
 
-### `strip_quotes($str)`
-Removes single and double quotes from strings.
+### `word_wrap(string $str, int $charlim = 76): string` — `CodeIgniterHelpers.php:739`
 
-### `quotes_to_entities($str)`
-Converts quotes to HTML entities.
+Wraps text at a character limit, preserving words and `{unwrap}` blocks. URLs are not force-broken.
 
-### `reduce_double_slashes($str)`
-Converts double slashes to single slashes (except in URLs).
+```php
+word_wrap(str_repeat('word ', 20), 10);
+word_wrap('a {unwrap}do not wrap{/unwrap} b', 76);
+```
 
----
+### `ellipsize(string $str, int $max_length, $position = 1, string $ellipsis = '&hellip;'): string` — `CodeIgniterHelpers.php:830`
 
-## Performance & Security Notes
+Truncates with an ellipsis at a given position.
 
-### Performance Optimizations
-- **UTF-8 Safe Operations**: All string functions use multibyte-safe operations
-- **Regex Optimization**: Pre-compiled patterns and efficient matching
-- **Memory Efficiency**: Reduced string concatenations and temporary variables
-- **Early Returns**: Avoid unnecessary processing for edge cases
+```php
+ellipsize('This is a very long string that needs truncating', 20);
+// 'This is a very long&hellip;'
+ellipsize('0123456789', 6, 0.5); // '012&hellip;789'
+```
 
-### Security Features
-- **Input Validation**: Comprehensive parameter checking with exceptions
-- **XSS Prevention**: Automatic HTML entity escaping where appropriate
-- **Path Security**: Directory traversal and RFI protection
-- **Cryptographic Security**: Secure random generation for sensitive operations
+### `reduce_double_slashes(string $str): string` — `CodeIgniterHelpers.php:935`
 
-### Compatibility
-- **PHP 7.0+**: Modern PHP features with backward compatibility
-- **UTF-8 Support**: Full international character support
-- **Exception Handling**: Proper error handling with meaningful messages
-- **Type Safety**: Strict type hints and return type declarations
+Converts double slashes to single (except `http://`).
+
+```php
+reduce_double_slashes('http://www.site.com//index.php');
+// 'http://www.site.com/index.php'
+```
 
 ---
 
 ## Usage Examples
 
 ### Creating SEO-Friendly URLs
+
 ```php
 $title = "My Amazing Blog Post: Tips & Tricks!";
 $slug = url_title($title, '-', true);
-// Result: 'my-amazing-blog-post-tips-tricks'
+// 'my-amazing-blog-post-tips-tricks'
 ```
 
 ### Generating Secure Tokens
+
 ```php
 $csrf_token = random_string('crypto', 32);
 $session_id = random_string('alnum', 40);
@@ -630,6 +552,7 @@ $password = random_string('alnum', 12);
 ```
 
 ### Processing User Content
+
 ```php
 $content = "User input with <script>alert('xss')</script> content";
 $safe_content = encode_php_tags($content);
@@ -637,10 +560,10 @@ $preview = word_limiter($safe_content, 20);
 ```
 
 ### File System Operations
+
 ```php
 $safe_path = set_realpath($_GET['file'], true);
 $dir_structure = directory_map($safe_path, 2);
 $permissions = symbolic_permissions(fileperms($safe_path));
 ```
 
-This documentation covers all functions in the CodeIgniter Helpers collection, providing comprehensive usage examples, security considerations, and performance notes for effective implementation in NSY Framework applications.

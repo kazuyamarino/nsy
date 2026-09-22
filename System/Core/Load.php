@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace System\Core;
 
 /**
@@ -21,14 +23,14 @@ class Load
      *
      * @var Engine|null
      */
-    static $razr;
+    private static ?Engine $razr = null;
 
     /**
-     * Current HMVC module name (optional)
+     * Current HMVC module name (optional) — retained for BC, unused internally
      *
      * @var string|null
      */
-    static $module;
+    public static ?string $module = null;
 
     /**
      * Render a view file from MVC or HMVC directory using the Razr engine
@@ -40,7 +42,7 @@ class Load
      * @param  array|object $vars    Variables passed to the view template
      * @return void
      */
-    protected static function view(mixed $module = '', mixed $filename = '', array $vars = array())
+    public static function view(?string $module = null, string $filename = '', array|object $vars = []): void
     {
         // Validate inputs
         if (not_filled($filename) || !(is_array($vars) || is_object($vars))) {
@@ -49,12 +51,16 @@ class Load
             exit();
         }
 
+        // Sanitize filename/module to prevent directory traversal
+        $filename = preg_replace('/[^a-zA-Z0-9_\/-]/', '', $filename);
+        $module = $module !== null ? preg_replace('/[^a-zA-Z0-9_-]/', '', $module) : null;
+
         $razr = self::getRazr();
         $path = not_filled($module)
             ? get_mvc_view_dir() . $filename . '.php'
             : get_hmvc_view_dir() . $module . '/Views/' . $filename . '.php';
 
-        echo $razr->render($path, $vars);
+        echo $razr->render($path, (array) $vars);
     }
 
     /**
@@ -64,7 +70,7 @@ class Load
      * @param  array|object $vars     Variables passed to the template
      * @return void
      */
-    protected static function template(mixed $filename = '', array $vars = array())
+    public static function template(string $filename = '', array|object $vars = []): void
     {
         // Validate inputs
         if (not_filled($filename) || !(is_array($vars) || is_object($vars))) {
@@ -73,8 +79,10 @@ class Load
             exit();
         }
 
+        $filename = preg_replace('/[^a-zA-Z0-9_\/-]/', '', $filename);
+
         $razr = self::getRazr();
-        echo $razr->render(get_system_tmp_dir() . $filename . '.php', $vars);
+        echo $razr->render(get_system_tmp_dir() . $filename . '.php', (array) $vars);
     }
 
     /**
@@ -85,10 +93,10 @@ class Load
      * @param  string $fullclass Fully-qualified model class name
      * @return object            Instantiated model object
      */
-    protected static function model(mixed $fullclass = '')
+    public static function model(string $fullclass = ''): object
     {
-        if (not_filled($fullclass) || !is_string($fullclass)) {
-            $var_msg = 'The variable in the <mark>Load::model(<strong>model_name</strong>, <strong>method_name</strong>)</mark> is improper or not filled';
+        if (not_filled($fullclass)) {
+            $var_msg = 'The variable in the <mark>Load::model(<strong>model_name</strong>)</mark> is improper or not filled';
             NSY_Desk::static_error_handler($var_msg);
             exit();
         }
@@ -99,7 +107,7 @@ class Load
             exit();
         }
 
-        return new $fullclass;
+        return new $fullclass();
     }
 
     /**

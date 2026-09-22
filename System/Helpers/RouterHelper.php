@@ -442,9 +442,7 @@ class RouterHelper
      */
     public static function for($controllerWithMethod, $vars = [])
     {
-        // This needs to be called on RouterOptimized instance
-        // We'll create a wrapper
-        return call_user_func([new NSY_RouterOptimized(), 'for'], $controllerWithMethod, $vars);
+        return NSY_RouterOptimized::goto($controllerWithMethod, $vars);
     }
 
     /**

@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * Site config
+ * Site config — no duplication with System/Config/App.php (App handles app_env, session, timezone, locale, paths, aliases)
+ * Each value prefers env() then falls back to default (12-factor, no file edit in production)
+ *
+ * @return array<string, string>
  */
 return [
 
@@ -13,7 +18,7 @@ return [
 	| This value is for <title> tag.
 	|
 	*/
-	'sitetitle' => 'NSY PHP Framework',
+	'sitetitle' => config_env('SITE_TITLE') ?? 'NSY PHP Framework',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -23,7 +28,7 @@ return [
 	| Define the author of website
 	|
 	*/
-	'siteauthor' => 'Vikry Yuansah',
+	'siteauthor' => config_env('SITE_AUTHOR') ?? 'Vikry Yuansah',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -33,7 +38,7 @@ return [
 	| This value is for <meta> keyword tag.
 	|
 	*/
-	'sitekeywords' => 'MVC Framework, HMVC Framework, PHP Framework',
+	'sitekeywords' => config_env('SITE_KEYWORDS') ?? 'MVC Framework, HMVC Framework, PHP Framework',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -43,7 +48,7 @@ return [
 	| This value is for <meta> description tag.
 	|
 	*/
-	'sitedesc' => 'NSY is a simple PHP Framework that works well on MVC or HMVC mode.',
+	'sitedesc' => config_env('SITE_DESC') ?? 'NSY is a simple PHP Framework that works well on MVC or HMVC mode.',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -53,7 +58,7 @@ return [
 	| Define email contact for website.
 	|
 	*/
-	'siteemail' => '',
+	'siteemail' => config_env('SITE_EMAIL') ?? '',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -63,7 +68,7 @@ return [
 	| Define version of the application
 	|
 	*/
-	'version' => 'v6.1.5',
+	'version' => config_env('APP_VERSION') ?? 'v6.1.5',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -73,6 +78,6 @@ return [
 	| Define codename of the application
 	|
 	*/
-	'codename' => 'Talindo'
+	'codename' => config_env('APP_CODENAME') ?? 'Talindo'
 
 ];

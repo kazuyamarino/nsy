@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace System\Core;
 
 /**
@@ -30,26 +32,16 @@ class DB
      * @param string $conn_name
      * @return object
      */
-    protected static function connect(string $conn_name = 'primary')
+    protected static function connect(string $conn_name = 'primary'): object
     {
-        switch (config_db($conn_name, 'DB_CONNECTION')) {
-            case 'mysql':
-                static::$connection = NSY_DB::connect_mysql($conn_name);
-                return new static;
-            case 'dblib':
-                static::$connection = NSY_DB::connect_dblib($conn_name);
-                return new static;
-            case 'sqlsrv':
-                static::$connection = NSY_DB::connect_sqlsrv($conn_name);
-                return new static;
-            case 'pgsql':
-                static::$connection = NSY_DB::connect_pgsql($conn_name);
-                return new static;
-            default:
-                $var_msg = "Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong>";
-                NSY_Desk::static_error_handler($var_msg);
-                exit();
+        // Single source via NSY_DB::connect() — powerful, DRY
+        static::$connection = NSY_DB::connect($conn_name);
+        if (!static::$connection) {
+            $var_msg = "Database connection failed for '" . htmlspecialchars($conn_name, ENT_QUOTES, 'UTF-8') . "'";
+            NSY_Desk::static_error_handler($var_msg);
+            exit();
         }
+        return new static;
     }
 
     /**

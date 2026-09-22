@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace System\Core;
 
 /**
@@ -17,19 +19,19 @@ class NSY_AssetManager
 	 * @param  mixed $content
 	 * @return bool
 	 */
-	public static function meta(mixed $attr = '', mixed $content = '')
+	public static function meta(mixed $attr = '', mixed $content = ''): bool
 	{
-		// if content is empty
-		if (not_filled($content)) {
-			// then show meta tags without content
-			echo '<meta ' . $attr . '>';
-		} elseif (is_filled($attr) || is_filled($content)) {
-			// then show meta tags with content
-			echo '<meta ' . $attr . ' content="' . $content . '">';
-		} else {
+		$attrStr = trim((string) $attr);
+		if ($attrStr === '') {
 			$var_msg = 'Please check the format of <mark>Add::meta</mark> tag';
 			NSY_Desk::static_error_handler($var_msg);
 			exit();
+		}
+
+		if (not_filled($content)) {
+			echo '<meta ' . $attrStr . '>';
+		} else {
+			echo '<meta ' . $attrStr . ' content="' . self::esc($content) . '">';
 		}
 
 		return true;

@@ -1,4 +1,6 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # If PUBLIC_DIR in env.php/System/Config/App.php differs from 'public', update below
+  # e.g. PUBLIC_DIR => 'my_public' then: RewriteRule ^(.*)$ my_public/index.php?/$1 [QSA,L]
   RewriteRule ^(.*)$ public/index.php?/$1 [QSA,L]
 </IfModule>

@@ -62,7 +62,7 @@ class NSY_AliasManager
 
             return true;
 
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             self::handleError('Failed to load aliases: ' . $e->getMessage());
             return false;
         }
@@ -86,14 +86,17 @@ class NSY_AliasManager
         try {
             // Create the alias
             if (!class_exists($alias, false) && !interface_exists($alias, false)) {
-                class_alias($targetClass, $alias);
-                self::$aliasCache[$alias] = $targetClass;
-                return true;
+                if (class_alias($targetClass, $alias)) {
+                    self::$aliasCache[$alias] = $targetClass;
+                    return true;
+                }
+                error_log("NSY_AliasManager: Failed to create alias '$alias'");
+                return false;
             } else {
                 error_log("NSY_AliasManager: Alias '$alias' already exists, skipping...");
                 return false;
             }
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             error_log("NSY_AliasManager: Failed to create alias '$alias': " . $e->getMessage());
             return false;
         }

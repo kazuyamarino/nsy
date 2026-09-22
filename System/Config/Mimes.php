@@ -1,10 +1,16 @@
 <?php
+
+declare(strict_types=1);
+
 /*
 | -------------------------------------------------------------------
 | MIME TYPES
 | -------------------------------------------------------------------
-| This file contains an array of mime types.  It is used by the
-| Upload class to help identify allowed file types.
+| This file contains an array of mime types. It is used by the
+| Upload class and File::getMimeByExtension() to help identify
+| allowed file types.
+|
+| @return array<string, string|string[]>
 |
 */
 return array(
@@ -166,7 +172,7 @@ return array(
 	'odc'   => 'application/vnd.oasis.opendocument.chart',
 	'otc'   => 'application/vnd.oasis.opendocument.chart-template',
 	'odf'   => 'application/vnd.oasis.opendocument.formula',
-	'otf'   => 'application/vnd.oasis.opendocument.formula-template',
+	'otf'   => array('font/otf', 'application/vnd.oasis.opendocument.formula-template'),
 	'odg'   => 'application/vnd.oasis.opendocument.graphics',
 	'otg'   => 'application/vnd.oasis.opendocument.graphics-template',
 	'odi'   => 'application/vnd.oasis.opendocument.image',
@@ -178,5 +184,17 @@ return array(
 	'odt'   => 'application/vnd.oasis.opendocument.text',
 	'odm'   => 'application/vnd.oasis.opendocument.text-master',
 	'ott'   => 'application/vnd.oasis.opendocument.text-template',
-	'oth'   => 'application/vnd.oasis.opendocument.text-web'
+	'oth'   => 'application/vnd.oasis.opendocument.text-web',
+	// Modern web fonts & images
+	'webp'  => 'image/webp',
+	'avif'  => array('image/avif', 'image/avifs'),
+	'heic'  => array('image/heic', 'image/heif'),
+	'heif'  => array('image/heic', 'image/heif'),
+	'woff'  => array('font/woff', 'application/font-woff', 'application/x-font-woff'),
+	'woff2' => array('font/woff2', 'application/font-woff2'),
+	'ttf'   => array('font/ttf', 'font/sfnt', 'application/x-font-ttf'),
+	'eot'   => 'application/vnd.ms-fontobject',
+	'wasm'  => 'application/wasm',
+	'mjs'   => 'text/javascript',
+	'webmanifest' => 'application/manifest+json'
 );

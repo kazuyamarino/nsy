@@ -30,7 +30,7 @@ class File
      *
      * @return bool
      */
-    public static function exists(bool $file)
+    public static function exists(string $file)
     {
         if (filter_var($file, FILTER_VALIDATE_URL)) {
             $stream = stream_context_create(['http' => ['method' => 'HEAD']]);
@@ -57,7 +57,7 @@ class File
      *
      * @return bool
      */
-    public static function delete(bool $file)
+    public static function delete(string $file)
     {
         return self::exists($file) && @unlink($file);
     }
@@ -71,7 +71,7 @@ class File
      *
      * @return bool
      */
-    public static function createDir(bool $path)
+    public static function createDir(string $path)
     {
         return !is_dir($path) && @mkdir($path, 0777, true);
     }
@@ -100,7 +100,7 @@ class File
                     return false;
                 }
             } elseif (!$file->isDot() && $file->isDir()) {
-                self::copyDirRecursively($file->getRealPath(), $to . $path);
+                self::copyDirRecursively($file->getRealPath(), $to . $file->getFilename());
             }
         }
 
@@ -130,7 +130,7 @@ class File
      *
      * @return bool
      */
-    public static function deleteDirRecursively(bool $path)
+    public static function deleteDirRecursively(string $path)
     {
         if (!$paths = self::getFilesFromDir($path)) {
             return false;
@@ -372,17 +372,15 @@ class File
      *
      * @return array
      */
-    public static function &getMimes()
+    public static function &getMimes(): array
     {
-        static $_mimes;
+        static $_mimes = null;
 
-        if (empty($_mimes)) {
-            $_mimes = file_exists(__DIR__ . '/../Config/Mimes.php')
-                ? include __DIR__ . '/../Config/Mimes.php'
-                : array();
-
-            if (file_exists(__DIR__ . '/../Config/Mimes.php')) {
-                $_mimes = array_merge($_mimes, include __DIR__ . '/../Config/Mimes.php');
+        if ($_mimes === null) {
+            $path = __DIR__ . '/../Config/Mimes.php';
+            $_mimes = file_exists($path) ? include $path : [];
+            if (!is_array($_mimes)) {
+                $_mimes = [];
             }
         }
 

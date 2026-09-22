@@ -1,248 +1,238 @@
 <?php
 
+declare(strict_types=1);
+
 namespace System\Core;
 
 /**
  * Route Cache Manager for NSY Framework
- * Manages route compilation, caching, and performance optimization
+ * File-backed cache + performance log. In-memory dispatch cache lives in NSY_RouterOptimized.
+ * This class does NOT duplicate dispatch matching — it only persists/loads data.
  */
 class NSY_RouteCacheManager
 {
-    private static $cacheDir = null;
-    private static $cacheFile = 'routes.cache.php';
-    private static $enabled = true;
+	private static ?string $cacheDir = null;
+	private static string $cacheFile = 'routes.cache.php';
+	private static bool $enabled = true;
+	private static bool $warmingUp = false;
 
-    /**
-     * Initialize cache manager
-     */
-    public static function init($cacheDir = null)
-    {
-        if ($cacheDir === null) {
-            self::$cacheDir = sys_get_temp_dir() . '/nsy_routes';
-        } else {
-            self::$cacheDir = rtrim($cacheDir, '/');
-        }
+	/**
+	 * Initialize cache manager — creates temp dir if needed
+	 */
+	public static function init(?string $cacheDir = null): void
+	{
+		if ($cacheDir === null) {
+			self::$cacheDir = sys_get_temp_dir() . '/nsy_routes';
+		} else {
+			self::$cacheDir = rtrim($cacheDir, '/');
+		}
 
-        if (!is_dir(self::$cacheDir)) {
-            mkdir(self::$cacheDir, 0755, true);
-        }
-    }
+		if (!is_dir(self::$cacheDir)) {
+			mkdir(self::$cacheDir, 0755, true);
+		}
+	}
 
-    /**
-     * Enable or disable caching
-     */
-    public static function setEnabled($enabled)
-    {
-        self::$enabled = $enabled;
-    }
+	public static function setEnabled(bool $enabled): void
+	{
+		self::$enabled = $enabled;
+	}
 
-    /**
-     * Get cache file path
-     */
-    private static function getCacheFilePath()
-    {
-        if (self::$cacheDir === null) {
-            self::init();
-        }
-        return self::$cacheDir . '/' . self::$cacheFile;
-    }
+	private static function getCacheFilePath(): string
+	{
+		if (self::$cacheDir === null) {
+			self::init();
+		}
+		return self::$cacheDir . '/' . self::$cacheFile;
+	}
 
-    /**
-     * Cache compiled routes
-     */
-    public static function cacheRoutes($routes)
-    {
-        if (!self::$enabled) {
-            return false;
-        }
+	/**
+	 * Cache compiled routes to file (24h TTL on load)
+	 * Skips caching when routes contain Closures (not var_export-able)
+	 */
+	public static function cacheRoutes(array $routes): bool
+	{
+		if (!self::$enabled) {
+			return false;
+		}
 
-        $cacheFile = self::getCacheFilePath();
-        $cacheData = [
-            'timestamp' => time(),
-            'routes' => $routes,
-            'hash' => md5(serialize($routes))
-        ];
+		foreach ($routes as $r) {
+			if ($r instanceof \Closure) {
+				return false;
+			}
+			if (is_array($r) && isset($r['callback']) && $r['callback'] instanceof \Closure) {
+				return false;
+			}
+		}
 
-        $content = '<?php' . PHP_EOL . 'return ' . var_export($cacheData, true) . ';';
-        return file_put_contents($cacheFile, $content, LOCK_EX) !== false;
-    }
+		$cacheFile = self::getCacheFilePath();
+		$cacheData = [
+			'timestamp' => time(),
+			'routes' => $routes,
+			'hash' => md5(serialize($routes)),
+		];
 
-    /**
-     * Load cached routes
-     */
-    public static function loadCachedRoutes()
-    {
-        if (!self::$enabled) {
-            return null;
-        }
+		$content = '<?php' . PHP_EOL . 'return ' . var_export($cacheData, true) . ';';
+		return file_put_contents($cacheFile, $content, LOCK_EX) !== false;
+	}
 
-        $cacheFile = self::getCacheFilePath();
+	public static function loadCachedRoutes(): ?array
+	{
+		if (!self::$enabled) {
+			return null;
+		}
 
-        if (!file_exists($cacheFile)) {
-            return null;
-        }
+		$cacheFile = self::getCacheFilePath();
 
-        // Check if cache is still valid (24 hours)
-        if (time() - filemtime($cacheFile) > 86400) {
-            self::clearCache();
-            return null;
-        }
+		if (!file_exists($cacheFile)) {
+			return null;
+		}
 
-        $cacheData = include $cacheFile;
+		if (time() - filemtime($cacheFile) > 86400) {
+			self::clearCache();
+			return null;
+		}
 
-        if (!is_array($cacheData) || !isset($cacheData['routes'])) {
-            return null;
-        }
+		$cacheData = include $cacheFile;
 
-        return $cacheData['routes'];
-    }
+		if (!is_array($cacheData) || !isset($cacheData['routes'])) {
+			return null;
+		}
 
-    /**
-     * Clear route cache
-     */
-    public static function clearCache()
-    {
-        $cacheFile = self::getCacheFilePath();
+		return $cacheData['routes'];
+	}
 
-        if (file_exists($cacheFile)) {
-            return unlink($cacheFile);
-        }
+	public static function clearCache(): bool
+	{
+		$cacheFile = self::getCacheFilePath();
 
-        return true;
-    }
+		if (file_exists($cacheFile)) {
+			return unlink($cacheFile);
+		}
 
-    /**
-     * Get cache statistics
-     */
-    public static function getCacheStats()
-    {
-        $cacheFile = self::getCacheFilePath();
-        $stats = [
-            'enabled' => self::$enabled,
-            'cache_dir' => self::$cacheDir,
-            'cache_exists' => file_exists($cacheFile),
-            'cache_size' => 0,
-            'cache_age' => 0,
-            'writable' => is_writable(dirname($cacheFile))
-        ];
+		return true;
+	}
 
-        if ($stats['cache_exists']) {
-            $stats['cache_size'] = filesize($cacheFile);
-            $stats['cache_age'] = time() - filemtime($cacheFile);
-        }
+	public static function getCacheStats(): array
+	{
+		$cacheFile = self::getCacheFilePath();
+		$stats = [
+			'enabled' => self::$enabled,
+			'cache_dir' => self::$cacheDir,
+			'cache_exists' => file_exists($cacheFile),
+			'cache_size' => 0,
+			'cache_age' => 0,
+			'writable' => is_writable(dirname($cacheFile)),
+		];
 
-        return $stats;
-    }
+		if ($stats['cache_exists']) {
+			$stats['cache_size'] = filesize($cacheFile);
+			$stats['cache_age'] = time() - filemtime($cacheFile);
+		}
 
-    private static $warmingUp = false;
+		return $stats;
+	}
 
-    /**
-     * Warm up cache by pre-compiling routes
-     */
-    public static function warmUp($routeFiles = [])
-    {
-        // Prevent infinite recursion
-        if (self::$warmingUp) {
-            return false;
-        }
+	/**
+	 * Warm up cache — no-op by design to avoid recursion during bootstrap.
+	 * Kept for BC; callers should rely on natural first-request compilation.
+	 * Dynamic path instead of hardcoded /var/www/html/nsy
+	 */
+	public static function warmUp(array $routeFiles = []): bool
+	{
+		if (self::$warmingUp) {
+			return false;
+		}
 
-        self::$warmingUp = true;
+		self::$warmingUp = true;
 
-        if (empty($routeFiles)) {
-            $routeFiles = [
-                '/var/www/html/nsy/System/Routes/General.php',
-                '/var/www/html/nsy/System/Routes/Modules.php'
-            ];
-        }
+		try {
+			if (empty($routeFiles)) {
+				$sysDir = config_app('sys_dir') ?: 'System';
+				$base = __DIR__ . '/../../' . $sysDir . '/Routes';
+				$routeFiles = [$base . '/General.php', $base . '/Modules.php'];
+			}
+			// Intentionally no file I/O — cache builds naturally on first dispatch
+			return true;
+		} finally {
+			self::$warmingUp = false;
+		}
+	}
 
-        try {
-            // Skip cache warm-up to prevent recursion
-            // Cache will be built naturally during first requests
-            return true;
-        } finally {
-            self::$warmingUp = false;
-        }
-    }
+	/**
+	 * Optimize route patterns — thin wrapper around RouterOptimized patterns.
+	 * Deduplicated: uses the same pattern map as NSY_RouterOptimized::compileRoutes()
+	 * @param string[] $routes
+	 * @return array<int,array{original:string,compiled:string,has_params:bool}>
+	 */
+	public static function optimizePatterns(array $routes): array
+	{
+		$patterns = NSY_RouterOptimized::$patterns;
+		$searches = array_keys($patterns);
+		$replaces = array_values($patterns);
 
-    /**
-     * Optimize route patterns for better performance
-     */
-    public static function optimizePatterns($routes)
-    {
-        $optimized = [];
+		$optimized = [];
+		foreach ($routes as $route) {
+			$hasParams = strpos($route, ':') !== false;
+			$compiled = $hasParams ? str_replace($searches, $replaces, $route) : $route;
+			$optimized[] = [
+				'original' => $route,
+				'compiled' => $compiled,
+				'has_params' => $hasParams,
+			];
+		}
 
-        foreach ($routes as $route) {
-            // Pre-compile regex patterns
-            if (strpos($route, ':') !== false) {
-                $patterns = NSY_RouterOptimized::$patterns;
-                $searches = array_keys($patterns);
-                $replaces = array_values($patterns);
+		return $optimized;
+	}
 
-                $compiledPattern = str_replace($searches, $replaces, $route);
-                $optimized[] = [
-                    'original' => $route,
-                    'compiled' => $compiledPattern,
-                    'has_params' => true
-                ];
-            } else {
-                $optimized[] = [
-                    'original' => $route,
-                    'compiled' => $route,
-                    'has_params' => false
-                ];
-            }
-        }
+	public static function logRoutePerformance(string $route, float $executionTime, int $memoryUsage): void
+	{
+		if (self::$cacheDir === null) {
+			self::init();
+		}
+		$logFile = self::$cacheDir . '/performance.log';
 
-        return $optimized;
-    }
+		$logData = [
+			'timestamp' => date('Y-m-d H:i:s'),
+			'route' => $route,
+			'execution_time' => $executionTime,
+			'memory_usage' => $memoryUsage,
+		];
 
-    /**
-     * Monitor route performance
-     */
-    public static function logRoutePerformance($route, $executionTime, $memoryUsage)
-    {
-        $logFile = self::$cacheDir . '/performance.log';
+		file_put_contents($logFile, json_encode($logData) . PHP_EOL, FILE_APPEND | LOCK_EX);
+	}
 
-        $logData = [
-            'timestamp' => date('Y-m-d H:i:s'),
-            'route' => $route,
-            'execution_time' => $executionTime,
-            'memory_usage' => $memoryUsage
-        ];
+	public static function getPerformanceStats(): array
+	{
+		if (self::$cacheDir === null) {
+			self::init();
+		}
+		$logFile = self::$cacheDir . '/performance.log';
 
-        $logLine = json_encode($logData) . PHP_EOL;
-        file_put_contents($logFile, $logLine, FILE_APPEND | LOCK_EX);
-    }
+		if (!file_exists($logFile)) {
+			return ['total_requests' => 0, 'avg_execution_time' => 0, 'avg_memory_usage' => 0];
+		}
 
-    /**
-     * Get performance statistics
-     */
-    public static function getPerformanceStats()
-    {
-        $logFile = self::$cacheDir . '/performance.log';
+		$lines = file($logFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		if ($lines === false) {
+			return ['total_requests' => 0, 'avg_execution_time' => 0, 'avg_memory_usage' => 0];
+		}
+		$totalTime = 0.0;
+		$totalMemory = 0;
+		$count = 0;
 
-        if (!file_exists($logFile)) {
-            return ['total_requests' => 0, 'avg_execution_time' => 0, 'avg_memory_usage' => 0];
-        }
+		foreach (array_slice($lines, -1000) as $line) {
+			$data = json_decode($line, true);
+			if (is_array($data)) {
+				$totalTime += (float) ($data['execution_time'] ?? 0);
+				$totalMemory += (int) ($data['memory_usage'] ?? 0);
+				$count++;
+			}
+		}
 
-        $lines = file($logFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        $totalTime = 0;
-        $totalMemory = 0;
-        $count = 0;
-
-        foreach (array_slice($lines, -1000) as $line) { // Last 1000 requests
-            $data = json_decode($line, true);
-            if ($data) {
-                $totalTime += $data['execution_time'];
-                $totalMemory += $data['memory_usage'];
-                $count++;
-            }
-        }
-
-        return [
-            'total_requests' => $count,
-            'avg_execution_time' => $count > 0 ? $totalTime / $count : 0,
-            'avg_memory_usage' => $count > 0 ? $totalMemory / $count : 0
-        ];
-    }
+		return [
+			'total_requests' => $count,
+			'avg_execution_time' => $count > 0 ? $totalTime / $count : 0,
+			'avg_memory_usage' => $count > 0 ? $totalMemory / $count : 0,
+		];
+	}
 }

@@ -23,16 +23,16 @@ class LoadTime
 	/**
 	 * Save initial status time.
 	 *
-	 * @var float
+	 * @var float|false
 	 */
-	public static $startTime = false;
+	public static float|false $startTime = false;
 
 	/**
 	 * Set initial time.
 	 *
 	 * @return float → microtime
 	 */
-	public static function start()
+	public static function start(): float
 	{
 		return self::$startTime = microtime(true);
 	}
@@ -40,9 +40,9 @@ class LoadTime
 	/**
 	 * Set end time.
 	 *
-	 * @return float → seconds
+	 * @return float|false → seconds, or false when the timer was never started
 	 */
-	public static function end()
+	public static function end(): float|false
 	{
 		if (self::$startTime) {
 			$time = round((microtime(true) - self::$startTime), 4);
@@ -59,7 +59,7 @@ class LoadTime
 	 *
 	 * @return boolean
 	 */
-	public static function isActive()
+	public static function isActive(): bool
 	{
 		return (self::$startTime) ? true : false;
 	}

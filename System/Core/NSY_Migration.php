@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace System\Core;
 
 /**
@@ -22,26 +24,68 @@ class NSY_Migration
 	 * @param string $conn_name
 	 * @return mixed
 	 */
-	public static function connect($conn_name = 'primary')
+	public static function connect(string $conn_name = 'primary'): object
 	{
-		switch (config_db($conn_name, 'DB_CONNECTION')) {
-			case 'mysql':
-				self::$connection = NSY_DB::connect_mysql($conn_name);
-				return new self;
-			case 'dblib':
-				self::$connection = NSY_DB::connect_dblib($conn_name);
-				return new self;
-			case 'sqlsrv':
-				self::$connection = NSY_DB::connect_sqlsrv($conn_name);
-				return new self;
-			case 'pgsql':
-				self::$connection = NSY_DB::connect_pgsql($conn_name);
-				return new self;
-			default:
-				$var_msg = "Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong>";
-				NSY_Desk::static_error_handler($var_msg);
-				exit();
+		self::$connection = NSY_DB::connect($conn_name);
+		if (!self::$connection) {
+			$var_msg = "Migration connection failed for '" . htmlspecialchars($conn_name, ENT_QUOTES, 'UTF-8') . "'";
+			NSY_Desk::static_error_handler($var_msg);
+			exit();
 		}
+		return new self;
+	}
+
+	// --- Powerful helpers (DRY) ---
+
+	/**
+	 * Ensure DB connection exists
+	 */
+	private function ensureConnection(): void
+	{
+		if (not_filled(self::$connection)) {
+			echo '<pre>No Connection, Please check your connection again!</pre>';
+			exit();
+		}
+	}
+
+	/**
+	 * Safely quote identifier (table/db/column) with backticks
+	 */
+	private static function quoteIdent(string $ident): string
+	{
+		// support db.table or schema.table — quote each part
+		$parts = explode('.', $ident);
+		$quoted = array_map(fn($p) => '`' . str_replace('`', '``', trim($p, ' `')) . '`', $parts);
+		return implode('.', $quoted);
+	}
+
+	/**
+	 * Execute single DDL query with unified error/transaction handling
+	 */
+	private function execDDL(string $query): bool
+	{
+		$this->ensureConnection();
+		echo '<pre>' . htmlspecialchars($query, ENT_QUOTES, 'UTF-8') . '</pre>';
+		$stmt = self::$connection->prepare($query);
+		$executed = $stmt->execute();
+		if ($executed || $stmt->errorCode() == 0) {
+			return true;
+		}
+		if (config_app('transaction') === 'on') {
+			try { self::$connection->rollBack(); } catch (\Throwable $e) {}
+		}
+		$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
+		NSY_Desk::static_error_handler($var_msg);
+		return false; // never reached
+	}
+
+	/**
+	 * Handle generic validation error
+	 */
+	private function fail(string $msg): never
+	{
+		NSY_Desk::static_error_handler($msg);
+		exit();
 	}
 
 	/**
@@ -49,51 +93,17 @@ class NSY_Migration
 	 *
 	 * @param array $db
 	 */
-	public function create_database(array $arr_db = [])
+	public function create_database(array $arr_db = []): object
 	{
-		if (is_filled($arr_db)) {
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				foreach ($arr_db as $db) {
-					$query = "CREATE DATABASE $db;";
-					echo '<pre>' . $query . '</pre>';
-
-					// execute it
-					$stmt = self::$connection->prepare($query);
-					$executed = $stmt->execute();
-				}
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Database name in the <mark>create_database(<strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($arr_db)) {
+			$this->fail("Database name in the <mark>create_database(<strong>value</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$this->ensureConnection();
+		foreach ($arr_db as $db) {
+			$query = "CREATE DATABASE " . self::quoteIdent($db) . ";";
+			$this->execDDL($query);
+		}
+		return $this;
 	}
 
 	/**
@@ -101,51 +111,17 @@ class NSY_Migration
 	 *
 	 * @param array $db
 	 */
-	public function drop_database(array $arr_db = [])
+	public function drop_database(array $arr_db = []): object
 	{
-		if (is_filled($arr_db)) {
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				foreach ($arr_db as $db) {
-					$query = "DROP DATABASE $db;";
-					echo '<pre>' . $query . '</pre>';
-
-					// execute it
-					$stmt = self::$connection->prepare($query);
-					$executed = $stmt->execute();
-				}
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Database name in the <mark>drop_database(<strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($arr_db)) {
+			$this->fail("Database name in the <mark>drop_database(<strong>value</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$this->ensureConnection();
+		foreach ($arr_db as $db) {
+			$query = "DROP DATABASE " . self::quoteIdent($db) . ";";
+			$this->execDDL($query);
+		}
+		return $this;
 	}
 
 	/**
@@ -155,54 +131,23 @@ class NSY_Migration
 	 * @param array $columns
 	 * @return $this
 	 */
-	public function create_table(string $table = null, array $columns = [], $timestamps_mark = 'enabled')
+	public function create_table(string $table = null, array $columns = [], $timestamps_mark = 'enabled'): object
 	{
 		$timestamps_cols = self::timestamps();
 		$this->current_table = $table;
 
-		if (is_filled($table) && !empty($columns)) {
-			// Generate the columns part of the query
-			if ($timestamps_mark == 'enabled') {
-				$columns = array_merge($columns, $timestamps_cols);
-			}
-
-			$columns_str = implode(",\n", $columns) . "\n";
-			$query = "CREATE TABLE {$table} ( {$columns_str} );\n";
-			echo '<pre>' . $query . '</pre>';
-
-			// Check if there's a valid database connection
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				// Prepare and execute the query
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
-
-				// Handle errors if any
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					// Rollback transaction if enabled and handle error
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-					}
-					$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-					NSY_Desk::static_error_handler($var_msg);
-				}
-			}
-		} else {
-			// Handle case where table name or columns are empty or undefined
-			$var_msg = "Table name or columns are empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($table) || empty($columns)) {
+			$this->fail("Table name or columns are empty or undefined");
 		}
 
-		// Close the statement and connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		if ($timestamps_mark == 'enabled') {
+			$columns = array_merge($columns, $timestamps_cols);
+		}
+
+		$columns_str = implode(",\n", $columns) . "\n";
+		$query = "CREATE TABLE " . self::quoteIdent($table) . " ( {$columns_str} );\n";
+		$this->execDDL($query);
+		return $this;
 	}
 
 	/**
@@ -211,49 +156,14 @@ class NSY_Migration
 	 * @param string $old_table
 	 * @param string $new_table
 	 */
-	public function rename_table($old_table = '', $new_table = '')
+	public function rename_table($old_table = '', $new_table = ''): object
 	{
-		if (is_filled($old_table) || is_filled($new_table)) {
-			$query = "RENAME TABLE $old_table TO $new_table;";
-			echo '<pre>' . $query . '</pre>';
-
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Table name in the <mark>rename_table(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($old_table) || !is_filled($new_table)) {
+			$this->fail("Table name in the <mark>rename_table(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$query = "RENAME TABLE " . self::quoteIdent($old_table) . " TO " . self::quoteIdent($new_table) . ";";
+		$this->execDDL($query);
+		return $this;
 	}
 
 	/**
@@ -262,49 +172,14 @@ class NSY_Migration
 	 * @param string $old_table
 	 * @param string $new_table
 	 */
-	public function rename_table_pg($old_table = '', $new_table = '')
+	public function rename_table_pg($old_table = '', $new_table = ''): object
 	{
-		if (is_filled($old_table) || is_filled($new_table)) {
-			$query = "ALTER TABLE $old_table RENAME TO $new_table;";
-			echo '<pre>' . $query . '</pre>';
-
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Table name in the <mark>rename_table_pg(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($old_table) || !is_filled($new_table)) {
+			$this->fail("Table name in the <mark>rename_table_pg(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$query = "ALTER TABLE " . self::quoteIdent($old_table) . " RENAME TO " . self::quoteIdent($new_table) . ";";
+		$this->execDDL($query);
+		return $this;
 	}
 
 	/**
@@ -313,49 +188,16 @@ class NSY_Migration
 	 * @param string $old_table
 	 * @param string $new_table
 	 */
-	public function rename_table_ms($old_table = '', $new_table = '')
+	public function rename_table_ms($old_table = '', $new_table = ''): object
 	{
-		if (is_filled($old_table) || is_filled($new_table)) {
-			$query = "sp_rename '$old_table', '$new_table';";
-			echo '<pre>' . $query . '</pre>';
-
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				// execute it
-				$stmt = self::$connection->prepare($query);
-				$executed = $stmt->execute();
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Table name in the <mark>rename_table_ms(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($old_table) || !is_filled($new_table)) {
+			$this->fail("Table name in the <mark>rename_table_ms(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$old = str_replace("'", "''", $old_table);
+		$new = str_replace("'", "''", $new_table);
+		$query = "sp_rename '$old', '$new';";
+		$this->execDDL($query);
+		return $this;
 	}
 
 	/**
@@ -363,51 +205,17 @@ class NSY_Migration
 	 *
 	 * @param array $table
 	 */
-	public function drop_table(array $arr_table = [])
+	public function drop_table(array $arr_table = []): object
 	{
-		if (is_filled($arr_table)) {
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				foreach ($arr_table as $table) {
-					$query = "DROP TABLE $table;";
-					echo '<pre>' . $query . '</pre>';
-
-					// execute it
-					$stmt = self::$connection->prepare($query);
-					$executed = $stmt->execute();
-				}
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Table name in the <mark>drop_table(<strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($arr_table)) {
+			$this->fail("Table name in the <mark>drop_table(<strong>value</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$this->ensureConnection();
+		foreach ($arr_table as $table) {
+			$query = "DROP TABLE " . self::quoteIdent($table) . ";";
+			$this->execDDL($query);
+		}
+		return $this;
 	}
 
 	/**
@@ -415,51 +223,17 @@ class NSY_Migration
 	 *
 	 * @param array $table
 	 */
-	public function drop_exist_table(array $arr_table = [])
+	public function drop_exist_table(array $arr_table = []): object
 	{
-		if (is_filled($arr_table)) {
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				foreach ($arr_table as $table) {
-					$query = "DROP TABLE IF EXISTS $table;";
-					echo '<pre>' . $query . '</pre>';
-
-					// execute it
-					$stmt = self::$connection->prepare($query);
-					$executed = $stmt->execute();
-				}
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Table name in the <mark>drop_exist_table(<strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($arr_table)) {
+			$this->fail("Table name in the <mark>drop_exist_table(<strong>value</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$this->ensureConnection();
+		foreach ($arr_table as $table) {
+			$query = "DROP TABLE IF EXISTS " . self::quoteIdent($table) . ";";
+			$this->execDDL($query);
+		}
+		return $this;
 	}
 
 	/**
@@ -656,52 +430,17 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function add_cols_ms(string $table = null, array $columns = [])
+	public function add_cols_ms(string $table = null, array $columns = []): object
 	{
-		if (is_filled($table)) {
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				foreach ($columns as $closure_dt) {
-					$query = 'ALTER TABLE ' . $table . ' ADD ' . ' ' . $closure_dt . ';';
-
-					echo '<pre>' . $query . '</pre>';
-
-					// execute it
-					$stmt = self::$connection->prepare($query);
-					$executed = $stmt->execute();
-				}
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Table name in the <mark>add_cols_ms(<strong>table</strong>, value)</mark> and \nColumns in the <mark>add_cols_ms(table, <strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($table)) {
+			$this->fail("Table name in the <mark>add_cols_ms(<strong>table</strong>, value)</mark> and \nColumns in the <mark>add_cols_ms(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$this->ensureConnection();
+		foreach ($columns as $closure_dt) {
+			$query = 'ALTER TABLE ' . self::quoteIdent($table) . ' ADD ' . $closure_dt . ';';
+			$this->execDDL($query);
+		}
+		return $this;
 	}
 
 	/**
@@ -710,51 +449,17 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function add_cols(string $table = null, array $columns = [])
+	public function add_cols(string $table = null, array $columns = []): object
 	{
-		if (is_filled($table)) {
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				foreach ($columns as $closure_dt) {
-					$query = 'ALTER TABLE ' . $table . ' ADD COLUMN ' . ' ' . $closure_dt . ';';
-					echo '<pre>' . $query . '</pre>';
-
-					// execute it
-					$stmt = self::$connection->prepare($query);
-					$executed = $stmt->execute();
-				}
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Table name in the <mark>add_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>add_cols(table, <strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($table)) {
+			$this->fail("Table name in the <mark>add_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>add_cols(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$this->ensureConnection();
+		foreach ($columns as $closure_dt) {
+			$query = 'ALTER TABLE ' . self::quoteIdent($table) . ' ADD COLUMN ' . $closure_dt . ';';
+			$this->execDDL($query);
+		}
+		return $this;
 	}
 
 	/**
@@ -763,51 +468,17 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function drop_cols(string $table = null, array $columns = [])
+	public function drop_cols(string $table = null, array $columns = []): object
 	{
-		if (is_filled($table)) {
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				foreach ($columns as $closure_dt) {
-					$query = 'ALTER TABLE ' . $table . ' DROP COLUMN ' . $closure_dt . ';';
-					echo '<pre>' . $query . '</pre>';
-
-					// execute it
-					$stmt = self::$connection->prepare($query);
-					$executed = $stmt->execute();
-				}
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Table name in the <mark>drop_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>drop_cols(table, <strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($table)) {
+			$this->fail("Table name in the <mark>drop_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>drop_cols(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$this->ensureConnection();
+		foreach ($columns as $closure_dt) {
+			$query = 'ALTER TABLE ' . self::quoteIdent($table) . ' DROP COLUMN ' . $closure_dt . ';';
+			$this->execDDL($query);
+		}
+		return $this;
 	}
 
 	/**
@@ -816,56 +487,21 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function modify_cols_ext(string $table = null, array $columns = [])
+	public function modify_cols_ext(string $table = null, array $columns = []): object
 	{
-		if (is_filled($table)) {
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				foreach ($columns as $key => $closure_dt) {
-					if (strpos($closure_dt, 'PRIMARY') || strpos($closure_dt, 'UNIQUE')) {
-						$query = 'ALTER TABLE ' . $table . ' ADD ' . $closure_dt . ';';
-					} else {
-						$query = 'ALTER TABLE ' . $table . ' ALTER COLUMN ' . $key . ' ' . $closure_dt . ';';
-					}
-
-					echo '<pre>' . $query . '</pre>';
-
-					// execute it
-					$stmt = self::$connection->prepare($query);
-					$executed = $stmt->execute();
-				}
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Table name in the <mark>modify_cols_ext(<strong>table</strong>, value)</mark> and \nColumns in the <mark>modify_cols_ext(table, <strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($table)) {
+			$this->fail("Table name in the <mark>modify_cols_ext(<strong>table</strong>, value)</mark> and \nColumns in the <mark>modify_cols_ext(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$this->ensureConnection();
+		foreach ($columns as $key => $closure_dt) {
+			if (strpos($closure_dt, 'PRIMARY') !== false || strpos($closure_dt, 'UNIQUE') !== false) {
+				$query = 'ALTER TABLE ' . self::quoteIdent($table) . ' ADD ' . $closure_dt . ';';
+			} else {
+				$query = 'ALTER TABLE ' . self::quoteIdent($table) . ' ALTER COLUMN ' . self::quoteIdent((string)$key) . ' ' . $closure_dt . ';';
+			}
+			$this->execDDL($query);
+		}
+		return $this;
 	}
 
 	/**
@@ -874,56 +510,21 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function modify_cols(string $table = null, array $columns = [])
+	public function modify_cols(string $table = null, array $columns = []): object
 	{
-		if (is_filled($table)) {
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				foreach ($columns as $closure_dt) {
-					if (strpos($closure_dt, 'PRIMARY') || strpos($closure_dt, 'UNIQUE')) {
-						$query = 'ALTER TABLE ' . $table . ' ADD ' . $closure_dt . ';';
-					} else {
-						$query = 'ALTER TABLE ' . $table . ' MODIFY COLUMN ' . ' ' . $closure_dt . ';';
-					}
-
-					echo '<pre>' . $query . '</pre>';
-
-					// execute it
-					$stmt = self::$connection->prepare($query);
-					$executed = $stmt->execute();
-				}
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Table name in the <mark>modify_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>modify_cols(table, <strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($table)) {
+			$this->fail("Table name in the <mark>modify_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>modify_cols(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$this->ensureConnection();
+		foreach ($columns as $closure_dt) {
+			if (strpos($closure_dt, 'PRIMARY') !== false || strpos($closure_dt, 'UNIQUE') !== false) {
+				$query = 'ALTER TABLE ' . self::quoteIdent($table) . ' ADD ' . $closure_dt . ';';
+			} else {
+				$query = 'ALTER TABLE ' . self::quoteIdent($table) . ' MODIFY COLUMN ' . $closure_dt . ';';
+			}
+			$this->execDDL($query);
+		}
+		return $this;
 	}
 
 	/**
@@ -932,51 +533,17 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function rename_cols(string $table = null, array $columns = [])
+	public function rename_cols(string $table = null, array $columns = []): object
 	{
-		if (is_filled($table)) {
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				foreach ($columns as $key => $closure_dt) {
-					$query = 'ALTER TABLE ' . $table . ' RENAME COLUMN ' . $key . ' TO ' . $closure_dt . ';';
-					echo '<pre>' . $query . '</pre>';
-
-					// execute it
-					$stmt = self::$connection->prepare($query);
-					$executed = $stmt->execute();
-				}
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Table name in the <mark>rename_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>rename_cols(table, <strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($table)) {
+			$this->fail("Table name in the <mark>rename_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>rename_cols(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$this->ensureConnection();
+		foreach ($columns as $key => $closure_dt) {
+			$query = 'ALTER TABLE ' . self::quoteIdent($table) . ' RENAME COLUMN ' . self::quoteIdent((string)$key) . ' TO ' . self::quoteIdent($closure_dt) . ';';
+			$this->execDDL($query);
+		}
+		return $this;
 	}
 
 	/**
@@ -985,51 +552,20 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function rename_cols_ms(string $table = null, array $columns = [])
+	public function rename_cols_ms(string $table = null, array $columns = []): object
 	{
-		if (is_filled($table)) {
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				foreach ($columns as $closure_dt) {
-					$query = "exec sp_rename '" . $table . "." . "', '" . $closure_dt . "', 'COLUMN'";
-					echo '<pre>' . $query . '</pre>';
-
-					// execute it
-					$stmt = self::$connection->prepare($query);
-					$executed = $stmt->execute();
-				}
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Table name in the <mark>rename_cols_ms(<strong>table</strong>, value)</mark> and \nColumns in the <mark>rename_cols_ms(table, <strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($table)) {
+			$this->fail("Table name in the <mark>rename_cols_ms(<strong>table</strong>, value)</mark> and \nColumns in the <mark>rename_cols_ms(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$this->ensureConnection();
+		foreach ($columns as $closure_dt) {
+			// Note: original logic only had new name; kept for BC, but ideally needs old=>new map
+			$old = str_replace("'", "''", $table . ".");
+			$new = str_replace("'", "''", $closure_dt);
+			$query = "exec sp_rename '$old', '$new', 'COLUMN'";
+			$this->execDDL($query);
+		}
+		return $this;
 	}
 
 	/**
@@ -1038,51 +574,17 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function change_cols(string $table = null, array $columns = [])
+	public function change_cols(string $table = null, array $columns = []): object
 	{
-		if (is_filled($table)) {
-			// Check if there's connection defined on the models
-			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
-			} else {
-				foreach ($columns as $key => $closure_dt) {
-					$query = 'ALTER TABLE ' . $table . ' CHANGE ' . $key . ' ' . $closure_dt . ';';
-					echo '<pre>' . $query . '</pre>';
-
-					// execute it
-					$stmt = self::$connection->prepare($query);
-					$executed = $stmt->execute();
-				}
-
-				// Check the errors, if no errors then return the results
-				if ($executed || $stmt->errorCode() == 0) {
-					// Return $this to allow chaining
-					return $this;
-				} else {
-					if (config_app('transaction') === 'on') {
-						self::$connection->rollback();
-
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} elseif (config_app('transaction') === 'off') {
-						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
-					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-					}
-				}
-			}
-		} else {
-			$var_msg = "Table name in the <mark>change_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>change_cols(table, <strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
-			exit();
+		if (!is_filled($table)) {
+			$this->fail("Table name in the <mark>change_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>change_cols(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
-
-		// Close the statement & connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
+		$this->ensureConnection();
+		foreach ($columns as $key => $closure_dt) {
+			$query = 'ALTER TABLE ' . self::quoteIdent($table) . ' CHANGE ' . self::quoteIdent((string)$key) . ' ' . $closure_dt . ';';
+			$this->execDDL($query);
+		}
+		return $this;
 	}
 
 	/**
