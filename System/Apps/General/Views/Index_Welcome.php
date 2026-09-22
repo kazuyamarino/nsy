@@ -7,40 +7,28 @@
 		<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy/releases"><strong>Release Version&nbsp;</strong></a>|<a target="_blank" href="https://github.com/kazuyamarino/nsy"><strong>&nbsp;View On Github&nbsp;</strong></a></h4>
 		<div>
 			<div>
-				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#codename"><strong>NSY Release Codename</strong></a>&nbsp;<&nbsp;<code>About NSY codename.</code></h4>
+				<h4><a target="_blank" href="@( base_url() )docs/README_LIBRARIES.md"><strong>NSY Libraries</strong></a>&nbsp;<&nbsp;<code>File, LanguageCode, Query Builder (qb), Validate</code></h4>
 			</div>
 			<div>
-				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#how-to-dating-with-nsy"><strong>How to dating with NSY?</strong></a>&nbsp;<&nbsp;<code>NSY Installation guide.</code></h4>
+				<h4><a target="_blank" href="@( base_url() )docs/README_LOAD_AND_ASSETMANAGER.md"><strong>Load & Asset Manager</strong></a>&nbsp;<&nbsp;<code>Load::view/template/model & Add::link/script (?v=filemtime)</code></h4>
 			</div>
 			<div>
-				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#crud-example"><strong>Shyffon & Vylma</strong></a>&nbsp;<&nbsp;<code>The CRUD example build by NSY.</code></h4>
+				<h4><a target="_blank" href="@( base_url() )docs/README_HELPERS_GLOBAL.md"><strong>Global Helpers</strong></a>&nbsp;<&nbsp;<code>base_url(), is_filled(), css_url()</code></h4>
 			</div>
 			<div>
-				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#features"><strong>NSY Features</strong></a>&nbsp;<&nbsp;<code>Features available in NSY.</code></h4>
+				<h4><a target="_blank" href="@( base_url() )docs/README_NSY_ROUTER.md"><strong>NSY Router</strong></a>&nbsp;<&nbsp;<code>Route::get/post/group + RouteExample.php 14 sections</code></h4>
 			</div>
 			<div>
-				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#nsy-helper-function"><strong>NSY Helper Function</strong></a>&nbsp;<&nbsp;<code>List of helper functions in NSY</code></h4>
+				<h4><a target="_blank" href="@( base_url() )docs/README_MIGRATION.md"><strong>NSY Migration</strong></a>&nbsp;<&nbsp;<code>Mig::create_table() DRY (quoteIdent/execDDL)</code></h4>
 			</div>
 			<div>
-				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#external-helper-function"><strong>External Helper Function</strong></a>&nbsp;<&nbsp;<code>List of external helper functions in NSY</code></h4>
+				<h4><a target="_blank" href="@( base_url() )docs/README_MODEL.md"><strong>NSY Model & DB</strong></a>&nbsp;<&nbsp;<code>DB::query() + NSY_DB::connect() unified</code></h4>
 			</div>
 			<div>
-				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#nsy-middleware"><strong>NSY Middleware</strong></a>&nbsp;<&nbsp;<code>NSY has support middleware</code></h4>
+				<h4><a target="_blank" href="@( base_url() )docs/README_QUERY_BUILDER.md"><strong>Query Builder</strong></a>&nbsp;<&nbsp;<code>qb('users')->whereIn()->paginate() — 1 line</code></h4>
 			</div>
 			<div>
-				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#nsy-migration"><strong>NSY Migration</strong></a>&nbsp;<&nbsp;<code>Migration is like version control for your database</code></h4>
-			</div>
-			<div>
-				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#razr-template-engine"><strong>Razr Template Engine</strong></a>&nbsp;<&nbsp;<code>Razr is a powerful PHP template engine for PHP</code></h4>
-			</div>
-			<div>
-				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#nsy-security-function"><strong>NSY Security Function</strong></a>&nbsp;<&nbsp;<code>NSY provides security functions including antiXSS and CSRF</code></h4>
-			</div>
-			<div>
-				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#nsy-controller"><strong>NSY Controller</strong></a>&nbsp;<&nbsp;<code>Controllers act as an interface between Model and View components</code></h4>
-			</div>
-			<div>
-				<h4><a target="_blank" href="https://github.com/kazuyamarino/nsy-docs/blob/master/README.md#nsy-model"><strong>NSY Model</strong></a>&nbsp;<&nbsp;<code>The Model component corresponds to all the data-related logic that the user works with</code></h4>
+				<h4><a target="_blank" href="@( base_url() )docs/OVERVIEW.md"><strong>Overview</strong></a>&nbsp;<&nbsp;<code>Composer, Config (env), Helpers, MVC/HMVC, CLI</code></h4>
 			</div>
 		</div>
 
