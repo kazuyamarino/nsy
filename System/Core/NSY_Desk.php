@@ -136,9 +136,7 @@ class NSY_Desk
 	 */
 	public static function mig_up(string $string = ''): never
 	{
-		if (config_app('app_env') === 'production') {
-			self::static_error_handler('Migrations are disabled in production. Use CLI: <code>nsy run:migrate</code>', 403);
-		}
+		self::guardMigrationEnvironment();
 		self::executeMigration($string, 'up');
 	}
 
@@ -150,10 +148,18 @@ class NSY_Desk
 	 */
 	public static function mig_down(string $string = ''): never
 	{
-		if (config_app('app_env') === 'production') {
+		self::guardMigrationEnvironment();
+		self::executeMigration($string, 'down');
+	}
+
+	/**
+	 * Block web-triggered migrations in production; CLI (`nsy run:migrate`) stays allowed.
+	 */
+	private static function guardMigrationEnvironment(): void
+	{
+		if (PHP_SAPI !== 'cli' && config_app('app_env') === 'production') {
 			self::static_error_handler('Migrations are disabled in production. Use CLI: <code>nsy run:migrate</code>', 403);
 		}
-		self::executeMigration($string, 'down');
 	}
 
 	/**

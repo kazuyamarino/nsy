@@ -358,7 +358,8 @@ NSY CLI is a collection of commands to facilitate users in operating NSY. To sta
 
 ### NSY CLI Manual Install
 
-* `Install wget` (for windows users you have to copy & paste `wget.exe` to System32 directory).
+Requirements: `bash` and PHP CLI on `PATH` (`php -v` should work). No `wget` needed — migrations run directly through PHP.
+
 * Open Linux Terminal or Git Bash Terminal inside your project directory.
 * `sudo chmod +x INSTALL.sh` (use this if you want to install on a linux operating system that requires permission, or if you are a Windows user, then skip this command).
 
@@ -394,12 +395,55 @@ Welcome to NSY CLI
 NSY CLI installed successfully
 ```
 
+### Command Reference
+
+| Command | Description |
+| --- | --- |
+| `nsy --help` | Show help |
+| `nsy --hello` | Show welcome message |
+| `nsy --version` | Show NSY CLI version |
+| `nsy --install` | Install or update NSY CLI |
+| `nsy --setup` | First-time setup (`.htaccess`, `env.php`, `system.js`, nginx conf) |
+| `nsy serve [port] [host]` | Start PHP built-in dev server (default `127.0.0.1:8000`) |
+| `nsy dump:autoload` | Run `composer dump-autoload -o` |
+| `nsy dump:mysql <db> <user> <pass> [table]` | Dump a MySQL database (optionally a single table) |
+| `nsy show:module` | List HMVC modules |
+| `nsy show:controller mvc` | List MVC controllers |
+| `nsy show:controller hmvc <module>` | List HMVC controllers of a module |
+| `nsy show:model mvc` | List MVC models |
+| `nsy show:model hmvc <module>` | List HMVC models of a module |
+| `nsy show:migrate` | List migration class files |
+| `nsy make:module <name>` | Create an HMVC module (`Controllers/Models/Views`) |
+| `nsy make:controller mvc <name>` | Create an MVC controller |
+| `nsy make:controller hmvc <module> <name>` | Create an HMVC controller |
+| `nsy make:model mvc <name>` | Create an MVC model |
+| `nsy make:model hmvc <module> <name>` | Create an HMVC model |
+| `nsy make:view mvc <name>` | Create an MVC view |
+| `nsy make:view hmvc <module> <name>` | Create an HMVC view |
+| `nsy make:route <name>` | Create a route file (auto-discovered) |
+| `nsy make:middleware <name>` | Create a middleware class scaffold |
+| `nsy make:migrate <name>` | Create a timestamped migration class |
+| `nsy run:migrate all` | Run every migration (`up`) |
+| `nsy run:migrate list` | Pick one migration from a list |
+| `nsy run:migrate <name> [up\|down]` | Run a single migration |
+
+> `make:module`, `make:controller`, `make:model`, and `make:view` regenerate Composer autoload automatically when `composer` is available.
+
 ### Example of Commands
 
 #### Show list of Migration Class file
 
 ```sh
 nsy show:migrate
+```
+
+Migrations run directly via PHP CLI — no web server or `wget` required. Direction defaults to `up`; append `down` to roll back.
+
+#### Run a Single Migration Class file
+
+```sh
+nsy run:migrate <class-name>        # up
+nsy run:migrate <class-name> down   # down
 ```
 
 #### Executes All Migration Class file
@@ -562,6 +606,8 @@ nsy make:model mvc model_login
 
 #### Make Migration Class
 
+Creates a timestamped migration file in `System/Migrations` (class name equals the file basename).
+
 ```sh
 nsy make:migrate <class-name>
 ```
@@ -570,6 +616,50 @@ nsy make:migrate <class-name>
 
 ```sh
 nsy make:migrate customer_table
+# → System/Migrations/customer_table_23092026_153000.php
+```
+
+#### Make View File
+
+Creates a Razr view file in the MVC or HMVC view directory.
+
+```sh
+nsy make:view mvc <view-name>
+nsy make:view hmvc <module-name> <view-name>
+```
+
+**Example :**
+
+```sh
+nsy make:view mvc view_login
+nsy make:view hmvc login view_login
+```
+
+#### Make Route File
+
+Creates `System/Routes/<name>.php`. Route files are auto-discovered — no manual registration.
+
+```sh
+nsy make:route <route-name>
+```
+
+#### Make Middleware Class
+
+Creates a scaffold class in `System/Middlewares`.
+
+> NSY core security is handled by `SecurityMiddleware` (CSRF, sanitize, XSS) and there is **no automatic middleware pipeline** — the generated class is invoked explicitly from a route closure or controller, e.g. `(new MyMiddleware())->handle(fn() => Route::goto([Controller::class, 'method']))`. For built-in protection use `Route::createSecurityMiddleware('strict')`.
+
+```sh
+nsy make:middleware <middleware-name>
+```
+
+#### Start the Dev Server
+
+Runs the PHP built-in server with a router that maps `/{APP_DIR}/...` (static files + routes) — handy for local development without Apache/nginx.
+
+```sh
+nsy serve            # http://127.0.0.1:8000
+nsy serve 8080       # custom port
 ```
 
 #### First time setting up NSY
@@ -584,34 +674,12 @@ nsy --setup
 nsy dump:autoload
 ```
 
+> `make:module`, `make:controller`, and `make:model` also try to run this automatically when `composer` is available.
+
 #### NSY CLI install/update
 
 ```sh
 nsy --install
-```
-
-#### Make before Middleware Class
-
-```sh
-nsy make:before-middleware <class-name>
-```
-
-**Example :**
-
-```sh
-nsy make:before-middleware before_checkpoint
-```
-
-#### Make after Middleware Class
-
-```sh
-nsy make:after-middleware <class-name>
-```
-
-**Example :**
-
-```sh
-nsy make:after-middleware after_checkpoint
 ```
 
 ---

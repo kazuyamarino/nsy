@@ -6,9 +6,9 @@ use System\Core\Load;
 
 class md_ctrl extends Load
 {
-
-	public function FunctionName(Type $var = null)
+	public function index(): void
 	{
-		# code...
+		// Load::template('Header', $data);
+		// Load::view('ModuleName', 'View_Name', $data);
 	}
 }

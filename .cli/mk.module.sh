@@ -1,28 +1,22 @@
 #!/bin/bash
 make_module() {
-	if [ -z $1 ]
-	then
+	local dirname="$1"
+
+	if [ -z "$dirname" ]; then
 		printf "Module name undefined\n"
 		printf "It should be like this 'make:module [module-name]'\n"
-	elif [ -n $1 ]
-	then
-		dirname=$1
+		return 1
+	fi
 
-	if [ ! -d ./System/Apps/Modules/"$dirname" ]
-	then
-		mkdir ./System/Apps/Modules/$dirname
-		mkdir ./System/Apps/Modules/$dirname/Controllers
-		mkdir ./System/Apps/Modules/$dirname/Models
-		mkdir ./System/Apps/Modules/$dirname/Views
-		chmod -R 775 ./System/Apps/Modules/$dirname
-		chmod -R 775 ./System/Apps/Modules/$dirname/Controllers
-		chmod -R 775 ./System/Apps/Modules/$dirname/Models
-		chmod -R 775 ./System/Apps/Modules/$dirname/Views
-
-		printf "Module created\n"
-		printf "see the results in the 'System/Apps/Modules' directory\n"
-	else
+	local base="$NSY_ROOT_DIR/System/Apps/Modules/$dirname"
+	if [ -d "$base" ]; then
 		printf "Module already exists\n"
+		return 0
 	fi
-	fi
+
+	mkdir -p "$base/Controllers" "$base/Models" "$base/Views"
+	chmod -R 775 "$base"
+
+	printf "Module created: System/Apps/Modules/%s (Controllers, Models, Views)\n" "$dirname"
+	nsy_dump_autoload
 }

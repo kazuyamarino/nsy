@@ -1,35 +1,31 @@
 #!/bin/bash
 run_setup() {
-	current_dir=$(pwd)
-	last_dir_name=$(basename "$current_dir")
+	local last_dir_name
+	last_dir_name="$(basename "$NSY_ROOT_DIR")"
 
-	echo "Prepare for NSY settings..."
-	echo "The current working directory is: $last_dir_name"
-	sleep 3
+	printf "Prepare for NSY settings...\n"
+	printf "The project directory name is: %s\n" "$last_dir_name"
 
-	if [ -n "$last_dir_name" ];
-	then
-		if [ ! -e ./env.php ]
-		then
-			cp docs/apache/for_public/.htaccess ./public/.htaccess
-			cp docs/apache/for_root/.htaccess ./.htaccess
-			cp .cli/tmp/env.example.php ./env.php
-			cp .cli/tmp/env.example.php docs/env.example/env.example.php
-			cp .cli/tmp/system.js ./public/assets/js/config/system.js
-			cp .cli/tmp/default ./docs/nginx/sites-enabled/default
-			sed -i "s/nsy/$last_dir_name/g" ./env.php
-			sed -i "s/nsy/$last_dir_name/g" ./docs/env.example/env.example.php
-			sed -i "s/nsy/$last_dir_name/g" ./public/assets/js/config/system.js
-			sed -i "s/nsy/$last_dir_name/g" ./docs/nginx/sites-enabled/default
-
-			printf "Please wait...\n"
-			sleep 3
-
-			printf "NSY has been set up\n"
-		else
-			printf "NSY has already been prepared\n"
-		fi
-	else
+	if [ -z "$last_dir_name" ]; then
 		printf "The application directory name is not specified\n"
+		return 1
 	fi
+
+	if [ -e "$NSY_ROOT_DIR/env.php" ]; then
+		printf "NSY has already been prepared\n"
+		return 0
+	fi
+
+	cp "$NSY_ROOT_DIR/docs/apache/for_public/.htaccess" "$NSY_ROOT_DIR/public/.htaccess"
+	cp "$NSY_ROOT_DIR/docs/apache/for_root/.htaccess" "$NSY_ROOT_DIR/.htaccess"
+	cp "$NSY_ROOT_DIR/.cli/tmp/env.example.php" "$NSY_ROOT_DIR/env.php"
+	cp "$NSY_ROOT_DIR/.cli/tmp/system.js" "$NSY_ROOT_DIR/public/assets/js/config/system.js"
+	cp "$NSY_ROOT_DIR/.cli/tmp/default" "$NSY_ROOT_DIR/docs/nginx/sites-enabled/default"
+
+	# Scope replacements to the APP_DIR value / known markers (no blanket "nsy" replace)
+	sed_inplace "s/'APP_DIR' => '[^']*'/'APP_DIR' => '$last_dir_name'/" "$NSY_ROOT_DIR/env.php"
+	sed_inplace "s/var dirname = \"[^\"]*\";/var dirname = \"$last_dir_name\";/" "$NSY_ROOT_DIR/public/assets/js/config/system.js"
+	sed_inplace "s#/nsy/#/$last_dir_name/#g" "$NSY_ROOT_DIR/docs/nginx/sites-enabled/default"
+
+	printf "NSY has been set up\n"
 }

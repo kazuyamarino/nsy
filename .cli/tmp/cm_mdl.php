@@ -6,9 +6,8 @@ use System\Core\DB;
 
 class cm_mdl extends DB
 {
-
-	public function FunctionName(Type $var = null)
+	public function all(): array
 	{
-		# code...
+		return self::connect()->query('SELECT * FROM your_table')->fetch_all();
 	}
 }

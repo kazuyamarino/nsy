@@ -1,17 +1,17 @@
 #!/bin/bash
 show_module() {
-	count=`ls -1 System/Apps/Modules/* 2>/dev/null | wc -l`
-	if [ $count != 0 ]; then
-		# List of modules
-		printf "List of 'hmvc' modules :\n"
-		printf "==========================\n"
-		ls -d System/Apps/Modules/* | awk -F"/" '{print NR".", $NF}'
-		printf "==========================\n"
+	printf "List of 'hmvc' modules :\n"
+	printf "==========================\n"
+
+	local dirs=("$NSY_ROOT_DIR"/System/Apps/Modules/*)
+	if [ -d "${dirs[0]}" ]; then
+		local i=1 d
+		for d in "${dirs[@]}"; do
+			printf "%s. %s\n" "$i" "$(basename "$d")"
+			i=$((i + 1))
+		done
 	else
-		# List of empty modules
-		printf "List of 'hmvc' modules :\n"
-		printf "==========================\n"
 		printf "No such file or directory\n"
-		printf "==========================\n"
 	fi
+	printf "==========================\n"
 }

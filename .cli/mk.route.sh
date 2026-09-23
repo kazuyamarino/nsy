@@ -1,24 +1,22 @@
 #!/bin/bash
 make_route() {
-	if [ -z $1 ]
-	then
-		printf "Route name or table name undefined\n"
+	local route="$1"
+
+	if [ -z "$route" ]; then
+		printf "Route name undefined\n"
 		printf "It should be like this 'make:route [route-name]'\n"
-	elif [ -n $1 ]
-	then
-		route=$1
-
-		# Create Route
-		if [ ! -e ./System/Routes/"$route.php" ]
-		then
-			cp .cli/tmp/route_tmp.php ./System/Routes/"$route.php"
-
-			printf "Route created\n"
-			printf "see the results in the 'System/Routes' directory\n\n"
-
-			printf "Route class must be registered in 'Config/App.php' on 'User Defined Routes'\n"
-		else
-			printf "Route already exists\n"
-		fi
+		return 1
 	fi
+
+	local dest="$NSY_ROOT_DIR/System/Routes/$route.php"
+	if [ -e "$dest" ]; then
+		printf "Route already exists\n"
+		return 0
+	fi
+
+	mkdir -p "$NSY_ROOT_DIR/System/Routes"
+	cp "$NSY_ROOT_DIR/.cli/tmp/route_tmp.php" "$dest"
+
+	printf "Route created: System/Routes/%s.php\n" "$route"
+	printf "It is auto-loaded (no registration needed). Edit the new file to add routes.\n"
 }
