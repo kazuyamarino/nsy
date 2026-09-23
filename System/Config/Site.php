@@ -68,7 +68,7 @@ return [
 	| Define version of the application
 	|
 	*/
-	'version' => config_env('APP_VERSION') ?? '6.1.5',
+	'version' => config_env('APP_VERSION') ?? '',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,6 +78,6 @@ return [
 	| Define codename of the application
 	|
 	*/
-	'codename' => config_env('APP_CODENAME') ?? 'Talindo'
+	'codename' => config_env('APP_CODENAME') ?? ''
 
 ];

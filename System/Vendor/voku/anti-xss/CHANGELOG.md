@@ -1,5 +1,31 @@
 # Changelog
 
+### master (unreleased)
+
+### 4.1.44 (2026-07-10)
+
+- add more modern DOM event handlers to the blacklist (e.g. "onAppInstalled", "onBeforeInstallPrompt", "onFormData", "onGamepadConnected/Disconnected", "onMessageError", "onScrollEnd", "onSecurityPolicyViolation", "onSlotChange", "onVRDisplay*", ...)
+- harden detection of hyphen-/colon-suffixed event-handler lookalikes (e.g. "onmessageerror-foo") so the whole attribute is removed instead of leaving a broken attribute with leftover payload text
+- fix regression: the lookalike-hardening above could also strip the value of unrelated, legitimate compound attributes that merely contain an event name after a hyphen (e.g. "data-onchange-debounce="300""); only real handler-lookalikes are removed now
+- harden CSS "expression(...)" detection, incl. escaped and uppercase variants, and fix a regex backtracking risk
+- add a hard cap on internal sanitization retry-loops (throws "RuntimeException" instead of looping forever if a loop can't converge)
+- preserve custom / removed "_never_allowed_regex" entries across "setReplacement()" calls
+- fix: several tag/attribute-stripping steps silently wiped the whole string to "" when "preg_replace()"/"preg_replace_callback()" hit "pcre.backtrack_limit" (or its fallback also failed); they now fail closed via a bounded, non-regex removal of the specific dangerous tag/attribute instead of discarding unrelated content or falling back to the still-dangerous raw input
+- add regression test for issue #201 (template + slot "onslotchange" XSS)
+- add mutation testing (Infection) to CI with a diff MSI gate
+
+### 4.1.43 (2026-04-22)
+
+- 10-50% better performance
+- add "addNaughtyJavascriptPatterns()"
+- add "setKeepPreAndCodeTagContent()" to preserve content inside "pre" and "code" tags
+- fix regression when sanitizing text inside "pre" / "code" tags
+- fix false-positives for valid "href" / "src" URLs and plain text such as "system (...)", "behavior:", "< abc" and "< 35kg"
+- improve detection of obfuscated style / attribute payloads and JSON-escaped HTML attributes
+- keep valid base64 payloads ending with "==" and avoid blank output if "preg_replace()" returns "null"
+- update "portable-utf8" to "~6.1.0"
+- improve CI / test compatibility (incl. PHP 8.5 + PHPUnit 12)
+
 ### 4.1.42 (2023-07-03)
 
 - add more js events e.g. "onbeforetoggle"

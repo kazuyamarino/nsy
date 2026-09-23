@@ -34,8 +34,8 @@ return [
 	'SITE_KEYWORDS' => 'MVC Framework, HMVC Framework, PHP Framework',
 	'SITE_DESC' => 'NSY is a simple PHP Framework that works well on MVC or HMVC mode.',
 	'SITE_EMAIL' => '',
-	'APP_VERSION' => '6.1.5',
-	'APP_CODENAME' => 'Talindo',
+	'APP_VERSION' => '7.0.0',
+	'APP_CODENAME' => 'Gamelan',
 
 	/*
 	| Define Application Variables

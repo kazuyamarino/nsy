@@ -132,6 +132,11 @@ abstract class ParserAbstract implements Parser {
     /** @var \SplObjectStorage<Array_, null>|null Array nodes created during parsing, for postprocessing of empty elements. */
     protected ?\SplObjectStorage $createdArrays;
 
+    /** @var \SplObjectStorage<Expr\ArrowFunction, null>|null
+     *       Arrow functions that are wrapped in parentheses, to enforce the pipe operator parentheses requirements.
+     */
+    protected ?\SplObjectStorage $parenthesizedArrowFunctions;
+
     /** @var Token[] Tokens for the current parse */
     protected array $tokens;
     /** @var int Current position in token array */
@@ -182,6 +187,7 @@ abstract class ParserAbstract implements Parser {
     public function parse(string $code, ?ErrorHandler $errorHandler = null): ?array {
         $this->errorHandler = $errorHandler ?: new ErrorHandler\Throwing();
         $this->createdArrays = new \SplObjectStorage();
+        $this->parenthesizedArrowFunctions = new \SplObjectStorage();
 
         $this->tokens = $this->lexer->tokenize($code, $this->errorHandler);
         $result = $this->doParse();
@@ -205,6 +211,7 @@ abstract class ParserAbstract implements Parser {
         $this->semStack = [];
         $this->semValue = null;
         $this->createdArrays = null;
+        $this->parenthesizedArrowFunctions = null;
 
         if ($result !== null) {
             $traverser = new NodeTraverser(new CommentAnnotatingVisitor($this->tokens));
@@ -1071,6 +1078,13 @@ abstract class ParserAbstract implements Parser {
                 $node->default->getAttributes()
             ));
         }
+
+        if ($node->type instanceof Identifier && $node->type->name === 'void') {
+            $this->emitError(new Error(
+                'void cannot be used as a parameter type',
+                $node->type->getAttributes()
+            ));
+        }
     }
 
     protected function checkTryCatch(TryCatch $node): void {
@@ -1237,6 +1251,13 @@ abstract class ParserAbstract implements Parser {
         }
     }
 
+    protected function checkPipeOperatorParentheses(Expr $node): void {
+        if ($node instanceof Expr\ArrowFunction && !$this->parenthesizedArrowFunctions->offsetExists($node)) {
+            $this->emitError(new Error(
+                'Arrow functions on the right hand side of |> must be parenthesized', $node->getAttributes()));
+        }
+    }
+
     /**
      * @param Property|Param $node
      */
@@ -1251,7 +1272,7 @@ abstract class ParserAbstract implements Parser {
         }
     }
 
-    /** @param array<Node\Arg|Node\VariadicPlaceholder> $args */
+    /** @param array<Node\Arg|Node\VariadicPlaceholder|Node\ArgPlaceholder> $args */
     private function isSimpleExit(array $args): bool {
         if (\count($args) === 0) {
             return true;
@@ -1265,7 +1286,7 @@ abstract class ParserAbstract implements Parser {
     }
 
     /**
-     * @param array<Node\Arg|Node\VariadicPlaceholder> $args
+     * @param array<Node\Arg|Node\VariadicPlaceholder|Node\ArgPlaceholder> $args
      * @param array<string, mixed> $attrs
      */
     protected function createExitExpr(string $name, int $namePos, array $args, array $attrs): Expr {
