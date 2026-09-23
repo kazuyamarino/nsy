@@ -1,7 +1,7 @@
 #!/bin/bash
 # Shared helpers for NSY CLI
 
-NSY_CLI_VERSION="1.2.0"
+NSY_CLI_VERSION="2.0.0"
 
 # Portable in-place sed (works on GNU/Linux and BSD/macOS)
 sed_inplace() {
