@@ -7,17 +7,17 @@ All functions here are available as **global functions** (no namespace) after th
 ## Table of Contents
 
 1. [Variable Checking](#1-variable-checking)
-2. [URI & Path Helpers](#2-uri-path-helpers)
+2. [URI & Path Helpers](#2-uri--path-helpers)
 3. [Asset URL Helpers](#3-asset-url-helpers)
 4. [NSY System Constant Getters](#4-nsy-system-constant-getters)
-5. [HTTP & Input Helpers](#5-http-input-helpers)
-6. [Data Conversion & JSON](#6-data-conversion-json)
-7. [Array & Number Utilities](#7-array-number-utilities)
-8. [String & Media Utilities](#8-string-media-utilities)
-9. [Generator & Client Info](#9-generator-client-info)
+5. [HTTP & Input Helpers](#5-http--input-helpers)
+6. [Data Conversion & JSON](#6-data-conversion--json)
+7. [Array & Number Utilities](#7-array--number-utilities)
+8. [String & Media Utilities](#8-string--media-utilities)
+9. [Generator & Client Info](#9-generator--client-info)
 10. [Aurora Data Export](#10-aurora-data-export)
 11. [Practical Examples](#11-practical-examples)
-12. [Security & Stability Notes](#12-security-stability-notes)
+12. [Security & Stability Notes](#12-security--stability-notes)
 13. [Quick Reference](#quick-reference)
 
 ---

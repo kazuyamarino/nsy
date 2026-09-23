@@ -9,11 +9,11 @@
 2. [Where to Define Routes](#where-to-define-routes)
 3. [Basic Routing](#basic-routing)
 4. [HTTP Methods](#http-methods)
-5. [Parameters & Patterns](#parameters-patterns)
+5. [Parameters & Patterns](#parameters--patterns)
 6. [Route Groups](#route-groups)
 7. [Controller Execution](#controller-execution)
 8. [CSRF Protection](#csrf-protection)
-9. [Cache & Performance](#cache-performance)
+9. [Cache & Performance](#cache--performance)
 10. [Error Handling](#error-handling)
 11. [API Reference](#api-reference)
 

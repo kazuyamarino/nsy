@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace System\Core\Razr\Extension;
 
 use System\Core\Razr\Directive\BlockDirective;
@@ -86,7 +87,7 @@ class CoreExtension implements ExtensionInterface
         }
 
         ob_start();
-        ob_implicit_flush(0);
+        ob_implicit_flush(false);
     }
 
     /**

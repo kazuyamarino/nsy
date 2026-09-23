@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace System\Core\Razr;
 
 use System\Core\Razr\Directive\Directive;
@@ -19,23 +20,26 @@ class Engine
     const ARRAY_CALL  = 'array';
     const METHOD_CALL = 'method';
 
-    protected $lexer;
-    protected $parser;
-    protected $current;
-    protected $charset = 'UTF-8';
-    protected $parents = array();
-    protected $globals = array();
-    protected $directives = array();
-    protected $functions = array();
-    protected $extensions = array();
-    protected $cache = array();
-    protected $cachePath;
-    protected $loader;
+    protected Lexer $lexer;
+    protected Parser $parser;
+    protected ?string $current = null;
+    protected string $charset = 'UTF-8';
+    protected array $parents = array();
+    protected array $globals = array();
+    protected array $directives = array();
+    protected array $functions = array();
+    protected array $extensions = array();
+    protected array $cache = array();
+    protected array $cacheFiles = array();
+    protected ?string $cachePath;
+    protected LoaderInterface $loader;
 
-    private $initialized;
-    private $template;
-    private $parameters;
-    private static $classes = array();
+    private bool $initialized = false;
+    private ?Storage $template = null;
+    private ?array $parameters = null;
+    private ?array $extensionMtimes = null;
+    private int $renderDepth = 0;
+    private static array $classes = array();
 
     /**
      * Constructor.
@@ -43,7 +47,7 @@ class Engine
      * @param LoaderInterface $loader
      * @param string          $cachePath
      */
-    public function __construct(LoaderInterface $loader, $cachePath = null)
+    public function __construct(LoaderInterface $loader, ?string $cachePath = null)
     {
         $this->loader    = $loader;
         $this->lexer     = new Lexer($this);
@@ -58,7 +62,7 @@ class Engine
      *
      * @return Lexer
      */
-    public function getLexer()
+    public function getLexer(): Lexer
     {
         return $this->lexer;
     }
@@ -68,7 +72,7 @@ class Engine
      *
      * @return Parser
      */
-    public function getParser()
+    public function getParser(): Parser
     {
         return $this->parser;
     }
@@ -78,7 +82,7 @@ class Engine
      *
      * @return string
      */
-    public function getCharset()
+    public function getCharset(): string
     {
         return $this->charset;
     }
@@ -88,7 +92,7 @@ class Engine
      *
      * @param string $charset
      */
-    public function setCharset($charset)
+    public function setCharset(string $charset): void
     {
         $this->charset = $charset;
     }
@@ -98,7 +102,7 @@ class Engine
      *
      * @return array
      */
-    public function getGlobals()
+    public function getGlobals(): array
     {
         return $this->globals;
     }
@@ -109,7 +113,7 @@ class Engine
      * @param string $name
      * @param mixed  $value
      */
-    public function addGlobal($name, $value)
+    public function addGlobal(string $name, mixed $value): void
     {
         $this->globals[$name] = $value;
     }
@@ -120,7 +124,7 @@ class Engine
      * @param  string $name
      * @return Directive
      */
-    public function getDirective($name)
+    public function getDirective(string $name): ?DirectiveInterface
     {
         if (!$this->initialized) {
             $this->initialize();
@@ -134,7 +138,7 @@ class Engine
      *
      * @return array
      */
-    public function getDirectives()
+    public function getDirectives(): array
     {
         if (!$this->initialized) {
             $this->initialize();
@@ -149,7 +153,7 @@ class Engine
      * @param  DirectiveInterface $directive
      * @throws Exception\RuntimeException
      */
-    public function addDirective(DirectiveInterface $directive)
+    public function addDirective(DirectiveInterface $directive): void
     {
         if ($this->initialized) {
             throw new RuntimeException(sprintf('Unable to add directive "%s" as they have already been initialized.', $directive->getName()));
@@ -166,7 +170,7 @@ class Engine
      * @param  string $name
      * @return callable
      */
-    public function getFunction($name)
+    public function getFunction(string $name): ?callable
     {
         if (!$this->initialized) {
             $this->initialize();
@@ -180,7 +184,7 @@ class Engine
      *
      * @return array
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         if (!$this->initialized) {
             $this->initialize();
@@ -196,7 +200,7 @@ class Engine
      * @param  callable $function
      * @throws RuntimeException
      */
-    public function addFunction($name, $function)
+    public function addFunction(string $name, callable $function): void
     {
         if ($this->initialized) {
             throw new RuntimeException(sprintf('Unable to add function "%s" as they have already been initialized.', $name));
@@ -211,7 +215,7 @@ class Engine
      * @param  string $name
      * @return ExtensionInterface
      */
-    public function getExtension($name)
+    public function getExtension(string $name): ?ExtensionInterface
     {
         return isset($this->extensions[$name]) ? $this->extensions[$name] : null;
     }
@@ -221,7 +225,7 @@ class Engine
      *
      * @return array
      */
-    public function getExtensions()
+    public function getExtensions(): array
     {
         return $this->extensions;
     }
@@ -232,7 +236,7 @@ class Engine
      * @param  ExtensionInterface $extension
      * @throws Exception\RuntimeException
      */
-    public function addExtension(ExtensionInterface $extension)
+    public function addExtension(ExtensionInterface $extension): void
     {
         if ($this->initialized) {
             throw new RuntimeException(sprintf('Unable to add extension "%s" as they have already been initialized.', $extension->getName()));
@@ -315,7 +319,7 @@ class Engine
      * @param  array  $args
      * @return mixed
      */
-    public function callFunction($name, array $args = array())
+    public function callFunction(string $name, array $args = array()): mixed
     {
         return call_user_func_array($this->getFunction($name), $args);
     }
@@ -325,7 +329,7 @@ class Engine
      *
      * @param string $template
      */
-    public function extend($template)
+    public function extend(string $template): void
     {
         $this->parents[$this->current] = $template;
     }
@@ -353,23 +357,37 @@ class Engine
      * @throws RuntimeException
      * @return string
      */
-    public function render($name, array $parameters = array())
+    public function render(string $name, array $parameters = array()): string
     {
-        $storage = $this->load($name);
-        $parameters = array_replace($this->getGlobals(), $parameters);
+        $this->renderDepth++;
 
-        $this->current = $key = sha1(serialize($storage));
-        $this->parents[$key] = null;
+        try {
+            $storage = $this->load($name);
+            $parameters = array_replace($this->getGlobals(), $parameters);
 
-        if (false === $content = $this->evaluate($storage, $parameters)) {
-            throw new RuntimeException('The template cannot be rendered.');
+            $this->current = $key = sha1(serialize($storage));
+            $this->parents[$key] = null;
+
+            if (false === $content = $this->evaluate($storage, $parameters)) {
+                throw new RuntimeException('The template cannot be rendered.');
+            }
+
+            if ($this->parents[$key]) {
+                $content = $this->render($this->parents[$key], $parameters);
+            }
+
+            return $content;
+        } finally {
+            $this->renderDepth--;
+
+            // Reset blocks after the outermost render so @block/@extend never leak across renders
+            if ($this->renderDepth === 0) {
+                $core = $this->getExtension('core');
+                if ($core instanceof CoreExtension) {
+                    $core->resetBlocks();
+                }
+            }
         }
-
-        if ($this->parents[$key]) {
-            $content = $this->render($this->parents[$key], $parameters);
-        }
-
-        return $content;
     }
 
     /**
@@ -437,11 +455,22 @@ class Engine
             $this->initialize();
         }
 
+        // In-memory cache hit — but re-validate freshness (safe for long-running processes)
         if (isset($this->cache[$name])) {
-            return $this->cache[$name];
+            $cachedFile = $this->cacheFiles[$name] ?? null;
+
+            if ($cachedFile === null || (is_file($cachedFile) && $this->isTemplateFresh($name, filemtime($cachedFile)))) {
+                return $this->cache[$name];
+            }
+
+            unset($this->cache[$name], $this->cacheFiles[$name]);
         }
 
-        $cache = $this->cachePath ? sprintf('%s/%s.cache', $this->cachePath, sha1($name)) : false;
+        // Use the loader's cache key so distinct templates that share a name never collide
+        $cache = false;
+        if ($this->cachePath) {
+            $cache = sprintf('%s/%s.cache', $this->cachePath, sha1((string) $this->loader->getCacheKey($name)));
+        }
 
         if (!$cache) {
 
@@ -455,6 +484,8 @@ class Engine
 
             $storage = new FileStorage($cache);
         }
+
+        $this->cacheFiles[$name] = $cache ?: null;
 
         return $this->cache[$name] = $storage;
     }
@@ -492,8 +523,17 @@ class Engine
             throw new RuntimeException("Unable to write in the cache directory ($dir).");
         }
 
-        if (!file_put_contents($file, $content)) {
-            throw new RuntimeException("Failed to write cache file ($file).");
+        // Atomic write: temp file + rename, so concurrent requests never read a partial cache
+        $tmp = $file . '.' . uniqid('', true) . '.tmp';
+
+        if (false === @file_put_contents($tmp, $content, LOCK_EX)) {
+            @unlink($tmp);
+            throw new RuntimeException("Failed to write cache file ($tmp).");
+        }
+
+        if (!@rename($tmp, $file)) {
+            @unlink($tmp);
+            throw new RuntimeException("Failed to replace cache file ($file).");
         }
     }
 
@@ -506,9 +546,17 @@ class Engine
      */
     protected function isTemplateFresh($name, $time)
     {
-        foreach ($this->extensions as $extension) {
-            $r = new \ReflectionObject($extension);
-            if (filemtime($r->getFileName()) > $time) {
+        // Memoize extension file mtimes per-process (ReflectionObject + filemtime is costly per render)
+        if ($this->extensionMtimes === null) {
+            $this->extensionMtimes = array();
+            foreach ($this->extensions as $extension) {
+                $r = new \ReflectionObject($extension);
+                $this->extensionMtimes[] = filemtime($r->getFileName());
+            }
+        }
+
+        foreach ($this->extensionMtimes as $mtime) {
+            if ($mtime > $time) {
                 return false;
             }
         }

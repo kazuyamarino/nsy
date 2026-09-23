@@ -1,5 +1,8 @@
 <?php
+declare(strict_types=1);
 namespace System\Core\Razr;
+
+use System\Core\Razr\Exception\SyntaxErrorException;
 
 class Parser
 {
@@ -69,13 +72,20 @@ class Parser
      */
     public function parseOutput()
     {
-        $out = "echo \$this->escape(";
+        $inner = '';
+        $token = $this->stream->get();
 
-        while (!$this->stream->test(T_CLOSE_TAG)) {
-            $out .= $this->parseExpression();
+        while ($token !== null && !$token->test(T_CLOSE_TAG)) {
+            $inner .= $this->parseExpression();
+            $token = $this->stream->get();
         }
 
-        return "$out) ";
+        // "@()" / "@( )" produce an empty expression that would become escape(())
+        if (trim($inner, " \t\n\r\0\x0B()") === '') {
+            throw new SyntaxErrorException(sprintf('Empty output expression "@()" at line %d in file %s.', $token ? $token->getLine() : 0, $this->filename));
+        }
+
+        return "echo \$this->escape($inner) ";
     }
 
     /**
@@ -86,11 +96,31 @@ class Parser
     public function parseDirective()
     {
         $out = '';
+        $token = $this->stream->get();
 
         foreach ($this->engine->getDirectives() as $directive) {
-            if ($out = $directive->parse($this->stream, $this->stream->get())) {
+            $result = $directive->parse($this->stream, $this->stream->get());
+            if ($result !== null && $result !== '') {
+                $out = $result;
                 break;
             }
+        }
+
+        // No directive consumed the token
+        if ($out === '' && $token !== null && $this->stream->get() === $token) {
+            // PHP control-flow keywords (@break, @continue, @return, ...) pass through as raw statements
+            if ($token->getType() !== T_STRING) {
+                $this->stream->next();
+                return $token->getValue();
+            }
+
+            // Unknown directive: fail clearly instead of emitting broken PHP
+            throw new SyntaxErrorException(sprintf(
+                'Unknown directive "@%s" at line %d in file %s. Escape a literal "@" as "@@", or use @raw().',
+                $token->getValue(),
+                $token->getLine(),
+                $this->filename
+            ));
         }
 
         return $out;

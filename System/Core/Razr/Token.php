@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace System\Core\Razr;
 
 class Token
@@ -65,7 +66,7 @@ class Token
             $type  = $this->type;
         }
 
-        return ($this->type === $type) && ($value === null || (is_array($value) && in_array($this->value, $value)) || $this->value == $value);
+        return ($this->type === $type) && ($value === null || (is_array($value) && in_array($this->value, $value, true)) || $this->value === $value);
     }
 
     /**

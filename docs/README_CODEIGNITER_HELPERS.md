@@ -8,12 +8,12 @@ This document provides complete tutorial documentation for all utility functions
 
 ## Table of Contents
 
-1. [HTML & Attribute Functions](#html-attribute-functions)
+1. [HTML & Attribute Functions](#html--attribute-functions)
 2. [File System Functions](#file-system-functions)
-3. [Array & Data Functions](#array-data-functions)
+3. [Array & Data Functions](#array--data-functions)
 4. [Text Processing Functions](#text-processing-functions)
 5. [String Manipulation Functions](#string-manipulation-functions)
-6. [URL & Web Functions](#url-web-functions)
+6. [URL & Web Functions](#url--web-functions)
 7. [Security Functions](#security-functions)
 8. [Random Generation Functions](#random-generation-functions)
 9. [File Permission Functions](#file-permission-functions)

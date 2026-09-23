@@ -6,50 +6,50 @@ instantiation is needed.
 
 ## Table of Contents
 
-**Part A — [File Library](#nsy-file-library-user-tutorial)**
+**Part A — [File Library](#nsy-file-library--user-tutorial)**
 
 1. [Getting Started](#1-getting-started)
-2. [Checking Existence — `exists()`](#2-checking-existence-exists)
-3. [Writing Files — `writeFile()`](#3-writing-files-writefile)
-4. [Deleting a File — `delete()`](#4-deleting-a-file-delete)
-5. [Creating Directories — `createDir()`](#5-creating-directories-createdir)
-6. [Copying a Directory Tree — `copyDirRecursively()`](#6-copying-a-directory-tree-copydirrecursively)
+2. [Checking Existence — `exists()`](#2-checking-existence--exists)
+3. [Writing Files — `writeFile()`](#3-writing-files--writefile)
+4. [Deleting a File — `delete()`](#4-deleting-a-file--delete)
+5. [Creating Directories — `createDir()`](#5-creating-directories--createdir)
+6. [Copying a Directory Tree — `copyDirRecursively()`](#6-copying-a-directory-tree--copydirrecursively)
 7. [Deleting Directories](#7-deleting-directories)
-8. [Iterating a Directory — `getFilesFromDir()`](#8-iterating-a-directory-getfilesfromdir)
-9. [Listing Filenames Recursively — `getFilenames()`](#9-listing-filenames-recursively-getfilenames)
-10. [Directory Report — `getDirFileInfo()`](#10-directory-report-getdirfileinfo)
-11. [Single File Report — `getFileInfo()`](#11-single-file-report-getfileinfo)
-12. [MIME Type by Extension — `getMimeByExtension()`](#12-mime-type-by-extension-getmimebyextension)
-13. [Complete Example — Upload Handler](#13-complete-example-simple-upload-handler-sketch)
+8. [Iterating a Directory — `getFilesFromDir()`](#8-iterating-a-directory--getfilesfromdir)
+9. [Listing Filenames Recursively — `getFilenames()`](#9-listing-filenames-recursively--getfilenames)
+10. [Directory Report — `getDirFileInfo()`](#10-directory-report--getdirfileinfo)
+11. [Single File Report — `getFileInfo()`](#11-single-file-report--getfileinfo)
+12. [MIME Type by Extension — `getMimeByExtension()`](#12-mime-type-by-extension--getmimebyextension)
+13. [Complete Example — Upload Handler](#13-complete-example--simple-upload-handler-sketch)
 14. [File Quick Reference](#file-quick-reference)
 
-**Part B — [LanguageCode Library](#nsy-languagecode-library-user-tutorial)**
+**Part B — [LanguageCode Library](#nsy-languagecode-library--user-tutorial)**
 
 1. [Getting Started](#1-getting-started-with-languagecode)
-2. [List Every Language — `get()`](#2-list-every-language-get)
-3. [Name from Code — `getLanguageFromCode()`](#3-name-from-code-getlanguagefromcode)
-4. [Code from Name — `getCodeFromLanguage()`](#4-code-from-name-getcodefromlanguage)
+2. [List Every Language — `get()`](#2-list-every-language--get)
+3. [Name from Code — `getLanguageFromCode()`](#3-name-from-code--getlanguagefromcode)
+4. [Code from Name — `getCodeFromLanguage()`](#4-code-from-name--getcodefromlanguage)
 5. [Application Helpers](#5-application-helpers)
-6. [Complete Example — Language Dropdown](#6-complete-example-language-dropdown)
+6. [Complete Example — Language Dropdown](#6-complete-example--language-dropdown)
 7. [LanguageCode Quick Reference](#languagecode-quick-reference)
 
-**Part C — [LoadTime Library](#nsy-loadtime-library-user-tutorial)**
+**Part C — [LoadTime Library](#nsy-loadtime-library--user-tutorial)**
 
 1. [Measuring Execution Time](#1-measuring-execution-time)
 2. [Usage](#2-usage)
 3. [LoadTime Quick Reference](#loadtime-quick-reference)
 
-**Part D — [Request Library](#nsy-request-library-user-tutorial)**
+**Part D — [Request Library](#nsy-request-library--user-tutorial)**
 
 1. [Which Method Is This?](#1-which-method-is-this)
-2. [Reading Input — `input()`](#2-reading-input-input)
-3. [Sanitizing to Array / Object / JSON](#3-sanitizing-to-array-object-json)
+2. [Reading Input — `input()`](#2-reading-input--input)
+3. [Sanitizing to Array / Object / JSON](#3-sanitizing-to-array--object--json)
 4. [Sanitizing Single Values](#4-sanitizing-single-values)
 5. [Content Type](#5-content-type)
 6. [One-Shot Readers (via Input)](#6-one-shot-readers-via-input)
 7. [Request Quick Reference](#request-quick-reference)
 
-**Part E — [Validate Library](#nsy-validate-library-user-tutorial)**
+**Part E — [Validate Library](#nsy-validate-library--user-tutorial)**
 
 1. [Sanitizing Whole Values](#1-sanitizing-whole-values)
 2. [Strings, Integers, Floats, Booleans](#2-strings-integers-floats-booleans)

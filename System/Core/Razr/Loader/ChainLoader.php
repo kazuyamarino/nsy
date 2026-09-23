@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace System\Core\Razr\Loader;
 
 use System\Core\Razr\Exception\RuntimeException;
@@ -41,7 +42,7 @@ class ChainLoader implements LoaderInterface
             }
         }
 
-        throw new RuntimeException(sprintf('Template "%s" is not defined (%s).', $name));
+        throw new RuntimeException(sprintf('Template "%s" is not defined.', $name));
     }
 
     /**
@@ -56,7 +57,7 @@ class ChainLoader implements LoaderInterface
             }
         }
 
-        throw new RuntimeException(sprintf('Template "%s" is not defined (%s).', $name));
+        throw new RuntimeException(sprintf('Template "%s" is not defined.', $name));
     }
 
     /**

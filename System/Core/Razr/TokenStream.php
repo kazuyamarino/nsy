@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace System\Core\Razr;
 
 use System\Core\Razr\Exception\SyntaxErrorException;
@@ -64,7 +65,11 @@ class TokenStream
      */
     public function prev()
     {
-        return $this->tokens[$this->current--];
+        if ($this->current > 0) {
+            $this->current--;
+        }
+
+        return isset($this->tokens[$this->current]) ? $this->tokens[$this->current] : null;
     }
 
     /**
@@ -88,8 +93,12 @@ class TokenStream
      * @param  array|string|null $value
      * @return Token|null
      */
-    public function test($type, $value = null)
+    public function test($type, $value = null): bool
     {
+        if (!isset($this->tokens[$this->current])) {
+            return false;
+        }
+
         return $this->tokens[$this->current]->test($type, $value);
     }
 

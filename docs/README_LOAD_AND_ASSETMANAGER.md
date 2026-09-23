@@ -9,17 +9,21 @@ Both use `NSY_System` constants with config fallbacks, so they never emit undefi
 
 ## Table of Contents
 
-1. [Load — Render Views/Templates & Models](#load-render-viewstemplates-models)
+1. [Load — Render Views/Templates & Models](#load--render-viewstemplates--models)
    - [Methods](#methods)
    - [Usage Examples](#usage-examples)
-2. [NSY_AssetManager — Meta/Link/Script/Custom](#nsy_assetmanager-metalinkscriptcustom)
+2. [NSY_AssetManager — Meta/Link/Script/Custom](#nsy_assetmanager--metalinkscriptcustom)
    - [Methods](#methods-1)
    - [Aliasing: Add](#aliasing-add)
    - [How URLs Are Resolved](#how-urls-are-resolved)
    - [Examples](#examples)
    - [Security Notes](#security-notes)
-3. [Troubleshooting](#troubleshooting)
-4. [Quick Reference](#quick-reference)
+3. [Razr Template Directives](#razr-template-directives)
+   - [Output & Escaping](#output--escaping)
+   - [Control Flow](#control-flow)
+   - [Raw / Verbatim](#raw--verbatim)
+4. [Troubleshooting](#troubleshooting)
+5. [Quick Reference](#quick-reference)
 
 ---
 
@@ -143,6 +147,79 @@ use System\Core\NSY_AssetManager as Add;
 - `meta` content and all `link`/`script` attributes are escaped via `htmlspecialchars(ENT_QUOTES, UTF-8)` — prevents XSS via `$title` etc.
 - `custom()` is raw — never pass user input without escaping
 - `isAbsoluteUrl()` handles `http://`, `https://`, `//` — prevents double `css_url()` on CDN URLs
+
+---
+
+## Razr Template Directives
+
+Views/templates are compiled by Razr (`System/Core/Razr/`). Syntax: `@( ... )` for output, `@directive(...)` for logic.
+
+### Output & Escaping
+
+| Syntax | Behavior |
+|---|---|
+| `@( $var )` | **Auto-escaped** via `htmlspecialchars(ENT_QUOTES, UTF-8)` |
+| `@raw( $html )` | Raw output (no escaping) |
+| `@@` | Literal `@` (e.g. `user@@example.com` → `user@example.com`) |
+| `{{-- comment --}}` | Not supported — use PHP or `@raw()` |
+
+### Control Flow
+
+```php
+@if($user)
+	Hello @( $user->name )
+@elseif($user === null)
+	Guest
+@else
+	Unknown
+@endif
+
+@foreach($items as $item)
+	@if($item->hidden) @continue @endif
+	@if($item->stop) @break @endif
+	@( $item->title )
+@endforeach
+
+@switch($status)
+	@case('active') Active @break
+	@case('pending') Pending @break
+	@default Unknown
+@endswitch
+```
+
+`@for`, `@foreach`, `@while`, `@if/@elseif/@else`, `@switch/@case/@default` are supported, plus `@break` / `@continue` / `@return`.
+
+### Raw / Verbatim
+
+```php
+@verbatim
+	<div @click="open = !open" @media(max-width:600px)></div>
+@endverbatim
+```
+
+Everything between `@verbatim` and `@endverbatim` is emitted verbatim — use it for Alpine.js / Vue (`@click`) or CSS at-rules (`@media`, `@keyframes`).
+
+> Native PHP tags also work inside views: `<?php ... ?>` is passed through untouched.
+
+Other directives: `@extend('layout')`, `@block('name') ... @endblock`, `@include('view', ['x' => 1])`, `@set($x = 1)`.
+
+> Unknown directives throw a clear `SyntaxErrorException` (with `@@` / `@raw()` hints) instead of emitting broken PHP.
+
+**Performance & long-running processes**
+
+- Compiled templates are cached to `System/Apps/Templates/razr_cache/` (outside `public/`). Clear with `Load::clearCache()` after deploying view changes.
+- The engine re-validates template freshness on every render — safe under long-running workers (Swoole / Octane / RoadRunner) that reuse the shared `Load::$razr` instance.
+
+**Custom directives (for extensions)**
+
+Razr supports custom directives via `ExtensionInterface`. For a callable-based directive use the provided `FunctionDirective` class (not registered in core, it is an API for your own extension):
+
+```php
+use System\Core\Razr\Directive\FunctionDirective;
+
+$engine->addDirective(new FunctionDirective('greet', fn($name) => "Hi $name", true));
+// template: @greet('World')
+```
 
 ---
 

@@ -68,7 +68,7 @@ return [
 	| Define version of the application
 	|
 	*/
-	'version' => config_env('APP_VERSION') ?? 'v6.1.5',
+	'version' => config_env('APP_VERSION') ?? '6.1.5',
 
 	/*
 	|--------------------------------------------------------------------------

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace System\Core\Razr\Directive;
 
 use System\Core\Razr\Token;
@@ -15,8 +16,8 @@ class ControlDirective extends Directive
     public function __construct()
     {
         $this->name = 'control';
-        $this->control = array(T_FOR, T_FOREACH, T_IF, T_ELSEIF, T_ELSE, T_WHILE);
-        $this->controlEnd = array(T_ENDFOR, T_ENDFOREACH, T_ENDIF, T_ENDWHILE);
+        $this->control = array(T_FOR, T_FOREACH, T_IF, T_ELSEIF, T_ELSE, T_WHILE, T_SWITCH, T_CASE, T_DEFAULT);
+        $this->controlEnd = array(T_ENDFOR, T_ENDFOREACH, T_ENDIF, T_ENDWHILE, T_ENDSWITCH);
     }
 
     /**

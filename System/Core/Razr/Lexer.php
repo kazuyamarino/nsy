@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace System\Core\Razr;
 
 use System\Core\Razr\Exception\RuntimeException;
@@ -125,6 +126,21 @@ class Lexer
 
         if (preg_match(self::REGEX_START, $this->code, $match, 0, $this->cursor)) {
             if (isset($match[1])) {
+
+                // @verbatim ... @endverbatim : emit raw, no @ processing
+                if ($match[1] === 'verbatim') {
+                    $rawStart = $this->cursor + strlen('verbatim');
+                    $endPos = strpos($this->code, '@endverbatim', $rawStart);
+
+                    if ($endPos === false) {
+                        throw new SyntaxErrorException(sprintf('Unclosed "@verbatim" at line %d in file %s', $this->lineno, $this->filename));
+                    }
+
+                    $this->addCode(substr($this->code, $rawStart, $endPos - $rawStart));
+                    $skip = ($endPos + strlen('@endverbatim')) - $this->cursor;
+                    $this->moveCursor(substr($this->code, $this->cursor, $skip));
+                    return;
+                }
 
                 $this->addCode('<?php /* DIRECTIVE */');
                 $this->pushState(self::STATE_DIRECTIVE);

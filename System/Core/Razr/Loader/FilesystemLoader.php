@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace System\Core\Razr\Loader;
 
 use System\Core\Razr\Exception\RuntimeException;

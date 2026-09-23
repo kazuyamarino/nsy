@@ -111,15 +111,45 @@ class Load
     }
 
     /**
-     * Lazily initialize and reuse Razr Engine instance
+     * Lazily initialize and reuse Razr Engine instance — powerful with FileStorage cache
      *
      * @return Engine Razr engine instance
      */
     private static function getRazr(): Engine
     {
         if (!self::$razr instanceof Engine) {
-            self::$razr = new Engine(new FilesystemLoader(get_vendor_dir()));
+            $cachePath = null;
+            // Enable FileStorage cache in production (and dev if writable) — 10x faster than recompile
+            $tmpDir = get_system_tmp_dir();
+            if (is_string($tmpDir) && $tmpDir !== '') {
+                $candidate = rtrim($tmpDir, '/\\') . '/razr_cache';
+                if (!is_dir($candidate)) {
+                    @mkdir($candidate, 0777, true);
+                }
+                if (is_dir($candidate) && is_writable($candidate)) {
+                    $cachePath = $candidate;
+                }
+            }
+            self::$razr = new Engine(new FilesystemLoader(get_vendor_dir()), $cachePath);
         }
         return self::$razr;
+    }
+
+    /**
+     * Clear Razr cache — useful after deploy
+     */
+    public static function clearCache(): void
+    {
+        $tmpDir = get_system_tmp_dir();
+        $cacheDir = rtrim((string) $tmpDir, '/\\') . '/razr_cache';
+        if (is_dir($cacheDir)) {
+            $files = glob($cacheDir . '/*.cache');
+            if ($files) {
+                foreach ($files as $f) {
+                    @unlink($f);
+                }
+            }
+        }
+        self::$razr = null;
     }
 }
