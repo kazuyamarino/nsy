@@ -11,3 +11,10 @@ location /nsy/ {
 	# as directory, then fall back to displaying a 404.
 	try_files $uri /nsy/public/index.php?/$uri;
 }
+
+# Deny direct web access to framework internals and logs.
+# Placed BEFORE the /nsy/ block (^~ prefix wins over the plain prefix match).
+location ^~ /nsy/System/ {
+	deny all;
+	return 404;
+}

@@ -29,6 +29,14 @@ if ($uri === $prefix) {
 
 if (str_starts_with($uri, $prefix . '/')) {
 	$rel = substr($uri, strlen($prefix)); // starts with "/"
+
+	// Never expose framework internals (sources, config, logs) in the dev server.
+	if (str_starts_with($rel, '/System/')) {
+		http_response_code(404);
+		echo 'Not Found';
+		return true;
+	}
+
 	if ($rel !== '/' && is_file($root . $rel)) {
 		return false; // serve static file (docroot = project parent)
 	}

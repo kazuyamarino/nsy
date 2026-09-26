@@ -60,7 +60,12 @@ class Load
             ? get_mvc_view_dir() . $filename . '.php'
             : get_hmvc_view_dir() . $module . '/Views/' . $filename . '.php';
 
-        echo $razr->render($path, (array) $vars);
+        try {
+            echo $razr->render($path, (array) $vars);
+        } catch (\Throwable $e) {
+            self::logViewError($path, $e);
+            throw $e;
+        }
     }
 
     /**
@@ -82,7 +87,14 @@ class Load
         $filename = preg_replace('/[^a-zA-Z0-9_\/-]/', '', $filename);
 
         $razr = self::getRazr();
-        echo $razr->render(get_system_tmp_dir() . $filename . '.php', (array) $vars);
+        $path = get_system_tmp_dir() . $filename . '.php';
+
+        try {
+            echo $razr->render($path, (array) $vars);
+        } catch (\Throwable $e) {
+            self::logViewError($path, $e);
+            throw $e;
+        }
     }
 
     /**
@@ -133,6 +145,26 @@ class Load
             self::$razr = new Engine(new FilesystemLoader(get_vendor_dir()), $cachePath);
         }
         return self::$razr;
+    }
+
+    /**
+     * Log a Razr/view render failure to the "view" channel, then let the
+     * original exception propagate (on-screen behaviour is unchanged).
+     */
+    private static function logViewError(string $path, \Throwable $e): void
+    {
+        try {
+            \System\Libraries\Log\LogManager::channel('view')->error('View render failed: ' . $e->getMessage(), [
+                'template' => $path,
+                'kind' => $e instanceof \System\Core\Razr\Exception\SyntaxErrorException ? 'syntax' : 'render',
+                'exception' => get_class($e),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+            \System\Libraries\Log\LogManager::markFatalLogged();
+        } catch (\Throwable $loggingError) {
+            // never interfere with the original error
+        }
     }
 
     /**
