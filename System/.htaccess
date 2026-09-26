@@ -1,0 +1,9 @@
+# Deny all direct web access to framework internals (PHP sources, config, storage).
+# Only relevant when the document root is the project root instead of public/.
+<IfModule mod_authz_core.c>
+	Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+	Order allow,deny
+	Deny from all
+</IfModule>

@@ -35,11 +35,18 @@ System/Apps/General/Models/M_Test_QueryBuilder.php
 # Razr compiled template cache (generated at runtime)
 System/Apps/Templates/razr_cache/
 
-# AI Agents Cache Lokal (Wajib di-ignore)
+# Application logs (runtime — jangan di-commit)
+System/Storage/logs/*
+!System/Storage/logs/.htaccess
+
+# AI Agents local cache
 /.gitnexus/
 /.claude/
 
-# Konfigurasi AI lokal (opsional, tapi disarankan di-ignore agar tidak conflict dengan tim)
+# AI planning docs (working ledger, generated per session)
+# docs/plans/
+
+# AI local configurations (opsional, but recommended to ignore to avoid conflicts with the team)
 /opencode.json
 /.opencodeignore
 
