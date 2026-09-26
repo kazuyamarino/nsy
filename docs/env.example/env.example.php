@@ -50,6 +50,25 @@ return [
 	'IMG_DIR' => 'images',
 
 	/*
+	| Define Logging (see docs/README_LOGGING.md)
+	| LOG_ENABLED toggles the whole subsystem. Context (IP/UA/User-ID) is OFF
+	| by default; LOG_DIR may be relative to the project root or absolute.
+	*/
+	'LOG_ENABLED' => 'false',
+	'LOG_DIR' => 'System/Storage/logs',
+	'LOG_LEVEL' => '',
+	'LOG_FORMAT' => 'json',
+	'LOG_SPLIT_CHANNELS' => 'false',
+	'LOG_MAX_SIZE_MB' => '50',
+	'LOG_RETENTION_DAYS' => '14',
+	'LOG_SLOW_QUERY_MS' => '500',
+	'ACCESS_LOG_ENABLED' => 'true',
+	'LOG_IP' => 'false',
+	'LOG_USER_AGENT' => 'false',
+	'LOG_USER_ID' => 'false',
+	'LOG_REDACT' => 'password,passwd,secret,token,authorization,cookie,csrf',
+
+	/*
 	| Define FTP Variables
 	*/
 	'FTP_HOST' => '',

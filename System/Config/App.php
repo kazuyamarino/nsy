@@ -227,6 +227,34 @@ return [
 
 	/*
 	|--------------------------------------------------------------------------
+	| Logging
+	|--------------------------------------------------------------------------
+	|
+	| File-based logging (System/Storage/logs). Disabled by default; enable
+	| with LOG_ENABLED=true. Context toggles (IP/User-Agent/User-ID) default
+	| to OFF for privacy and performance. See docs/README_LOGGING.md.
+	|
+	*/
+	'log' => [
+		'enabled'        => filter_var(config_env('LOG_ENABLED') ?? false, FILTER_VALIDATE_BOOLEAN),
+		'dir'            => config_env('LOG_DIR') ?: (__DIR__ . '/../Storage/logs'),
+		'level'          => config_env('LOG_LEVEL') ?: ((config_env('APP_ENV') ?? 'production') === 'development' ? 'debug' : 'warning'),
+		'format'         => config_env('LOG_FORMAT') ?: 'json',
+		'split_channels' => filter_var(config_env('LOG_SPLIT_CHANNELS') ?? false, FILTER_VALIDATE_BOOLEAN),
+		'max_size_mb'    => (int) (config_env('LOG_MAX_SIZE_MB') ?: 50),
+		'retention_days' => (int) (config_env('LOG_RETENTION_DAYS') ?: 14),
+		'slow_query_ms'  => (int) (config_env('LOG_SLOW_QUERY_MS') ?: 500),
+		'access'         => filter_var(config_env('ACCESS_LOG_ENABLED') ?? true, FILTER_VALIDATE_BOOLEAN),
+		'redact'         => array_values(array_filter(array_map('trim', explode(',', (string) (config_env('LOG_REDACT') ?: 'password,passwd,secret,token,authorization,cookie,csrf'))))),
+		'context'        => [
+			'ip'         => filter_var(config_env('LOG_IP') ?? false, FILTER_VALIDATE_BOOLEAN),
+			'user_agent' => filter_var(config_env('LOG_USER_AGENT') ?? false, FILTER_VALIDATE_BOOLEAN),
+			'user_id'    => filter_var(config_env('LOG_USER_ID') ?? false, FILTER_VALIDATE_BOOLEAN),
+		],
+	],
+
+	/*
+	|--------------------------------------------------------------------------
 	| Class Aliases
 	|--------------------------------------------------------------------------
 	|
