@@ -38,6 +38,9 @@ class NSY_RouterOptimized
 	/** @var callable|null */
 	public static $error_callback = null;
 
+	/** Request start time for access-log duration. */
+	private static float $requestStart = 0.0;
+
 	// Optimization features
 	/** @var array<string,array{callback:mixed,params:string[]}> */
 	private static array $routeCache = [];
@@ -255,6 +258,24 @@ class NSY_RouterOptimized
 	}
 
 	/**
+	 * Write one access-log entry. Never breaks routing.
+	 */
+	private static function logAccess(string $method, string $uri, ?string $route, ?int $status = null): void
+	{
+		try {
+			\System\Libraries\Log\LogManager::access([
+				'method' => $method,
+				'uri' => $uri,
+				'route' => $route,
+				'status' => $status ?? (http_response_code() ?: 200),
+				'duration_ms' => self::$requestStart > 0.0 ? round((microtime(true) - self::$requestStart) * 1000, 2) : null,
+			]);
+		} catch (\Throwable $e) {
+			// never break routing
+		}
+	}
+
+	/**
 	 * Improved error handling
 	 */
 	private static function handleError(string $message, int $code = 404): void
@@ -266,6 +287,12 @@ class NSY_RouterOptimized
 		}
 
 		$protocol = $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1';
+		self::logAccess(
+			strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET'),
+			parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/',
+			null,
+			$code
+		);
 		header($protocol . " {$code} " . self::getHttpStatusMessage($code));
 		exit($message);
 	}
@@ -344,11 +371,14 @@ class NSY_RouterOptimized
 		$uri = preg_replace('#/+#', '/', $uri) ?? $uri;
 		$method = strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET');
 
+		self::$requestStart = microtime(true);
+
 		$cacheKey = md5($uri . $method);
 
 		if (self::$cacheEnabled && isset(self::$routeCache[$cacheKey])) {
 			$cached = self::$routeCache[$cacheKey];
 			self::executeRoute($cached['callback'], $cached['params']);
+			self::logAccess($method, $uri, null);
 			return;
 		}
 
@@ -391,6 +421,7 @@ class NSY_RouterOptimized
 			}
 
 			self::executeRoute($route['callback'], $matched);
+			self::logAccess($method, $uri, $route['original']);
 			return;
 		}
 

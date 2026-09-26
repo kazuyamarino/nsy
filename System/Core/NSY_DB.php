@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace System\Core;
 
+use System\Libraries\Log\LogManager;
+
 /**
  * This is the core of NSY Database Connection
  * Attention, don't try to change the structure of the code, delete, or change.
@@ -88,10 +90,15 @@ class NSY_DB
 
 		$dsn = self::buildDsn($cfg);
 		$options = self::normalizeOptions($cfg['options']);
+		$started = microtime(true);
 
 		try {
-			return new \PDO($dsn, $cfg['user'], $cfg['pass'], $options);
+			$pdo = new \PDO($dsn, $cfg['user'], $cfg['pass'], $options);
+			self::logConnection($conn_name, $cfg, $started, true);
+
+			return $pdo;
 		} catch (\PDOException $e) {
+			self::logConnection($conn_name, $cfg, $started, false, $e->getMessage());
 			NSY_Desk::static_error_handler("Connection failed: " . $e->getMessage(), 500);
 			return null;
 		}
@@ -110,12 +117,46 @@ class NSY_DB
 
 		$dsn = self::buildSqlsrvDsn($cfg);
 		$options = self::normalizeOptions($cfg['options']);
+		$started = microtime(true);
 
 		try {
-			return new \PDO($dsn, $cfg['user'], $cfg['pass'], $options);
+			$pdo = new \PDO($dsn, $cfg['user'], $cfg['pass'], $options);
+			self::logConnection($conn_name, $cfg, $started, true);
+
+			return $pdo;
 		} catch (\PDOException $e) {
+			self::logConnection($conn_name, $cfg, $started, false, $e->getMessage());
 			NSY_Desk::static_error_handler("Connection failed: " . $e->getMessage(), 500);
 			return null;
+		}
+	}
+
+	/**
+	 * Log a connection attempt — driver/host/port/dbname only, never credentials.
+	 *
+	 * @param array<string,mixed> $cfg
+	 */
+	private static function logConnection(string $conn_name, array $cfg, float $started, bool $ok, string $error = ''): void
+	{
+		try {
+			$context = [
+				'conn' => $conn_name,
+				'driver' => $cfg['driver'] ?? '',
+				'host' => $cfg['host'] ?? '',
+				'port' => $cfg['port'] ?? '',
+				'dbname' => $cfg['name'] ?? '',
+				'duration_ms' => round((microtime(true) - $started) * 1000, 2),
+			];
+
+			if ($ok) {
+				LogManager::channel('db')->debug('Database connected', $context);
+				return;
+			}
+
+			$context['error'] = $error;
+			LogManager::channel('db')->error('Database connection failed', $context);
+		} catch (\Throwable $e) {
+			// never interfere with connection handling
 		}
 	}
 

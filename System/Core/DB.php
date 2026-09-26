@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace System\Core;
 
+use System\Libraries\Log\LogManager;
+
 /**
  * This is the core of NSY Model
  * Attention, don't try to change the structure of the code, delete, or change.
@@ -25,6 +27,26 @@ class DB
     protected static $num;
     protected static $result;
     protected static $executed;
+
+    /** Slow-query instrumentation: query start time and normalised SQL. */
+    private static float $queryStart = 0.0;
+    private static string $querySql = '';
+
+    private static function beginQueryLog(): void
+    {
+        self::$queryStart = microtime(true);
+        self::$querySql = (string) static::$query;
+    }
+
+    private static function endQueryLog(): void
+    {
+        if (self::$queryStart <= 0.0) {
+            return;
+        }
+
+        LogManager::query(self::$querySql, (microtime(true) - self::$queryStart) * 1000.0);
+        self::$queryStart = 0.0;
+    }
 
     /**
      * Default Connection
@@ -421,6 +443,8 @@ class DB
      */
     protected function exec()
     {
+        self::beginQueryLog();
+
         if (config_app('csrf_token') === 'true') {
             try {
                 // CSRF validation using consolidated SecurityMiddleware implementation
@@ -448,7 +472,7 @@ class DB
                                 static::$connection->rollBack();
 
                                 // show the error message
-                                die($e->getMessage());
+                                NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
                             }
                         } elseif (config_app('transaction') === 'off') {
                             $stmt = static::$connection->prepare(static::$query);
@@ -474,7 +498,7 @@ class DB
                                     static::$connection->rollBack();
 
                                     // show the error message
-                                    die($e->getMessage());
+                                    NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
                                 }
                             } elseif (config_app('transaction') === 'off') {
                                 $stmt = static::$connection->prepare(static::$query);
@@ -511,7 +535,7 @@ class DB
                                         static::$connection->rollBack();
 
                                         // show the error message
-                                        die($e->getMessage());
+                                        NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
                                     }
                                 } elseif (config_app('transaction') === 'off') {
                                     $stmt = static::$connection->prepare(static::$query);
@@ -558,7 +582,7 @@ class DB
                                         static::$connection->rollBack();
 
                                         // show the error message
-                                        die($e->getMessage());
+                                        NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
                                     }
                                 } elseif (config_app('transaction') === 'off') {
                                     $stmt = static::$connection->prepare(static::$query);
@@ -588,6 +612,7 @@ class DB
 
                     // Check the errors, if no errors then return the results
                     if ($executed || $stmt->errorCode() == 0) {
+                        self::endQueryLog();
                         return true;
                     } else {
                         if (not_filled(static::$variables)) {
@@ -629,7 +654,7 @@ class DB
                             static::$connection->rollBack();
 
                             // show the error message
-                            die($e->getMessage());
+                            NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
                         }
                     } elseif (config_app('transaction') === 'off') {
                         $stmt = static::$connection->prepare(static::$query);
@@ -655,7 +680,7 @@ class DB
                                 static::$connection->rollBack();
 
                                 // show the error message
-                                die($e->getMessage());
+                                NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
                             }
                         } elseif (config_app('transaction') === 'off') {
                             $stmt = static::$connection->prepare(static::$query);
@@ -692,7 +717,7 @@ class DB
                                     static::$connection->rollBack();
 
                                     // show the error message
-                                    die($e->getMessage());
+                                    NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
                                 }
                             } elseif (config_app('transaction') === 'off') {
                                 $stmt = static::$connection->prepare(static::$query);
@@ -739,7 +764,7 @@ class DB
                                     static::$connection->rollBack();
 
                                     // show the error message
-                                    die($e->getMessage());
+                                    NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
                                 }
                             } elseif (config_app('transaction') === 'off') {
                                 $stmt = static::$connection->prepare(static::$query);
@@ -769,6 +794,7 @@ class DB
 
                 // Check the errors, if no errors then return the results
                 if ($executed || $stmt->errorCode() == 0) {
+                    self::endQueryLog();
                     return true;
                 } else {
                     if (not_filled(static::$variables)) {
@@ -797,6 +823,8 @@ class DB
      */
     protected function multi_insert()
     {
+        self::beginQueryLog();
+
         if (config_app('csrf_token') === 'true') {
 
             try {
@@ -841,7 +869,7 @@ class DB
                                 static::$connection->rollBack();
 
                                 // show the error message
-                                die($e->getMessage());
+                                NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
                             }
                         } elseif (config_app('transaction') === 'off') {
                             $stmt = static::$connection->prepare(static::$query . ' VALUES ' . $valString);
@@ -862,6 +890,7 @@ class DB
 
                     // Check the errors, if no errors then return the results
                     if ($executed || $stmt->errorCode() == 0) {
+                        self::endQueryLog();
                         return true;
                     } else {
                         if (not_filled(static::$variables)) {
@@ -919,7 +948,7 @@ class DB
                             static::$connection->rollBack();
 
                             // show the error message
-                            die($e->getMessage());
+                            NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
                         }
                     } elseif (config_app('transaction') === 'off') {
                         $stmt = static::$connection->prepare(static::$query . ' VALUES ' . $valString);
@@ -940,6 +969,7 @@ class DB
 
                 // Check the errors, if no errors then return the results
                 if ($executed || $stmt->errorCode() == 0) {
+                    self::endQueryLog();
                     return true;
                 } else {
                     if (not_filled(static::$variables)) {
