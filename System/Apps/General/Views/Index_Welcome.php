@@ -18,7 +18,7 @@
 	<div class="nsy-grid">
 		@foreach($items as $doc)
 		<article class="nsy-card" data-search="@( strtolower($doc['title'] . ' ' . $doc['category'] . ' ' . $doc['api'] . ' ' . $doc['summary'] . ' ' . $doc['file']) )">
-			<h4><a href="@( base_url('docs/' . $doc['slug']) )">@( $doc['emoji'] ) @( $doc['title'] )</a></h4>
+			<h4><a href="@( base_url('docs/' . $doc['slug']) )"><span class="nsy-ico">@raw( $doc['icon_svg'] )</span>@( $doc['title'] )</a></h4>
 			<code>@( $doc['api'] )</code>
 			<p>@( $doc['summary'] )</p>
 			<div class="nsy-card-foot">

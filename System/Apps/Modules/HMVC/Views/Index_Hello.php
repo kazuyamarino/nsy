@@ -16,7 +16,7 @@
 	<div class="hmvc-grid">
 		@foreach($docs as $doc)
 		<article class="hmvc-card">
-			<h4><a href="@( base_url('docs/' . $doc['slug']) )">@( $doc['emoji'] ) @( $doc['title'] )</a></h4>
+			<h4><a href="@( base_url('docs/' . $doc['slug']) )"><span class="nsy-ico">@raw( $doc['icon_svg'] )</span>@( $doc['title'] )</a></h4>
 			<p>@( $doc['summary'] )</p>
 			<div class="hmvc-card-foot"><a href="@( base_url('docs/' . $doc['slug']) )">Read guide →</a></div>
 		</article>

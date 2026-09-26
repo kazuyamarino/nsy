@@ -6,7 +6,7 @@
 			<div class="nsy-docs-group">
 				<span class="nsy-docs-group-title">@( $category )</span>
 				@foreach($items as $item)
-				<a class="nsy-docs-link@( ($doc && $doc['slug'] === $item['slug']) ? ' active' : '' )" href="@( base_url('docs/' . $item['slug']) )">@( $item['emoji'] ) @( $item['title'] )</a>
+				<a class="nsy-docs-link@( ($doc && $doc['slug'] === $item['slug']) ? ' active' : '' )" href="@( base_url('docs/' . $item['slug']) )"><span class="nsy-docs-ico">@raw( $item['icon_svg'] )</span>@( $item['title'] )</a>
 				@endforeach
 			</div>
 			@endforeach

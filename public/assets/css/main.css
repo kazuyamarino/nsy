@@ -171,8 +171,11 @@ code {
 .nsy-card { border: 1px solid var(--nsy-line); border-radius: 14px; padding: 16px; background: #fff; transition: box-shadow .15s, transform .15s, border-color .15s; display: flex; flex-direction: column; }
 .nsy-card:hover { box-shadow: var(--nsy-shadow); transform: translateY(-2px); border-color: var(--nsy-accent); }
 .nsy-card h4 { margin: 0 0 8px; font-size: 15px; }
-.nsy-card h4 a { color: var(--nsy-primary-deep); text-decoration: none; }
+.nsy-card h4 a { display: flex; align-items: center; gap: 10px; color: var(--nsy-primary-deep); text-decoration: none; }
 .nsy-card h4 a:hover { color: var(--nsy-primary); }
+.nsy-ico { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 9px; background: var(--nsy-accent-soft); border: 1px solid var(--nsy-line); color: var(--nsy-primary); flex: 0 0 auto; transition: background .15s, color .15s, border-color .15s; }
+.nsy-ico svg { display: block; }
+.nsy-card:hover .nsy-ico { background: var(--nsy-primary); border-color: var(--nsy-primary); color: #fff; }
 .nsy-card code { font-size: 11.5px; color: var(--nsy-primary-deep); background: var(--nsy-accent-softer); border: 1px solid var(--nsy-line); padding: 2px 7px; border-radius: 6px; align-self: flex-start; }
 .nsy-card p { margin: 10px 0 0; font-size: 12.5px; color: var(--nsy-body); line-height: 1.5; flex: 1; }
 .nsy-card-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; font-size: 12px; color: var(--nsy-muted); }
@@ -196,7 +199,10 @@ code {
 .nsy-docs-home:hover { color: var(--nsy-accent-dark); }
 .nsy-docs-group { margin-bottom: 14px; }
 .nsy-docs-group-title { display: block; font-size: 10.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--nsy-muted); font-weight: 700; margin-bottom: 6px; }
-.nsy-docs-link { display: block; padding: 6px 9px; border-radius: 8px; font-size: 13px; color: var(--nsy-body); text-decoration: none; transition: background .15s, color .15s; }
+.nsy-docs-link { display: flex; align-items: center; gap: 9px; padding: 6px 9px; border-radius: 8px; font-size: 13px; color: var(--nsy-body); text-decoration: none; transition: background .15s, color .15s; }
+.nsy-docs-ico { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; color: inherit; opacity: .6; flex: 0 0 auto; }
+.nsy-docs-ico svg { display: block; }
+.nsy-docs-link:hover .nsy-docs-ico, .nsy-docs-link.active .nsy-docs-ico { opacity: 1; }
 .nsy-docs-link:hover { background: var(--nsy-accent-soft); color: var(--nsy-primary-deep); }
 .nsy-docs-link.active { background: var(--nsy-primary); color: #fff; }
 
@@ -284,8 +290,9 @@ code {
 .hmvc-card { border: 1px solid var(--nsy-line); border-radius: 14px; padding: 16px; background: #fff; display: flex; flex-direction: column; transition: box-shadow .15s, transform .15s, border-color .15s; }
 .hmvc-card:hover { box-shadow: var(--nsy-shadow); transform: translateY(-2px); border-color: var(--nsy-accent); }
 .hmvc-card h4 { margin: 0 0 8px; font-size: 15px; }
-.hmvc-card h4 a { color: var(--nsy-primary-deep); text-decoration: none; }
+.hmvc-card h4 a { display: flex; align-items: center; gap: 10px; color: var(--nsy-primary-deep); text-decoration: none; }
 .hmvc-card h4 a:hover { color: var(--nsy-primary); }
+.hmvc-card:hover .nsy-ico { background: var(--nsy-primary); border-color: var(--nsy-primary); color: #fff; }
 .hmvc-card p { margin: 10px 0 0; font-size: 12.5px; color: var(--nsy-body); line-height: 1.5; flex: 1; }
 .hmvc-card-foot { margin-top: 12px; font-size: 12px; }
 .hmvc-card-foot a { color: var(--nsy-primary); text-decoration: none; font-weight: 600; }
