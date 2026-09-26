@@ -35,7 +35,7 @@ System/Apps/General/Models/M_Test_QueryBuilder.php
 # Razr compiled template cache (generated at runtime)
 System/Apps/Templates/razr_cache/
 
-# Application logs (runtime — jangan di-commit)
+# Application logs (runtime - dont commit)
 System/Storage/logs/*
 !System/Storage/logs/.htaccess
 
@@ -44,7 +44,7 @@ System/Storage/logs/*
 /.claude/
 
 # AI planning docs (working ledger, generated per session)
-# docs/plans/
+docs/plans/
 
 # AI local configurations (opsional, but recommended to ignore to avoid conflicts with the team)
 /opencode.json
