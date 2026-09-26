@@ -6,16 +6,26 @@ use System\Core\Load;
 use Carbon\Carbon;
 use System\Apps\General\Models\Model_Welcome;
 use System\Apps\Modules\HMVC\Models\Model_Hello;
+use System\Libraries\Docs;
 
 class Controller_Hello extends Load
 {
 
 	public function hello()
 	{
+		$allDocs = Docs::all();
+		$relatedDocs = [];
+		foreach (['overview', 'load-assets', 'router', 'query-builder'] as $slug) {
+			if (isset($allDocs[$slug]) && $allDocs[$slug]['exists']) {
+				$relatedDocs[$slug] = $allDocs[$slug];
+			}
+		}
+
 		$arr = [
 			'welcome_text' => Load::model(Model_Welcome::class)->welcome_text(), // Call the welcome_text method from Model_Welcome
 			'hmvc_text' => Load::model(Model_Hello::class)->hmvc_text(), // Call the hmvc_text method from Model_Hello inside the HMVC module
-			'date' => Carbon::now() // Instantiate today's date with Carbon
+			'date' => Carbon::now(), // Instantiate today's date with Carbon
+			'docs' => $relatedDocs // A few relevant guides for the HMVC landing page
 		];
 
 		// Load HMVC view page

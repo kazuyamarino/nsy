@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /*
 * This is the core of NSY Helpers.
 * Attention, don't try to change the structure of the code, delete, or change.
@@ -1087,7 +1088,11 @@ if (!function_exists('fetch_json')) {
 		$json_data = $data;
 		$json_result = json_encode($json_data, JSON_UNESCAPED_UNICODE);
 
-		http_response_code($status);
+		// Guard against "headers already sent" (CLI / output already flushed)
+		if (!headers_sent()) {
+			http_response_code($status);
+		}
+
 		return $json_result;
 	}
 }
@@ -1115,5 +1120,16 @@ if (!function_exists('fetch_raw_json')) {
 			return $array;
 		}
 		return $array[$variable] ?? null;
+	}
+}
+
+/**
+ * Query Builder helper — minimal lines: qb('users')->where(...)->get()
+ * See docs/README_QUERY_BUILDER.md
+ */
+if (!function_exists('qb')) {
+	function qb(string $table, ?string $alias = null, string $conn = 'primary'): \System\Core\NSY_QueryBuilder
+	{
+		return (new \System\Core\NSY_QueryBuilder($conn))->table($table, $alias);
 	}
 }

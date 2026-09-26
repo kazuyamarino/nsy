@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace System\Libraries;
 
 /**
@@ -30,16 +30,24 @@ class File
      *
      * @return bool
      */
-    public static function exists(string $file)
+    public static function exists(string $file): bool
     {
         if (filter_var($file, FILTER_VALIDATE_URL)) {
-            $stream = stream_context_create(['http' => ['method' => 'HEAD']]);
+            $stream = stream_context_create([
+                'http' => ['method' => 'HEAD', 'timeout' => 5, 'ignore_errors' => true],
+            ]);
+
             if ($content = @fopen($file, 'r', true, $stream)) {
                 $headers = stream_get_meta_data($content);
                 fclose($content);
-                $status = substr($headers['wrapper_data'][0], 9, 3);
 
-                return $status >= 200 && $status < 400;
+                // Parse status robustly (HTTP/1.1 and HTTP/2 status lines)
+                $statusLine = $headers['wrapper_data'][0] ?? '';
+                if (preg_match('#HTTP/\S+\s+(\d{3})#', (string) $statusLine, $m)) {
+                    $code = (int) $m[1];
+
+                    return $code >= 200 && $code < 400;
+                }
             }
 
             return false;
@@ -288,9 +296,9 @@ class File
      *
      * @param  string    path to file
      * @param  mixed    array or comma separated string of information returned
-     * @return mixed
+     * @return array|false
      */
-    public static function getFileInfo(string $file, mixed $returned_values = array('name', 'server_path', 'size', 'date'))
+    public static function getFileInfo(string $file, mixed $returned_values = array('name', 'server_path', 'size', 'date')): array|false
     {
         if (!file_exists($file)) {
             return false;
@@ -298,7 +306,11 @@ class File
 
         if (is_string($returned_values)) {
             $returned_values = explode(',', $returned_values);
+        } elseif (!is_array($returned_values)) {
+            $returned_values = $returned_values === null ? [] : [$returned_values];
         }
+
+        $fileinfo = [];
 
         foreach ($returned_values as $key) {
             switch ($key) {
@@ -342,11 +354,11 @@ class File
      * It should NOT be trusted, and should certainly NOT be used for security
      *
      * @param  string $filename File name
-     * @return string
+     * @return string|false
      */
-    public static function getMimeByExtension(string $filename)
+    public static function getMimeByExtension(string $filename): string|false
     {
-        static $mimes;
+        static $mimes = null;
 
         if (!is_array($mimes)) {
             $mimes = self::getMimes();
@@ -356,9 +368,10 @@ class File
             }
         }
 
-        $extension = strtolower(substr(strrchr($filename, '.'), 1));
+        $dot = strrchr($filename, '.');
+        $extension = $dot === false ? '' : strtolower(substr($dot, 1));
 
-        if (isset($mimes[$extension])) {
+        if ($extension !== '' && isset($mimes[$extension])) {
             return is_array($mimes[$extension])
                 ? current($mimes[$extension]) // Multiple mime types, just give the first one
                 : $mimes[$extension];

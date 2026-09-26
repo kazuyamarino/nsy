@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /**
  * Optimized NSY Class Aliases System
  * Uses NSY_AliasManager for better performance and caching

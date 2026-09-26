@@ -518,7 +518,7 @@ Truncates with an ellipsis at a given position.
 
 ```php
 ellipsize('This is a very long string that needs truncating', 20);
-// 'This is a very long&hellip;'
+// 'This is a very long &hellip;'
 ellipsize('0123456789', 6, 0.5); // '012&hellip;789'
 ```
 

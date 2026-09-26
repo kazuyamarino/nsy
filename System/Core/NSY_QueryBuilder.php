@@ -571,10 +571,4 @@ class NSY_QueryBuilder extends DB
     }
 }
 
-// Global helper — minimal lines: qb('users')->where(...)->get()
-if (!function_exists('qb')) {
-    function qb(string $table, ?string $alias = null, string $conn = 'primary'): \System\Core\NSY_QueryBuilder
-    {
-        return (new \System\Core\NSY_QueryBuilder($conn))->table($table, $alias);
-    }
-}
+// The global qb() helper lives in System/Core/NSY_Helpers_Global.php (global namespace).

@@ -84,9 +84,11 @@ Works with local paths **and** URLs.
 // Local file → true only if the path is an actual file (not a directory)
 File::exists('/var/www/html/storage/report.pdf'); // bool
 
-// Remote URL → performs a HEAD request, true for HTTP 2xx–3xx
+// Remote URL → performs a HEAD request (5s timeout), true for HTTP 2xx–3xx
 File::exists('https://example.com/logo.png');     // bool
 ```
+
+> Remote checks time out after 5 seconds and return `false` on failure — safe to call in a request path.
 
 Signature: `exists(string $file): bool`
 
@@ -274,9 +276,10 @@ $info = File::getFileInfo($path, ['name', 'size', 'readable', 'writable']);
 ```
 
 Available keys: `name`, `server_path`, `size`, `date`, `readable`,
-`writable`, `executable`, `fileperms`. Returns `false` if the file is missing.
+`writable`, `executable`, `fileperms`. Returns `false` if the file is missing,
+and an empty array `[]` when none of the requested keys match.
 
-Signature: `getFileInfo(string $file, mixed $returned_values = [...]): mixed`
+Signature: `getFileInfo(string $file, mixed $returned_values = [...]): array|false`
 
 ---
 
@@ -289,6 +292,7 @@ extension maps to several types, the first one is returned.
 File::getMimeByExtension('photo.JPG');  // "image/jpeg"
 File::getMimeByExtension('data.csv');   // "text/x-comma-separated-values"
 File::getMimeByExtension('archive.unknownext'); // false
+File::getMimeByExtension('no-extension');       // false
 ```
 
 > Convenience only — an extension says nothing about actual file content.
@@ -715,6 +719,7 @@ use System\Libraries\Validate;
 
 Validate::asArray(['a' => 1]);          // ['a' => 1]
 Validate::asArray('not-array', 'dflt'); // "dflt"
+Validate::asArray(5, 'dflt');           // "dflt" (scalar is not an array)
 
 Validate::asObject(['a' => 1]);  // stdClass { a: 1 }
 Validate::asJson(['a' => 1]);    // '{"a":1}'

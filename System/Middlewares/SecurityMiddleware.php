@@ -28,7 +28,7 @@ class SecurityMiddleware
 
 	private static function ensureSession(): void
 	{
-		if (session_status() === PHP_SESSION_NONE) {
+		if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
 			session_start();
 		}
 	}
@@ -228,9 +228,12 @@ class SecurityMiddleware
 
 	public static function sanitizeInput(mixed $data = ''): string
 	{
-		if (!is_string($data)) {
-			$data = (string) $data;
+		// Only scalars can be safely cast to string (arrays/objects would warn or throw)
+		if (!is_scalar($data)) {
+			return '';
 		}
+		$data = (string) $data;
+
 		return self::validateAndSanitize($data, [
 			'trim' => true,
 			'strip_slashes' => true,
@@ -241,10 +244,18 @@ class SecurityMiddleware
 
 	public static function sanitizeForm(mixed $form = ''): mixed
 	{
-		if (is_array($form) || is_object($form)) {
+		if (is_array($form)) {
 			foreach ($form as $key => $value) {
 				if (is_string($value) || is_array($value) || is_object($value)) {
 					$form[$key] = self::sanitizeForm($value);
+				}
+			}
+			return $form;
+		}
+		if (is_object($form)) {
+			foreach (get_object_vars($form) as $key => $value) {
+				if (is_string($value) || is_array($value) || is_object($value)) {
+					$form->$key = self::sanitizeForm($value);
 				}
 			}
 			return $form;
@@ -313,9 +324,13 @@ class SecurityMiddleware
 			}
 			return $data;
 		}
-		if (is_array($data) || is_object($data)) {
+		if (is_array($data)) {
 			foreach ($data as $key => $value) {
 				$data[$key] = self::validateAndSanitize($value, $options);
+			}
+		} elseif (is_object($data)) {
+			foreach (get_object_vars($data) as $key => $value) {
+				$data->$key = self::validateAndSanitize($value, $options);
 			}
 		}
 		return $data;

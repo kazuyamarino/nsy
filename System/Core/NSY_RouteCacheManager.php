@@ -28,7 +28,7 @@ class NSY_RouteCacheManager
 		}
 
 		if (!is_dir(self::$cacheDir)) {
-			mkdir(self::$cacheDir, 0755, true);
+			@mkdir(self::$cacheDir, 0775, true);
 		}
 	}
 
@@ -198,7 +198,10 @@ class NSY_RouteCacheManager
 			'memory_usage' => $memoryUsage,
 		];
 
-		file_put_contents($logFile, json_encode($logData) . PHP_EOL, FILE_APPEND | LOCK_EX);
+		// Never let an unwritable temp dir break a request — log once instead of warning
+		if (@file_put_contents($logFile, json_encode($logData) . PHP_EOL, FILE_APPEND | LOCK_EX) === false) {
+			error_log('NSY_RouteCacheManager: unable to write route performance log at ' . $logFile);
+		}
 	}
 
 	public static function getPerformanceStats(): array

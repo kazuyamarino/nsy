@@ -43,4 +43,7 @@ function footer_assets(): void
 
 	// Main JS
 	Add::script('main.js', 'text/javascript', 'UTF-8');
+
+	// Docs index search (welcome page) — no-op when the search box is absent
+	Add::script('docs.js', 'text/javascript', 'UTF-8');
 }

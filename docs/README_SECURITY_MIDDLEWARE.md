@@ -138,10 +138,12 @@ $security = new SecurityMiddleware([
 
 | Method | Signature | Description |
 |---|---|---|
-| `sanitizeInput` | `sanitizeInput(mixed $data=''):string` | Sanitize single string |
-| `sanitizeForm` | `sanitizeForm(mixed $form=''):mixed` | Recursively sanitize |
+| `sanitizeInput` | `sanitizeInput(mixed $data=''):string` | Sanitize a single scalar (non-scalars return `''`) |
+| `sanitizeForm` | `sanitizeForm(mixed $form=''):mixed` | Recursively sanitize arrays/objects |
 | `cleanXSS` | `cleanXSS(mixed $data):mixed` | XSS clean |
-| `validateAndSanitize` | `validateAndSanitize(mixed $data, array $options=[]):mixed` | Core sanitization |
+| `validateAndSanitize` | `validateAndSanitize(mixed $data, array $options=[]):mixed` | Core sanitization (arrays/objects recursed) |
+
+> For whole-form input use `sanitizeForm()` / `validateAndSanitize()` — both walk arrays **and** objects. `sanitizeInput()` is for a single scalar value; arrays/objects given to it return `''` rather than raising a conversion error.
 
 ## Examples
 

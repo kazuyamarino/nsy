@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Please do not delete, move, change the contents of this file.
  */

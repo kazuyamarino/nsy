@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace System\Libraries;
 
 /**
@@ -29,11 +29,20 @@ class Validate
 	{
 		$json = is_string($data) ? $data : json_encode($data);
 
-		$array = json_decode($json, true) ?? null;
+		if ($json === false) {
+			return $default;
+		}
 
-		$array = $array ? filter_var_array($array) : false;
+		$array = json_decode($json, true);
 
-		return $array !== false ? $array : $default;
+		// Scalars (e.g. 5, "abc", true) decode to non-arrays — return default instead of erroring
+		if (!is_array($array) || !$array) {
+			return $default;
+		}
+
+		$filtered = filter_var_array($array);
+
+		return $filtered !== false ? $filtered : $default;
 	}
 
 	/**

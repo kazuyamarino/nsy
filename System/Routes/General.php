@@ -25,3 +25,11 @@ Route::route('get', '/', [
     'security_level' => 'standard',
     'name' => 'home'
 ]);
+
+// In-app documentation viewer — reads /docs/*.md and renders them as HTML.
+// Note: Route::get() is used (not Route::route()) so the (:slug) parameter is
+// forwarded to the controller.
+Route::get('/docs/(:slug)', [
+    System\Apps\General\Controllers\Controller_Docs::class,
+    'show'
+]);

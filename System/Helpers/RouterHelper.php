@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace System\Helpers;
 
 use System\Core\NSY_RouterOptimized;

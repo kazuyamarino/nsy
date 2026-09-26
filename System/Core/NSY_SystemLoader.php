@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace System\Core;
 
 /**
@@ -62,7 +62,7 @@ class NSY_SystemLoader
 
             return true;
 
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             error_log("NSY_SystemLoader: Failed to load system files: " . $e->getMessage());
             return false;
         }
@@ -140,11 +140,11 @@ class NSY_SystemLoader
             self::$fileCache[$type][] = $filePath;
             return true;
 
-        } catch (Exception $e) {
-            error_log("NSY_SystemLoader: Error loading {$type} file $filePath: " . $e->getMessage());
-            return false;
-        } catch (ParseError $e) {
+        } catch (\ParseError $e) {
             error_log("NSY_SystemLoader: Parse error in {$type} file $filePath: " . $e->getMessage());
+            return false;
+        } catch (\Throwable $e) {
+            error_log("NSY_SystemLoader: Error loading {$type} file $filePath: " . $e->getMessage());
             return false;
         }
     }
