@@ -2053,7 +2053,6 @@ class ComposerStaticInityour_suffixed
         'System\\Apps\\General\\Models\\Model_Welcome' => __DIR__ . '/../../..' . '/System/Apps/General/Models/Model_Welcome.php',
         'System\\Apps\\Modules\\HMVC\\Controllers\\Controller_Hello' => __DIR__ . '/../../..' . '/System/Apps/Modules/HMVC/Controllers/Controller_Hello.php',
         'System\\Apps\\Modules\\HMVC\\Models\\Model_Hello' => __DIR__ . '/../../..' . '/System/Apps/Modules/HMVC/Models/Model_Hello.php',
-        'System\\Apps\\Modules\\HMVC\\Models\\test' => __DIR__ . '/../../..' . '/System/Apps/Modules/HMVC/Models/test.php',
         'System\\Core\\DB' => __DIR__ . '/../../..' . '/System/Core/DB.php',
         'System\\Core\\Load' => __DIR__ . '/../../..' . '/System/Core/Load.php',
         'System\\Core\\NSY_AliasManager' => __DIR__ . '/../../..' . '/System/Core/NSY_AliasManager.php',

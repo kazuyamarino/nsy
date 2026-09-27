@@ -77,7 +77,13 @@ body {
     color: var(--nsy-body);
 }
 
-header, .wrap {
+/*
+ * Sticky footer: the *content* wrapper absorbs the leftover height so the
+ * footer stays pinned to the bottom. It must not be <header> — on a short
+ * page (e.g. the HMVC landing) the header would soak up the free space and
+ * shove the first section down, leaving a blank band under the <hr>.
+ */
+.wrap, .nsy-page, .nsy-docs {
     flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
 }
 
@@ -166,8 +172,8 @@ code {
   Documentation index — System/Apps/General/Views/Index_Welcome.php
   ========================================================================== */
 
-/* Full-width page shell with fluid gutters. */
-.nsy-page { width: 100%; padding: 0 clamp(16px, 3vw, 44px); }
+/* Full-width page shell with fluid gutters + breathing room above the footer. */
+.nsy-page { width: 100%; padding: 0 clamp(16px, 3vw, 44px) clamp(24px, 4vw, 48px); }
 /* Hero: search-first — badge above, Search label + large centered input. */
 .nsy-hero { width: 100%; padding: 32px 0 8px; display: flex; flex-direction: column; align-items: center; text-align: center; }
 .nsy-badge { display: inline-block; background: var(--nsy-gradient); color: #fff; padding: 5px 14px; border-radius: 999px; font-size: 14px; letter-spacing: .08em; margin-bottom: 12px; }
@@ -331,34 +337,20 @@ code {
   HMVC landing — System/Apps/Modules/HMVC/Views/Index_Hello.php
   ========================================================================== */
 
-.hmvc-hero { max-width: 820px; margin: 0 auto; padding: 36px 16px 8px; text-align: center; }
-.hmvc-badge { display: inline-block; background: #fff; border: 1px solid var(--nsy-line); padding: 4px 10px; border-radius: 999px; font-size: 12px; color: var(--nsy-primary); }
-.hmvc-title { font-size: 28px; font-weight: 800; margin: 12px 0 4px; color: var(--nsy-primary-deep); }
-.hmvc-subtitle { color: var(--nsy-body); margin: 0 0 14px; }
-.hmvc-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 14px 0; }
+/* The HMVC page reuses the documentation-index theme verbatim: same full-width
+   .nsy-page shell, same .nsy-hero badge, same .nsy-btn actions, same
+   .nsy-card grid. Only these two pieces are page-specific. */
+.nsy-hero-title { font-size: clamp(22px, 2.8vw, 30px); font-weight: 800; margin: 0 0 6px; color: var(--nsy-primary-deep); }
+.nsy-hero-lead { color: var(--nsy-body); margin: 0; max-width: 760px; font-size: 14px; line-height: 1.6; }
+/* Page-level CTAs sit in the hero on pages without a docs index below them. */
+.nsy-hero-actions { justify-content: center; margin-top: 18px; }
 
-.hmvc-btn { padding: 10px 16px; border-radius: 10px; text-decoration: none; font-weight: 600; border: 1px solid var(--nsy-line); color: var(--nsy-primary); transition: background .15s, border-color .15s, color .15s; }
-.hmvc-btn.primary { background: var(--nsy-primary); color: #fff; border-color: var(--nsy-primary); }
-.hmvc-btn.primary:hover { background: var(--nsy-primary-dark); border-color: var(--nsy-primary-dark); color: #fff; }
-.hmvc-btn.ghost { background: #fff; color: var(--nsy-primary); }
-.hmvc-btn.ghost:hover { border-color: var(--nsy-accent); color: var(--nsy-accent-dark); }
+/* Explainer callout below the hero. */
+.nsy-note { width: 100%; margin: 18px 0 0; padding: 14px 16px; background: var(--nsy-accent-softer); border: 1px solid var(--nsy-line); border-left: 3px solid var(--nsy-accent); border-radius: 12px; color: var(--nsy-body); font-size: 13px; line-height: 1.6; }
+.nsy-note strong { color: var(--nsy-primary-deep); }
 
-.hmvc-note { max-width: 820px; margin: 0 auto 20px; padding: 14px 16px; background: var(--nsy-accent-softer); border: 1px solid var(--nsy-line); border-left: 3px solid var(--nsy-accent); border-radius: 12px; color: var(--nsy-body); font-size: 13px; line-height: 1.6; }
 /* Long file paths / signatures in inline code must wrap, or they widen the page. */
-.hmvc-hero code, .hmvc-note code { overflow-wrap: anywhere; word-break: break-word; }
+.nsy-hero code, .nsy-note code { overflow-wrap: anywhere; word-break: break-word; }
 
-.hmvc-docs { max-width: 820px; margin: 0 auto; padding: 0 16px 40px; }
-.hmvc-docs > h3 { font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--nsy-primary); margin: 0 0 10px; }
-.hmvc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
-.hmvc-card { border: 1px solid var(--nsy-line); border-radius: 14px; padding: 16px; background: #fff; display: flex; flex-direction: column; transition: box-shadow .15s, transform .15s, border-color .15s; }
-.hmvc-card:hover { box-shadow: var(--nsy-shadow); transform: translateY(-2px); border-color: var(--nsy-accent); }
-.hmvc-card h4 { margin: 0 0 8px; font-size: 15px; }
-.hmvc-card h4 a { display: flex; align-items: center; gap: 10px; color: var(--nsy-primary-deep); text-decoration: none; }
-.hmvc-card h4 a:hover { color: var(--nsy-primary); }
-.hmvc-card:hover .nsy-ico { background: var(--nsy-primary); border-color: var(--nsy-primary); color: #fff; }
-.hmvc-card p { margin: 10px 0 0; font-size: 12.5px; color: var(--nsy-body); line-height: 1.5; flex: 1; }
-.hmvc-card-foot { margin-top: 12px; font-size: 12px; }
-.hmvc-card-foot a { color: var(--nsy-primary); text-decoration: none; font-weight: 600; }
-.hmvc-card-foot a:hover { color: var(--nsy-accent-dark); }
-.hmvc-all { display: inline-block; margin-top: 16px; color: var(--nsy-primary); text-decoration: none; font-weight: 600; font-size: 13px; }
-.hmvc-all:hover { color: var(--nsy-accent-dark); }
+/* Cards that carry no category heading sit a little tighter to the top. */
+.nsy-cat > .nsy-grid { padding-top: 0; }

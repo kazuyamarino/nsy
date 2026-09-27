@@ -1854,7 +1854,6 @@ return array(
     'System\\Apps\\General\\Models\\Model_Welcome' => $baseDir . '/System/Apps/General/Models/Model_Welcome.php',
     'System\\Apps\\Modules\\HMVC\\Controllers\\Controller_Hello' => $baseDir . '/System/Apps/Modules/HMVC/Controllers/Controller_Hello.php',
     'System\\Apps\\Modules\\HMVC\\Models\\Model_Hello' => $baseDir . '/System/Apps/Modules/HMVC/Models/Model_Hello.php',
-    'System\\Apps\\Modules\\HMVC\\Models\\test' => $baseDir . '/System/Apps/Modules/HMVC/Models/test.php',
     'System\\Core\\DB' => $baseDir . '/System/Core/DB.php',
     'System\\Core\\Load' => $baseDir . '/System/Core/Load.php',
     'System\\Core\\NSY_AliasManager' => $baseDir . '/System/Core/NSY_AliasManager.php',
