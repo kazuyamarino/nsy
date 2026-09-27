@@ -32,7 +32,7 @@ return [
 	'SITE_TITLE' => 'NSY PHP Framework',
 	'SITE_AUTHOR' => 'Vikry Yuansah',
 	'SITE_KEYWORDS' => 'MVC Framework, HMVC Framework, PHP Framework',
-	'SITE_DESC' => 'NSY is a simple PHP Framework that works well on MVC or HMVC mode.',
+	'SITE_DESC' => 'Simple. Layered. Harmony in MVC and HMVC.',
 	'SITE_EMAIL' => '',
 	'APP_VERSION' => '7.0.0',
 	'APP_CODENAME' => 'Gamelan',

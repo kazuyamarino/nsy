@@ -54,6 +54,13 @@
 
 html {
     height: 100%;
+    box-sizing: border-box;
+}
+
+/* Border-box everywhere: padding/border stay inside declared widths, so
+   full-width shells (e.g. .nsy-page) never overflow the viewport. */
+*, *::before, *::after {
+    box-sizing: inherit;
 }
 
 body, h1, h2, h3, h4, h5 {
@@ -127,6 +134,18 @@ code {
     color: var(--nsy-primary);
 }
 
+/* Site header: NSY logo on the left, welcome copy on the right. */
+.header-inner { width: 100%; display: flex; align-items: center; gap: clamp(16px, 3vw, 44px); padding: 22px clamp(16px, 3vw, 44px) 14px; }
+.header-logo { flex: 0 0 auto; display: block; }
+.header-logo img { display: block; width: clamp(84px, 11vw, 132px); height: auto; }
+.header-copy { min-width: 0; }
+.header-copy h1 { margin: 0 0 6px; font-size: clamp(21px, 2.6vw, 34px); line-height: 1.15; }
+.header-copy h3 { margin: 0; font-size: clamp(12px, 1.2vw, 15px); font-weight: 400; }
+.header-copy code { font-size: .95em; }
+@media (max-width: 560px) {
+    .header-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
+}
+
 .wrap h3 {
     color: var(--nsy-primary-deep);
 } .wrap h1 {
@@ -147,11 +166,16 @@ code {
   Documentation index — System/Apps/General/Views/Index_Welcome.php
   ========================================================================== */
 
-.nsy-hero { max-width: 960px; margin: 0 auto; padding: 32px 16px 8px; text-align: center; }
-.nsy-badge { display: inline-block; background: linear-gradient(90deg, var(--nsy-primary), var(--nsy-accent)); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 12px; letter-spacing: .08em; margin-bottom: 12px; }
-.nsy-title { font-size: 32px; font-weight: 800; margin: 8px 0 4px; color: var(--nsy-primary-deep); }
-.nsy-subtitle { color: var(--nsy-body); margin: 0 0 16px; }
-.nsy-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 16px 0 8px; }
+/* Full-width page shell with fluid gutters. */
+.nsy-page { width: 100%; padding: 0 clamp(16px, 3vw, 44px); }
+/* Hero: search-first — badge above, Search label + large centered input. */
+.nsy-hero { width: 100%; padding: 32px 0 8px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.nsy-badge { display: inline-block; background: var(--nsy-gradient); color: #fff; padding: 5px 14px; border-radius: 999px; font-size: 14px; letter-spacing: .08em; margin-bottom: 12px; }
+.nsy-hero-caption { font-size: 15px; font-weight: 600; color: var(--nsy-body); margin: 0 10px 0 0; white-space: nowrap; flex: 0 0 auto; }
+.nsy-hero-searchwrap { width: 100%; max-width: 560px; display: flex; align-items: center; }
+.nsy-hero-search { flex: 1; min-width: 0; padding: 14px 18px; border: 2px solid var(--nsy-line); border-radius: 12px; font-size: 16px; outline: none; color: var(--nsy-body); background: #fff; transition: border-color .15s, box-shadow .15s; }
+.nsy-hero-search:focus { border-color: var(--nsy-accent); box-shadow: 0 0 0 3px rgba(92, 180, 245, .22); }
+.nsy-actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; margin: 0; }
 
 .nsy-btn { padding: 10px 18px; border-radius: 10px; text-decoration: none; font-weight: 600; border: 1px solid var(--nsy-line); display: inline-block; color: var(--nsy-primary); transition: background .15s, border-color .15s, color .15s; }
 .nsy-btn.primary { background: var(--nsy-primary); color: #fff; border-color: var(--nsy-primary); }
@@ -159,15 +183,13 @@ code {
 .nsy-btn.ghost { background: #fff; color: var(--nsy-primary); }
 .nsy-btn.ghost:hover { border-color: var(--nsy-accent); color: var(--nsy-accent-dark); }
 
-.nsy-dochead { max-width: 960px; margin: 16px auto 0; padding: 0 16px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.nsy-dochead { width: 100%; margin: 12px 0 0; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
 .nsy-dochead h2 { font-size: 18px; margin: 0; color: var(--nsy-primary-deep); }
 .nsy-dochead .nsy-hint { font-size: 12px; color: var(--nsy-muted); font-weight: 400; margin-left: 6px; }
-.nsy-search { flex: 1; min-width: 220px; max-width: 420px; padding: 10px 14px; border: 1px solid var(--nsy-line); border-radius: 10px; font-size: 14px; outline: none; color: var(--nsy-body); }
-.nsy-search:focus { border-color: var(--nsy-accent); box-shadow: 0 0 0 3px rgba(92, 180, 245, .22); }
 
-.nsy-cat { max-width: 960px; margin: 0 auto; padding: 18px 16px 0; }
+.nsy-cat { width: 100%; margin: 0; padding: 22px 0 0; }
 .nsy-cat > h3 { font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--nsy-primary); margin: 0 0 10px; }
-.nsy-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.nsy-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 16px; }
 .nsy-card { border: 1px solid var(--nsy-line); border-radius: 14px; padding: 16px; background: #fff; transition: box-shadow .15s, transform .15s, border-color .15s; display: flex; flex-direction: column; }
 .nsy-card:hover { box-shadow: var(--nsy-shadow); transform: translateY(-2px); border-color: var(--nsy-accent); }
 .nsy-card h4 { margin: 0 0 8px; font-size: 15px; }
@@ -183,10 +205,42 @@ code {
 .nsy-card-foot .more:hover { color: var(--nsy-accent-dark); }
 .nsy-card-foot .ext { color: var(--nsy-muted); text-decoration: none; font-size: 13px; }
 .nsy-card-foot .ext:hover { color: var(--nsy-primary); }
-.nsy-empty { max-width: 960px; margin: 24px auto; padding: 32px; text-align: center; color: var(--nsy-muted); border: 1px dashed var(--nsy-line); border-radius: 14px; display: none; }
+.nsy-empty { width: 100%; margin: 24px 0; padding: 32px; text-align: center; color: var(--nsy-muted); border: 1px dashed var(--nsy-line); border-radius: 14px; display: none; }
 
-@media (max-width: 640px) {
-    .nsy-title { font-size: 26px; }
+/* Callout prompt anchored to the Releases button. */
+.nsy-callout {
+    position: fixed; z-index: 9999;
+    display: inline-block;
+    left: 0; top: 0;
+    transform: translateY(6px) scale(.96);
+    opacity: 0;
+    background: var(--nsy-primary);
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(29, 123, 186, .35);
+    pointer-events: none;
+    transition: opacity .22s, transform .22s;
+}
+.nsy-callout.show {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+.nsy-callout::after {
+    content: '';
+    position: absolute;
+    left: var(--arrow-x, 50%);
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+}
+.nsy-callout[data-placement="top"]::after  { bottom: -6px; border-top: 6px solid var(--nsy-primary); }
+.nsy-callout[data-placement="bottom"]::after { top: -6px; border-top: none; border-bottom: 6px solid var(--nsy-primary); }
+@media (max-width: 480px) {
+    .nsy-callout { padding: 7px 12px; font-size: 12px; border-radius: 9px; }
 }
 
 /* ==========================================================================
@@ -266,6 +320,13 @@ code {
     .nsy-docs-side { position: static; max-height: none; }
 }
 
+/* Keep the prev/next pager from forcing a horizontal scroll on tiny screens. */
+@media (max-width: 560px) {
+    .nsy-docs-pager { flex-direction: column; }
+    .nsy-pager { min-width: 0; }
+    .nsy-pager.next { text-align: left; margin-left: 0; }
+}
+
 /* ==========================================================================
   HMVC landing — System/Apps/Modules/HMVC/Views/Index_Hello.php
   ========================================================================== */
@@ -283,6 +344,8 @@ code {
 .hmvc-btn.ghost:hover { border-color: var(--nsy-accent); color: var(--nsy-accent-dark); }
 
 .hmvc-note { max-width: 820px; margin: 0 auto 20px; padding: 14px 16px; background: var(--nsy-accent-softer); border: 1px solid var(--nsy-line); border-left: 3px solid var(--nsy-accent); border-radius: 12px; color: var(--nsy-body); font-size: 13px; line-height: 1.6; }
+/* Long file paths / signatures in inline code must wrap, or they widen the page. */
+.hmvc-hero code, .hmvc-note code { overflow-wrap: anywhere; word-break: break-word; }
 
 .hmvc-docs { max-width: 820px; margin: 0 auto; padding: 0 16px 40px; }
 .hmvc-docs > h3 { font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--nsy-primary); margin: 0 0 10px; }

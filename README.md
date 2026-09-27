@@ -1,5 +1,5 @@
 # NSY Framework
-NSY is a simple PHP Framework that works well on MVC or HMVC mode.
+Simple. Layered. Harmony in MVC and HMVC.
 
 > **Current Release Codename: Gamelan**  
 > Inspired by the traditional Indonesian ensemble, **Gamelan** represents harmony, modularity, and synchronized execution. Just as each instrument in a Gamelan orchestra plays a precise role to create a rich rhythm, NSY brings together lightweight core components and flexible modules (HMVC) into a unified, harmonious workflow.  

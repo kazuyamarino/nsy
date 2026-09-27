@@ -1,6 +1,6 @@
 {
     "name": "vikry/nsy",
-    "description": "NSY is a simple PHP Framework that works well on MVC or HMVC mode",
+    "description": "Simple. Layered. Harmony in MVC and HMVC.",
     "type": "project",
     "license": "MIT",
     "authors": [
