@@ -11,8 +11,8 @@
 		<h2>Documentation <span class="nsy-hint">@( count($docs) ) guides</span></h2>
 		<div class="nsy-actions">
 			<a class="nsy-btn primary" href="@( base_url('hmvc') )">Go to HMVC →</a>
-			<a class="nsy-btn ghost" target="_blank" rel="noopener" href="https://github.com/kazuyamarino/nsy">View on GitHub</a>
-			<a class="nsy-btn ghost" id="nsyReleaseBtn" target="_blank" rel="noopener" href="https://github.com/kazuyamarino/nsy/releases">Releases</a>
+			<a class="nsy-btn ghost" target="_blank" rel="noopener" href="@( get_repo_url() )">View on GitHub</a>
+			<a class="nsy-btn ghost" id="nsyReleaseBtn" target="_blank" rel="noopener" href="@( get_repo_url() )/releases">Releases</a>
 		</div>
 	</div>
 
@@ -29,7 +29,7 @@
 					<span>@( $doc['lines'] ) lines</span>
 					<span>
 						<a class="more" href="@( base_url('docs/' . $doc['slug']) )">Read →</a>
-						<a class="ext" target="_blank" rel="noopener" href="https://github.com/kazuyamarino/nsy/blob/master/docs/@( $doc['file'] )" title="View @( $doc['file'] ) on GitHub">↗</a>
+						<a class="ext" target="_blank" rel="noopener" href="@( get_repo_url() )/blob/master/docs/@( $doc['file'] )" title="View @( $doc['file'] ) on GitHub">↗</a>
 					</span>
 				</div>
 			</article>

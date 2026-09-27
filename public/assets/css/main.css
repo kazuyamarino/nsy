@@ -168,6 +168,15 @@ code {
     padding: 2em;
 }
 
+/* Footer meta line. The dot separators live in CSS rather than as &nbsp;|&nbsp;
+   in the markup, so the row wraps cleanly on narrow screens and the dots stay
+   decorative (never announced by a screen reader). */
+.footer-date { margin: 0 0 6px; font-size: 12.5px; color: var(--nsy-muted); }
+.footer-links { margin: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2px 0; font-size: 12.5px; color: var(--nsy-muted); }
+.footer-links > * + *::before { content: '\00b7'; margin: 0 8px; color: var(--nsy-accent); }
+.footer-links a:hover { color: var(--nsy-accent-dark); }
+.footer-links span { color: var(--nsy-primary-deep); }
+
 /* ==========================================================================
   Documentation index — System/Apps/General/Views/Index_Welcome.php
   ========================================================================== */

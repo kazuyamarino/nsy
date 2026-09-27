@@ -11,7 +11,7 @@ declare(strict_types=1);
  * Made with love by Vikry Yuansah.
  *
  * How to use it? Simply follow this :
- * https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#introducting-to-nsy-assets-manager
+ * docs/OVERVIEW.md#introducting-to-nsy-assets-manager
  *
  * @see System\Core\NSY_AssetManager
  */

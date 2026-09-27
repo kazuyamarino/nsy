@@ -55,10 +55,12 @@ return [
 	| Default Site Email
 	|--------------------------------------------------------------------------
 	|
-	| Define email contact for website.
+	| Define email contact for website. Uses ?: (not ??) so an env value of
+	| '' still falls back to the default, otherwise the footer would render
+	| a broken href="mailto:".
 	|
 	*/
-	'siteemail' => config_env('SITE_EMAIL') ?? '',
+	'siteemail' => config_env('SITE_EMAIL') ?: 'vikry.yuansah@gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,6 +80,30 @@ return [
 	| Define codename of the application
 	|
 	*/
-	'codename' => config_env('APP_CODENAME') ?? ''
+	'codename' => config_env('APP_CODENAME') ?? '',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Project Repository URL
+	|--------------------------------------------------------------------------
+	|
+	| Canonical GitHub repository for this project. Referenced by the site
+	| footer, the "View on GitHub" / "Releases" buttons, the ↗ links on
+	| every documentation card and the codename deep link. Define it once
+	| here instead of repeating the literal.
+	|
+	*/
+	'repo_url' => config_env('REPO_URL') ?: 'https://github.com/kazuyamarino/nsy',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Project Start Year
+	|--------------------------------------------------------------------------
+	|
+	| First release year, rendered as a copyright range in the footer.
+	| String, to keep this config file homogeneous.
+	|
+	*/
+	'since' => config_env('SINCE_YEAR') ?: '2018'
 
 ];

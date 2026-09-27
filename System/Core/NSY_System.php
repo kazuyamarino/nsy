@@ -123,7 +123,9 @@ class NSY_System
 			'SITEDESCRIPTION' => $this->getCachedConfig('site', 'sitedesc'),
 			'SITEEMAIL' => $this->getCachedConfig('site', 'siteemail'),
 			'VERSION' => $this->getCachedConfig('site', 'version'),
-			'CODENAME' => $this->getCachedConfig('site', 'codename')
+			'CODENAME' => $this->getCachedConfig('site', 'codename'),
+			'REPO_URL' => $this->getCachedConfig('site', 'repo_url'),
+			'SINCE_YEAR' => $this->getCachedConfig('site', 'since')
 		];
 
 		foreach ($siteSettings as $constant => $value) {

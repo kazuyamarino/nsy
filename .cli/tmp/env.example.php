@@ -33,9 +33,11 @@ return [
 	'SITE_AUTHOR' => 'Vikry Yuansah',
 	'SITE_KEYWORDS' => 'MVC Framework, HMVC Framework, PHP Framework',
 	'SITE_DESC' => 'Simple. Layered. Harmony in MVC and HMVC.',
-	'SITE_EMAIL' => '',
+	'SITE_EMAIL' => 'vikry.yuansah@gmail.com',
 	'APP_VERSION' => '7.0.0',
 	'APP_CODENAME' => 'Gamelan',
+	'REPO_URL' => 'https://github.com/kazuyamarino/nsy',
+	'SINCE_YEAR' => '2018',
 
 	/*
 	| Define Application Variables

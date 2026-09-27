@@ -10,6 +10,7 @@ declare(strict_types=1);
  * Use NSY_Desk class
  */
 
+use Carbon\Carbon;
 use System\Core\NSY_Desk;
 use System\Libraries\LanguageCode;
 
@@ -734,6 +735,55 @@ if (!function_exists('get_site_email')) {
 	function get_site_email()
 	{
 		return defined('SITEEMAIL') ? constant('SITEEMAIL') : config_site('siteemail');
+	}
+}
+
+if (!function_exists('get_repo_url')) {
+	/**
+	 * Get canonical project repository URL
+	 * @return string
+	 */
+	function get_repo_url()
+	{
+		return defined('REPO_URL') ? constant('REPO_URL') : config_site('repo_url');
+	}
+}
+
+if (!function_exists('get_since')) {
+	/**
+	 * Get project start year, for the footer copyright range
+	 * @return string
+	 */
+	function get_since()
+	{
+		return defined('SINCE_YEAR') ? constant('SINCE_YEAR') : config_site('since');
+	}
+}
+
+if (!function_exists('get_today')) {
+	/**
+	 * Get today's date, formatted for display.
+	 *
+	 * Lives here rather than being passed in from a controller so templates
+	 * stay self-sufficient: adding a controller can no longer forget it and
+	 * blow up the footer.
+	 *
+	 * @return string
+	 */
+	function get_today()
+	{
+		return Carbon::now()->isoFormat('dddd, D MMMM Y');
+	}
+}
+
+if (!function_exists('get_year')) {
+	/**
+	 * Get current year, for the footer copyright range
+	 * @return string
+	 */
+	function get_year()
+	{
+		return (string) Carbon::now()->year;
 	}
 }
 
