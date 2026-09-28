@@ -32,6 +32,14 @@ class Docs
 			'api' => 'Composer · CLI · Config',
 			'summary' => 'Start here: installation, environment variables, MVC/HMVC layout, CLI commands and deployment.',
 		],
+		'deploy-hosting' => [
+			'file' => 'README_DEPLOY_HOSTING.md',
+			'category' => 'Getting Started',
+			'icon' => 'server',
+			'title' => 'Deploy to Hosting',
+			'api' => 'public_html · APP_DIR · chmod',
+			'summary' => 'Shared hosting setup: System/ outside public_html, env keys, writable dirs, mod_rewrite/AllowOverride.',
+		],
 		'load-assets' => [
 			'file' => 'README_LOAD_AND_ASSETMANAGER.md',
 			'category' => 'Core',
@@ -127,6 +135,7 @@ class Docs
 			'gear' => '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/>',
 			'sliders' => '<path d="M4 6h9"/><path d="M19 6h1"/><circle cx="15" cy="6" r="2"/><path d="M4 12h3"/><path d="M13 12h7"/><circle cx="9" cy="12" r="2"/><path d="M4 18h9"/><path d="M19 18h1"/><circle cx="15" cy="18" r="2"/>',
 			'shield' => '<path d="M12 3 5 6v5c0 4.2 3 7.9 7 9 4-1.1 7-4.8 7-9V6l-7-3z"/><path d="m9 12 2 2 4-4"/>',
+			'server' => '<rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/>',
 		];
 
 		$inner = $icons[$name] ?? $icons['book'];

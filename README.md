@@ -35,6 +35,7 @@ nsy --setup
 
 ## Documentation
 - [Overview](docs/OVERVIEW.md) — Composer, Config, Helpers, Routes, MVC/HMVC, Assets, PSR-4, CLI
+- [Deploy to Shared Hosting](docs/README_DEPLOY_HOSTING.md) — `System/` outside `public_html`, writable dirs, `mod_rewrite`/`AllowOverride`
 - [Libraries](docs/README_LIBRARIES.md) — File, LanguageCode, LoadTime, Request, Validate
 - [Load & Asset Manager](docs/README_LOAD_AND_ASSETMANAGER.md) — `Load::view/template/model` & `Add::` (`?v=filemtime`)
 - [Helpers Global](docs/README_HELPERS_GLOBAL.md) — `base_url()`, `is_filled()`, `css_url()` etc.
