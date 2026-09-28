@@ -34,14 +34,14 @@ use System\Core\NSY_Migration as Mig;
 
 class create_supplier_table {
     public function up() {
-        Mig::connect()->create_table('suppliers', [
-            Mig::bigint('id', 20)->auto_increment(),
-            Mig::varchar('name')->not_null(),
+        Mig::connect()->createTable('suppliers', [
+            Mig::bigint('id', 20)->autoIncrement(),
+            Mig::varchar('name')->notNull(),
             Mig::primary('id')
         ])->index('BTREE', 'name');
     }
     public function down() {
-        Mig::connect()->drop_exist_table(['suppliers']);
+        Mig::connect()->dropExistTable(['suppliers']);
     }
 }
 ```
@@ -59,7 +59,7 @@ nsy run:migrate list      # pick one
 
 **HTTP (development only):**
 ```
-GET /migup=create_supplier_table   # Mig::connect()->create_table...
+GET /migup=create_supplier_table   # Mig::connect()->createTable...
 GET /migdown=create_supplier_table # down()
 ```
 > In `production` `System/Core/NSY_Desk.php:139` returns `403 Migrations are disabled`. Use CLI.
@@ -80,10 +80,10 @@ Mig::connect('pgsql')          // pgsql / sqlsrv / dblib — via NSY_DB::connect
 ## Database Helpers
 
 ```php
-Mig::connect()->create_database(['db1', 'db2']); // CREATE DATABASE `db1`; — quoted via quoteIdent()
-Mig::connect()->drop_database(['db1']);
-Mig::connect()->drop_exist_table(['t1']); // IF EXISTS
-Mig::connect()->drop_table(['t1']);
+Mig::connect()->createDatabase(['db1', 'db2']); // CREATE DATABASE `db1`; — quoted via quoteIdent()
+Mig::connect()->dropDatabase(['db1']);
+Mig::connect()->dropExistTable(['t1']); // IF EXISTS
+Mig::connect()->dropTable(['t1']);
 ```
 
 ---
@@ -91,15 +91,15 @@ Mig::connect()->drop_table(['t1']);
 ## Table Helpers
 
 ```php
-Mig::connect()->create_table('users', [
-    Mig::bigint('id')->auto_increment(),
-    Mig::varchar('name')->not_null(),
+Mig::connect()->createTable('users', [
+    Mig::bigint('id')->autoIncrement(),
+    Mig::varchar('name')->notNull(),
     Mig::primary('id')
 ]);
 
-Mig::connect()->rename_table('users', 'members');       // mysql: RENAME TABLE
-Mig::connect()->rename_table_pg('users', 'members');    // pgsql: ALTER TABLE ... RENAME TO
-Mig::connect()->rename_table_ms('users', 'members');    // sqlsrv: sp_rename
+Mig::connect()->renameTable('users', 'members');       // mysql: RENAME TABLE
+Mig::connect()->renameTablePg('users', 'members');    // pgsql: ALTER TABLE ... RENAME TO
+Mig::connect()->renameTableMs('users', 'members');    // sqlsrv: sp_rename
 ```
 
 ---
@@ -107,13 +107,13 @@ Mig::connect()->rename_table_ms('users', 'members');    // sqlsrv: sp_rename
 ## Column Helpers
 
 ```php
-Mig::connect()->add_cols('users', [Mig::varchar('phone')->null()]);
-Mig::connect()->add_cols_ms('users', [Mig::varchar('phone')->null()]); // sqlsrv: ADD
-Mig::connect()->drop_cols('users', ['phone']);
-Mig::connect()->modify_cols('users', [Mig::varchar('phone')->not_null()]);
-Mig::connect()->modify_cols_ext('users', ['phone' => Mig::varchar('phone')->not_null()]);
-Mig::connect()->rename_cols('users', ['phone' => 'mobile']);
-Mig::connect()->change_cols('users', ['phone' => Mig::varchar('mobile')->not_null()]);
+Mig::connect()->addCols('users', [Mig::varchar('phone')->null()]);
+Mig::connect()->addColsMs('users', [Mig::varchar('phone')->null()]); // sqlsrv: ADD
+Mig::connect()->dropCols('users', ['phone']);
+Mig::connect()->modifyCols('users', [Mig::varchar('phone')->notNull()]);
+Mig::connect()->modifyColsExt('users', ['phone' => Mig::varchar('phone')->notNull()]);
+Mig::connect()->renameCols('users', ['phone' => 'mobile']);
+Mig::connect()->changeCols('users', ['phone' => Mig::varchar('mobile')->notNull()]);
 ```
 
 ---
@@ -121,9 +121,9 @@ Mig::connect()->change_cols('users', ['phone' => Mig::varchar('mobile')->not_nul
 ## Indexes
 
 ```php
-Mig::connect()->create_table('t', [..., Mig::primary('id')])->index('BTREE', 'name');
-Mig::connect()->create_table('t', [...])->index('BTREE', ['a','b']);
-Mig::connect()->create_table('t', [...])->index_pg('BTREE', 'name'); // pgsql: USING BTREE
+Mig::connect()->createTable('t', [..., Mig::primary('id')])->index('BTREE', 'name');
+Mig::connect()->createTable('t', [...])->index('BTREE', ['a','b']);
+Mig::connect()->createTable('t', [...])->indexPg('BTREE', 'name'); // pgsql: USING BTREE
 ```
 
 Generated: `CREATE INDEX MULTI_1_5_IDX USING BTREE ON `t` ( name )`
@@ -133,16 +133,16 @@ Generated: `CREATE INDEX MULTI_1_5_IDX USING BTREE ON `t` ( name )`
 ## Datatypes & Modifiers
 
 ```php
-Mig::bigint('id',20)->auto_increment()
-Mig::varchar('name',255)->not_null()->default('x')
+Mig::bigint('id',20)->autoIncrement()
+Mig::varchar('name',255)->notNull()->default('x')
 Mig::text('bio')->null()
 Mig::int('age')->default(0)
-Mig::boolean('active')->not_null()
+Mig::boolean('active')->notNull()
 Mig::primary('id') / Mig::unique(['a','b'])
 Mig::timestamps() // create_date/update_date/delete_date
 ```
 
-Chain: `Mig::varchar('name')->not_null()->default('x')` → `name VARCHAR(255) NOT NULL DEFAULT x`
+Chain: `Mig::varchar('name')->notNull()->default('x')` → `name VARCHAR(255) NOT NULL DEFAULT x`
 
 ---
 
@@ -160,11 +160,11 @@ Chain: `Mig::varchar('name')->not_null()->default('x')` → `name VARCHAR(255) N
 | Method | Purpose | Returns |
 |---|---|---|
 | `Mig::connect($conn)` | Select connection (primary/secondary/...) | `object` |
-| `create_database([db])` / `drop_database([db])` | CREATE/DROP DATABASE | `object` |
-| `create_table($t, [cols])` / `drop_table([t])` | CREATE/DROP TABLE | `object` |
-| `rename_table($old,$new)` (+ `_pg`, `_ms`) | RENAME TABLE | `object` |
-| `add_cols($t,[cols])` / `drop_cols` / `modify_cols` | ALTER TABLE cols | `object` |
-| `index($type,$cols)` / `index_pg` | CREATE INDEX | `bool` |
+| `createDatabase([db])` / `dropDatabase([db])` | CREATE/DROP DATABASE | `object` |
+| `createTable($t, [cols])` / `dropTable([t])` | CREATE/DROP TABLE | `object` |
+| `renameTable($old,$new)` (+ `Pg`, `Ms`) | RENAME TABLE | `object` |
+| `addCols($t,[cols])` / `dropCols` / `modifyCols` | ALTER TABLE cols | `object` |
+| `index($type,$cols)` / `indexPg` | CREATE INDEX | `bool` |
 | `primary($cols)` / `unique($cols)` | CONSTRAINT | `string` |
 | `timestamps()` | 3 DATETIME cols | `array` |
 

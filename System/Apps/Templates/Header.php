@@ -20,7 +20,7 @@
 				<img src="@( img_url('logo.png') )" alt="NSY PHP Framework">
 			</a>
 			<div class="header-copy">
-				<h1>@( $welcome_text )</h1>
+				<h1>@( $welcomeText )</h1>
 				<h3><code>Simple. Layered. Harmony in MVC and HMVC.</code></h3>
 			</div>
 		</div>

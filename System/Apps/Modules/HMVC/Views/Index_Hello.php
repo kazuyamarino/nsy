@@ -1,7 +1,7 @@
 <div class="nsy-page">
 	<section class="nsy-hero">
 		<span class="nsy-badge">HMVC Module • Hierarchical MVC • v@( get_version() ) @( get_codename() )</span>
-		<h1 class="nsy-hero-title">Hello, @( $hmvc_text )!</h1>
+		<h1 class="nsy-hero-title">Hello, @( $hmvcText )!</h1>
 		<p class="nsy-hero-lead">This page is rendered from <code>System/Apps/Modules/HMVC/Views/Index_Hello.php</code> via&nbsp;<code>Load::view('HMVC',...)</code></p>
 		<div class="nsy-actions nsy-hero-actions">
 			<a class="nsy-btn primary" href="@( base_url() )">← Back to MVC</a>

@@ -39,7 +39,7 @@ class NSY_DB
 	 * @param string $conn_name
 	 * @return \PDO|null
 	 */
-	public static function connect_mysql(string $conn_name = 'primary'): ?\PDO
+	public static function connectMysql(string $conn_name = 'primary'): ?\PDO
 	{
 		return self::createConnection($conn_name);
 	}
@@ -50,7 +50,7 @@ class NSY_DB
 	 * @param string $conn_name
 	 * @return \PDO|null
 	 */
-	public static function connect_dblib(string $conn_name = 'primary'): ?\PDO
+	public static function connectDblib(string $conn_name = 'primary'): ?\PDO
 	{
 		return self::createConnection($conn_name);
 	}
@@ -61,7 +61,7 @@ class NSY_DB
 	 * @param string $conn_name
 	 * @return \PDO|null
 	 */
-	public static function connect_pgsql(string $conn_name = 'primary'): ?\PDO
+	public static function connectPgsql(string $conn_name = 'primary'): ?\PDO
 	{
 		return self::createConnection($conn_name);
 	}
@@ -72,7 +72,7 @@ class NSY_DB
 	 * @param string $conn_name
 	 * @return \PDO|null
 	 */
-	public static function connect_sqlsrv(string $conn_name = 'primary'): ?\PDO
+	public static function connectSqlsrv(string $conn_name = 'primary'): ?\PDO
 	{
 		return self::createSqlsrvConnection($conn_name);
 	}
@@ -99,7 +99,7 @@ class NSY_DB
 			return $pdo;
 		} catch (\PDOException $e) {
 			self::logConnection($conn_name, $cfg, $started, false, $e->getMessage());
-			NSY_Desk::static_error_handler("Connection failed: " . $e->getMessage(), 500);
+			NSY_Desk::staticErrorHandler("Connection failed: " . $e->getMessage(), 500);
 			return null;
 		}
 	}
@@ -126,7 +126,7 @@ class NSY_DB
 			return $pdo;
 		} catch (\PDOException $e) {
 			self::logConnection($conn_name, $cfg, $started, false, $e->getMessage());
-			NSY_Desk::static_error_handler("Connection failed: " . $e->getMessage(), 500);
+			NSY_Desk::staticErrorHandler("Connection failed: " . $e->getMessage(), 500);
 			return null;
 		}
 	}
@@ -183,7 +183,7 @@ class NSY_DB
 	private static function validateConfig(array $cfg): void
 	{
 		if (!is_filled($cfg['driver']) || !is_filled($cfg['host']) || !is_filled($cfg['name'])) {
-			NSY_Desk::static_error_handler('Database configuration missing required values: DB_DRIVER, DB_HOST, or DB_NAME', 500);
+			NSY_Desk::staticErrorHandler('Database configuration missing required values: DB_DRIVER, DB_HOST, or DB_NAME', 500);
 		}
 	}
 
@@ -239,7 +239,7 @@ class NSY_DB
 	private static function handleUnknownDriver(mixed $driver): ?\PDO
 	{
 		$var_msg = "Default database connection not found or undefined, please configure it in <strong>.env</strong> file <strong><i>DB_CONNECTION</i></strong> (got: " . htmlspecialchars((string)$driver, ENT_QUOTES, 'UTF-8') . ")";
-		NSY_Desk::static_error_handler($var_msg);
+		NSY_Desk::staticErrorHandler($var_msg);
 		return null;
 	}
 }

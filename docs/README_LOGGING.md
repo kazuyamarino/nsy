@@ -68,7 +68,7 @@ All eight PSR-3 methods are available. NSY stores five levels
 
 ### Slow queries
 
-`DB::exec()` / `DB::multi_insert()` are timed automatically. Configure:
+`DB::exec()` / `DB::multiInsert()` are timed automatically. Configure:
 
 ```php
 'LOG_SLOW_QUERY_MS' => '500',
@@ -186,7 +186,7 @@ rg -i 'password|passwd|secret|token|authorization' System/Storage/logs/ || echo 
 - Logging never throws: every write path is wrapped so a broken disk or bad
   permission cannot break a request.
 - `DB::exec()` query failures previously used `die($message)` (leaking SQL
-  detail); they now go through `NSY_Desk::static_error_handler()`, so the client
+  detail); they now go through `NSY_Desk::staticErrorHandler()`, so the client
   sees a generic page in production while the detail is logged.
 - PHP fatal/parse errors and uncaught exceptions are captured by a shutdown
   handler; dev screen output is unchanged.

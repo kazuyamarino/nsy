@@ -21,7 +21,7 @@ class NSY_Desk
 	 * @param  int $error_code
 	 * @return void
 	 */
-	public static function static_error_handler(string $var_msg = '', int $error_code = 500): never
+	public static function staticErrorHandler(string $var_msg = '', int $error_code = 500): never
 	{
 		$app_env = config_app('app_env');
 
@@ -82,7 +82,7 @@ class NSY_Desk
 	 *
 	 * @return void
 	 */
-	public static function static_error_switch(): void
+	public static function staticErrorSwitch(): void
 	{
 		$app_env = config_app('app_env');
 
@@ -104,14 +104,14 @@ class NSY_Desk
 	 * set_error_handler, fatal/parse/uncaught via a shutdown handler.
 	 * No-op when logging is disabled; never changes on-screen behaviour.
 	 */
-	public static function register_error_logging(): void
+	public static function registerErrorLogging(): void
 	{
 		if (!LogManager::enabled()) {
 			return;
 		}
 
-		set_error_handler([self::class, 'handle_php_error']);
-		register_shutdown_function([self::class, 'handle_shutdown']);
+		set_error_handler([self::class, 'handlePhpError']);
+		register_shutdown_function([self::class, 'handleShutdown']);
 	}
 
 	/** Guard against re-entrant logging while handling an error. */
@@ -120,7 +120,7 @@ class NSY_Desk
 	/**
 	 * Log non-fatal PHP diagnostics, then defer to PHP's normal handling.
 	 */
-	public static function handle_php_error(int $errno, string $errstr, string $errfile = '', int $errline = 0): bool
+	public static function handlePhpError(int $errno, string $errstr, string $errfile = '', int $errline = 0): bool
 	{
 		if (self::$handlingPhpError) {
 			return false;
@@ -147,7 +147,7 @@ class NSY_Desk
 	/**
 	 * Capture fatal errors and uncaught exceptions at shutdown.
 	 */
-	public static function handle_shutdown(): void
+	public static function handleShutdown(): void
 	{
 		$error = error_get_last();
 		if (!is_array($error)) {
@@ -181,21 +181,21 @@ class NSY_Desk
 	private static function executeMigration(string $migration_name = '', string $direction = 'up'): never
 	{
 		if ($migration_name === '' || trim($migration_name) === '') {
-			self::static_error_handler('Migration name cannot be empty', 400);
+			self::staticErrorHandler('Migration name cannot be empty', 400);
 		}
 
 		$classname = 'System\\Migrations\\' . $migration_name;
 
 		if (!class_exists($classname)) {
 			$var_msg = "Migration class '$migration_name' not found!\nCheck class name in System/Migrations directory";
-			self::static_error_handler($var_msg, 404);
+			self::staticErrorHandler($var_msg, 404);
 		}
 
 		try {
 			$migration = new $classname;
 			
 			if (!method_exists($migration, $direction)) {
-				self::static_error_handler("Method '$direction' not found in migration class", 500);
+				self::staticErrorHandler("Method '$direction' not found in migration class", 500);
 			}
 
 			$migration->{$direction}();
@@ -217,7 +217,7 @@ class NSY_Desk
 			echo "</div>";
 
 		} catch (\Throwable $e) {
-			self::static_error_handler("Migration failed: " . $e->getMessage(), 500);
+			self::staticErrorHandler("Migration failed: " . $e->getMessage(), 500);
 		}
 		
 		exit();
@@ -229,7 +229,7 @@ class NSY_Desk
 	 * @param  string $string
 	 * @return void
 	 */
-	public static function mig_up(string $string = ''): never
+	public static function migUp(string $string = ''): never
 	{
 		self::guardMigrationEnvironment();
 		self::executeMigration($string, 'up');
@@ -241,7 +241,7 @@ class NSY_Desk
 	 * @param  string $string
 	 * @return void
 	 */
-	public static function mig_down(string $string = ''): never
+	public static function migDown(string $string = ''): never
 	{
 		self::guardMigrationEnvironment();
 		self::executeMigration($string, 'down');
@@ -258,7 +258,7 @@ class NSY_Desk
 			} catch (\Throwable $e) {
 				// ignore
 			}
-			self::static_error_handler('Migrations are disabled in production. Use CLI: <code>nsy run:migrate</code>', 403);
+			self::staticErrorHandler('Migrations are disabled in production. Use CLI: <code>nsy run:migrate</code>', 403);
 		}
 	}
 
@@ -266,10 +266,10 @@ class NSY_Desk
 	 * Register NSY System (optimized with SystemLoader)
 	 * @return void
 	 */
-	public static function register_system(): void
+	public static function registerSystem(): void
 	{
 		// PHP-level logging hooks first (fatal / parse / uncaught capture)
-		self::register_error_logging();
+		self::registerErrorLogging();
 
 		// Use optimized system loader with caching and error handling
 		NSY_SystemLoader::loadSystemFiles();
@@ -279,7 +279,7 @@ class NSY_Desk
 	 * NSY Register route function (optimized with auto-discovery)
 	 * @return void
 	 */
-	public static function register_route(): void
+	public static function registerRoute(): void
 	{
 		// Keep route cache effective — clear only in development to reflect changes
 		if (config_app('app_env') === 'development') {

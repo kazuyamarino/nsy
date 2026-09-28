@@ -145,7 +145,7 @@ $tmp = array_items('avatar', 'tmp_name');          // $_FILES['avatar']['tmp_nam
 $tmp = array_items('gallery', 'tmp_name', 2);      // $_FILES['gallery']['tmp_name'][2]
 ```
 
-> Errors use `NSY_Desk::static_error_handler()` — consistent with the framework.
+> Errors use `NSY_Desk::staticErrorHandler()` — consistent with the framework.
 
 ---
 

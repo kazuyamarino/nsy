@@ -13,8 +13,8 @@ class Controller_Hello extends Load
 	public function hello()
 	{
 		$arr = [
-			'welcome_text' => Load::model(Model_Welcome::class)->welcome_text(), // Call the welcome_text method from Model_Welcome
-			'hmvc_text' => Load::model(Model_Hello::class)->hmvc_text(), // Call the hmvc_text method from Model_Hello inside the HMVC module
+			'welcomeText' => Load::model(Model_Welcome::class)->welcomeText(), // Call the welcomeText method from Model_Welcome
+			'hmvcText' => Load::model(Model_Hello::class)->hmvcText(), // Call the hmvcText method from Model_Hello inside the HMVC module
 			'date' => Carbon::now() // Instantiate today's date with Carbon
 		];
 

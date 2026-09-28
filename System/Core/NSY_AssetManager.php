@@ -24,7 +24,7 @@ class NSY_AssetManager
 		$attrStr = trim((string) $attr);
 		if ($attrStr === '') {
 			$var_msg = 'Please check the format of <mark>Add::meta</mark> tag';
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		}
 
@@ -61,7 +61,7 @@ class NSY_AssetManager
 			$href = \img_url($filename);
 		} else {
 			$var_msg = 'Please check the format of <mark>Add::link</mark> tag';
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		}
 
@@ -144,7 +144,7 @@ class NSY_AssetManager
 	{
 		if (not_filled($values)) {
 			$var_msg = 'No value in <mark>Add::custom()</mark> tag';
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		} else {
 			echo $values;

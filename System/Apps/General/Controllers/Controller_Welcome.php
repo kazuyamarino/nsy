@@ -21,8 +21,8 @@ class Controller_Welcome extends Load
 	public function welcome()
 	{
 		$arr = [
-			'welcome_text' => $this->Model_Welcome->welcome_text(), // Call the welcome_text method from Model_Welcome
-			'mvc_text' => $this->Model_Welcome->mvc_text(), // Call the mvc_text method from Model_Hello inside the Homepage module
+			'welcomeText' => $this->Model_Welcome->welcomeText(), // Call the welcomeText method from Model_Welcome
+			'mvcText' => $this->Model_Welcome->mvcText(), // Call the mvcText method from Model_Hello inside the Homepage module
 			'date' => Carbon::now(), // Instantiate today's date with Carbon
 			'docs' => Docs::all(), // All documentation guides (for the in-app doc index)
 			'categories' => Docs::categories() // Docs grouped by category

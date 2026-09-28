@@ -205,7 +205,7 @@ class NSY_AliasManager
         $errorMsg = "NSY Class Alias Manager Error: $message";
         
         if (class_exists('System\Core\NSY_Desk')) {
-            NSY_Desk::static_error_handler($errorMsg);
+            NSY_Desk::staticErrorHandler($errorMsg);
         } else {
             error_log($errorMsg);
             if (config_app('app_env') !== 'production') {

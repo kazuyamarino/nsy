@@ -60,7 +60,7 @@ class DB
         static::$connection = NSY_DB::connect($conn_name);
         if (!static::$connection) {
             $var_msg = "Database connection failed for '" . htmlspecialchars($conn_name, ENT_QUOTES, 'UTF-8') . "'";
-            NSY_Desk::static_error_handler($var_msg);
+            NSY_Desk::staticErrorHandler($var_msg);
             exit();
         }
         return new static;
@@ -92,7 +92,7 @@ class DB
             static::$query = $query;
         } else {
             $var_msg = "The value of query in the <mark>query(<strong>value</strong>)</mark> is empty or undefined";
-            NSY_Desk::static_error_handler($var_msg);
+            NSY_Desk::staticErrorHandler($var_msg);
             exit();
         }
 
@@ -111,7 +111,7 @@ class DB
             static::$variables = $variables;
         } else {
             $var_msg = "The variable in the <mark>vars(<strong>variables</strong>)</mark> is improper or not an array";
-            NSY_Desk::static_error_handler($var_msg);
+            NSY_Desk::staticErrorHandler($var_msg);
             exit();
         }
 
@@ -158,7 +158,7 @@ class DB
      *
      * @return array
      */
-    protected function fetch_all()
+    protected function fetchAll()
     {
         // Check if there's connection defined on the models
         if (not_filled(static::$connection)) {
@@ -178,7 +178,7 @@ class DB
                             foreach (static::$variables as $key => &$res) {
                                 if (not_filled($res[1]) || not_filled($res[0])) {
                                     $var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                    NSY_Desk::static_error_handler($var_msg);
+                                    NSY_Desk::staticErrorHandler($var_msg);
                                 } else {
                                     $stmt->bindValue($key, $res[0], $res[1]);
                                 }
@@ -191,7 +191,7 @@ class DB
                             foreach (static::$variables as $key => &$res) {
                                 if (not_filled($res[1]) || not_filled($res[0])) {
                                     $var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                    NSY_Desk::static_error_handler($var_msg);
+                                    NSY_Desk::staticErrorHandler($var_msg);
                                 } else {
                                     $stmt->bindParam($key, $res[0], $res[1]);
                                 }
@@ -201,7 +201,7 @@ class DB
                         }
                     } else {
                         $var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)</mark> is empty, undefined, or unknown parameter";
-                        NSY_Desk::static_error_handler($var_msg);
+                        NSY_Desk::staticErrorHandler($var_msg);
                         exit();
                     }
                 }
@@ -215,7 +215,7 @@ class DB
                 return $show_result;
             } else {
                 $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                NSY_Desk::static_error_handler($var_msg);
+                NSY_Desk::staticErrorHandler($var_msg);
             }
         }
 
@@ -249,7 +249,7 @@ class DB
                             foreach (static::$variables as $key => &$res) {
                                 if (not_filled($res[1]) || not_filled($res[0])) {
                                     $var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                    NSY_Desk::static_error_handler($var_msg);
+                                    NSY_Desk::staticErrorHandler($var_msg);
                                 } else {
                                     $stmt->bindValue($key, $res[0], $res[1]);
                                 }
@@ -262,7 +262,7 @@ class DB
                             foreach (static::$variables as $key => &$res) {
                                 if (not_filled($res[1]) || not_filled($res[0])) {
                                     $var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                    NSY_Desk::static_error_handler($var_msg);
+                                    NSY_Desk::staticErrorHandler($var_msg);
                                 } else {
                                     $stmt->bindParam($key, $res[0], $res[1]);
                                 }
@@ -272,7 +272,7 @@ class DB
                         }
                     } else {
                         $var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)</mark> is empty, undefined, or unknown parameter";
-                        NSY_Desk::static_error_handler($var_msg);
+                        NSY_Desk::staticErrorHandler($var_msg);
                         exit();
                     }
                 }
@@ -286,7 +286,7 @@ class DB
                 return $show_result;
             } else {
                 $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                NSY_Desk::static_error_handler($var_msg);
+                NSY_Desk::staticErrorHandler($var_msg);
             }
         }
 
@@ -301,7 +301,7 @@ class DB
      * @param  int $column
      * @return mixed
      */
-    protected function fetch_column(int $column = 0)
+    protected function fetchColumn(int $column = 0)
     {
         // Check if there's connection defined on the models
         if (not_filled(static::$connection)) {
@@ -321,7 +321,7 @@ class DB
                             foreach (static::$variables as $key => &$res) {
                                 if (not_filled($res[1]) || not_filled($res[0])) {
                                     $var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                    NSY_Desk::static_error_handler($var_msg);
+                                    NSY_Desk::staticErrorHandler($var_msg);
                                 } else {
                                     $stmt->bindValue($key, $res[0], $res[1]);
                                 }
@@ -334,7 +334,7 @@ class DB
                             foreach (static::$variables as $key => &$res) {
                                 if (not_filled($res[1]) || not_filled($res[0])) {
                                     $var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                    NSY_Desk::static_error_handler($var_msg);
+                                    NSY_Desk::staticErrorHandler($var_msg);
                                 } else {
                                     $stmt->bindParam($key, $res[0], $res[1]);
                                 }
@@ -344,7 +344,7 @@ class DB
                         }
                     } else {
                         $var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)</mark> is empty, undefined, or unknown parameter";
-                        NSY_Desk::static_error_handler($var_msg);
+                        NSY_Desk::staticErrorHandler($var_msg);
                         exit();
                     }
                 }
@@ -357,7 +357,7 @@ class DB
                 return $show_result;
             } else {
                 $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                NSY_Desk::static_error_handler($var_msg);
+                NSY_Desk::staticErrorHandler($var_msg);
             }
         }
 
@@ -371,7 +371,7 @@ class DB
      *
      * @return int
      */
-    protected function row_count()
+    protected function rowCount()
     {
         // Check if there's connection defined on the models
         if (not_filled(static::$connection)) {
@@ -391,7 +391,7 @@ class DB
                             foreach (static::$variables as $key => &$res) {
                                 if (not_filled($res[1]) || not_filled($res[0])) {
                                     $var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                    NSY_Desk::static_error_handler($var_msg);
+                                    NSY_Desk::staticErrorHandler($var_msg);
                                 } else {
                                     $stmt->bindValue($key, $res[0], $res[1]);
                                 }
@@ -404,7 +404,7 @@ class DB
                             foreach (static::$variables as $key => &$res) {
                                 if (not_filled($res[1]) || not_filled($res[0])) {
                                     $var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                    NSY_Desk::static_error_handler($var_msg);
+                                    NSY_Desk::staticErrorHandler($var_msg);
                                 } else {
                                     $stmt->bindParam($key, $res[0], $res[1]);
                                 }
@@ -414,7 +414,7 @@ class DB
                         }
                     } else {
                         $var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)</mark> is empty, undefined, or unknown parameter";
-                        NSY_Desk::static_error_handler($var_msg);
+                        NSY_Desk::staticErrorHandler($var_msg);
                         exit();
                     }
                 }
@@ -427,7 +427,7 @@ class DB
                 return $show_result;
             } else {
                 $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                NSY_Desk::static_error_handler($var_msg);
+                NSY_Desk::staticErrorHandler($var_msg);
             }
         }
 
@@ -472,7 +472,7 @@ class DB
                                 static::$connection->rollBack();
 
                                 // show the error message
-                                NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
+                                NSY_Desk::staticErrorHandler('Database query failed: ' . $e->getMessage(), 500);
                             }
                         } elseif (config_app('transaction') === 'off') {
                             $stmt = static::$connection->prepare(static::$query);
@@ -498,7 +498,7 @@ class DB
                                     static::$connection->rollBack();
 
                                     // show the error message
-                                    NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
+                                    NSY_Desk::staticErrorHandler('Database query failed: ' . $e->getMessage(), 500);
                                 }
                             } elseif (config_app('transaction') === 'off') {
                                 $stmt = static::$connection->prepare(static::$query);
@@ -519,7 +519,7 @@ class DB
                                             foreach (static::$variables as $key => &$res) {
                                                 if (not_filled($res[1]) || not_filled($res[0])) {
                                                     $var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                                    NSY_Desk::static_error_handler($var_msg);
+                                                    NSY_Desk::staticErrorHandler($var_msg);
                                                 } else {
                                                     $stmt->bindValue($key, $res[0], $res[1]);
                                                 }
@@ -535,7 +535,7 @@ class DB
                                         static::$connection->rollBack();
 
                                         // show the error message
-                                        NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
+                                        NSY_Desk::staticErrorHandler('Database query failed: ' . $e->getMessage(), 500);
                                     }
                                 } elseif (config_app('transaction') === 'off') {
                                     $stmt = static::$connection->prepare(static::$query);
@@ -543,7 +543,7 @@ class DB
                                         foreach (static::$variables as $key => &$res) {
                                             if (not_filled($res[1]) || not_filled($res[0])) {
                                                 $var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                                NSY_Desk::static_error_handler($var_msg);
+                                                NSY_Desk::staticErrorHandler($var_msg);
                                             } else {
                                                 $stmt->bindValue($key, $res[0], $res[1]);
                                             }
@@ -566,7 +566,7 @@ class DB
                                             foreach (static::$variables as $key => &$res) {
                                                 if (not_filled($res[1]) || not_filled($res[0])) {
                                                     $var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                                    NSY_Desk::static_error_handler($var_msg);
+                                                    NSY_Desk::staticErrorHandler($var_msg);
                                                 } else {
                                                     $stmt->bindParam($key, $res[0], $res[1]);
                                                 }
@@ -582,7 +582,7 @@ class DB
                                         static::$connection->rollBack();
 
                                         // show the error message
-                                        NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
+                                        NSY_Desk::staticErrorHandler('Database query failed: ' . $e->getMessage(), 500);
                                     }
                                 } elseif (config_app('transaction') === 'off') {
                                     $stmt = static::$connection->prepare(static::$query);
@@ -590,7 +590,7 @@ class DB
                                         foreach (static::$variables as $key => &$res) {
                                             if (not_filled($res[1]) || not_filled($res[0])) {
                                                 $var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                                NSY_Desk::static_error_handler($var_msg);
+                                                NSY_Desk::staticErrorHandler($var_msg);
                                             } else {
                                                 $stmt->bindParam($key, $res[0], $res[1]);
                                             }
@@ -604,7 +604,7 @@ class DB
                                 }
                             } else {
                                 $var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)</mark> is empty, undefined, or unknown parameter";
-                                NSY_Desk::static_error_handler($var_msg);
+                                NSY_Desk::staticErrorHandler($var_msg);
                                 exit();
                             }
                         }
@@ -617,10 +617,10 @@ class DB
                     } else {
                         if (not_filled(static::$variables)) {
                             $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-                            NSY_Desk::static_error_handler($var_msg);
+                            NSY_Desk::staticErrorHandler($var_msg);
                         } else {
                             $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                            NSY_Desk::static_error_handler($var_msg);
+                            NSY_Desk::staticErrorHandler($var_msg);
                         }
                     }
                 }
@@ -654,7 +654,7 @@ class DB
                             static::$connection->rollBack();
 
                             // show the error message
-                            NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
+                            NSY_Desk::staticErrorHandler('Database query failed: ' . $e->getMessage(), 500);
                         }
                     } elseif (config_app('transaction') === 'off') {
                         $stmt = static::$connection->prepare(static::$query);
@@ -680,7 +680,7 @@ class DB
                                 static::$connection->rollBack();
 
                                 // show the error message
-                                NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
+                                NSY_Desk::staticErrorHandler('Database query failed: ' . $e->getMessage(), 500);
                             }
                         } elseif (config_app('transaction') === 'off') {
                             $stmt = static::$connection->prepare(static::$query);
@@ -701,7 +701,7 @@ class DB
                                         foreach (static::$variables as $key => &$res) {
                                             if (not_filled($res[1]) || not_filled($res[0])) {
                                                 $var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                                NSY_Desk::static_error_handler($var_msg);
+                                                NSY_Desk::staticErrorHandler($var_msg);
                                             } else {
                                                 $stmt->bindValue($key, $res[0], $res[1]);
                                             }
@@ -717,7 +717,7 @@ class DB
                                     static::$connection->rollBack();
 
                                     // show the error message
-                                    NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
+                                    NSY_Desk::staticErrorHandler('Database query failed: ' . $e->getMessage(), 500);
                                 }
                             } elseif (config_app('transaction') === 'off') {
                                 $stmt = static::$connection->prepare(static::$query);
@@ -725,7 +725,7 @@ class DB
                                     foreach (static::$variables as $key => &$res) {
                                         if (not_filled($res[1]) || not_filled($res[0])) {
                                             $var_msg = 'BindValue parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                            NSY_Desk::static_error_handler($var_msg);
+                                            NSY_Desk::staticErrorHandler($var_msg);
                                         } else {
                                             $stmt->bindValue($key, $res[0], $res[1]);
                                         }
@@ -748,7 +748,7 @@ class DB
                                         foreach (static::$variables as $key => &$res) {
                                             if (not_filled($res[1]) || not_filled($res[0])) {
                                                 $var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                                NSY_Desk::static_error_handler($var_msg);
+                                                NSY_Desk::staticErrorHandler($var_msg);
                                             } else {
                                                 $stmt->bindParam($key, $res[0], $res[1]);
                                             }
@@ -764,7 +764,7 @@ class DB
                                     static::$connection->rollBack();
 
                                     // show the error message
-                                    NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
+                                    NSY_Desk::staticErrorHandler('Database query failed: ' . $e->getMessage(), 500);
                                 }
                             } elseif (config_app('transaction') === 'off') {
                                 $stmt = static::$connection->prepare(static::$query);
@@ -772,7 +772,7 @@ class DB
                                     foreach (static::$variables as $key => &$res) {
                                         if (not_filled($res[1]) || not_filled($res[0])) {
                                             $var_msg = 'BindParam parameter type undefined, for example use PAR_INT or PAR_STR in the <strong>null</strong> variable.<br><br>[' . $key . ' => [' . $res[0] . ', <strong>null</strong>] ]';
-                                            NSY_Desk::static_error_handler($var_msg);
+                                            NSY_Desk::staticErrorHandler($var_msg);
                                         } else {
                                             $stmt->bindParam($key, $res[0], $res[1]);
                                         }
@@ -786,7 +786,7 @@ class DB
                             }
                         } else {
                             $var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)</mark> is empty, undefined, or unknown parameter";
-                            NSY_Desk::static_error_handler($var_msg);
+                            NSY_Desk::staticErrorHandler($var_msg);
                             exit();
                         }
                     }
@@ -799,10 +799,10 @@ class DB
                 } else {
                     if (not_filled(static::$variables)) {
                         $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-                        NSY_Desk::static_error_handler($var_msg);
+                        NSY_Desk::staticErrorHandler($var_msg);
                     } else {
                         $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                        NSY_Desk::static_error_handler($var_msg);
+                        NSY_Desk::staticErrorHandler($var_msg);
                     }
                 }
             }
@@ -821,7 +821,7 @@ class DB
      *
      * @return bool
      */
-    protected function multi_insert()
+    protected function multiInsert()
     {
         self::beginQueryLog();
 
@@ -844,7 +844,7 @@ class DB
                     // if vars null, execute queries without vars, else execute it with defined on the models
                     if (not_filled(static::$variables)) {
                         $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-                        NSY_Desk::static_error_handler($var_msg);
+                        NSY_Desk::staticErrorHandler($var_msg);
                     } else {
                         if (config_app('transaction') === 'on') {
                             try {
@@ -869,7 +869,7 @@ class DB
                                 static::$connection->rollBack();
 
                                 // show the error message
-                                NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
+                                NSY_Desk::staticErrorHandler('Database query failed: ' . $e->getMessage(), 500);
                             }
                         } elseif (config_app('transaction') === 'off') {
                             $stmt = static::$connection->prepare(static::$query . ' VALUES ' . $valString);
@@ -895,10 +895,10 @@ class DB
                     } else {
                         if (not_filled(static::$variables)) {
                             $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-                            NSY_Desk::static_error_handler($var_msg);
+                            NSY_Desk::staticErrorHandler($var_msg);
                         } else {
                             $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                            NSY_Desk::static_error_handler($var_msg);
+                            NSY_Desk::staticErrorHandler($var_msg);
                         }
                     }
                 }
@@ -923,7 +923,7 @@ class DB
                 // if vars null, execute queries without vars, else execute it with defined on the models
                 if (not_filled(static::$variables)) {
                     $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-                    NSY_Desk::static_error_handler($var_msg);
+                    NSY_Desk::staticErrorHandler($var_msg);
                 } else {
                     if (config_app('transaction') === 'on') {
                         try {
@@ -948,7 +948,7 @@ class DB
                             static::$connection->rollBack();
 
                             // show the error message
-                            NSY_Desk::static_error_handler('Database query failed: ' . $e->getMessage(), 500);
+                            NSY_Desk::staticErrorHandler('Database query failed: ' . $e->getMessage(), 500);
                         }
                     } elseif (config_app('transaction') === 'off') {
                         $stmt = static::$connection->prepare(static::$query . ' VALUES ' . $valString);
@@ -974,10 +974,10 @@ class DB
                 } else {
                     if (not_filled(static::$variables)) {
                         $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
-                        NSY_Desk::static_error_handler($var_msg);
+                        NSY_Desk::staticErrorHandler($var_msg);
                     } else {
                         $var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-                        NSY_Desk::static_error_handler($var_msg);
+                        NSY_Desk::staticErrorHandler($var_msg);
                     }
                 }
             }
@@ -998,7 +998,7 @@ class DB
      * @param mixed $value
      * @return static
      */
-    protected function pdo_set_attr(mixed $param = '', mixed $value = '')
+    protected function pdoSetAttr(mixed $param = '', mixed $value = '')
     {
         static::$connection->setAttribute($param, $value);
         return new static;
@@ -1010,7 +1010,7 @@ class DB
      * @param mixed $param
      * @return static
      */
-    protected function pdo_get_attr(mixed $param = '')
+    protected function pdoGetAttr(mixed $param = '')
     {
         static::$connection->getAttribute($param);
         return new static;
@@ -1021,7 +1021,7 @@ class DB
      *
      * @return static
      */
-    protected function begin_trans()
+    protected function beginTrans()
     {
         static::$connection->beginTransaction();
         return new static;
@@ -1031,7 +1031,7 @@ class DB
      *
      * @return static
      */
-    protected function commit_trans()
+    protected function commitTrans()
     {
         static::$connection->commit();
         return new static;
@@ -1041,7 +1041,7 @@ class DB
      *
      * @return static
      */
-    protected function rollback_trans()
+    protected function rollbackTrans()
     {
         static::$connection->rollback();
         return new static;

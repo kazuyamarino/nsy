@@ -2,7 +2,7 @@
 
 Query builder for NSY (`System/Core/DB.php`, `System/Core/NSY_DB.php`). Unified via `NSY_DB::connect()` (single source, `declare(strict_types=1)`, `PDO::ERRMODE_EXCEPTION`), `declare(strict_types=1)` in both.
 
-- **DB:** `System\Core\DB` — DML/query (SELECT/INSERT/UPDATE/DELETE) + `fetch_*`, `exec`, `multi_insert`
+- **DB:** `System\Core\DB` — DML/query (SELECT/INSERT/UPDATE/DELETE) + `fetch*`, `exec`, `multiInsert`
 - **NSY_DB:** `System\Core\NSY_DB` — low-level factory (mysql/dblib/pgsql/sqlsrv) used by `DB` and `NSY_Migration`
 - **Config:** `env.php` `connections` (4: `primary/mysql/pgsql/sqlsrv`) + `System/Config/App.php` (`transaction`, `csrf_token`)
 
@@ -31,9 +31,9 @@ Query builder for NSY (`System/Core/DB.php`, `System/Core/NSY_DB.php`). Unified 
   'sqlsrv'    => [...],
 ]
 
-DB::connect()->query($q)->fetch_all();              // primary
-DB::connect('secondary')->query($q)->fetch_all();   // secondary
-DB::connect('pgsql')->query($q)->fetch_all();       // custom
+DB::connect()->query($q)->fetchAll();              // primary
+DB::connect('secondary')->query($q)->fetchAll();   // secondary
+DB::connect('pgsql')->query($q)->fetchAll();       // custom
 ```
 
 > `DB::connect(string $conn='primary'): object` `System/Core/DB.php:33` now delegates to `NSY_DB::connect($conn)` `System/Core/NSY_DB.php:15` — no duplicated `switch` (before 16 lines x2).
@@ -45,10 +45,10 @@ DB::connect('pgsql')->query($q)->fetch_all();       // custom
 ```php
 $q = 'SELECT * FROM users WHERE id = :id';
 DB::connect()->query($q)->vars([':id' => 2])->fetch();
-// Same: DB::connect('primary')->query($q)->vars([...])->fetch_all();
+// Same: DB::connect('primary')->query($q)->vars([...])->fetchAll();
 ```
 
-`query(string $q)` validates via `is_filled()` → `NSY_Desk::static_error_handler()`.
+`query(string $q)` validates via `is_filled()` → `NSY_Desk::staticErrorHandler()`.
 
 ---
 
@@ -70,10 +70,10 @@ DB::connect()->query($q)->vars($vars)->bind(BINDPAR)->fetch();
 ## Fetching
 
 ```php
-DB::connect()->query($q)->vars()->style(FETCH_ASSOC)->fetch_all(); // all rows
+DB::connect()->query($q)->vars()->style(FETCH_ASSOC)->fetchAll(); // all rows
 DB::connect()->query($q)->fetch();              // single row
-DB::connect()->query($q)->fetch_column(0);      // single value
-DB::connect()->query($q)->row_count();          // affected rows
+DB::connect()->query($q)->fetchColumn(0);      // single value
+DB::connect()->query($q)->rowCount();          // affected rows
 
 // FETCH_* constants: FETCH_NUM, FETCH_ASSOC, FETCH_BOTH, FETCH_COLUMN, FETCH_OBJ, FETCH_KEY_PAIR...
 ```
@@ -90,7 +90,7 @@ DB::connect()->query($q)->vars($p)->bind()->exec(); // true, with transaction + 
 // Multi insert
 $q = "INSERT INTO users (id, name, user_name)";
 $arr = [[1,'A','a'], [2,'B','b']];
-DB::connect()->query($q)->vars($arr)->multi_insert();
+DB::connect()->query($q)->vars($arr)->multiInsert();
 ```
 
 `exec()` checks `config_app('csrf_token')` via `SecurityMiddleware::validateAdvancedCSRF` + `transaction` (`on` → `beginTransaction/commit/rollback`).
@@ -105,14 +105,14 @@ DB::connect()->query($q)->vars($arr)->multi_insert();
 DB::connect()->query($q)->vars($p)->exec(); // handles begin/commit/rollback internally
 
 // Manual
-DB::connect()->begin_trans();
+DB::connect()->beginTrans();
 DB::connect()->query($q)->vars($p)->exec();
-DB::connect()->commit_trans();
-DB::connect()->rollback_trans();
+DB::connect()->commitTrans();
+DB::connect()->rollbackTrans();
 
 // PDO attributes
-DB::connect()->pdo_set_attr(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-DB::connect()->pdo_get_attr(PDO::ATTR_ERRMODE);
+DB::connect()->pdoSetAttr(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+DB::connect()->pdoGetAttr(PDO::ATTR_ERRMODE);
 ```
 
 ---
@@ -121,7 +121,7 @@ DB::connect()->pdo_get_attr(PDO::ATTR_ERRMODE);
 
 Before (duplicated):
 ```php
-switch(config_db(...)) { case 'mysql': NSY_DB::connect_mysql(...) }
+switch(config_db(...)) { case 'mysql': NSY_DB::connectMysql(...) }
 ```
 After (unified):
 ```php
@@ -138,9 +138,9 @@ Benefits: `declare(strict_types=1)`, `?PDO` type, `buildDsn()` + `quoteIdent()` 
 |---|---|---|
 | `DB::connect($conn)` | Select connection | `object` |
 | `query($q)` / `vars($arr)` / `bind(BINDVAL)` / `style(FETCH_ASSOC)` | Build query | `object` (chainable) |
-| `fetch_all()` / `fetch()` / `fetch_column($i)` / `row_count()` | Fetch | `array/mixed/int` |
-| `exec()` / `multi_insert()` | Execute DML | `bool` |
-| `begin_trans()` / `commit_trans()` / `rollback_trans()` | Transaction | `object` |
-| `pdo_set_attr($k,$v)` | PDO attribute | `object` |
+| `fetchAll()` / `fetch()` / `fetchColumn($i)` / `rowCount()` | Fetch | `array/mixed/int` |
+| `exec()` / `multiInsert()` | Execute DML | `bool` |
+| `beginTrans()` / `commitTrans()` / `rollbackTrans()` | Transaction | `object` |
+| `pdoSetAttr($k,$v)` | PDO attribute | `object` |
 
 Related: `System/Core/DB.php:33`, `System/Core/NSY_DB.php:15`, `env.php` `connections`, `System/Core/NSY_Migration.php` (DDL counterpart).

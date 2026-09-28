@@ -353,23 +353,23 @@ if (!function_exists('aurora')) {
 	{
 		if (not_filled($ext)) {
 			$var_msg = "File extension not yet filled \naurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);";
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		} elseif (not_filled($name)) {
 			$var_msg = "Filename not yet filled \naurora(file_extension, <strong><i>filename</i></strong>, separator, header, data, string_delimiter);";
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		} elseif (not_filled($sep)) {
 			$var_msg = "Separator not yet filled \naurora(file_extension, filename, <strong><i>separator</i></strong>, header, data, string_delimiter);";
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		} elseif (not_filled($h)) {
 			$var_msg = "Header of the table undefined \naurora(file_extension, filename, separator, <strong><i>header</i></strong>, data, string_delimiter);";
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		} elseif (not_filled($d)) {
 			$var_msg = "Record of data empty or unreadable \naurora(file_extension, filename, separator, header, <strong><i>data</i></strong>, string_delimiter);";
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		} else {
 			// export filename
@@ -390,7 +390,7 @@ if (!function_exists('aurora')) {
 				$separator = "\174";
 			} else {
 				$var_msg = "There is no such separator name (<strong>example:</strong> tab, comma, semicolon, space, pipe, &amp; dot) \naurora(file_extension, filename, <strong><i>separator</i></strong>, header, data, string_delimiter);";
-				NSY_Desk::static_error_handler($var_msg);
+				NSY_Desk::staticErrorHandler($var_msg);
 				exit();
 			}
 
@@ -403,7 +403,7 @@ if (!function_exists('aurora')) {
 				$s = null;
 			} else {
 				$var_msg = "There is no such string delimiter name (<strong>example:</strong> \042double\042 for double quote, &amp; \047single\047 for singlequote) \naurora(file_extension, filename, separator, header, data, <strong><i>string_delimiter</i></strong>);";
-				NSY_Desk::static_error_handler($var_msg);
+				NSY_Desk::staticErrorHandler($var_msg);
 				exit();
 			}
 
@@ -444,7 +444,7 @@ if (!function_exists('aurora')) {
 				file_put_contents($file, $data);
 			} else {
 				$var_msg = "There is no such file extension name (<strong>example:</strong> txt, csv, xls, xlsx, &amp; ods) \naurora(<strong><i>file_extension</i></strong>, filename, separator, header, data, string_delimiter);";
-				NSY_Desk::static_error_handler($var_msg);
+				NSY_Desk::staticErrorHandler($var_msg);
 				exit();
 			}
 		}
@@ -581,7 +581,7 @@ if (!function_exists('get_uri_segment')) {
 			return (string) $uriSegments[(int) $key];
 		}
 		$var_msg = "Segment does not exist";
-		NSY_Desk::static_error_handler($var_msg);
+		NSY_Desk::staticErrorHandler($var_msg);
 		exit();
 	}
 }
@@ -866,7 +866,7 @@ if (!function_exists('string_encrypt')) {
 			return $output;
 		} else {
 			$var_msg = 'The variable <mark>string_encrypt(<strong>actions</strong>, <strong>string</strong>)</mark> is improper or not an array';
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		}
 	}
@@ -897,7 +897,7 @@ if (!function_exists('image_to_base64')) {
 			return $arr;
 		} else {
 			$var_msg = 'The variable <mark>image_to_base64(<strong>variables</strong>)</mark> is improper or not an array';
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		}
 	}
@@ -924,7 +924,7 @@ if (!function_exists('string_to_base64')) {
 			return $arr;
 		} else {
 			$var_msg = 'The variable <mark>string_to_base64(<strong>variables</strong>)</mark> is improper or not an array';
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		}
 	}
@@ -1028,7 +1028,7 @@ if (!function_exists('sequence')) {
 		$in_params = [];
 		if (!is_filled($bind) || (!is_array($variables) && !is_object($variables) && !($variables instanceof \Traversable))) {
 			$var_msg = 'The variable in the <mark>sequence(<strong>bind</strong>, <strong>variables</strong>)</mark> is improper or not an array';
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		}
 		foreach ($variables as $i => $item) {
@@ -1055,7 +1055,7 @@ function post($param = '')
 		$result = isset($_POST[$param]) ? $_POST[$param] : null;
 	} else {
 		$var_msg = 'The variable in the <mark>post(<strong>variable</strong>)</mark> is improper or not an array';
-		NSY_Desk::static_error_handler($var_msg);
+		NSY_Desk::staticErrorHandler($var_msg);
 		exit();
 	}
 
@@ -1073,7 +1073,7 @@ function get($param = '')
 		$result = isset($_GET[$param]) ? $_GET[$param] : null;
 	} else {
 		$var_msg = 'The variable in the <mark>get(<strong>variable</strong>)</mark> is improper or not an array';
-		NSY_Desk::static_error_handler($var_msg);
+		NSY_Desk::staticErrorHandler($var_msg);
 		exit();
 	}
 
@@ -1092,7 +1092,7 @@ function array_items($param = '', $param2 = '', $param3 = 0)
 	// Check if $_FILES is an array and has the necessary data
 	if (!isset($_FILES) || !is_array($_FILES)) {
 		$var_msg = 'The <mark>$_FILES</mark> superglobal is not set or not an array';
-		NSY_Desk::static_error_handler($var_msg);
+		NSY_Desk::staticErrorHandler($var_msg);
 		exit();
 	}
 
@@ -1104,7 +1104,7 @@ function array_items($param = '', $param2 = '', $param3 = 0)
 				$result = $_FILES[$param][$param2][$param3];
 			} else {
 				$var_msg = 'The specified indexes <mark>$param2</mark> and <mark>$param3</mark> do not exist in <mark>$_FILES</mark>[$param]';
-				NSY_Desk::static_error_handler($var_msg);
+				NSY_Desk::staticErrorHandler($var_msg);
 				exit();
 			}
 		} elseif (is_filled($param2)) {
@@ -1118,7 +1118,7 @@ function array_items($param = '', $param2 = '', $param3 = 0)
 		return $result;
 	} else {
 		$var_msg = 'The variable <mark>$param</mark> is either not filled or not a valid key in <mark>$_FILES</mark>';
-		NSY_Desk::static_error_handler($var_msg);
+		NSY_Desk::staticErrorHandler($var_msg);
 		exit();
 	}
 }

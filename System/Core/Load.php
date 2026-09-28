@@ -47,7 +47,7 @@ class Load
         // Validate inputs
         if (not_filled($filename) || !(is_array($vars) || is_object($vars))) {
             $var_msg = 'The variable in the <mark>Load::view()</mark> is improper or not an array';
-            NSY_Desk::static_error_handler($var_msg);
+            NSY_Desk::staticErrorHandler($var_msg);
             exit();
         }
 
@@ -80,7 +80,7 @@ class Load
         // Validate inputs
         if (not_filled($filename) || !(is_array($vars) || is_object($vars))) {
             $var_msg = 'The variable in the <mark>Load::template()</mark> is improper or not an array';
-            NSY_Desk::static_error_handler($var_msg);
+            NSY_Desk::staticErrorHandler($var_msg);
             exit();
         }
 
@@ -109,13 +109,13 @@ class Load
     {
         if (not_filled($fullclass)) {
             $var_msg = 'The variable in the <mark>Load::model(<strong>model_name</strong>)</mark> is improper or not filled';
-            NSY_Desk::static_error_handler($var_msg);
+            NSY_Desk::staticErrorHandler($var_msg);
             exit();
         }
 
         if (!class_exists($fullclass)) {
             $var_msg = 'The model class <strong>' . htmlspecialchars($fullclass, ENT_QUOTES, 'UTF-8') . '</strong> was not found';
-            NSY_Desk::static_error_handler($var_msg);
+            NSY_Desk::staticErrorHandler($var_msg);
             exit();
         }
 

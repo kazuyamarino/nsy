@@ -79,17 +79,17 @@ new NSY_System();
 /**
  * Get Application Environment
  */
-NSY_Desk::static_error_switch();
+NSY_Desk::staticErrorSwitch();
 
 /**
  * Check System File
  */
-NSY_Desk::register_system();
+NSY_Desk::registerSystem();
 
 /**
  * Routing System
  */
-NSY_Desk::register_route();
+NSY_Desk::registerRoute();
 
 /**
  * Execute matched routes

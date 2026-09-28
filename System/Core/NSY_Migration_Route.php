@@ -9,10 +9,10 @@ use System\Core\NSY_Desk;
 // Guarded: only registered when APP_ENV === 'development' to prevent public DDL.
 if (config_app('app_env') === 'development') {
 	Route::any('/migup=(:any)', function ($class) {
-		NSY_Desk::mig_up($class);
+		NSY_Desk::migUp($class);
 	});
 
 	Route::any('/migdown=(:any)', function ($class) {
-		NSY_Desk::mig_down($class);
+		NSY_Desk::migDown($class);
 	});
 }

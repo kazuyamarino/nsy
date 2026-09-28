@@ -69,7 +69,7 @@ class Docs
 			'category' => 'Core',
 			'icon' => 'migrate',
 			'title' => 'Migration',
-			'api' => 'Mig::create_table()',
+			'api' => 'Mig::createTable()',
 			'summary' => 'Chainable schema builder, DDL helpers and the run:migrate CLI runner.',
 		],
 		'query-builder' => [

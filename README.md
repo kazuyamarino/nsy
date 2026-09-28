@@ -42,7 +42,7 @@ nsy --setup
 - [CodeIgniter Helpers](docs/README_CODEIGNITER_HELPERS.md) — `stringify_attributes()`, `directory_map()` etc.
 - [Router](docs/README_NSY_ROUTER.md) — `Route::get/post/group`, middleware
 - [Security Middleware](docs/README_SECURITY_MIDDLEWARE.md) — CSRF, XSS, rate-limit
-- [Migration](docs/README_MIGRATION.md) — `Mig::create_table()`, `quoteIdent`/`execDDL` (DRY)
+- [Migration](docs/README_MIGRATION.md) — `Mig::createTable()`, `quoteIdent`/`execDDL` (DRY)
 - [Model & DB](docs/README_MODEL.md) — `DB::query()`, `NSY_DB::connect()` unified
 - [Query Builder](docs/README_QUERY_BUILDER.md) — `qb('users')->whereIn()->paginate()` — minimal lines
 

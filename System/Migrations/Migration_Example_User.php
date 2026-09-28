@@ -22,10 +22,10 @@ class Migration_Example_User
 	public function up()
 	{
 		// 1. Create table with minimal lines — chainable, quoted identifiers, DRY execDDL
-		Mig::connect('primary')->create_table('example_users', [
-			Mig::bigint('id', 20)->auto_increment(),
-			Mig::varchar('name', 100)->not_null(),
-			Mig::varchar('email', 150)->not_null(),
+		Mig::connect('primary')->createTable('example_users', [
+			Mig::bigint('id', 20)->autoIncrement(),
+			Mig::varchar('name', 100)->notNull(),
+			Mig::varchar('email', 150)->notNull(),
 			Mig::varchar('status', 20)->default("'active'"),
 			Mig::int('age', 3)->null(),
 			Mig::primary('id'),
@@ -40,8 +40,8 @@ class Migration_Example_User
 		//     ['name' => 'Citra', 'email' => 'citra@example.com', 'age' => 30],
 		// ]);
 
-		// 3. Example: Add column later (uncomment to test add_cols)
-		// Mig::connect('primary')->add_cols('example_users', [
+		// 3. Example: Add column later (uncomment to test addCols)
+		// Mig::connect('primary')->addCols('example_users', [
 		//     Mig::text('bio')->null()
 		// ]);
 
@@ -59,9 +59,9 @@ class Migration_Example_User
 	public function down()
 	{
 		// Drop table if exists (safe for re-run)
-		Mig::connect('primary')->drop_exist_table(['example_users']);
+		Mig::connect('primary')->dropExistTable(['example_users']);
 
 		// Alternative: drop without IF EXISTS (will error if not exists)
-		// Mig::connect('primary')->drop_table(['example_users']);
+		// Mig::connect('primary')->dropTable(['example_users']);
 	}
 }

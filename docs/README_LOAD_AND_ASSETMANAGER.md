@@ -37,7 +37,7 @@ Both use `NSY_System` constants with config fallbacks, so they never emit undefi
 - `Load::view(?string $module, string $filename, array|object $vars = []): void`
   - `$module` empty → MVC: `get_mvc_view_dir() . $filename . '.php'`
   - `$module` set → HMVC: `get_hmvc_view_dir() . $module . '/Views/' . $filename . '.php'`
-  - `$vars` validated; invalid → `NSY_Desk::static_error_handler()`
+  - `$vars` validated; invalid → `NSY_Desk::staticErrorHandler()`
 
 - `Load::template(string $filename, array|object $vars = []): void`
   - From `get_system_tmp_dir()` (e.g. `System/Apps/Templates/`)
@@ -71,7 +71,7 @@ $user = Load::model(\System\Apps\General\Models\M_User::class);
 - `Add::meta(string $attr, string $content = ''): bool`
   - `Add::meta('charset="utf-8"')` → `<meta charset="utf-8">`
   - `Add::meta('name="description"', 'My site')` → `<meta name="description" content="My site">` (content escaped via `htmlspecialchars`)
-  - Requires `$attr` non-empty, otherwise `static_error_handler()`
+  - Requires `$attr` non-empty, otherwise `staticErrorHandler()`
 
 - `Add::link(string $filename, string $rel, string $type = '', string $title = ''): bool`
   - Absolute URL (`http://`, `https://`, `//`) → used directly

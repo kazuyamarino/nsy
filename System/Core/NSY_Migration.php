@@ -29,7 +29,7 @@ class NSY_Migration
 		self::$connection = NSY_DB::connect($conn_name);
 		if (!self::$connection) {
 			$var_msg = "Migration connection failed for '" . htmlspecialchars($conn_name, ENT_QUOTES, 'UTF-8') . "'";
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		}
 		return new self;
@@ -75,7 +75,7 @@ class NSY_Migration
 			try { self::$connection->rollBack(); } catch (\Throwable $e) {}
 		}
 		$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-		NSY_Desk::static_error_handler($var_msg);
+		NSY_Desk::staticErrorHandler($var_msg);
 		return false; // never reached
 	}
 
@@ -84,7 +84,7 @@ class NSY_Migration
 	 */
 	private function fail(string $msg): never
 	{
-		NSY_Desk::static_error_handler($msg);
+		NSY_Desk::staticErrorHandler($msg);
 		exit();
 	}
 
@@ -93,10 +93,10 @@ class NSY_Migration
 	 *
 	 * @param array $db
 	 */
-	public function create_database(array $arr_db = []): object
+	public function createDatabase(array $arr_db = []): object
 	{
 		if (!is_filled($arr_db)) {
-			$this->fail("Database name in the <mark>create_database(<strong>value</strong>)</mark> is empty or undefined");
+			$this->fail("Database name in the <mark>createDatabase(<strong>value</strong>)</mark> is empty or undefined");
 		}
 		$this->ensureConnection();
 		foreach ($arr_db as $db) {
@@ -111,10 +111,10 @@ class NSY_Migration
 	 *
 	 * @param array $db
 	 */
-	public function drop_database(array $arr_db = []): object
+	public function dropDatabase(array $arr_db = []): object
 	{
 		if (!is_filled($arr_db)) {
-			$this->fail("Database name in the <mark>drop_database(<strong>value</strong>)</mark> is empty or undefined");
+			$this->fail("Database name in the <mark>dropDatabase(<strong>value</strong>)</mark> is empty or undefined");
 		}
 		$this->ensureConnection();
 		foreach ($arr_db as $db) {
@@ -131,7 +131,7 @@ class NSY_Migration
 	 * @param array $columns
 	 * @return $this
 	 */
-	public function create_table(string $table = null, array $columns = [], $timestamps_mark = 'enabled'): object
+	public function createTable(string $table = null, array $columns = [], $timestamps_mark = 'enabled'): object
 	{
 		$timestamps_cols = self::timestamps();
 		$this->current_table = $table;
@@ -156,10 +156,10 @@ class NSY_Migration
 	 * @param string $old_table
 	 * @param string $new_table
 	 */
-	public function rename_table($old_table = '', $new_table = ''): object
+	public function renameTable($old_table = '', $new_table = ''): object
 	{
 		if (!is_filled($old_table) || !is_filled($new_table)) {
-			$this->fail("Table name in the <mark>rename_table(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined");
+			$this->fail("Table name in the <mark>renameTable(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined");
 		}
 		$query = "RENAME TABLE " . self::quoteIdent($old_table) . " TO " . self::quoteIdent($new_table) . ";";
 		$this->execDDL($query);
@@ -172,10 +172,10 @@ class NSY_Migration
 	 * @param string $old_table
 	 * @param string $new_table
 	 */
-	public function rename_table_pg($old_table = '', $new_table = ''): object
+	public function renameTablePg($old_table = '', $new_table = ''): object
 	{
 		if (!is_filled($old_table) || !is_filled($new_table)) {
-			$this->fail("Table name in the <mark>rename_table_pg(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined");
+			$this->fail("Table name in the <mark>renameTablePg(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined");
 		}
 		$query = "ALTER TABLE " . self::quoteIdent($old_table) . " RENAME TO " . self::quoteIdent($new_table) . ";";
 		$this->execDDL($query);
@@ -188,10 +188,10 @@ class NSY_Migration
 	 * @param string $old_table
 	 * @param string $new_table
 	 */
-	public function rename_table_ms($old_table = '', $new_table = ''): object
+	public function renameTableMs($old_table = '', $new_table = ''): object
 	{
 		if (!is_filled($old_table) || !is_filled($new_table)) {
-			$this->fail("Table name in the <mark>rename_table_ms(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined");
+			$this->fail("Table name in the <mark>renameTableMs(<strong>old_table</strong>, <strong>new_table</strong>)</mark> is empty or undefined");
 		}
 		$old = str_replace("'", "''", $old_table);
 		$new = str_replace("'", "''", $new_table);
@@ -205,10 +205,10 @@ class NSY_Migration
 	 *
 	 * @param array $table
 	 */
-	public function drop_table(array $arr_table = []): object
+	public function dropTable(array $arr_table = []): object
 	{
 		if (!is_filled($arr_table)) {
-			$this->fail("Table name in the <mark>drop_table(<strong>value</strong>)</mark> is empty or undefined");
+			$this->fail("Table name in the <mark>dropTable(<strong>value</strong>)</mark> is empty or undefined");
 		}
 		$this->ensureConnection();
 		foreach ($arr_table as $table) {
@@ -223,10 +223,10 @@ class NSY_Migration
 	 *
 	 * @param array $table
 	 */
-	public function drop_exist_table(array $arr_table = []): object
+	public function dropExistTable(array $arr_table = []): object
 	{
 		if (!is_filled($arr_table)) {
-			$this->fail("Table name in the <mark>drop_exist_table(<strong>value</strong>)</mark> is empty or undefined");
+			$this->fail("Table name in the <mark>dropExistTable(<strong>value</strong>)</mark> is empty or undefined");
 		}
 		$this->ensureConnection();
 		foreach ($arr_table as $table) {
@@ -275,10 +275,10 @@ class NSY_Migration
 						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
+						NSY_Desk::staticErrorHandler($var_msg);
 					} elseif (config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
+						NSY_Desk::staticErrorHandler($var_msg);
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
 					}
@@ -286,7 +286,7 @@ class NSY_Migration
 			}
 		} else {
 			$var_msg = "Table name in the <mark>index(<strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		}
 
@@ -307,7 +307,7 @@ class NSY_Migration
 	 * @param  array $cols
 	 * @return string
 	 */
-	public function index_pg(string $type, $cols = [])
+	public function indexPg(string $type, $cols = [])
 	{
 		$table = $this->current_table;
 
@@ -342,18 +342,18 @@ class NSY_Migration
 						self::$connection->rollback();
 
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
+						NSY_Desk::staticErrorHandler($var_msg);
 					} elseif (config_app('transaction') === 'off') {
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-						NSY_Desk::static_error_handler($var_msg);
+						NSY_Desk::staticErrorHandler($var_msg);
 					} else {
 						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
 					}
 				}
 			}
 		} else {
-			$var_msg = "Table name in the <mark>index_pg(<strong>value</strong>)</mark> is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
+			$var_msg = "Table name in the <mark>indexPg(<strong>value</strong>)</mark> is empty or undefined";
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		}
 
@@ -430,10 +430,10 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function add_cols_ms(string $table = null, array $columns = []): object
+	public function addColsMs(string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
-			$this->fail("Table name in the <mark>add_cols_ms(<strong>table</strong>, value)</mark> and \nColumns in the <mark>add_cols_ms(table, <strong>value</strong>)</mark> is empty or undefined");
+			$this->fail("Table name in the <mark>addColsMs(<strong>table</strong>, value)</mark> and \nColumns in the <mark>addColsMs(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
 		$this->ensureConnection();
 		foreach ($columns as $closure_dt) {
@@ -449,10 +449,10 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function add_cols(string $table = null, array $columns = []): object
+	public function addCols(string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
-			$this->fail("Table name in the <mark>add_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>add_cols(table, <strong>value</strong>)</mark> is empty or undefined");
+			$this->fail("Table name in the <mark>addCols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>addCols(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
 		$this->ensureConnection();
 		foreach ($columns as $closure_dt) {
@@ -468,10 +468,10 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function drop_cols(string $table = null, array $columns = []): object
+	public function dropCols(string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
-			$this->fail("Table name in the <mark>drop_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>drop_cols(table, <strong>value</strong>)</mark> is empty or undefined");
+			$this->fail("Table name in the <mark>dropCols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>dropCols(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
 		$this->ensureConnection();
 		foreach ($columns as $closure_dt) {
@@ -487,10 +487,10 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function modify_cols_ext(string $table = null, array $columns = []): object
+	public function modifyColsExt(string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
-			$this->fail("Table name in the <mark>modify_cols_ext(<strong>table</strong>, value)</mark> and \nColumns in the <mark>modify_cols_ext(table, <strong>value</strong>)</mark> is empty or undefined");
+			$this->fail("Table name in the <mark>modifyColsExt(<strong>table</strong>, value)</mark> and \nColumns in the <mark>modifyColsExt(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
 		$this->ensureConnection();
 		foreach ($columns as $key => $closure_dt) {
@@ -510,10 +510,10 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function modify_cols(string $table = null, array $columns = []): object
+	public function modifyCols(string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
-			$this->fail("Table name in the <mark>modify_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>modify_cols(table, <strong>value</strong>)</mark> is empty or undefined");
+			$this->fail("Table name in the <mark>modifyCols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>modifyCols(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
 		$this->ensureConnection();
 		foreach ($columns as $closure_dt) {
@@ -533,10 +533,10 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function rename_cols(string $table = null, array $columns = []): object
+	public function renameCols(string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
-			$this->fail("Table name in the <mark>rename_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>rename_cols(table, <strong>value</strong>)</mark> is empty or undefined");
+			$this->fail("Table name in the <mark>renameCols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>renameCols(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
 		$this->ensureConnection();
 		foreach ($columns as $key => $closure_dt) {
@@ -552,10 +552,10 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function rename_cols_ms(string $table = null, array $columns = []): object
+	public function renameColsMs(string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
-			$this->fail("Table name in the <mark>rename_cols_ms(<strong>table</strong>, value)</mark> and \nColumns in the <mark>rename_cols_ms(table, <strong>value</strong>)</mark> is empty or undefined");
+			$this->fail("Table name in the <mark>renameColsMs(<strong>table</strong>, value)</mark> and \nColumns in the <mark>renameColsMs(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
 		$this->ensureConnection();
 		foreach ($columns as $closure_dt) {
@@ -574,10 +574,10 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function change_cols(string $table = null, array $columns = []): object
+	public function changeCols(string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
-			$this->fail("Table name in the <mark>change_cols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>change_cols(table, <strong>value</strong>)</mark> is empty or undefined");
+			$this->fail("Table name in the <mark>changeCols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>changeCols(table, <strong>value</strong>)</mark> is empty or undefined");
 		}
 		$this->ensureConnection();
 		foreach ($columns as $key => $closure_dt) {
@@ -753,7 +753,7 @@ class NSY_Migration
 	 * @param int $precision
 	 *
 	 */
-	public static function float_precision(mixed $cols = "", int $precision = 0)
+	public static function floatPrecision(mixed $cols = "", int $precision = 0)
 	{
 		self::$datatype = "$cols FLOAT($precision)";
 		return new self;
@@ -781,7 +781,7 @@ class NSY_Migration
 	 * @param int $decimal
 	 *
 	 */
-	public static function double_precision(mixed $cols = "", int $length = 10, int $decimal = 0)
+	public static function doublePrecision(mixed $cols = "", int $length = 10, int $decimal = 0)
 	{
 		self::$datatype = "$cols DOUBLE PRECISION($length, $decimal)";
 		return new self;
@@ -1010,7 +1010,7 @@ class NSY_Migration
 	/**
 	 * Define not null function
 	 */
-	public function not_null()
+	public function notNull()
 	{
 		return self::$datatype . " NOT NULL";
 	}
@@ -1026,7 +1026,7 @@ class NSY_Migration
 	/**
 	 * Define auto increment function
 	 */
-	public function auto_increment()
+	public function autoIncrement()
 	{
 		return self::$datatype . " AUTO_INCREMENT";
 	}
@@ -1046,7 +1046,7 @@ class NSY_Migration
 	 *
 	 * @param mixed $params
 	 */
-	public function on_update(mixed $params = '')
+	public function onUpdate(mixed $params = '')
 	{
 		return self::$datatype . " ON UPDATE $params";
 	}
@@ -1058,7 +1058,7 @@ class NSY_Migration
 	 * @param array $data
 	 * @return $this
 	 */
-	public function insert_record(string $table, array $data)
+	public function insertRecord(string $table, array $data)
 	{
 		if (is_filled($table) && !empty($data)) {
 			// Generate the columns and values part of the query
@@ -1087,13 +1087,13 @@ class NSY_Migration
 						self::$connection->rollback();
 					}
 					$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
-					NSY_Desk::static_error_handler($var_msg);
+					NSY_Desk::staticErrorHandler($var_msg);
 				}
 			}
 		} else {
 			// Handle case where table name or data is empty or undefined
 			$var_msg = "Table name or data is empty or undefined";
-			NSY_Desk::static_error_handler($var_msg);
+			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		}
 

@@ -23,7 +23,7 @@ if (!NSY_AliasManager::loadAliases()) {
 		}
 	} else {
 		$var_msg = 'The variable <mark>aliases</mark> key in the <strong>config/App.php</strong> is improper or not an array';
-		NSY_Desk::static_error_handler($var_msg);
+		NSY_Desk::staticErrorHandler($var_msg);
 		exit();
 	}
 }

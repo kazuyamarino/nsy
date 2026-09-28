@@ -52,7 +52,7 @@ class Controller_Docs extends Load
 		$model = new Model_Welcome();
 
 		return [
-			'welcome_text' => $model->welcome_text(),
+			'welcomeText' => $model->welcomeText(),
 			'date' => Carbon::now(),
 		];
 	}
