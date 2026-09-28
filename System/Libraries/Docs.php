@@ -206,7 +206,12 @@ class Docs
 	/**
 	 * Render a doc to HTML with its TOC.
 	 *
-	 * @return array{doc:array<string,mixed>,html:string,toc:array<int,array{level:int,text:string,id:string}>}|null
+	 * The TOC holds only the numbered sections (the parser marks level-2 headings
+	 * with a 'num'), which is what the "On this page" list displays. Filtering
+	 * happens here rather than in Markdown so the library keeps returning a
+	 * complete table of contents and the app decides how to present it.
+	 *
+	 * @return array{doc:array<string,mixed>,html:string,toc:array<int,array{level:int,text:string,id:string,num:string}>}|null
 	 */
 	public static function render(string $slug): ?array
 	{
@@ -221,11 +226,15 @@ class Docs
 		}
 
 		$parsed = Markdown::toHtmlWithToc($markdown);
+		$toc = array_values(array_filter(
+			$parsed['toc'],
+			static fn(array $heading): bool => !empty($heading['num'])
+		));
 
 		return [
 			'doc' => $doc,
 			'html' => $parsed['html'],
-			'toc' => $parsed['toc'],
+			'toc' => $toc,
 		];
 	}
 

@@ -22,7 +22,7 @@ All functions here are available as **global functions** (no namespace) after th
 
 ---
 
-## 1. Variable Checking
+## Variable Checking
 
 ```php
 not_filled($value): bool
@@ -48,7 +48,7 @@ not_filled('0');     // true
 
 ---
 
-## 2. URI & Path Helpers
+## URI & Path Helpers
 
 ```php
 base_url(string $url = ''): string
@@ -78,7 +78,7 @@ get_last_uri_segment();  // "c"
 
 ---
 
-## 3. Asset URL Helpers
+## Asset URL Helpers
 
 ```php
 nsy_resolve_asset_dir(string $key): string  // key: img_dir|js_dir|css_dir
@@ -97,7 +97,7 @@ Prefer constants `IMG_DIR|JS_DIR|CSS_DIR` (defined by `NSY_System`) when availab
 
 ---
 
-## 4. NSY System Constant Getters
+## NSY System Constant Getters
 
 Each tries `defined()/constant()` first (set by `NSY_System`), then falls back to config.
 
@@ -127,7 +127,7 @@ get_lang_code('Spanish');  // "es"   — name lookup (see Part B of README_LIBRA
 
 ---
 
-## 5. HTTP & Input Helpers
+## HTTP & Input Helpers
 
 ```php
 post(string $param): mixed
@@ -149,7 +149,7 @@ $tmp = array_items('gallery', 'tmp_name', 2);      // $_FILES['gallery']['tmp_na
 
 ---
 
-## 6. Data Conversion & JSON
+## Data Conversion & JSON
 
 ```php
 fetch_json(array $data = [], int $status = 0): string
@@ -170,7 +170,7 @@ $name = fetch_raw_json('name');  // $array['name'] ?? null
 
 ---
 
-## 7. Array & Number Utilities
+## Array & Number Utilities
 
 ```php
 array_flatten(mixed $items): array
@@ -195,7 +195,7 @@ number_format_short(999, 0);      // "999"
 
 ---
 
-## 8. String & Media Utilities
+## String & Media Utilities
 
 ```php
 string_encrypt(string $action = 'encrypt', string $string = ''): string|false
@@ -218,7 +218,7 @@ $info = string_to_base64($binary, 'png');
 
 ---
 
-## 9. Generator & Client Info
+## Generator & Client Info
 
 ```php
 generate_num(string $prefix = 'NSY-', int $id_length = 6, int $num_length = 10): string
@@ -238,7 +238,7 @@ echo $ua['platform']; // "Windows"
 
 ---
 
-## 10. Aurora Data Export
+## Aurora Data Export
 
 ```php
 aurora(string $ext, string $name, string $sep, array $header, array $data, string $s): true
@@ -260,7 +260,7 @@ Separators: `tab|comma|semicolon|space|dot|pipe`. Delimiters: `double|single`.
 
 ---
 
-## 11. Practical Examples
+## Practical Examples
 
 ```php
 // Redirect to login
@@ -283,7 +283,7 @@ $db->query("SELECT * FROM users WHERE id IN ($in)", $params);
 
 ---
 
-## 12. Security & Stability Notes
+## Security & Stability Notes
 
 - **Variable checking** now trims whitespace — `"   "` is correctly treated as empty.
 - **URI/asset helpers** are safe against missing `$_SERVER` keys (no warnings in CLI) and now deduplicate scheme/host logic.

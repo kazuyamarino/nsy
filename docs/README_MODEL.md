@@ -19,7 +19,7 @@ Query builder for NSY (`System/Core/DB.php`, `System/Core/NSY_DB.php`). Unified 
 
 ---
 
-## 1. Connections
+## Connections
 
 ```php
 // env.php
@@ -40,7 +40,7 @@ DB::connect('pgsql')->query($q)->fetch_all();       // custom
 
 ---
 
-## 2. Basic Query
+## Basic Query
 
 ```php
 $q = 'SELECT * FROM users WHERE id = :id';
@@ -52,7 +52,7 @@ DB::connect()->query($q)->vars([':id' => 2])->fetch();
 
 ---
 
-## 3. Binding
+## Binding
 
 ```php
 // Simple bind (auto)
@@ -67,7 +67,7 @@ DB::connect()->query($q)->vars($vars)->bind(BINDPAR)->fetch();
 
 ---
 
-## 4. Fetching
+## Fetching
 
 ```php
 DB::connect()->query($q)->vars()->style(FETCH_ASSOC)->fetch_all(); // all rows
@@ -80,7 +80,7 @@ DB::connect()->query($q)->row_count();          // affected rows
 
 ---
 
-## 5. Execute & Multi Insert
+## Execute & Multi Insert
 
 ```php
 // Update/delete/insert
@@ -97,7 +97,7 @@ DB::connect()->query($q)->vars($arr)->multi_insert();
 
 ---
 
-## 6. Transactions
+## Transactions
 
 ```php
 // Auto via config
@@ -117,7 +117,7 @@ DB::connect()->pdo_get_attr(PDO::ATTR_ERRMODE);
 
 ---
 
-## 7. Migrated Connection (NEW)
+## Migrated Connection (NEW)
 
 Before (duplicated):
 ```php

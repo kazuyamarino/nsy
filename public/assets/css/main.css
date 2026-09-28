@@ -21,21 +21,32 @@
 
 :root {
     /* Core logo colours */
-    --nsy-primary: #1D7BBA;        /* Biru Tua  — dominant (letterforms) */
-    --nsy-accent: #5CB4F5;         /* Biru Muda — accent (diagonal cross line) */
+    --nsy-primary: #1D7BBA;
+    /* Biru Tua  — dominant (letterforms) */
+    --nsy-accent: #5CB4F5;
+    /* Biru Muda — accent (diagonal cross line) */
 
     /* Derived shades */
-    --nsy-primary-dark: #155F92;   /* hover / pressed */
-    --nsy-primary-deep: #0F4468;   /* strong heading / ink */
-    --nsy-accent-dark: #3D9BE8;    /* accent hover */
-    --nsy-accent-soft: #EAF5FE;    /* tinted surface */
-    --nsy-accent-softer: #F4FAFF;  /* faint surface */
+    --nsy-primary-dark: #155F92;
+    /* hover / pressed */
+    --nsy-primary-deep: #0F4468;
+    /* strong heading / ink */
+    --nsy-accent-dark: #3D9BE8;
+    /* accent hover */
+    --nsy-accent-soft: #EAF5FE;
+    /* tinted surface */
+    --nsy-accent-softer: #F4FAFF;
+    /* faint surface */
 
     /* Neutrals tinted toward the logo blue */
-    --nsy-ink: #133A56;            /* headings */
-    --nsy-body: #44576B;           /* body copy */
-    --nsy-muted: #7C93A6;          /* secondary text */
-    --nsy-line: #DCE9F5;           /* hairline borders */
+    --nsy-ink: #133A56;
+    /* headings */
+    --nsy-body: #44576B;
+    /* body copy */
+    --nsy-muted: #7C93A6;
+    /* secondary text */
+    --nsy-line: #DCE9F5;
+    /* hairline borders */
 
     /* Code surfaces */
     --nsy-code-bg: #0C2B41;
@@ -59,11 +70,18 @@ html {
 
 /* Border-box everywhere: padding/border stay inside declared widths, so
    full-width shells (e.g. .nsy-page) never overflow the viewport. */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: inherit;
 }
 
-body, h1, h2, h3, h4, h5 {
+body,
+h1,
+h2,
+h3,
+h4,
+h5 {
     font-family: 'Lato', sans-serif !important;
 }
 
@@ -73,7 +91,8 @@ body, h1, h2, h3, h4, h5 {
 body {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Avoid the IE 10-11 `min-height` bug. */
+    height: 100vh;
+    /* Avoid the IE 10-11 `min-height` bug. */
     color: var(--nsy-body);
 }
 
@@ -83,12 +102,16 @@ body {
  * page (e.g. the HMVC landing) the header would soak up the free space and
  * shove the first section down, leaving a blank band under the <hr>.
  */
-.wrap, .nsy-page, .nsy-docs {
-    flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+.wrap,
+.nsy-page,
+.nsy-docs {
+    flex: 1 0 auto;
+    /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
 }
 
 footer {
-    flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+    flex-shrink: 0;
+    /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
     text-align: center;
 }
 
@@ -115,7 +138,11 @@ hr {
   Author's custom styles
   ========================================================================== */
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
     color: var(--nsy-primary-deep);
 }
 
@@ -132,7 +159,6 @@ code {
     background: var(--nsy-accent-softer);
     border: 1px solid var(--nsy-line);
     border-radius: 6px;
-    padding: 1px 6px;
 }
 
 .header a:link {
@@ -141,92 +167,381 @@ code {
 }
 
 /* Site header: NSY logo on the left, welcome copy on the right. */
-.header-inner { width: 100%; display: flex; align-items: center; gap: clamp(16px, 3vw, 44px); padding: 22px clamp(16px, 3vw, 44px) 14px; }
-.header-logo { flex: 0 0 auto; display: block; }
-.header-logo img { display: block; width: clamp(84px, 11vw, 132px); height: auto; }
-.header-copy { min-width: 0; }
-.header-copy h1 { margin: 0 0 6px; font-size: clamp(21px, 2.6vw, 34px); line-height: 1.15; }
-.header-copy h3 { margin: 0; font-size: clamp(12px, 1.2vw, 15px); font-weight: 400; }
-.header-copy code { font-size: .95em; }
+.header-inner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 3vw, 44px);
+    padding: 22px clamp(16px, 3vw, 44px) 14px;
+}
+
+.header-logo {
+    flex: 0 0 auto;
+    display: block;
+}
+
+.header-logo img {
+    display: block;
+    width: clamp(84px, 11vw, 132px);
+    height: auto;
+}
+
+.header-copy {
+    min-width: 0;
+}
+
+.header-copy h1 {
+    margin: 0 0 6px;
+    font-size: clamp(21px, 2.6vw, 34px);
+    line-height: 1.15;
+}
+
+.header-copy h3 {
+    margin: 0;
+    font-size: clamp(12px, 1.2vw, 15px);
+    font-weight: 400;
+}
+
+.header-copy code {
+    font-size: .95em;
+}
+
 @media (max-width: 560px) {
-    .header-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+    }
 }
 
 .wrap h3 {
     color: var(--nsy-primary-deep);
-} .wrap h1 {
+}
+
+.wrap h1 {
     color: var(--nsy-primary-deep);
-} .wrap a:link {
+}
+
+.wrap a:link {
     text-decoration: none;
     color: var(--nsy-primary);
 }
 
-.footer a:link, .footer h1 {
+.footer a:link,
+.footer h1 {
     text-decoration: none;
     color: var(--nsy-primary);
-} .footer .fcontent {
+}
+
+.footer .fcontent {
     padding: 2em;
 }
 
 /* Footer meta line. The dot separators live in CSS rather than as &nbsp;|&nbsp;
    in the markup, so the row wraps cleanly on narrow screens and the dots stay
    decorative (never announced by a screen reader). */
-.footer-date { margin: 0 0 6px; font-size: 12.5px; color: var(--nsy-muted); }
-.footer-links { margin: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2px 0; font-size: 12.5px; color: var(--nsy-muted); }
-.footer-links > * + *::before { content: '\00b7'; margin: 0 8px; color: var(--nsy-accent); }
-.footer-links a:hover { color: var(--nsy-accent-dark); }
-.footer-links span { color: var(--nsy-primary-deep); }
+.footer-date {
+    margin: 0 0 6px;
+    font-size: 12.5px;
+    color: var(--nsy-muted);
+}
+
+.footer-links {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2px 0;
+    font-size: 12.5px;
+    color: var(--nsy-muted);
+}
+
+.footer-links>*+*::before {
+    content: '\00b7';
+    margin: 0 8px;
+    color: var(--nsy-accent);
+}
+
+.footer-links a:hover {
+    color: var(--nsy-accent-dark);
+}
+
+.footer-links span {
+    color: var(--nsy-primary-deep);
+}
 
 /* ==========================================================================
   Documentation index — System/Apps/General/Views/Index_Welcome.php
   ========================================================================== */
 
 /* Full-width page shell with fluid gutters + breathing room above the footer. */
-.nsy-page { width: 100%; padding: 0 clamp(16px, 3vw, 44px) clamp(24px, 4vw, 48px); }
+.nsy-page {
+    width: 100%;
+    padding: 0 clamp(16px, 3vw, 44px) clamp(24px, 4vw, 48px);
+}
+
 /* Hero: search-first — badge above, Search label + large centered input. */
-.nsy-hero { width: 100%; padding: 32px 0 8px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-.nsy-badge { display: inline-block; background: var(--nsy-gradient); color: #fff; padding: 5px 14px; border-radius: 999px; font-size: 14px; letter-spacing: .08em; margin-bottom: 12px; }
-.nsy-hero-caption { font-size: 15px; font-weight: 600; color: var(--nsy-body); margin: 0 10px 0 0; white-space: nowrap; flex: 0 0 auto; }
-.nsy-hero-searchwrap { width: 100%; max-width: 560px; display: flex; align-items: center; }
-.nsy-hero-search { flex: 1; min-width: 0; padding: 14px 18px; border: 2px solid var(--nsy-line); border-radius: 12px; font-size: 16px; outline: none; color: var(--nsy-body); background: #fff; transition: border-color .15s, box-shadow .15s; }
-.nsy-hero-search:focus { border-color: var(--nsy-accent); box-shadow: 0 0 0 3px rgba(92, 180, 245, .22); }
-.nsy-actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; margin: 0; }
+.nsy-hero {
+    width: 100%;
+    padding: 32px 0 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
 
-.nsy-btn { padding: 10px 18px; border-radius: 10px; text-decoration: none; font-weight: 600; border: 1px solid var(--nsy-line); display: inline-block; color: var(--nsy-primary); transition: background .15s, border-color .15s, color .15s; }
-.nsy-btn.primary { background: var(--nsy-primary); color: #fff; border-color: var(--nsy-primary); }
-.nsy-btn.primary:hover { background: var(--nsy-primary-dark); border-color: var(--nsy-primary-dark); color: #fff; }
-.nsy-btn.ghost { background: #fff; color: var(--nsy-primary); }
-.nsy-btn.ghost:hover { border-color: var(--nsy-accent); color: var(--nsy-accent-dark); }
+.nsy-badge {
+    display: inline-block;
+    background: var(--nsy-gradient);
+    color: #fff;
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    letter-spacing: .08em;
+    margin-bottom: 12px;
+}
 
-.nsy-dochead { width: 100%; margin: 12px 0 0; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
-.nsy-dochead h2 { font-size: 18px; margin: 0; color: var(--nsy-primary-deep); }
-.nsy-dochead .nsy-hint { font-size: 12px; color: var(--nsy-muted); font-weight: 400; margin-left: 6px; }
+.nsy-hero-caption {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--nsy-body);
+    margin: 0 10px 0 0;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
 
-.nsy-cat { width: 100%; margin: 0; padding: 22px 0 0; }
-.nsy-cat > h3 { font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--nsy-primary); margin: 0 0 10px; }
-.nsy-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 16px; }
-.nsy-card { border: 1px solid var(--nsy-line); border-radius: 14px; padding: 16px; background: #fff; transition: box-shadow .15s, transform .15s, border-color .15s; display: flex; flex-direction: column; }
-.nsy-card:hover { box-shadow: var(--nsy-shadow); transform: translateY(-2px); border-color: var(--nsy-accent); }
-.nsy-card h4 { margin: 0 0 8px; font-size: 15px; }
-.nsy-card h4 a { display: flex; align-items: center; gap: 10px; color: var(--nsy-primary-deep); text-decoration: none; }
-.nsy-card h4 a:hover { color: var(--nsy-primary); }
-.nsy-ico { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 9px; background: var(--nsy-accent-soft); border: 1px solid var(--nsy-line); color: var(--nsy-primary); flex: 0 0 auto; transition: background .15s, color .15s, border-color .15s; }
-.nsy-ico svg { display: block; }
-.nsy-card:hover .nsy-ico { background: var(--nsy-primary); border-color: var(--nsy-primary); color: #fff; }
-.nsy-card code { font-size: 11.5px; color: var(--nsy-primary-deep); background: var(--nsy-accent-softer); border: 1px solid var(--nsy-line); padding: 2px 7px; border-radius: 6px; align-self: flex-start; }
-.nsy-card p { margin: 10px 0 0; font-size: 12.5px; color: var(--nsy-body); line-height: 1.5; flex: 1; }
-.nsy-card-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; font-size: 12px; color: var(--nsy-muted); }
-.nsy-card-foot .more { color: var(--nsy-primary); text-decoration: none; font-weight: 600; }
-.nsy-card-foot .more:hover { color: var(--nsy-accent-dark); }
-.nsy-card-foot .ext { color: var(--nsy-muted); text-decoration: none; font-size: 13px; }
-.nsy-card-foot .ext:hover { color: var(--nsy-primary); }
-.nsy-empty { width: 100%; margin: 24px 0; padding: 32px; text-align: center; color: var(--nsy-muted); border: 1px dashed var(--nsy-line); border-radius: 14px; display: none; }
+.nsy-hero-searchwrap {
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    align-items: center;
+}
+
+.nsy-hero-search {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 18px;
+    border: 2px solid var(--nsy-line);
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+    color: var(--nsy-body);
+    background: #fff;
+    transition: border-color .15s, box-shadow .15s;
+}
+
+.nsy-hero-search:focus {
+    border-color: var(--nsy-accent);
+    box-shadow: 0 0 0 3px rgba(92, 180, 245, .22);
+}
+
+.nsy-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin: 0;
+}
+
+.nsy-btn {
+    padding: 10px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid var(--nsy-line);
+    display: inline-block;
+    color: var(--nsy-primary);
+    transition: background .15s, border-color .15s, color .15s;
+}
+
+.nsy-btn.primary {
+    background: var(--nsy-primary);
+    color: #fff;
+    border-color: var(--nsy-primary);
+}
+
+.nsy-btn.primary:hover {
+    background: var(--nsy-primary-dark);
+    border-color: var(--nsy-primary-dark);
+    color: #fff;
+}
+
+.nsy-btn.ghost {
+    background: #fff;
+    color: var(--nsy-primary);
+}
+
+.nsy-btn.ghost:hover {
+    border-color: var(--nsy-accent);
+    color: var(--nsy-accent-dark);
+}
+
+.nsy-dochead {
+    width: 100%;
+    margin: 12px 0 0;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.nsy-dochead h2 {
+    font-size: 18px;
+    margin: 0;
+    color: var(--nsy-primary-deep);
+}
+
+.nsy-dochead .nsy-hint {
+    font-size: 12px;
+    color: var(--nsy-muted);
+    font-weight: 400;
+    margin-left: 6px;
+}
+
+.nsy-cat {
+    width: 100%;
+    margin: 0;
+    padding: 22px 0 0;
+}
+
+.nsy-cat>h3 {
+    font-size: 11.5px;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--nsy-primary);
+    margin: 0 0 10px;
+}
+
+.nsy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+    gap: 16px;
+}
+
+.nsy-card {
+    border: 1px solid var(--nsy-line);
+    border-radius: 14px;
+    padding: 16px;
+    background: #fff;
+    transition: box-shadow .15s, transform .15s, border-color .15s;
+    display: flex;
+    flex-direction: column;
+}
+
+.nsy-card:hover {
+    box-shadow: var(--nsy-shadow);
+    transform: translateY(-2px);
+    border-color: var(--nsy-accent);
+}
+
+.nsy-card h4 {
+    margin: 0 0 8px;
+    font-size: 15px;
+}
+
+.nsy-card h4 a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--nsy-primary-deep);
+    text-decoration: none;
+}
+
+.nsy-card h4 a:hover {
+    color: var(--nsy-primary);
+}
+
+.nsy-ico {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background: var(--nsy-accent-soft);
+    border: 1px solid var(--nsy-line);
+    color: var(--nsy-primary);
+    flex: 0 0 auto;
+    transition: background .15s, color .15s, border-color .15s;
+}
+
+.nsy-ico svg {
+    display: block;
+}
+
+.nsy-card:hover .nsy-ico {
+    background: var(--nsy-primary);
+    border-color: var(--nsy-primary);
+    color: #fff;
+}
+
+.nsy-card code {
+    font-size: 11.5px;
+    color: var(--nsy-primary-deep);
+    background: var(--nsy-accent-softer);
+    border: 1px solid var(--nsy-line);
+    padding: 2px 7px;
+    border-radius: 6px;
+    align-self: flex-start;
+}
+
+.nsy-card p {
+    margin: 10px 0 0;
+    font-size: 12.5px;
+    color: var(--nsy-body);
+    line-height: 1.5;
+    flex: 1;
+}
+
+.nsy-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--nsy-muted);
+}
+
+.nsy-card-foot .more {
+    color: var(--nsy-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.nsy-card-foot .more:hover {
+    color: var(--nsy-accent-dark);
+}
+
+.nsy-card-foot .ext {
+    color: var(--nsy-muted);
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.nsy-card-foot .ext:hover {
+    color: var(--nsy-primary);
+}
+
+.nsy-empty {
+    width: 100%;
+    margin: 24px 0;
+    padding: 32px;
+    text-align: center;
+    color: var(--nsy-muted);
+    border: 1px dashed var(--nsy-line);
+    border-radius: 14px;
+    display: none;
+}
 
 /* Callout prompt anchored to the Releases button. */
 .nsy-callout {
-    position: fixed; z-index: 9999;
+    position: fixed;
+    z-index: 9999;
     display: inline-block;
-    left: 0; top: 0;
+    left: 0;
+    top: 0;
     transform: translateY(6px) scale(.96);
     opacity: 0;
     background: var(--nsy-primary);
@@ -240,10 +555,12 @@ code {
     pointer-events: none;
     transition: opacity .22s, transform .22s;
 }
+
 .nsy-callout.show {
     transform: translateY(0) scale(1);
     opacity: 1;
 }
+
 .nsy-callout::after {
     content: '';
     position: absolute;
@@ -252,94 +569,504 @@ code {
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
 }
-.nsy-callout[data-placement="top"]::after  { bottom: -6px; border-top: 6px solid var(--nsy-primary); }
-.nsy-callout[data-placement="bottom"]::after { top: -6px; border-top: none; border-bottom: 6px solid var(--nsy-primary); }
+
+.nsy-callout[data-placement="top"]::after {
+    bottom: -6px;
+    border-top: 6px solid var(--nsy-primary);
+}
+
+.nsy-callout[data-placement="bottom"]::after {
+    top: -6px;
+    border-top: none;
+    border-bottom: 6px solid var(--nsy-primary);
+}
+
 @media (max-width: 480px) {
-    .nsy-callout { padding: 7px 12px; font-size: 12px; border-radius: 9px; }
+    .nsy-callout {
+        padding: 7px 12px;
+        font-size: 12px;
+        border-radius: 9px;
+    }
 }
 
 /* ==========================================================================
   Documentation viewer — System/Apps/General/Views/Index_Docs.php
   ========================================================================== */
 
-.nsy-docs { max-width: 1120px; margin: 0 auto; padding: 8px 16px 48px; display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 26px; align-items: start; }
-.nsy-docs-side { position: sticky; top: 16px; align-self: start; max-height: calc(100vh - 32px); overflow: auto; border: 1px solid var(--nsy-line); border-radius: 14px; padding: 14px; background: #fff; }
-.nsy-docs-home { display: block; font-size: 12px; font-weight: 600; color: var(--nsy-primary); text-decoration: none; margin-bottom: 12px; }
-.nsy-docs-home:hover { color: var(--nsy-accent-dark); }
-.nsy-docs-group { margin-bottom: 14px; }
-.nsy-docs-group-title { display: block; font-size: 10.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--nsy-muted); font-weight: 700; margin-bottom: 6px; }
-.nsy-docs-link { display: flex; align-items: center; gap: 9px; padding: 6px 9px; border-radius: 8px; font-size: 13px; color: var(--nsy-body); text-decoration: none; transition: background .15s, color .15s; }
-.nsy-docs-ico { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; color: inherit; opacity: .6; flex: 0 0 auto; }
-.nsy-docs-ico svg { display: block; }
-.nsy-docs-link:hover .nsy-docs-ico, .nsy-docs-link.active .nsy-docs-ico { opacity: 1; }
-.nsy-docs-link:hover { background: var(--nsy-accent-soft); color: var(--nsy-primary-deep); }
-.nsy-docs-link.active { background: var(--nsy-primary); color: #fff; }
+/* The viewer reuses the .nsy-page shell for its gutters, so the sidebar edge
+   lines up with the documentation index and the HMVC page. The grid itself is
+   capped so the reading column keeps a comfortable measure (~900px) instead of
+   stretching edge-to-edge on wide screens. */
+.nsy-docs {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 26px;
+    align-items: start;
+}
 
-.nsy-docs-toc { border-top: 1px solid var(--nsy-line); padding-top: 12px; margin-top: 4px; }
-.nsy-docs-toc-link { display: block; padding: 3px 9px; font-size: 12px; color: var(--nsy-muted); text-decoration: none; border-left: 2px solid transparent; }
-.nsy-docs-toc-link:hover { color: var(--nsy-primary); border-left-color: var(--nsy-accent); }
-.nsy-lvl-1 { padding-left: 9px; font-weight: 600; }
-.nsy-lvl-2 { padding-left: 9px; font-weight: 600; }
-.nsy-lvl-3 { padding-left: 22px; }
-.nsy-lvl-4 { padding-left: 34px; }
-.nsy-lvl-5 { padding-left: 46px; }
-.nsy-lvl-6 { padding-left: 58px; }
+.nsy-docs-side {
+    position: sticky;
+    top: 16px;
+    align-self: start;
+    max-height: calc(100vh - 32px);
+    overflow: auto;
+    border: 1px solid var(--nsy-line);
+    border-radius: 14px;
+    padding: 14px;
+    background: #fff;
+}
 
-.nsy-docs-main { min-width: 0; }
-.nsy-docs-crumbs { font-size: 12px; color: var(--nsy-muted); margin-bottom: 10px; }
-.nsy-docs-crumbs a { color: var(--nsy-primary); text-decoration: none; }
-.nsy-docs-crumbs a:hover { color: var(--nsy-accent-dark); }
-.nsy-docs-pager { display: flex; gap: 12px; justify-content: space-between; margin-top: 32px; border-top: 1px solid var(--nsy-line); padding-top: 16px; }
-.nsy-pager { display: flex; flex-direction: column; gap: 2px; text-decoration: none; border: 1px solid var(--nsy-line); border-radius: 12px; padding: 10px 14px; min-width: 150px; color: var(--nsy-primary-deep); transition: box-shadow .15s, border-color .15s; }
-.nsy-pager:hover { box-shadow: var(--nsy-shadow); border-color: var(--nsy-accent); }
-.nsy-pager span { font-size: 11px; color: var(--nsy-muted); }
-.nsy-pager strong { font-size: 13px; }
-.nsy-pager.next { text-align: right; margin-left: auto; }
+.nsy-docs-home {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--nsy-primary);
+    text-decoration: none;
+    margin-bottom: 12px;
+}
 
-.nsy-docs-missing { text-align: center; border: 1px dashed var(--nsy-line); border-radius: 16px; padding: 48px 20px; color: var(--nsy-body); }
-.nsy-docs-missing h2 { color: var(--nsy-primary-deep); margin: 0 0 6px; }
-.nsy-docs-btn { display: inline-block; margin-top: 14px; padding: 10px 18px; border-radius: 10px; background: var(--nsy-primary); color: #fff; text-decoration: none; font-weight: 600; }
-.nsy-docs-btn:hover { background: var(--nsy-primary-dark); color: #fff; }
+.nsy-docs-home:hover {
+    color: var(--nsy-accent-dark);
+}
+
+.nsy-docs-group {
+    margin-bottom: 14px;
+}
+
+.nsy-docs-group-title {
+    display: block;
+    font-size: 10.5px;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--nsy-muted);
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.nsy-docs-link {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 6px 9px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--nsy-body);
+    text-decoration: none;
+    transition: background .15s, color .15s;
+}
+
+.nsy-docs-ico {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    color: inherit;
+    opacity: .6;
+    flex: 0 0 auto;
+}
+
+.nsy-docs-ico svg {
+    display: block;
+}
+
+.nsy-docs-link:hover .nsy-docs-ico,
+.nsy-docs-link.active .nsy-docs-ico {
+    opacity: 1;
+}
+
+.nsy-docs-link:hover {
+    background: var(--nsy-accent-soft);
+    color: var(--nsy-primary-deep);
+}
+
+.nsy-docs-link.active {
+    background: var(--nsy-primary);
+    color: #fff;
+}
+
+.nsy-docs-toc {
+    border-top: 1px solid var(--nsy-line);
+    padding-top: 12px;
+    margin-top: 4px;
+}
+
+.nsy-docs-toc-link {
+    display: block;
+    padding: 3px 9px;
+    font-size: 12px;
+    color: var(--nsy-muted);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    /* One entry, one line — always.
+       A long heading ellipsizes rather than wrapping, so the list keeps an even
+       rhythm and the reader can scan it quickly. The sidebar is a fixed 250px
+       column, so "nowrap" on its own would push the text out of the panel; the
+       full heading is kept in the link's title attribute for hover. */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nsy-docs-toc-link:hover {
+    color: var(--nsy-primary);
+    border-left-color: var(--nsy-accent);
+}
+
+/* "On this page" scroll spy. Placed after :hover on purpose — same specificity,
+   so the marker survives the pointer passing over it. Deliberately lighter than
+   .nsy-docs-link.active (solid blue) so the two never read as the same thing. */
+.nsy-docs-toc-link.active {
+    background: var(--nsy-accent-soft);
+    color: var(--nsy-primary-deep);
+    border-left-color: var(--nsy-primary);
+    font-weight: 600;
+}
+
+/* "On this page" list.
+ *
+ * Only the numbered sections appear here: System\Libraries\Markdown marks every
+ * level-2 heading with a 'num' and System\Libraries\Docs keeps just those, so
+ * group titles (h1) and subsections (h3+) never reach the template. One flat
+ * list means no level classes and no indent scale to maintain.
+ */
+/* Number prefix. Left-aligned with a min-width so the entry text forms a
+   column: "1." and "10." both leave the label starting at the same offset. */
+.nsy-toc-no {
+    display: inline-block;
+    min-width: 1.6em;
+    color: var(--nsy-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.nsy-docs-toc-link.active .nsy-toc-no {
+    color: var(--nsy-primary);
+}
+
+.nsy-docs-main {
+    min-width: 0;
+}
+
+/* Page head: same .nsy-badge treatment as the index and the HMVC page, kept
+   slim so it does not eat the reader's vertical space. */
+.nsy-docs-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--nsy-line);
+}
+
+.nsy-docs-head .nsy-badge {
+    margin-bottom: 0;
+}
+
+.nsy-docs-head .nsy-docs-crumbs {
+    margin-bottom: 0;
+}
+
+/* Metadata line mirrors the documentation card foot: api pill, category, size. */
+.nsy-docs-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--nsy-muted);
+}
+
+.nsy-docs-meta code {
+    font-size: 11.5px;
+    color: var(--nsy-primary-deep);
+    background: var(--nsy-accent-softer);
+    border: 1px solid var(--nsy-line);
+    padding: 2px 7px;
+    border-radius: 6px;
+}
+
+.nsy-docs-meta a.ext {
+    color: var(--nsy-muted);
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.nsy-docs-meta a.ext:hover {
+    color: var(--nsy-primary);
+}
+
+.nsy-docs-crumbs {
+    font-size: 12px;
+    color: var(--nsy-muted);
+    margin-bottom: 10px;
+}
+
+.nsy-docs-crumbs a {
+    color: var(--nsy-primary);
+    text-decoration: none;
+}
+
+.nsy-docs-crumbs a:hover {
+    color: var(--nsy-accent-dark);
+}
+
+.nsy-docs-pager {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    margin-top: 32px;
+    border-top: 1px solid var(--nsy-line);
+    padding-top: 16px;
+}
+
+.nsy-pager {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-decoration: none;
+    border: 1px solid var(--nsy-line);
+    border-radius: 12px;
+    padding: 10px 14px;
+    min-width: 150px;
+    color: var(--nsy-primary-deep);
+    transition: box-shadow .15s, border-color .15s;
+}
+
+.nsy-pager:hover {
+    box-shadow: var(--nsy-shadow);
+    border-color: var(--nsy-accent);
+}
+
+.nsy-pager span {
+    font-size: 11px;
+    color: var(--nsy-muted);
+}
+
+.nsy-pager strong {
+    font-size: 13px;
+}
+
+.nsy-pager.next {
+    text-align: right;
+    margin-left: auto;
+}
+
+.nsy-docs-missing {
+    text-align: center;
+    border: 1px dashed var(--nsy-line);
+    border-radius: 16px;
+    padding: 48px 20px;
+    color: var(--nsy-body);
+}
+
+.nsy-docs-missing h2 {
+    color: var(--nsy-primary-deep);
+    margin: 0 0 6px;
+}
+
+.nsy-docs-missing .nsy-btn {
+    margin-top: 14px;
+}
 
 /* Rendered Markdown (output of System\Libraries\Markdown) */
-.md { font-size: 15px; line-height: 1.68; color: var(--nsy-body); overflow-wrap: anywhere; }
-.md h1, .md h2, .md h3, .md h4, .md h5, .md h6 { color: var(--nsy-primary-deep); line-height: 1.3; margin: 1.6em 0 .6em; scroll-margin-top: 16px; }
-.md h1 { font-size: 26px; border-bottom: 2px solid var(--nsy-accent); padding-bottom: .3em; margin-top: .2em; }
-.md h2 { font-size: 21px; border-bottom: 1px solid var(--nsy-line); padding-bottom: .25em; }
-.md h3 { font-size: 17px; }
-.md h4 { font-size: 15px; }
-.md p { margin: .7em 0; }
-.md a { color: var(--nsy-primary); text-decoration: none; }
-.md a:hover { text-decoration: underline; color: var(--nsy-accent-dark); }
-.md strong { color: var(--nsy-primary-deep); }
-.md ul, .md ol { margin: .6em 0; padding-left: 1.6em; }
-.md li { margin: .28em 0; }
-.md li > ul, .md li > ol { margin: .2em 0; }
-.md blockquote { margin: 1em 0; padding: .2em 1em; border-left: 4px solid var(--nsy-accent); background: var(--nsy-accent-softer); border-radius: 0 10px 10px 0; color: var(--nsy-body); }
-.md hr { border: none; height: 2px; background: var(--nsy-gradient); margin: 1.6em 0; }
-.md code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9em; }
-.md :not(pre) > code { background: var(--nsy-accent-soft); color: var(--nsy-primary-deep); padding: 1px 6px; border-radius: 6px; border: 1px solid var(--nsy-line); }
-.md pre.md-pre { background: var(--nsy-code-bg); color: var(--nsy-code-fg); padding: 14px 16px; border-radius: 12px; overflow: auto; font-size: 12.5px; line-height: 1.55; margin: 1em 0; }
-.md pre.md-pre code { background: none; border: none; color: inherit; font-size: 12.5px; }
-.md-table-wrap { overflow: auto; margin: 1em 0; border: 1px solid var(--nsy-line); border-radius: 12px; }
-.md table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 0; }
-.md th, .md td { border-bottom: 1px solid var(--nsy-line); border-right: 1px solid var(--nsy-line); padding: 8px 12px; text-align: left; vertical-align: top; }
-.md th { background: var(--nsy-accent-softer); color: var(--nsy-primary-deep); font-weight: 700; }
-.md tr:last-child td { border-bottom: none; }
-.md img { max-width: 100%; border-radius: 8px; }
-.md mark { background: #fef08a; padding: 0 3px; border-radius: 3px; }
-.md del { color: var(--nsy-muted); }
+.md {
+    font-size: 15px;
+    line-height: 1.68;
+    color: var(--nsy-body);
+    overflow-wrap: anywhere;
+}
+
+.md h1,
+.md h2,
+.md h3,
+.md h4,
+.md h5,
+.md h6 {
+    color: var(--nsy-primary-deep);
+    line-height: 1.3;
+    margin: 1.6em 0 .6em;
+    scroll-margin-top: 16px;
+}
+
+.md h1 {
+    font-size: 26px;
+    border-bottom: 2px solid var(--nsy-accent);
+    padding-bottom: .3em;
+    margin-top: .2em;
+}
+
+.md h2 {
+    font-size: 21px;
+    border-bottom: 1px solid var(--nsy-line);
+    padding-bottom: .25em;
+}
+
+.md h3 {
+    font-size: 17px;
+}
+
+.md h4 {
+    font-size: 15px;
+}
+
+.md p {
+    margin: .7em 0;
+}
+
+.md a {
+    color: var(--nsy-primary);
+    text-decoration: none;
+}
+
+.md a:hover {
+    text-decoration: underline;
+    color: var(--nsy-accent-dark);
+}
+
+.md strong {
+    color: var(--nsy-primary-deep);
+}
+
+.md ul,
+.md ol {
+    margin: .6em 0;
+    padding-left: 1.6em;
+}
+
+.md li {
+    margin: .28em 0;
+}
+
+.md li>ul,
+.md li>ol {
+    margin: .2em 0;
+}
+
+.md blockquote {
+    margin: 1em 0;
+    padding: .2em 1em;
+    border-left: 4px solid var(--nsy-accent);
+    background: var(--nsy-accent-softer);
+    border-radius: 0 10px 10px 0;
+    color: var(--nsy-body);
+}
+
+.md hr {
+    border: none;
+    height: 2px;
+    background: var(--nsy-gradient);
+    margin: 1.6em 0;
+}
+
+.md code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .9em;
+}
+
+.md :not(pre)>code {
+    background: var(--nsy-accent-soft);
+    color: var(--nsy-primary-deep);
+    padding: 1px 6px;
+    border-radius: 6px;
+    border: 1px solid var(--nsy-line);
+}
+
+.md pre.md-pre {
+    background: var(--nsy-code-bg);
+    color: var(--nsy-code-fg);
+    padding: 14px 16px;
+    border-radius: 12px;
+    overflow: auto;
+    font-size: 12.5px;
+    line-height: 1.55;
+    margin: 1em 0;
+}
+
+.md pre.md-pre code {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 12.5px;
+}
+
+.md-table-wrap {
+    overflow: auto;
+    margin: 1em 0;
+    border: 1px solid var(--nsy-line);
+    border-radius: 12px;
+}
+
+.md table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    margin: 0;
+}
+
+.md th,
+.md td {
+    border-bottom: 1px solid var(--nsy-line);
+    border-right: 1px solid var(--nsy-line);
+    padding: 8px 12px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.md th {
+    background: var(--nsy-accent-softer);
+    color: var(--nsy-primary-deep);
+    font-weight: 700;
+}
+
+.md tr:last-child td {
+    border-bottom: none;
+}
+
+.md img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.md mark {
+    background: #fef08a;
+    padding: 0 3px;
+    border-radius: 3px;
+}
+
+.md del {
+    color: var(--nsy-muted);
+}
 
 @media (max-width: 860px) {
-    .nsy-docs { grid-template-columns: 1fr; gap: 16px; }
-    .nsy-docs-side { position: static; max-height: none; }
+    .nsy-docs {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .nsy-docs-side {
+        position: static;
+        max-height: none;
+    }
 }
 
 /* Keep the prev/next pager from forcing a horizontal scroll on tiny screens. */
 @media (max-width: 560px) {
-    .nsy-docs-pager { flex-direction: column; }
-    .nsy-pager { min-width: 0; }
-    .nsy-pager.next { text-align: left; margin-left: 0; }
+    .nsy-docs-pager {
+        flex-direction: column;
+    }
+
+    .nsy-pager {
+        min-width: 0;
+    }
+
+    .nsy-pager.next {
+        text-align: left;
+        margin-left: 0;
+    }
 }
 
 /* ==========================================================================
@@ -349,17 +1076,53 @@ code {
 /* The HMVC page reuses the documentation-index theme verbatim: same full-width
    .nsy-page shell, same .nsy-hero badge, same .nsy-btn actions, same
    .nsy-card grid. Only these two pieces are page-specific. */
-.nsy-hero-title { font-size: clamp(22px, 2.8vw, 30px); font-weight: 800; margin: 0 0 6px; color: var(--nsy-primary-deep); }
-.nsy-hero-lead { color: var(--nsy-body); margin: 0; max-width: 760px; font-size: 14px; line-height: 1.6; }
+.nsy-hero-title {
+    font-size: clamp(22px, 2.8vw, 30px);
+    font-weight: 800;
+    margin: 0 0 6px;
+    color: var(--nsy-primary-deep);
+}
+
+.nsy-hero-lead {
+    color: var(--nsy-body);
+    margin: 0;
+    max-width: 760px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
 /* Page-level CTAs sit in the hero on pages without a docs index below them. */
-.nsy-hero-actions { justify-content: center; margin-top: 18px; }
+.nsy-hero-actions {
+    justify-content: center;
+    margin-top: 18px;
+}
 
 /* Explainer callout below the hero. */
-.nsy-note { width: 100%; margin: 18px 0 0; padding: 14px 16px; background: var(--nsy-accent-softer); border: 1px solid var(--nsy-line); border-left: 3px solid var(--nsy-accent); border-radius: 12px; color: var(--nsy-body); font-size: 13px; line-height: 1.6; }
-.nsy-note strong { color: var(--nsy-primary-deep); }
+.nsy-note {
+    width: 100%;
+    margin: 18px 0 0;
+    padding: 14px 16px;
+    background: var(--nsy-accent-softer);
+    border: 1px solid var(--nsy-line);
+    border-left: 3px solid var(--nsy-accent);
+    border-radius: 12px;
+    color: var(--nsy-body);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.nsy-note strong {
+    color: var(--nsy-primary-deep);
+}
 
 /* Long file paths / signatures in inline code must wrap, or they widen the page. */
-.nsy-hero code, .nsy-note code { overflow-wrap: anywhere; word-break: break-word; }
+.nsy-hero code,
+.nsy-note code {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
 
 /* Cards that carry no category heading sit a little tighter to the top. */
-.nsy-cat > .nsy-grid { padding-top: 0; }
+.nsy-cat>.nsy-grid {
+    padding-top: 0;
+}

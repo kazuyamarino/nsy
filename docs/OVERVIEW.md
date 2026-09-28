@@ -1,7 +1,5 @@
 # Overview
 
----
-
 ## Composer
 
 Composer helps you declare, manage, and install dependencies of PHP projects.
@@ -22,7 +20,7 @@ Find packages on [Packagist](https://packagist.org).
 >
 > The composer on the nsy framework has a function to generate autoload in the HMVC module folder.
 >
->NSY applies the concept of PSR-4 Autoloading. NSY has the `composer.json` file that can be dumped with [composer](https://getcomposer.org/download/) command `composer dump-autoload -o` or [NSY CLI](https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#nsy-cli-command-line) command `nsy dump:autoload` when creating a folder structure that contains new class files.
+>NSY applies the concept of PSR-4 Autoloading. NSY has the `composer.json` file that can be dumped with [composer](https://getcomposer.org/download/) command `composer dump-autoload -o` or [NSY CLI](#nsy-cli-command-line-interface) command `nsy dump:autoload` when creating a folder structure that contains new class files.
 >
 
 **For example :**
@@ -44,7 +42,7 @@ Find packages on [Packagist](https://packagist.org).
 >    │           
 >```
 >
-> * Now, you can generate autoload class in the `Models` folder & `Controllers` folder for the `HMVC` with `composer dump-autoload -o` or [NSY CLI](https://github.com/kazuyamarino/nsy-docs/blob/master/USERGUIDE.md#nsy-cli-command-line) command `nsy dump:autoload` on the command line terminal.
+> * Now, you can generate autoload class in the `Models` folder & `Controllers` folder for the `HMVC` with `composer dump-autoload -o` or [NSY CLI](#nsy-cli-command-line-interface) command `nsy dump:autoload` on the command line terminal.
 
 ---
 
@@ -688,4 +686,4 @@ nsy --install
 
 The code is available under the [MIT license](https://github.com/kazuyamarino/nsy/blob/master/LICENSE.txt).
 
-NSY Framework 2019 - 2023.
+NSY Framework 2019 - 2026.

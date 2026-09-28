@@ -25,7 +25,7 @@ Fluent, powerful query builder for NSY (`System/Core/NSY_QueryBuilder.php`). One
 
 ---
 
-## 1. Quick Start
+## Quick Start
 
 ```php
 use System\Core\NSY_QueryBuilder;
@@ -41,7 +41,7 @@ $users = qb('users', null, 'secondary')->where('id', 1)->first();
 
 ---
 
-## 2. Selecting
+## Selecting
 
 ```php
 qb('users')->select('*')->get();
@@ -53,7 +53,7 @@ qb('users')->distinct()->select(['country'])->get();
 
 ---
 
-## 3. Filtering — where
+## Filtering — where
 
 ```php
 qb('users')->where('id', '=', 1)->get();
@@ -66,7 +66,7 @@ qb('users')->where('active', 1)->orWhere('role', 'admin')->get();
 
 ---
 
-## 4. Filtering — whereIn / Null / Between / Like
+## Filtering — whereIn / Null / Between / Like
 
 ```php
 qb('users')->whereIn('id', [1,2,3])->get();
@@ -83,7 +83,7 @@ qb('users')->whereNotLike('name', '%test%')->get();
 
 ---
 
-## 5. Joins
+## Joins
 
 ```php
 qb('users')->join('posts', 'posts.user_id', '=', 'users.id')->get();
@@ -95,7 +95,7 @@ qb('users')->join('posts', 'posts.user_id', '=', 'users.id', 'INNER', 'p')->get(
 
 ---
 
-## 6. Ordering, Grouping, Having, Limit
+## Ordering, Grouping, Having, Limit
 
 ```php
 qb('users')->orderBy('name', 'DESC')->get();
@@ -107,7 +107,7 @@ qb('users')->offset(20)->limit(10)->get();
 
 ---
 
-## 7. Fetching — get / first / pluck / value / exists
+## Fetching — get / first / pluck / value / exists
 
 ```php
 qb('users')->where('active',1)->get();          // array of rows
@@ -119,7 +119,7 @@ qb('users')->where('email','a@b.com')->exists(); // bool
 
 ---
 
-## 8. Aggregates — count / sum / avg / min / max
+## Aggregates — count / sum / avg / min / max
 
 ```php
 qb('users')->count(); // SELECT COUNT(*) 
@@ -133,7 +133,7 @@ qb('users')->min('age');
 
 ---
 
-## 9. Pagination
+## Pagination
 
 ```php
 $page = qb('users')->where('active',1)->paginate(15, 1);
@@ -148,7 +148,7 @@ echo "Page {$page['current_page']} of {$page['last_page']}";
 
 ---
 
-## 10. Mutations — insert / insertBatch / update / delete / increment
+## Mutations — insert / insertBatch / update / delete / increment
 
 ```php
 // Insert
@@ -176,7 +176,7 @@ qb('users')->where('id', 1)->decrement('credits', 10);
 
 ---
 
-## 11. Conditional — when()
+## Conditional — when()
 
 ```php
 $search = $_GET['q'] ?? null;
@@ -190,7 +190,7 @@ qb('users')
 
 ---
 
-## 12. Raw & Debug
+## Raw & Debug
 
 ```php
 qb('users')->raw("SELECT * FROM users WHERE id = ?", [1]);
@@ -203,7 +203,7 @@ qb('users')->where('id',1)->dd(); // var_dump sql + bindings + exit
 
 ---
 
-## 13. Complete Examples — Minimal Lines
+## Complete Examples — Minimal Lines
 
 ```php
 // 1 line: active users with posts, paginated

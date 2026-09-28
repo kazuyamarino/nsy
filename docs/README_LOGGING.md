@@ -11,7 +11,7 @@ nothing.
 
 ---
 
-## 1. Quick start
+## Quick start
 
 In `env.php`:
 
@@ -29,7 +29,7 @@ cat    System/Storage/logs/nsy-$(date +%F).log | jq .
 
 ---
 
-## 2. Channels
+## Channels
 
 Each event carries a `channel`; route/safety policy is per channel.
 
@@ -45,7 +45,7 @@ Each event carries a `channel`; route/safety policy is per channel.
 
 ---
 
-## 3. Usage (PSR-3)
+## Usage (PSR-3)
 
 ```php
 use System\Libraries\Log\LogManager;
@@ -83,7 +83,7 @@ Queries above the threshold are logged to `db` with the SQL **normalised**
 
 ---
 
-## 4. Configuration reference (`env.php`)
+## Configuration reference (`env.php`)
 
 | Key                   | Default                        | Meaning                                                        |
 | --------------------- | ------------------------------ | -------------------------------------------------------------- |
@@ -106,7 +106,7 @@ The active values live in `System/Config/App.php` under the `log` key;
 
 ---
 
-## 5. File layout, rotation & retention
+## File layout, rotation & retention
 
 ```
 System/Storage/logs/
@@ -141,7 +141,7 @@ lines can be correlated.
 
 ---
 
-## 6. Security & deployment
+## Security & deployment
 
 Logs must never be reachable over HTTP. NSY writes them under `System/`, which
 is **outside** the document root only when the web root points at `public/`.
@@ -166,7 +166,7 @@ the host allows it.
 
 ---
 
-## 7. Testing & verification
+## Testing & verification
 
 ```bash
 # every page should return 200/404 as expected
@@ -181,7 +181,7 @@ rg -i 'password|passwd|secret|token|authorization' System/Storage/logs/ || echo 
 
 ---
 
-## 8. Notes
+## Notes
 
 - Logging never throws: every write path is wrapped so a broken disk or bad
   permission cannot break a request.

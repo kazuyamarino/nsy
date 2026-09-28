@@ -58,7 +58,7 @@ instantiation is needed.
 
 ---
 
-## 1. Getting Started
+## Getting Started
 
 Import the class, then call any method statically:
 
@@ -76,7 +76,7 @@ if (File::exists('/var/www/html/storage/report.pdf')) {
 
 ---
 
-## 2. Checking Existence — `exists()`
+## Checking Existence — `exists()`
 
 Works with local paths **and** URLs.
 
@@ -94,7 +94,7 @@ Signature: `exists(string $file): bool`
 
 ---
 
-## 3. Writing Files — `writeFile()`
+## Writing Files — `writeFile()`
 
 Creates the file if missing, overwrites otherwise. Uses an exclusive lock
 (`LOCK_EX`), so concurrent writes are safe.
@@ -117,7 +117,7 @@ Signature: `writeFile(string $path, string $data, string $mode = 'wb'): bool`
 
 ---
 
-## 4. Deleting a File — `delete()`
+## Deleting a File — `delete()`
 
 Returns `false` when the file does not exist (nothing to delete).
 
@@ -133,7 +133,7 @@ Signature: `delete(string $file): bool`
 
 ---
 
-## 5. Creating Directories — `createDir()`
+## Creating Directories — `createDir()`
 
 Creates nested directories recursively (`mkdir(..., 0777, true)`).
 
@@ -149,7 +149,7 @@ Signature: `createDir(string $path): bool`
 
 ---
 
-## 6. Copying a Directory Tree — `copyDirRecursively()`
+## Copying a Directory Tree — `copyDirRecursively()`
 
 Copies all files **including subdirectories** from one place to another.
 
@@ -168,7 +168,7 @@ Signature: `copyDirRecursively(string $from, string $to): bool`
 
 ---
 
-## 7. Deleting Directories
+## Deleting Directories
 
 Two methods, pick the right one:
 
@@ -192,7 +192,7 @@ File::deleteDirRecursively(string $path): bool
 
 ---
 
-## 8. Iterating a Directory — `getFilesFromDir()`
+## Iterating a Directory — `getFilesFromDir()`
 
 Returns a `\DirectoryIterator` for manual loops, or `false` if the path is
 not a directory.
@@ -214,7 +214,7 @@ Signature: `getFilesFromDir(string $path): object|false`
 
 ---
 
-## 9. Listing Filenames Recursively — `getFilenames()`
+## Listing Filenames Recursively — `getFilenames()`
 
 Returns a flat array of every filename under a directory (subfolders
 included, dot-files skipped).
@@ -236,7 +236,7 @@ Signature: `getFilenames(string $source_dir, bool $include_path = false, bool $_
 
 ---
 
-## 10. Directory Report — `getDirFileInfo()`
+## Directory Report — `getDirFileInfo()`
 
 Like `getFilenames()`, but each entry carries size, date and permissions info.
 
@@ -260,7 +260,7 @@ Signature: `getDirFileInfo(string $source_dir, bool $top_level_only = true, bool
 
 ---
 
-## 11. Single File Report — `getFileInfo()`
+## Single File Report — `getFileInfo()`
 
 Returns name, path, size and modification date by default; ask for more with
 the second parameter (array or comma-separated string).
@@ -283,7 +283,7 @@ Signature: `getFileInfo(string $file, mixed $returned_values = [...]): array|fal
 
 ---
 
-## 12. MIME Type by Extension — `getMimeByExtension()`
+## MIME Type by Extension — `getMimeByExtension()`
 
 Looks up `System/Config/Mimes.php`. Matching is case-insensitive; when an
 extension maps to several types, the first one is returned.
@@ -311,7 +311,7 @@ File::getMimes(): array
 
 ---
 
-## 13. Complete Example — Simple Upload Handler Sketch
+## Complete Example — Simple Upload Handler Sketch
 
 ```php
 use System\Libraries\File;
@@ -370,7 +370,7 @@ A practical guide to the language-code library at
 217-entry dataset in `System/Libraries/LanguageCodeCollection.php`. All
 methods are **static**.
 
-## 1. Getting Started with LanguageCode
+## Getting Started with LanguageCode
 
 ```php
 use System\Libraries\LanguageCode;
@@ -381,7 +381,7 @@ echo LanguageCode::getLanguageFromCode('es'); // "Spanish"
 > PSR-4 autoloaded (`System\` → `System/`), usable anywhere after
 > `System/Vendor/autoload.php` is loaded.
 
-## 2. List Every Language — `get()`
+## List Every Language — `get()`
 
 Returns the full `code => name` map (217 entries).
 
@@ -401,7 +401,7 @@ foreach ($languages as $code => $name) {
 
 Signature: `get(): array`
 
-## 3. Name from Code — `getLanguageFromCode()`
+## Name from Code — `getLanguageFromCode()`
 
 Lookup is **case-insensitive** and trims surrounding whitespace, so user
 input can be passed directly. Regional variants (`'en-gb'`, `'ar-eg'`, …)
@@ -424,7 +424,7 @@ echo "Selected language: $name";
 
 Signature: `getLanguageFromCode(string $languageCode): string|false`
 
-## 4. Code from Name — `getCodeFromLanguage()`
+## Code from Name — `getCodeFromLanguage()`
 
 Reverse lookup, also **case-insensitive**. Exact-case matches take a fast
 path; anything else falls back to a case-insensitive scan. Returns `false`
@@ -439,7 +439,7 @@ LanguageCode::getCodeFromLanguage('Klingon'); // false
 
 Signature: `getCodeFromLanguage(string $languageName): string|false`
 
-## 5. Application Helpers
+## Application Helpers
 
 `get_lang_code()` (dual-mode, defined in `System/Core/NSY_Helpers_Global.php`) wraps the library:
 
@@ -453,7 +453,7 @@ get_lang_code('Klingon');   // false — unknown name
 
 > **Note:** Former shortcuts `get_all_lang()` / `get_lang_name()` from `NSY_Helpers_Language.php` have been removed (Option 2). Use `LanguageCode::get()` / `LanguageCode::getLanguageFromCode()` directly.
 
-## 6. Complete Example — Language Dropdown
+## Complete Example — Language Dropdown
 
 ```php
 use System\Libraries\LanguageCode;
@@ -495,7 +495,7 @@ A practical guide to the stopwatch library at
 timers (`"Page generated in 0.0423 seconds"`) or quick profiling. All
 methods are **static**.
 
-## 1. Measuring Execution Time
+## Measuring Execution Time
 
 Start the timer, run your code, then read the elapsed seconds:
 
@@ -535,7 +535,7 @@ LoadTime::end(): float|false
 LoadTime::isActive(): bool
 ```
 
-## 2. Usage
+## Usage
 
 ```php
 use System\Libraries\LoadTime;
@@ -567,7 +567,7 @@ A practical guide to the HTTP-input library at
 `Request`). It answers "which method is this?", reads GET/POST/PUT/DELETE
 input, and sanitizes values through the Validate library (Part E).
 
-## 1. Which Method Is This?
+## Which Method Is This?
 
 ```php
 use System\Libraries\Request;
@@ -585,7 +585,7 @@ Signatures: `Request::isGet(): bool` (same shape for `isPost/isPut/isDelete`)
 
 > The checks read `$_SERVER['REQUEST_METHOD']` and safely return `false` when it is missing (e.g. CLI).
 
-## 2. Reading Input — `input()`
+## Reading Input — `input()`
 
 Pick a source — `'GET'`, `'POST'`, `'PUT'` or `'DELETE'` (case-insensitive)
 — and you get back a small reader function. Call it with a key to select a
@@ -611,7 +611,7 @@ Things to know:
 
 Signature: `Request::input(string $type): callable`
 
-## 3. Sanitizing to Array / Object / JSON
+## Sanitizing to Array / Object / JSON
 
 Read the whole input (or one key) and convert it in one step. The optional
 `$filters` map declares the expected type per key; `$default` fills in
@@ -642,7 +642,7 @@ $post()->asObject(array $filters = [], $default = null): \stdClass
 $post()->asJson(mixed $default = null): mixed
 ```
 
-## 4. Sanitizing Single Values
+## Sanitizing Single Values
 
 Each method reads the selected key and coerces it, falling back to
 `$default` when the key is missing or invalid:
@@ -666,7 +666,7 @@ $get('key')->asString(mixed $default = null): mixed
 // asInteger / asFloat / asBoolean / asIp / asUrl / asEmail likewise
 ```
 
-## 5. Content Type
+## Content Type
 
 ```php
 Request::getContentType(); // e.g. "application/json"
@@ -677,7 +677,7 @@ removed. Returns `""` when the header is absent.
 
 Signature: `Request::getContentType(): string`
 
-## 6. One-Shot Readers (via Input)
+## One-Shot Readers (via Input)
 
 For convenience, keep using `Request::input()` directly — no helper needed:
 
@@ -712,7 +712,7 @@ A practical guide to the sanitizer library at
 when the value is missing or invalid — so you always get something usable
 back. All methods are **static**.
 
-## 1. Sanitizing Whole Values
+## Sanitizing Whole Values
 
 ```php
 use System\Libraries\Validate;
@@ -734,7 +734,7 @@ Validate::asObject(mixed $data, mixed $default = null): mixed
 Validate::asJson(mixed $data, mixed $default = null): mixed
 ```
 
-## 2. Strings, Integers, Floats, Booleans
+## Strings, Integers, Floats, Booleans
 
 ```php
 Validate::asString('<b>hi</b>');       // "hi" (tags stripped, quotes kept)
@@ -763,7 +763,7 @@ Validate::asString(mixed $data, mixed $default = null): mixed
 // asInteger / asFloat / asBoolean likewise
 ```
 
-## 3. IP, URL and Email
+## IP, URL and Email
 
 ```php
 Validate::asIp('1.2.3.4');              // "1.2.3.4"

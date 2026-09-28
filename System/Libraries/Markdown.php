@@ -20,8 +20,11 @@ class Markdown
 	/** @var array<int,string> Rendered <pre> blocks, restored after parsing. */
 	private array $blocks = [];
 
-	/** @var array<int,array{level:int,text:string,id:string}> */
+	/** @var array<int,array{level:int,text:string,id:string,num:?string}> */
 	private array $toc = [];
+
+	/** Section counter for the "On this page" list; counts level-2 headings. */
+	private int $sectionNo = 0;
 
 	/** @var array<string,bool> Slug dedupe registry. */
 	private array $slugs = [];
@@ -32,7 +35,7 @@ class Markdown
 	}
 
 	/**
-	 * @return array{html:string,toc:array<int,array{level:int,text:string,id:string}>}
+	 * @return array{html:string,toc:array<int,array{level:int,text:string,id:string,num:?string}>}
 	 */
 	public static function toHtmlWithToc(string $markdown): array
 	{
@@ -282,7 +285,21 @@ class Markdown
 		$level = max(1, min(6, $level));
 		$plain = $this->plainText($raw);
 		$id = $this->slug($plain);
-		$this->toc[] = ['level' => $level, 'text' => $plain, 'id' => $id];
+
+		/*
+		 * Numbering for the "On this page" list, produced here rather than with a
+		 * CSS counter so it is present in the markup without JS:
+		 *   - level 2 becomes a numbered section
+		 *   - every other level stays unnumbered
+		 *
+		 * The count is deliberately continuous across the whole document. The
+		 * viewer shows only the numbered sections, so restarting at every
+		 * level-1 heading would print "1." several times with no group label
+		 * left on screen to tell the runs apart.
+		 */
+		$num = $level === 2 ? (string) ++$this->sectionNo : null;
+
+		$this->toc[] = ['level' => $level, 'text' => $plain, 'id' => $id, 'num' => $num];
 
 		return '<h' . $level . ' id="' . $id . '">' . $this->inline($raw) . '</h' . $level . ">\n";
 	}

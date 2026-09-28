@@ -21,7 +21,7 @@ Database versioning for NSY (`System/Core/NSY_Migration.php`, alias `Mig`). Powe
 
 ---
 
-## 1. Creating a Migration
+## Creating a Migration
 
 ```bash
 nsy make:migrate create_supplier_table
@@ -48,7 +48,7 @@ class create_supplier_table {
 
 ---
 
-## 2. Running Migrations
+## Running Migrations
 
 **CLI (recommended, production-safe):**
 ```bash
@@ -66,7 +66,7 @@ GET /migdown=create_supplier_table # down()
 
 ---
 
-## 3. Connection
+## Connection
 
 ```php
 Mig::connect()                 // primary (env.php connections.primary)
@@ -77,7 +77,7 @@ Mig::connect('pgsql')          // pgsql / sqlsrv / dblib — via NSY_DB::connect
 
 ---
 
-## 4. Database Helpers
+## Database Helpers
 
 ```php
 Mig::connect()->create_database(['db1', 'db2']); // CREATE DATABASE `db1`; — quoted via quoteIdent()
@@ -88,7 +88,7 @@ Mig::connect()->drop_table(['t1']);
 
 ---
 
-## 5. Table Helpers
+## Table Helpers
 
 ```php
 Mig::connect()->create_table('users', [
@@ -104,7 +104,7 @@ Mig::connect()->rename_table_ms('users', 'members');    // sqlsrv: sp_rename
 
 ---
 
-## 6. Column Helpers
+## Column Helpers
 
 ```php
 Mig::connect()->add_cols('users', [Mig::varchar('phone')->null()]);
@@ -118,7 +118,7 @@ Mig::connect()->change_cols('users', ['phone' => Mig::varchar('mobile')->not_nul
 
 ---
 
-## 7. Indexes
+## Indexes
 
 ```php
 Mig::connect()->create_table('t', [..., Mig::primary('id')])->index('BTREE', 'name');
@@ -130,7 +130,7 @@ Generated: `CREATE INDEX MULTI_1_5_IDX USING BTREE ON `t` ( name )`
 
 ---
 
-## 8. Datatypes & Modifiers
+## Datatypes & Modifiers
 
 ```php
 Mig::bigint('id',20)->auto_increment()
@@ -146,7 +146,7 @@ Chain: `Mig::varchar('name')->not_null()->default('x')` → `name VARCHAR(255) N
 
 ---
 
-## 9. Security Notes
+## Security Notes
 
 *   Identifiers quoted via `quoteIdent()` `System/Core/NSY_Migration.php:54` → `` `table` `` per part (`db.table` safe), `sp_rename` escaped `''`.
 *   `execDDL()` `System/Core/NSY_Migration.php:64` centralizes `prepare/execute`, `rollback` on `transaction==='on'`.
