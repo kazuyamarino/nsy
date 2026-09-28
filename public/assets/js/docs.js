@@ -186,3 +186,50 @@
 	window.addEventListener('hashchange', apply);
 	apply();
 }());
+
+/**
+ * Docs back to top.
+ *
+ * The control is a plain "#top" anchor, so the jump itself never depends on
+ * this script — the browser performs it natively. Here we only reveal the
+ * button once the reader is actually down in the article, and upgrade the jump
+ * to a smooth scroll unless the reader asked for reduced motion.
+ */
+(function () {
+	'use strict';
+
+	var link = document.querySelector('.nsy-top');
+	if (!link) {
+		return;
+	}
+
+	/* Roughly a screenful: the button is pointless while the top is in view. */
+	var SHOW_AFTER = 400;
+
+	/* Deliberately not throttled through requestAnimationFrame: this is a single
+	   idempotent class toggle, so the rAF round-trip buys nothing and would make
+	   the button depend on the animation frame clock still ticking. */
+	function toggle() {
+		link.classList.toggle('is-visible', window.pageYOffset > SHOW_AFTER);
+	}
+
+	/* The jump itself is left to the browser: "#top" is a fragment the spec
+	   resolves to the top of the document, and it works with the script off.
+	   Taking it over with scrollTo({behavior:'smooth'}) proved strictly worse —
+	   it needs the animation machinery to be available, and when it is not the
+	   preventDefault() leaves the click doing nothing at all. */
+
+	/* Cosmetic: drop the "#top" fragment once the jump has happened, so the
+	   address bar keeps pointing at the document and a reload does not re-jump. */
+	window.addEventListener('hashchange', function () {
+		if (window.location.hash !== '#top') {
+			return;
+		}
+		if (window.history && window.history.replaceState) {
+			window.history.replaceState(null, '', window.location.pathname + window.location.search);
+		}
+	});
+
+	window.addEventListener('scroll', toggle, { passive: true });
+	toggle();
+}());

@@ -872,6 +872,61 @@ code {
     margin-top: 14px;
 }
 
+/* Back to top.
+ *
+ * A plain "#top" anchor, so jumping up needs no JS at all. It is visible by
+ * default and the .js gate hides it until the reader has scrolled into the
+ * article — that way the control is still there (and usable) when JS is off,
+ * and it never flashes on screen while the script is loading. */
+.nsy-top {
+    position: fixed;
+    right: clamp(14px, 2.6vw, 40px);
+    bottom: clamp(14px, 2.6vw, 40px);
+    z-index: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--nsy-line);
+    border-radius: 50%;
+    background: #fff;
+    color: var(--nsy-primary);
+    text-decoration: none;
+    box-shadow: var(--nsy-shadow);
+    transition: background .15s, color .15s, border-color .15s;
+}
+
+.nsy-top svg {
+    display: block;
+}
+
+.nsy-top:hover {
+    background: var(--nsy-primary);
+    border-color: var(--nsy-primary);
+    color: #fff;
+}
+
+.nsy-top:focus-visible {
+    outline: 2px solid var(--nsy-accent);
+    outline-offset: 2px;
+}
+
+/* Show/hide is a straight visibility flip — no fade.
+ *
+ * Fading would mean opacity only reaches 1 once the transition clock has run,
+ * which makes the button's presence depend on the animation machinery rather
+ * than on the class. A control whose whole job is "be there when you need it"
+ * is the wrong place for that trade: an instant appearance is worth more than
+ * a fade that can be a no-op. */
+.js .nsy-top {
+    visibility: hidden;
+}
+
+.js .nsy-top.is-visible {
+    visibility: visible;
+}
+
 /* Rendered Markdown (output of System\Libraries\Markdown) */
 .md {
     font-size: 15px;

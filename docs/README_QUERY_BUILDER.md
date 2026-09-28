@@ -8,19 +8,19 @@ Fluent, powerful query builder for NSY (`System/Core/NSY_QueryBuilder.php`). One
 
 ## Table of Contents
 
-1. [Quick Start](#1-quick-start)
-2. [Selecting](#2-selecting)
-3. [Filtering — where](#3-filtering--where)
-4. [Filtering — whereIn / Null / Between / Like](#4-filtering--wherein--null--between--like)
-5. [Joins](#5-joins)
-6. [Ordering, Grouping, Having, Limit](#6-ordering-grouping-having-limit)
-7. [Fetching — get / first / pluck / value / exists](#7-fetching--get--first--pluck--value--exists)
-8. [Aggregates — count / sum / avg / min / max](#8-aggregates--count--sum--avg--min--max)
-9. [Pagination](#9-pagination)
-10. [Mutations — insert / insertBatch / update / delete / increment](#10-mutations--insert--insertbatch--update--delete--increment)
-11. [Conditional — when()](#11-conditional--when)
-12. [Raw & Debug](#12-raw--debug)
-13. [Complete Examples — Minimal Lines](#13-complete-examples--minimal-lines)
+1. [Quick Start](#quick-start)
+2. [Selecting](#selecting)
+3. [Filtering — where](#filtering--where)
+4. [Filtering — whereIn / Null / Between / Like](#filtering--wherein--null--between--like)
+5. [Joins](#joins)
+6. [Ordering, Grouping, Having, Limit](#ordering-grouping-having-limit)
+7. [Fetching — get / first / pluck / value / exists](#fetching--get--first--pluck--value--exists)
+8. [Aggregates — count / sum / avg / min / max](#aggregates--count--sum--avg--min--max)
+9. [Pagination](#pagination)
+10. [Mutations — insert / insertBatch / update / delete / increment](#mutations--insert--insertbatch--update--delete--increment)
+11. [Conditional — when()](#conditional--when)
+12. [Raw & Debug](#raw--debug)
+13. [Complete Examples — Minimal Lines](#complete-examples--minimal-lines)
 14. [Quick Reference](#quick-reference)
 
 ---

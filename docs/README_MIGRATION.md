@@ -8,15 +8,15 @@ Database versioning for NSY (`System/Core/NSY_Migration.php`, alias `Mig`). Powe
 
 ## Table of Contents
 
-1. [Creating a Migration](#1-creating-a-migration)
-2. [Running Migrations](#2-running-migrations)
-3. [Connection](#3-connection)
-4. [Database Helpers](#4-database-helpers)
-5. [Table Helpers](#5-table-helpers)
-6. [Column Helpers](#6-column-helpers)
-7. [Indexes](#7-indexes)
-8. [Datatypes & Modifiers](#8-datatypes--modifiers)
-9. [Security Notes](#9-security-notes)
+1. [Creating a Migration](#creating-a-migration)
+2. [Running Migrations](#running-migrations)
+3. [Connection](#connection)
+4. [Database Helpers](#database-helpers)
+5. [Table Helpers](#table-helpers)
+6. [Column Helpers](#column-helpers)
+7. [Indexes](#indexes)
+8. [Datatypes & Modifiers](#datatypes--modifiers)
+9. [Security Notes](#security-notes)
 10. [Quick Reference](#quick-reference)
 
 ---

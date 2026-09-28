@@ -2,6 +2,9 @@
 <html class="no-js" lang="@( get_lang_code() )" prefix="@( get_og_prefix() )">
 
 <head>
+	<!-- Swap the no-js class before first paint, so JS-only affordances (e.g.
+	     the docs back-to-top button) never flash in while the page loads. -->
+	<script>(function (h) { h.className = h.className.replace(/\bno-js\b/, 'js'); }(document.documentElement));</script>
 	<!-- call header assets method -->
 	@( header_assets() )
 </head>

@@ -48,6 +48,7 @@
 				<a class="nsy-pager next" href="@( base_url('docs/' . $neighbors['next']['slug']) )"><span>Next →</span><strong>@( $neighbors['next']['title'] )</strong></a>
 				@endif
 			</nav>
+			<a class="nsy-top" href="#top" aria-label="Back to top" title="Back to top"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></a>
 			@else
 			<div class="nsy-docs-missing">
 				<h2>Documentation not found</h2>

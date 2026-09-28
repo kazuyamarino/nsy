@@ -8,13 +8,13 @@ Query builder for NSY (`System/Core/DB.php`, `System/Core/NSY_DB.php`). Unified 
 
 ## Table of Contents
 
-1. [Connections](#1-connections)
-2. [Basic Query](#2-basic-query)
-3. [Binding](#3-binding)
-4. [Fetching](#4-fetching)
-5. [Execute & Multi Insert](#5-execute--multi-insert)
-6. [Transactions](#6-transactions)
-7. [Migrated Connection (NEW)](#7-migrated-connection-new)
+1. [Connections](#connections)
+2. [Basic Query](#basic-query)
+3. [Binding](#binding)
+4. [Fetching](#fetching)
+5. [Execute & Multi Insert](#execute--multi-insert)
+6. [Transactions](#transactions)
+7. [Migrated Connection (NEW)](#migrated-connection-new)
 8. [Quick Reference](#quick-reference)
 
 ---
