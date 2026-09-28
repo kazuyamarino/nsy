@@ -37,7 +37,7 @@ So moving `System/` out of the web root changes **nothing** in
 /home/USERNAME/
 ├── public_html/                  # DocumentRoot
 │   ├── index.php                 # copied from public/index.php
-│   ├── .htaccess                 # copied from docs/apache/for_public/.htaccess
+│   ├── .htaccess                 # Apache only — from docs/apache/for_public/
 │   ├── assets/
 │   │   ├── css/
 │   │   ├── images/
@@ -75,10 +75,13 @@ needed at runtime** and can stay in your repo/CI.
    (`index.php`, `assets/`, `403.html`, `404.html`, `50x.html`, `robots.txt`,
    `humans.txt`).
 3. Upload `env.php` → `/home/USERNAME/env.php`.
-4. Copy `.htaccess`:
-   - `docs/apache/for_public/.htaccess` → `/home/USERNAME/public_html/.htaccess`
-   - **Do not** copy `docs/apache/for_root/.htaccess` — that one is for the
-     “whole project as document root” layout, not for `System/` outside `public_html`.
+4. Configure web-server routing:
+   - **Apache:** copy `docs/apache/for_public/.htaccess` →
+     `/home/USERNAME/public_html/.htaccess`. **Do not** copy
+     `docs/apache/for_root/.htaccess` — that one is for the “whole project as
+     document root” layout.
+   - **nginx:** `.htaccess` is ignored — configure the `server` block instead, see
+     [nginx: `server` block and `try_files`](#nginx-server-block-and-try_files).
 5. Edit `/home/USERNAME/env.php` → see [env.php](#envphp).
 6. Edit `/home/USERNAME/public_html/assets/js/config/system.js` → see [system.js](#systemjs).
 7. Set [filesystem permissions](#filesystem-permissions).
@@ -193,6 +196,108 @@ Request an extension-less route, e.g. `https://example.com/docs/overview`:
 
 ---
 
+## nginx: `server` block and `try_files`
+
+nginx **does not read `.htaccess`** — the `docs/apache/for_public/.htaccess` file
+has no effect there. Everything is configured in the `server` block. The files
+under `docs/nginx/` target the **local** layout (project in a sub-folder,
+`APP_DIR=nsy`); for hosting, adapt them to the layout above (`System/` outside
+`public_html`, `APP_DIR=''`).
+
+`try_files` is the equivalent of the Apache `RewriteRule`: it sends
+extension-less requests to `index.php`, while nginx keeps the original
+`REQUEST_URI`, so routes registered as `/...` still match with `APP_DIR = ''`.
+
+```nginx
+# /etc/nginx/sites-available/example.com   (then symlink into sites-enabled/)
+server {
+    listen 80;
+    listen [::]:80;
+    server_name example.com www.example.com;
+
+    # Force HTTPS (Apache “Forcing https://” block equivalent)
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;                          # nginx >= 1.25.1; older: listen 443 ssl http2;
+    server_name example.com www.example.com;
+
+    root /home/USERNAME/public_html;   # document root = the old public/
+    index index.php;
+
+    # TLS — use your host's / certbot's paths
+    ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+
+    autoindex off;
+    client_max_body_size 16m;          # raise if you accept uploads
+
+    # Front controller — Apache RewriteRule equivalent
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # PHP-FPM — adjust the socket to your PHP version
+    location ~ \.php$ {
+        try_files $uri =404;
+        include fastcgi_params;        # some distros ship `fastcgi.conf`
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param HTTPS on;        # so base_url() detects the https scheme
+        fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+    }
+
+    # Block dotfiles (.env, .git, …)
+    location ~ /\. { deny all; }
+
+    # Optional: long cache for static assets
+    location /assets/ {
+        try_files $uri =404;
+        expires 30d;
+        access_log off;
+    }
+
+    # Error pages shipped in public_html/
+    error_page 404 /404.html;
+    error_page 403 /403.html;
+    error_page 500 502 503 504 /50x.html;
+}
+```
+
+### Why there is no `deny` block for `System/`
+
+`System/` and `env.php` live **above** `root` (`/home/USERNAME/`), so nginx cannot
+serve them — there is nothing to deny. The
+`location ^~ /nsy/System/ { deny all; }` block in
+`docs/nginx/sites-enabled/default` is only needed for the **local** layout, where
+the project sits inside a served folder.
+
+> If you cannot move `System/` out of the document root, add a safety net:
+> ```nginx
+> location ^~ /System/ { deny all; return 404; }
+> ```
+
+### Apply and verify
+
+```bash
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+- `https://example.com/` and `https://example.com/docs/overview` → rendered by NSY
+  (proves `try_files` works).
+- `https://example.com/assets/css/...` → served as a static file.
+- `https://example.com/env.php` → 404 (outside `root`).
+- HTTP request → `301` redirect to HTTPS.
+
+> **Managed nginx hosting:** if you cannot edit the `server` block, ask the host
+> to set the document root to `public_html` and add the front-controller
+> `try_files $uri $uri/ /index.php?$query_string;` — that single line is what
+> makes pretty routes work.
+
+---
+
 ## Filesystem permissions
 
 NSY only needs write access to **two** places, both inside `System/`:
@@ -235,8 +340,8 @@ Notes:
 1. `https://example.com/` → welcome page (not 404, not a directory listing).
 2. Assets load — view-source shows `https://example.com/assets/css/...` and
    `https://example.com/assets/js/...`.
-3. `https://example.com/docs/overview` → docs page (proves rewrite + empty
-   `APP_DIR`).
+3. `https://example.com/docs/overview` → docs page (proves the Apache rewrite /
+   nginx `try_files` + empty `APP_DIR`).
 4. `https://example.com/System/Config/App.php` → 404/403.
 5. `https://example.com/env.php` → 404 (`env.php` is outside the web root).
 6. HTTPS redirect works (if enabled).
@@ -256,6 +361,9 @@ Notes:
 | Assets point to `/public/...` or `/public_html/...` | `PUBLIC_DIR` not empty | set `PUBLIC_DIR = ''` |
 | Blank page, no errors | `APP_ENV=production` hides messages | check `System/Storage/logs/`, or temporarily set `development` |
 | “Permission denied” writing logs / templates | runtime dirs not writable | `chmod -R 775` the two dirs above |
+| `.htaccess` changes have no effect | server is nginx (ignores `.htaccess`) | configure the nginx `server` block instead |
+| Every route 404s on nginx, static files load | no front-controller `try_files` | add `try_files $uri $uri/ /index.php?$query_string;` |
+| `502 Bad Gateway` on nginx | PHP-FPM socket/TCP wrong or FPM not running | fix `fastcgi_pass` / start php-fpm |
 
 ---
 
@@ -295,7 +403,8 @@ Renaming the folder is **not** a single move; the following must stay in sync:
 | `PUBLIC_DIR` | `public` | `''` |
 | `sys_dir` | `System` | `System` |
 | `system.js dirname` | `nsy` | `''` |
-| `.htaccess` | `docs/apache/for_public/` → `public/` | `docs/apache/for_public/` → `public_html/` |
+| Routing (Apache) | `docs/apache/for_public/` → `public/` | `docs/apache/for_public/` → `public_html/` |
+| Routing (nginx) | `docs/nginx/sites-enabled/default` (sub-folder layout) | `server` block with `root public_html` + `try_files` |
 
 ---
 
