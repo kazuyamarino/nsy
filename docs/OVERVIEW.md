@@ -69,6 +69,10 @@ The NSY Framework Configuration is very simple. There are 4 config files in `Sys
 * `Assets.php` — minimal `header_assets()` / `footer_assets()` (1 line per asset `Add::link('main.css'...)`), cache-busting `?v=filemtime` handled transparently in `System/Core/NSY_Helpers_Global.php:css_url()`.
 * `Mimes.php` — 182 mime types (modern: `webp`, `avif`, `woff2`, `wasm`, `webmanifest`), `declare(strict_types=1)`.
 
+Native, dependency-free libraries live in `System/Libraries` and replace their former Composer packages:
+`Json` (file I/O), `Cookie`, `Encryption` (AES-256-GCM, keyed by `ENCRYPTION_KEY` in `env.php`), `Session`, `Curl` (ext-curl).
+See [`README_LIBRARIES.md`](README_LIBRARIES.md) and [`README_JSON.md`](README_JSON.md)/[`README_COOKIE.md`](README_COOKIE.md)/[`README_ENCRYPTION.md`](README_ENCRYPTION.md)/[`README_SESSION.md`](README_SESSION.md)/[`README_CURL.md`](README_CURL.md).
+
 ```text
 ├── Config
     │   ├── App.php      # env-aware

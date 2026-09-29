@@ -267,15 +267,11 @@ return [
 		'Route' => System\Helpers\RouterHelper::class,
 		'Add' => System\Core\NSY_AssetManager::class,
 		'System\Migrations\Mig' => System\Core\NSY_Migration::class,
-		'System\Vendor\Curl' => Curl\Curl::class,
-		'System\Vendor\Faker' => Faker\Factory::class,
+		'System\Vendor\Curl' => System\Libraries\Curl::class,
 		'System\Vendor\Carbon' => Carbon\Carbon::class,
-		'System\Vendor\Almana' => Lablnet\Encryption::class,
-		'System\Libraries\Cookie' => Josantonius\Cookie\Cookie::class,
-		'System\Libraries\Facades\Cookie' => Josantonius\Cookie\Facades\Cookie::class,
-		'System\Libraries\Json' => Josantonius\Json\Json::class,
-		'System\Libraries\Session' => Josantonius\Session\Session::class,
-		'System\Libraries\Facades\Session' => Josantonius\Session\Facades\Session::class,
+		'System\Vendor\Almana' => System\Libraries\Encryption::class,
+		'System\Libraries\Facades\Cookie' => System\Libraries\Cookie::class,
+		'System\Libraries\Facades\Session' => System\Libraries\Session::class,
 		'System\Libraries\Validator' => Rakit\Validation\Validator::class
 	]
 

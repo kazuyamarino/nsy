@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace System\Core;
 
-use Josantonius\Session\Facades\Session;
+use System\Libraries\Session;
 
 /**
  * NSY System Core - Optimized Configuration and Initialization

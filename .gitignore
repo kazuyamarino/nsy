@@ -4,6 +4,7 @@
 /env.php
 /.htaccess
 /phpunit.xml
+/.phpunit.result.cache
 /MIGRATIONLOG
 public/.htaccess
 

@@ -43,6 +43,7 @@ return [
 	| Define Application Variables
 	*/
 	'CSRF_TOKEN' => 'false',
+	'ENCRYPTION_KEY' => '',   // System\Libraries\Encryption (AES-256-GCM) — set a long random secret
 	'DB_TRANSACTION' => 'off',
 	'APP_TIMEZONE' => 'Asia/Jakarta',
 	'APP_LOCALE' => 'id-ID',

@@ -37,6 +37,11 @@ nsy --setup
 - [Overview](docs/OVERVIEW.md) — Composer, Config, Helpers, Routes, MVC/HMVC, Assets, PSR-4, CLI
 - [Deploy to Shared Hosting](docs/README_DEPLOY_HOSTING.md) — `System/` outside `public_html`, writable dirs, `mod_rewrite`/`AllowOverride`
 - [Libraries](docs/README_LIBRARIES.md) — File, LanguageCode, LoadTime, Request, Validate
+- [JSON](docs/README_JSON.md) — `Json::read()/write()` (atomic file I/O)
+- [Cookie](docs/README_COOKIE.md) — `Cookie::set()/get()` (secure defaults)
+- [Encryption](docs/README_ENCRYPTION.md) — `Encryption::encrypt()/decrypt()` (AES-256-GCM)
+- [Session](docs/README_SESSION.md) — `Session::start()/get()/flash()`
+- [Curl](docs/README_CURL.md) — `Curl::get()/post()` (ext-curl, JSON auto-decode)
 - [Load & Asset Manager](docs/README_LOAD_AND_ASSETMANAGER.md) — `Load::view/template/model` & `Add::` (`?v=filemtime`)
 - [Helpers Global](docs/README_HELPERS_GLOBAL.md) — `base_url()`, `is_filled()`, `css_url()` etc.
 - [CodeIgniter Helpers](docs/README_CODEIGNITER_HELPERS.md) — `stringify_attributes()`, `directory_map()` etc.

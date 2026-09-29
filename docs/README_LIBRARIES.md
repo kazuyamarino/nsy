@@ -4,6 +4,10 @@ A practical guide to the file-management library at `System/Libraries/File.php`
 (namespace `System\Libraries`, class `File`). All methods are **static**, so no
 instantiation is needed.
 
+> **Companion libraries:** [`Json`](README_JSON.md) · [`Cookie`](README_COOKIE.md) ·
+> [`Encryption`](README_ENCRYPTION.md) · [`Session`](README_SESSION.md) ·
+> [`Curl`](README_CURL.md) — native, dependency-free classes in `System\Libraries`.
+
 ## Table of Contents
 
 **Part A — [File Library](#nsy-file-library--user-tutorial)**

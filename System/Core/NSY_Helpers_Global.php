@@ -844,11 +844,25 @@ if (!function_exists('string_encrypt')) {
 	function string_encrypt($action = 'encrypt', $string = '')
 	{
 		if (is_filled($action) || is_filled($string)) {
+			// Preferred path: the native Encryption library (AES-256-GCM).
+			// Falls back to the legacy AES-256-CBC routine when ENCRYPTION_KEY
+			// is not configured, so existing data keeps working.
+			try {
+				if ($action === 'encrypt') {
+					return \System\Libraries\Encryption::encrypt((string) $string);
+				}
+				if ($action === 'decrypt') {
+					return \System\Libraries\Encryption::decrypt((string) $string);
+				}
+			} catch (\Throwable $e) {
+				// fall through to the legacy implementation below
+			}
+
 			$output = false;
 
-			$encrypt_method = 'AES-256-CBC'; // Default
-			$secret_key = 'Kazu#Key!'; // Change the key!
-			$secret_iv = '!VI@_$3'; // Change the init vector!
+			$encrypt_method = 'AES-256-CBC'; // Legacy default
+			$secret_key = 'Kazu#Key!'; // Legacy key
+			$secret_iv = '!VI@_$3'; // Legacy init vector
 
 			// hash
 			$key = hash('sha256', $secret_key);

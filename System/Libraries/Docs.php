@@ -88,6 +88,46 @@ class Docs
 			'api' => 'File · LanguageCode · Validate',
 			'summary' => 'File management, language codes, validation and Query Builder internals.',
 		],
+		'json' => [
+			'file' => 'README_JSON.md',
+			'category' => 'Reference',
+			'icon' => 'braces',
+			'title' => 'JSON',
+			'api' => 'Json::read() · Json::write()',
+			'summary' => 'Read/write JSON files atomically, plus encode/decode helpers.',
+		],
+		'cookie' => [
+			'file' => 'README_COOKIE.md',
+			'category' => 'Reference',
+			'icon' => 'cookie',
+			'title' => 'Cookie',
+			'api' => 'Cookie::set() · Cookie::get()',
+			'summary' => 'Secure-by-default cookie helper (HttpOnly, SameSite, Secure).',
+		],
+		'encryption' => [
+			'file' => 'README_ENCRYPTION.md',
+			'category' => 'Reference',
+			'icon' => 'lock',
+			'title' => 'Encryption',
+			'api' => 'Encryption::encrypt() · decrypt()',
+			'summary' => 'AES-256-GCM authenticated encryption with a versioned envelope.',
+		],
+		'session' => [
+			'file' => 'README_SESSION.md',
+			'category' => 'Reference',
+			'icon' => 'key',
+			'title' => 'Session',
+			'api' => 'Session::start() · Session::get()',
+			'summary' => 'Native session wrapper: start, get/set, regenerate and flash values.',
+		],
+		'curl' => [
+			'file' => 'README_CURL.md',
+			'category' => 'Reference',
+			'icon' => 'globe',
+			'title' => 'Curl',
+			'api' => 'Curl::get() · Curl::post()',
+			'summary' => 'Chainable ext-curl HTTP client with JSON auto-decode and secure defaults.',
+		],
 		'helpers' => [
 			'file' => 'README_HELPERS_GLOBAL.md',
 			'category' => 'Reference',
@@ -136,6 +176,11 @@ class Docs
 			'sliders' => '<path d="M4 6h9"/><path d="M19 6h1"/><circle cx="15" cy="6" r="2"/><path d="M4 12h3"/><path d="M13 12h7"/><circle cx="9" cy="12" r="2"/><path d="M4 18h9"/><path d="M19 18h1"/><circle cx="15" cy="18" r="2"/>',
 			'shield' => '<path d="M12 3 5 6v5c0 4.2 3 7.9 7 9 4-1.1 7-4.8 7-9V6l-7-3z"/><path d="m9 12 2 2 4-4"/>',
 			'server' => '<rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/>',
+			'braces' => '<path d="M8 3H7a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2 2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h1"/><path d="M16 3h1a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2 2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-1"/>',
+			'cookie' => '<path d="M12 3a9 9 0 1 0 9 9 4 4 0 0 1-5-5 3 3 0 0 1-4-4z"/><circle cx="8.5" cy="10.5" r=".8"/><circle cx="11.5" cy="14.5" r=".8"/><circle cx="7.5" cy="15.5" r=".8"/>',
+			'lock' => '<rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><path d="M12 14v3"/>',
+			'key' => '<circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8-8"/><path d="m17 4 3 3"/><path d="m15 6 2 2"/>',
+			'globe' => '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M12 3a15 15 0 0 0 0 18"/>',
 		];
 
 		$inner = $icons[$name] ?? $icons['book'];
