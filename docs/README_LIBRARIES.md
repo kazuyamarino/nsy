@@ -7,6 +7,8 @@ instantiation is needed.
 > **Companion libraries:** [`Json`](README_JSON.md) · [`Cookie`](README_COOKIE.md) ·
 > [`Encryption`](README_ENCRYPTION.md) · [`Session`](README_SESSION.md) ·
 > [`Curl`](README_CURL.md) — native, dependency-free classes in `System\Libraries`.
+> Rule-based validation is covered in [`Validation`](README_VALIDATION.md)
+> (`rakit/validation` via the `System\Libraries\Validator` alias).
 
 ## Table of Contents
 

@@ -8,6 +8,23 @@
 > same layout applies — only the web folder is renamed to `public_html` and moved
 > so that `System/` is no longer web-reachable.
 
+## Table of Contents
+
+1. [Why this works (no `index.php` edit needed)](#why-this-works-no-indexphp-edit-needed)
+2. [Target directory layout](#target-directory-layout)
+3. [Deploy steps](#deploy-steps)
+4. [`env.php`](#envphp)
+5. [`system.js`](#systemjs)
+6. [Apache: `mod_rewrite`, `.htaccess` and `AllowOverride`](#apache-mod_rewrite-htaccess-and-allowoverride)
+7. [nginx: `server` block and `try_files`](#nginx-server-block-and-try_files)
+8. [Filesystem permissions](#filesystem-permissions)
+9. [Verification checklist](#verification-checklist)
+10. [Troubleshooting](#troubleshooting)
+11. [Do NOT change](#do-not-change)
+12. [Optional hardening: renaming `System/`](#optional-hardening-renaming-system)
+13. [Local vs hosting reference](#local-vs-hosting-reference)
+14. [Known trade-off: asset cache-busting](#known-trade-off-asset-cache-busting)
+
 ---
 
 ## Why this works (no `index.php` edit needed)

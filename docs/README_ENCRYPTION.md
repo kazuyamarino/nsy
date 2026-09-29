@@ -11,6 +11,14 @@ per call and a versioned envelope:
 v1:<base64( iv[12] | tag[16] | ciphertext )>
 ```
 
+## Table of Contents
+
+1. [Configuration](#configuration)
+2. [Quick Start](#quick-start)
+3. [Behaviour](#behaviour)
+4. [Legacy Data](#legacy-data)
+5. [Quick Reference](#quick-reference)
+
 ## Configuration
 
 Set a key in `env.php`:

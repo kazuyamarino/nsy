@@ -5,6 +5,15 @@ Native HTTP client at `System/Libraries/Curl.php` (namespace
 dependency and wraps `ext-curl` with secure defaults: TLS verification on,
 redirect cap of 5, connect timeout 10s / total timeout 30s.
 
+## Table of Contents
+
+1. [Quick Start](#quick-start)
+2. [Requests](#requests)
+3. [Reading the Response](#reading-the-response)
+4. [Errors](#errors)
+5. [Options](#options)
+6. [Quick Reference](#quick-reference)
+
 ## Quick Start
 
 ```php

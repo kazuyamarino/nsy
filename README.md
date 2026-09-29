@@ -42,6 +42,7 @@ nsy --setup
 - [Encryption](docs/README_ENCRYPTION.md) — `Encryption::encrypt()/decrypt()` (AES-256-GCM)
 - [Session](docs/README_SESSION.md) — `Session::start()/get()/flash()`
 - [Curl](docs/README_CURL.md) — `Curl::get()/post()` (ext-curl, JSON auto-decode)
+- [Validation](docs/README_VALIDATION.md) — `Validator::make()/validate()` (rakit/validation)
 - [Load & Asset Manager](docs/README_LOAD_AND_ASSETMANAGER.md) — `Load::view/template/model` & `Add::` (`?v=filemtime`)
 - [Helpers Global](docs/README_HELPERS_GLOBAL.md) — `base_url()`, `is_filled()`, `css_url()` etc.
 - [CodeIgniter Helpers](docs/README_CODEIGNITER_HELPERS.md) — `stringify_attributes()`, `directory_map()` etc.

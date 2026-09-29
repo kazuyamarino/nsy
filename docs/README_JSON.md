@@ -4,6 +4,13 @@ Native JSON helper at `System/Libraries/Json.php` (namespace `System\Libraries`,
 class `Json`). Replaces the former `josantonius/json` dependency. All methods are
 **static**.
 
+## Table of Contents
+
+1. [Quick Start](#quick-start)
+2. [Reading & Writing Files](#reading--writing-files)
+3. [Encode & Decode](#encode--decode)
+4. [Quick Reference](#quick-reference)
+
 ## Quick Start
 
 ```php

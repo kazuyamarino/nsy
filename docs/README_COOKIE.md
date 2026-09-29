@@ -5,6 +5,15 @@ Native cookie helper at `System/Libraries/Cookie.php` (namespace
 dependency. All methods are **static** and secure-by-default
 (`HttpOnly`, `SameSite=Lax`, `Path=/`).
 
+## Table of Contents
+
+1. [Quick Start](#quick-start)
+2. [Setting a Cookie](#setting-a-cookie)
+3. [Reading](#reading)
+4. [Deleting](#deleting)
+5. [Defaults](#defaults)
+6. [Quick Reference](#quick-reference)
+
 ## Quick Start
 
 ```php

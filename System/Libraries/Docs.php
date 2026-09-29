@@ -128,6 +128,14 @@ class Docs
 			'api' => 'Curl::get() · Curl::post()',
 			'summary' => 'Chainable ext-curl HTTP client with JSON auto-decode and secure defaults.',
 		],
+		'validation' => [
+			'file' => 'README_VALIDATION.md',
+			'category' => 'Reference',
+			'icon' => 'check',
+			'title' => 'Validation',
+			'api' => 'Validator::make() · validate()',
+			'summary' => 'Rule-based validation via rakit/validation, exposed as System\\Libraries\\Validator.',
+		],
 		'helpers' => [
 			'file' => 'README_HELPERS_GLOBAL.md',
 			'category' => 'Reference',
@@ -181,6 +189,7 @@ class Docs
 			'lock' => '<rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><path d="M12 14v3"/>',
 			'key' => '<circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8-8"/><path d="m17 4 3 3"/><path d="m15 6 2 2"/>',
 			'globe' => '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M12 3a15 15 0 0 0 0 18"/>',
+			'check' => '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
 		];
 
 		$inner = $icons[$name] ?? $icons['book'];

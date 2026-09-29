@@ -5,6 +5,14 @@ Native session helper at `System/Libraries/Session.php` (namespace
 `josantonius/session` dependency. All methods are **static** and wrap PHP's
 `session_*` functions.
 
+## Table of Contents
+
+1. [Starting a Session](#starting-a-session)
+2. [Reading & Writing](#reading--writing)
+3. [Lifecycle](#lifecycle)
+4. [Flash Messages](#flash-messages)
+5. [Quick Reference](#quick-reference)
+
 ## Starting a Session
 
 NSY starts the session at boot (`NSY_System::initializeSession()`), using the
