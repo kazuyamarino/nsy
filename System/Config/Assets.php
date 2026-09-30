@@ -46,4 +46,7 @@ function footer_assets(): void
 
 	// Docs index search (welcome page) — no-op when the search box is absent
 	Add::script('docs.js', 'text/javascript', 'UTF-8');
+
+	// Light / dark theme toggle — no-op when the header button is absent
+	Add::script('theme.js', 'text/javascript', 'UTF-8');
 }

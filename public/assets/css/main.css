@@ -57,6 +57,67 @@
 
     /* Elevation */
     --nsy-shadow: 0 8px 24px rgba(29, 123, 186, .14);
+    --nsy-shadow-strong: 0 6px 20px rgba(29, 123, 186, .35);
+
+    /* Surfaces & accents (themeable) */
+    --nsy-page: #FFFFFF;
+    --nsy-surface: #FFFFFF;
+    --nsy-on-primary: #FFFFFF;
+    --nsy-mark: #FEF08A;
+    --nsy-mark-fg: #3B2F00;
+    --nsy-focus-ring: rgba(92, 180, 245, .22);
+
+    color-scheme: light;
+}
+
+/* Dark theme. Applied before first paint by the header script from
+   localStorage / the OS setting, and toggled by the button in the site header.
+   Only the tokens change — every rule already reads them, so the whole site
+   flips at once. */
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    --nsy-primary: #4FA8E0;
+    --nsy-primary-dark: #6FBBEC;
+    --nsy-primary-deep: #DCEDFB;
+    --nsy-accent: #5CB4F5;
+    --nsy-accent-dark: #8FCBF8;
+    --nsy-accent-soft: #123A57;
+    --nsy-accent-softer: #0F2C43;
+
+    --nsy-ink: #E8F2FA;
+    --nsy-body: #BFD0DE;
+    --nsy-muted: #8DA6BA;
+    --nsy-line: #234259;
+
+    --nsy-code-bg: #061520;
+    --nsy-code-fg: #D9EBF8;
+
+    --nsy-shadow: 0 8px 24px rgba(0, 0, 0, .55);
+    --nsy-shadow-strong: 0 6px 20px rgba(0, 0, 0, .6);
+
+    --nsy-page: #0B1B28;
+    --nsy-surface: #102A3D;
+    --nsy-on-primary: #06131C;
+    --nsy-mark: #5B4A12;
+    --nsy-mark-fg: #F3E9B8;
+    --nsy-focus-ring: rgba(92, 180, 245, .35);
+}
+
+/* Category accents, dark variants (light values live further down). */
+[data-theme="dark"] .nsy-cat[data-cat="getting-started"] {
+    --cat: #5FB0E8;
+    --cat-soft: #12314A;
+}
+
+[data-theme="dark"] .nsy-cat[data-cat="core"] {
+    --cat: #7FC2F0;
+    --cat-soft: #133A57;
+}
+
+[data-theme="dark"] .nsy-cat[data-cat="reference"] {
+    --cat: #A0B6C8;
+    --cat-soft: #1B2F40;
 }
 
 /* ==========================================================================
@@ -94,6 +155,14 @@ body {
     height: 100vh;
     /* Avoid the IE 10-11 `min-height` bug. */
     color: var(--nsy-body);
+    background: var(--nsy-page);
+    transition: background-color .2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body {
+        transition: none;
+    }
 }
 
 /*
@@ -166,7 +235,59 @@ code {
     color: var(--nsy-primary);
 }
 
-/* Site header: NSY logo on the left, welcome copy on the right. */
+/* Site header: NSY logo on the left, welcome copy on the right, theme toggle
+   pinned to the top-right corner. */
+.header {
+    position: relative;
+}
+
+.nsy-theme-toggle {
+    position: absolute;
+    top: 18px;
+    right: clamp(16px, 3vw, 44px);
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid var(--nsy-line);
+    border-radius: 12px;
+    background: var(--nsy-surface);
+    color: var(--nsy-primary-deep);
+    cursor: pointer;
+    transition: background .15s, border-color .15s, color .15s, transform .15s;
+}
+
+.nsy-theme-toggle:hover {
+    border-color: var(--nsy-accent);
+    color: var(--nsy-primary);
+    transform: translateY(-1px);
+}
+
+.nsy-theme-toggle:focus-visible {
+    outline: 2px solid var(--nsy-accent);
+    outline-offset: 2px;
+}
+
+.nsy-theme-ico {
+    display: block;
+}
+
+/* Show the moon while light (click → dark), the sun while dark. */
+.nsy-theme-ico.sun {
+    display: none;
+}
+
+[data-theme="dark"] .nsy-theme-ico.sun {
+    display: block;
+}
+
+[data-theme="dark"] .nsy-theme-ico.moon {
+    display: none;
+}
+
 .header-inner {
     width: 100%;
     display: flex;
@@ -294,7 +415,7 @@ code {
 .nsy-badge {
     display: inline-block;
     background: var(--nsy-gradient);
-    color: #fff;
+    color: var(--nsy-on-primary);
     padding: 5px 14px;
     border-radius: 999px;
     font-size: 14px;
@@ -327,13 +448,17 @@ code {
     font-size: 16px;
     outline: none;
     color: var(--nsy-body);
-    background: #fff;
+    background: var(--nsy-surface);
     transition: border-color .15s, box-shadow .15s;
+}
+
+.nsy-hero-search::placeholder {
+    color: var(--nsy-muted);
 }
 
 .nsy-hero-search:focus {
     border-color: var(--nsy-accent);
-    box-shadow: 0 0 0 3px rgba(92, 180, 245, .22);
+    box-shadow: 0 0 0 3px var(--nsy-focus-ring);
 }
 
 .nsy-actions {
@@ -357,18 +482,18 @@ code {
 
 .nsy-btn.primary {
     background: var(--nsy-primary);
-    color: #fff;
+    color: var(--nsy-on-primary);
     border-color: var(--nsy-primary);
 }
 
 .nsy-btn.primary:hover {
     background: var(--nsy-primary-dark);
     border-color: var(--nsy-primary-dark);
-    color: #fff;
+    color: var(--nsy-on-primary);
 }
 
 .nsy-btn.ghost {
-    background: #fff;
+    background: var(--nsy-surface);
     color: var(--nsy-primary);
 }
 
@@ -403,15 +528,83 @@ code {
 .nsy-cat {
     width: 100%;
     margin: 0;
-    padding: 22px 0 0;
+    padding: 20px 0 0;
+    position: relative;
+    --cat: var(--nsy-primary);
+    --cat-soft: var(--nsy-accent-soft);
 }
 
-.nsy-cat>h3 {
-    font-size: 11.5px;
+/* Per-category accents, all drawn from the logo-blue family. */
+.nsy-cat[data-cat="getting-started"] {
+    --cat: #1D7BBA;
+    --cat-soft: #E7F1F9;
+}
+
+.nsy-cat[data-cat="core"] {
+    --cat: #3D9BE8;
+    --cat-soft: #EAF5FE;
+}
+
+.nsy-cat[data-cat="reference"] {
+    --cat: #6E8CA6;
+    --cat-soft: #EEF3F7;
+}
+
+/* A thick gradient rule between groups so the categories never blur together. */
+.nsy-cat+.nsy-cat {
+    margin-top: 14px;
+    padding-top: 34px;
+}
+
+.nsy-cat+.nsy-cat::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--nsy-gradient);
+    opacity: .9;
+}
+
+.nsy-cat-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 14px;
+}
+
+.nsy-cat-head h3 {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 12px;
     letter-spacing: .09em;
     text-transform: uppercase;
-    color: var(--nsy-primary);
-    margin: 0 0 10px;
+    color: var(--cat);
+    margin: 0;
+}
+
+/* Thicker accent bar before the label: the quickest cue for which group you are in. */
+.nsy-cat-head h3::before {
+    content: "";
+    width: 4px;
+    height: 16px;
+    border-radius: 2px;
+    background: var(--cat);
+    flex: 0 0 auto;
+}
+
+.nsy-cat-count {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--cat);
+    background: var(--cat-soft);
+    padding: 5px 10px;
+    border-radius: 999px;
 }
 
 .nsy-grid {
@@ -424,7 +617,7 @@ code {
     border: 1px solid var(--nsy-line);
     border-radius: 14px;
     padding: 16px;
-    background: #fff;
+    background: var(--nsy-surface);
     transition: box-shadow .15s, transform .15s, border-color .15s;
     display: flex;
     flex-direction: column;
@@ -474,7 +667,7 @@ code {
 .nsy-card:hover .nsy-ico {
     background: var(--nsy-primary);
     border-color: var(--nsy-primary);
-    color: #fff;
+    color: var(--nsy-on-primary);
 }
 
 .nsy-card code {
@@ -545,13 +738,13 @@ code {
     transform: translateY(6px) scale(.96);
     opacity: 0;
     background: var(--nsy-primary);
-    color: #fff;
+    color: var(--nsy-on-primary);
     padding: 8px 15px;
     border-radius: 10px;
     font-size: 13px;
     font-weight: 600;
     white-space: nowrap;
-    box-shadow: 0 4px 16px rgba(29, 123, 186, .35);
+    box-shadow: var(--nsy-shadow-strong);
     pointer-events: none;
     transition: opacity .22s, transform .22s;
 }
@@ -616,7 +809,7 @@ code {
     border: 1px solid var(--nsy-line);
     border-radius: 14px;
     padding: 14px;
-    background: #fff;
+    background: var(--nsy-surface);
 }
 
 .nsy-docs-home {
@@ -685,7 +878,7 @@ code {
 
 .nsy-docs-link.active {
     background: var(--nsy-primary);
-    color: #fff;
+    color: var(--nsy-on-primary);
 }
 
 .nsy-docs-toc {
@@ -700,7 +893,7 @@ code {
     font-size: 12px;
     color: var(--nsy-muted);
     text-decoration: none;
-    border-left: 2px solid transparent;
+    border-left: 3px solid transparent;
     /* One entry, one line — always.
        A long heading ellipsizes rather than wrapping, so the list keeps an even
        rhythm and the reader can scan it quickly. The sidebar is a fixed 250px
@@ -759,7 +952,7 @@ code {
     gap: 9px;
     margin-bottom: 20px;
     padding-bottom: 14px;
-    border-bottom: 1px solid var(--nsy-line);
+    border-bottom: 2px solid var(--nsy-line);
 }
 
 .nsy-docs-head .nsy-badge {
@@ -890,7 +1083,7 @@ code {
     height: 44px;
     border: 1px solid var(--nsy-line);
     border-radius: 50%;
-    background: #fff;
+    background: var(--nsy-surface);
     color: var(--nsy-primary);
     text-decoration: none;
     box-shadow: var(--nsy-shadow);
@@ -904,7 +1097,7 @@ code {
 .nsy-top:hover {
     background: var(--nsy-primary);
     border-color: var(--nsy-primary);
-    color: #fff;
+    color: var(--nsy-on-primary);
 }
 
 .nsy-top:focus-visible {
@@ -949,14 +1142,14 @@ code {
 
 .md h1 {
     font-size: 26px;
-    border-bottom: 2px solid var(--nsy-accent);
+    border-bottom: 3px solid var(--nsy-accent);
     padding-bottom: .3em;
     margin-top: .2em;
 }
 
 .md h2 {
     font-size: 21px;
-    border-bottom: 1px solid var(--nsy-line);
+    border-bottom: 2px solid var(--nsy-line);
     padding-bottom: .25em;
 }
 
@@ -1004,7 +1197,7 @@ code {
 .md blockquote {
     margin: 1em 0;
     padding: .2em 1em;
-    border-left: 4px solid var(--nsy-accent);
+    border-left: 5px solid var(--nsy-accent);
     background: var(--nsy-accent-softer);
     border-radius: 0 10px 10px 0;
     color: var(--nsy-body);
@@ -1087,7 +1280,8 @@ code {
 }
 
 .md mark {
-    background: #fef08a;
+    background: var(--nsy-mark);
+    color: var(--nsy-mark-fg);
     padding: 0 3px;
     border-radius: 3px;
 }
@@ -1159,7 +1353,7 @@ code {
     padding: 14px 16px;
     background: var(--nsy-accent-softer);
     border: 1px solid var(--nsy-line);
-    border-left: 3px solid var(--nsy-accent);
+    border-left: 4px solid var(--nsy-accent);
     border-radius: 12px;
     color: var(--nsy-body);
     font-size: 13px;

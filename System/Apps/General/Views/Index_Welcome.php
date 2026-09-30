@@ -17,8 +17,11 @@
 	</div>
 
 	@foreach($categories as $category => $items)
-	<section class="nsy-cat">
-		<h3>@( $category )</h3>
+	<section class="nsy-cat" data-cat="@( strtolower(str_replace(' ', '-', $category)) )">
+		<div class="nsy-cat-head">
+			<h3>@( $category )</h3>
+			<span class="nsy-cat-count">@( count($items) )</span>
+		</div>
 		<div class="nsy-grid">
 			@foreach($items as $doc)
 			<article class="nsy-card" data-search="@( strtolower($doc['title'] . ' ' . $doc['category'] . ' ' . $doc['api'] . ' ' . $doc['summary'] . ' ' . $doc['file']) )">
