@@ -3,8 +3,9 @@
 
 /env.php
 /.htaccess
-/phpunit.xml
 /.phpunit.result.cache
+/.php-cs-fixer.cache
+/.php-cs-fixer.php
 /MIGRATIONLOG
 public/.htaccess
 
