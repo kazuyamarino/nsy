@@ -9,32 +9,9 @@
 /MIGRATIONLOG
 public/.htaccess
 
-System/Apps/General/Controllers/C_Test_General.php
-System/Apps/General/Controllers/C_Test_CSRF.php
-System/Apps/General/Controllers/C_Test_Validator.php
-System/Apps/General/Controllers/C_Test_Route.php
-System/Apps/General/Controllers/C_Test_XSS.php
-System/Apps/General/Controllers/C_Test_Sanitizer.php
-System/Apps/General/Controllers/C_Test_Faker.php
-System/Apps/General/Controllers/C_Test_Encrypt.php
-System/Apps/General/Controllers/C_Test_Carbon.php
-System/Apps/General/Controllers/C_Test_Cookie.php
-System/Apps/General/Controllers/C_Test_Session.php
-System/Apps/General/Controllers/C_Test_FTP.php
-System/Apps/General/Controllers/C_Test_Curl.php
-System/Apps/General/Controllers/C_Test_Json.php
-System/Apps/General/Controllers/C_Test_Loadtime.php
-System/Apps/General/Controllers/C_Test_QueryBuilder.php
-System/Apps/General/Controllers/C_Test_DB.php
-System/Apps/General/Controllers/C_Test_DBCon.php
-System/Apps/General/Controllers/C_Test_CRUD.php
-
-System/Apps/General/Models/M_Test_DB.php
-System/Apps/General/Models/M_Test_DBCon.php
-System/Apps/General/Models/M_Test_QueryBuilder.php
-System/Apps/General/Models/M_Test_CRUD.php
-
-# Test-only routes (CRUD reference: query builder vs plain DB)
+# Test-only artifacts (CRUD reference: query builder vs plain DB) — delete before production
+System/Apps/General/Controllers/C_Test_*.php
+System/Apps/General/Models/M_Test_*.php
 System/Routes/Test_CRUD.php
 
 # Razr compiled template cache (generated at runtime)
