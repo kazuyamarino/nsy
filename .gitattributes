@@ -192,3 +192,23 @@ Procfile    text
 ## EXECUTABLES
 *.exe binary
 *.pyc binary
+
+######################################################################
+## RELEASE ARCHIVE
+##   Files below stay in the repository but are excluded from release
+##   archives (git archive / GitHub & GitLab "Source code" downloads).
+##   NOTE: /docs/*.md is deliberately NOT excluded — the built-in Docs
+##   feature (System/Libraries/Docs.php) reads those files at runtime.
+##   Untracked files (.gitnexus, System/Vendor, env.php, logs, plans)
+##   never appear in an archive anyway.
+######################################################################
+/System/Test/**         export-ignore
+/.github/**             export-ignore
+/.travis.yml            export-ignore
+/phpunit.xml            export-ignore
+/.php-cs-fixer.dist.php export-ignore
+/.php-cs-fixer.full.php export-ignore
+/.editorconfig          export-ignore
+/.gitignore             export-ignore
+/.gitattributes         export-ignore
+/docs/plans/**          export-ignore

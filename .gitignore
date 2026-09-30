@@ -9,6 +9,9 @@
 /MIGRATIONLOG
 public/.htaccess
 
+# Composer dependencies (restored with `composer install`; not committed)
+System/Vendor/
+
 # Test-only artifacts (CRUD reference: query builder vs plain DB) — delete before production
 System/Apps/General/Controllers/C_Test_*.php
 System/Apps/General/Models/M_Test_*.php
