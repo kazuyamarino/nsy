@@ -144,13 +144,13 @@ Route::for([UserController::class, 'processData'], ['data' => $clean]);
 ## CSRF Protection
 
 ```php
-// Form
-echo Route::csrfField('csrf_token'); // <input type="hidden" name="csrf_token" value="...">
+// Form — csrfField derives the input name from the key (csrf_token → name="token")
+echo Route::csrfField('csrf_token'); // <input type="hidden" name="token" value="...">
 echo Route::csrfMeta('csrf_token');  // <meta name="csrf-token" content="...">
 
 // Validate
 Route::post('/submit', function () {
-    if (!Route::validateCsrf($_POST['csrf_token'] ?? null, 'csrf_token')) {
+    if (!Route::validateCsrf($_POST['token'] ?? null, 'csrf_token')) {
         http_response_code(403);
         return 'Invalid token';
     }
@@ -159,7 +159,28 @@ Route::post('/submit', function () {
 
 // Generate token directly
 $token = Route::csrf('csrf_token');
+
+// Several tokens for one complex form
+$tokens = Route::csrfTokens(['login', 'payment']); // ['login' => '…', 'payment' => '…']
+echo Route::csrfFields(['login', 'payment']);      // both hidden <input> fields
 ```
+
+Every generator accepts an optional `$expiration` (seconds) and `$originCheck`
+(which binds the token to the client IP + User-Agent) as its last two arguments:
+
+```php
+echo Route::csrfField('login', 1800, true); // expires in 30 min, origin-bound
+Route::validateCsrf($_POST['login'] ?? null, 'login', 1800, true);
+```
+
+| Method | Purpose |
+|---|---|
+| `Route::csrf($key, $expiration, $origin)` | Generate and store a token |
+| `Route::csrfField($key, $expiration, $origin)` | Hidden `<input>` field |
+| `Route::csrfMeta($key, $expiration, $origin)` | `<meta name="csrf-token">` |
+| `Route::validateCsrf($token, $key, $expiration, $origin)` | Validate (reads `$_POST`/`$_GET` when `$token` is `null`) |
+| `Route::csrfTokens($keys, $expiration, $origin)` | Generate several tokens (assoc array) |
+| `Route::csrfFields($keys, $expiration, $origin)` | Generate several hidden fields |
 
 ## Cache & Performance
 
@@ -235,5 +256,5 @@ Route::haltOnMatch(false); // continue
 
 ### `System/Helpers/RouterHelper.php`
 
-`initRouter(array $config):array`, `get/post/put/delete/patch/head/options/any/map/group`, `goto/for`, `error/haltOnMatch/dispatch`, `enableCache/configureSecurity`, `getCacheStats/clearCache/clearControllerPool`, `clearCaches/getPerformanceStats/monitorRoute/debugInfo`.
+`initRouter(array $config):array`, `get/post/put/delete/patch/head/options/any/map/group`, `goto/for`, `error/haltOnMatch/dispatch`, `csrf/csrfField/csrfMeta/validateCsrf/csrfTokens/csrfFields`, `enableCache/configureSecurity`, `getCacheStats/clearCache/clearControllerPool`, `clearCaches/getPerformanceStats/monitorRoute/debugInfo`.
 

@@ -1,8 +1,14 @@
-# NSY File Library — User Tutorial
+# NSY Libraries — User Tutorial
 
-A practical guide to the file-management library at `System/Libraries/File.php`
-(namespace `System\Libraries`, class `File`). All methods are **static**, so no
-instantiation is needed.
+A practical guide to the bundled `System\Libraries\*` helper classes. Every method
+is **static**, so no instantiation is needed. The guide is split into five
+self-contained parts:
+
+- **Part A — `File`** — file-system management
+- **Part B — `LanguageCode`** — ISO 639-1 language codes
+- **Part C — `LoadTime`** — request execution timer
+- **Part D — `Request`** — input reading and sanitizing
+- **Part E — `Validate`** — scalar validation helpers
 
 > **Companion libraries:** [`Json`](README_JSON.md) · [`Cookie`](README_COOKIE.md) ·
 > [`Encryption`](README_ENCRYPTION.md) · [`Session`](README_SESSION.md) ·
@@ -12,7 +18,7 @@ instantiation is needed.
 
 ## Table of Contents
 
-**Part A — [File Library](#nsy-file-library--user-tutorial)**
+**Part A — [File Library](#nsy-libraries--user-tutorial)**
 
 1. [Getting Started](#getting-started)
 2. [Checking Existence — `exists()`](#checking-existence--exists)

@@ -10,15 +10,17 @@ All functions here are available as **global functions** (no namespace) after th
 2. [URI & Path Helpers](#uri--path-helpers)
 3. [Asset URL Helpers](#asset-url-helpers)
 4. [NSY System Constant Getters](#nsy-system-constant-getters)
-5. [HTTP & Input Helpers](#http--input-helpers)
-6. [Data Conversion & JSON](#data-conversion--json)
-7. [Array & Number Utilities](#array--number-utilities)
-8. [String & Media Utilities](#string--media-utilities)
-9. [Generator & Client Info](#generator--client-info)
-10. [Aurora Data Export](#aurora-data-export)
-11. [Practical Examples](#practical-examples)
-12. [Security & Stability Notes](#security--stability-notes)
-13. [Quick Reference](#quick-reference)
+5. [Configuration Getters](#configuration-getters)
+6. [HTTP & Input Helpers](#http--input-helpers)
+7. [Data Conversion & JSON](#data-conversion--json)
+8. [Array & Number Utilities](#array--number-utilities)
+9. [String & Media Utilities](#string--media-utilities)
+10. [Generator & Client Info](#generator--client-info)
+11. [Date Helpers](#date-helpers)
+12. [Aurora Data Export](#aurora-data-export)
+13. [Practical Examples](#practical-examples)
+14. [Security & Stability Notes](#security--stability-notes)
+15. [Quick Reference](#quick-reference)
 
 ---
 
@@ -112,6 +114,8 @@ get_keywords(): string
 get_author(): string
 get_session_prefix(): string
 get_site_email(): string
+get_repo_url(): string       // REPO_URL or config_site('repo_url')
+get_since(): string          // SINCE_YEAR or config_site('since')
 get_vendor_dir(): string     // ends with '/'
 get_mvc_view_dir(): string   // ends with '/'
 get_hmvc_view_dir(): string  // ends with '/'
@@ -121,9 +125,43 @@ get_system_tmp_dir(): string // ends with '/'
 ```php
 get_lang_code();           // "id-ID" — app locale
 get_lang_code('Spanish');  // "es"   — name lookup (see Part B of README_LIBRARIES.md)
+get_repo_url();            // "https://github.com/..."  (footer / docs link)
+get_since();               // "2019"  — copyright range start
 ```
 
 > Correlated: `System/Core/NSY_System.php` defines these constants at boot.
+
+---
+
+## Configuration Getters
+
+Read values from `System/Config/App.php`, `System/Config/Site.php` and the root
+`env.php` without `include`-ing them yourself.
+
+```php
+config_app(string $key): mixed                     // System/Config/App.php
+config_site(string $key): mixed                    // System/Config/Site.php
+config_env(string $key, string $sub = ''): mixed   // env.php
+config_db(string $conn = '', string $key = ''): mixed
+```
+
+```php
+config_app('app_env');                // "development"
+config_app('vendor_dir');             // "System/Vendor/"
+config_site('sitetitle');             // "NSY PHP Framework"
+config_env('APP_DIR');                // "nsy"
+config_env('DB_CONNECTION', 'host');  // env.php['DB_CONNECTION']['host']
+config_db();                          // the whole ['connections' => [...]]
+config_db('primary', 'database');     // env.php['connections']['primary']['database']
+```
+
+- `config_app()` / `config_site()` return `null` for an unknown key.
+- `config_env($key)` returns the whole env value; pass `$sub` to read one child key.
+- `config_db()` with no (or partial) arguments returns the entire `connections`
+  array; pass both `$conn` and `$key` for a single DSN value.
+- The App/Site keys and matching `env.php` variables are listed in
+  [`OVERVIEW.md`](OVERVIEW.md#framework-configuration), [`README_DEPLOY_HOSTING.md`](README_DEPLOY_HOSTING.md)
+  and [`README_MODEL.md`](README_MODEL.md).
 
 ---
 
@@ -176,10 +214,14 @@ $name = fetch_raw_json('name');  // $array['name'] ?? null
 array_flatten(mixed $items): array
 number_format_short(int|float $n, int $precision = 1): string
 sequence(string $bind, iterable $variables): array  // [$in, $params]
+terner(mixed $condition, mixed $if_true, mixed $if_false): mixed
 ```
 
 ```php
 array_flatten([1, [2, [3]]]); // [1, 2, 3]
+
+terner($user, $user->name, 'Guest'); // "Guest" when $user is empty
+terner(true, 'yes', 'no');           // "yes"
 
 number_format_short(1500);        // "1.5 Rb"
 number_format_short(2500000);     // "2.5 Jt"
@@ -235,6 +277,23 @@ echo $ua['platform']; // "Windows"
 ```
 
 > `generate_num()` is now typed and handles edge values safely. `get_ua()` no longer emits warnings when `HTTP_USER_AGENT` is missing or unknown.
+
+---
+
+## Date Helpers
+
+```php
+get_today(): string   // e.g. "Wednesday, 30 September 2026" (Carbon isoFormat)
+get_year(): string    // "2026"
+```
+
+```php
+echo get_today();  // header / footer date
+echo get_year();   // end of the copyright range: get_since() - get_year()
+```
+
+> Both use `nesbot/carbon`; the date format follows the app locale. Templates call
+> them directly so a controller that forgets to pass a date cannot blank the footer.
 
 ---
 
@@ -305,17 +364,22 @@ $db->query("SELECT * FROM users WHERE id IN ($in)", $params);
 | `img_url/js_url/css_url($u)` | Asset directory URL | `string` |
 | `redirect_url($u)` / `redirect($u)` / `redirect_back()` | HTTP redirect + exit | `void` |
 | `get_uri()` / `get_uri_segment($i)` / `get_last_uri_segment()` | Current request URI | `string` |
-| `get_version()` etc. (14 getters) | System constants with config fallback | `string` |
+| `get_version()` etc. (16 getters) | System constants with config fallback | `string` |
+| `config_app($k)` / `config_site($k)` | Read `App.php` / `Site.php` key | `mixed` |
+| `config_env($k,$sub)` / `config_db($c,$k)` | Read `env.php` / a DSN value | `mixed` |
 | `post($k)` / `get($k)` / `array_items(...)` | Superglobal access | `mixed` |
 | `fetch_json($d,$s)` | JSON encode + status | `string` |
 | `fetch_raw_json($k)` | php://input JSON decode | `mixed` |
 | `array_flatten($a)` | Flatten nested array | `array` |
 | `number_format_short($n,$p)` | Short number (Rb/Jt/M/T) | `string` |
 | `sequence($bind,$vars)` | SQL IN placeholders | `array` |
+| `terner($c,$a,$b)` | Inline ternary selector | `mixed` |
+| `qb($t,$alias,$conn)` | Query Builder factory ([guide](README_QUERY_BUILDER.md)) | `NSY_QueryBuilder` |
 | `string_encrypt($a,$s)` | AES-256-CBC encrypt/decrypt | `string\|false` |
 | `image_to_base64($f)` / `string_to_base64($s,$e)` | Base64 + data URL | `array` |
 | `generate_num($pre,$id,$num)` | Random prefixed ID | `string` |
 | `get_ua()` | User-Agent parsing | `array` |
+| `get_today()` / `get_year()` | Current date / year (Carbon) | `string` |
 | `aurora($ext,$name,$sep,$h,$d,$s)` | Tabular export | `true` |
 
 Related source: `System/Core/NSY_Helpers_Global.php`, correlated: `System/Core/NSY_System.php`, `System/Config/App.php`, `System/Config/Site.php`, `env.php`.

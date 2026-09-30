@@ -21,6 +21,8 @@ Query builder for NSY (`System/Core/DB.php`, `System/Core/NSY_DB.php`). Unified 
 
 ## Connections
 
+Connections are declared once in `env.php` under `connections` and selected by name.
+
 ```php
 // env.php
 'connections' => [
@@ -36,7 +38,52 @@ DB::connect('secondary')->query($q)->fetchAll();   // secondary
 DB::connect('pgsql')->query($q)->fetchAll();       // custom
 ```
 
-> `DB::connect(string $conn='primary'): object` `System/Core/DB.php:33` now delegates to `NSY_DB::connect($conn)` `System/Core/NSY_DB.php:15` — no duplicated `switch` (before 16 lines x2).
+> `DB::connect(string $conn='primary'): object` `System/Core/DB.php:33` delegates to `NSY_DB::connect($conn)` `System/Core/NSY_DB.php:24` — one `match` selects the driver (no duplicated `switch`).
+
+### Environment keys
+
+| Key | Required | Purpose |
+|---|---|---|
+| `DB_CONNECTION` | yes | Driver: `mysql`, `pgsql`, `dblib` or `sqlsrv` |
+| `DB_HOST` | yes | Server host |
+| `DB_NAME` | yes | Database name |
+| `DB_PORT` | — | Port (appended when filled) |
+| `DB_USER` / `DB_PASS` | — | Credentials (default `''`) |
+| `DB_CHARSET` | — | Charset (mysql / pgsql / dblib) |
+| `DB_ATTR` | — | PDO options array, merged over the secure defaults |
+
+Missing `DB_CONNECTION`, `DB_HOST` or `DB_NAME` raises a configuration error through
+`NSY_Desk::staticErrorHandler()`.
+
+### Supported drivers
+
+| `DB_CONNECTION` | PDO extension | DSN built by | Format |
+|---|---|---|---|
+| `mysql` | `pdo_mysql` | `buildDsn()` | `mysql:host=…;port=…;dbname=…;charset=…` |
+| `pgsql` | `pdo_pgsql` | `buildDsn()` | `pgsql:host=…;port=…;dbname=…;charset=…` |
+| `dblib` | `pdo_dblib` | `buildDsn()` | `dblib:host=…;port=…;dbname=…;charset=…` |
+| `sqlsrv` | `pdo_sqlsrv` | `buildSqlsrvDsn()` | `sqlsrv:Server=host,port;Database=…` |
+
+Any other value falls through to `handleUnknownDriver()` and reports an error.
+
+### Connection options
+
+`normalizeOptions()` applies secure defaults, which your `DB_ATTR` overrides:
+
+```php
+\PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
+\PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+\PDO::ATTR_EMULATE_PREPARES   => false,
+```
+
+Every attempt is logged on the `db` channel (driver / host / port / dbname + duration) —
+**credentials are never logged**.
+
+### Backwards-compatible proxies
+
+`NSY_DB` also exposes the per-driver entry points `connectMysql()`, `connectDblib()` and
+`connectPgsql()` (generic DSN) plus `connectSqlsrv()` (SQLSRV DSN). They are kept for
+backwards compatibility; for new code prefer `connect($conn)`.
 
 ---
 
@@ -137,10 +184,11 @@ Benefits: `declare(strict_types=1)`, `?PDO` type, `buildDsn()` + `quoteIdent()` 
 | Method | Purpose | Returns |
 |---|---|---|
 | `DB::connect($conn)` | Select connection | `object` |
+| `NSY_DB::connect($conn)` | Driver factory (`mysql`/`pgsql`/`dblib`/`sqlsrv`) | `?PDO` |
 | `query($q)` / `vars($arr)` / `bind(BINDVAL)` / `style(FETCH_ASSOC)` | Build query | `object` (chainable) |
 | `fetchAll()` / `fetch()` / `fetchColumn($i)` / `rowCount()` | Fetch | `array/mixed/int` |
 | `exec()` / `multiInsert()` | Execute DML | `bool` |
 | `beginTrans()` / `commitTrans()` / `rollbackTrans()` | Transaction | `object` |
 | `pdoSetAttr($k,$v)` | PDO attribute | `object` |
 
-Related: `System/Core/DB.php:33`, `System/Core/NSY_DB.php:15`, `env.php` `connections`, `System/Core/NSY_Migration.php` (DDL counterpart).
+Related: `System/Core/DB.php:33`, `System/Core/NSY_DB.php:24`, `env.php` `connections`, `System/Core/NSY_Migration.php` (DDL counterpart).

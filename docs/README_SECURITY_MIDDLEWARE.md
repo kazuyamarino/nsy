@@ -25,7 +25,9 @@ $safe = SecurityMiddleware::cleanXSS($userInput);
 
 ## CSRF Protection
 
-Use `Route` as the single entry point:
+Prefer the `Route` facade as the single entry point (see
+[`README_NSY_ROUTER.md#csrf-protection`](README_NSY_ROUTER.md#csrf-protection)
+for the full tutorial):
 
 ```php
 echo Route::csrfField('csrf_token');
@@ -40,7 +42,24 @@ Route::post('/submit', function () {
 });
 ```
 
-See `docs/README_NSY_ROUTER.md#csrf-protection` for full tutorial.
+The same calls are available directly on `SecurityMiddleware` (used internally and
+kept for backwards compatibility):
+
+```php
+use System\Middlewares\SecurityMiddleware;
+
+// Single form — csrfField derives the input name from the key (csrf_token → name="token")
+echo SecurityMiddleware::csrfField('csrf_token');                 // <input name="token" …>
+SecurityMiddleware::validateCSRFToken($_POST['token'] ?? null, 'csrf_token'); // bool
+
+// Multi-key form — stored with a csrf_ prefix, read from an array such as $_POST
+SecurityMiddleware::generateCSRFTokenForKey('login');             // stored as $_SESSION['csrf_login']
+SecurityMiddleware::validateAdvancedCSRF('login', $_POST, false, 600, false, false); // reads $_POST['login']
+```
+
+`$expiration` (seconds) is checked on validation, not at generation. Passing
+`$enableOriginCheck = true` embeds an IP + User-Agent hash, so a token copied to
+another client is rejected.
 
 ## Input Sanitization
 
@@ -136,6 +155,14 @@ $security = new SecurityMiddleware([
 
 ## API Reference
 
+### Constructor
+
+| Method | Signature | Description |
+|---|---|---|
+| `__construct` | `__construct(array $config=[]):void` | Merge config: `csrf_protection`, `rate_limit`, `rate_window`, `validate_input`, `block_suspicious_patterns` |
+
+### Sanitization
+
 | Method | Signature | Description |
 |---|---|---|
 | `sanitizeInput` | `sanitizeInput(mixed $data=''):string` | Sanitize a single scalar (non-scalars return `''`) |
@@ -144,6 +171,21 @@ $security = new SecurityMiddleware([
 | `validateAndSanitize` | `validateAndSanitize(mixed $data, array $options=[]):mixed` | Core sanitization (arrays/objects recursed) |
 
 > For whole-form input use `sanitizeForm()` / `validateAndSanitize()` — both walk arrays **and** objects. `sanitizeInput()` is for a single scalar value; arrays/objects given to it return `''` rather than raising a conversion error.
+
+### CSRF
+
+| Method | Signature | Description |
+|---|---|---|
+| `generateCSRFToken` | `generateCSRFToken(string $key='_csrf_token', ?int $expiration=null, bool $enableOriginCheck=false):string` | Generate a token and store it in `$_SESSION[$key]` |
+| `generateCSRFTokenForKey` | `generateCSRFTokenForKey(string $key, bool $enableOriginCheck=false):string` | Generate a token stored under `csrf_<key>` |
+| `csrfField` | `csrfField(string $key='_csrf_token', ?int $expiration=null, bool $enableOriginCheck=false):string` | Hidden `<input>` field |
+| `csrfMeta` | `csrfMeta(string $key='_csrf_token', ?int $expiration=null, bool $enableOriginCheck=false):string` | `<meta name="csrf-token">` tag |
+| `validateCSRFToken` | `validateCSRFToken(?string $token, string $key='csrf_token', ?int $expiration=null, bool $originCheck=false):bool` | Single-use validation; normalizes the `csrf_` prefix |
+| `checkCSRFToken` | `checkCSRFToken(string $key, string $token, bool $throwException=false, ?int $timeSpan=null, bool $multiple=false):bool` | Core check; clears the session token unless `$multiple` |
+| `validateAdvancedCSRF` | `validateAdvancedCSRF(string $key, array $origin, bool $throwException=false, ?int $timeSpan=null, bool $multiple=false, bool $enableOriginCheck=false):bool` | Validate `$origin[$key]` (e.g. `$_POST`) |
+| `createCSRFProtection` | `createCSRFProtection(bool $enableOriginCheck=false):object` | Factory with `generate()` / `check()` (backwards compatibility) |
+
+> `$expiration` / `$timeSpan` are enforced on **validation**, not at generation. `$enableOriginCheck` binds the token to the client IP + User-Agent, so a token copied to another client is rejected.
 
 ## Examples
 

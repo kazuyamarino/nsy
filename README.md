@@ -3,7 +3,7 @@ Simple. Layered. Harmony in MVC and HMVC.
 
 [![PHP >=8.1](https://img.shields.io/badge/PHP-%3E%3D8.1-777BB4)](https://www.php.net/) [![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE.txt) [![PSR-4](https://img.shields.io/badge/PSR--4-Autoloading-blue)](https://www.php-fig.org/psr/psr-4/)
 
-**Site:** [https://nsyframework.com/](https://nsyframework.com/) · **Docs:** [`OVERVIEW`](docs/OVERVIEW.md) · [`Libraries`](docs/README_LIBRARIES.md) · [`Load & Asset`](docs/README_LOAD_AND_ASSETMANAGER.md) · [`Helpers`](docs/README_HELPERS_GLOBAL.md) · [`Router`](docs/README_NSY_ROUTER.md) · [`Migration`](docs/README_MIGRATION.md) · [`Model`](docs/README_MODEL.md)
+**Site:** [https://nsyframework.com/](https://nsyframework.com/) · **Docs:** [`OVERVIEW`](docs/OVERVIEW.md) · [`Libraries`](docs/README_LIBRARIES.md) · [`Load & Asset`](docs/README_LOAD_AND_ASSETMANAGER.md) · [`Helpers`](docs/README_HELPERS_GLOBAL.md) · [`Aliases`](docs/README_ALIASES.md) · [`Docs Viewer`](docs/README_DOCS_VIEWER.md) · [`Router`](docs/README_NSY_ROUTER.md) · [`Migration`](docs/README_MIGRATION.md) · [`Model`](docs/README_MODEL.md)
 
 ## Codename
 > **Current Release Codename: Gamelan**  
@@ -58,6 +58,8 @@ cp docs/env.example/env.example.php env.php
 - [Validation](docs/README_VALIDATION.md) — `Validator::make()/validate()` (rakit/validation)
 - [Load & Asset Manager](docs/README_LOAD_AND_ASSETMANAGER.md) — `Load::view/template/model` & `Add::` (`?v=filemtime`)
 - [Helpers Global](docs/README_HELPERS_GLOBAL.md) — `base_url()`, `is_filled()`, `css_url()` etc.
+- [Class Aliases](docs/README_ALIASES.md) — `Route::`, `Add::`, `Mig::` short names from `App.php:aliases`
+- [Docs Viewer](docs/README_DOCS_VIEWER.md) — render `docs/*.md` in-app at `/docs/{slug}`
 - [CodeIgniter Helpers](docs/README_CODEIGNITER_HELPERS.md) — `stringify_attributes()`, `directory_map()` etc.
 - [Router](docs/README_NSY_ROUTER.md) — `Route::get/post/group`, middleware
 - [Security Middleware](docs/README_SECURITY_MIDDLEWARE.md) — CSRF, XSS, rate-limit

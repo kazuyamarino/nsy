@@ -80,6 +80,22 @@ class Docs
 			'api' => 'qb()->whereIn()->paginate()',
 			'summary' => 'Fluent SQL builder: where, joins, grouping, pagination and raw queries.',
 		],
+		'aliases' => [
+			'file' => 'README_ALIASES.md',
+			'category' => 'Core',
+			'icon' => 'link',
+			'title' => 'Class Aliases',
+			'api' => 'Route:: · Add:: · Mig::',
+			'summary' => 'Map short names and backwards-compatible namespaces to real classes via App.php:aliases and NSY_AliasManager.',
+		],
+		'docs-viewer' => [
+			'file' => 'README_DOCS_VIEWER.md',
+			'category' => 'Core',
+			'icon' => 'eye',
+			'title' => 'Docs Viewer',
+			'api' => 'Docs::render() · /docs/{slug}',
+			'summary' => 'Render docs/*.md as HTML inside the app: manifest, icons, categories and Markdown rules.',
+		],
 		'libraries' => [
 			'file' => 'README_LIBRARIES.md',
 			'category' => 'Reference',
@@ -208,6 +224,8 @@ class Docs
 			'check' => '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
 			'log' => '<path d="M8 6h11"/><path d="M8 12h11"/><path d="M8 18h11"/><path d="M4 6h.01"/><path d="M4 12h.01"/><path d="M4 18h.01"/>',
 			'package' => '<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5 12 12l8-4.5"/><path d="M12 12v9"/>',
+			'link' => '<path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/>',
+			'eye' => '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
 		];
 
 		$inner = $icons[$name] ?? $icons['book'];
