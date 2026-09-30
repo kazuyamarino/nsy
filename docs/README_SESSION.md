@@ -1,8 +1,7 @@
 # NSY Session Library — User Tutorial
 
 Native session helper at `System/Libraries/Session.php` (namespace
-`System\Libraries`, class `Session`). Replaces the former
-`josantonius/session` dependency. All methods are **static** and wrap PHP's
+`System\Libraries`, class `Session`). All methods are **static** and wrap PHP's
 `session_*` functions.
 
 ## Table of Contents

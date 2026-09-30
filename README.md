@@ -18,14 +18,27 @@ Simple. Layered. Harmony in MVC and HMVC.
 
 ## Requirements
 - PHP >= 8.1, Composer, MySQL/MariaDB/PostgreSQL/SQL Server (optional)
+- Composer is **required**: `System/Vendor/` is not committed, so dependencies are
+  installed with `composer install` (use `composer install --no-dev` in production).
 
 ## Quick Start
+
+**From Packagist** — `composer create-project` installs dependencies and runs the
+framework's `post-install-cmd` (autoload dump + NSY CLI) automatically:
+
 ```bash
-composer create-project kazuyamarino/nsy my-app
+composer create-project vikry/nsy my-app
 cd my-app
 cp docs/env.example/env.example.php env.php
-composer dump-autoload -o
 nsy --setup
+```
+
+**From a release ZIP or `git clone`** — `System/Vendor/` is not bundled, so install
+dependencies first:
+
+```bash
+composer install
+cp docs/env.example/env.example.php env.php
 ```
 
 ## Configuration
@@ -48,9 +61,11 @@ nsy --setup
 - [CodeIgniter Helpers](docs/README_CODEIGNITER_HELPERS.md) — `stringify_attributes()`, `directory_map()` etc.
 - [Router](docs/README_NSY_ROUTER.md) — `Route::get/post/group`, middleware
 - [Security Middleware](docs/README_SECURITY_MIDDLEWARE.md) — CSRF, XSS, rate-limit
+- [Logging](docs/README_LOGGING.md) — PSR-3 JSONL logger: channels, rotation, retention
 - [Migration](docs/README_MIGRATION.md) — `Mig::createTable()`, `quoteIdent`/`execDDL` (DRY)
 - [Model & DB](docs/README_MODEL.md) — `DB::query()`, `NSY_DB::connect()` unified
 - [Query Builder](docs/README_QUERY_BUILDER.md) — `qb('users')->whereIn()->paginate()` — minimal lines
+- [Dependencies](docs/README_DEPENDENCIES.md) — every Composer package (runtime, dev, transitive)
 
 ## License
 MIT — see [LICENSE.txt](LICENSE.txt)

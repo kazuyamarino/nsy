@@ -1,9 +1,8 @@
 # NSY Cookie Library — User Tutorial
 
 Native cookie helper at `System/Libraries/Cookie.php` (namespace
-`System\Libraries`, class `Cookie`). Replaces the former `josantonius/cookie`
-dependency. All methods are **static** and secure-by-default
-(`HttpOnly`, `SameSite=Lax`, `Path=/`).
+`System\Libraries`, class `Cookie`). All methods are **static** and
+secure-by-default (`HttpOnly`, `SameSite=Lax`, `Path=/`).
 
 ## Table of Contents
 

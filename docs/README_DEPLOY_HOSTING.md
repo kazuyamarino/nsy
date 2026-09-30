@@ -87,6 +87,10 @@ needed at runtime** and can stay in your repo/CI.
 
 ## Deploy steps
 
+> **Dependencies first.** `System/Vendor/` is **not** committed. Build it locally with
+> `composer install --no-dev --optimize-autoloader`, then upload it as part of
+> `System/` — or run the same command on the server if Composer is available.
+
 1. Upload the whole `System/` tree → `/home/USERNAME/System/`.
 2. Upload the **contents** of `public/` → `/home/USERNAME/public_html/`
    (`index.php`, `assets/`, `403.html`, `404.html`, `50x.html`, `robots.txt`,
@@ -374,7 +378,7 @@ Notes:
 | Every route 404s, but static files load | `.htaccess` not applied / `mod_rewrite` off | enable `AllowOverride All` + `mod_rewrite` |
 | Every route 404s and assets 404 too | `APP_DIR` / `PUBLIC_DIR` still `nsy` / `public` | set both to `''` |
 | `env file not found, please check in root folder.` | `env.php` not next to the `System/` parent | place at `/home/USERNAME/env.php` |
-| Autoload / “class not found” error | `System/Vendor/` not uploaded, or `System/` not the sibling of the web folder | upload the full `System/` including `Vendor/` |
+| Autoload / “class not found” error | `System/Vendor/` missing (it is not shipped), or `System/` not the sibling of the web folder | run `composer install --no-dev` locally and upload `System/Vendor/` (or run it on the server) |
 | Assets point to `/public/...` or `/public_html/...` | `PUBLIC_DIR` not empty | set `PUBLIC_DIR = ''` |
 | Blank page, no errors | `APP_ENV=production` hides messages | check `System/Storage/logs/`, or temporarily set `development` |
 | “Permission denied” writing logs / templates | runtime dirs not writable | `chmod -R 775` the two dirs above |

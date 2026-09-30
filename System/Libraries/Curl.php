@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace System\Libraries;
 
 /**
- * NSY cURL client (native replacement for php-curl-class).
+ * NSY cURL client.
  *
  * A small, chainable wrapper over ext-curl with secure defaults (TLS
  * verification on, redirect cap, timeouts). The response body is auto-decoded

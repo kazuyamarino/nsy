@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace System\Libraries;
 
 /**
- * NSY JSON file helper (native replacement for josantonius/json).
+ * NSY JSON file helper.
  *
  * Static utility for reading/writing JSON files and encode/decode values.
  * Writes are atomic: data goes to a sibling temp file then is renamed into

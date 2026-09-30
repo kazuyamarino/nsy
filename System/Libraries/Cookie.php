@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace System\Libraries;
 
 /**
- * NSY cookie helper (native replacement for josantonius/cookie).
+ * NSY cookie helper.
  *
  * Thin, secure-by-default wrapper over PHP's setcookie()/$_COOKIE. It never
  * mutates $_COOKIE on write (only the browser does that), so reads stay

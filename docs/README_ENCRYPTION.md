@@ -1,8 +1,7 @@
 # NSY Encryption Library — User Tutorial
 
 Native encryption helper at `System/Libraries/Encryption.php` (namespace
-`System\Libraries`, class `Encryption`). Replaces the former
-`lablnet/encryption` dependency. All methods are **static**.
+`System\Libraries`, class `Encryption`). All methods are **static**.
 
 New payloads use **AES-256-GCM** (authenticated) with a fresh random 12-byte IV
 per call and a versioned envelope:

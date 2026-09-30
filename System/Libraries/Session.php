@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace System\Libraries;
 
 /**
- * NSY session helper (native replacement for josantonius/session).
+ * NSY session helper.
  *
  * Thin wrapper over PHP's session_* functions. `start()` accepts the same
  * options array as `session_start()` (NSY passes `session_config` from

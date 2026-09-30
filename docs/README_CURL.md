@@ -1,9 +1,8 @@
 # NSY Curl Library — User Tutorial
 
 Native HTTP client at `System/Libraries/Curl.php` (namespace
-`System\Libraries`, class `Curl`). Replaces the former `php-curl-class`
-dependency and wraps `ext-curl` with secure defaults: TLS verification on,
-redirect cap of 5, connect timeout 10s / total timeout 30s.
+`System\Libraries`, class `Curl`). Wraps `ext-curl` with secure defaults: TLS
+verification on, redirect cap of 5, connect timeout 10s / total timeout 30s.
 
 ## Table of Contents
 

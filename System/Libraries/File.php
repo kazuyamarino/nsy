@@ -8,10 +8,7 @@ namespace System\Libraries;
  *
  * PHP library for file management.
  *
- * @author    Josantonius <hello@josantonius.com>
- * @copyright 2017 - 2018 (c) Josantonius - PHP-File
  * @license   https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @link      https://github.com/Josantonius/PHP-File
  * @since     1.0.0
  */
 

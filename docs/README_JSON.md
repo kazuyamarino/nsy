@@ -1,8 +1,7 @@
 # NSY Json Library — User Tutorial
 
 Native JSON helper at `System/Libraries/Json.php` (namespace `System\Libraries`,
-class `Json`). Replaces the former `josantonius/json` dependency. All methods are
-**static**.
+class `Json`). All methods are **static**.
 
 ## Table of Contents
 

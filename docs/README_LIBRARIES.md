@@ -457,8 +457,6 @@ get_lang_code('Klingon');   // false — unknown name
 
 > `<html lang="@( get_lang_code() )">` in templates uses this helper. For all other language features use `LanguageCode::` directly.
 
-> **Note:** Former shortcuts `get_all_lang()` / `get_lang_name()` from `NSY_Helpers_Language.php` have been removed (Option 2). Use `LanguageCode::get()` / `LanguageCode::getLanguageFromCode()` directly.
-
 ## Complete Example — Language Dropdown
 
 ```php
@@ -561,8 +559,6 @@ if (LoadTime::isActive()) { /* timer still running */ }
 | `LoadTime::isActive()` | Is the timer running? | `bool` |
 
 Related source: `System/Libraries/LoadTime.php`.
-
-> **Note:** Former helpers `loadtime_start()` / `loadtime_end()` / `loadtime_active()` (`NSY_Helpers_LoadTime.php`) removed — use `LoadTime::` directly.
 
 ---
 
@@ -706,8 +702,6 @@ $name = Request::input('GET')('name')->asString('guest');
 
 Related source: `System/Libraries/Request.php`, sanitizers in `System/Libraries/Validate.php`.
 
-> **Note:** Former helpers `request_is_*()` / `request_as_*()` / `request_content_type()` (`NSY_Helpers_Request.php`) removed — use `Request::` directly.
-
 ---
 
 # NSY Validate Library — User Tutorial
@@ -809,5 +803,3 @@ Validate::asEmail(mixed $data, mixed $default = null): mixed
 | `Validate::asEmail($data,$default)` | Valid email or default | `mixed` |
 
 Related source: `System/Libraries/Validate.php`.
-
-> **Note:** Former helpers `validate_*()` (`NSY_Helpers_Validate.php`) removed — use `Validate::` directly.

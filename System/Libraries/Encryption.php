@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace System\Libraries;
 
 /**
- * NSY encryption helper (native replacement for lablnet/encryption).
+ * NSY encryption helper.
  *
  * New payloads use AES-256-GCM (authenticated) with a random 12-byte IV per
  * call and a versioned envelope:

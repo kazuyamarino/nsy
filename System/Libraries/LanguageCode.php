@@ -8,10 +8,7 @@ namespace System\Libraries;
  *
  * List of 217 language codes: ISO 639-1.
  *
- * @author    Josantonius <hello@josantonius.com>
- * @copyright 2017 - 2018 (c) Josantonius - PHP-LanguageCode
  * @license   https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @link      https://github.com/Josantonius/PHP-LanguageCode
  * @since     1.0.0
  */
 

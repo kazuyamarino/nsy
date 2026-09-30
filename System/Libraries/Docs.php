@@ -88,6 +88,14 @@ class Docs
 			'api' => 'File · LanguageCode · Validate',
 			'summary' => 'File management, language codes, validation and Query Builder internals.',
 		],
+		'logging' => [
+			'file' => 'README_LOGGING.md',
+			'category' => 'Reference',
+			'icon' => 'log',
+			'title' => 'Logging',
+			'api' => 'LogManager::channel() · PSR-3',
+			'summary' => 'Dependency-light PSR-3 file logger: channels, JSONL, rotation and retention.',
+		],
 		'json' => [
 			'file' => 'README_JSON.md',
 			'category' => 'Reference',
@@ -160,6 +168,14 @@ class Docs
 			'api' => 'sanitizeInput() · ensureSession()',
 			'summary' => 'Input sanitization, session guard, security headers and CSRF basics.',
 		],
+		'dependencies' => [
+			'file' => 'README_DEPENDENCIES.md',
+			'category' => 'Reference',
+			'icon' => 'package',
+			'title' => 'Dependencies',
+			'api' => 'composer install · show',
+			'summary' => 'Every Composer package NSY installs — runtime, dev and transitive.',
+		],
 	];
 
 	public static function docsDir(): string
@@ -190,6 +206,8 @@ class Docs
 			'key' => '<circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8-8"/><path d="m17 4 3 3"/><path d="m15 6 2 2"/>',
 			'globe' => '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M12 3a15 15 0 0 0 0 18"/>',
 			'check' => '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
+			'log' => '<path d="M8 6h11"/><path d="M8 12h11"/><path d="M8 18h11"/><path d="M4 6h.01"/><path d="M4 12h.01"/><path d="M4 18h.01"/>',
+			'package' => '<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5 12 12l8-4.5"/><path d="M12 12v9"/>',
 		];
 
 		$inner = $icons[$name] ?? $icons['book'];
