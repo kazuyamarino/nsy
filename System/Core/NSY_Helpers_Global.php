@@ -56,6 +56,36 @@ if (!function_exists('is_filled')) {
  * URI Helpers
  * @var mixed
  */
+if (!function_exists('nsy_canonical_origin')) {
+	/**
+	 * Canonical request origin (scheme://host[:port]) used to build every
+	 * generated URL. Prefers the APP_URL config; only when it is not set does
+	 * it fall back to the request Host header — and then it validates it, so a
+	 * forged Host cannot poison links. This closes Host-header injection.
+	 *
+	 * @return string
+	 */
+	function nsy_canonical_origin(): string
+	{
+		$appUrl = trim((string) (config_app('app_url') ?? ''));
+		if ($appUrl !== '') {
+			$parts = parse_url($appUrl);
+			if (is_array($parts) && isset($parts['host'])) {
+				$scheme = (($parts['scheme'] ?? '') !== '') ? $parts['scheme'] : 'https';
+				return $scheme . '://' . $parts['host'] . (isset($parts['port']) ? ':' . $parts['port'] : '');
+			}
+		}
+
+		$host = (string) ($_SERVER['HTTP_HOST'] ?? 'localhost');
+		if (preg_match('/^[A-Za-z0-9.\-]+(:\d{1,5})?$/', $host) !== 1) {
+			$host = 'localhost';
+		}
+		$isHttps = (($_SERVER['HTTPS'] ?? '') === 'on' || (int) ($_SERVER['SERVER_PORT'] ?? 80) === 443);
+
+		return ($isHttps ? 'https://' : 'http://') . $host;
+	}
+}
+
 /**
  * Define base_url() method, get base url with default project directory
  * @param  string $url
@@ -64,15 +94,13 @@ if (!function_exists('is_filled')) {
 function base_url($url = ''): string
 {
 	$APP_DIR = config_app('app_dir');
-	$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-	$isHttps = (($_SERVER['HTTPS'] ?? '') === 'on' || (int) ($_SERVER['SERVER_PORT'] ?? 80) === 443);
-	$scheme = $isHttps ? 'https://' : 'http://';
+	$origin = nsy_canonical_origin();
 	$url = ltrim((string) $url, '/');
 
 	if (empty($APP_DIR)) {
-		return $scheme . $host . '/' . $url;
+		return $origin . '/' . $url;
 	}
-	return $scheme . $host . '/' . trim((string) $APP_DIR, '/') . '/' . $url;
+	return $origin . '/' . trim((string) $APP_DIR, '/') . '/' . $url;
 }
 
 /**
@@ -88,9 +116,7 @@ function assets_url($url = ''): string
 {
 	$APP_DIR = config_app('app_dir');
 	$PUBLIC_DIR = config_app('public_dir');
-	$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-	$isHttps = (($_SERVER['HTTPS'] ?? '') === 'on' || (int) ($_SERVER['SERVER_PORT'] ?? 80) === 443);
-	$scheme = $isHttps ? 'https://' : 'http://';
+	$origin = nsy_canonical_origin();
 	$url = ltrim((string) $url, '/');
 
 	$parts = [];
@@ -101,7 +127,7 @@ function assets_url($url = ''): string
 		$parts[] = trim((string) $PUBLIC_DIR, '/');
 	}
 	$parts[] = 'assets';
-	$prefix = $scheme . $host . '/' . implode('/', $parts) . '/';
+	$prefix = $origin . '/' . implode('/', $parts) . '/';
 
 	return $prefix . $url;
 }
@@ -220,15 +246,65 @@ if (!function_exists('css_url')) {
 	}
 }
 
+if (!function_exists('nsy_is_same_origin')) {
+	/**
+	 * Is the given URL relative, or absolute but pointing at this app's own
+	 * origin? Foreign hosts, javascript:/data: schemes and protocol-relative
+	 * //host URLs are rejected. Used to block open redirects.
+	 *
+	 * @param  string $url
+	 * @return bool
+	 */
+	function nsy_is_same_origin(string $url): bool
+	{
+		$url = str_replace(["\r", "\n"], '', trim($url));
+		if ($url === '') {
+			return false;
+		}
+
+		// Relative path / query / fragment → same origin.
+		if (strncmp($url, '//', 2) !== 0 && preg_match('#^[a-zA-Z][a-zA-Z0-9+.\-]*:#', $url) !== 1) {
+			return true;
+		}
+
+		$parts = parse_url($url);
+		if (!is_array($parts) || !isset($parts['host'])) {
+			return false;
+		}
+		if (isset($parts['scheme']) && !in_array(strtolower($parts['scheme']), ['http', 'https'], true)) {
+			return false;
+		}
+
+		return strcasecmp($parts['host'], (string) parse_url(nsy_canonical_origin(), PHP_URL_HOST)) === 0;
+	}
+}
+
+if (!function_exists('nsy_safe_redirect_url')) {
+	/**
+	 * Normalize a redirect target to a safe, same-origin value. Foreign or
+	 * scheme-abusive URLs fall back to the application base URL.
+	 *
+	 * @param  string $url
+	 * @return string
+	 */
+	function nsy_safe_redirect_url(string $url): string
+	{
+		$url = str_replace(["\r", "\n"], '', trim($url));
+
+		return ($url !== '' && nsy_is_same_origin($url)) ? $url : base_url();
+	}
+}
+
 if (!function_exists('redirect_url')) {
 	/**
-	 * Method for Redirect to specified URI
+	 * Method for Redirect to specified URI (same-origin only; foreign URLs fall
+	 * back to base_url() to prevent open redirects).
 	 * @param  string $url
 	 * @return void
 	 */
 	function redirect_url($url = '')
 	{
-		header('location:' . $url);
+		header('Location: ' . nsy_safe_redirect_url((string) $url));
 		exit();
 	}
 }
@@ -248,13 +324,15 @@ if (!function_exists('redirect')) {
 
 if (!function_exists('redirect_back')) {
 	/**
-	 * Redirect Back URI
+	 * Redirect back to the referring page, but only when it is same-origin
+	 * (guards against open redirect via a forged Referer). Falls back to the
+	 * application base URL otherwise.
 	 * @return void
 	 */
 	function redirect_back(): void
 	{
-		$referer = $_SERVER['HTTP_REFERER'] ?? base_url();
-		header('location: ' . $referer);
+		$referer = (string) ($_SERVER['HTTP_REFERER'] ?? '');
+		header('Location: ' . nsy_safe_redirect_url($referer));
 		exit();
 	}
 }
@@ -880,54 +958,45 @@ if (!function_exists('get_system_tmp_dir')) {
 
 if (!function_exists('string_encrypt')) {
 	/**
-	 * Simple string encryption/decryption function.
-	 * CHANGE $secret_key and $secret_iv !!!
-	 * @param  string $action 'encrypt/decrypt'
+	 * Encrypt/decrypt a string with the native Encryption library (AES-256-GCM,
+	 * key from ENCRYPTION_KEY). There is NO insecure fallback: a missing key or
+	 * a failed operation is reported instead of silently using a hardcoded key.
+	 * Pre-v1 payloads can still be decrypted when LEGACY_ENCRYPTION_KEY /
+	 * LEGACY_ENCRYPTION_IV are configured — see System\Libraries\Encryption.
+	 *
+	 * @param  string $action 'encrypt' or 'decrypt'
 	 * @param  string $string
 	 * @return string
 	 */
 	function string_encrypt($action = 'encrypt', $string = '')
 	{
-		if (is_filled($action) || is_filled($string)) {
-			// Preferred path: the native Encryption library (AES-256-GCM).
-			// Falls back to the legacy AES-256-CBC routine when ENCRYPTION_KEY
-			// is not configured, so existing data keeps working.
-			try {
-				if ($action === 'encrypt') {
-					return \System\Libraries\Encryption::encrypt((string) $string);
-				}
-				if ($action === 'decrypt') {
-					return \System\Libraries\Encryption::decrypt((string) $string);
-				}
-			} catch (\Throwable $e) {
-				// fall through to the legacy implementation below
-			}
+		$action = (string) $action;
+		$string = (string) $string;
 
-			$output = false;
-
-			$encrypt_method = 'AES-256-CBC'; // Legacy default
-			$secret_key = 'Kazu#Key!'; // Legacy key
-			$secret_iv = '!VI@_$3'; // Legacy init vector
-
-			// hash
-			$key = hash('sha256', $secret_key);
-
-			// iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
-			$iv = substr(hash('sha256', $secret_iv), 0, 16);
-
-			if ($action == 'encrypt') {
-				$output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
-				$output = base64_encode($output);
-			} else if ($action == 'decrypt') {
-				$output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
-			}
-
-			return $output;
-		} else {
+		if (not_filled($action) && not_filled($string)) {
 			$var_msg = 'The variable <mark>string_encrypt(<strong>actions</strong>, <strong>string</strong>)</mark> is improper or not an array';
 			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		}
+
+		try {
+			if ($action === 'encrypt') {
+				return \System\Libraries\Encryption::encrypt($string);
+			}
+
+			if ($action === 'decrypt') {
+				$plain = \System\Libraries\Encryption::decrypt($string);
+				if ($plain === null) {
+					NSY_Desk::staticErrorHandler('string_encrypt(): decryption failed. Check ENCRYPTION_KEY — or LEGACY_ENCRYPTION_KEY / LEGACY_ENCRYPTION_IV for pre-v1 data.', 500);
+				}
+				return $plain;
+			}
+		} catch (\Throwable $e) {
+			NSY_Desk::staticErrorHandler('string_encrypt(): ' . $e->getMessage(), 500);
+		}
+
+		NSY_Desk::staticErrorHandler("string_encrypt(): unknown action '" . htmlspecialchars($action, ENT_QUOTES, 'UTF-8') . "'.", 500);
+		exit();
 	}
 }
 

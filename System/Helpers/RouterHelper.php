@@ -64,20 +64,15 @@ class RouterHelper
 		$configs = [
 			'basic' => [
 				'rate_limit' => 200,
-				'csrf_protection' => false,
-				'validate_input' => true
+				'rate_window' => 60
 			],
 			'standard' => [
 				'rate_limit' => 100,
-				'csrf_protection' => true,
-				'validate_input' => true,
-				'block_suspicious_patterns' => true
+				'rate_window' => 60
 			],
 			'strict' => [
 				'rate_limit' => 30,
-				'csrf_protection' => true,
-				'validate_input' => true,
-				'block_suspicious_patterns' => true
+				'rate_window' => 60
 			]
 		];
 
@@ -136,7 +131,8 @@ class RouterHelper
 	public static function validateCsrf(?string $token = null, string $key = 'csrf_token', ?int $expiration = null, bool $originCheck = false)
 	{
 		if ($token === null) {
-			$token = $_POST[$key] ?? $_GET[$key] ?? null;
+			$name = SecurityMiddleware::csrfFieldName($key);
+			$token = $_POST[$name] ?? $_GET[$name] ?? $_POST[$key] ?? $_GET[$key] ?? null;
 		}
 		return SecurityMiddleware::validateCSRFToken($token, $key, $expiration, $originCheck);
 	}
@@ -292,8 +288,10 @@ class RouterHelper
 			$relative = '/';
 		}
 
-		NSY_RouterOptimized::$method($path, function () use ($controller) {
-			return NSY_RouterOptimized::goto($controller);
+		NSY_RouterOptimized::$method($path, function (...$params) use ($controller) {
+			// executeRoute() spreads the matched URL params into the callback,
+			// so collect and forward them to the controller.
+			return NSY_RouterOptimized::goto($controller, $params);
 		});
 
 		if (!empty($options['name']) && is_string($options['name'])) {

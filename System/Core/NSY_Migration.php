@@ -60,6 +60,28 @@ class NSY_Migration
 	}
 
 	/**
+	 * Index type from a safe allow-list (USING cannot be parameterised).
+	 */
+	private static function normalizeIndexType(string $type): string
+	{
+		$type = strtoupper(trim($type));
+		$allowed = ['BTREE', 'HASH', 'FULLTEXT', 'SPATIAL', 'GIN', 'GIST', 'BRIN', 'BLOOM'];
+
+		return in_array($type, $allowed, true) ? $type : 'BTREE';
+	}
+
+	/**
+	 * Quote an index column list (array or comma-separated string).
+	 */
+	private static function quoteIndexColumns(array|string $cols): string
+	{
+		$list = is_array($cols) ? $cols : explode(',', $cols);
+		$list = array_map(static fn($c) => self::quoteIdent(trim((string) $c)), $list);
+
+		return implode(', ', $list);
+	}
+
+	/**
 	 * Execute single DDL query with unified error/transaction handling
 	 */
 	private function execDDL(string $query): bool
@@ -249,14 +271,10 @@ class NSY_Migration
 		$table = $this->current_table;
 
 		if (is_filled($table) && (is_array($cols) || is_string($cols))) {
-			if (is_array($cols)) {
-				$im_cols = implode(', ', $cols);
-			} else {
-				$im_cols = $cols;
-			}
+			$im_cols = self::quoteIndexColumns($cols);
 
-			$query = 'CREATE INDEX MULTI_' . generate_num(1, 5, 6) . '_IDX USING ' . $type . ' ON ' . $table . ' ( ' . $im_cols . ' ) ';
-			echo '<pre>' . $query . '</pre>';
+			$query = 'CREATE INDEX MULTI_' . generate_num(1, 5, 6) . '_IDX USING ' . self::normalizeIndexType($type) . ' ON ' . self::quoteIdent($table) . ' ( ' . $im_cols . ' ) ';
+			echo '<pre>' . htmlspecialchars($query, ENT_QUOTES, 'UTF-8') . '</pre>';
 
 			// Check if there's a connection defined on the models
 			if (not_filled(self::$connection)) {
@@ -312,18 +330,17 @@ class NSY_Migration
 		$table = $this->current_table;
 
 		if (is_filled($table)) {
+			$indexType = self::normalizeIndexType($type);
 			if (is_array($cols) || is_object($cols)) {
-				$res = array();
-				foreach ($cols as $key => $col) {
-					$res[] = $col;
-				}
-				$im_cols = implode(', ', $res);
+				$im_cols = self::quoteIndexColumns((array) $cols);
 
-				$query = 'CREATE INDEX MULTI_' . generate_num(1, 5, 6) . '_IDX ON ' . $table . ' USING ' . $type . ' ( ' . $im_cols . ' ) ';
+				$query = 'CREATE INDEX MULTI_' . generate_num(1, 5, 6) . '_IDX ON ' . self::quoteIdent($table) . ' USING ' . $indexType . ' ( ' . $im_cols . ' ) ';
 			} else {
-				$query = 'CREATE INDEX ' . substr($cols, 0, 5) . '_' . generate_num(1, 5, 6) . '_IDX ON ' . $table . ' USING ' . $type . ' ( ' . $cols . ' ) ';
+				$prefix = preg_replace('/[^A-Za-z0-9_]/', '', substr((string) $cols, 0, 5)) ?: 'IDX';
+
+				$query = 'CREATE INDEX ' . $prefix . '_' . generate_num(1, 5, 6) . '_IDX ON ' . self::quoteIdent($table) . ' USING ' . $indexType . ' ( ' . self::quoteIndexColumns((string) $cols) . ' ) ';
 			}
-			echo '<pre>' . $query . '</pre>';
+			echo '<pre>' . htmlspecialchars($query, ENT_QUOTES, 'UTF-8') . '</pre>';
 
 			// Check if there's connection defined on the models
 			if (not_filled(self::$connection)) {

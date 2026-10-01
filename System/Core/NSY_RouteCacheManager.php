@@ -14,7 +14,6 @@ class NSY_RouteCacheManager
 	private static ?string $cacheDir = null;
 	private static string $cacheFile = 'routes.cache.php';
 	private static bool $enabled = true;
-	private static bool $warmingUp = false;
 
 	/**
 	 * Initialize cache manager — creates temp dir if needed
@@ -45,61 +44,10 @@ class NSY_RouteCacheManager
 		return self::$cacheDir . '/' . self::$cacheFile;
 	}
 
-	/**
-	 * Cache compiled routes to file (24h TTL on load)
-	 * Skips caching when routes contain Closures (not var_export-able)
-	 */
-	public static function cacheRoutes(array $routes): bool
-	{
-		if (!self::$enabled) {
-			return false;
-		}
-
-		foreach ($routes as $r) {
-			if ($r instanceof \Closure) {
-				return false;
-			}
-			if (is_array($r) && isset($r['callback']) && $r['callback'] instanceof \Closure) {
-				return false;
-			}
-		}
-
-		$cacheFile = self::getCacheFilePath();
-		$cacheData = [
-			'timestamp' => time(),
-			'routes' => $routes,
-			'hash' => md5(serialize($routes)),
-		];
-
-		$content = '<?php' . PHP_EOL . 'return ' . var_export($cacheData, true) . ';';
-		return file_put_contents($cacheFile, $content, LOCK_EX) !== false;
-	}
-
-	public static function loadCachedRoutes(): ?array
-	{
-		if (!self::$enabled) {
-			return null;
-		}
-
-		$cacheFile = self::getCacheFilePath();
-
-		if (!file_exists($cacheFile)) {
-			return null;
-		}
-
-		if (time() - filemtime($cacheFile) > 86400) {
-			self::clearCache();
-			return null;
-		}
-
-		$cacheData = include $cacheFile;
-
-		if (!is_array($cacheData) || !isset($cacheData['routes'])) {
-			return null;
-		}
-
-		return $cacheData['routes'];
-	}
+	// NOTE: the file-backed route cache (formerly cacheRoutes()/loadCachedRoutes())
+	// was removed. Routing uses the in-memory cache in NSY_RouterOptimized, and
+	// persisting then include()ing compiled PHP from a shared temp directory was
+	// a latent RCE risk. clearCache()/getCacheStats() remain for the perf log.
 
 	public static function clearCache(): bool
 	{
@@ -130,58 +78,6 @@ class NSY_RouteCacheManager
 		}
 
 		return $stats;
-	}
-
-	/**
-	 * Warm up cache — no-op by design to avoid recursion during bootstrap.
-	 * Kept for BC; callers should rely on natural first-request compilation.
-	 * Dynamic path instead of hardcoded /var/www/html/nsy
-	 */
-	public static function warmUp(array $routeFiles = []): bool
-	{
-		if (self::$warmingUp) {
-			return false;
-		}
-
-		self::$warmingUp = true;
-
-		try {
-			if (empty($routeFiles)) {
-				$sysDir = config_app('sys_dir') ?: 'System';
-				$base = __DIR__ . '/../../' . $sysDir . '/Routes';
-				$routeFiles = [$base . '/General.php', $base . '/Modules.php'];
-			}
-			// Intentionally no file I/O — cache builds naturally on first dispatch
-			return true;
-		} finally {
-			self::$warmingUp = false;
-		}
-	}
-
-	/**
-	 * Optimize route patterns — thin wrapper around RouterOptimized patterns.
-	 * Deduplicated: uses the same pattern map as NSY_RouterOptimized::compileRoutes()
-	 * @param string[] $routes
-	 * @return array<int,array{original:string,compiled:string,has_params:bool}>
-	 */
-	public static function optimizePatterns(array $routes): array
-	{
-		$patterns = NSY_RouterOptimized::$patterns;
-		$searches = array_keys($patterns);
-		$replaces = array_values($patterns);
-
-		$optimized = [];
-		foreach ($routes as $route) {
-			$hasParams = strpos($route, ':') !== false;
-			$compiled = $hasParams ? str_replace($searches, $replaces, $route) : $route;
-			$optimized[] = [
-				'original' => $route,
-				'compiled' => $compiled,
-				'has_params' => $hasParams,
-			];
-		}
-
-		return $optimized;
 	}
 
 	public static function logRoutePerformance(string $route, float $executionTime, int $memoryUsage): void

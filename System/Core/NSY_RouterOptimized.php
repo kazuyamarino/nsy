@@ -182,7 +182,7 @@ class NSY_RouterOptimized
 	 * @param string[] $params
 	 * @return string[]
 	 */
-	private static function validateParameters(array $params, string $route): array
+	private static function validateParameters(array $params): array
 	{
 		if (!self::$securityConfig['validate_params']) {
 			return $params;
@@ -191,12 +191,14 @@ class NSY_RouterOptimized
 		$sanitize = (bool) (self::$securityConfig['sanitize_input'] ?? true);
 		$cleaned = [];
 		foreach ($params as $param) {
+			// Do NOT HTML-escape here: escaping is a view concern, and mutating
+			// route params corrupts legitimate values (e.g. a slug containing
+			// "&"). When sanitisation is on we only strip control characters.
 			$param = (string) $param;
 			if ($sanitize) {
-				$param = htmlspecialchars($param, ENT_QUOTES, 'UTF-8');
-				$param = trim($param);
+				$param = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $param) ?? $param;
 			}
-			$cleaned[] = $param;
+			$cleaned[] = trim($param);
 		}
 
 		return $cleaned;
@@ -244,11 +246,13 @@ class NSY_RouterOptimized
 		} else {
 			$args = [$vars];
 		}
-		$args = !empty($args) ? self::validateParameters($args, $fullClass) : [];
+		$args = !empty($args) ? array_values(self::validateParameters($args)) : [];
 
+		// Spread params so a controller method receives positional arguments,
+		// matching executeRoute()'s call_user_func_array() convention.
 		return empty($args)
 			? $controller->{$method}()
-			: $controller->{$method}($args);
+			: $controller->{$method}(...$args);
 	}
 
 	/**
@@ -488,7 +492,7 @@ class NSY_RouterOptimized
 				array_shift($matched);
 			}
 
-			$matched = self::validateParameters($matched, $route['original']);
+			$matched = self::validateParameters($matched);
 
 			if (self::$cacheEnabled) {
 				self::$routeCache[$cacheKey] = [

@@ -32,13 +32,34 @@ class EncryptionTest extends TestCase
 		$this->assertNull(Encryption::decrypt('v1:' . base64_encode(random_bytes(40)), $this->key));
 	}
 
-	public function testLegacyCbcPayloadDecrypts(): void
+	public function testLegacyCbcPayloadWithoutConfiguredKeyReturnsNull(): void
 	{
-		$legacyKey = hash('sha256', 'Kazu#Key!');
-		$legacyIv  = substr(hash('sha256', '!VI@_$3'), 0, 16);
+		$legacyKey = hash('sha256', 'legacy-test-key');
+		$legacyIv  = substr(hash('sha256', 'legacy-test-iv'), 0, 16);
 		$legacy    = base64_encode(openssl_encrypt('legacy-secret', 'aes-256-cbc', $legacyKey, 0, $legacyIv));
 
-		$this->assertSame('legacy-secret', Encryption::decrypt($legacy, $this->key));
+		// The old hardcoded key was removed: without LEGACY_ENCRYPTION_KEY/IV a
+		// legacy payload is unreadable (null), never silently decrypted.
+		$this->assertNull(Encryption::decrypt($legacy, $this->key));
+	}
+
+	public function testLegacyCbcPayloadDecryptsWhenKeyConfigured(): void
+	{
+		$legacyKey = hash('sha256', 'legacy-test-key');
+		$legacyIv  = substr(hash('sha256', 'legacy-test-iv'), 0, 16);
+		$legacy    = base64_encode(openssl_encrypt('legacy-secret', 'aes-256-cbc', $legacyKey, 0, $legacyIv));
+
+		$ref  = new \ReflectionClass(\System\Core\NSY_Config::class);
+		$prop = $ref->getProperty('cache');
+		$prop->setAccessible(true);
+		$saved = $prop->getValue();
+		$prop->setValue(null, ['env' => ['LEGACY_ENCRYPTION_KEY' => 'legacy-test-key', 'LEGACY_ENCRYPTION_IV' => 'legacy-test-iv']]);
+
+		try {
+			$this->assertSame('legacy-secret', Encryption::decrypt($legacy, $this->key));
+		} finally {
+			$prop->setValue(null, $saved);
+		}
 	}
 
 	public function testEmptyKeyThrows(): void

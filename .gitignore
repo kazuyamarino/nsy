@@ -23,9 +23,10 @@ System/Apps/Templates/razr_cache/
 # Application logs (runtime - dont commit)
 System/Storage/logs/*
 !System/Storage/logs/.htaccess
-
 # Maintenance mode flag (runtime - toggled by `nsy down` / `nsy up`)
 System/Storage/maintenance.flag
+# Rate-limit counters (runtime)
+System/Storage/ratelimit/*
 
 # AI Agents local cache
 /.gitnexus/

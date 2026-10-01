@@ -35,7 +35,7 @@ echo Route::csrfMeta('csrf_token');
 $token = Route::csrf('csrf_token');
 
 Route::post('/submit', function () {
-    if (!Route::validateCsrf($_POST['csrf_token'] ?? null, 'csrf_token')) {
+    if (!Route::validateCsrf($_POST['token'] ?? null, 'csrf_token')) {
         http_response_code(403);
         return;
     }
@@ -52,8 +52,8 @@ use System\Middlewares\SecurityMiddleware;
 echo SecurityMiddleware::csrfField('csrf_token');                 // <input name="token" …>
 SecurityMiddleware::validateCSRFToken($_POST['token'] ?? null, 'csrf_token'); // bool
 
-// Multi-key form — stored with a csrf_ prefix, read from an array such as $_POST
-SecurityMiddleware::generateCSRFTokenForKey('login');             // stored as $_SESSION['csrf_login']
+// Multi-key form — the key is the session key and the derived field name
+SecurityMiddleware::generateCSRFTokenForKey('login');             // stored as $_SESSION['login']
 SecurityMiddleware::validateAdvancedCSRF('login', $_POST, false, 600, false, false); // reads $_POST['login']
 ```
 
@@ -61,20 +61,31 @@ SecurityMiddleware::validateAdvancedCSRF('login', $_POST, false, 600, false, fal
 `$enableOriginCheck = true` embeds an IP + User-Agent hash, so a token copied to
 another client is rejected.
 
+A generated token is **reused** on subsequent calls for the same key until it is
+consumed by a successful validation or expires, so several `csrfField()` /
+`csrfMeta()` calls on one page share a single token. Validation is single-use:
+once it succeeds the token is cleared and the next page issues a new one.
+
 ## Input Sanitization
 
 ### Basic
 
 ```php
-$cleanInput = SecurityMiddleware::sanitizeInput($userInput);
+$cleanInput = SecurityMiddleware::sanitizeInput($userInput);   // trim + strip control chars
 $cleanData = SecurityMiddleware::sanitizeForm($_POST);
 ```
+
+> `sanitizeInput()` (and `sanitizeForm()`) **normalise** input — trim and drop
+> control characters — but do **not** HTML-escape or strip slashes. Escaping is
+> an output concern: use `htmlspecialchars()`/`e()` when you print. Escaping on
+> input double-encodes values and corrupts legitimate backslashes.
 
 ### Advanced
 
 ```php
 $cleanData = SecurityMiddleware::validateAndSanitize($_POST, [
     'trim' => true,
+    'strip_control_chars' => false,
     'strip_slashes' => true,
     'html_escape' => true,
     'xss_clean' => true,
@@ -85,12 +96,17 @@ $cleanData = SecurityMiddleware::validateAndSanitize($_POST, [
 
 | Option | Default | Description |
 |--------|---------|-------------|
-| `trim` | `true` | Remove whitespace |
-| `strip_slashes` | `true` | Remove backslashes |
-| `html_escape` | `true` | Escape HTML |
+| `trim` | `true` | Remove surrounding whitespace |
+| `strip_control_chars` | `false` | Remove NUL/other control bytes |
+| `strip_slashes` | `true` | Remove backslashes (legacy; opt out when storing paths/code) |
+| `html_escape` | `true` | Escape HTML (output concern — set `false` if you escape when printing) |
 | `xss_clean` | `false` | Apply AntiXSS |
 | `max_length` | `null` | Max length |
-| `allowed_tags` | `null` | Allowed HTML tags |
+| `allowed_tags` | `null` | Allowed HTML tags — kept, but their scriptable attributes are stripped |
+
+> `allowed_tags` uses `strip_tags()` for the whitelist **and** then runs the
+> result through AntiXSS, so allowed tags keep no `on*`/`javascript:` attributes.
+> If AntiXSS is unavailable the allowed-tag output is fully escaped instead.
 
 ### Recursive Example
 
@@ -145,12 +161,14 @@ function validateUserRegistration($data) {
 use System\Middlewares\SecurityMiddleware;
 
 $security = new SecurityMiddleware([
-    'csrf_protection' => true,
-    'rate_limit' => 60,
-    'rate_window' => 60,
-    'validate_input' => true,
-    'block_suspicious_patterns' => true
+    'rate_limit' => 60,   // max hits per window
+    'rate_window' => 60,  // window length in seconds
 ]);
+
+if (!$security->rateLimit('login')) {
+    http_response_code(429);
+    return;
+}
 ```
 
 ## API Reference
@@ -159,7 +177,7 @@ $security = new SecurityMiddleware([
 
 | Method | Signature | Description |
 |---|---|---|
-| `__construct` | `__construct(array $config=[]):void` | Merge config: `csrf_protection`, `rate_limit`, `rate_window`, `validate_input`, `block_suspicious_patterns` |
+| `__construct` | `__construct(array $config=[]):void` | Merge config: `rate_limit`, `rate_window` (the only keys enforced here) |
 
 ### Sanitization
 
@@ -170,22 +188,35 @@ $security = new SecurityMiddleware([
 | `cleanXSS` | `cleanXSS(mixed $data):mixed` | XSS clean |
 | `validateAndSanitize` | `validateAndSanitize(mixed $data, array $options=[]):mixed` | Core sanitization (arrays/objects recursed) |
 
-> For whole-form input use `sanitizeForm()` / `validateAndSanitize()` — both walk arrays **and** objects. `sanitizeInput()` is for a single scalar value; arrays/objects given to it return `''` rather than raising a conversion error.
+> For whole-form input use `sanitizeForm()` / `validateAndSanitize()` — both walk arrays **and** objects. `sanitizeInput()` is for a single scalar value; arrays/objects given to it return `''` rather than raising a conversion error. `sanitizeInput()` normalises only (trim + strip control chars); it does **not** HTML-escape.
 
 ### CSRF
 
 | Method | Signature | Description |
 |---|---|---|
-| `generateCSRFToken` | `generateCSRFToken(string $key='_csrf_token', ?int $expiration=null, bool $enableOriginCheck=false):string` | Generate a token and store it in `$_SESSION[$key]` |
-| `generateCSRFTokenForKey` | `generateCSRFTokenForKey(string $key, bool $enableOriginCheck=false):string` | Generate a token stored under `csrf_<key>` |
-| `csrfField` | `csrfField(string $key='_csrf_token', ?int $expiration=null, bool $enableOriginCheck=false):string` | Hidden `<input>` field |
-| `csrfMeta` | `csrfMeta(string $key='_csrf_token', ?int $expiration=null, bool $enableOriginCheck=false):string` | `<meta name="csrf-token">` tag |
-| `validateCSRFToken` | `validateCSRFToken(?string $token, string $key='csrf_token', ?int $expiration=null, bool $originCheck=false):bool` | Single-use validation; normalizes the `csrf_` prefix |
-| `checkCSRFToken` | `checkCSRFToken(string $key, string $token, bool $throwException=false, ?int $timeSpan=null, bool $multiple=false):bool` | Core check; clears the session token unless `$multiple` |
-| `validateAdvancedCSRF` | `validateAdvancedCSRF(string $key, array $origin, bool $throwException=false, ?int $timeSpan=null, bool $multiple=false, bool $enableOriginCheck=false):bool` | Validate `$origin[$key]` (e.g. `$_POST`) |
+| `generateCSRFToken` | `generateCSRFToken(string $key='csrf_token', ?int $expiration=null, bool $enableOriginCheck=false):string` | Generate a token and store it in `$_SESSION[$key]` |
+| `generateCSRFTokenForKey` | `generateCSRFTokenForKey(string $key, bool $enableOriginCheck=false):string` | Generate a token stored under `$key` |
+| `csrfField` | `csrfField(string $key='csrf_token', ?int $expiration=null, bool $enableOriginCheck=false):string` | Hidden `<input>` field (name = `csrfFieldName($key)`) |
+| `csrfMeta` | `csrfMeta(string $key='csrf_token', ?int $expiration=null, bool $enableOriginCheck=false):string` | `<meta name="csrf-token">` tag |
+| `csrfFieldName` | `csrfFieldName(string $key):string` | Derive the field name (`csrf_token` → `token`) |
+| `validateCSRFToken` | `validateCSRFToken(?string $token, string $key='csrf_token', ?int $expiration=null, bool $originCheck=false):bool` | Single-use validation; the key is the session key |
+| `checkCSRFToken` | `checkCSRFToken(string $key, string $token, bool $throwException=false, ?int $timeSpan=null, bool $multiple=false):bool` | Core check; consumes the token (clears it) only on success unless `$multiple` |
+| `validateAdvancedCSRF` | `validateAdvancedCSRF(string $key, array $origin, bool $throwException=false, ?int $timeSpan=null, bool $multiple=false, bool $enableOriginCheck=false):bool` | Validate the derived field `csrfFieldName($key)` (falling back to `$key`) from `$origin` |
 | `createCSRFProtection` | `createCSRFProtection(bool $enableOriginCheck=false):object` | Factory with `generate()` / `check()` (backwards compatibility) |
 
 > `$expiration` / `$timeSpan` are enforced on **validation**, not at generation. `$enableOriginCheck` binds the token to the client IP + User-Agent, so a token copied to another client is rejected.
+
+### Rate Limiting
+
+| Method | Signature | Description |
+|---|---|---|
+| `rateLimit` | `rateLimit(string $bucket='default', ?int $maxAttempts=null, ?int $windowSeconds=null):bool` | Instance check using config (`true` = allowed) |
+| `hit` | `hit(string $key, int $maxAttempts, int $windowSeconds):bool` | Static fixed-window counter (`true` = allowed) |
+
+Fixed-window, file-backed per client IP + bucket under `System/Storage/ratelimit`.
+It **fails open** (returns `true`) if the counter cannot be stored, so a storage
+problem never locks users out. Use one bucket per sensitive action, e.g.
+`$security->rateLimit('login')`, `$security->rateLimit('password-reset')`.
 
 ## Examples
 

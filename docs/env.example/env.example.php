@@ -47,8 +47,11 @@ return [
 	'DB_TRANSACTION' => 'off',
 	'APP_MAINTENANCE' => 'false',   // 'true' takes the site offline with a 503 page (also: nsy down)
 	'APP_MAINTENANCE_ALLOW' => '',  // comma-separated IPs allowed to bypass maintenance
+	'APP_MIGRATION_HTTP' => 'false',        // opt-in: expose migration HTTP trigger (development only)
+	'APP_MIGRATION_HTTP_TOKEN' => '',       // required secret for the HTTP trigger (?token=…)
 	'APP_TIMEZONE' => 'Asia/Jakarta',
 	'APP_LOCALE' => 'id-ID',
+	'APP_URL' => '',   // optional canonical scheme://host[:port] (e.g. https://example.com) — blocks Host-header poisoning when set
 	'OG_PREFIX' => 'og: http://ogp.me/ns#',
 	'CSS_DIR' => 'css',
 	'JS_DIR' => 'js',

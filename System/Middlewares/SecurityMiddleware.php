@@ -8,7 +8,8 @@ namespace System\Middlewares;
  * Security Middleware for NSY Framework — Implementation Engine
  * CSRF is single-sourced via NSY Router facade: use Route::csrf(), Route::csrfField(), Route::validateCsrf()
  * (see docs/README_NSY_ROUTER.md#security). Direct SecurityMiddleware CSRF calls remain for BC/internal (DB.php).
- * Sanitization/XSS remains here as the direct API.
+ * Sanitization/XSS remains here as the direct API. Rate limiting is a file-backed
+ * fixed-window limiter (rateLimit() / hit()).
  */
 class SecurityMiddleware
 {
@@ -17,12 +18,11 @@ class SecurityMiddleware
 
 	public function __construct(array $config = [])
 	{
+		// Only the rate-limit keys are enforced by this class; CSRF and input
+		// sanitisation are exposed as static methods below.
 		$this->config = array_merge([
-			'csrf_protection' => true,
 			'rate_limit' => 60,
 			'rate_window' => 60,
-			'validate_input' => true,
-			'block_suspicious_patterns' => true,
 		], $config);
 	}
 
@@ -38,14 +38,43 @@ class SecurityMiddleware
 	// -----------------------------------------------------------------
 
 	/**
+	 * Derive the HTML field name from a token key so csrfField()/csrfMeta() and
+	 * the validators agree (csrf_token → token, _csrf_token → _token).
+	 */
+	public static function csrfFieldName(string $key): string
+	{
+		if ($key === '_csrf_token') {
+			return '_token';
+		}
+
+		return str_starts_with($key, 'csrf_') ? substr($key, 5) : $key;
+	}
+
+	/**
 	 * Generate CSRF token
-	 * @param string $key Session key (default _csrf_token)
+	 * @param string $key Session key (default csrf_token)
 	 * @param int|null $expiration Ignored at generate time, kept for BC (expiration is checked on validate)
 	 * @param bool $enableOriginCheck Embed IP+UA hash
 	 */
-	public static function generateCSRFToken(string $key = '_csrf_token', ?int $expiration = null, bool $enableOriginCheck = false): string
+	public static function generateCSRFToken(string $key = 'csrf_token', ?int $expiration = null, bool $enableOriginCheck = false): string
 	{
 		self::ensureSession();
+
+		// Reuse a still-valid token so several csrfField()/csrfMeta() calls on
+		// one page (or several forms sharing a key) yield the SAME token instead
+		// of overwriting each other. A fresh token is issued when none exists,
+		// when it has expired, or when origin binding is requested but the stored
+		// token is not (or no longer) bound to this client.
+		$existing = $_SESSION[$key] ?? null;
+		if (is_string($existing) && $existing !== '') {
+			$expired = $expiration !== null && self::isTokenExpired($existing, $expiration);
+			$originMismatch = $enableOriginCheck
+				&& (!self::tokenHasOrigin($existing) || !self::validateOrigin($existing));
+
+			if (!$expired && !$originMismatch) {
+				return $existing;
+			}
+		}
 
 		$extra = '';
 		if ($enableOriginCheck) {
@@ -64,9 +93,21 @@ class SecurityMiddleware
 		return $token;
 	}
 
+	/**
+	 * Does the token embed an origin (IP+UA) hash? Non-origin tokens are
+	 * timestamp (10) + random hex (64) = 74 chars; origin tokens add 64 more.
+	 */
+	private static function tokenHasOrigin(string $token): bool
+	{
+		$decoded = base64_decode($token, true);
+
+		return $decoded !== false && strlen($decoded) > 74;
+	}
+
 	public static function generateCSRFTokenForKey(string $key, bool $enableOriginCheck = false): string
 	{
-		return self::generateCSRFToken('csrf_' . $key, null, $enableOriginCheck);
+		// Store under the same key the validators use (no implicit prefix).
+		return self::generateCSRFToken($key, null, $enableOriginCheck);
 	}
 
 	private static function isTokenExpired(string $token, int $timeSpan): bool
@@ -112,10 +153,6 @@ class SecurityMiddleware
 
 		$sessionToken = $_SESSION[$key];
 
-		if (!$multiple) {
-			$_SESSION[$key] = '';
-		}
-
 		if (!hash_equals($sessionToken, $token)) {
 			if ($throwException) {
 				throw new \Exception('Invalid CSRF token');
@@ -130,6 +167,12 @@ class SecurityMiddleware
 			return false;
 		}
 
+		// Consume the token only after a successful match, so a failed attempt
+		// cannot invalidate a legitimate token.
+		if (!$multiple) {
+			$_SESSION[$key] = '';
+		}
+
 		return true;
 	}
 
@@ -137,14 +180,14 @@ class SecurityMiddleware
 	// CSRF — Public API (used by RouterHelper)
 	// -----------------------------------------------------------------
 
-	public static function csrfField(string $key = '_csrf_token', ?int $expiration = null, bool $enableOriginCheck = false): string
+	public static function csrfField(string $key = 'csrf_token', ?int $expiration = null, bool $enableOriginCheck = false): string
 	{
 		$token = self::generateCSRFToken($key, $expiration, $enableOriginCheck);
-		$fieldName = ($key === '_csrf_token') ? '_token' : str_replace('csrf_', '', $key);
+		$fieldName = self::csrfFieldName($key);
 		return '<input type="hidden" name="' . htmlspecialchars($fieldName, ENT_QUOTES, 'UTF-8') . '" value="' . htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '">';
 	}
 
-	public static function csrfMeta(string $key = '_csrf_token', ?int $expiration = null, bool $enableOriginCheck = false): string
+	public static function csrfMeta(string $key = 'csrf_token', ?int $expiration = null, bool $enableOriginCheck = false): string
 	{
 		$token = self::generateCSRFToken($key, $expiration, $enableOriginCheck);
 		return '<meta name="csrf-token" content="' . htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '">';
@@ -161,9 +204,7 @@ class SecurityMiddleware
 			return false;
 		}
 
-		$sessionKey = str_starts_with($key, 'csrf_') ? $key : 'csrf_' . $key;
-
-		$valid = self::checkCSRFToken($sessionKey, $token, false, $expiration, false);
+		$valid = self::checkCSRFToken($key, $token, false, $expiration, false);
 		if (!$valid) {
 			return false;
 		}
@@ -182,7 +223,8 @@ class SecurityMiddleware
 	{
 		self::ensureSession();
 
-		$token = $origin[$key] ?? '';
+		$fieldName = self::csrfFieldName($key);
+		$token = $origin[$fieldName] ?? $origin[$key] ?? '';
 		if (empty($token) || !is_string($token)) {
 			if ($throwException) {
 				throw new \Exception('Missing CSRF form token');
@@ -190,9 +232,7 @@ class SecurityMiddleware
 			return false;
 		}
 
-		$sessionKey = str_starts_with($key, 'csrf_') ? $key : 'csrf_' . $key;
-
-		if (!self::checkCSRFToken($sessionKey, $token, $throwException, $timeSpan, $multiple)) {
+		if (!self::checkCSRFToken($key, $token, $throwException, $timeSpan, $multiple)) {
 			return false;
 		}
 
@@ -226,6 +266,14 @@ class SecurityMiddleware
 	// Input sanitization — consolidated around validateAndSanitize
 	// -----------------------------------------------------------------
 
+	/**
+	 * Normalise a single scalar input value: trim + strip control characters.
+	 *
+	 * It deliberately does NOT HTML-escape or strip slashes — escaping is an
+	 * output concern (do it when you print), and escaping on input both
+	 * double-encodes values and corrupts legitimate backslashes. Pass explicit
+	 * options to validateAndSanitize() if you really need those behaviours.
+	 */
 	public static function sanitizeInput(mixed $data = ''): string
 	{
 		// Only scalars can be safely cast to string (arrays/objects would warn or throw)
@@ -236,8 +284,9 @@ class SecurityMiddleware
 
 		return self::validateAndSanitize($data, [
 			'trim' => true,
-			'strip_slashes' => true,
-			'html_escape' => true,
+			'strip_control_chars' => true,
+			'strip_slashes' => false,
+			'html_escape' => false,
 			'xss_clean' => false,
 		]);
 	}
@@ -268,32 +317,37 @@ class SecurityMiddleware
 
 	public static function cleanXSS(mixed $data): mixed
 	{
-		if (!class_exists('voku\helper\AntiXSS')) {
-			if (is_string($data)) {
-				return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
-			}
-			if (is_array($data)) {
-				return array_map([self::class, 'cleanXSS'], $data);
+		static $antiXSS = null;
+		if ($antiXSS === null && class_exists('voku\helper\AntiXSS')) {
+			$antiXSS = new \voku\helper\AntiXSS();
+		}
+
+		if (is_array($data)) {
+			foreach ($data as $key => $value) {
+				$data[$key] = self::cleanXSS($value);
 			}
 			return $data;
 		}
 
-		$antiXSS = new \voku\helper\AntiXSS();
+		if (!is_string($data)) {
+			return $data;
+		}
 
-		if (is_string($data)) {
+		if ($antiXSS !== null) {
 			return $antiXSS->xss_clean($data);
 		}
-		if (is_array($data)) {
-			return array_map(static fn($item) => is_string($item) ? $antiXSS->xss_clean($item) : $item, $data);
-		}
 
-		return $data;
+		// Fallback (no voku/anti-xss): drop tags only. Do NOT htmlspecialchars
+		// here — escaping is validateAndSanitize()'s html_escape step, and doing
+		// both would double-encode the text.
+		return strip_tags($data);
 	}
 
 	public static function validateAndSanitize(mixed $data, array $options = []): mixed
 	{
 		$defaults = [
 			'trim' => true,
+			'strip_control_chars' => false,
 			'strip_slashes' => true,
 			'html_escape' => true,
 			'xss_clean' => false,
@@ -306,6 +360,9 @@ class SecurityMiddleware
 			if ($options['trim']) {
 				$data = trim($data);
 			}
+			if ($options['strip_control_chars']) {
+				$data = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $data) ?? $data;
+			}
 			if ($options['strip_slashes']) {
 				$data = stripslashes($data);
 			}
@@ -317,7 +374,14 @@ class SecurityMiddleware
 			}
 			if ($options['html_escape']) {
 				if (!empty($options['allowed_tags']) && is_string($options['allowed_tags'])) {
+					// strip_tags() alone keeps allowed tags verbatim, including
+					// scriptable attributes (e.g. <a href="javascript:…">). Run the
+					// allowed-tag output through AntiXSS; if it is unavailable, escape
+					// everything so nothing dangerous survives.
 					$data = strip_tags($data, $options['allowed_tags']);
+					$data = class_exists('voku\helper\AntiXSS')
+						? self::cleanXSS($data)
+						: htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
 				} else {
 					$data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
 				}
@@ -334,5 +398,86 @@ class SecurityMiddleware
 			}
 		}
 		return $data;
+	}
+
+	// -----------------------------------------------------------------
+	// Rate limiting — fixed window, file-backed per client IP + bucket
+	// -----------------------------------------------------------------
+
+	/**
+	 * Enforce this instance's rate limit for the given bucket.
+	 * Config keys: rate_limit (max hits) and rate_window (seconds).
+	 *
+	 * @param  string   $bucket        Logical bucket, e.g. 'login'
+	 * @param  int|null $maxAttempts   Override config('rate_limit')
+	 * @param  int|null $windowSeconds Override config('rate_window')
+	 * @return bool  true = allowed, false = throttled
+	 */
+	public function rateLimit(string $bucket = 'default', ?int $maxAttempts = null, ?int $windowSeconds = null): bool
+	{
+		$max = $maxAttempts ?? (int) ($this->config['rate_limit'] ?? 60);
+		$window = $windowSeconds ?? (int) ($this->config['rate_window'] ?? 60);
+
+		return self::hit(self::clientKey() . ':' . $bucket, $max, $window);
+	}
+
+	/**
+	 * Count one hit for $key in the current fixed window.
+	 * Fails OPEN (returns true) when the counter cannot be stored, so a storage
+	 * problem never locks users out.
+	 *
+	 * @return bool  true = allowed, false = limit exceeded
+	 */
+	public static function hit(string $key, int $maxAttempts, int $windowSeconds): bool
+	{
+		$max = max(1, $maxAttempts);
+		$window = max(1, $windowSeconds);
+
+		$file = self::storageDir() . '/' . hash('sha256', $key) . '.json';
+		$fh = @fopen($file, 'c+');
+		if ($fh === false) {
+			return true;
+		}
+
+		try {
+			if (!flock($fh, LOCK_EX)) {
+				return true;
+			}
+
+			$data = json_decode((string) stream_get_contents($fh), true);
+			$now = time();
+
+			if (!is_array($data) || ($now - (int) ($data['start'] ?? 0)) >= $window) {
+				$data = ['start' => $now, 'count' => 0];
+			}
+
+			$data['count'] = (int) ($data['count'] ?? 0) + 1;
+
+			ftruncate($fh, 0);
+			rewind($fh);
+			fwrite($fh, json_encode($data));
+			fflush($fh);
+			flock($fh, LOCK_UN);
+
+			return $data['count'] <= $max;
+		} finally {
+			fclose($fh);
+		}
+	}
+
+	private static function storageDir(): string
+	{
+		$dir = dirname(__DIR__) . '/Storage/ratelimit';
+
+		if (!is_dir($dir)) {
+			@mkdir($dir, 0775, true);
+		}
+
+		return $dir;
+	}
+
+	private static function clientKey(): string
+	{
+		return (string) ($_SERVER['REMOTE_ADDR'] ?? 'cli');
 	}
 }

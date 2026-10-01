@@ -29,6 +29,15 @@ class NSY_QueryBuilder extends DB
     protected $offset; // Offset value
     protected $bindings = []; // Query bindings
 
+    /** Whitelisted comparison/logical operators for where()/having()/join(). */
+    private const OPERATORS = [
+        '=', '!=', '<>', '<', '<=', '>', '>=', '<=>',
+        'LIKE', 'NOT LIKE', 'ILIKE', 'NOT ILIKE', 'SOUNDS LIKE',
+        'REGEXP', 'NOT REGEXP', 'RLIKE',
+        'IN', 'NOT IN', 'IS', 'IS NOT', 'BETWEEN', 'NOT BETWEEN',
+        '~', '~*', '!~', '!~*',
+    ];
+
     // Constructor: Initialize the PDO instance
     public function __construct(string $conn_name = 'primary')
     {
@@ -78,7 +87,7 @@ class NSY_QueryBuilder extends DB
             $operator = '=';
         }
         $prefix = empty($this->where) ? '' : 'AND ';
-        $this->where[] = $prefix . $this->quoteIdent($field) . " $operator ?";
+        $this->where[] = $prefix . $this->quoteIdent($field) . ' ' . self::normalizeOperator($operator) . ' ?';
         $this->bindings[] = $value;
         return $this;
     }
@@ -106,7 +115,7 @@ class NSY_QueryBuilder extends DB
         if (empty($this->where)) {
             return $this->where($field, $operator, $value);
         }
-        $this->where[] = "OR " . $this->quoteIdent($field) . " $operator ?";
+        $this->where[] = 'OR ' . $this->quoteIdent($field) . ' ' . self::normalizeOperator($operator) . ' ?';
         $this->bindings[] = $value;
         return $this;
     }
@@ -223,7 +232,7 @@ class NSY_QueryBuilder extends DB
         if ($alias) {
             $joinClause .= ' AS ' . $this->quoteIdent($alias);
         }
-        $joinClause .= ' ON ' . $this->quoteIdent($field1) . ' ' . $operator . ' ' . $this->quoteIdent($field2);
+        $joinClause .= ' ON ' . $this->quoteIdent($field1) . ' ' . self::normalizeOperator($operator) . ' ' . $this->quoteIdent($field2);
         $this->join[] = $joinClause;
         return $this;
     }
@@ -251,7 +260,7 @@ class NSY_QueryBuilder extends DB
     // Add an order by clause
     public function orderBy($field, $direction = 'ASC'): self
     {
-        $this->order[] = $this->quoteIdent($field) . " " . strtoupper($direction);
+        $this->order[] = $this->quoteIdent($field) . ' ' . self::normalizeDirection($direction);
         return $this;
     }
 
@@ -265,7 +274,7 @@ class NSY_QueryBuilder extends DB
     // Add a having clause
     public function having($field, $operator, $value): self
     {
-        $this->having[] = $this->quoteIdent($field) . " $operator ?";
+        $this->having[] = $this->quoteIdent($field) . ' ' . self::normalizeOperator($operator) . ' ?';
         $this->bindings[] = $value;
         return $this;
     }
@@ -428,6 +437,9 @@ class NSY_QueryBuilder extends DB
     // Pagination — minimal lines: paginate(15) returns data + meta
     public function paginate(int $perPage = 15, int $page = 1): array
     {
+        $perPage = max(1, $perPage);
+        $page = max(1, $page);
+
         $total = $this->count();
         $this->limit($perPage, ($page - 1) * $perPage);
         $data = $this->get();
@@ -538,6 +550,30 @@ class NSY_QueryBuilder extends DB
     public function decrement(string $column, int $amount = 1): int
     {
         return $this->increment($column, -$amount);
+    }
+
+    /**
+     * Normalise a SQL operator against an allow-list (values are still bound).
+     *
+     * @throws \InvalidArgumentException on an unsupported operator
+     */
+    private static function normalizeOperator($operator): string
+    {
+        $op = preg_replace('/\s+/', ' ', strtoupper(trim((string) $operator)));
+
+        if (!in_array($op, self::OPERATORS, true)) {
+            throw new \InvalidArgumentException('Unsupported SQL operator: ' . $operator);
+        }
+
+        return $op;
+    }
+
+    /**
+     * Normalise an ORDER BY direction to ASC or DESC.
+     */
+    private static function normalizeDirection($direction): string
+    {
+        return strtoupper(trim((string) $direction)) === 'DESC' ? 'DESC' : 'ASC';
     }
 
     // Quote helpers

@@ -164,6 +164,19 @@ return [
 
 	/*
 	|--------------------------------------------------------------------------
+	| Canonical Application URL
+	|--------------------------------------------------------------------------
+	|
+	| Optional scheme://host[:port] (e.g. https://example.com). When set it is
+	| the single source for generated links (base_url()/assets_url()), which
+	| prevents Host-header poisoning. Leave empty to fall back to the validated
+	| request Host header.
+	|
+	*/
+	'app_url' => config_env('APP_URL'),
+
+	/*
+	|--------------------------------------------------------------------------
 	| Default CSS Directory Name
 	|--------------------------------------------------------------------------
 	|

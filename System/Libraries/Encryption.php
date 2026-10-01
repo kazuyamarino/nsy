@@ -24,9 +24,11 @@ class Encryption
 	private const IV_LEN = 12;
 	private const TAG_LEN = 16;
 
-	/** Legacy string_encrypt() material — kept only so old payloads decrypt. */
-	private const LEGACY_KEY = 'Kazu#Key!';
-	private const LEGACY_IV  = '!VI@_$3';
+	/**
+	 * Legacy cipher name for pre-v1 payloads. The old hardcoded key/IV are
+	 * intentionally NOT kept here — to read pre-v1 data, supply the original
+	 * material via env (LEGACY_ENCRYPTION_KEY / LEGACY_ENCRYPTION_IV).
+	 */
 	private const LEGACY_CIPHER = 'aes-256-cbc';
 
 	/**
@@ -111,17 +113,28 @@ class Encryption
 
 	/**
 	 * Decrypt a payload produced by the legacy string_encrypt() helper.
-	 * Uses the original hard-coded key/IV, so no ENCRYPTION_KEY is required.
+	 *
+	 * The old helper shipped a hardcoded key/IV; that insecure default has been
+	 * removed. Reading pre-v1 payloads is opt-in: set LEGACY_ENCRYPTION_KEY and
+	 * LEGACY_ENCRYPTION_IV in env.php to the original values. Without them a
+	 * legacy payload is treated as unreadable (null).
 	 */
 	private static function decryptLegacy(string $payload): ?string
 	{
+		$legacyKey = (string) (config_env('LEGACY_ENCRYPTION_KEY') ?? '');
+		$legacyIv  = (string) (config_env('LEGACY_ENCRYPTION_IV') ?? '');
+
+		if ($legacyKey === '' || $legacyIv === '') {
+			return null;
+		}
+
 		$decoded = base64_decode($payload, true);
 		if ($decoded === false) {
 			return null;
 		}
 
-		$key = hash('sha256', self::LEGACY_KEY);
-		$iv  = substr(hash('sha256', self::LEGACY_IV), 0, 16);
+		$key = hash('sha256', $legacyKey);
+		$iv  = substr(hash('sha256', $legacyIv), 0, 16);
 
 		$plain = openssl_decrypt($decoded, self::LEGACY_CIPHER, $key, 0, $iv);
 
