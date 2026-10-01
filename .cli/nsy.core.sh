@@ -36,7 +36,7 @@ if [ -z "$1" ]; then
 	printf "Command does not exist or undefined\n"
 	printf "It should be like this 'nsy [command]'\n"
 	printf "Run 'nsy --help' for the command list\n"
-	exit 0
+	exit 1
 fi
 
 case "$1" in

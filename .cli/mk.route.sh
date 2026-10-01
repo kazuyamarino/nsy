@@ -7,6 +7,10 @@ make_route() {
 		printf "It should be like this 'make:route [route-name]'\n"
 		return 1
 	fi
+	if ! nsy_valid_name "$route"; then
+		printf "Invalid route name '%s' (use letters, digits, underscore only)\n" "$route"
+		return 1
+	fi
 
 	local dest="$NSY_ROOT_DIR/System/Routes/$route.php"
 	if [ -e "$dest" ]; then

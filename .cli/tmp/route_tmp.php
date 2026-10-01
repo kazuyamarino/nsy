@@ -3,15 +3,18 @@
 /**
  * Routes are auto-discovered from System/Routes/*.php — no registration needed.
  *
- * Format 1: controller
+ * Simple form — Route::get($path, $callback) takes only 2 arguments:
  *   Route::get('/path', [System\Apps\General\Controllers\Your_Controller::class, 'method']);
- *
- * Format 2: closure
  *   Route::get('/path', function () { echo 'Hello'; });
  *
- * Methods: get | post | put | patch | delete | head | options | any | map
+ * With options (security level, name) use Route::route($method, $path, $controller, $options):
+ *   Route::route('get', '/path', [Your_Controller::class, 'method'], [
+ *       'security_level' => 'basic|standard|strict',
+ *       'name'           => 'route.name',
+ *   ]);
+ *
+ * Methods : get | post | put | patch | delete | head | options | any | map
  * Patterns: (:any) (:num) (:alpha) (:alnum) (:slug) (:all)
- * Options : ['security_level' => 'basic|standard|strict', 'name' => 'route.name']
  */
 
 // MVC route example
@@ -28,12 +31,21 @@ Route::get('/example-hmvc', function () {
 	]);
 });
 
+// Secured + named route (options require Route::route())
+Route::route('get', '/admin/dashboard', [
+	System\Apps\General\Controllers\Controller_Welcome::class,
+	'welcome'
+], [
+	'security_level' => 'strict',
+	'name'           => 'admin.dashboard'
+]);
+
 // Group example
 Route::group('/admin', function () {
-	Route::get('/dashboard', [
+	Route::get('/reports', [
 		System\Apps\General\Controllers\Controller_Welcome::class,
 		'welcome'
-	], ['security_level' => 'strict', 'name' => 'admin.dashboard']);
+	]);
 });
 
 // Write your routes below

@@ -16,6 +16,10 @@ make_controller() {
 				printf "It should be like this 'make:controller mvc [controller-name]'\n"
 				return 1
 			fi
+			if ! nsy_valid_name "$conname"; then
+				printf "Invalid controller name '%s' (use letters, digits, underscore only)\n" "$conname"
+				return 1
+			fi
 
 			local dest="$NSY_ROOT_DIR/System/Apps/General/Controllers/$conname.php"
 			if [ -e "$dest" ]; then
@@ -37,6 +41,10 @@ make_controller() {
 				printf "It should be like this 'make:controller hmvc [module-name] [controller-name]'\n"
 				return 1
 			fi
+			if ! nsy_valid_name "$module"; then
+				printf "Invalid module name '%s' (use letters, digits, underscore only)\n" "$module"
+				return 1
+			fi
 			if [ ! -d "$NSY_ROOT_DIR/System/Apps/Modules/$module" ]; then
 				printf "Module '%s' doesn't exist. Create it first: nsy make:module %s\n" "$module" "$module"
 				return 1
@@ -44,6 +52,10 @@ make_controller() {
 			if [ -z "$conname" ]; then
 				printf "Controller name undefined\n"
 				printf "It should be like this 'make:controller hmvc $module [controller-name]'\n"
+				return 1
+			fi
+			if ! nsy_valid_name "$conname"; then
+				printf "Invalid controller name '%s' (use letters, digits, underscore only)\n" "$conname"
 				return 1
 			fi
 

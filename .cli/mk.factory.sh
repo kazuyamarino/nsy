@@ -11,6 +11,11 @@ make_factory() {
 	# Accept both 'UserFactory' and 'UserFactory.php'
 	factory="${factory%.php}"
 
+	if ! nsy_valid_name "$factory"; then
+		printf "Invalid factory name '%s' (use letters, digits, underscore only)\n" "$factory"
+		return 1
+	fi
+
 	local dest="$NSY_ROOT_DIR/System/Factories/$factory.php"
 	if [ -e "$dest" ]; then
 		printf "Factory 'System/Factories/%s.php' already exists\n" "$factory"

@@ -7,6 +7,10 @@ make_module() {
 		printf "It should be like this 'make:module [module-name]'\n"
 		return 1
 	fi
+	if ! nsy_valid_name "$dirname"; then
+		printf "Invalid module name '%s' (use letters, digits, underscore only)\n" "$dirname"
+		return 1
+	fi
 
 	local base="$NSY_ROOT_DIR/System/Apps/Modules/$dirname"
 	if [ -d "$base" ]; then

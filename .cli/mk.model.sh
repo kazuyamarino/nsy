@@ -16,6 +16,10 @@ make_model() {
 				printf "It should be like this 'make:model mvc [model-name]'\n"
 				return 1
 			fi
+			if ! nsy_valid_name "$mdlname"; then
+				printf "Invalid model name '%s' (use letters, digits, underscore only)\n" "$mdlname"
+				return 1
+			fi
 
 			local dest="$NSY_ROOT_DIR/System/Apps/General/Models/$mdlname.php"
 			if [ -e "$dest" ]; then
@@ -37,6 +41,10 @@ make_model() {
 				printf "It should be like this 'make:model hmvc [module-name] [model-name]'\n"
 				return 1
 			fi
+			if ! nsy_valid_name "$module"; then
+				printf "Invalid module name '%s' (use letters, digits, underscore only)\n" "$module"
+				return 1
+			fi
 			if [ ! -d "$NSY_ROOT_DIR/System/Apps/Modules/$module" ]; then
 				printf "Module '%s' doesn't exist. Create it first: nsy make:module %s\n" "$module" "$module"
 				return 1
@@ -44,6 +52,10 @@ make_model() {
 			if [ -z "$mdlname" ]; then
 				printf "Model name undefined\n"
 				printf "It should be like this 'make:model hmvc $module [model-name]'\n"
+				return 1
+			fi
+			if ! nsy_valid_name "$mdlname"; then
+				printf "Invalid model name '%s' (use letters, digits, underscore only)\n" "$mdlname"
 				return 1
 			fi
 

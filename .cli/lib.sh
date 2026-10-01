@@ -31,3 +31,12 @@ nsy_dump_autoload() {
 		printf "Note: composer not found. Run 'composer dump-autoload -o' for autoloading.\n"
 	fi
 }
+
+# Validate a generated class/file name (letters, digits, underscore only).
+# Guards the `sed` substitutions and file paths used by the mk.* generators.
+nsy_valid_name() {
+	case "$1" in
+		''|*[!A-Za-z0-9_]*) return 1 ;;
+		*) return 0 ;;
+	esac
+}

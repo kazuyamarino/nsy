@@ -7,6 +7,10 @@ make_middleware() {
 		printf "It should be like this 'make:middleware [middleware-name]'\n"
 		return 1
 	fi
+	if ! nsy_valid_name "$name"; then
+		printf "Invalid middleware name '%s' (use letters, digits, underscore only)\n" "$name"
+		return 1
+	fi
 
 	local dest="$NSY_ROOT_DIR/System/Middlewares/$name.php"
 	if [ -e "$dest" ]; then

@@ -14,9 +14,11 @@ show_model() {
 			printf "==========================\n"
 			local files=("$NSY_ROOT_DIR"/System/Apps/General/Models/*.php)
 			if [ -e "${files[0]}" ]; then
-				local i=1 f
+				local i=1 f base
 				for f in "${files[@]}"; do
-					printf "%s. %s\n" "$i" "$(basename "$f")"
+					base="$(basename "$f")"
+					case "$base" in C_Test_*|M_Test_*) continue ;; esac
+					printf "%s. %s\n" "$i" "$base"
 					i=$((i + 1))
 				done
 			else
@@ -39,9 +41,11 @@ show_model() {
 			printf "==========================\n"
 			local files=("$NSY_ROOT_DIR"/System/Apps/Modules/"$module"/Models/*.php)
 			if [ -e "${files[0]}" ]; then
-				local i=1 f
+				local i=1 f base
 				for f in "${files[@]}"; do
-					printf "%s. %s\n" "$i" "$(basename "$f")"
+					base="$(basename "$f")"
+					case "$base" in C_Test_*|M_Test_*) continue ;; esac
+					printf "%s. %s\n" "$i" "$base"
 					i=$((i + 1))
 				done
 			else

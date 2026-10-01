@@ -7,6 +7,10 @@ make_migration() {
 		printf "It should be like this 'make:migrate [migration-name]'\n"
 		return 1
 	fi
+	if ! nsy_valid_name "$mig"; then
+		printf "Invalid migration name '%s' (use letters, digits, underscore only)\n" "$mig"
+		return 1
+	fi
 
 	# Refuse if a non-timestamped file with the exact name already exists
 	if [ -e "$NSY_ROOT_DIR/System/Migrations/$mig.php" ]; then

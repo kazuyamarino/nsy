@@ -16,6 +16,10 @@ make_view() {
 				printf "It should be like this 'make:view mvc [view-name]'\n"
 				return 1
 			fi
+			if ! nsy_valid_name "$viewname"; then
+				printf "Invalid view name '%s' (use letters, digits, underscore only)\n" "$viewname"
+				return 1
+			fi
 
 			local dest="$NSY_ROOT_DIR/System/Apps/General/Views/$viewname.php"
 			if [ -e "$dest" ]; then
@@ -37,6 +41,10 @@ make_view() {
 				printf "It should be like this 'make:view hmvc [module-name] [view-name]'\n"
 				return 1
 			fi
+			if ! nsy_valid_name "$module"; then
+				printf "Invalid module name '%s' (use letters, digits, underscore only)\n" "$module"
+				return 1
+			fi
 			if [ ! -d "$NSY_ROOT_DIR/System/Apps/Modules/$module" ]; then
 				printf "Module '%s' doesn't exist. Create it first: nsy make:module %s\n" "$module" "$module"
 				return 1
@@ -44,6 +52,10 @@ make_view() {
 			if [ -z "$viewname" ]; then
 				printf "View name undefined\n"
 				printf "It should be like this 'make:view hmvc $module [view-name]'\n"
+				return 1
+			fi
+			if ! nsy_valid_name "$viewname"; then
+				printf "Invalid view name '%s' (use letters, digits, underscore only)\n" "$viewname"
 				return 1
 			fi
 

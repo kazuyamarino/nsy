@@ -18,7 +18,7 @@ run_setup() {
 
 	cp "$NSY_ROOT_DIR/docs/apache/for_public/.htaccess" "$NSY_ROOT_DIR/public/.htaccess"
 	cp "$NSY_ROOT_DIR/docs/apache/for_root/.htaccess" "$NSY_ROOT_DIR/.htaccess"
-	cp "$NSY_ROOT_DIR/.cli/tmp/env.example.php" "$NSY_ROOT_DIR/env.php"
+	cp "$NSY_ROOT_DIR/docs/env.example/env.example.php" "$NSY_ROOT_DIR/env.php"
 	cp "$NSY_ROOT_DIR/.cli/tmp/system.js" "$NSY_ROOT_DIR/public/assets/js/config/system.js"
 	cp "$NSY_ROOT_DIR/.cli/tmp/default" "$NSY_ROOT_DIR/docs/nginx/sites-enabled/default"
 

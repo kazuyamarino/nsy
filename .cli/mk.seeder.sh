@@ -11,6 +11,11 @@ make_seeder() {
 	# Accept both 'UserSeeder' and 'UserSeeder.php'
 	seeder="${seeder%.php}"
 
+	if ! nsy_valid_name "$seeder"; then
+		printf "Invalid seeder name '%s' (use letters, digits, underscore only)\n" "$seeder"
+		return 1
+	fi
+
 	local dest="$NSY_ROOT_DIR/System/Seeders/$seeder.php"
 	if [ -e "$dest" ]; then
 		printf "Seeder 'System/Seeders/%s.php' already exists\n" "$seeder"
