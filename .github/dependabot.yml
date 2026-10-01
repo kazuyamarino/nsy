@@ -1,0 +1,14 @@
+version: 2
+updates:
+  # Keep GitHub Actions versions current (avoids Node runtime deprecations,
+  # e.g. actions pinned to a retired Node version).
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # Keep Composer dependencies current.
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"

@@ -3,6 +3,7 @@ language: php
 php:
   - 7.4
   - 8.2
+  - 8.3
 
 before_script:
   - mkdir nsy

@@ -78,10 +78,11 @@ return [
 	| Default Codename
 	|--------------------------------------------------------------------------
 	|
-	| Define codename of the application
+	| Define codename of the application. Falls back to the framework codename
+	| when APP_CODENAME is unset or empty.
 	|
 	*/
-	'codename' => config_env('APP_CODENAME') ?? '',
+	'codename' => config_env('APP_CODENAME') ?: 'Gamelan',
 
 	/*
 	|--------------------------------------------------------------------------
