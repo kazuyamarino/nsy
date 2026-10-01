@@ -2,7 +2,7 @@
 
 The in-app docs viewer turns the Markdown files in `docs/` into readable HTML
 **inside your own application layout** — no GitHub, no Markdown editor, no extra
-package. A file `docs/README_ROUTER.md` registered under the slug `router` is served
+package. A file `docs/README_NSY_ROUTER.md` registered under the slug `router` is served
 at:
 
 ```text

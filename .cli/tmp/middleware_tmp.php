@@ -14,7 +14,8 @@ namespace System\Middlewares;
  *       return Route::goto([YourController::class, 'method']);
  *   });
  *
- * For built-in security, prefer SecurityMiddleware / Route::createSecurityMiddleware('strict').
+ * For built-in CSRF/XSS use SecurityMiddleware; for rate limiting use
+ * Route::createSecurityMiddleware('strict')->rateLimit('<bucket>').
  */
 class middleware_tmp
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace System\Migrations;
 
 /**
@@ -9,19 +11,15 @@ class mig_tmp_class
 {
 
 	/**
-	 * NSY Migration
-	 */
-
-	/**
 	 * Run the migrations.
 	 *
 	 * @return void
 	 */
 	public function up()
 	{
-		Mig::connect()->create_table('mig_tmp', [
-			Mig::bigint('id', 20)->auto_increment(),
-			Mig::varchar('name')->not_null(),
+		Mig::connect()->createTable('your_table', [
+			Mig::bigint('id', 20)->autoIncrement(),
+			Mig::varchar('name')->notNull(),
 			Mig::text('address')->null(),
 			Mig::primary('id')
 		])->index('BTREE', 'id');
@@ -34,6 +32,6 @@ class mig_tmp_class
 	 */
 	public function down()
 	{
-		Mig::connect()->drop_exist_table(['mig_tmp']);
+		Mig::connect()->dropExistTable(['your_table']);
 	}
 }

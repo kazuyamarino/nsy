@@ -8,6 +8,6 @@ class md_mdl extends DB
 {
 	public function all(): array
 	{
-		return self::connect()->query('SELECT * FROM your_table')->fetch_all();
+		return self::connect()->query('SELECT * FROM your_table')->fetchAll();
 	}
 }

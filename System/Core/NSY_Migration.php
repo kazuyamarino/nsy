@@ -1113,10 +1113,5 @@ class NSY_Migration
 			NSY_Desk::staticErrorHandler($var_msg);
 			exit();
 		}
-
-		// Close the statement and connection
-		$stmt = null;
-		self::$connection = null;
-		exit();
 	}
 }

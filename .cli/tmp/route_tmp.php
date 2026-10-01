@@ -7,10 +7,9 @@
  *   Route::get('/path', [System\Apps\General\Controllers\Your_Controller::class, 'method']);
  *   Route::get('/path', function () { echo 'Hello'; });
  *
- * With options (security level, name) use Route::route($method, $path, $controller, $options):
+ * With a route name (used by the route() URL helper) use Route::route($method, $path, $controller, $options):
  *   Route::route('get', '/path', [Your_Controller::class, 'method'], [
- *       'security_level' => 'basic|standard|strict',
- *       'name'           => 'route.name',
+ *       'name' => 'route.name',
  *   ]);
  *
  * Methods : get | post | put | patch | delete | head | options | any | map
@@ -31,13 +30,12 @@ Route::get('/example-hmvc', function () {
 	]);
 });
 
-// Secured + named route (options require Route::route())
+// Named route (options require Route::route())
 Route::route('get', '/admin/dashboard', [
 	System\Apps\General\Controllers\Controller_Welcome::class,
 	'welcome'
 ], [
-	'security_level' => 'strict',
-	'name'           => 'admin.dashboard'
+	'name' => 'admin.dashboard'
 ]);
 
 // Group example

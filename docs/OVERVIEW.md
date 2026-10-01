@@ -100,18 +100,22 @@ For Example see Shyffon repository, [See Example](https://github.com/kazuyamarin
 
 ## Helpers
 
-The `System/Helpers` folder is useful for creating custom methods that match what you want and need.
+The `System/Helpers` folder holds standalone helper files (global functions).
 
-If you want to make your own helper, then just make the desired method in the php file then save it in`System/Helpers`. And don't forget to autoload it on `composer.json` in the `files` parameters.
+To add your own, create the file under `System/Helpers` and register it in
+`NSY_SystemLoader` (`$systemConfig['helpers']`), which the framework loads on boot:
 
 ```php
+// System/Core/NSY_SystemLoader.php
+'helpers' => ['CodeIgniterHelpers.php', 'Assets.php', 'Your_Helper.php'],
+```
+
+Alternatively, autoload it through Composer's `files` list in `composer.json`:
+
+```json
 "autoload": {
-  "psr-4": {
-    "System\\": "System/"
-  },
-  "files": [
-    "System/Helpers/Custom_Method.php" // your custom helpers file
-  ]
+  "psr-4": { "System\\": "System/" },
+  "files": [ "System/Helpers/Your_Helper.php" ]
 }
 ```
 
@@ -187,7 +191,7 @@ namespace System\Controllers;
 
 class Demo {
 
-    public function __contruct()
+    public function __construct()
     {
 
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace System\Migrations;
 
 /**
@@ -7,7 +9,8 @@ namespace System\Migrations;
  * - Demonstrates powerful, minimal-lines Migration (DRY: quoteIdent/execDDL)
  * - Uses unified NSY_DB::connect() (mysql/pgsql/sqlsrv/dblib)
  * - Run via CLI: nsy run:migrate all  OR  nsy run:migrate list
- * - Run via URL (development only): /migup=Migration_Example_User  /migdown=Migration_Example_User
+ * - Run via URL (development only, opt-in via APP_MIGRATION_HTTP + ?token=):
+ *   /migup=Migration_Example_User  /migdown=Migration_Example_User
  *
  * Copy this file as template: cp System/Migrations/Migration_Example_User.php System/Migrations/My_New_Migration.php
  * Then edit class name to match filename.
@@ -32,9 +35,9 @@ class Migration_Example_User
 			Mig::unique('email')
 		])->index('BTREE', 'email');
 
-		// 2. Demo data lives in seeders, not migrations — see
-		// System/Seeders/Seeder_Example_User.php + System/Factories/Factory_Example_User.php.
-		// Run: nsy run:seed Seeder_Example_User
+		// 2. Seed demo data for THIS table with the example seeder/factory:
+		// System/Seeders/Seeder_Example_User.php + System/Factories/Factory_Example_User.php
+		// Run: nsy run:migrate Migration_Example_User  →  nsy run:seed Seeder_Example_User
 
 		// 3. Example: Add column later (uncomment to test addCols)
 		// Mig::connect('primary')->addCols('example_users', [
@@ -42,7 +45,7 @@ class Migration_Example_User
 		// ]);
 
 		// 4. Example: Query Builder minimal lines — filtering, pagination, pluck
-		// $active = qb('example_users')->where('status', 'active')->whereNull('deleted_at')->get();
+		// $active = qb('example_users')->where('status', 'active')->get();
 		// $names = qb('example_users')->whereIn('id', [1,2,3])->pluck('name');
 		// $page = qb('example_users')->whereLike('name', '%a%')->paginate(10);
 	}

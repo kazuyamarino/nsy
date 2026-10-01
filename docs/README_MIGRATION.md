@@ -4,7 +4,7 @@ Database versioning for NSY (`System/Core/NSY_Migration.php`, alias `Mig`). Powe
 
 - **Migration class:** `System\Migrations\*` (created via CLI)
 - **Engine:** `System\Core\NSY_Migration` (`Mig`) — DDL only (vs `System\Core\DB` for DML)
-- **Route guard:** `System/Core/NSY_Migration_Route.php` — HTTP `/migup=(:any)` only when `APP_ENV === 'development'` (`System/Core/NSY_Desk.php:139` blocks production with 403)
+- **Route guard:** `System/Core/NSY_Migration_Route.php` — the HTTP trigger (`/migup=(:any)`, `/migdown=(:any)`) is **off by default**: it registers only when `APP_ENV === 'development'` **and** `APP_MIGRATION_HTTP=true`, with a non-empty `APP_MIGRATION_HTTP_TOKEN` passed as `?token=…`. Production is always blocked (`NSY_Desk` returns 403).
 
 ## Table of Contents
 
@@ -25,14 +25,15 @@ Database versioning for NSY (`System/Core/NSY_Migration.php`, alias `Mig`). Powe
 
 ```bash
 nsy make:migrate create_supplier_table
-# → System/Migrations/create_supplier_table.php
+# → System/Migrations/create_supplier_table_01102026_120000.php
+#   (the class name is the file basename; the generator appends a timestamp)
 ```
 
 ```php
 <?php
 use System\Core\NSY_Migration as Mig;
 
-class create_supplier_table {
+class create_supplier_table_01102026_120000 {
     public function up() {
         Mig::connect()->createTable('suppliers', [
             Mig::bigint('id', 20)->autoIncrement(),
@@ -46,6 +47,9 @@ class create_supplier_table {
 }
 ```
 
+> Prefer a descriptive table name (`suppliers`) instead of reusing the migration
+> name; the generated file ships with a `your_table` placeholder.
+
 ---
 
 ## Running Migrations
@@ -57,12 +61,22 @@ nsy run:migrate all       # all pending
 nsy run:migrate list      # pick one
 ```
 
-**HTTP (development only):**
+**HTTP (development only, opt-in):**
+
+Enable it in `env.php`, then pass the token as `?token=…`:
+
+```ini
+APP_MIGRATION_HTTP=true
+APP_MIGRATION_HTTP_TOKEN=change-me
 ```
-GET /migup=create_supplier_table   # Mig::connect()->createTable...
-GET /migdown=create_supplier_table # down()
+
 ```
-> In `production` `System/Core/NSY_Desk.php:139` returns `403 Migrations are disabled`. Use CLI.
+GET /migup=create_supplier_table_01102026_120000?token=change-me
+GET /migdown=create_supplier_table_01102026_120000?token=change-me
+```
+> Without `APP_MIGRATION_HTTP=true` plus a non-empty token the trigger is not even
+> registered (404). In `production` `NSY_Desk` returns `403 Migrations are disabled`.
+> Prefer the CLI.
 
 ---
 
@@ -127,13 +141,17 @@ Mig::connect()->createTable('t', [...])->index('BTREE', ['a','b']);
 Mig::connect()->createTable('t', [...])->indexPg('BTREE', 'name'); // pgsql: USING BTREE
 ```
 
-Generated: `CREATE INDEX MULTI_1_5_IDX USING BTREE ON `t` ( name )`
+Generated:
+
+```sql
+CREATE INDEX MULTI_123456_IDX USING BTREE ON `t` ( `name` )
+```
 
 ---
 
 ## Datatypes & Modifiers
 
-All type builders are static, take the column name first, and are chainable.
+All type builders are static, take the column name first, and may be followed by a single `->modifier()` (see [Modifiers](#datatypes--modifiers)).
 
 **Integer & boolean**
 
@@ -191,15 +209,21 @@ Mig::year('yr', 2)           // YEAR(2)
 Mig::timestamps()            // create_date / update_date / delete_date (3 DATETIME)
 ```
 
-**Modifiers** (chain after any type)
+**Modifiers** — each column takes **at most one** modifier. A modifier returns the
+finished column definition (a string), so it is **not chainable**. `default()`
+already includes `NOT NULL`:
 
 ```php
-Mig::varchar('name', 255)->notNull()->default('x')
-Mig::int('age')->default(0)
-Mig::text('bio')->null()
-Mig::bigint('id', 20)->autoIncrement()
+Mig::varchar('name', 255)->notNull()                 // name VARCHAR(255) NOT NULL
+Mig::int('age')->default(0)                          // age INT(11) NOT NULL DEFAULT 0
+Mig::text('bio')->null()                             // bio TEXT NULL
+Mig::bigint('id', 20)->autoIncrement()               // id BIGINT(20) AUTO_INCREMENT
 Mig::datetime('updated')->onUpdate('CURRENT_TIMESTAMP')
 ```
+
+> String defaults must be SQL-quoted yourself: `->default("'active'")`.
+> Do **not** write `->notNull()->default('x')` — a second modifier fails with
+> "Call to a member function … on string".
 
 **Constraints & records**
 
@@ -209,7 +233,8 @@ Mig::unique(['a', 'b'])  // UNIQUE
 Mig::connect()->insertRecord('users', ['name' => 'Alice', 'age' => 30])
 ```
 
-Chain: `Mig::varchar('name')->notNull()->default('x')` → `name VARCHAR(255) NOT NULL DEFAULT x`
+Result: `Mig::varchar('name')->notNull()` → `name VARCHAR(255) NOT NULL`;
+`Mig::int('age')->default(0)` → `age INT(11) NOT NULL DEFAULT 0`.
 
 ---
 
@@ -218,7 +243,7 @@ Chain: `Mig::varchar('name')->notNull()->default('x')` → `name VARCHAR(255) NO
 *   Identifiers quoted via `quoteIdent()` `System/Core/NSY_Migration.php:54` → `` `table` `` per part (`db.table` safe), `sp_rename` escaped `''`.
 *   `execDDL()` `System/Core/NSY_Migration.php:64` centralizes `prepare/execute`, `rollback` on `transaction==='on'`.
 *   `exit()` removed — methods `return $this` chainable, no dead `stmt=null` after return.
-*   HTTP migration disabled in production — use CLI.
+*   HTTP migration is opt-in (`APP_MIGRATION_HTTP`) + token-guarded (`?token=`) and disabled in production — use CLI.
 
 ---
 
@@ -235,7 +260,7 @@ Chain: `Mig::varchar('name')->notNull()->default('x')` → `name VARCHAR(255) NO
 | `primary($cols)` / `unique($cols)` | CONSTRAINT | `string` |
 | `timestamps()` | 3 DATETIME cols | `array` |
 | `Mig::{type}($col, ...)` | Column type builder ([full list](#datatypes--modifiers)) | `object` |
-| `->notNull()` / `->null()` / `->default()` / `->autoIncrement()` / `->onUpdate()` | Column modifiers (chainable) | `object` |
+| `->notNull()` / `->null()` / `->default()` / `->autoIncrement()` / `->onUpdate()` | Column modifier — **one per column** (not chainable) | `string` |
 | `insertRecord($t, $data)` | Insert one row (DML) | `object` |
 
 Related: `System/Core/NSY_Migration.php:27`, `System/Core/NSY_DB.php:24`, `System/Core/NSY_Migration_Route.php:8`.
