@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "nesbot/carbon": "^2.53.1",
+        "nesbot/carbon": "^3.14.1",
         "voku/anti-xss": "^4.1",
         "rakit/validation": "^1.4",
         "psr/log": "^1.1 || ^2.0 || ^3.0"
