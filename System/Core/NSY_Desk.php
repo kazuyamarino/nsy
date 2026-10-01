@@ -34,11 +34,20 @@ class NSY_Desk
 				'line' => $origin['line'] ?? 0,
 			]);
 		} catch (\Throwable $e) {
-			// ignore — error_log() below always runs
+			// ignore — the CLI line / error_log() below still capture the message
 		}
 
-		// Log error in all environments (strip HTML for log)
-		error_log('NSY Error: ' . strip_tags($var_msg));
+		// Log to the PHP error log in web contexts; on the CLI the formatted
+		// STDERR line below is emitted instead (avoids a duplicate message).
+		if (PHP_SAPI !== 'cli') {
+			error_log('NSY Error: ' . strip_tags($var_msg));
+		}
+
+		// CLI: print a clean, tag-free line to STDERR and stop with a non-zero code.
+		if (PHP_SAPI === 'cli') {
+			fwrite(STDERR, '[NSY ' . $error_code . '] ' . html_entity_decode(strip_tags($var_msg), ENT_QUOTES, 'UTF-8') . "\n");
+			exit(1);
+		}
 
 		if ($app_env === 'development') {
 			$trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3);
@@ -95,7 +104,14 @@ class NSY_Desk
 			ini_set('display_startup_errors', '0');
 			error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
 		} else {
-			exit('<pre>The application environment is not set correctly. Please check the <strong>APP_ENV</strong> inside env file in the root directory.</pre>');
+			$msg = 'The application environment is not set correctly. Please check APP_ENV in env.php.';
+
+			if (PHP_SAPI === 'cli') {
+				fwrite(STDERR, $msg . "\n");
+				exit(1);
+			}
+
+			exit('<pre>' . $msg . '</pre>');
 		}
 	}
 
@@ -209,12 +225,16 @@ class NSY_Desk
 				// ignore
 			}
 
-			echo "<div style='background: #d4edda; color: #155724; padding: 15px; border: 1px solid #c3e6cb; border-radius: 4px; margin: 10px;'>";
-			echo "<h4>✅ Migration Success</h4>";
-			echo "Database has been successfully <strong>migrated " . htmlspecialchars($direction, ENT_QUOTES, 'UTF-8') . "</strong><br>";
-			echo "<strong>Class:</strong> " . htmlspecialchars($classname, ENT_QUOTES, 'UTF-8') . "<br>";
-			echo "<strong>Timestamp:</strong> " . date('Y-m-d H:i:s');
-			echo "</div>";
+			if (PHP_SAPI === 'cli') {
+				echo "✅ Migration {$direction}: {$classname}\n";
+			} else {
+				echo "<div style='background: #d4edda; color: #155724; padding: 15px; border: 1px solid #c3e6cb; border-radius: 4px; margin: 10px;'>";
+				echo "<h4>✅ Migration Success</h4>";
+				echo "Database has been successfully <strong>migrated " . htmlspecialchars($direction, ENT_QUOTES, 'UTF-8') . "</strong><br>";
+				echo "<strong>Class:</strong> " . htmlspecialchars($classname, ENT_QUOTES, 'UTF-8') . "<br>";
+				echo "<strong>Timestamp:</strong> " . date('Y-m-d H:i:s');
+				echo "</div>";
+			}
 
 		} catch (\Throwable $e) {
 			self::staticErrorHandler("Migration failed: " . $e->getMessage(), 500);

@@ -71,7 +71,6 @@ class DB
         } else {
             $var_msg = "The value that binds in the <mark>bind(<strong>value</strong>)</mark> is empty, undefined, or unknown parameter";
             NSY_Desk::staticErrorHandler($var_msg);
-            exit();
         }
 
         // The legacy API keeps state in static properties; clear the per-query
@@ -139,8 +138,7 @@ class DB
             return;
         }
 
-        echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-        exit();
+        NSY_Desk::staticErrorHandler('The transaction mode is not set correctly. Check System/Config/App.php.', 500);
     }
 
     /**
@@ -156,7 +154,6 @@ class DB
         if (!static::$connection) {
             $var_msg = "Database connection failed for '" . htmlspecialchars($conn_name, ENT_QUOTES, 'UTF-8') . "'";
             NSY_Desk::staticErrorHandler($var_msg);
-            exit();
         }
         return new static;
     }
@@ -188,7 +185,6 @@ class DB
         } else {
             $var_msg = "The value of query in the <mark>query(<strong>value</strong>)</mark> is empty or undefined";
             NSY_Desk::staticErrorHandler($var_msg);
-            exit();
         }
 
         return new static;
@@ -207,7 +203,6 @@ class DB
         } else {
             $var_msg = "The variable in the <mark>vars(<strong>variables</strong>)</mark> is improper or not an array";
             NSY_Desk::staticErrorHandler($var_msg);
-            exit();
         }
 
         return new static;
@@ -256,8 +251,7 @@ class DB
     protected function fetchAll()
     {
         if (not_filled(static::$connection)) {
-            echo '<pre>No Connection, Please check your connection again!</pre>';
-            exit();
+            NSY_Desk::staticErrorHandler('No Connection, please check your connection again.', 500);
         }
 
         $stmt = static::$connection->prepare(static::$query);
@@ -281,8 +275,7 @@ class DB
     protected function fetch()
     {
         if (not_filled(static::$connection)) {
-            echo '<pre>No Connection, Please check your connection again!</pre>';
-            exit();
+            NSY_Desk::staticErrorHandler('No Connection, please check your connection again.', 500);
         }
 
         $stmt = static::$connection->prepare(static::$query);
@@ -307,8 +300,7 @@ class DB
     protected function fetchColumn(int $column = 0)
     {
         if (not_filled(static::$connection)) {
-            echo '<pre>No Connection, Please check your connection again!</pre>';
-            exit();
+            NSY_Desk::staticErrorHandler('No Connection, please check your connection again.', 500);
         }
 
         $stmt = static::$connection->prepare(static::$query);
@@ -330,8 +322,7 @@ class DB
     protected function rowCount()
     {
         if (not_filled(static::$connection)) {
-            echo '<pre>No Connection, Please check your connection again!</pre>';
-            exit();
+            NSY_Desk::staticErrorHandler('No Connection, please check your connection again.', 500);
         }
 
         $stmt = static::$connection->prepare(static::$query);
@@ -360,17 +351,14 @@ class DB
                 \System\Middlewares\SecurityMiddleware::validateAdvancedCSRF('csrf_token', $_POST, true, 60 * 10, false, false);
             } catch (\Exception $e) {
                 // CSRF attack detected
-                echo '<pre>' . $e->getMessage() . ' Form ignored.</pre>'; // Just info
-                exit();
+                NSY_Desk::staticErrorHandler('CSRF: ' . $e->getMessage(), 403);
             }
         } elseif (config_app('csrf_token') !== 'false') {
-            echo '<pre>The CSRF Token Protection is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-            exit();
+            NSY_Desk::staticErrorHandler('The CSRF token protection is not set correctly. Check System/Config/App.php.', 500);
         }
 
         if (not_filled(static::$connection)) {
-            echo '<pre>No Connection, Please check your connection again!</pre>';
-            exit();
+            NSY_Desk::staticErrorHandler('No Connection, please check your connection again.', 500);
         }
 
         $stmt = null;
@@ -412,24 +400,20 @@ class DB
                 \System\Middlewares\SecurityMiddleware::validateAdvancedCSRF('csrf_token', $_POST, true, 60 * 10, false, false);
             } catch (\Exception $e) {
                 // CSRF attack detected
-                echo '<pre>' . $e->getMessage() . ' Form ignored.</pre>'; // Just info
-                exit();
+                NSY_Desk::staticErrorHandler('CSRF: ' . $e->getMessage(), 403);
             }
         } elseif (config_app('csrf_token') !== 'false') {
-            echo '<pre>The CSRF Token Protection is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
-            exit();
+            NSY_Desk::staticErrorHandler('The CSRF token protection is not set correctly. Check System/Config/App.php.', 500);
         }
 
         if (not_filled(static::$connection)) {
-            echo '<pre>No Connection, Please check your connection again!</pre>';
-            exit();
+            NSY_Desk::staticErrorHandler('No Connection, please check your connection again.', 500);
         }
 
         // Guard BEFORE touching $variables[0] (the old code read it first).
         if (not_filled(static::$variables)) {
             $var_msg = "Syntax error or access violation! \nNo parameter were bound for query, \nPlease check your query again!";
             NSY_Desk::staticErrorHandler($var_msg);
-            exit();
         }
 
         $rows = count(static::$variables);

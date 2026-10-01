@@ -30,7 +30,6 @@ class NSY_Migration
 		if (!self::$connection) {
 			$var_msg = "Migration connection failed for '" . htmlspecialchars($conn_name, ENT_QUOTES, 'UTF-8') . "'";
 			NSY_Desk::staticErrorHandler($var_msg);
-			exit();
 		}
 		return new self;
 	}
@@ -43,8 +42,7 @@ class NSY_Migration
 	private function ensureConnection(): void
 	{
 		if (not_filled(self::$connection)) {
-			echo '<pre>No Connection, Please check your connection again!</pre>';
-			exit();
+			NSY_Desk::staticErrorHandler('No Connection, please check your connection again.', 500);
 		}
 	}
 
@@ -82,12 +80,25 @@ class NSY_Migration
 	}
 
 	/**
+	 * Print a SQL statement: plain text on the CLI, <pre> in the browser.
+	 */
+	private function printSql(string $query): void
+	{
+		if (PHP_SAPI === 'cli') {
+			echo $query . "\n";
+			return;
+		}
+
+		echo '<pre>' . htmlspecialchars($query, ENT_QUOTES, 'UTF-8') . '</pre>';
+	}
+
+	/**
 	 * Execute single DDL query with unified error/transaction handling
 	 */
 	private function execDDL(string $query): bool
 	{
 		$this->ensureConnection();
-		echo '<pre>' . htmlspecialchars($query, ENT_QUOTES, 'UTF-8') . '</pre>';
+		$this->printSql($query);
 		$stmt = self::$connection->prepare($query);
 		$executed = $stmt->execute();
 		if ($executed || $stmt->errorCode() == 0) {
@@ -107,7 +118,6 @@ class NSY_Migration
 	private function fail(string $msg): never
 	{
 		NSY_Desk::staticErrorHandler($msg);
-		exit();
 	}
 
 	/**
@@ -274,12 +284,11 @@ class NSY_Migration
 			$im_cols = self::quoteIndexColumns($cols);
 
 			$query = 'CREATE INDEX MULTI_' . generate_num(1, 5, 6) . '_IDX USING ' . self::normalizeIndexType($type) . ' ON ' . self::quoteIdent($table) . ' ( ' . $im_cols . ' ) ';
-			echo '<pre>' . htmlspecialchars($query, ENT_QUOTES, 'UTF-8') . '</pre>';
+			$this->printSql($query);
 
 			// Check if there's a connection defined on the models
 			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
+				NSY_Desk::staticErrorHandler('No Connection, please check your connection again.', 500);
 			} else {
 				// execute it
 				$stmt = self::$connection->prepare($query);
@@ -298,14 +307,13 @@ class NSY_Migration
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::staticErrorHandler($var_msg);
 					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
+						NSY_Desk::staticErrorHandler('The transaction mode is not set correctly. Check System/Config/App.php.', 500);
 					}
 				}
 			}
 		} else {
 			$var_msg = "Table name in the <mark>index(<strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::staticErrorHandler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
@@ -340,12 +348,11 @@ class NSY_Migration
 
 				$query = 'CREATE INDEX ' . $prefix . '_' . generate_num(1, 5, 6) . '_IDX ON ' . self::quoteIdent($table) . ' USING ' . $indexType . ' ( ' . self::quoteIndexColumns((string) $cols) . ' ) ';
 			}
-			echo '<pre>' . htmlspecialchars($query, ENT_QUOTES, 'UTF-8') . '</pre>';
+			$this->printSql($query);
 
 			// Check if there's connection defined on the models
 			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
+				NSY_Desk::staticErrorHandler('No Connection, please check your connection again.', 500);
 			} else {
 				// execute it
 				$stmt = self::$connection->prepare($query);
@@ -364,14 +371,13 @@ class NSY_Migration
 						$var_msg = "Syntax error or access violation! \nYou have an error in your SQL syntax, \nPlease check your query again!";
 						NSY_Desk::staticErrorHandler($var_msg);
 					} else {
-						echo '<pre>The Transaction Mode is not set correctly. Please check in the <strong><i>System/Config/App.php</i></strong></pre>';
+						NSY_Desk::staticErrorHandler('The transaction mode is not set correctly. Check System/Config/App.php.', 500);
 					}
 				}
 			}
 		} else {
 			$var_msg = "Table name in the <mark>indexPg(<strong>value</strong>)</mark> is empty or undefined";
 			NSY_Desk::staticErrorHandler($var_msg);
-			exit();
 		}
 
 		// Close the statement & connection
@@ -1083,12 +1089,11 @@ class NSY_Migration
 			$placeholders = implode(", ", array_fill(0, count($data), '?'));
 
 			$query = "INSERT INTO {$table} ({$columns}) VALUES ({$placeholders});";
-			echo '<pre>' . $query . '</pre>';
+			$this->printSql($query);
 
 			// Check if there's a valid database connection
 			if (not_filled(self::$connection)) {
-				echo '<pre>No Connection, Please check your connection again!</pre>';
-				exit();
+				NSY_Desk::staticErrorHandler('No Connection, please check your connection again.', 500);
 			} else {
 				// Prepare and execute the query
 				$stmt = self::$connection->prepare($query);
@@ -1111,7 +1116,6 @@ class NSY_Migration
 			// Handle case where table name or data is empty or undefined
 			$var_msg = "Table name or data is empty or undefined";
 			NSY_Desk::staticErrorHandler($var_msg);
-			exit();
 		}
 	}
 }
