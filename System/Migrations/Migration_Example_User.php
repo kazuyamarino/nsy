@@ -15,7 +15,7 @@ namespace System\Migrations;
 class Migration_Example_User
 {
 	/**
-	 * Run the migrations — create example table + demo data via Query Builder
+	 * Run the migrations — create example table
 	 *
 	 * @return void
 	 */
@@ -32,13 +32,9 @@ class Migration_Example_User
 			Mig::unique('email')
 		])->index('BTREE', 'email');
 
-		// 2. Optional: Insert demo data via new powerful Query Builder (1 line per query)
-		// Uncomment to test Query Builder together with Migration:
-		// qb('example_users')->insert(['name' => 'Ana', 'email' => 'ana@example.com', 'age' => 22]);
-		// qb('example_users')->insertBatch([
-		//     ['name' => 'Budi', 'email' => 'budi@example.com', 'age' => 25],
-		//     ['name' => 'Citra', 'email' => 'citra@example.com', 'age' => 30],
-		// ]);
+		// 2. Demo data lives in seeders, not migrations — see
+		// System/Seeders/Seeder_Example_User.php + System/Factories/Factory_Example_User.php.
+		// Run: nsy run:seed Seeder_Example_User
 
 		// 3. Example: Add column later (uncomment to test addCols)
 		// Mig::connect('primary')->addCols('example_users', [

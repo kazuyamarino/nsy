@@ -443,9 +443,16 @@ NSY CLI installed successfully
 | `nsy make:route <name>` | Create a route file (auto-discovered) |
 | `nsy make:middleware <name>` | Create a middleware class scaffold |
 | `nsy make:migrate <name>` | Create a timestamped migration class |
+| `nsy make:seeder <name>` | Create a seeder class in `System/Seeders` |
+| `nsy make:factory <name>` | Create a model factory in `System/Factories` |
 | `nsy run:migrate all` | Run every migration (`up`) |
 | `nsy run:migrate list` | Pick one migration from a list |
 | `nsy run:migrate <name> [up\|down]` | Run a single migration |
+| `nsy run:seed all` | Run every seeder |
+| `nsy run:seed list` | Pick one seeder from a list |
+| `nsy run:seed <name>` | Run a single seeder |
+| `nsy down [message]` | Put the site into maintenance mode (503) |
+| `nsy up` | Bring the site back online |
 
 > `make:module`, `make:controller`, `make:model`, and `make:view` regenerate Composer autoload automatically when `composer` is available.
 
@@ -637,6 +644,56 @@ nsy make:migrate <class-name>
 ```sh
 nsy make:migrate customer_table
 # → System/Migrations/customer_table_23092026_153000.php
+```
+
+#### Make a Seeder
+
+Creates a seeder class in `System/Seeders` (class name equals the file basename). Fill its `run()` method with data, then run it. See [README_SEEDER.md](README_SEEDER.md).
+
+```sh
+nsy make:seeder <class-name>
+```
+
+**Example :**
+
+```sh
+nsy make:seeder RoleSeeder
+# → System/Seeders/RoleSeeder.php
+```
+
+#### Run Seeders
+
+Runs seeders via PHP CLI — no web server required.
+
+```sh
+nsy run:seed all            # every seeder, in name order
+nsy run:seed list           # pick one from a list
+nsy run:seed RoleSeeder     # one seeder by class name
+```
+
+#### Make a Factory
+
+Creates a model factory in `System/Factories` (uses Faker, a dev dependency). See [README_SEEDER.md](README_SEEDER.md).
+
+```sh
+nsy make:factory <factory-name>
+```
+
+**Example :**
+
+```sh
+nsy make:factory UserFactory
+# → System/Factories/UserFactory.php
+```
+
+#### Maintenance Mode
+
+Takes the site offline with a 503 page, and back online. See [README_MAINTENANCE.md](README_MAINTENANCE.md).
+
+```sh
+nsy down                         # offline (default message)
+nsy down "Upgrading the database" # offline with a custom message
+nsy up                           # back online
 ```
 
 #### Make View File

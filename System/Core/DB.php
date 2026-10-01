@@ -1046,4 +1046,92 @@ class DB
         static::$connection->rollback();
         return new static;
     }
+
+    /* =====================================================================
+     * Public transaction API
+     *
+     * Wraps the shared PDO connection so application code can group writes.
+     * All of these are additive: they never change how query()/exec() behave.
+     * ===================================================================== */
+
+    /**
+     * Start a manual transaction on the shared connection.
+     * Pair it with commit() / rollBack(). Prefer transaction() for the
+     * common case so a thrown error always rolls back.
+     *
+     * @param  string $conn_name
+     * @return bool
+     */
+    public static function beginTransaction(string $conn_name = 'primary'): bool
+    {
+        return static::getConnection($conn_name)->beginTransaction();
+    }
+
+    /**
+     * Commit the active transaction.
+     *
+     * @return bool
+     */
+    public static function commit(): bool
+    {
+        return static::getConnection()->commit();
+    }
+
+    /**
+     * Roll back the active transaction.
+     *
+     * @return bool
+     */
+    public static function rollBack(): bool
+    {
+        return static::getConnection()->rollBack();
+    }
+
+    /**
+     * Is a transaction currently active on the shared connection?
+     *
+     * @return bool
+     */
+    public static function inTransaction(): bool
+    {
+        return static::getConnection()->inTransaction();
+    }
+
+    /**
+     * Run a callback inside a database transaction.
+     *
+     * Commits when the callback returns; rolls back and re-throws when it
+     * throws. The callback receives the shared PDO connection, so qb()/DB
+     * calls made inside it join the same transaction.
+     *
+     * Example:
+     *   DB::transaction(function () {
+     *       qb('users')->insert([...]);
+     *       qb('logs')->insert([...]);
+     *   });
+     *
+     * Note: the legacy query path (DB::query()->exec()) already wraps each
+     * write when config `transaction` is 'on'. Do not nest the two.
+     *
+     * @param  callable $callback
+     * @param  string   $conn_name
+     * @return mixed  The callback's return value
+     */
+    public static function transaction(callable $callback, string $conn_name = 'primary'): mixed
+    {
+        $pdo = static::getConnection($conn_name);
+        $pdo->beginTransaction();
+
+        try {
+            $result = $callback($pdo);
+            $pdo->commit();
+
+            return $result;
+        } catch (\Throwable $e) {
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+            throw $e;
+        }
+    }
 }

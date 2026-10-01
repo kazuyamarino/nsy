@@ -11,11 +11,12 @@
 4. [HTTP Methods](#http-methods)
 5. [Parameters & Patterns](#parameters--patterns)
 6. [Route Groups](#route-groups)
-7. [Controller Execution](#controller-execution)
-8. [CSRF Protection](#csrf-protection)
-9. [Cache & Performance](#cache--performance)
-10. [Error Handling](#error-handling)
-11. [API Reference](#api-reference)
+7. [Named Routes & URL Generation](#named-routes--url-generation)
+8. [Controller Execution](#controller-execution)
+9. [CSRF Protection](#csrf-protection)
+10. [Cache & Performance](#cache--performance)
+11. [Error Handling](#error-handling)
+12. [API Reference](#api-reference)
 
 ---
 
@@ -123,6 +124,42 @@ Route::group('/admin', function () {
 });
 ```
 
+## Named Routes & URL Generation
+
+Give a route a name at declaration, then build its URL from anywhere with the
+global `route()` helper — no hard-coded paths.
+
+```php
+// Declare (names only work with the options form, Route::route())
+Route::route('get', '/user/(:num)', [UserController::class, 'show'], [
+    'name' => 'user.show',
+]);
+
+Route::group('/admin', function () {
+    Route::route('get', '/dashboard', [AdminController::class, 'dashboard'], [
+        'name' => 'admin.dashboard',
+    ]);
+});
+```
+
+```php
+route('user.show', [5]);      // http://host/app_dir/user/5
+route('admin.dashboard');      // http://host/app_dir/admin/dashboard
+route('home');                 // http://host/app_dir/
+
+// App-relative path only (no scheme/host) — for fetch(), APIs, redirects
+\System\Core\NSY_RouterOptimized::url('user.show', [5]); // /user/5
+```
+
+- Params are substituted **positionally** into the route's typed placeholders
+  (`:num`, `:slug`, `(:any)`, …), URL-encoded, and an omitted optional segment
+  is dropped.
+- An unknown name returns an empty string.
+- `Route::namedRoutes()` returns every `name => path`.
+
+> Names are declared only via `Route::route(..., ['name' => '…'])`. The plain
+> `Route::get()/post()` helpers take no options, so they cannot be named.
+
 ## Controller Execution
 
 Forward from a closure to a controller:
@@ -218,6 +255,14 @@ Route::haltOnMatch(true);  // stop after first match (default)
 Route::haltOnMatch(false); // continue
 ```
 
+### Error pages
+
+When no route matches, the router renders an HTML page from
+`System/Apps/Templates/Errors/<code>.php` if one exists (`404.php`, `500.php`,
+`503.php`), falling back to a plain message. A JSON client (`Accept:
+application/json` / AJAX) keeps the plain body. See
+[Maintenance](README_MAINTENANCE.md) for the 503 page in context.
+
 ## API Reference
 
 ### `System/Core/NSY_RouterOptimized.php`
@@ -227,6 +272,9 @@ Route::haltOnMatch(false); // continue
 | `enableCache` | `enableCache(bool $enable=true):void` | Toggle cache |
 | `configureSecurity` | `configureSecurity(array $config):void` | Merge security config |
 | `group` | `group(string $base, callable $callback):void` | Prefix group |
+| `name` | `name(string $name, string $uri):void` | Register a route name |
+| `namedRoutes` | `namedRoutes():array` | All `name => path` |
+| `url` | `url(string $name, array $params=[]):string` | Build an app-relative URL |
 | `goto` | `goto(array $target, mixed $vars=[]):mixed` | Execute controller |
 | `for` | `for(array $target, mixed $vars=[]):mixed` | Alias of `goto` |
 | `error` | `error(callable|string $callback):void` | 404 handler |

@@ -146,6 +146,30 @@ foreach ($page['data'] as $user) { echo $user['name']; }
 echo "Page {$page['current_page']} of {$page['last_page']}";
 ```
 
+### Rendering the links
+
+`paginate()` returns the rows plus meta; render the controls with
+`paginate_links()`:
+
+```php
+$page = qb('users')->where('active', 1)->paginate(15, (int) ($_GET['page'] ?? 1));
+echo paginate_links($page);
+// <nav class="nsy-pagination" aria-label="Pagination"> … </nav>
+```
+
+- Preserves the current query string (minus the page param) so filters and
+  sorting survive page navigation.
+- Options: `page_param` (default `page`), `window` (default `2`), `class`
+  (default `nsy-pagination`), `path`, `query`.
+- Returns `''` when there is at most one page (nothing to render).
+- First/Last and Prev/Next are always present; disabled ones render as
+  `<span … is-disabled>`.
+- Default styling ships in `public/assets/css/main.css` (`.nsy-pagination`).
+
+```php
+echo paginate_links($page, ['window' => 1, 'page_param' => 'p']);
+```
+
 ---
 
 ## Mutations — insert / insertBatch / update / delete / increment
@@ -242,6 +266,7 @@ if (qb('users')->where('email',$email)->exists()) { /* ... */ }
 | `pluck('name')` / `value('name')` / `exists()` | Single column/value/check | `array/mixed/bool` |
 | `count()` / `sum('col')` / `avg` / `max` / `min` | Aggregate | `int/mixed` |
 | `paginate(15,1)` | Pagination | `array{data,total,...}` |
+| `paginate_links($page)` | Render pagination nav | `string` |
 | `insert([...])` / `insertBatch([[...]])` | Insert | `string/false` / `bool` |
 | `where(...)->update([...])` / `where(...)->delete()` | Update/delete via chain | `int` (rowCount) |
 | `increment('col',1)` / `decrement` | Counter | `int` |

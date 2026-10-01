@@ -26,7 +26,11 @@ cd "$NSY_ROOT_DIR" || exit 1
 . "$CLI_DIR/mk.route.sh"
 . "$CLI_DIR/mk.view.sh"
 . "$CLI_DIR/mk.middleware.sh"
+. "$CLI_DIR/mk.seeder.sh"
+. "$CLI_DIR/mk.factory.sh"
+. "$CLI_DIR/nsy.maintenance.sh"
 . "$CLI_DIR/run.migration.sh"
+. "$CLI_DIR/run.seed.sh"
 
 if [ -z "$1" ]; then
 	printf "Command does not exist or undefined\n"
@@ -55,7 +59,12 @@ case "$1" in
 	make:route)        make_route "$2" ;;
 	make:view)         make_view "$2" "$3" "$4" ;;
 	make:middleware)   make_middleware "$2" ;;
+	make:seeder)       make_seeder "$2" ;;
+	make:factory)      make_factory "$2" ;;
+	down)              run_down "${@:2}" ;;
+	up)                run_up ;;
 	run:migrate)       run_migration "$2" "$3" ;;
+	run:seed)          run_seeder "$2" ;;
 	*)
 		printf "NSY Command %s : not found\n" "$1"
 		printf "Run 'nsy --help' for the command list\n"

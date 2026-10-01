@@ -12,7 +12,7 @@
         if (!callout) {
             callout = document.createElement('div');
             callout.className = 'nsy-callout';
-            callout.textContent = 'Click Here!';
+            callout.textContent = 'Come in here!';
             callout.style.position = 'fixed';
             document.body.appendChild(callout);
         }

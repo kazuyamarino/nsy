@@ -97,6 +97,20 @@ return [
 
 	/*
 	|--------------------------------------------------------------------------
+	| Maintenance Mode Setting
+	|--------------------------------------------------------------------------
+	|
+	| set 'maintenance' to 'true' to take the site offline with a 503 page.
+	| The CLI flag (System/Storage/maintenance.flag, via `nsy down`) turns it
+	| on regardless. 'maintenance_allow' is a comma-separated list of client
+	| IPs that bypass maintenance (handy to check the live site while down).
+	|
+	*/
+	'maintenance' => config_env('APP_MAINTENANCE') ?? 'false',
+	'maintenance_allow' => config_env('APP_MAINTENANCE_ALLOW') ?? '',
+
+	/*
+	|--------------------------------------------------------------------------
 	| Default SESSION_PREFIX
 	|--------------------------------------------------------------------------
 	|

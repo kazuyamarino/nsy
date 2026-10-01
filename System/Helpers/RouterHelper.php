@@ -269,11 +269,32 @@ class RouterHelper
 
         $method = strtolower($method);
 
-        return NSY_RouterOptimized::$method($path, function() use ($controller, $options) {
+        // Work out the application-relative URI (app-dir stripped) so the route
+        // can be referenced later by name through route('name', [...]) — the
+        // app-dir prefix is re-added by base_url() at call time.
+        $appDir = (string) config_app('app_dir');
+        $appPrefix = $appDir !== '' ? '/' . trim($appDir, '/') : '';
+        $relative = preg_replace(
+            '#/+#',
+            '/',
+            $appPrefix . NSY_RouterOptimized::$base . (str_starts_with((string) $path, '/') ? $path : '/' . $path)
+        ) ?: '/';
+        if ($appPrefix !== '' && str_starts_with($relative, $appPrefix)) {
+            $relative = substr($relative, strlen($appPrefix));
+        }
+        if ($relative === '') {
+            $relative = '/';
+        }
+
+        NSY_RouterOptimized::$method($path, function() use ($controller) {
             // Security middleware is now applied through SecurityMiddleware static methods
             // No longer using deprecated middleware chain system
             return NSY_RouterOptimized::goto($controller);
         });
+
+        if (!empty($options['name']) && is_string($options['name'])) {
+            NSY_RouterOptimized::name($options['name'], $relative);
+        }
     }
 
     /**

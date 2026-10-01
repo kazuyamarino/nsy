@@ -24,6 +24,9 @@ System/Apps/Templates/razr_cache/
 System/Storage/logs/*
 !System/Storage/logs/.htaccess
 
+# Maintenance mode flag (runtime - toggled by `nsy down` / `nsy up`)
+System/Storage/maintenance.flag
+
 # AI Agents local cache
 /.gitnexus/
 /.claude/

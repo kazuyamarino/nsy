@@ -88,12 +88,12 @@ directly. Listed for completeness (versions follow `composer.lock`).
 | `carbonphp/carbon-doctrine-types` | 3.2.1 | MIT | Types to use Carbon in Doctrine |
 | `psr/clock` | 1.0.0 | MIT | Common interface for reading the clock. |
 | `symfony/deprecation-contracts` | 3.7.1 | MIT | A generic function and convention to trigger deprecation notices |
-| `symfony/polyfill-iconv` | 1.37.0 | MIT | Symfony polyfill for the Iconv extension |
-| `symfony/polyfill-intl-grapheme` | 1.41.0 | MIT | Symfony polyfill for intl's grapheme_* functions |
-| `symfony/polyfill-intl-normalizer` | 1.42.0 | MIT | Symfony polyfill for intl's Normalizer class and related functions |
-| `symfony/polyfill-mbstring` | 1.38.2 | MIT | Symfony polyfill for the Mbstring extension |
+| `symfony/polyfill-iconv` | 1.43.0 | MIT | Symfony polyfill for the Iconv extension |
+| `symfony/polyfill-intl-grapheme` | 1.43.0 | MIT | Symfony polyfill for intl's grapheme_* functions |
+| `symfony/polyfill-intl-normalizer` | 1.43.0 | MIT | Symfony polyfill for intl's Normalizer class and related functions |
+| `symfony/polyfill-mbstring` | 1.43.0 | MIT | Symfony polyfill for the Mbstring extension |
 | `symfony/polyfill-php72` | 1.31.0 | MIT | Symfony polyfill backporting some PHP 7.2+ features to lower PHP versions |
-| `symfony/polyfill-php80` | 1.37.0 | MIT | Symfony polyfill backporting some PHP 8.0+ features to lower PHP versions |
+| `symfony/polyfill-php80` | 1.43.0 | MIT | Symfony polyfill backporting some PHP 8.0+ features to lower PHP versions |
 | `symfony/translation` | 6.4.44 | MIT | Provides tools to internationalize your application |
 | `symfony/translation-contracts` | 3.7.1 | MIT | Generic abstractions related to translation |
 | `voku/portable-ascii` | 2.1.1 | MIT | Portable ASCII library - performance optimized (ascii) string functions for php. |
@@ -153,7 +153,7 @@ directly. Listed for completeness (versions follow `composer.lock`).
 | `symfony/options-resolver` | 6.4.30 | MIT | Provides an improved replacement for the array_replace PHP function |
 | `symfony/polyfill-ctype` | 1.37.0 | MIT | Symfony polyfill for ctype functions |
 | `symfony/polyfill-php81` | 1.38.1 | MIT | Symfony polyfill backporting some PHP 8.1+ features to lower PHP versions |
-| `symfony/polyfill-php84` | 1.38.1 | MIT | Symfony polyfill backporting some PHP 8.4+ features to lower PHP versions |
+| `symfony/polyfill-php84` | 1.43.0 | MIT | Symfony polyfill backporting some PHP 8.4+ features to lower PHP versions |
 | `symfony/process` | 6.4.46 | MIT | Executes commands in sub-processes |
 | `symfony/service-contracts` | 3.7.3 | MIT | Generic abstractions related to writing services |
 | `symfony/stopwatch` | 6.4.24 | MIT | Provides a way to profile code |

@@ -147,20 +147,44 @@ DB::connect()->query($q)->vars($arr)->multiInsert();
 ## Transactions
 
 ```php
-// Auto via config
-// System/Config/App.php:92 'transaction' => config_env('DB_TRANSACTION') ?? 'off'
+// Auto via config — each exec() write is wrapped on its own
+// System/Config/App.php: 'transaction' => config_env('DB_TRANSACTION') ?? 'off'
 DB::connect()->query($q)->vars($p)->exec(); // handles begin/commit/rollback internally
-
-// Manual
-DB::connect()->beginTrans();
-DB::connect()->query($q)->vars($p)->exec();
-DB::connect()->commitTrans();
-DB::connect()->rollbackTrans();
-
-// PDO attributes
-DB::connect()->pdoSetAttr(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-DB::connect()->pdoGetAttr(PDO::ATTR_ERRMODE);
 ```
+
+Recommended: `DB::transaction()` commits on success and rolls back + re-throws on error.
+
+```php
+use System\Core\DB;
+
+$orderId = DB::transaction(function ($pdo) use ($data) {
+    $id = qb('orders')->insert($data);
+    qb('order_items')->insertBatch($items);
+    return $id;
+}); // commits here; on any exception it rolls back and re-throws
+```
+
+Manual control, when you need to decide inside the flow:
+
+```php
+DB::beginTransaction();
+try {
+    qb('accounts')->where('id', 1)->decrement('balance', 100);
+    qb('accounts')->where('id', 2)->increment('balance', 100);
+    DB::commit();
+} catch (\Throwable $e) {
+    DB::rollBack();
+    throw $e;
+}
+
+DB::inTransaction(); // bool — is a transaction open on the shared connection?
+```
+
+> `DB::transaction()` / `beginTransaction()` / `commit()` / `rollBack()` /
+> `inTransaction()` are the public API and operate on the shared connection, so
+> `qb()` calls inside the callback join the same transaction. The lower-level
+> `beginTrans()` / `commitTrans()` / `rollbackTrans()` are `protected` (internal).
+> Do not nest `DB::transaction()` with the auto mode above (`transaction = on`).
 
 ---
 
@@ -188,7 +212,10 @@ Benefits: `declare(strict_types=1)`, `?PDO` type, `buildDsn()` + `quoteIdent()` 
 | `query($q)` / `vars($arr)` / `bind(BINDVAL)` / `style(FETCH_ASSOC)` | Build query | `object` (chainable) |
 | `fetchAll()` / `fetch()` / `fetchColumn($i)` / `rowCount()` | Fetch | `array/mixed/int` |
 | `exec()` / `multiInsert()` | Execute DML | `bool` |
-| `beginTrans()` / `commitTrans()` / `rollbackTrans()` | Transaction | `object` |
+| `DB::transaction($fn,$conn)` | Run callback in a transaction (commit / rollback+rethrow) | `mixed` |
+| `DB::beginTransaction()` / `commit()` / `rollBack()` | Manual transaction (public API) | `bool` |
+| `DB::inTransaction()` | Is a transaction open? | `bool` |
+| `beginTrans()` / `commitTrans()` / `rollbackTrans()` | Transaction (protected, internal) | `object` |
 | `pdoSetAttr($k,$v)` | PDO attribute | `object` |
 
 Related: `System/Core/DB.php:33`, `System/Core/NSY_DB.php:24`, `env.php` `connections`, `System/Core/NSY_Migration.php` (DDL counterpart).

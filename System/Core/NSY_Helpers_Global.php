@@ -259,28 +259,69 @@ if (!function_exists('redirect_back')) {
 	}
 }
 
+if (!function_exists('redirect_back_with')) {
+	/**
+	 * Flash the given values, then redirect back to the previous page.
+	 * Read them with Session::getFlash($key) on the next request.
+	 *
+	 * @param  array<string,mixed> $data
+	 * @return void
+	 */
+	function redirect_back_with(array $data = []): void
+	{
+		foreach ($data as $key => $value) {
+			\System\Libraries\Session::flash((string) $key, $value);
+		}
+		redirect_back();
+	}
+}
+
+if (!function_exists('route')) {
+	/**
+	 * Build a URL for a named route.
+	 *
+	 * Names are attached where the route is declared:
+	 *   Route::route('get', '/user/(:num)', [UserController::class, 'show'], ['name' => 'user.show']);
+	 *
+	 * Then:
+	 *   route('user.show', [5]); // http://host/app_dir/user/5
+	 *
+	 * Returns an empty string when the name is unknown.
+	 *
+	 * @param  string               $name
+	 * @param  array<int|string,mixed> $params Positional values for the route params
+	 * @return string
+	 */
+	function route(string $name, array $params = []): string
+	{
+		$path = \System\Core\NSY_RouterOptimized::url($name, $params);
+
+		return $path === '' ? '' : base_url($path);
+	}
+}
+
 // -----------------------------------------------------------------------
 
 /**
- * Get config value from System/Config/App.php
+ * Get config value from System/Config/App.php (memoized per request)
  * @param  mixed $d1
  * @return mixed
  */
 function config_app($d1 = '')
 {
-	$app = include __DIR__ . '/../Config/App.php';
+	$app = \System\Core\NSY_Config::get('app');
 
 	return isset($app[$d1]) ? $app[$d1] : null;
 }
 
 /**
- * Get config value from Env.php
+ * Get config value from Env.php (memoized per request)
  * @param  string|int $d1
  * @return array
  */
 function config_env($d1 = '', $d2 = '')
 {
-	$app = include __DIR__ . '/../../env.php';
+	$app = \System\Core\NSY_Config::get('env');
 	if (not_filled($d2)) {
 		return $app[$d1] ?? null;
 	} else {
@@ -289,13 +330,13 @@ function config_env($d1 = '', $d2 = '')
 }
 
 /**
- * Get config database from Env.php
+ * Get config database from Env.php (memoized per request)
  * @param  string|int $d1
  * @return array
  */
 function config_db($d1 = '', $d2 = '')
 {
-	$app = include __DIR__ . '/../../env.php';
+	$app = \System\Core\NSY_Config::get('env');
 	if (not_filled($d1) || not_filled($d2)) {
 		return $app['connections'] ?? [];
 	} else {
@@ -304,13 +345,13 @@ function config_db($d1 = '', $d2 = '')
 }
 
 /**
- * Get config value from System/Config/Site.php
+ * Get config value from System/Config/Site.php (memoized per request)
  * @param  string|int $d1
  * @return mixed
  */
 function config_site($d1 = '')
 {
-	$site = include __DIR__ . '/../Config/Site.php';
+	$site = \System\Core\NSY_Config::get('site');
 
 	return $site[$d1] ?? null;
 }
@@ -1195,5 +1236,130 @@ if (!function_exists('qb')) {
 	function qb(string $table, ?string $alias = null, string $conn = 'primary'): \System\Core\NSY_QueryBuilder
 	{
 		return (new \System\Core\NSY_QueryBuilder($conn))->table($table, $alias);
+	}
+}
+
+if (!function_exists('factory')) {
+	/**
+	 * Build fake rows through a model factory.
+	 *
+	 * @param  string|\System\Factories\Factory $factory  Class name (System\Factories\X or "X") or instance
+	 * @param  int                              $count    Number of rows (1 returns a single row array)
+	 * @param  array<string,mixed>              $overrides
+	 * @return array<int|string,mixed>  One row when $count is 1, otherwise a list of rows
+	 */
+	function factory(string|\System\Factories\Factory $factory, int $count = 1, array $overrides = []): array
+	{
+		if (is_string($factory)) {
+			$class = str_contains($factory, '\\') ? $factory : 'System\\Factories\\' . $factory;
+			if (!class_exists($class)) {
+				\System\Core\NSY_Desk::staticErrorHandler('Factory not found: ' . $class, 500);
+			}
+			$factory = new $class();
+		}
+
+		return $count <= 1
+			? $factory->make($overrides)
+			: $factory->makeMany($count, $overrides);
+	}
+}
+
+if (!function_exists('paginate_links')) {
+	/**
+	 * Render pagination markup from a Query Builder paginate() result.
+	 * Returns '' when there is at most one page.
+	 *
+	 * @param  array{current_page?:int,last_page?:int} $meta
+	 * @param  array<string,mixed>                     $options page_param|window|class|path|query
+	 * @return string
+	 */
+	function paginate_links(array $meta, array $options = []): string
+	{
+		return \System\Core\NSY_Paginator::render($meta, $options);
+	}
+}
+
+/**
+ * Response Helpers — abort() / json() / json_response()
+ * Minimal, dependency-free HTTP responses.
+ */
+if (!function_exists('wants_json')) {
+	/**
+	 * Does the current request expect a JSON response?
+	 * True for AJAX requests or an Accept header that asks for JSON.
+	 *
+	 * @return bool
+	 */
+	function wants_json(): bool
+	{
+		if (stripos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') !== false) {
+			return true;
+		}
+
+		return strtolower($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'xmlhttprequest';
+	}
+}
+
+if (!function_exists('json')) {
+	/**
+	 * Encode data as JSON, set the JSON content type and HTTP status.
+	 * Returns the string so it can be echoed or combined; use json_response()
+	 * to send it and stop in one call.
+	 *
+	 * @param  mixed $data
+	 * @param  int   $status
+	 * @return string
+	 */
+	function json(mixed $data = [], int $status = 200): string
+	{
+		if (!headers_sent()) {
+			http_response_code($status);
+			header('Content-Type: application/json; charset=utf-8');
+		}
+
+		return (string) json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+	}
+}
+
+if (!function_exists('json_response')) {
+	/**
+	 * Send data as a JSON response and stop the request.
+	 *
+	 * @param  mixed $data
+	 * @param  int   $status
+	 * @return never
+	 */
+	function json_response(mixed $data = [], int $status = 200): never
+	{
+		echo json($data, $status);
+		exit();
+	}
+}
+
+if (!function_exists('abort')) {
+	/**
+	 * Stop the request with an HTTP error status.
+	 * Sends JSON when the client asked for it, otherwise the message as
+	 * plain text. Defaults to 404 when no code is given.
+	 *
+	 * @param  int    $code
+	 * @param  string $message
+	 * @return never
+	 */
+	function abort(int $code = 404, string $message = ''): never
+	{
+		$message = $message !== '' ? $message : 'HTTP ' . $code;
+
+		if (!headers_sent()) {
+			http_response_code($code);
+		}
+
+		if (wants_json()) {
+			echo json(['error' => ['code' => $code, 'message' => $message]], $code);
+		} else {
+			echo $message;
+		}
+
+		exit();
 	}
 }

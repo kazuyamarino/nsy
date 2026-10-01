@@ -37,6 +37,8 @@ class NSY_RouterOptimized
 	];
 	/** @var callable|null */
 	public static $error_callback = null;
+	/** @var array<string,string> Named routes: name => application-relative URI */
+	public static array $names = [];
 
 	/** Request start time for access-log duration. */
 	private static float $requestStart = 0.0;
@@ -294,6 +296,13 @@ class NSY_RouterOptimized
 			$code
 		);
 		header($protocol . " {$code} " . self::getHttpStatusMessage($code));
+
+		// Prefer a rendered error page (if one is provided), unless the client
+		// asked for JSON. Falls back to the plain message.
+		if (!wants_json() && NSY_ErrorPage::render($code, $message)) {
+			exit();
+		}
+
 		exit($message);
 	}
 
@@ -363,10 +372,78 @@ class NSY_RouterOptimized
 	}
 
 	/**
+	 * Register a name for an application-relative URI (without the app-dir
+	 * prefix, which base_url() re-adds). Called by RouterHelper::route() when
+	 * the route options carry a 'name'.
+	 */
+	public static function name(string $name, string $uri): void
+	{
+		if ($name === '') {
+			return;
+		}
+		self::$names[$name] = self::normalizeNamedUri($uri);
+	}
+
+	/**
+	 * All named routes (name => application-relative URI).
+	 *
+	 * @return array<string,string>
+	 */
+	public static function namedRoutes(): array
+	{
+		return self::$names;
+	}
+
+	/**
+	 * Build an application-relative URL from a route name, substituting the
+	 * route's typed params (:num, :slug, (:any), …) positionally.
+	 *
+	 * Returns an empty string when the name is unknown.
+	 *
+	 * @param  array<int|string,mixed> $params
+	 */
+	public static function url(string $name, array $params = []): string
+	{
+		$uri = self::$names[$name] ?? null;
+		if ($uri === null) {
+			return '';
+		}
+
+		$values = array_values($params);
+		$i = 0;
+		$out = preg_replace_callback(
+			'/\(?(:[a-z]+)\)?/',
+			static function (array $m) use (&$i, $values): string {
+				if (array_key_exists($i, $values)) {
+					return rawurlencode((string) $values[$i++]);
+				}
+				$i++;
+				return ''; // param not supplied — drop the optional segment
+			},
+			$uri
+		) ?? $uri;
+
+		$out = preg_replace('#/+#', '/', $out) ?? $out;
+		$out = rtrim($out, '/');
+
+		return $out === '' ? '/' : $out;
+	}
+
+	private static function normalizeNamedUri(string $uri): string
+	{
+		$uri = '/' . ltrim($uri, '/');
+
+		return preg_replace('#/+#', '/', $uri) ?? $uri;
+	}
+
+	/**
 	 * Optimized route dispatcher with caching (no global mutation)
 	 */
 	public static function dispatch(): void
 	{
+		// Maintenance mode short-circuits every request before routing.
+		NSY_Maintenance::check();
+
 		$uri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
 		$uri = preg_replace('#/+#', '/', $uri) ?? $uri;
 		$method = strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET');

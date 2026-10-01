@@ -45,6 +45,8 @@ return [
 	'CSRF_TOKEN' => 'false',
 	'ENCRYPTION_KEY' => '',   // System\Libraries\Encryption (AES-256-GCM) — set a long random secret
 	'DB_TRANSACTION' => 'off',
+	'APP_MAINTENANCE' => 'false',   // 'true' takes the site offline with a 503 page (also: nsy down)
+	'APP_MAINTENANCE_ALLOW' => '',  // comma-separated IPs allowed to bypass maintenance
 	'APP_TIMEZONE' => 'Asia/Jakarta',
 	'APP_LOCALE' => 'id-ID',
 	'OG_PREFIX' => 'og: http://ogp.me/ns#',

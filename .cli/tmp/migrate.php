@@ -12,7 +12,7 @@ require $root . '/System/Vendor/autoload.php';
 require $root . '/System/Core/NSY_Helpers_Global.php';
 
 new System\Core\NSY_System();
-System\Core\NSY_Desk::register_system();
+System\Core\NSY_Desk::registerSystem();
 
 $class = $argv[1] ?? '';
 $direction = strtolower($argv[2] ?? 'up');
@@ -27,9 +27,9 @@ if (!in_array($direction, ['up', 'down'], true)) {
 	exit(1);
 }
 
-// mig_up()/mig_down() exit() after running, so one class per process.
+// migUp()/migDown() exit() after running, so one class per process.
 if ($direction === 'down') {
-	System\Core\NSY_Desk::mig_down($class);
+	System\Core\NSY_Desk::migDown($class);
 } else {
-	System\Core\NSY_Desk::mig_up($class);
+	System\Core\NSY_Desk::migUp($class);
 }

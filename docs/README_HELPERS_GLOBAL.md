@@ -12,15 +12,16 @@ All functions here are available as **global functions** (no namespace) after th
 4. [NSY System Constant Getters](#nsy-system-constant-getters)
 5. [Configuration Getters](#configuration-getters)
 6. [HTTP & Input Helpers](#http--input-helpers)
-7. [Data Conversion & JSON](#data-conversion--json)
-8. [Array & Number Utilities](#array--number-utilities)
-9. [String & Media Utilities](#string--media-utilities)
-10. [Generator & Client Info](#generator--client-info)
-11. [Date Helpers](#date-helpers)
-12. [Aurora Data Export](#aurora-data-export)
-13. [Practical Examples](#practical-examples)
-14. [Security & Stability Notes](#security--stability-notes)
-15. [Quick Reference](#quick-reference)
+7. [Response Helpers](#response-helpers)
+8. [Data Conversion & JSON](#data-conversion--json)
+9. [Array & Number Utilities](#array--number-utilities)
+10. [String & Media Utilities](#string--media-utilities)
+11. [Generator & Client Info](#generator--client-info)
+12. [Date Helpers](#date-helpers)
+13. [Aurora Data Export](#aurora-data-export)
+14. [Practical Examples](#practical-examples)
+15. [Security & Stability Notes](#security--stability-notes)
+16. [Quick Reference](#quick-reference)
 
 ---
 
@@ -59,6 +60,8 @@ public_path(string $url = ''): string
 redirect_url(string $url): void   // header Location: $url + exit
 redirect(string $url): void       // header Location: base_url($url) + exit
 redirect_back(): void             // header Location: HTTP_REFERER or base_url() + exit
+redirect_back_with(array $data): void  // flash each pair, then redirect_back()
+route(string $name, array $params = []): string
 get_uri_segment(int $key = ''): string
 get_last_uri_segment(): string
 get_uri(): string
@@ -70,13 +73,20 @@ base_url('login');          // "https://example.id/nsy/login"
 assets_url('css/app.css');  // "https://example.id/nsy/public/assets/css/app.css"
 public_path('uploads/a.jpg'); // "/var/www/html/public/uploads/a.jpg"
 
+// Named routes (declared with Route::route(..., ['name' => 'user.show']))
+route('user.show', [5]);    // "https://example.id/nsy/user/5"
+route('home');              // "https://example.id/nsy/"
+
+// Flash + redirect back (read with Session::getFlash('status'))
+redirect_back_with(['status' => 'Saved']);
+
 $_SERVER['REQUEST_URI'] = '/a/b/c?x=1';
 get_uri();               // "/a/b/c"
 get_uri_segment(2);      // "b"  (0 => "", 1 => "a", 2 => "b")
 get_last_uri_segment();  // "c"
 ```
 
-> All three URI helpers safely fall back when `$_SERVER` keys are missing (e.g. CLI). `redirect_back()` falls back to `base_url()` when `HTTP_REFERER` is absent.
+> All URI helpers safely fall back when `$_SERVER` keys are missing (e.g. CLI). `redirect_back()` falls back to `base_url()` when `HTTP_REFERER` is absent. `route()` returns `''` for an unknown name.
 
 ---
 
@@ -162,6 +172,11 @@ config_db('primary', 'database');     // env.php['connections']['primary']['data
 - The App/Site keys and matching `env.php` variables are listed in
   [`OVERVIEW.md`](OVERVIEW.md#framework-configuration), [`README_DEPLOY_HOSTING.md`](README_DEPLOY_HOSTING.md)
   and [`README_MODEL.md`](README_MODEL.md).
+- Each source is loaded **once per request** and memoized by
+  `System\Core\NSY_Config`, so repeated `config_app()` / `config_env()` calls do
+  not re-`include` the file. Config is still re-read on the next request — there
+  is no persistent cache file to invalidate. Tests that rewrite a config file
+  mid-run can reset it with `NSY_Config::clear()`.
 
 ---
 
@@ -184,6 +199,38 @@ $tmp = array_items('gallery', 'tmp_name', 2);      // $_FILES['gallery']['tmp_na
 ```
 
 > Errors use `NSY_Desk::staticErrorHandler()` — consistent with the framework.
+
+---
+
+## Response Helpers
+
+```php
+abort(int $code = 404, string $message = ''): never
+json(mixed $data = [], int $status = 200): string
+json_response(mixed $data = [], int $status = 200): never
+wants_json(): bool
+```
+
+```php
+// Send JSON and stop — sets Content-Type and HTTP status
+json_response(['user' => $user]);            // 200
+json_response(['error' => 'nope'], 422);     // 422
+
+// Encode only (returns the string), when you want to control the output
+header('X-Trace: 42');
+echo json(['ok' => true], 201);              // '{"ok":true}'
+
+// Stop with an HTTP error. JSON when the client asked for it, plain text otherwise.
+abort();                                     // 404 "HTTP 404"
+abort(403, 'Forbidden');
+if (wants_json()) { /* AJAX / Accept: application/json */ }
+```
+
+> `abort()` and `json_response()` call `exit()`. `wants_json()` is true for an
+> `Accept: application/json` header or an `X-Requested-With: XMLHttpRequest`
+> request, so `abort()` can answer both HTML and API callers.
+> `fetch_json()` still exists for backwards compatibility — it only returns the
+> encoded string.
 
 ---
 
@@ -363,6 +410,8 @@ $db->query("SELECT * FROM users WHERE id IN ($in)", $params);
 | `nsy_resolve_asset_dir($k)` | Resolve IMG/JS/CSS base URL | `string` |
 | `img_url/js_url/css_url($u)` | Asset directory URL | `string` |
 | `redirect_url($u)` / `redirect($u)` / `redirect_back()` | HTTP redirect + exit | `void` |
+| `redirect_back_with($data)` | Flash values, then redirect back | `void` |
+| `route($name,$params)` | URL for a named route ([guide](README_NSY_ROUTER.md)) | `string` |
 | `get_uri()` / `get_uri_segment($i)` / `get_last_uri_segment()` | Current request URI | `string` |
 | `get_version()` etc. (16 getters) | System constants with config fallback | `string` |
 | `config_app($k)` / `config_site($k)` | Read `App.php` / `Site.php` key | `mixed` |
@@ -370,11 +419,16 @@ $db->query("SELECT * FROM users WHERE id IN ($in)", $params);
 | `post($k)` / `get($k)` / `array_items(...)` | Superglobal access | `mixed` |
 | `fetch_json($d,$s)` | JSON encode + status | `string` |
 | `fetch_raw_json($k)` | php://input JSON decode | `mixed` |
+| `wants_json()` | Client expects JSON (AJAX / Accept) | `bool` |
+| `json($d,$s)` | JSON encode + `Content-Type`/status | `string` |
+| `json_response($d,$s)` | Send JSON response + exit | `never` |
+| `abort($c,$m)` | HTTP error response + exit (JSON-aware) | `never` |
 | `array_flatten($a)` | Flatten nested array | `array` |
 | `number_format_short($n,$p)` | Short number (Rb/Jt/M/T) | `string` |
 | `sequence($bind,$vars)` | SQL IN placeholders | `array` |
 | `terner($c,$a,$b)` | Inline ternary selector | `mixed` |
 | `qb($t,$alias,$conn)` | Query Builder factory ([guide](README_QUERY_BUILDER.md)) | `NSY_QueryBuilder` |
+| `paginate_links($meta,$opts)` | Render pagination nav ([guide](README_QUERY_BUILDER.md)) | `string` |
 | `string_encrypt($a,$s)` | AES-256-CBC encrypt/decrypt | `string\|false` |
 | `image_to_base64($f)` / `string_to_base64($s,$e)` | Base64 + data URL | `array` |
 | `generate_num($pre,$id,$num)` | Random prefixed ID | `string` |

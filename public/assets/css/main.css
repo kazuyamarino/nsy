@@ -1375,3 +1375,54 @@ code {
 .nsy-cat>.nsy-grid {
     padding-top: 0;
 }
+
+/* ==========================================================================
+  Pagination (NSY_Paginator / paginate_links())
+  ========================================================================== */
+
+.nsy-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 22px 0;
+}
+
+.nsy-pagination-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 10px;
+    border: 1px solid var(--nsy-line);
+    border-radius: 10px;
+    background: var(--nsy-surface);
+    color: var(--nsy-primary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    transition: background .15s, border-color .15s, color .15s;
+}
+
+a.nsy-pagination-link:hover {
+    border-color: var(--nsy-accent);
+    color: var(--nsy-accent-dark);
+}
+
+.nsy-pagination-link.is-active {
+    background: var(--nsy-primary);
+    border-color: var(--nsy-primary);
+    color: var(--nsy-on-primary);
+}
+
+.nsy-pagination-link.is-disabled {
+    opacity: .45;
+    cursor: default;
+}
+
+.nsy-pagination-ellipsis {
+    padding: 0 4px;
+    color: var(--nsy-muted);
+}

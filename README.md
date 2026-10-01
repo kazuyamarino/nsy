@@ -3,7 +3,7 @@ Simple. Layered. Harmony in MVC and HMVC.
 
 [![PHP >=8.1](https://img.shields.io/badge/PHP-%3E%3D8.1-777BB4)](https://www.php.net/) [![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE.txt) [![PSR-4](https://img.shields.io/badge/PSR--4-Autoloading-blue)](https://www.php-fig.org/psr/psr-4/)
 
-**Site:** [https://nsyframework.com/](https://nsyframework.com/) · **Docs:** [`OVERVIEW`](docs/OVERVIEW.md) · [`Libraries`](docs/README_LIBRARIES.md) · [`Load & Asset`](docs/README_LOAD_AND_ASSETMANAGER.md) · [`Helpers`](docs/README_HELPERS_GLOBAL.md) · [`Aliases`](docs/README_ALIASES.md) · [`Docs Viewer`](docs/README_DOCS_VIEWER.md) · [`Router`](docs/README_NSY_ROUTER.md) · [`Migration`](docs/README_MIGRATION.md) · [`Model`](docs/README_MODEL.md)
+**Site:** [https://nsyframework.com/](https://nsyframework.com/) · **Docs:** [`OVERVIEW`](docs/OVERVIEW.md) · [`Libraries`](docs/README_LIBRARIES.md) · [`Load & Asset`](docs/README_LOAD_AND_ASSETMANAGER.md) · [`Helpers`](docs/README_HELPERS_GLOBAL.md) · [`Aliases`](docs/README_ALIASES.md) · [`Docs Viewer`](docs/README_DOCS_VIEWER.md) · [`Router`](docs/README_NSY_ROUTER.md) · [`Migration`](docs/README_MIGRATION.md) · [`Seeder`](docs/README_SEEDER.md) · [`Model`](docs/README_MODEL.md)
 
 ## Codename
 > **Current Release Codename: Gamelan**  
@@ -12,9 +12,11 @@ Simple. Layered. Harmony in MVC and HMVC.
 
 ## Features
 - MVC & HMVC with Razr templates
-- PSR-4 Autoloading + NSY CLI (`nsy make:*`, `nsy run:migrate`)
+- Router with groups, typed params, **named routes** (`route('user.show', [5])`) and error pages
+- PSR-4 Autoloading + NSY CLI (`nsy make:*`, `nsy run:migrate`, `nsy run:seed`, `nsy down/up`)
 - Asset Manager (`Add::link/script/meta`) with `?v=filemtime` cache-busting
-- Unified DB (`NSY_DB::connect`) + powerful Migrations (DRY, quoted identifiers)
+- Unified DB (`NSY_DB::connect`), transactions (`DB::transaction()`) + Migrations, Seeders & Factories
+- Maintenance mode (`APP_MAINTENANCE` / `nsy down`) with a 503 page
 
 ## Requirements
 - PHP >= 8.1, Composer, MySQL/MariaDB/PostgreSQL/SQL Server (optional)
@@ -65,7 +67,9 @@ cp docs/env.example/env.example.php env.php
 - [Security Middleware](docs/README_SECURITY_MIDDLEWARE.md) — CSRF, XSS, rate-limit
 - [Logging](docs/README_LOGGING.md) — PSR-3 JSONL logger: channels, rotation, retention
 - [Migration](docs/README_MIGRATION.md) — `Mig::createTable()`, `quoteIdent`/`execDDL` (DRY)
-- [Model & DB](docs/README_MODEL.md) — `DB::query()`, `NSY_DB::connect()` unified
+- [Seeder](docs/README_SEEDER.md) — `Seeder::run()`, `factory()`, `nsy run:seed` (data counterpart of migrations)
+- [Maintenance Mode](docs/README_MAINTENANCE.md) — `nsy down/up`, `APP_MAINTENANCE` 503 page
+- [Model & DB](docs/README_MODEL.md) — `DB::query()`, `NSY_DB::connect()` unified, `DB::transaction()`
 - [Query Builder](docs/README_QUERY_BUILDER.md) — `qb('users')->whereIn()->paginate()` — minimal lines
 - [Dependencies](docs/README_DEPENDENCIES.md) — every Composer package (runtime, dev, transitive)
 
