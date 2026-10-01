@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace System\Apps\General\Controllers;
 
 use Carbon\Carbon;
@@ -49,7 +51,7 @@ class Controller_Docs extends Load
 	 */
 	private function baseVars(): array
 	{
-		$model = new Model_Welcome();
+		$model = Load::model(Model_Welcome::class);
 
 		return [
 			'welcomeText' => $model->welcomeText(),

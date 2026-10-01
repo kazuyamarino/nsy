@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace System\Apps\Modules\HMVC\Controllers;
 
 use System\Core\Load;
@@ -9,18 +11,21 @@ use System\Apps\Modules\HMVC\Models\Model_Hello;
 
 class Controller_Hello extends Load
 {
-
-	public function hello()
+	/**
+	 * Render the HMVC demo page.
+	 *
+	 * @return void
+	 */
+	public function hello(): void
 	{
 		$arr = [
-			'welcomeText' => Load::model(Model_Welcome::class)->welcomeText(), // Call the welcomeText method from Model_Welcome
-			'hmvcText' => Load::model(Model_Hello::class)->hmvcText(), // Call the hmvcText method from Model_Hello inside the HMVC module
-			'date' => Carbon::now() // Instantiate today's date with Carbon
+			'welcomeText' => Load::model(Model_Welcome::class)->welcomeText(), // Header greeting (Model_Welcome)
+			'hmvcText' => Load::model(Model_Hello::class)->hmvcText(),         // HMVC headline (Model_Hello)
+			'date' => Carbon::now(),                                           // Today's date (Carbon)
 		];
 
-		// Load HMVC view page
-		Load::template('Header', $arr); // Header page, Apps/Templates/Header.php
-		Load::view('HMVC', 'Index_Hello', $arr); // Index page, Apps/General/Views/Index_Hello.php
-		Load::template('Footer', $arr); // Footer page, Apps/Templates/Footer.php
+		Load::template('Header', $arr);            // Apps/Templates/Header.php
+		Load::view('HMVC', 'Index_Hello', $arr);   // Apps/Modules/HMVC/Views/Index_Hello.php
+		Load::template('Footer', $arr);            // Apps/Templates/Footer.php
 	}
 }
