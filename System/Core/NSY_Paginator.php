@@ -76,7 +76,7 @@ class NSY_Paginator
 			}
 
 			if ($page === $current) {
-				$items[] = '<span class="' . $class . '-link is-active" aria-current="page">' . $page . '</span>';
+				$items[] = '<span class="' . htmlspecialchars($class, ENT_QUOTES, 'UTF-8') . '-link is-active" aria-current="page">' . $page . '</span>';
 			} else {
 				$items[] = self::item($class, $url($page), (string) $page, 'Go to page ' . $page, false);
 			}

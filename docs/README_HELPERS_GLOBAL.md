@@ -273,7 +273,7 @@ terner(true, 'yes', 'no');           // "yes"
 number_format_short(1500);        // "1.5 Rb"
 number_format_short(2500000);     // "2.5 Jt"
 number_format_short(1500000000);  // "1.5 M"
-number_format_short(999, 0);      // "999"
+number_format_short(850, 0);      // "850"
 
 // SQL IN placeholders
 [$in, $params] = sequence(':id', [10, 20, 30]);

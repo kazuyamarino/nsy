@@ -1076,7 +1076,7 @@ if (!function_exists('number_format_short')) {
 	 * number_format_short(1500)      // Returns: '1.5 Rb'
 	 * number_format_short(2500000)   // Returns: '2.5 Jt'
 	 * number_format_short(1000000000) // Returns: '1 M'
-	 * number_format_short(999, 0)    // Returns: '999'
+	 * number_format_short(850, 0)    // Returns: '850'
 	 */
 	function number_format_short(int|float $n, int $precision = 1): string
 	{
