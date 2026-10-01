@@ -47,4 +47,9 @@ class CookieTest extends TestCase
 
 		$this->assertFalse(Cookie::has('nsy_del'));
 	}
+
+	public function testSecureDefaultIsTrue(): void
+	{
+		$this->assertTrue(Cookie::defaults()['secure']);
+	}
 }

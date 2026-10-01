@@ -19,7 +19,7 @@ class Cookie
 		'expires'  => 0,
 		'path'     => '/',
 		'domain'   => '',
-		'secure'   => false,
+		'secure'   => true,   // secure by default; set false only for local HTTP dev
 		'httponly' => true,
 		'samesite' => 'Lax',
 	];

@@ -19,34 +19,21 @@ class File
 {
 
     /**
-     * Check if a file exists in a path or url.
+     * Check if a LOCAL file exists.
+     *
+     * Remote URLs are deliberately NOT fetched here: an existence check on a
+     * URL is an outbound request (SSRF). Use existsRemote() explicitly — and
+     * only for trusted URLs — when a remote check is really needed.
      *
      * @since 1.1.3
      *
-     * @param string $file → path or file url
+     * @param string $file → local file path
      *
      * @return bool
      */
     public static function exists(string $file): bool
     {
         if (filter_var($file, FILTER_VALIDATE_URL)) {
-            $stream = stream_context_create([
-                'http' => ['method' => 'HEAD', 'timeout' => 5, 'ignore_errors' => true],
-            ]);
-
-            if ($content = @fopen($file, 'r', true, $stream)) {
-                $headers = stream_get_meta_data($content);
-                fclose($content);
-
-                // Parse status robustly (HTTP/1.1 and HTTP/2 status lines)
-                $statusLine = $headers['wrapper_data'][0] ?? '';
-                if (preg_match('#HTTP/\S+\s+(\d{3})#', (string) $statusLine, $m)) {
-                    $code = (int) $m[1];
-
-                    return $code >= 200 && $code < 400;
-                }
-            }
-
             return false;
         }
 
@@ -54,11 +41,56 @@ class File
     }
 
     /**
-     * Delete file.
+     * Check a remote http(s) URL with a HEAD request.
+     *
+     * Opt-in and SSRF-sensitive: only call it with trusted/allow-listed URLs.
+     * Non-http(s) schemes (file:, ftp:, gopher:, …) are rejected.
      *
      * @since 1.1.3
      *
-     * @param string $file → file path
+     * @param string $url     → remote http(s) URL
+     * @param int    $timeout → request timeout in seconds
+     *
+     * @return bool
+     */
+    public static function existsRemote(string $url, int $timeout = 5): bool
+    {
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            return false;
+        }
+
+        $scheme = strtolower((string) parse_url($url, PHP_URL_SCHEME));
+        if ($scheme !== 'http' && $scheme !== 'https') {
+            return false;
+        }
+
+        $stream = stream_context_create([
+            'http'  => ['method' => 'HEAD', 'timeout' => max(1, $timeout), 'ignore_errors' => true],
+            'https' => ['method' => 'HEAD', 'timeout' => max(1, $timeout), 'ignore_errors' => true],
+        ]);
+
+        if ($content = @fopen($url, 'r', false, $stream)) {
+            $headers = stream_get_meta_data($content);
+            fclose($content);
+
+            // Parse status robustly (HTTP/1.1 and HTTP/2 status lines)
+            $statusLine = $headers['wrapper_data'][0] ?? '';
+            if (preg_match('#HTTP/\S+\s+(\d{3})#', (string) $statusLine, $m)) {
+                $code = (int) $m[1];
+
+                return $code >= 200 && $code < 400;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Delete a LOCAL file (remote URLs are never fetched — see exists()).
+     *
+     * @since 1.1.3
+     *
+     * @param string $file → local file path
      *
      * @return bool
      */

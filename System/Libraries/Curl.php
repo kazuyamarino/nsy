@@ -8,8 +8,8 @@ namespace System\Libraries;
  * NSY cURL client.
  *
  * A small, chainable wrapper over ext-curl with secure defaults (TLS
- * verification on, redirect cap, timeouts). The response body is auto-decoded
- * when the server returns JSON.
+ * verification on, redirect cap, timeouts, HTTP(S)-only protocols). The
+ * response body is auto-decoded when the server returns JSON.
  *
  * MultiCurl is intentionally not implemented yet.
  *
@@ -59,6 +59,9 @@ class Curl
 			CURLOPT_TIMEOUT        => 30,
 			CURLOPT_SSL_VERIFYPEER => true,
 			CURLOPT_SSL_VERIFYHOST => 2,
+			// Only HTTP(S) — blocks file://, gopher://, dict:// … (SSRF hardening).
+			CURLOPT_PROTOCOLS       => CURLPROTO_HTTP | CURLPROTO_HTTPS,
+			CURLOPT_REDIR_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
 			CURLOPT_USERAGENT      => 'NSY-Curl/1.0',
 		];
 	}

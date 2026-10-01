@@ -97,4 +97,20 @@ class CurlTest extends TestCase
 
 		$curl->close();
 	}
+
+	public function testDefaultProtocolsAreHttpAndHttpsOnly(): void
+	{
+		$curl = new Curl();
+
+		$ref = new \ReflectionProperty(Curl::class, 'options');
+		$ref->setAccessible(true);
+		$options = $ref->getValue($curl);
+
+		$expected = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+
+		$this->assertSame($expected, $options[CURLOPT_PROTOCOLS] ?? null);
+		$this->assertSame($expected, $options[CURLOPT_REDIR_PROTOCOLS] ?? null);
+
+		$curl->close();
+	}
 }
