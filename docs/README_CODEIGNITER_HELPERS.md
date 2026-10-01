@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document provides complete tutorial documentation for all utility functions in the NSY Framework's CodeIgniter Helpers collection (`System/Helpers/CodeIgniterHelpers.php`). All helpers are global functions, auto-loaded via `composer.json` (`files`), and safe to include multiple times.
+This document provides complete tutorial documentation for all utility functions in the NSY Framework's CodeIgniter Helpers collection (`System/Helpers/CodeIgniterHelpers.php`). All helpers are global functions, loaded by `NSY_SystemLoader` (toggle with `NSY_CI_HELPERS` in `env.php`; defaults to enabled), and safe to include multiple times (each is guarded by `function_exists`).
 
 > **Usage:** no `use` statement is needed — call the functions directly.
 

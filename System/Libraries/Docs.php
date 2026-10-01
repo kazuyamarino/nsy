@@ -117,7 +117,7 @@ class Docs
 			'category' => 'Reference',
 			'icon' => 'library',
 			'title' => 'Libraries',
-			'api' => 'File · LanguageCode · Validate',
+			'api' => 'File · LanguageCodeCollection · Validate',
 			'summary' => 'File management, language codes, validation and Query Builder internals.',
 		],
 		'logging' => [
@@ -189,7 +189,7 @@ class Docs
 			'category' => 'Reference',
 			'icon' => 'sliders',
 			'title' => 'CodeIgniter Helpers',
-			'api' => 'is_php() · date_range()',
+			'api' => 'url_title() · random_string()',
 			'summary' => '27 compatibility helpers ported from CodeIgniter, available globally.',
 		],
 		'security' => [

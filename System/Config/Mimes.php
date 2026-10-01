@@ -6,9 +6,18 @@ declare(strict_types=1);
 | -------------------------------------------------------------------
 | MIME TYPES
 | -------------------------------------------------------------------
-| This file contains an array of mime types. It is used by the
-| Upload class and File::getMimeByExtension() to help identify
-| allowed file types.
+| This file contains an array of mime types. It is used by
+| File::getMimeByExtension() to identify a type by extension.
+|
+| WARNING — INFORMATIONAL ONLY. This table is NOT a security allowlist.
+| It deliberately includes script/executable/markup types (php, phtml,
+| html, svg, ...). Do NOT use it to decide what an uploader may accept —
+| sniff real content (finfo), enforce an extension allowlist, and store
+| uploads outside the web root. File::getMimeByExtension() itself warns
+| that it must not be trusted for security.
+|
+| Placement: a data table, loaded on demand by File::getMimes(); it is
+| intentionally NOT eager-loaded by NSY_Config or NSY_SystemLoader.
 |
 | @return array<string, string|string[]>
 |

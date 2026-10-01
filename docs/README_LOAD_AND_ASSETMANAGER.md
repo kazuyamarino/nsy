@@ -118,11 +118,11 @@ Configured in `System/Config/App.php:aliases` as `'Add' => System\Core\NSY_Asset
 1. `NSY_System::initializeAssetDirectories()` defines `CSS_DIR`/`JS_DIR`/`IMG_DIR` from `config_app()` + `base_url()`
 2. `css_url()`/`js_url()`/`img_url()` (`System/Core/NSY_Helpers_Global.php`) prefer `defined(CSS_DIR)` etc.
 3. Fallback: `base_url() . public_dir . '/assets/' . dir` — never undefined
-4. **Cache-busting otomatis:** `css_url()/js_url()/img_url()` append `?v=filemtime` bila `!str_contains('?') && !str_starts_with('http') && is_file(public_path(...))` — `System/Config/Assets.php` tetap 1 baris `Add::link('main.css'...)` tapi output jadi `main.css?v=1716160000` tanpa edit manual
+4. **Cache-busting otomatis:** `css_url()/js_url()/img_url()` append `?v=filemtime` bila `!str_contains('?') && !str_starts_with('http') && is_file(public_path(...))` — `System/Helpers/Assets.php` tetap 1 baris `Add::link('main.css'...)` tapi output jadi `main.css?v=1716160000` tanpa edit manual
 
 ### Examples
 
-**`System/Config/Assets.php` (real usage):**
+**`System/Helpers/Assets.php` (real usage):**
 ```php
 Add::meta('charset="utf-8"');
 Add::meta('name="viewport"', 'width=device-width, initial-scale=1');
@@ -241,4 +241,4 @@ $engine->addDirective(new FunctionDirective('greet', fn($name) => "Hi $name", tr
 | `Add::script($file,$type,$charset,$attr)` | Echo `<script>` | `bool` |
 | `Add::custom($html)` | Echo raw HTML | `bool` |
 
-Related: `System/Core/Load.php`, `System/Core/NSY_AssetManager.php:10`, `System/Core/NSY_Helpers_Global.php` (`base_url`, `css_url` etc.), `System/Config/Assets.php`.
+Related: `System/Core/Load.php`, `System/Core/NSY_AssetManager.php:10`, `System/Core/NSY_Helpers_Global.php` (`base_url`, `css_url` etc.), `System/Helpers/Assets.php`.

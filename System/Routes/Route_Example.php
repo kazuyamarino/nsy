@@ -1,20 +1,35 @@
 <?php
 
+/*
+ | ---------------------------------------------------------------------------
+ | ROUTE EXAMPLE — REFERENCE ONLY (this file is NOT loaded)
+ | ---------------------------------------------------------------------------
+ | Listed in NSY_RouteLoader::$config['excluded_files'], so the router never
+ | includes it. It documents the RouterHelper (Route::) API, but some symbols
+ | it references are intentionally NOT part of the framework:
+ |
+ |   - Route::middleware(...)            removed with the deprecated middleware
+ |                                       chain (security is now applied through
+ |                                       Route::csrf() / Route::validateCsrf())
+ |   - Route::createSecurityMiddleware() returns a middleware object that is no
+ |                                       longer wired into routing
+ |   - AuthMiddleware / LoggingMiddleware / FileUploadMiddleware / *Controller
+ |                                       illustrative classes that do not exist
+ |
+ | Copy the patterns you need into System/Routes/General.php (or a module route
+ | file) and adapt them; do not expect this file to run as-is.
+ | ---------------------------------------------------------------------------
+ */
 
 // Initialize NSY Router with full optimization
 Route::initRouter([
-    'cache_enabled' => true,
-    'security' => [
-        'validate_params' => true,
-        'sanitize_input' => true,
-        'csrf_protection' => true,
-        'rate_limiting' => true
-    ],
-    'performance' => [
-        'controller_pooling' => true,
-        'route_compilation' => true,
-        'cache_warm_up' => true
-    ]
+	'cache_enabled' => true,
+	'security' => [
+		'validate_params' => true,
+		'sanitize_input' => true,
+		'csrf_protection' => true,
+		'rate_limiting' => true
+	]
 ]);
 
 // ==========================================
@@ -37,24 +52,24 @@ Route::delete('/users/(:num)', [UserController::class, 'destroy']);
 
 // Public routes with basic security (200 req/min)
 Route::route('get', '/about', [PublicController::class, 'about'], [
-    'security_level' => 'basic',
-    'name' => 'about'
+	'security_level' => 'basic',
+	'name' => 'about'
 ]);
 
 Route::route('get', '/contact', [PublicController::class, 'contact'], [
-    'security_level' => 'basic',
-    'name' => 'contact'
+	'security_level' => 'basic',
+	'name' => 'contact'
 ]);
 
 // Standard security routes (100 req/min + CSRF)
 Route::route('post', '/contact', [PublicController::class, 'submitContact'], [
-    'security_level' => 'standard',
-    'name' => 'contact.submit'
+	'security_level' => 'standard',
+	'name' => 'contact.submit'
 ]);
 
 Route::route('get', '/profile', [UserController::class, 'profile'], [
-    'security_level' => 'standard',
-    'name' => 'user.profile'
+	'security_level' => 'standard',
+	'name' => 'user.profile'
 ]);
 
 // ==========================================
@@ -62,41 +77,41 @@ Route::route('get', '/profile', [UserController::class, 'profile'], [
 // ==========================================
 
 Route::group('/api/v1', function() {
-    // Strict security (30 req/min + Enhanced protection)
-    Route::route('get', '/users', [ApiController::class, 'getAllUsers'], [
-        'security_level' => 'strict',
-        'name' => 'api.users.index'
-    ]);
+	// Strict security (30 req/min + Enhanced protection)
+	Route::route('get', '/users', [ApiController::class, 'getAllUsers'], [
+		'security_level' => 'strict',
+		'name' => 'api.users.index'
+	]);
 
-    Route::route('post', '/users', [ApiController::class, 'createUser'], [
-        'security_level' => 'strict',
-        'name' => 'api.users.store'
-    ]);
+	Route::route('post', '/users', [ApiController::class, 'createUser'], [
+		'security_level' => 'strict',
+		'name' => 'api.users.store'
+	]);
 
-    Route::route('get', '/users/(:num)', [ApiController::class, 'getUser'], [
-        'security_level' => 'strict',
-        'name' => 'api.users.show'
-    ]);
+	Route::route('get', '/users/(:num)', [ApiController::class, 'getUser'], [
+		'security_level' => 'strict',
+		'name' => 'api.users.show'
+	]);
 
-    Route::route('put', '/users/(:num)', [ApiController::class, 'updateUser'], [
-        'security_level' => 'strict',
-        'name' => 'api.users.update'
-    ]);
+	Route::route('put', '/users/(:num)', [ApiController::class, 'updateUser'], [
+		'security_level' => 'strict',
+		'name' => 'api.users.update'
+	]);
 
-    Route::route('delete', '/users/(:num)', [ApiController::class, 'deleteUser'], [
-        'security_level' => 'strict',
-        'name' => 'api.users.destroy'
-    ]);
+	Route::route('delete', '/users/(:num)', [ApiController::class, 'deleteUser'], [
+		'security_level' => 'strict',
+		'name' => 'api.users.destroy'
+	]);
 
-    // API with custom middleware
-    Route::post('/upload', function() {
-        $customMiddleware = [
-            Route::createSecurityMiddleware('strict'),
-            new FileUploadMiddleware()
-        ];
+	// API with custom middleware
+	Route::post('/upload', function() {
+		$customMiddleware = [
+			Route::createSecurityMiddleware('strict'),
+			new FileUploadMiddleware()
+		];
 
-        return Route::middleware($customMiddleware)->for([ApiController::class, 'upload']);
-    });
+		return Route::middleware($customMiddleware)->for([ApiController::class, 'upload']);
+	});
 });
 
 // ==========================================
@@ -104,38 +119,38 @@ Route::group('/api/v1', function() {
 // ==========================================
 
 Route::group('/admin', function() {
-    // Dashboard with comprehensive middleware
-    Route::route('get', '/dashboard', [AdminController::class, 'dashboard'], [
-        'security_level' => 'strict',
-        'middleware' => [
-            new AuthMiddleware(['role' => 'admin'])
-        ],
-        'name' => 'admin.dashboard'
-    ]);
+	// Dashboard with comprehensive middleware
+	Route::route('get', '/dashboard', [AdminController::class, 'dashboard'], [
+		'security_level' => 'strict',
+		'middleware' => [
+			new AuthMiddleware(['role' => 'admin'])
+		],
+		'name' => 'admin.dashboard'
+	]);
 
-    // Settings management
-    Route::route('get', '/settings', [AdminController::class, 'settings'], [
-        'security_level' => 'strict',
-        'middleware' => [new AuthMiddleware()],
-        'name' => 'admin.settings'
-    ]);
+	// Settings management
+	Route::route('get', '/settings', [AdminController::class, 'settings'], [
+		'security_level' => 'strict',
+		'middleware' => [new AuthMiddleware()],
+		'name' => 'admin.settings'
+	]);
 
-    Route::route('post', '/settings', [AdminController::class, 'updateSettings'], [
-        'security_level' => 'strict',
-        'middleware' => [new AuthMiddleware()],
-        'name' => 'admin.settings.update'
-    ]);
+	Route::route('post', '/settings', [AdminController::class, 'updateSettings'], [
+		'security_level' => 'strict',
+		'middleware' => [new AuthMiddleware()],
+		'name' => 'admin.settings.update'
+	]);
 
-    // User management for admins
-    Route::route('get', '/users', [AdminController::class, 'manageUsers'], [
-        'security_level' => 'strict',
-        'name' => 'admin.users.manage'
-    ]);
+	// User management for admins
+	Route::route('get', '/users', [AdminController::class, 'manageUsers'], [
+		'security_level' => 'strict',
+		'name' => 'admin.users.manage'
+	]);
 
-    Route::route('post', '/users/(:num)/ban', [AdminController::class, 'banUser'], [
-        'security_level' => 'strict',
-        'name' => 'admin.users.ban'
-    ]);
+	Route::route('post', '/users/(:num)/ban', [AdminController::class, 'banUser'], [
+		'security_level' => 'strict',
+		'name' => 'admin.users.ban'
+	]);
 });
 
 // ==========================================
@@ -150,26 +165,26 @@ Route::any('/catch-all/(:all)', [FallbackController::class, 'handle']);
 
 // Manual middleware application
 Route::get('/protected-resource', function() {
-    $middleware = [
-        Route::createSecurityMiddleware('strict'),
-        new RateLimitMiddleware(['limit' => 10]),
-        new LoggingMiddleware()
-    ];
+	$middleware = [
+		Route::createSecurityMiddleware('strict'),
+		new RateLimitMiddleware(['limit' => 10]),
+		new LoggingMiddleware()
+	];
 
-    return Route::middleware($middleware)->for([ProtectedController::class, 'resource']);
+	return Route::middleware($middleware)->for([ProtectedController::class, 'resource']);
 });
 
 // Route with parameter validation
 Route::get('/posts/(:slug)', function($slug) {
-    // Custom parameter handling
-    if (!preg_match('/^[a-z0-9-]+$/', $slug)) {
-        Route::error(function() {
-            return ErrorController::badRequest();
-        });
-        return;
-    }
+	// Custom parameter handling
+	if (!preg_match('/^[a-z0-9-]+$/', $slug)) {
+		Route::error(function() {
+			return ErrorController::badRequest();
+		});
+		return;
+	}
 
-    Route::goto([PostController::class, 'show'], [$slug]);
+	Route::goto([PostController::class, 'show'], [$slug]);
 });
 
 // ==========================================
@@ -178,23 +193,23 @@ Route::get('/posts/(:slug)', function($slug) {
 
 // Monitor heavy operations
 Route::get('/heavy-operation', function() {
-    return Route::monitorRoute('/heavy-operation', function() {
-        return HeavyController::processLargeData();
-    });
+	return Route::monitorRoute('/heavy-operation', function() {
+		return HeavyController::processLargeData();
+	});
 });
 
 // Performance statistics route (for debugging)
 Route::get('/debug/performance', function() {
-    $stats = Route::getPerformanceStats();
-    $debug = Route::debugInfo();
+	$stats = Route::getPerformanceStats();
+	$debug = Route::debugInfo();
 
-    return DebugController::showStats($stats, $debug);
+	return DebugController::showStats($stats, $debug);
 });
 
 // Cache management routes (admin only)
 Route::post('/admin/cache/clear', function() {
-    Route::clearCaches();
-    return AdminController::cacheCleared();
+	Route::clearCaches();
+	return AdminController::cacheCleared();
 });
 
 // ==========================================
@@ -203,14 +218,14 @@ Route::post('/admin/cache/clear', function() {
 
 // Using createRouteGroup helper for complex route groups with middleware
 $adminRouteGroup = Route::createRouteGroup('/admin/api', [
-    new AuthMiddleware(['role' => 'admin']),
-    Route::createSecurityMiddleware('strict'),
-    new LoggingMiddleware()
+	new AuthMiddleware(['role' => 'admin']),
+	Route::createSecurityMiddleware('strict'),
+	new LoggingMiddleware()
 ], function($middleware) {
-    // All routes in this group automatically inherit the middleware
-    Route::get('/stats', [AdminApiController::class, 'getStats']);
-    Route::post('/backup', [AdminApiController::class, 'createBackup']);
-    Route::delete('/cache', [AdminApiController::class, 'clearAllCache']);
+	// All routes in this group automatically inherit the middleware
+	Route::get('/stats', [AdminApiController::class, 'getStats']);
+	Route::post('/backup', [AdminApiController::class, 'createBackup']);
+	Route::delete('/cache', [AdminApiController::class, 'clearAllCache']);
 });
 
 // Execute the route group
@@ -222,47 +237,47 @@ $adminRouteGroup();
 
 // Manual cache control examples
 Route::get('/admin/cache/enable', function() {
-    Route::enableCache(true);
-    return AdminController::cacheEnabled('Cache has been enabled');
+	Route::enableCache(true);
+	return AdminController::cacheEnabled('Cache has been enabled');
 });
 
 Route::get('/admin/cache/disable', function() {
-    Route::enableCache(false);
-    return AdminController::cacheDisabled('Cache has been disabled');
+	Route::enableCache(false);
+	return AdminController::cacheDisabled('Cache has been disabled');
 });
 
 // Get individual cache statistics
 Route::get('/admin/cache/stats', function() {
-    $routerStats = Route::getCacheStats();
-    $performanceStats = Route::getPerformanceStats();
+	$routerStats = Route::getCacheStats();
+	$performanceStats = Route::getPerformanceStats();
 
-    return AdminController::showCacheStats([
-        'router_cache' => $routerStats,
-        'performance' => $performanceStats
-    ]);
+	return AdminController::showCacheStats([
+		'router_cache' => $routerStats,
+		'performance' => $performanceStats
+	]);
 });
 
 // Clear specific cache types
 Route::post('/admin/cache/routes/clear', function() {
-    Route::clearCache(); // Clear route cache only
-    return AdminController::routeCacheCleared();
+	Route::clearCache(); // Clear route cache only
+	return AdminController::routeCacheCleared();
 });
 
 Route::post('/admin/cache/controllers/clear', function() {
-    Route::clearControllerPool(); // Clear controller pool only
-    return AdminController::controllerPoolCleared();
+	Route::clearControllerPool(); // Clear controller pool only
+	return AdminController::controllerPoolCleared();
 });
 
 // Security configuration examples
 Route::post('/admin/security/configure', function() {
-    Route::configureSecurity([
-        'validate_params' => true,
-        'sanitize_input' => true,
-        'csrf_protection' => true,
-        'rate_limiting' => true
-    ]);
+	Route::configureSecurity([
+		'validate_params' => true,
+		'sanitize_input' => true,
+		'csrf_protection' => true,
+		'rate_limiting' => true
+	]);
 
-    return AdminController::securityConfigured('Security settings updated');
+	return AdminController::securityConfigured('Security settings updated');
 });
 
 // ==========================================
@@ -271,23 +286,23 @@ Route::post('/admin/security/configure', function() {
 
 // Get CSRF token programmatically
 Route::get('/api/csrf-token', function() {
-    return json_encode([
-        'csrf_token' => Route::csrf(),
-        'expires_in' => 3600 // 1 hour
-    ]);
+	return json_encode([
+		'csrf_token' => Route::csrf(),
+		'expires_in' => 3600 // 1 hour
+	]);
 });
 
 // Validate CSRF token manually in route
 Route::post('/api/secure-action', function() {
-    $providedToken = $_POST['csrf_token'] ?? $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
-    $validToken = Route::csrf();
+	$providedToken = $_POST['csrf_token'] ?? $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
+	$validToken = Route::csrf();
 
-    if (!hash_equals($validToken, $providedToken)) {
-        http_response_code(403);
-        return json_encode(['error' => 'CSRF token mismatch']);
-    }
+	if (!hash_equals($validToken, $providedToken)) {
+		http_response_code(403);
+		return json_encode(['error' => 'CSRF token mismatch']);
+	}
 
-    return SecureController::performAction();
+	return SecureController::performAction();
 });
 
 // ==========================================
@@ -296,22 +311,22 @@ Route::post('/api/secure-action', function() {
 
 // Advanced dispatcher setup (typically in bootstrap file)
 Route::get('/bootstrap/example', function() {
-    // Set up router configuration
-    Route::haltOnMatch(false); // Continue processing after matches
-    Route::enableCache(true);   // Enable route caching
+	// Set up router configuration
+	Route::haltOnMatch(false); // Continue processing after matches
+	Route::enableCache(true);   // Enable route caching
 
-    // Configure comprehensive security
-    Route::configureSecurity([
-        'validate_params' => true,
-        'sanitize_input' => true,
-        'csrf_protection' => false, // Disable for API endpoints
-        'rate_limiting' => true
-    ]);
+	// Configure comprehensive security
+	Route::configureSecurity([
+		'validate_params' => true,
+		'sanitize_input' => true,
+		'csrf_protection' => false, // Disable for API endpoints
+		'rate_limiting' => true
+	]);
 
-    // Finally dispatch all routes
-    Route::dispatch();
+	// Finally dispatch all routes
+	Route::dispatch();
 
-    return BootstrapController::routerConfigured();
+	return BootstrapController::routerConfigured();
 });
 
 // ==========================================
@@ -320,7 +335,7 @@ Route::get('/bootstrap/example', function() {
 
 // Custom 404 handler
 Route::error(function() {
-    return ErrorController::notFound();
+	return ErrorController::notFound();
 });
 
 // Set halt behavior
@@ -335,10 +350,10 @@ Route::head('/api/users/(:num)', [ApiController::class, 'checkUserExists']);
 
 // OPTIONS method for CORS preflight requests
 Route::options('/api/users', function() {
-    header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-    header('Access-Control-Allow-Headers: Content-Type, Authorization, X-CSRF-TOKEN');
-    return '';
+	header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+	header('Access-Control-Allow-Headers: Content-Type, Authorization, X-CSRF-TOKEN');
+	return '';
 });
 
 // PATCH method for partial updates
@@ -350,16 +365,16 @@ Route::patch('/api/users/(:num)', [ApiController::class, 'partialUpdate']);
 
 // Direct controller method execution without route matching
 Route::get('/direct-execution-example', function() {
-    // Execute controller method directly
-    $result = Route::goto([DirectController::class, 'processData'], ['param1', 'param2']);
+	// Execute controller method directly
+	$result = Route::goto([DirectController::class, 'processData'], ['param1', 'param2']);
 
-    // Execute with middleware chain
-    $middlewareResult = Route::middleware([
-        new AuthMiddleware(),
-        new LoggingMiddleware()
-    ])->for([DirectController::class, 'secureMethod'], ['secure_param']);
+	// Execute with middleware chain
+	$middlewareResult = Route::middleware([
+		new AuthMiddleware(),
+		new LoggingMiddleware()
+	])->for([DirectController::class, 'secureMethod'], ['secure_param']);
 
-    return DirectController::combineResults($result, $middlewareResult);
+	return DirectController::combineResults($result, $middlewareResult);
 });
 
 // ==========================================
@@ -375,31 +390,31 @@ In your view file (form-example.php):
 <!DOCTYPE html>
 <html>
 <head>
-    <?= Route::csrfMeta() ?>
-    <title>Example Form</title>
+	<?= Route::csrfMeta() ?>
+	<title>Example Form</title>
 </head>
 <body>
-    <form method="POST" action="/form-example">
-        <?= Route::csrfField() ?>
+	<form method="POST" action="/form-example">
+		<?= Route::csrfField() ?>
 
-        <input type="text" name="name" placeholder="Name">
-        <input type="email" name="email" placeholder="Email">
-        <button type="submit">Submit</button>
-    </form>
+		<input type="text" name="name" placeholder="Name">
+		<input type="email" name="email" placeholder="Email">
+		<button type="submit">Submit</button>
+	</form>
 
-    <script>
-        // For AJAX requests
-        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+	<script>
+		// For AJAX requests
+		const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        fetch('/api/v1/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': token
-            },
-            body: JSON.stringify({name: 'John', email: 'john@example.com'})
-        });
-    </script>
+		fetch('/api/v1/users', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRF-TOKEN': token
+			},
+			body: JSON.stringify({name: 'John', email: 'john@example.com'})
+		});
+	</script>
 </body>
 </html>
 */

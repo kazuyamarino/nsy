@@ -43,10 +43,12 @@ return [
 	| Default CSRF Token Protection
 	|--------------------------------------------------------------------------
 	|
-	| set the default 'true' or 'false'
+	| Canonical string 'true'/'false' — consumers (DB.php) compare with ===.
+	| filter_var() normalises any env form ("1"/"yes"/"on"/true/…) so a real
+	| boolean in env.php can never slip past the === 'false' branch.
 	|
 	*/
-	'csrf_token' => config_env('CSRF_TOKEN') ?? 'false',
+	'csrf_token' => filter_var(config_env('CSRF_TOKEN') ?? false, FILTER_VALIDATE_BOOLEAN) ? 'true' : 'false',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -90,10 +92,11 @@ return [
 	| Default Database Transaction Mode Setting
 	|--------------------------------------------------------------------------
 	|
-	| set the default 'on' or 'off'
+	| Canonical string 'on'/'off' (DB.php and NSY_Migration compare with ===).
+	| filter_var() normalises any env form; unset ⇒ 'off'.
 	|
 	*/
-	'transaction' => config_env('DB_TRANSACTION') ?? 'off',
+	'transaction' => filter_var(config_env('DB_TRANSACTION') ?? false, FILTER_VALIDATE_BOOLEAN) ? 'on' : 'off',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -106,7 +109,7 @@ return [
 	| IPs that bypass maintenance (handy to check the live site while down).
 	|
 	*/
-	'maintenance' => config_env('APP_MAINTENANCE') ?? 'false',
+	'maintenance' => filter_var(config_env('APP_MAINTENANCE') ?? false, FILTER_VALIDATE_BOOLEAN) ? 'true' : 'false',
 	'maintenance_allow' => config_env('APP_MAINTENANCE_ALLOW') ?? '',
 
 	/*

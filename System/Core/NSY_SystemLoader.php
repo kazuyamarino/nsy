@@ -14,6 +14,7 @@ class NSY_SystemLoader
     private static $fileCache = [];
     private static $performanceStats = [
         'core_files_loaded' => 0,
+        'helper_files_loaded' => 0,
         'library_files_loaded' => 0,
         'config_files_loaded' => 0,
         'total_load_time' => 0,
@@ -28,9 +29,11 @@ class NSY_SystemLoader
         'libraries' => [
             'Aliases.php'
         ],
-        'configs' => [
+        'helpers' => [
+            'CodeIgniterHelpers.php',
             'Assets.php'
         ],
+        'configs' => [],
         'cache_enabled' => true,
         'auto_discover' => false // Keep manual for system files for safety
     ];
@@ -51,8 +54,11 @@ class NSY_SystemLoader
             // Load core helper files
             self::loadCoreHelpers();
 
-            // Load library files
+            // Load library files (class aliases must exist before helpers use them)
             self::loadLibraries();
+
+            // Load opt-out helper files (CodeIgniter ports + asset definitions)
+            self::loadHelpers();
 
             // Load configuration files
             self::loadConfigs();
@@ -79,6 +85,30 @@ class NSY_SystemLoader
             $filePath = $coreDir . '/' . $file;
             if (self::loadFile($filePath, 'core')) {
                 self::$performanceStats['core_files_loaded']++;
+            }
+        }
+    }
+
+    /**
+     * Load opt-out helper files (System/Helpers).
+     *
+     * The CodeIgniter-ported helpers are a public convenience API that the NSY
+     * core never calls. They are NOT eagerly autoloaded by Composer's "files"
+     * list; they load here by default and can be skipped entirely by setting
+     * NSY_CI_HELPERS=false in env.php (saves the parse on no-OPcache / CLI runs).
+     */
+    private static function loadHelpers()
+    {
+        if (function_exists('config_env') && config_env('NSY_CI_HELPERS') === 'false') {
+            return;
+        }
+
+        $helperDir = self::getSystemDirectory() . '/Helpers';
+
+        foreach (self::$systemConfig['helpers'] as $file) {
+            $filePath = $helperDir . '/' . $file;
+            if (self::loadFile($filePath, 'helper')) {
+                self::$performanceStats['helper_files_loaded']++;
             }
         }
     }
@@ -213,6 +243,7 @@ class NSY_SystemLoader
         self::$initialized = false;
         self::$performanceStats = [
             'core_files_loaded' => 0,
+            'helper_files_loaded' => 0,
             'library_files_loaded' => 0,
             'config_files_loaded' => 0,
             'total_load_time' => 0,
@@ -236,12 +267,13 @@ class NSY_SystemLoader
     public static function generateReport()
     {
         $stats = self::$performanceStats;
-        $totalFiles = $stats['core_files_loaded'] + $stats['library_files_loaded'] + $stats['config_files_loaded'];
+        $totalFiles = $stats['core_files_loaded'] + $stats['helper_files_loaded'] + $stats['library_files_loaded'] + $stats['config_files_loaded'];
 
         return [
             'summary' => [
                 'total_files_loaded' => $totalFiles,
                 'core_helpers' => $stats['core_files_loaded'],
+                'helpers' => $stats['helper_files_loaded'],
                 'libraries' => $stats['library_files_loaded'],
                 'configs' => $stats['config_files_loaded'],
                 'cache_hits' => $stats['cache_hits'],
@@ -254,6 +286,7 @@ class NSY_SystemLoader
             ],
             'loaded_files' => [
                 'core' => array_map('basename', self::getLoadedFiles('core')),
+                'helper' => array_map('basename', self::getLoadedFiles('helper')),
                 'library' => array_map('basename', self::getLoadedFiles('library')),
                 'config' => array_map('basename', self::getLoadedFiles('config'))
             ]

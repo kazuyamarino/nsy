@@ -10,3 +10,6 @@ declare(strict_types=1);
  */
 require dirname(__DIR__) . '/Vendor/autoload.php';
 require dirname(__DIR__) . '/Core/NSY_Helpers_Global.php';
+// CI-ported helpers are no longer eagerly autoloaded by Composer; load them
+// here so the test suite (and future tests for these helpers) has them.
+require dirname(__DIR__) . '/Helpers/CodeIgniterHelpers.php';

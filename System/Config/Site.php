@@ -67,10 +67,11 @@ return [
 	| Default Version
 	|--------------------------------------------------------------------------
 	|
-	| Define version of the application
+	| Define version of the application. Falls back to the framework release
+	| when APP_VERSION is unset or empty, so <title>/footer never render blank.
 	|
 	*/
-	'version' => config_env('APP_VERSION') ?? '',
+	'version' => config_env('APP_VERSION') ?: '7.0.0',
 
 	/*
 	|--------------------------------------------------------------------------

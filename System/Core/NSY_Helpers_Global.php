@@ -315,9 +315,13 @@ function config_app($d1 = '')
 }
 
 /**
- * Get config value from Env.php (memoized per request)
+ * Get config value from Env.php (memoized per request).
+ * With only $d1 it returns the top-level value; with $d2 it returns $d1[$d2].
+ * Values may be any type, so the return is mixed.
+ *
  * @param  string|int $d1
- * @return array
+ * @param  string|int $d2
+ * @return mixed
  */
 function config_env($d1 = '', $d2 = '')
 {

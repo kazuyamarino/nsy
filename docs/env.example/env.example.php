@@ -55,6 +55,13 @@ return [
 	'IMG_DIR' => 'images',
 
 	/*
+	| CodeIgniter-ported global helpers (System/Helpers/CodeIgniterHelpers.php).
+	| Loaded by NSY_SystemLoader by default; set 'false' to skip them entirely
+	| (the NSY core never calls these functions).
+	*/
+	'NSY_CI_HELPERS' => 'true',
+
+	/*
 	| Define Logging (see docs/README_LOGGING.md)
 	| LOG_ENABLED toggles the whole subsystem. Context (IP/UA/User-ID) is OFF
 	| by default; LOG_DIR may be relative to the project root or absolute.
