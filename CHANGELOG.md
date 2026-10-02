@@ -51,8 +51,8 @@ These require action when upgrading from 6.x.
 - **In-app documentation viewer** at `/docs/{slug}` — renders the 23 `docs/*.md`
   guides through `System\Libraries\Docs` (slug manifest, categories, prev/next
   neighbours) and `System\Libraries\Markdown`. Serves a 404 for unknown slugs.
-  `docs/` is a **runtime dependency** of this feature and must be deployed
-  alongside the code.
+  `docs/` ships with the release so the guides can be read locally; uploading it
+  to your own server is optional and only needed to serve this viewer there.
 - Search across the documentation index, an "On this page" table of contents with
   scroll spy, and category grouping.
 - 23 guides under `docs/`, including new pages for maintenance mode, seeder,
@@ -171,8 +171,8 @@ web access to logs and storage.
 Dev-only: `phpunit/phpunit ^9.6`, `fakerphp/faker ^1.24`,
 `friendsofphp/php-cs-fixer ^3.95`.
 
-CI runs on PHP 8.1, 8.2, 8.3 and 8.4. Dependabot is configured for Composer and
-GitHub Actions.
+CI runs on PHP 8.1, 8.2, 8.3, 8.4 and 8.5. Dependabot is configured for Composer
+and GitHub Actions.
 
 ---
 
@@ -181,7 +181,9 @@ GitHub Actions.
 1. `composer install` (dependencies are no longer committed).
 2. Rename any custom calls to framework methods from `snake_case` to
    `camelCase`.
-3. Deploy `docs/` — the documentation viewer reads it at runtime.
+3. **Optional:** upload `docs/` to your server if you want the in-app
+   documentation viewer (`/docs/{slug}`). It ships in the release so you can read
+   the guides locally, but a normal application does not need it at runtime.
 4. Add the new keys to `env.php` as needed: `APP_MAINTENANCE`,
    `APP_MAINTENANCE_ALLOW`, `APP_MIGRATION_HTTP_TOKEN`, logging keys.
 5. Rotate `ENCRYPTION_KEY` if a 6.x install with the same key ever ran in

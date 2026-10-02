@@ -177,7 +177,10 @@ Two important behaviours:
 - Slugs are normalized to lowercase letters, digits and hyphens
   (`[^a-z0-9-]+` is stripped), so keep them simple and unique.
 - `docs/*.md` are read **at runtime**, which is why they must ship with the release
-  (they are not `export-ignore`d in `.gitattributes`).
+  (they are not `export-ignore`d in `.gitattributes`) — that way the guides are
+  readable locally while developing. Uploading `docs/` to your own server is
+  optional and only needed if you want to serve the viewer there; see
+  [Deploy to Shared Hosting](README_DEPLOY_HOSTING.md).
 - Cross-document links written as `[JSON](README_JSON.md)` are kept for GitHub; the
   in-app viewer does **not** rewrite them, so in-app navigation relies on the
   sidebar and prev/next buttons. To link inside the app, use an absolute URL that
