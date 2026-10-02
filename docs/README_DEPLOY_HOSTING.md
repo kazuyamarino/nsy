@@ -76,12 +76,22 @@ So moving `System/` out of the web root changes **nothing** in
 │   ├── Storage/logs/               # writable (runtime)
 │   └── Vendor/
 │
+├── docs/                         # OUTSIDE public_html — REQUIRED (see below)
+│   └── *.md                      # read at runtime by the Docs Viewer
+│
 └── env.php                       # OUTSIDE public_html (sibling of System/)
 ```
 
-Only `System/` and `env.php` are uploaded to `/home/USERNAME/`. The rest of the
-repository (`composer.json`, `docs/`, `.cli/`, `public/` as a folder, …) is **not
-needed at runtime** and can stay in your repo/CI.
+Three things are uploaded to `/home/USERNAME/`: `System/`, `docs/` and `env.php`.
+
+> **`docs/` is required at runtime.** The in-app documentation viewer reads
+> `<project root>/docs/*.md` on every request (see `System\Libraries\Docs`).
+> Without it the sidebar renders empty and **every** `/docs/…` URL returns 404.
+> It sits next to `System/`, *not* inside `public_html` — it is read from disk by
+> PHP, never served as a static file, so it must stay outside the web root.
+
+The rest of the repository (`composer.json`, `.cli/`, `public/` as a folder, …) is
+**not needed at runtime** and can stay in your repo/CI.
 
 ---
 
@@ -95,18 +105,21 @@ needed at runtime** and can stay in your repo/CI.
 2. Upload the **contents** of `public/` → `/home/USERNAME/public_html/`
    (`index.php`, `assets/`, `403.html`, `404.html`, `50x.html`, `robots.txt`,
    `humans.txt`).
-3. Upload `env.php` → `/home/USERNAME/env.php`.
-4. Configure web-server routing:
+3. Upload `docs/` → `/home/USERNAME/docs/` — a **sibling** of `System/`, not a
+   child of `public_html/`. Skip this only if you intend the `/docs/…` routes to
+   return 404.
+4. Upload `env.php` → `/home/USERNAME/env.php`.
+5. Configure web-server routing:
    - **Apache:** copy `docs/apache/for_public/.htaccess` →
      `/home/USERNAME/public_html/.htaccess`. **Do not** copy
      `docs/apache/for_root/.htaccess` — that one is for the “whole project as
      document root” layout.
    - **nginx:** `.htaccess` is ignored — configure the `server` block instead, see
      [nginx: `server` block and `try_files`](#nginx-server-block-and-try_files).
-5. Edit `/home/USERNAME/env.php` → see [env.php](#envphp).
-6. Edit `/home/USERNAME/public_html/assets/js/config/system.js` → see [system.js](#systemjs).
-7. Set [filesystem permissions](#filesystem-permissions).
-8. Run the [verification checklist](#verification-checklist).
+6. Edit `/home/USERNAME/env.php` → see [env.php](#envphp).
+7. Edit `/home/USERNAME/public_html/assets/js/config/system.js` → see [system.js](#systemjs).
+8. Set [filesystem permissions](#filesystem-permissions).
+9. Run the [verification checklist](#verification-checklist).
 
 Leave `public/index.php` and `System/Config/App.php` untouched.
 
@@ -363,11 +376,16 @@ Notes:
    `https://example.com/assets/js/...`.
 3. `https://example.com/docs/overview` → docs page (proves the Apache rewrite /
    nginx `try_files` + empty `APP_DIR`).
-4. `https://example.com/System/Config/App.php` → 404/403.
-5. `https://example.com/env.php` → 404 (`env.php` is outside the web root).
-6. HTTPS redirect works (if enabled).
-7. Logs are written: `tail -f /home/USERNAME/System/Storage/logs/nsy-$(date +%F).log`.
-8. `System/Apps/Templates/razr_cache/` fills after the first page render.
+4. `https://example.com/docs/router` → a second doc page. This one specifically
+   proves `docs/` was uploaded: a routing that works but an empty sidebar means
+   the folder is missing on the server.
+5. `https://example.com/System/Config/App.php` → 404/403.
+6. `https://example.com/docs/` → the documentation index lists all guides (not
+   an empty sidebar, not 404).
+7. `https://example.com/env.php` → 404 (`env.php` is outside the web root).
+8. HTTPS redirect works (if enabled).
+9. Logs are written: `tail -f /home/USERNAME/System/Storage/logs/nsy-$(date +%F).log`.
+10. `System/Apps/Templates/razr_cache/` fills after the first page render.
 
 ---
 
@@ -384,6 +402,8 @@ Notes:
 | “Permission denied” writing logs / templates | runtime dirs not writable | `chmod -R 775` the two dirs above |
 | `.htaccess` changes have no effect | server is nginx (ignores `.htaccess`) | configure the nginx `server` block instead |
 | Every route 404s on nginx, static files load | no front-controller `try_files` | add `try_files $uri $uri/ /index.php?$query_string;` |
+| Every `/docs/…` URL 404s, but the rest of the site works | `docs/` was not uploaded | copy `docs/` next to `System/` (`/home/USERNAME/docs/`) |
+| `/docs/overview` renders, but the sidebar is empty | `docs/` missing or unreadable by the web user | same as above, then `chmod -R 755 /home/USERNAME/docs` |
 | `502 Bad Gateway` on nginx | PHP-FPM socket/TCP wrong or FPM not running | fix `fastcgi_pass` / start php-fpm |
 
 ---
