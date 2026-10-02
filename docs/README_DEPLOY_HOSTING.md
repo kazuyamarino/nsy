@@ -76,22 +76,30 @@ So moving `System/` out of the web root changes **nothing** in
 │   ├── Storage/logs/               # writable (runtime)
 │   └── Vendor/
 │
-├── docs/                         # OUTSIDE public_html — REQUIRED (see below)
-│   └── *.md                      # read at runtime by the Docs Viewer
+├── docs/                         # OUTSIDE public_html — OPTIONAL (see below)
+│   └── *.md                      # only if you serve the in-app Docs Viewer
 │
 └── env.php                       # OUTSIDE public_html (sibling of System/)
 ```
 
-Three things are uploaded to `/home/USERNAME/`: `System/`, `docs/` and `env.php`.
-
-> **`docs/` is required at runtime.** The in-app documentation viewer reads
-> `<project root>/docs/*.md` on every request (see `System\Libraries\Docs`).
-> Without it the sidebar renders empty and **every** `/docs/…` URL returns 404.
-> It sits next to `System/`, *not* inside `public_html` — it is read from disk by
-> PHP, never served as a static file, so it must stay outside the web root.
-
-The rest of the repository (`composer.json`, `.cli/`, `public/` as a folder, …) is
+Only `System/` and `env.php` are needed to run an application on NSY. The rest of
+the repository (`composer.json`, `docs/`, `.cli/`, `public/` as a folder, …) is
 **not needed at runtime** and can stay in your repo/CI.
+
+> **`docs/` is optional — only for the in-app documentation viewer.** NSY ships a
+> viewer at `/docs/{slug}` that renders the framework's own guides from
+> `<project root>/docs/*.md` (see `System\Libraries\Docs`).
+>
+> It is shipped in the release on purpose: `docs/*.md` is the framework's user
+> guide, and keeping it in the package lets you read the guides **locally** while
+> you develop, without opening GitHub.
+>
+> Deploying it to your own server is a separate choice. If you do **not** upload
+> `docs/`, the viewer's pages return 404 and the documentation index on the landing
+> page has no guides to link to — nothing else is affected. Upload it only when you
+> actually want those pages served (e.g. the NSY showcase site), and put it next to
+> `System/`, *not* inside `public_html`: it is read from disk by PHP, never served
+> as a static file.
 
 ---
 
@@ -105,9 +113,10 @@ The rest of the repository (`composer.json`, `.cli/`, `public/` as a folder, …
 2. Upload the **contents** of `public/` → `/home/USERNAME/public_html/`
    (`index.php`, `assets/`, `403.html`, `404.html`, `50x.html`, `robots.txt`,
    `humans.txt`).
-3. Upload `docs/` → `/home/USERNAME/docs/` — a **sibling** of `System/`, not a
-   child of `public_html/`. Skip this only if you intend the `/docs/…` routes to
-   return 404.
+3. **(Optional)** Upload `docs/` → `/home/USERNAME/docs/` if you want the in-app
+   documentation viewer (`/docs/{slug}`). It is a **sibling** of `System/`, not a
+   child of `public_html/`. Skip it for a normal application — the framework does
+   not need it.
 4. Upload `env.php` → `/home/USERNAME/env.php`.
 5. Configure web-server routing:
    - **Apache:** copy `docs/apache/for_public/.htaccess` →
@@ -222,7 +231,7 @@ The HTTPS redirect block is present but commented out. Uncomment it in
 
 ### How to confirm `AllowOverride` is active
 
-Request an extension-less route, e.g. `https://example.com/docs/overview`:
+Request an extension-less route, e.g. `https://example.com/hmvc`:
 
 - NSY page → overrides work.
 - Apache’s own 404 (not NSY’s “Page Not Found”) → overrides are off; ask the host
@@ -319,8 +328,8 @@ the project sits inside a served folder.
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
-- `https://example.com/` and `https://example.com/docs/overview` → rendered by NSY
-  (proves `try_files` works).
+- `https://example.com/` and an extension-less route such as
+  `https://example.com/hmvc` → rendered by NSY (proves `try_files` works).
 - `https://example.com/assets/css/...` → served as a static file.
 - `https://example.com/env.php` → 404 (outside `root`).
 - HTTP request → `301` redirect to HTTPS.
@@ -374,18 +383,20 @@ Notes:
 1. `https://example.com/` → welcome page (not 404, not a directory listing).
 2. Assets load — view-source shows `https://example.com/assets/css/...` and
    `https://example.com/assets/js/...`.
-3. `https://example.com/docs/overview` → docs page (proves the Apache rewrite /
-   nginx `try_files` + empty `APP_DIR`).
-4. `https://example.com/docs/router` → a second doc page. This one specifically
-   proves `docs/` was uploaded: a routing that works but an empty sidebar means
-   the folder is missing on the server.
-5. `https://example.com/System/Config/App.php` → 404/403.
-6. `https://example.com/docs/` → the documentation index lists all guides (not
-   an empty sidebar, not 404).
-7. `https://example.com/env.php` → 404 (`env.php` is outside the web root).
-8. HTTPS redirect works (if enabled).
-9. Logs are written: `tail -f /home/USERNAME/System/Storage/logs/nsy-$(date +%F).log`.
-10. `System/Apps/Templates/razr_cache/` fills after the first page render.
+3. An extension-less route resolves — e.g. `https://example.com/hmvc` (proves the
+   Apache rewrite / nginx `try_files` + empty `APP_DIR`).
+4. `https://example.com/System/Config/App.php` → 404/403.
+5. `https://example.com/env.php` → 404 (`env.php` is outside the web root).
+6. HTTPS redirect works (if enabled).
+7. Logs are written: `tail -f /home/USERNAME/System/Storage/logs/nsy-$(date +%F).log`.
+8. `System/Apps/Templates/razr_cache/` fills after the first page render.
+
+**Only if you deployed the optional `docs/`:**
+
+9. `https://example.com/docs/overview` → docs page.
+10. `https://example.com/docs/router` → a second doc page, with a populated
+    sidebar. A working route with an empty sidebar means `docs/` is missing on the
+    server or unreadable by the web user.
 
 ---
 
@@ -402,8 +413,8 @@ Notes:
 | “Permission denied” writing logs / templates | runtime dirs not writable | `chmod -R 775` the two dirs above |
 | `.htaccess` changes have no effect | server is nginx (ignores `.htaccess`) | configure the nginx `server` block instead |
 | Every route 404s on nginx, static files load | no front-controller `try_files` | add `try_files $uri $uri/ /index.php?$query_string;` |
-| Every `/docs/…` URL 404s, but the rest of the site works | `docs/` was not uploaded | copy `docs/` next to `System/` (`/home/USERNAME/docs/`) |
-| `/docs/overview` renders, but the sidebar is empty | `docs/` missing or unreadable by the web user | same as above, then `chmod -R 755 /home/USERNAME/docs` |
+| `/docs/…` URLs 404 (only when you meant to serve the viewer) | `docs/` was not uploaded | copy `docs/` next to `System/` (`/home/USERNAME/docs/`), or ignore if you do not use the viewer |
+| `/docs/overview` renders, but the sidebar is empty | `docs/` missing or unreadable by the web user | upload `docs/`, then `chmod -R 755 /home/USERNAME/docs` |
 | `502 Bad Gateway` on nginx | PHP-FPM socket/TCP wrong or FPM not running | fix `fastcgi_pass` / start php-fpm |
 
 ---
