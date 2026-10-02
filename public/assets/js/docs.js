@@ -148,6 +148,42 @@
 }());
 
 /**
+ * Docs sidebar toggle (small screens).
+ *
+ * The button is CSS-hidden above the mobile breakpoint, so on desktop the
+ * sidebar is always visible and this listener never fires meaningfully. On
+ * small screens the button swaps .open on the sidebar (CSS-animated), and the
+ * expanded state is mirrored to aria-expanded. Clicking a doc link closes the
+ * drawer again so the reader lands on the article, not under it.
+ */
+(function () {
+	'use strict';
+
+	var btn = document.getElementById('nsyDocsMenuBtn');
+	var side = document.getElementById('nsyDocsSide');
+	if (!btn || !side) {
+		return;
+	}
+
+	function setOpen(open) {
+		side.classList.toggle('open', open);
+		btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+	}
+
+	btn.addEventListener('click', function () {
+		setOpen(!side.classList.contains('open'));
+	});
+
+	/* A doc link = leave this page; a TOC "#" link = the reader is reading —
+	   close the drawer in both cases so content is not obscured. */
+	side.addEventListener('click', function (e) {
+		if (e.target.closest('a')) {
+			setOpen(false);
+		}
+	});
+}());
+
+/**
  * Legacy anchor fallback.
  *
  * Headings used to be authored as "## 1. Connections", which produced anchors
@@ -188,7 +224,8 @@
 }());
 
 /**
- * Docs back to top.
+ * Site-wide back to top (the button markup lives in the shared Footer template,
+ * so this runs on every page).
  *
  * The control is a plain "#top" anchor, so the jump itself never depends on
  * this script — the browser performs it natively. Here we only reveal the

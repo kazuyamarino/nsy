@@ -5,7 +5,7 @@
 		<p class="nsy-hero-lead">This page is rendered from <code>System/Apps/Modules/HMVC/Views/Index_Hello.php</code> via&nbsp;<code>Load::view('HMVC',...)</code></p>
 		<div class="nsy-actions nsy-hero-actions">
 			<a class="nsy-btn primary" href="@( base_url() )">← Back to MVC</a>
-			<a class="nsy-btn ghost" href="@( base_url() )">Browse all docs →</a>
+			<a class="nsy-btn ghost" href="@( base_url('docs/overview') )">Browse all docs →</a>
 		</div>
 	</section>
 

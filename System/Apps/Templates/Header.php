@@ -3,7 +3,7 @@
 
 <head>
 	<!-- Swap the no-js class before first paint, so JS-only affordances (e.g.
-	     the docs back-to-top button) never flash in while the page loads. -->
+	     the back-to-top button) never flash in while the page loads. -->
 	<script>(function (h) { h.className = h.className.replace(/\bno-js\b/, 'js'); }(document.documentElement));</script>
 	<!-- Resolve the colour theme before first paint (stored choice, else the OS
 	     setting) so a dark-mode visitor never sees a light flash. -->

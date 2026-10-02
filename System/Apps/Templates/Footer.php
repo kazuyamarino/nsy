@@ -16,6 +16,8 @@
 		</p>
 	</div>
 </footer>
+<!-- site-wide back to top (plain "#top" anchor: works without JS; docs.js only toggles visibility) -->
+<a class="nsy-top" href="#top" aria-label="Back to top" title="Back to top"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></a>
 <!-- call footer assets method -->
 @( footer_assets() )
 </body>

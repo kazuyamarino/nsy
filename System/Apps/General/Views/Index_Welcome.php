@@ -3,7 +3,7 @@
 		<span class="nsy-badge">NSY PHP Framework • v@( get_version() ) @( get_codename() ) is OUT! Try Now!</span>
 		<div class="nsy-hero-searchwrap">
 			<label for="nsyDocSearch" class="nsy-hero-caption">Search</label>
-			<input id="nsyDocSearch" class="nsy-hero-search" type="search" placeholder="Search docs… (router, qb, migration, helpers)" autocomplete="off">
+			<input id="nsyDocSearch" class="nsy-hero-search" type="search" placeholder="Search docs… (router, qb, migration, helpers)" autocomplete="off" aria-label="Search documentation">
 		</div>
 	</section>
 

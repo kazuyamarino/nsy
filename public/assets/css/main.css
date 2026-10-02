@@ -396,10 +396,21 @@ code {
   Documentation index — System/Apps/General/Views/Index_Welcome.php
   ========================================================================== */
 
-/* Full-width page shell with fluid gutters + breathing room above the footer. */
+/* Full-width page shell with fluid gutters + breathing room above the footer.
+   No margin-top here on purpose — see the desktop-only rule below. */
 .nsy-page {
     width: 100%;
     padding: 0 clamp(16px, 3vw, 44px) clamp(24px, 4vw, 48px);
+}
+
+/* Desktop only. On wide screens the shell sits far from the header and needs a
+   little air above it; on phones the gutter is already tight, so the extra
+   space only pushed the content down. Paired with the 860px breakpoint the
+   documentation viewer uses for its grid. */
+@media (min-width: 861px) {
+    .nsy-page {
+        margin-top: 14px;
+    }
 }
 
 /* Hero: search-first — badge above, Search label + large centered input. */
@@ -1293,11 +1304,61 @@ code {
 @media (max-width: 860px) {
     .nsy-docs {
         grid-template-columns: 1fr;
-        gap: 16px;
+        /* Mobile only: the "Docs menu" button becomes the first grid row here, so
+           without this the block sits flush against the header above it. Desktop
+           is untouched (the sidebar is the left column there, not a row). */
+        margin-top: 14px;
+
+        /* Rows stack, and the grid's own gap would then sit between the button
+           and the drawer — a blank band with two visible edges on it. Gap is
+           zeroed and each block owns its spacing instead: the button and the
+           open drawer meet flush, while the article keeps its air. */
+        gap: 0;
+    }
+
+    /* The button itself carries no bottom margin, so the drawer can attach
+       directly underneath it. Closed, that space is taken by the article rule
+       below, so the button is never left hugging the content. */
+    .nsy-docs-main {
+        margin-top: 16px;
     }
 
     .nsy-docs-side {
         position: static;
+        max-height: none;
+    }
+}
+
+/* Small screens: the doc sidebar becomes a slide-in drawer, opened by the
+   "Docs menu" button. Above the breakpoint the button is hidden and the
+   sidebar keeps its sticky desktop position — the .open class never matters. */
+.nsy-docs-menu-btn {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    align-self: start;
+    padding: 9px 14px;
+    border: 1px solid var(--nsy-line);
+    border-radius: 10px;
+    background: var(--nsy-surface);
+    color: var(--nsy-primary);
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+@media (max-width: 860px) {
+    .nsy-docs-menu-btn {
+        display: inline-flex;
+    }
+
+    .nsy-docs-side {
+        display: none;
+    }
+
+    .nsy-docs-side.open {
+        display: block;
+        position: relative;
         max-height: none;
     }
 }
@@ -1315,6 +1376,74 @@ code {
     .nsy-pager.next {
         text-align: left;
         margin-left: 0;
+    }
+}
+
+/* Document page head on small screens — Index_Docs.php. Mobile only; the
+   desktop rules in the .nsy-docs-head block above stay untouched.
+
+   margin-top: the header sits directly below the site header there, so it needs
+   its own breathing room.
+
+   The badge is the widest fixed string on the page ("Documentation • v7.0.0
+   Gamelan"): at its desktop size it either overflows the gutter or breaks in an
+   awkward place, so it shrinks, tightens its tracking and is allowed to wrap
+   between words — never inside one, since the pill background would show the
+   seam. The crumbs and metadata row keep wrapping but get roomier spacing. */
+@media (max-width: 560px) {
+    .nsy-docs-head {
+        margin-top: 14px;
+        gap: 8px;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+    }
+
+    .nsy-docs-head .nsy-badge {
+        /* Full-bleed pill on phones: .nsy-badge is inline-block (content width)
+           and .nsy-docs-head is a column flex with align-items:flex-start, so
+           without this it stays a short pill on the left at every width. */
+        width: 100%;
+        text-align: center;
+        max-width: 100%;
+        padding: 5px 12px;
+        font-size: 12px;
+        letter-spacing: .04em;
+        line-height: 1.5;
+        overflow-wrap: break-word;
+    }
+
+    .nsy-docs-crumbs {
+        font-size: 11.5px;
+        line-height: 1.6;
+    }
+
+    .nsy-docs-meta {
+        gap: 6px 10px;
+    }
+}
+
+/* Documentation index on small screens — Index_Welcome.php (shared with the
+   HMVC landing, which reuses .nsy-actions). The "Search" label is dropped —
+   the input keeps its placeholder plus an aria-label — and the action buttons
+   stack full-width so none of them wraps or overflows. */
+@media (max-width: 560px) {
+    .nsy-hero-caption {
+        display: none;
+    }
+
+    .nsy-dochead {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nsy-actions {
+        width: 100%;
+        flex-direction: column;
+        justify-content: stretch;
+    }
+
+    .nsy-actions .nsy-btn {
+        text-align: center;
     }
 }
 
