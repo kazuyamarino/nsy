@@ -38,7 +38,7 @@ Each event carries a `channel`; route/safety policy is per channel.
 | `app`       | General application messages (PSR-3 usage from your code).      |
 | `error`     | PHP diagnostics, funnel errors, fatal/uncaught exceptions.      |
 | `db`        | Connection success/failure and slow queries.                    |
-| `access`    | One line per HTTP request (method, uri, status, duration).      |
+| `access`    | One line per HTTP request (method, uri, status, duration). Controlled by `ACCESS_LOG_ENABLED`, not `LOG_LEVEL`. |
 | `view`      | Razr/view render and syntax failures.                           |
 | `security`  | Reserved for security middleware events.                        |
 | `migration` | Migration execution and blocked web migrations.                 |
@@ -89,13 +89,13 @@ Queries above the threshold are logged to `db` with the SQL **normalised**
 | --------------------- | ------------------------------ | -------------------------------------------------------------- |
 | `LOG_ENABLED`         | `false`                        | Master switch.                                                 |
 | `LOG_DIR`             | `System/Storage/logs`          | Directory; relative to project root or absolute.               |
-| `LOG_LEVEL`           | `debug` (dev) / `warning` (prod) | Minimum stored level.                                        |
+| `LOG_LEVEL`           | `debug` (dev) / `warning` (prod) | Minimum stored level. Applies to application channels; the `access` channel is exempt and governed by `ACCESS_LOG_ENABLED`. |
 | `LOG_FORMAT`          | `json`                         | `json` (JSONL) or `text`.                                      |
 | `LOG_SPLIT_CHANNELS`  | `false`                        | `true` → one sub-directory per channel.                        |
 | `LOG_MAX_SIZE_MB`     | `50`                           | Rotate the daily file when it reaches this size.               |
 | `LOG_RETENTION_DAYS`  | `14`                           | Files older than this are pruned.                              |
 | `LOG_SLOW_QUERY_MS`   | `500`                          | Slow-query threshold.                                          |
-| `ACCESS_LOG_ENABLED`  | `true`                         | Write one `access` line per request.                           |
+| `ACCESS_LOG_ENABLED`  | `true`                         | Write one `access` line per request. Independent of `LOG_LEVEL`. |
 | `LOG_IP`              | `false`                        | Include client IP (privacy: off by default).                   |
 | `LOG_USER_AGENT`      | `false`                        | Include User-Agent.                                            |
 | `LOG_USER_ID`         | `false`                        | Include `$_SESSION['user_id']` when present.                   |

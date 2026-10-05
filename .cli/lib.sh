@@ -3,11 +3,30 @@
 
 NSY_CLI_VERSION="2.0.0"
 
-# Portable in-place sed (works on GNU/Linux and BSD/macOS)
+# File mode as octal (e.g. 755). GNU stat first, then BSD/macOS `stat -f`.
+# Returns nothing (and false) when neither form is available.
+file_mode() {
+	stat -c '%a' "$1" 2>/dev/null || stat -f '%Lp' "$1" 2>/dev/null
+}
+
+# Portable in-place sed (works on GNU/Linux and BSD/macOS).
+#
+# The rewrite goes through a temp file, and `mv` replaces the target rather than
+# writing into it — so the temp file's own mode would otherwise become the
+# result. mktemp creates 0600, which silently stripped the mode from every file
+# this touched: env.php and system.js after `--setup`, and every `make:*`
+# generated class. Restore the original mode on the temp file before the move so
+# a 0755 file stays 0755 and a 0644 file stays 0644.
+#
+# The temp file is deliberately left writable (mktemp's 0600) during the sed
+# pass: copying the source mode first would make a read-only source (0444) fail
+# to open for writing.
 sed_inplace() {
-	local expr="$1" file="$2" tmp
+	local expr="$1" file="$2" tmp mode
 	tmp="$(mktemp "${TMPDIR:-/tmp}/nsy.XXXXXX")" || return 1
+	mode="$(file_mode "$file")"
 	if sed "$expr" "$file" > "$tmp"; then
+		[ -n "$mode" ] && chmod "$mode" "$tmp" 2>/dev/null
 		mv "$tmp" "$file"
 	else
 		rm -f "$tmp"

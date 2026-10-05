@@ -28,6 +28,14 @@ final class LogManager
 		'critical' => 4,
 	];
 
+	/**
+	 * Reserved channel for HTTP access lines.
+	 *
+	 * It is governed by ACCESS_LOG_ENABLED on its own, so it is exempt from the
+	 * LOG_LEVEL threshold — see {@see self::write()}.
+	 */
+	public const ACCESS_CHANNEL = 'access';
+
 	/** @var array<string,mixed>|null */
 	private static ?array $config = null;
 
@@ -84,7 +92,14 @@ final class LogManager
 		}
 
 		$level = self::normalizeLevel($level);
-		if (self::severity($level) < self::severity((string) ($config['level'] ?? 'warning'))) {
+
+		// The access channel is gated by ACCESS_LOG_ENABLED inside access(), so the
+		// LOG_LEVEL threshold must not drop it as well. Without this exemption an
+		// enabled access log wrote nothing in production, where the default minimum
+		// level is 'warning' while every access line is 'info'. Application
+		// channels keep honouring LOG_LEVEL exactly as before.
+		if ($channel !== self::ACCESS_CHANNEL
+			&& self::severity($level) < self::severity((string) ($config['level'] ?? 'warning'))) {
 			return;
 		}
 
@@ -129,7 +144,10 @@ final class LogManager
 	}
 
 	/**
-	 * Log one HTTP request (only when ACCESS_LOG_ENABLED is true).
+	 * Log one HTTP request.
+	 *
+	 * Gated by ACCESS_LOG_ENABLED alone — not by LOG_LEVEL. One access line is
+	 * written per request whenever access logging is on, at any minimum level.
 	 *
 	 * @param array<string,mixed> $fields
 	 */
@@ -141,7 +159,7 @@ final class LogManager
 		}
 
 		$fields['uri'] = self::sanitizeUri((string) ($fields['uri'] ?? ''));
-		self::write('info', 'access', 'request', $fields);
+		self::write('info', self::ACCESS_CHANNEL, 'request', $fields);
 	}
 
 	/**

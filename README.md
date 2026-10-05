@@ -31,22 +31,40 @@ framework's `post-install-cmd` (autoload dump + NSY CLI) automatically:
 ```bash
 composer create-project vikry/nsy my-app
 cd my-app
-cp docs/env.example/env.example.php env.php
-nsy --setup
+source ~/reloader.sh   # or reopen the terminal, so the `nsy` alias is available
+nsy --setup            # creates env.php, .htaccess and system.js for this folder
 ```
 
+`nsy --setup` writes `env.php` itself and rewrites `APP_DIR` / `dirname` to the
+project folder name (`my-app`), so the site is immediately reachable at
+`http://localhost/my-app` (or via `nsy serve`).
+
+> **`env.php` is never overwritten.** `nsy --setup` creates it from
+> `docs/env.example/env.example.php` when missing. If you already copied the
+> example yourself, setup still points `APP_DIR` at this folder — as long as the
+> value is still the example default (`'nsy'`). A value you changed by hand,
+> including `''` for a hosting layout, is left untouched. Edit `env.php`
+> afterwards for your database and, optionally, `APP_URL`.
+
 **From a release ZIP or `git clone`** — `System/Vendor/` is not bundled, so install
-dependencies first:
+dependencies first (which also installs the NSY CLI):
 
 ```bash
 composer install
-cp docs/env.example/env.example.php env.php
+source ~/reloader.sh   # or reopen the terminal
+nsy --setup
 ```
 
 ## Configuration
 - `env.php` — `APP_ENV`, `PUBLIC_DIR`, `SITE_TITLE`, `CSRF_TOKEN`, `DB_*` (see `docs/env.example/env.example.php`)
 - `System/Config/App.php` & `Site.php` — env-aware with `config_env() ?? fallback` (no file edit in production)
 - `System/Config/Mimes.php` — 182 mime types (modern: webp, avif, woff2, wasm)
+
+> **File permissions.** The NSY CLI rewrites `env.php` and
+> `public/assets/js/config/system.js` in place while preserving their mode, so
+> `nsy --setup` and `nsy make:*` no longer strip it. If your web server runs as a
+> different user and reports `env file not found`, make `env.php`
+> world-readable: `chmod 644 env.php`.
 
 ## Documentation
 - [Overview](docs/OVERVIEW.md) — Composer, Config, Helpers, Routes, MVC/HMVC, Assets, PSR-4, CLI
