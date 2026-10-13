@@ -1142,20 +1142,20 @@
         },
         {
             "name": "voku/anti-xss",
-            "version": "4.1.44",
+            "version": "4.1.45",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/anti-xss.git",
-                "reference": "fe2bbb7a8a6d958d55c2b5df391945a99f036312"
+                "reference": "3f759da452f938f40c401236cad71781f7e8a35b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/anti-xss/zipball/fe2bbb7a8a6d958d55c2b5df391945a99f036312",
-                "reference": "fe2bbb7a8a6d958d55c2b5df391945a99f036312",
+                "url": "https://api.github.com/repos/voku/anti-xss/zipball/3f759da452f938f40c401236cad71781f7e8a35b",
+                "reference": "3f759da452f938f40c401236cad71781f7e8a35b",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0",
+                "php": ">=7.1.0",
                 "voku/portable-utf8": "~6.1.0"
             },
             "require-dev": {
@@ -1197,7 +1197,7 @@
             ],
             "support": {
                 "issues": "https://github.com/voku/anti-xss/issues",
-                "source": "https://github.com/voku/anti-xss/tree/4.1.44"
+                "source": "https://github.com/voku/anti-xss/tree/4.1.45"
             },
             "funding": [
                 {
@@ -1221,7 +1221,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-10T11:50:11+00:00"
+            "time": "2026-10-08T22:26:01+00:00"
         },
         {
             "name": "voku/portable-ascii",
@@ -5543,13 +5543,13 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.1.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
