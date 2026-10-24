@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ruleset name="NSY PHP Compatibility">
+    <description>
+        Checks the framework for syntax and API usage that is not available on the
+        PHP versions NSY supports (see composer.json platform and the CI matrix).
+        This is a compatibility gate only; code style is enforced by php-cs-fixer.
+    </description>
+
+    <config name="testVersion" value="8.1-8.5"/>
+
+    <!-- Scan the framework, never the vendor tree. -->
+    <file>System</file>
+    <exclude-pattern>System/Vendor/*</exclude-pattern>
+
+    <!--
+        Razr views/templates contain no PHP: they are template markup compiled by
+        System\Core\Razr. PHPCompatibility cannot see that and reports "No PHP code
+        was found ... short open tags" for each one, which is a false positive.
+    -->
+    <exclude-pattern>System/Apps/General/Views/*</exclude-pattern>
+    <exclude-pattern>System/Apps/Modules/*/Views/*</exclude-pattern>
+    <exclude-pattern>System/Apps/Templates/*</exclude-pattern>
+
+    <rule ref="PHPCompatibility"/>
+</ruleset>

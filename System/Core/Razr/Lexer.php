@@ -48,10 +48,8 @@ class Lexer
      */
     public function tokenize($code, $filename = null)
     {
-        if (function_exists('mb_internal_encoding') && ((int) ini_get('mbstring.func_overload')) & 2) {
-            $encoding = mb_internal_encoding();
-            mb_internal_encoding('ASCII');
-        }
+        // mbstring.func_overload no longer exists in PHP 8.0+, so the old
+        // encoding workaround can never fire. Removed (PHPCompatibility).
 
         $this->code = str_replace(array("\r\n", "\r"), "\n", $code);
         $this->source = '';

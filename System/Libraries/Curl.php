@@ -167,9 +167,9 @@ class Curl
 
 	public function close(): void
 	{
-		if ($this->handle instanceof \CurlHandle) {
-			curl_close($this->handle);
-		}
+		// Since PHP 8.0 a CurlHandle frees itself; curl_close() became deprecated
+		// in PHP 8.5. The method is kept (and stays a no-op) for backward
+		// compatibility with code that calls it explicitly.
 	}
 
 	public function __destruct()

@@ -56,3 +56,6 @@ jobs:
 
       - name: PHP-CS-Fixer (dry run)
         run: php System/Vendor/bin/php-cs-fixer fix --dry-run --diff --no-ansi
+
+      - name: PHP compatibility (PHPCompatibility)
+        run: composer compat --no-interaction

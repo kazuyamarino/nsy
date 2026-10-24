@@ -163,7 +163,7 @@ class NSY_Migration
 	 * @param array $columns
 	 * @return $this
 	 */
-	public function createTable(string $table = null, array $columns = [], $timestamps_mark = 'enabled'): object
+	public function createTable(?string $table = null, array $columns = [], $timestamps_mark = 'enabled'): object
 	{
 		$timestamps_cols = self::timestamps();
 		$this->current_table = $table;
@@ -453,7 +453,7 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function addColsMs(string $table = null, array $columns = []): object
+	public function addColsMs(?string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
 			$this->fail("Table name in the <mark>addColsMs(<strong>table</strong>, value)</mark> and \nColumns in the <mark>addColsMs(table, <strong>value</strong>)</mark> is empty or undefined");
@@ -472,7 +472,7 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function addCols(string $table = null, array $columns = []): object
+	public function addCols(?string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
 			$this->fail("Table name in the <mark>addCols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>addCols(table, <strong>value</strong>)</mark> is empty or undefined");
@@ -491,7 +491,7 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function dropCols(string $table = null, array $columns = []): object
+	public function dropCols(?string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
 			$this->fail("Table name in the <mark>dropCols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>dropCols(table, <strong>value</strong>)</mark> is empty or undefined");
@@ -510,7 +510,7 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function modifyColsExt(string $table = null, array $columns = []): object
+	public function modifyColsExt(?string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
 			$this->fail("Table name in the <mark>modifyColsExt(<strong>table</strong>, value)</mark> and \nColumns in the <mark>modifyColsExt(table, <strong>value</strong>)</mark> is empty or undefined");
@@ -533,7 +533,7 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function modifyCols(string $table = null, array $columns = []): object
+	public function modifyCols(?string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
 			$this->fail("Table name in the <mark>modifyCols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>modifyCols(table, <strong>value</strong>)</mark> is empty or undefined");
@@ -556,7 +556,7 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function renameCols(string $table = null, array $columns = []): object
+	public function renameCols(?string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
 			$this->fail("Table name in the <mark>renameCols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>renameCols(table, <strong>value</strong>)</mark> is empty or undefined");
@@ -575,7 +575,7 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function renameColsMs(string $table = null, array $columns = []): object
+	public function renameColsMs(?string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
 			$this->fail("Table name in the <mark>renameColsMs(<strong>table</strong>, value)</mark> and \nColumns in the <mark>renameColsMs(table, <strong>value</strong>)</mark> is empty or undefined");
@@ -597,7 +597,7 @@ class NSY_Migration
 	 * @param string  $table
 	 * @param array $columns
 	 */
-	public function changeCols(string $table = null, array $columns = []): object
+	public function changeCols(?string $table = null, array $columns = []): object
 	{
 		if (!is_filled($table)) {
 			$this->fail("Table name in the <mark>changeCols(<strong>table</strong>, value)</mark> and \nColumns in the <mark>changeCols(table, <strong>value</strong>)</mark> is empty or undefined");
